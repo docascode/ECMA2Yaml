@@ -114,6 +114,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ECMALoader.cs" />
+    <Compile Include="Models\AssemblyInfo.cs" />
+    <Compile Include="Models\Docs.cs" />
+    <Compile Include="Models\Member.cs" />
+    <Compile Include="Models\Namespace.cs" />
+    <Compile Include="Models\Parameter.cs" />
+    <Compile Include="Models\Type.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
