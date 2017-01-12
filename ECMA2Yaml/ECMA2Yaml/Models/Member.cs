@@ -11,7 +11,8 @@ namespace ECMA2Yaml.Models
         Constructor,
         Method,
         Property,
-        Field
+        Field,
+        Event
     }
 
     public class Member : ReflectionItem
@@ -28,10 +29,10 @@ namespace ECMA2Yaml.Models
 
         public void BuildId(ECMAStore store)
         {
-            var name = Type == MemberType.Constructor ? "#ctor" : Name;
+            Id = Type == MemberType.Constructor ? "#ctor" : Name;
             if (TypeParameters?.Count > 0)
             {
-                Id = name + "``" + TypeParameters.Count;
+                Id += "``" + TypeParameters.Count;
             }
             if (Parameters?.Count > 0)
             {
@@ -45,7 +46,7 @@ namespace ECMA2Yaml.Models
                     }
                     else
                     {
-                        ids.Add(store.TypesByFullName[p.Type].Uid);
+                        ids.Add(store.TypesByFullName.ContainsKey(p.Type) ? store.TypesByFullName[p.Type].Uid : p.Type);
                     }
                 }
                 Id += string.Format("({0})", string.Join(",", ids));

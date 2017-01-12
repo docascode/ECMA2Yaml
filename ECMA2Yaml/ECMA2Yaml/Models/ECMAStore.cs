@@ -14,9 +14,9 @@ namespace ECMA2Yaml.Models
 
         public ECMAStore(IEnumerable<Namespace> nsList, IEnumerable<Type> tList)
         {
-            BuildIds(nsList, tList);
             Namespaces = nsList.ToDictionary(ns => ns.Name);
             TypesByFullName = tList.ToDictionary(t => t.FullName);
+            BuildIds(nsList, tList);
         }
 
         private void BuildIds(IEnumerable<Namespace> nsList, IEnumerable<Type> tList)
@@ -37,6 +37,13 @@ namespace ECMA2Yaml.Models
                     {
                         t.Id = t.Name.Substring(0, t.Name.IndexOf('<')) + '`' + t.TypeParameters.Count;
                     }
+                }
+            }
+            foreach (var t in tList)
+            {
+                if (t.Members?.Count > 0)
+                {
+                    t.Members.ForEach(m => m.BuildId(this));
                 }
             }
         }

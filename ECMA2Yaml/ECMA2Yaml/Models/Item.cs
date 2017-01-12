@@ -22,6 +22,5 @@ namespace ECMA2Yaml.Models
             }
         }
         public ReflectionItem Parent { get; set; }
-        public List<ReflectionItem> Children { get; set; }
     }
 }

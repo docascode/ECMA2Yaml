@@ -21,7 +21,7 @@ namespace ECMA2Yaml.Models
             return new Parameter
             {
                 Name = p.Attribute("Name")?.Value,
-                Type = p.Attribute("Type")?.Value,
+                Type = p.Attribute("Type")?.Value?.TrimEnd('&'),
                 RefType = p.Attribute("RefType")?.Value,
             };
         }
