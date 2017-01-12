@@ -106,7 +106,7 @@ namespace ECMA2Yaml
             {
                 t.Members = membersElement.Elements("Member").Select(m =>
                 {
-                    var member = LoadMember(m);
+                    var member = LoadMember(t, m);
                     member.FullName = t.FullName + "." + member.Name;
                     return member;
                 }).ToList();
@@ -118,9 +118,10 @@ namespace ECMA2Yaml
             return t;
         }
 
-        private Member LoadMember(XElement mElement)
+        private Member LoadMember(Models.Type t, XElement mElement)
         {
             Member m = new Member();
+            m.Parent = t;
             m.Name = mElement.Attribute("MemberName").Value;
             m.Type = (MemberType)Enum.Parse(typeof(MemberType), mElement.Element("MemberType").Value);
 
