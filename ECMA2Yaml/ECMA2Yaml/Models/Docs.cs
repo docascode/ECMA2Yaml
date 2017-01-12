@@ -18,5 +18,26 @@ namespace ECMA2Yaml.Models
         public string Returns { get; set; }
         public string Since { get; set; }
         public string Value { get; set; }
+
+        public static Docs FromXElement(XElement dElement)
+        {
+            if (dElement == null)
+            {
+                return null;
+            }
+            return new Docs()
+            {
+                Summary = dElement.Element("summary")?.Value,
+                Remarks = dElement.Element("remarks")?.Value,
+                AltMembers = dElement.Elements("altmember")?.ToList(),
+                Exception = dElement.Element("exception"),
+                Parameters = dElement.Elements("param")?.ToDictionary(p => p.Attribute("name").Value, p => p),
+                TypeParameters = dElement.Elements("typeparam")?.ToDictionary(p => p.Attribute("name").Value, p => p),
+                Returns = dElement.Element("returns")?.Value,
+                Since = dElement.Element("since")?.Value,
+                Value = dElement.Element("value")?.Value
+            };
+
+        }
     }
 }

@@ -6,12 +6,11 @@ using System.Threading.Tasks;
 
 namespace ECMA2Yaml.Models
 {
-    public class Type
+    public class Type : ReflectionItem
     {
         public string Name { get; set; }
         public string FullName { get; set; }
         public string BaseTypeName { get; set; }
-        public Namespace Parent { get; set; }
         public Dictionary<string, string> Signatures { get; set; }
         public AssemblyInfo AssemblyInfo { get; set; }
         public List<Parameter> TypeParameters { get; set; }

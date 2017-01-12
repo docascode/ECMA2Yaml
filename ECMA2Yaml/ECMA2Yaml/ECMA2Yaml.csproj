@@ -69,6 +69,10 @@
       <HintPath>..\packages\Microsoft.DocAsCode.YamlSerialization.2.10.2\lib\net452\Microsoft.DocAsCode.YamlSerialization.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Mono.Options, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Mono.Options.4.4.0.0\lib\net4-client\Mono.Options.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -117,6 +121,8 @@
     <Compile Include="ECMALoader.cs" />
     <Compile Include="Models\AssemblyInfo.cs" />
     <Compile Include="Models\Docs.cs" />
+    <Compile Include="Models\ECMAStore.cs" />
+    <Compile Include="Models\Item.cs" />
     <Compile Include="Models\Member.cs" />
     <Compile Include="Models\Namespace.cs" />
     <Compile Include="Models\Parameter.cs" />

@@ -12,7 +12,7 @@ namespace ECMA2Yaml
     public class ECMALoader
     {
         private string _baseFolder;
-        public List<Namespace> LoadFolder(string path)
+        public ECMAStore LoadFolder(string path)
         {
             if (!Directory.Exists(path))
             {
@@ -23,26 +23,31 @@ namespace ECMA2Yaml
             List<Namespace> namespaces = new List<Namespace>();
             foreach (var nsFile in Directory.EnumerateFiles(_baseFolder, "ns-*.xml"))
             {
-                var nsName = nsFile.Substring("ns-".Length, nsFile.Length - "ns-.xml".Length);
-                namespaces.Add(LoadNamespace(nsFile));
+                var nsFileName = Path.GetFileName(nsFile);
+                var nsName = nsFileName.Substring("ns-".Length, nsFileName.Length - "ns-.xml".Length);
+                if (!string.IsNullOrEmpty(nsName))
+                {
+                    namespaces.Add(LoadNamespace(nsFile));
+                }
             }
-            return namespaces;
+
+            return new ECMAStore(namespaces, namespaces.SelectMany(ns => ns.Types));
         }
 
         private Namespace LoadNamespace(string nsFile)
         {
             XDocument nsDoc = XDocument.Load(nsFile);
             Namespace ns = new Namespace();
-            ns.Name = nsDoc.Root.Attribute("Name").Value;
-            ns.Types = LoadTypes(ns.Name);
-            ns.Docs = LoadDocs(nsDoc.Root.Element("Docs"));
+            ns.Id = ns.Name = nsDoc.Root.Attribute("Name").Value;
+            ns.Types = LoadTypes(ns);
+            ns.Docs = Docs.FromXElement(nsDoc.Root.Element("Docs"));
 
             return ns;
         }
 
-        private List<Models.Type> LoadTypes(string nsName)
+        private List<Models.Type> LoadTypes(Namespace ns)
         {
-            string nsFolder = Path.Combine(_baseFolder, nsName);
+            string nsFolder = Path.Combine(_baseFolder, ns.Name);
             if (!Directory.Exists(nsFolder))
             {
                 return null;
@@ -50,7 +55,9 @@ namespace ECMA2Yaml
             List<Models.Type> types = new List<Models.Type>();
             foreach (var typeFile in Directory.EnumerateFiles(nsFolder, "*.xml"))
             {
-                types.Add(LoadType(typeFile));
+                var t = LoadType(typeFile);
+                t.Parent = ns;
+                types.Add(t);
             }
             return types;
         }
@@ -80,7 +87,7 @@ namespace ECMA2Yaml
             var tpElement = tRoot.Element("TypeParameters");
             if (tpElement != null)
             {
-                t.TypeParameters = tpElement.Elements("TypeParameter").Select(tp => new Parameter() { Name = tp.Attribute("Name").Value }).ToList();
+                t.TypeParameters = tpElement.Elements("TypeParameter")?.Select(tp => new Parameter() { Name = tp.Attribute("Name").Value }).ToList();
             }
 
             //BaseTypeName
@@ -97,11 +104,17 @@ namespace ECMA2Yaml
             var membersElement = tRoot.Element("Members");
             if (membersElement != null)
             {
-                t.Members = membersElement.Elements("Member").Select(m => LoadMember(m)).ToList();
+                t.Members = membersElement.Elements("Member").Select(m =>
+                {
+                    var member = LoadMember(m);
+                    member.FullName = t.FullName + "." + member.Name;
+                    return member;
+                }).ToList();
             }
 
             //Docs
-            t.Docs = LoadDocs(tRoot.Element("Docs"));
+            t.Docs = Docs.FromXElement(tRoot.Element("Docs"));
+
             return t;
         }
 
@@ -109,7 +122,7 @@ namespace ECMA2Yaml
         {
             Member m = new Member();
             m.Name = mElement.Attribute("MemberName").Value;
-            m.Type = mElement.Attribute("MemberType").Value;
+            m.Type = (MemberType)Enum.Parse(typeof(MemberType), mElement.Element("MemberType").Value);
 
             m.Signatures = new Dictionary<string, string>();
             foreach (var sig in mElement.Elements("MemberSignature"))
@@ -124,42 +137,22 @@ namespace ECMA2Yaml
             var tpElement = mElement.Element("TypeParameters");
             if (tpElement != null)
             {
-                m.TypeParameters = tpElement.Elements("TypeParameter").Select(tp => new Parameter() { Name = tp.Attribute("Name").Value }).ToList();
+                m.TypeParameters = tpElement.Elements("TypeParameter").Select(tp => Parameter.FromXElement(tp)).ToList();
             }
 
             //Parameters
             var pElement = mElement.Element("Parameters");
             if (pElement != null)
             {
-                m.Parameters = pElement.Elements("Parameter").Select(p => new Parameter() { Name = p.Attribute("Name").Value, Type = p.Attribute("Type").Value }).ToList();
+                m.Parameters = pElement.Elements("Parameter").Select(p => Parameter.FromXElement(p)).ToList();
             }
 
             m.ReturnValueType = mElement.Element("ReturnValue")?.Element("ReturnType")?.Value;
 
             //Docs
-            m.Docs = LoadDocs(mElement.Element("Docs"));
+            m.Docs = Docs.FromXElement(mElement.Element("Docs"));
 
             return m;
-        }
-
-        private Docs LoadDocs(XElement dElement)
-        {
-            if (dElement == null)
-            {
-                return null;
-            }
-            Docs docs = new Docs();
-            docs.Summary = dElement.Element("summary")?.Value;
-            docs.Remarks = dElement.Element("remarks")?.Value;
-            docs.AltMembers = dElement.Elements("altmember")?.ToList();
-            docs.Exception = dElement.Element("exception");
-            docs.Parameters = dElement.Elements("param")?.ToDictionary(p => p.Attribute("name").Value, p => p);
-            docs.TypeParameters = dElement.Elements("typeparam")?.ToDictionary(p => p.Attribute("name").Value, p => p);
-            docs.Returns = dElement.Element("returns")?.Value;
-            docs.Since = dElement.Element("since")?.Value;
-            docs.Value = dElement.Element("value")?.Value;
-
-            return docs;
         }
     }
 }

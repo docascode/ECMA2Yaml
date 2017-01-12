@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace ECMA2Yaml.Models
 {
@@ -10,5 +11,19 @@ namespace ECMA2Yaml.Models
     {
         public string Name { get; set; }
         public string Type { get; set; }
+        public string RefType { get; set; }
+        public static Parameter FromXElement(XElement p)
+        {
+            if (p == null)
+            {
+                return null;
+            }
+            return new Parameter
+            {
+                Name = p.Attribute("Name")?.Value,
+                Type = p.Attribute("Type")?.Value,
+                RefType = p.Attribute("RefType")?.Value,
+            };
+        }
     }
 }

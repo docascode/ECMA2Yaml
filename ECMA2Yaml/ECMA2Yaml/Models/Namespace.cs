@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ECMA2Yaml.Models
 {
-    public class Namespace
+    public class Namespace : ReflectionItem
     {
         public string Name { get; set; }
         public List<Type> Types { get; set; }
