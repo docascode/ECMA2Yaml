@@ -27,7 +27,7 @@ namespace ECMA2Yaml.Models
         public string ReturnValueType { get; set; }
         public Docs Docs { get; set; }
 
-        public void BuildId(ECMAStore store)
+        public override void BuildId(ECMAStore store)
         {
             Id = Type == MemberType.Constructor ? "#ctor" : Name;
             if (TypeParameters?.Count > 0)
@@ -43,29 +43,39 @@ namespace ECMA2Yaml.Models
                 {
                     Id += string.Format("({0} to {1})", Parameters.First().Type, ReturnValueType);
                 }
+                else if (Type == MemberType.Property && Signatures.ContainsKey("C#") && Signatures["C#"].Contains("["))
+                {
+                    Id += string.Format("[{0}]", string.Join(",", GetParameterUids(store)));
+                }
                 else
                 {
-                    int genericCount = 0;
-                    List<string> ids = new List<string>();
-                    foreach (var p in Parameters)
-                    {
-                        if (TypeParameters?.FirstOrDefault(tp => tp.Name == p.Type) != null)
-                        {
-                            ids.Add("``" + genericCount++);
-                        }
-                        else
-                        {
-                            var paraUid = store.TypesByFullName.ContainsKey(p.Type) ? store.TypesByFullName[p.Type].Uid : p.Type;
-                            if (p.RefType != null)
-                            {
-                                paraUid += "@";
-                            }
-                            ids.Add(paraUid);
-                        }
-                    }
-                    Id += string.Format("({0})", string.Join(",", ids));
+                    Id += string.Format("({0})", string.Join(",", GetParameterUids(store)));
                 }
             }
+        }
+
+        private List<string> GetParameterUids(ECMAStore store)
+        {
+            int genericCount = 0;
+            List<string> ids = new List<string>();
+            foreach (var p in Parameters)
+            {
+                if (TypeParameters?.FirstOrDefault(tp => tp.Name == p.Type) != null)
+                {
+                    ids.Add("``" + genericCount++);
+                }
+                else
+                {
+                    var paraUid = store.TypesByFullName.ContainsKey(p.Type) ? store.TypesByFullName[p.Type].Uid : p.Type;
+                    if (p.RefType != null)
+                    {
+                        paraUid += "@";
+                    }
+                    ids.Add(paraUid);
+                }
+            }
+
+            return ids;
         }
     }
 }

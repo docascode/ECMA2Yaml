@@ -27,33 +27,15 @@ namespace ECMA2Yaml.Models
         {
             foreach (var ns in nsList)
             {
-                if (string.IsNullOrEmpty(ns.Id))
-                {
-                    ns.Id = ns.Name;
-                }
+                ns.BuildId(this);
             }
             foreach (var t in tList)
             {
-                if (string.IsNullOrEmpty(t.Id))
-                {
-                    t.Id = t.Name;
-                    if (t.TypeParameters?.Count > 0)
-                    {
-                        var parts = t.Name.Split('<', '>');
-                        if (parts.Length != 3)
-                        {
-                            throw new Exception("unknown generic type name: " + t.Name);
-                        }
-                        t.Id = parts[0]+ '`' + t.TypeParameters.Count + parts[2];
-                    }
-                }
+                t.BuildId(this);
             }
-            foreach (var t in tList)
+            foreach (var t in tList.Where(x => x.Members?.Count > 0))
             {
-                if (t.Members?.Count > 0)
-                {
-                    t.Members.ForEach(m => m.BuildId(this));
-                }
+                t.Members.ForEach(m => m.BuildId(this));
             }
         }
     }

@@ -11,5 +11,10 @@ namespace ECMA2Yaml.Models
         public string Name { get; set; }
         public List<Type> Types { get; set; }
         public Docs Docs { get; set; }
+
+        public override void BuildId(ECMAStore store)
+        {
+            Id = Name;
+        }
     }
 }

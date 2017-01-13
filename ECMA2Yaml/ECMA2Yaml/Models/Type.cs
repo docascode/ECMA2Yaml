@@ -17,5 +17,22 @@ namespace ECMA2Yaml.Models
         public List<string> Interfaces { get; set; }
         public List<Member> Members { get; set; }
         public Docs Docs { get; set; }
+
+        public override void BuildId(ECMAStore store)
+        {
+            if (string.IsNullOrEmpty(Id))
+            {
+                Id = Name.Replace('+', '.');
+                if (TypeParameters?.Count > 0)
+                {
+                    var parts = Name.Split('<', '>');
+                    if (parts.Length != 3)
+                    {
+                        throw new Exception("unknown generic type name: " + Name);
+                    }
+                    Id = parts[0] + '`' + TypeParameters.Count + parts[2];
+                }
+            }
+        }
     }
 }

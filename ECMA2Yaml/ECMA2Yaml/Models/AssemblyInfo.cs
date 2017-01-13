@@ -9,6 +9,6 @@ namespace ECMA2Yaml.Models
     public class AssemblyInfo
     {
         public string Name { get; set; }
-        public string Version { get; set; }
+        public List<string> Versions { get; set; }
     }
 }
