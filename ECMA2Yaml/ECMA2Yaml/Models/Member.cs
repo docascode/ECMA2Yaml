@@ -26,10 +26,11 @@ namespace ECMA2Yaml.Models
         public List<Parameter> Parameters { get; set; }
         public string ReturnValueType { get; set; }
         public Docs Docs { get; set; }
+        public string Overload { get; set; }
 
         public override void BuildId(ECMAStore store)
         {
-            Id = Type == MemberType.Constructor ? "#ctor" : Name;
+            Id = Name.Replace('.', '#').Replace('<', '{').Replace('>', '}');
             if (TypeParameters?.Count > 0)
             {
                 Id = Id.Substring(0, Id.IndexOf('<')) + "``" + TypeParameters.Count;
