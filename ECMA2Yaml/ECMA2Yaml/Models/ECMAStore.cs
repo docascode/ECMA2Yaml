@@ -16,11 +16,19 @@ namespace ECMA2Yaml.Models
         {
             Namespaces = nsList.ToDictionary(ns => ns.Name);
             TypesByFullName = tList.ToDictionary(t => t.FullName);
+
             BuildIds(nsList, tList);
+
             BuildReferences(nsList, tList);
+
             var allMembers = tList.Where(t => t.Members != null).SelectMany(t => t.Members).ToList();
             var groups = allMembers.GroupBy(m => m.Uid).Where(g => g.Count() > 1).ToList();
             MembersByUid = allMembers.ToDictionary(m => m.Uid);
+
+            foreach (var t in tList)
+            {
+                BuildOverload(t);
+            }
         }
 
         private void BuildIds(IEnumerable<Namespace> nsList, IEnumerable<Type> tList)
@@ -57,6 +65,7 @@ namespace ECMA2Yaml.Models
                 }
                 t.References.AddRange(t.Members);
                 t.References.AddRange(t.Members.SelectMany(m => BuildMemberReferences(m)));
+                BuildOverload(t);
             }
         }
 
