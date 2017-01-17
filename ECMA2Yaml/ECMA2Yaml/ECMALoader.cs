@@ -101,6 +101,13 @@ namespace ECMA2Yaml
                 t.Interfaces = interfacesElement.Elements("Interface").Select(i => i?.Element("InterfaceName")?.Value).ToList();
             }
 
+            //Attributes
+            var attrs = tRoot.Element("Attributes");
+            if (attrs != null)
+            {
+                t.Attributes = attrs.Elements("Attribute").Select(a => a.Element("AttributeName").Value).ToList();
+            }
+
             //Members
             var membersElement = tRoot.Element("Members");
             if (membersElement != null)
@@ -147,6 +154,13 @@ namespace ECMA2Yaml
             if (pElement != null)
             {
                 m.Parameters = pElement.Elements("Parameter").Select(p => Parameter.FromXElement(p)).ToList();
+            }
+
+            //Attributes
+            var attrs = mElement.Element("Attributes");
+            if (attrs != null)
+            {
+                m.Attributes = attrs.Elements("Attribute").Select(a => a.Element("AttributeName").Value).ToList();
             }
 
             m.ReturnValueType = mElement.Element("ReturnValue")?.Element("ReturnType")?.Value;
