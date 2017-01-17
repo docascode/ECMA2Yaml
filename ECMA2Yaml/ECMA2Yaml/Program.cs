@@ -24,6 +24,7 @@ namespace ECMA2Yaml
             Console.WriteLine("Loading ECMAXML files...");
             var store = loader.LoadFolder(sourceFolder);
             Console.WriteLine(store.Namespaces.Count);
+            //store.TypesByFullName["System.Collections.Generic.Dictionary<TKey,TValue>"].Members.Select(m => m.Uid).ToList()
         }
     }
 }

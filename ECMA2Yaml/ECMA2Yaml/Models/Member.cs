@@ -20,13 +20,16 @@ namespace ECMA2Yaml.Models
         public Docs Docs { get; set; }
         public string Overload { get; set; }
 
+        //The ID of a generic method uses postfix ``n, n is the count of in method parameters, for example, System.Tuple.Create``1(``0)
         public override void BuildId(ECMAStore store)
         {
-            Id = Name.Replace('.', '#').Replace('<', '{').Replace('>', '}');
+            Id = Name.Replace('.', '#');
             if (TypeParameters?.Count > 0)
             {
-                Id = Id.Substring(0, Id.IndexOf('<')) + "``" + TypeParameters.Count;
+                Id = Id.Substring(0, Id.LastIndexOf('<')) + "``" + TypeParameters.Count;
             }
+            //handle eii prefix
+            Id = Id.Replace('<', '{').Replace('>', '}');
             if (Parameters?.Count > 0)
             {
                 //Type conversion operator can be considered a special operator whose name is the UID of the target type,
@@ -36,10 +39,11 @@ namespace ECMA2Yaml.Models
                 {
                     Id += string.Format("({0} to {1})", Parameters.First().Type, ReturnValueType);
                 }
-                else if (MemberType == MemberType.Property && Signatures.ContainsKey("C#") && Signatures["C#"].Contains("["))
-                {
-                    Id += string.Format("[{0}]", string.Join(",", GetParameterUids(store)));
-                }
+                //spec is wrong, no need to treat indexer specially, so comment this part out
+                //else if (MemberType == MemberType.Property && Signatures.ContainsKey("C#") && Signatures["C#"].Contains("["))
+                //{
+                //    Id += string.Format("[{0}]", string.Join(",", GetParameterUids(store)));
+                //}
                 else
                 {
                     Id += string.Format("({0})", string.Join(",", GetParameterUids(store)));
@@ -52,13 +56,14 @@ namespace ECMA2Yaml.Models
             List<string> ids = new List<string>();
             foreach (var p in Parameters)
             {
-                var paraUid = store.TypesByFullName.ContainsKey(p.Type) ? store.TypesByFullName[p.Type].Uid : p.Type;
-                paraUid = paraUid.Replace('<', '{').Replace('>', '}');
+                var pt = p.Type.Replace('<', '{').Replace('>', '}');
+                var paraUid = store.TypesByFullName.ContainsKey(pt) ? store.TypesByFullName[pt].Uid : pt;
                 if (p.RefType != null)
                 {
                     paraUid += "@";
                 }
-                paraUid = ReplaceGenericInParameterUid(paraUid);
+                paraUid = ReplaceGenericInParameterUid(((Type)Parent).TypeParameters, "`", paraUid);
+                paraUid = ReplaceGenericInParameterUid(TypeParameters, "``", paraUid);
                 ids.Add(paraUid);
             }
 
@@ -67,22 +72,27 @@ namespace ECMA2Yaml.Models
 
         //Example:System.Collections.Generic.Dictionary`2.#ctor(System.Collections.Generic.IDictionary{`0,`1},System.Collections.Generic.IEqualityComparer{`0})
         private static Dictionary<string, Regex> TypeParameterRegexes = new Dictionary<string, Regex>();
-        private string ReplaceGenericInParameterUid(string paraUid)
+        private string ReplaceGenericInParameterUid(List<Parameter> typeParameters, string prefix, string paraUid)
         {
-            if (TypeParameters?.Count > 0)
+            if (typeParameters?.Count > 0)
             {
                 int genericCount = 0;
-                foreach (var tp in TypeParameters)
+                foreach (var tp in typeParameters)
                 {
+                    string genericPara = prefix + genericCount;
+                    if (tp.Name == paraUid)
+                    {
+                        return genericPara;
+                    }
+
                     Regex regex = null;
-                    string genericPara = "`" + genericCount;
                     if (TypeParameterRegexes.ContainsKey(tp.Name))
                     {
                         regex = TypeParameterRegexes[tp.Name];
                     }
                     else
                     {
-                        regex = new Regex("[^\\w]" + tp.Name + "[^\\w]", RegexOptions.Compiled);
+                        regex = new Regex("[^\\w]*" + tp.Name + "[^\\w]*", RegexOptions.Compiled);
                         TypeParameterRegexes[tp.Name] = regex;
                     }
                     paraUid = regex.Replace(paraUid, match => match.Value.Replace(tp.Name, genericPara));
