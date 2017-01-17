@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.DocAsCode.DataContracts.ManagedReference;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,8 +19,6 @@ namespace ECMA2Yaml.Models
             TypesByFullName = tList.ToDictionary(t => t.FullName);
 
             BuildIds(nsList, tList);
-
-            BuildReferences(nsList, tList);
 
             var allMembers = tList.Where(t => t.Members != null).SelectMany(t => t.Members).ToList();
             var groups = allMembers.GroupBy(m => m.Uid).Where(g => g.Count() > 1).ToList();
@@ -44,28 +43,6 @@ namespace ECMA2Yaml.Models
             foreach (var t in tList.Where(x => x.Members?.Count > 0))
             {
                 t.Members.ForEach(m => m.BuildId(this));
-            }
-        }
-
-        private void BuildReferences(IEnumerable<Namespace> nsList, IEnumerable<Type> tList)
-        {
-            foreach (var ns in nsList)
-            {
-                if (ns.References == null)
-                {
-                    ns.References = new List<ReflectionItem>();
-                }
-                ns.References.AddRange(ns.Types);
-            }
-            foreach (var t in tList)
-            {
-                if (t.References == null)
-                {
-                    t.References = new List<ReflectionItem>();
-                }
-                t.References.AddRange(t.Members);
-                t.References.AddRange(t.Members.SelectMany(m => BuildMemberReferences(m)));
-                BuildOverload(t);
             }
         }
 
@@ -106,7 +83,7 @@ namespace ECMA2Yaml.Models
 
         private void BuildOverload(Type t)
         {
-            var methods = t.Members?.Where(m => m.Type == MemberType.Method).ToList();
+            var methods = t.Members?.Where(m => m.MemberType == MemberType.Method).ToList();
             var overloads = new List<Member>();
             if (methods?.Count() > 0)
             {
@@ -120,14 +97,15 @@ namespace ECMA2Yaml.Models
                     }
                     overloads.Add(new Member()
                     {
-                        Name = methods.First().Type == MemberType.Constructor ? t.Name : methods.First().Name,
+                        Name = methods.First().MemberType == MemberType.Constructor ? t.Name : methods.First().Name,
                         Id = id
                     });
                 }
             }
             if (overloads.Count > 0)
             {
-                t.References.AddRange(overloads);
+                t.Overloads = new List<Member>();
+                t.Overloads.AddRange(overloads);
             }
         }
     }

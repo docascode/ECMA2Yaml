@@ -8,7 +8,6 @@ namespace ECMA2Yaml.Models
 {
     public class Type : ReflectionItem
     {
-        public string Name { get; set; }
         public string FullName { get; set; }
         public string BaseTypeName { get; set; }
         public Dictionary<string, string> Signatures { get; set; }
@@ -16,6 +15,7 @@ namespace ECMA2Yaml.Models
         public List<Parameter> TypeParameters { get; set; }
         public List<string> Interfaces { get; set; }
         public List<Member> Members { get; set; }
+        public List<Member> Overloads { get; set; }
         public Docs Docs { get; set; }
 
         public override void BuildId(ECMAStore store)

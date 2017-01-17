@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Xml.Linq;
+using Microsoft.DocAsCode.DataContracts.ManagedReference;
 
 namespace ECMA2Yaml
 {
@@ -123,7 +124,7 @@ namespace ECMA2Yaml
             Member m = new Member();
             m.Parent = t;
             m.Name = mElement.Attribute("MemberName").Value;
-            m.Type = (MemberType)Enum.Parse(typeof(MemberType), mElement.Element("MemberType").Value);
+            m.MemberType = (MemberType)Enum.Parse(typeof(MemberType), mElement.Element("MemberType").Value);
 
             m.Signatures = new Dictionary<string, string>();
             foreach (var sig in mElement.Elements("MemberSignature"))

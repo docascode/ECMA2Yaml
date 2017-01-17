@@ -1,25 +1,17 @@
-﻿using System;
+﻿using Microsoft.DocAsCode.DataContracts.ManagedReference;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace ECMA2Yaml.Models
 {
-    public enum MemberType
-    {
-        Constructor,
-        Method,
-        Property,
-        Field,
-        Event
-    }
-
     public class Member : ReflectionItem
     {
-        public string Name { get; set; }
         public string FullName { get; set; }
-        public MemberType Type { get; set; }
+        public MemberType MemberType { get; set; }
         public Dictionary<string, string> Signatures { get; set; }
         public AssemblyInfo AssemblyInfo { get; set; }
         public List<Parameter> TypeParameters { get; set; }
@@ -44,7 +36,7 @@ namespace ECMA2Yaml.Models
                 {
                     Id += string.Format("({0} to {1})", Parameters.First().Type, ReturnValueType);
                 }
-                else if (Type == MemberType.Property && Signatures.ContainsKey("C#") && Signatures["C#"].Contains("["))
+                else if (MemberType == MemberType.Property && Signatures.ContainsKey("C#") && Signatures["C#"].Contains("["))
                 {
                     Id += string.Format("[{0}]", string.Join(",", GetParameterUids(store)));
                 }
@@ -57,26 +49,47 @@ namespace ECMA2Yaml.Models
 
         private List<string> GetParameterUids(ECMAStore store)
         {
-            int genericCount = 0;
             List<string> ids = new List<string>();
             foreach (var p in Parameters)
             {
-                if (TypeParameters?.FirstOrDefault(tp => tp.Name == p.Type) != null)
+                var paraUid = store.TypesByFullName.ContainsKey(p.Type) ? store.TypesByFullName[p.Type].Uid : p.Type;
+                paraUid = paraUid.Replace('<', '{').Replace('>', '}');
+                if (p.RefType != null)
                 {
-                    ids.Add("``" + genericCount++);
+                    paraUid += "@";
                 }
-                else
-                {
-                    var paraUid = store.TypesByFullName.ContainsKey(p.Type) ? store.TypesByFullName[p.Type].Uid : p.Type;
-                    if (p.RefType != null)
-                    {
-                        paraUid += "@";
-                    }
-                    ids.Add(paraUid);
-                }
+                paraUid = ReplaceGenericInParameterUid(paraUid);
+                ids.Add(paraUid);
             }
 
             return ids;
+        }
+
+        //Example:System.Collections.Generic.Dictionary`2.#ctor(System.Collections.Generic.IDictionary{`0,`1},System.Collections.Generic.IEqualityComparer{`0})
+        private static Dictionary<string, Regex> TypeParameterRegexes = new Dictionary<string, Regex>();
+        private string ReplaceGenericInParameterUid(string paraUid)
+        {
+            if (TypeParameters?.Count > 0)
+            {
+                int genericCount = 0;
+                foreach (var tp in TypeParameters)
+                {
+                    Regex regex = null;
+                    string genericPara = "`" + genericCount;
+                    if (TypeParameterRegexes.ContainsKey(tp.Name))
+                    {
+                        regex = TypeParameterRegexes[tp.Name];
+                    }
+                    else
+                    {
+                        regex = new Regex("[^\\w]" + tp.Name + "[^\\w]", RegexOptions.Compiled);
+                        TypeParameterRegexes[tp.Name] = regex;
+                    }
+                    paraUid = regex.Replace(paraUid, match => match.Value.Replace(tp.Name, genericPara));
+                    genericCount++;
+                }
+            }
+            return paraUid;
         }
     }
 }

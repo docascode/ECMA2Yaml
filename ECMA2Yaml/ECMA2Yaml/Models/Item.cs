@@ -9,6 +9,7 @@ namespace ECMA2Yaml.Models
     public abstract class ReflectionItem
     {
         private string _uid;
+        public string Name { get; set; }
         public string Id { get; set; }
         public string Uid
         {
@@ -22,7 +23,6 @@ namespace ECMA2Yaml.Models
             }
         }
         public ReflectionItem Parent { get; set; }
-        public List<ReflectionItem> References { get; set; }
 
         public abstract void BuildId(ECMAStore store);
     }
