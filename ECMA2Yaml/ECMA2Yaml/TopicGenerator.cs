@@ -11,13 +11,25 @@ namespace ECMA2Yaml
 {
     public class TopicGenerator
     {
-        public Dictionary<string, PageViewModel> GenerateNamespacePages(ECMAStore store)
+        public static Dictionary<string, PageViewModel> GenerateNamespacePages(ECMAStore store)
         {
             var rval = new Dictionary<string, PageViewModel>();
 
             foreach (var ns in store.Namespaces)
             {
                 rval.Add(ns.Key, ns.Value.ToPageViewModel());
+            }
+
+            return rval;
+        }
+
+        public static Dictionary<string, PageViewModel> GenerateTypePages(ECMAStore store)
+        {
+            var rval = new Dictionary<string, PageViewModel>();
+
+            foreach (var t in store.TypesByUid)
+            {
+                rval.Add(t.Key, t.Value.ToPageViewModel(store));
             }
 
             return rval;
@@ -70,42 +82,22 @@ namespace ECMA2Yaml
             var pv = new PageViewModel();
             pv.Items = new List<ItemViewModel>();
             pv.Items.Add(t.ToItemViewModel());
-            pv.Items.AddRange(t.Members.Select(m => m.ToItemViewModel()));
-            pv.References = t.Members.SelectMany(m => m.ToReferenceViewModels(store)).ToList();
-            if (t.Overloads?.Count > 0)
+            pv.References = new List<ReferenceViewModel>();
+            if (t.BaseType != null)
             {
-                pv.References.AddRange(t.Overloads.Select(o => o.ToReferenceViewModel()));
+                pv.References.Add(t.BaseType.ToReferenceViewModel(store));
             }
+            if (t.Members != null)
+            {
+                pv.Items.AddRange(t.Members.Select(m => m.ToItemViewModel()));
+                pv.References.AddRange(t.Members.SelectMany(m => m.ToReferenceViewModels(store)));
+                if (t.Overloads?.Count > 0)
+                {
+                    pv.References.AddRange(t.Overloads.Select(o => o.ToReferenceViewModel()));
+                }
+            }
+            
             return pv;
-        }
-
-        public static MemberType InferTypeOfType(Models.Type t)
-        {
-            var signature = t.Signatures["C#"];
-            if (t.BaseType == null && signature.Contains(" interface "))
-            {
-                return MemberType.Interface;
-            }
-            else if ("System.Enum" == t.BaseType.Name && signature.Contains(" enum "))
-            {
-                return MemberType.Enum;
-            }
-            else if ("System.Delegate" == t.BaseType.Name && signature.Contains(" delegate "))
-            {
-                return MemberType.Delegate;
-            }
-            else if ("System.ValueType" == t.BaseType.Name && signature.Contains(" struct "))
-            {
-                return MemberType.Struct;
-            }
-            else if (signature.Contains(" class "))
-            {
-                return MemberType.Class;
-            }
-            else
-            {
-                throw new Exception("Unable to identify the type of Type " + t.Uid);
-            }
         }
 
         public static ItemViewModel ToItemViewModel(this Models.Type t)
@@ -117,9 +109,10 @@ namespace ECMA2Yaml
                 Name = t.Name,
                 NameWithType = t.Name,
                 FullName = t.FullName,
-                Type = InferTypeOfType(t),
+                Type = t.MemberType,
                 Children = t.Members?.Select(m => m.Uid).ToList(),
-                Syntax = t.ToSyntaxDetailViewModel()
+                Syntax = t.ToSyntaxDetailViewModel(),
+                Implements = t.Interfaces
             };
             return item;
         }
@@ -156,6 +149,7 @@ namespace ECMA2Yaml
                 Name = m.Name,
                 NameWithType = t.Name + '.' + m.Name,
                 FullName = m.FullName,
+                Parent = m.Parent.Uid,
                 Type = m.MemberType,
                 AssemblyNameList = new List<string>() { t.AssemblyInfo.Name },
                 NamespaceName = t.Parent.Name,
@@ -229,6 +223,16 @@ namespace ECMA2Yaml
             }
 
             return refs;
+        }
+
+        public static ReferenceViewModel ToReferenceViewModel(this BaseType bt, ECMAStore store)
+        {
+            return new ReferenceViewModel()
+            {
+                Uid = bt.Uid,
+                IsExternal = store.MembersByUid.ContainsKey(bt.Uid),
+                Name = bt.Name,
+            };
         }
 
         private static ReferenceViewModel GenerateReferenceByTypeString(string type, ECMAStore store)

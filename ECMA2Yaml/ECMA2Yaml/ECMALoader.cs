@@ -123,7 +123,39 @@ namespace ECMA2Yaml
             //Docs
             t.Docs = Docs.FromXElement(tRoot.Element("Docs"));
 
+
+            //MemberType
+            t.MemberType = InferTypeOfType(t);
             return t;
+        }
+
+        private static MemberType InferTypeOfType(Models.Type t)
+        {
+            var signature = t.Signatures["C#"];
+            if (t.BaseType == null && signature.Contains(" interface "))
+            {
+                return MemberType.Interface;
+            }
+            else if ("System.Enum" == t.BaseType?.Name && signature.Contains(" enum "))
+            {
+                return MemberType.Enum;
+            }
+            else if ("System.Delegate" == t.BaseType?.Name && signature.Contains(" delegate "))
+            {
+                return MemberType.Delegate;
+            }
+            else if ("System.ValueType" == t.BaseType?.Name && signature.Contains(" struct "))
+            {
+                return MemberType.Struct;
+            }
+            else if (signature.Contains(" class "))
+            {
+                return MemberType.Class;
+            }
+            else
+            {
+                throw new Exception("Unable to identify the type of Type " + t.Uid);
+            }
         }
 
         private BaseType LoadBaseType(XElement bElement)
