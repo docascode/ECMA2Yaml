@@ -132,7 +132,7 @@ namespace ECMA2Yaml
             var syntax = new SyntaxDetailViewModel()
             {
                 Content = content,
-                ContentForCSharp = content,
+                //ContentForCSharp = content,
                 TypeParameters = t.TypeParameters?.Select(tp => tp.ToApiParameter()).ToList()
             };
 
@@ -165,7 +165,7 @@ namespace ECMA2Yaml
             var syntax = new SyntaxDetailViewModel()
             {
                 Content = m.Signatures["C#"],
-                ContentForCSharp = m.Signatures["C#"],
+                //ContentForCSharp = m.Signatures["C#"],
                 Parameters = m.Parameters?.Select(p => p.ToApiParameter()).ToList(),
                 Return = string.IsNullOrEmpty(m.ReturnValueType) ? new ApiParameter()
                 {
