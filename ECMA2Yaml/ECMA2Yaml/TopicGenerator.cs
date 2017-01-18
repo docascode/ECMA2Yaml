@@ -72,25 +72,29 @@ namespace ECMA2Yaml
             pv.Items.Add(t.ToItemViewModel());
             pv.Items.AddRange(t.Members.Select(m => m.ToItemViewModel()));
             pv.References = t.Members.SelectMany(m => m.ToReferenceViewModels(store)).ToList();
+            if (t.Overloads?.Count > 0)
+            {
+                pv.References.AddRange(t.Overloads.Select(o => o.ToReferenceViewModel()));
+            }
             return pv;
         }
 
         public static MemberType InferTypeOfType(Models.Type t)
         {
             var signature = t.Signatures["C#"];
-            if (string.IsNullOrEmpty(t.BaseTypeName) && signature.Contains(" interface "))
+            if (t.BaseType == null && signature.Contains(" interface "))
             {
                 return MemberType.Interface;
             }
-            else if ("System.Enum" == t.BaseTypeName && signature.Contains(" enum "))
+            else if ("System.Enum" == t.BaseType.Name && signature.Contains(" enum "))
             {
                 return MemberType.Enum;
             }
-            else if ("System.Delegate" == t.BaseTypeName && signature.Contains(" delegate "))
+            else if ("System.Delegate" == t.BaseType.Name && signature.Contains(" delegate "))
             {
                 return MemberType.Delegate;
             }
-            else if ("System.ValueType" == t.BaseTypeName && signature.Contains(" struct "))
+            else if ("System.ValueType" == t.BaseType.Name && signature.Contains(" struct "))
             {
                 return MemberType.Struct;
             }
@@ -114,9 +118,32 @@ namespace ECMA2Yaml
                 NameWithType = t.Name,
                 FullName = t.FullName,
                 Type = InferTypeOfType(t),
-                Children = t.Members?.Select(m => m.Uid).ToList()
+                Children = t.Members?.Select(m => m.Uid).ToList(),
+                Syntax = t.ToSyntaxDetailViewModel()
             };
             return item;
+        }
+
+        public static SyntaxDetailViewModel ToSyntaxDetailViewModel(this Models.Type t)
+        {
+            var contentBuilder = new StringBuilder();
+            if (t.Attributes?.Count > 0)
+            {
+                foreach (var att in t.Attributes)
+                {
+                    contentBuilder.AppendLine(att);
+                }
+            }
+            contentBuilder.Append(t.Signatures["C#"]);
+            var content = contentBuilder.ToString();
+            var syntax = new SyntaxDetailViewModel()
+            {
+                Content = content,
+                ContentForCSharp = content,
+                TypeParameters = t.TypeParameters?.Select(tp => tp.ToApiParameter()).ToList()
+            };
+
+            return syntax;
         }
 
         public static ItemViewModel ToItemViewModel(this Member m)
@@ -133,7 +160,8 @@ namespace ECMA2Yaml
                 AssemblyNameList = new List<string>() { t.AssemblyInfo.Name },
                 NamespaceName = t.Parent.Name,
                 Overload = m.Overload,
-                Syntax = m.ToSyntaxDetailViewModel()
+                Syntax = m.ToSyntaxDetailViewModel(),
+                IsExplicitInterfaceImplementation = m.Name.Contains('.')
             };
             return item;
         }
@@ -167,11 +195,9 @@ namespace ECMA2Yaml
             return ap;
         }
 
-        public static List<ReferenceViewModel> ToReferenceViewModels(this Member m, ECMAStore store)
+        public static ReferenceViewModel ToReferenceViewModel(this Member m)
         {
-            var refs = new List<ReferenceViewModel>();
-
-            refs.Add(new ReferenceViewModel()
+            return new ReferenceViewModel()
             {
                 Uid = m.Uid,
                 Parent = m.Parent.Uid,
@@ -179,7 +205,14 @@ namespace ECMA2Yaml
                 Name = m.Name,
                 NameWithType = ((Models.Type)m.Parent).Name + '.' + m.Name,
                 FullName = m.FullName
-            });
+            };
+        }
+
+        public static List<ReferenceViewModel> ToReferenceViewModels(this Member m, ECMAStore store)
+        {
+            var refs = new List<ReferenceViewModel>() {
+                m.ToReferenceViewModel()
+            };
 
             if (!string.IsNullOrEmpty(m.ReturnValueType))
             {

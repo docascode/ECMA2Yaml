@@ -92,7 +92,7 @@ namespace ECMA2Yaml
             }
 
             //BaseTypeName
-            t.BaseTypeName = tRoot.Element("Base")?.Element("BaseTypeName")?.Value;
+            t.BaseType = LoadBaseType(tRoot.Element("Base"));
 
             //Interfaces
             var interfacesElement = tRoot.Element("Interfaces");
@@ -124,6 +124,26 @@ namespace ECMA2Yaml
             t.Docs = Docs.FromXElement(tRoot.Element("Docs"));
 
             return t;
+        }
+
+        private BaseType LoadBaseType(XElement bElement)
+        {
+            if (bElement == null)
+            {
+                return null;
+            }
+            BaseType bt = new BaseType();
+            bt.Name = bElement.Element("BaseTypeName")?.Value;
+            var btaElements = bElement.Element("BaseTypeArguments")?.Elements("BaseTypeArgument");
+            if (btaElements != null)
+            {
+                bt.TypeArguments = btaElements.Select(e => new BaseTypeArgument()
+                {
+                    TypeParamName = e.Attribute("TypeParamName").Value,
+                    Value = e.Value
+                }).ToList();
+            }
+            return bt;
         }
 
         private Member LoadMember(Models.Type t, XElement mElement)

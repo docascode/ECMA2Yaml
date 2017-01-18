@@ -120,6 +120,7 @@
   <ItemGroup>
     <Compile Include="ECMALoader.cs" />
     <Compile Include="Models\AssemblyInfo.cs" />
+    <Compile Include="Models\BaseType.cs" />
     <Compile Include="Models\Docs.cs" />
     <Compile Include="Models\ECMAStore.cs" />
     <Compile Include="Models\Item.cs" />

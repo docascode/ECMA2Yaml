@@ -1,0 +1,33 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ECMA2Yaml.Models
+{
+    public class BaseTypeArgument
+    {
+        public string TypeParamName { get; set; }
+        public string Value { get; set; }
+    }
+
+    public class BaseType : ReflectionItem
+    {
+        public List<BaseTypeArgument> TypeArguments { get; set; }
+
+        public override void BuildId(ECMAStore store)
+        {
+            if (TypeArguments?.Count > 0)
+            {
+                var genericPart = string.Format("<{0}>", string.Join(",", TypeArguments.Select(ta => ta.Value)));
+                var uidPart = "`" + TypeArguments.Count;
+                Id = Name.Replace(genericPart, uidPart);
+            }
+            else
+            {
+                Id = Name;
+            }
+        }
+    }
+}

@@ -11,6 +11,7 @@ namespace ECMA2Yaml.Models
     {
         public Dictionary<string, Namespace> Namespaces { get; set; }
         public Dictionary<string, Type> TypesByFullName { get; set; }
+        public Dictionary<string, Type> TypesByUid { get; set; }
         public Dictionary<string, Member> MembersByUid { get; set; }
 
         public ECMAStore(IEnumerable<Namespace> nsList, IEnumerable<Type> tList)
@@ -20,6 +21,7 @@ namespace ECMA2Yaml.Models
 
             BuildIds(nsList, tList);
 
+            TypesByUid = tList.ToDictionary(t => t.Uid);
             var allMembers = tList.Where(t => t.Members != null).SelectMany(t => t.Members).ToList();
             var groups = allMembers.GroupBy(m => m.Uid).Where(g => g.Count() > 1).ToList();
             MembersByUid = allMembers.ToDictionary(m => m.Uid);
@@ -27,6 +29,7 @@ namespace ECMA2Yaml.Models
             foreach (var t in tList)
             {
                 BuildOverload(t);
+                BuildInheritance(t);
             }
         }
 
@@ -39,6 +42,10 @@ namespace ECMA2Yaml.Models
             foreach (var t in tList)
             {
                 t.BuildId(this);
+                if (t.BaseType != null)
+                {
+                    t.BaseType.BuildId(this);
+                }
             }
             foreach (var t in tList.Where(x => x.Members?.Count > 0))
             {
@@ -98,7 +105,8 @@ namespace ECMA2Yaml.Models
                     overloads.Add(new Member()
                     {
                         Name = methods.First().MemberType == MemberType.Constructor ? t.Name : methods.First().Name,
-                        Id = id
+                        Id = id,
+                        Parent = t
                     });
                 }
             }
@@ -106,6 +114,30 @@ namespace ECMA2Yaml.Models
             {
                 t.Overloads = new List<Member>();
                 t.Overloads.AddRange(overloads);
+            }
+        }
+
+        private void BuildInheritance(Type t)
+        {
+            if (t.BaseType != null)
+            {
+                t.InheritanceUids = new List<string>();
+                string uid = t.BaseType.Uid;
+                do
+                {
+                    t.InheritanceUids.Add(uid);
+                    if (TypesByUid.ContainsKey(uid))
+                    {
+                        var tb = TypesByUid[uid];
+                        uid = tb.BaseType?.Uid;
+                    }
+                    else
+                    {
+                        //throw new Exception("External base type uid detected: " + uid);
+                        uid = null;
+                        break;
+                    }
+                } while (uid != null);
             }
         }
     }
