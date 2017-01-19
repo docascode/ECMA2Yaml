@@ -23,31 +23,41 @@ namespace ECMA2Yaml
             var extras = options.Parse(args);
 
             ECMALoader loader = new ECMALoader();
-            Console.WriteLine("Loading ECMAXML files...");
+            WriteLine("Loading ECMAXML files...");
             var store = loader.LoadFolder(sourceFolder);
-            Console.WriteLine("Loaded {0} namespaces.", store.Namespaces.Count);
-            Console.WriteLine("Loaded {0} types.", store.TypesByFullName.Count);
+            WriteLine("Loaded {0} namespaces.", store.Namespaces.Count);
+            WriteLine("Loaded {0} types.", store.TypesByFullName.Count);
 
-            Console.WriteLine("Generating Yaml models...");
+            WriteLine("Generating Yaml models...");
             var nsPages = TopicGenerator.GenerateNamespacePages(store);
             var typePages = TopicGenerator.GenerateTypePages(store);
 
-            Console.WriteLine("Writing Yaml files...");
-            foreach (var nsPage in nsPages)
-            { 
+            WriteLine("Writing Yaml files...");
+            Parallel.ForEach(nsPages, nsPage =>
+            {
                 YamlUtility.Serialize(nsPage.Key + ".yml", nsPage.Value, YamlMime.ManagedReference);
 
                 if (!Directory.Exists(nsPage.Key))
                 {
                     Directory.CreateDirectory(nsPage.Key);
                 }
-                foreach(var t in store.Namespaces[nsPage.Key].Types)
+                foreach (var t in store.Namespaces[nsPage.Key].Types)
                 {
                     var typePage = typePages[t.Uid];
                     var fileName = Path.Combine(nsPage.Key, t.Uid + ".yml");
                     YamlUtility.Serialize(fileName, typePage, YamlMime.ManagedReference);
                 }
-            }
+            });
+
+            WriteLine("Done writing Yaml files.");
+
+            Console.ReadKey();
+        }
+
+        static void WriteLine(string format, params object[] args)
+        {
+            string timestamp = string.Format("[{0}]", DateTime.Now.ToString());
+            Console.WriteLine(timestamp + string.Format(format, args));
         }
     }
 }
