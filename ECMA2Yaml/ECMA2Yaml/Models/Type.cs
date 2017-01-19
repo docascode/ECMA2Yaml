@@ -13,6 +13,7 @@ namespace ECMA2Yaml.Models
         public BaseType BaseType { get; set; }
         public MemberType MemberType { get; set; }
         public List<string> InheritanceUids { get; set; }
+        public Dictionary<string, string> InheritedMembers { get; set; }
         public List<string> IsA { get; set; }
         public Dictionary<string, string> Signatures { get; set; }
         public AssemblyInfo AssemblyInfo { get; set; }

@@ -184,6 +184,10 @@ namespace ECMA2Yaml
             m.Parent = t;
             m.Name = mElement.Attribute("MemberName").Value;
             m.MemberType = (MemberType)Enum.Parse(typeof(MemberType), mElement.Element("MemberType").Value);
+            if (m.Name.StartsWith("op_") && m.MemberType == MemberType.Method)
+            {
+                m.MemberType = MemberType.Operator;
+            }
 
             m.Signatures = new Dictionary<string, string>();
             foreach (var sig in mElement.Elements("MemberSignature"))

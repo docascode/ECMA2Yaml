@@ -112,7 +112,9 @@ namespace ECMA2Yaml
                 Type = t.MemberType,
                 Children = t.Members?.Select(m => m.Uid).ToList(),
                 Syntax = t.ToSyntaxDetailViewModel(),
-                Implements = t.Interfaces
+                Implements = t.Interfaces,
+                Inheritance = t.InheritanceUids,
+                InheritedMembers = t.InheritedMembers?.Select(p => p.Value + '.' + p.Key).OrderBy(s => s).ToList()
             };
             return item;
         }
@@ -155,7 +157,7 @@ namespace ECMA2Yaml
                 NamespaceName = t.Parent.Name,
                 Overload = m.Overload,
                 Syntax = m.ToSyntaxDetailViewModel(),
-                IsExplicitInterfaceImplementation = m.Name.Contains('.')
+                IsExplicitInterfaceImplementation = m.MemberType != MemberType.Constructor && m.Name.Contains('.')
             };
             return item;
         }
@@ -167,7 +169,7 @@ namespace ECMA2Yaml
                 Content = m.Signatures["C#"],
                 //ContentForCSharp = m.Signatures["C#"],
                 Parameters = m.Parameters?.Select(p => p.ToApiParameter()).ToList(),
-                Return = string.IsNullOrEmpty(m.ReturnValueType) ? new ApiParameter()
+                Return = !string.IsNullOrEmpty(m.ReturnValueType) ? new ApiParameter()
                 {
                     Type = ToSpecId(m.ReturnValueType),
                     Description = "Return description to be filled"

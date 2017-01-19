@@ -138,6 +138,37 @@ namespace ECMA2Yaml.Models
                         break;
                     }
                 } while (uid != null);
+
+                t.InheritanceUids.Reverse();
+
+                t.InheritedMembers = new Dictionary<string, string>();
+                foreach(var btUid in t.InheritanceUids)
+                {
+                    if (TypesByUid.ContainsKey(btUid))
+                    {
+                        var bt = TypesByUid[btUid];
+                        if (bt.Members != null)
+                        {
+                            foreach (var m in bt.Members)
+                            {
+                                if (m.Name != "Finalize" && m.MemberType != MemberType.Constructor)
+                                {
+                                    t.InheritedMembers[m.Id] = bt.Uid;
+                                }
+                            }
+                        }
+                    }
+                }
+                if (t.Members != null)
+                {
+                    foreach (var m in t.Members)
+                    {
+                        if (t.InheritedMembers.ContainsKey(m.Id))
+                        {
+                            t.InheritedMembers.Remove(m.Id);
+                        }
+                    }
+                }
             }
         }
     }
