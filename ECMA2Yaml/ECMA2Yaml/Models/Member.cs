@@ -13,7 +13,7 @@ namespace ECMA2Yaml.Models
         public string FullName { get; set; }
         public MemberType MemberType { get; set; }
         public Dictionary<string, string> Signatures { get; set; }
-        public AssemblyInfo AssemblyInfo { get; set; }
+        public List<AssemblyInfo> AssemblyInfo { get; set; }
         public List<Parameter> TypeParameters { get; set; }
         public List<Parameter> Parameters { get; set; }
         public List<string> Attributes { get; set; }

@@ -153,7 +153,7 @@ namespace ECMA2Yaml
                 FullName = m.FullName,
                 Parent = m.Parent.Uid,
                 Type = m.MemberType,
-                AssemblyNameList = new List<string>() { t.AssemblyInfo.Name },
+                AssemblyNameList = t.AssemblyInfo.Select(a => a.Name).ToList(),
                 NamespaceName = t.Parent.Name,
                 Overload = m.Overload,
                 Syntax = m.ToSyntaxDetailViewModel(),

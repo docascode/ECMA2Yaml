@@ -35,20 +35,22 @@ namespace ECMA2Yaml
             WriteLine("Writing Yaml files...");
             Parallel.ForEach(nsPages, nsPage =>
             {
-                YamlUtility.Serialize(nsPage.Key + ".yml", nsPage.Value, YamlMime.ManagedReference);
+                var nsFolder = Path.Combine(outputFolder, nsPage.Key);
+                var nsFileName = Path.Combine(outputFolder, nsPage.Key + ".yml");
+                YamlUtility.Serialize(nsFileName, nsPage.Value, YamlMime.ManagedReference);
 
-                if (!Directory.Exists(nsPage.Key))
+                if (!Directory.Exists(nsFolder))
                 {
-                    Directory.CreateDirectory(nsPage.Key);
+                    Directory.CreateDirectory(nsFolder);
                 }
                 foreach (var t in store.Namespaces[nsPage.Key].Types)
                 {
                     var typePage = typePages[t.Uid];
-                    var fileName = Path.Combine(nsPage.Key, t.Uid + ".yml");
+                    var fileName = Path.Combine(nsFolder, t.Uid + ".yml");
                     YamlUtility.Serialize(fileName, typePage, YamlMime.ManagedReference);
                 }
             });
-
+            YamlUtility.Serialize(Path.Combine(outputFolder, "toc.yml"), TOCGenerator.Generate(store), YamlMime.TableOfContent);
             WriteLine("Done writing Yaml files.");
 
             Console.ReadKey();

@@ -79,10 +79,7 @@ namespace ECMA2Yaml
             }
 
             //AssemblyInfo
-            var assemblyElement = tRoot.Element("AssemblyInfo");
-            t.AssemblyInfo = new AssemblyInfo();
-            t.AssemblyInfo.Name = assemblyElement.Element("AssemblyName").Value;
-            t.AssemblyInfo.Versions = assemblyElement.Elements("AssemblyVersion").Select(v => v.Value).ToList();
+            t.AssemblyInfo = tRoot.Elements("AssemblyInfo")?.Select(a => ParseAssemblyInfo(a)).ToList();
 
             //TypeParameters
             var tpElement = tRoot.Element("TypeParameters");
@@ -195,8 +192,7 @@ namespace ECMA2Yaml
                 m.Signatures[sig.Attribute("Language").Value] = sig.Attribute("Value").Value;
             }
 
-            var versions = mElement.Element("AssemblyInfo")?.Elements("AssemblyVersion").Select(v => v.Value).ToList();
-            m.AssemblyInfo = versions != null ? new AssemblyInfo() { Versions = versions } : null;
+            m.AssemblyInfo = mElement.Elements("AssemblyInfo")?.Select(a => ParseAssemblyInfo(a)).ToList();
 
             //TypeParameters
             var tpElement = mElement.Element("TypeParameters");
@@ -225,6 +221,14 @@ namespace ECMA2Yaml
             m.Docs = Docs.FromXElement(mElement.Element("Docs"));
 
             return m;
+        }
+
+        private AssemblyInfo ParseAssemblyInfo(XElement ele)
+        {
+            var assembly = new AssemblyInfo();
+            assembly.Name = ele.Element("AssemblyName").Value;
+            assembly.Versions = ele.Elements("AssemblyVersion").Select(v => v.Value).ToList();
+            return assembly;
         }
     }
 }

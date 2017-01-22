@@ -96,15 +96,15 @@ namespace ECMA2Yaml.Models
             {
                 foreach (var group in methods.GroupBy(m => m.Name).Where(g => g.Count() > 1))
                 {
-                    string id = group.First().Name.Replace('.', '#');
-                    string overloadUid = string.Format("{0}.{1}*", group.First().Parent.Uid, id);
+                    string id = group.First().Name.Replace('.', '#') + "*";
+                    string overloadUid = string.Format("{0}.{1}", group.First().Parent.Uid, id);
                     foreach (var method in group)
                     {
                         method.Overload = overloadUid;
                     }
                     overloads.Add(new Member()
                     {
-                        Name = methods.First().MemberType == MemberType.Constructor ? t.Name : methods.First().Name,
+                        Name = group.First().MemberType == MemberType.Constructor ? t.Name : group.First().Name,
                         Id = id,
                         Parent = t
                     });
@@ -112,8 +112,7 @@ namespace ECMA2Yaml.Models
             }
             if (overloads.Count > 0)
             {
-                t.Overloads = new List<Member>();
-                t.Overloads.AddRange(overloads);
+                t.Overloads = overloads;
             }
         }
 
