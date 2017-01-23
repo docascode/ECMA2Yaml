@@ -1,4 +1,5 @@
 ﻿using Microsoft.DocAsCode.DataContracts.ManagedReference;
+using Monodoc.Ecma;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,7 @@ namespace ECMA2Yaml.Models
 {
     public class ECMAStore
     {
+        public static EcmaUrlParser EcmaParser = new EcmaUrlParser();
         public Dictionary<string, Namespace> Namespaces { get; set; }
         public Dictionary<string, Type> TypesByFullName { get; set; }
         public Dictionary<string, Type> TypesByUid { get; set; }
@@ -49,7 +51,11 @@ namespace ECMA2Yaml.Models
             }
             foreach (var t in tList.Where(x => x.Members?.Count > 0))
             {
-                t.Members.ForEach(m => m.BuildId(this));
+                t.Members.ForEach(m =>
+                {
+                    m.BuildId(this);
+                    m.BuildName(this);
+                });
             }
         }
 
@@ -140,31 +146,34 @@ namespace ECMA2Yaml.Models
 
                 t.InheritanceUids.Reverse();
 
-                t.InheritedMembers = new Dictionary<string, string>();
-                foreach(var btUid in t.InheritanceUids)
+                if (t.MemberType == MemberType.Class)
                 {
-                    if (TypesByUid.ContainsKey(btUid))
+                    t.InheritedMembers = new Dictionary<string, string>();
+                    foreach (var btUid in t.InheritanceUids)
                     {
-                        var bt = TypesByUid[btUid];
-                        if (bt.Members != null)
+                        if (TypesByUid.ContainsKey(btUid))
                         {
-                            foreach (var m in bt.Members)
+                            var bt = TypesByUid[btUid];
+                            if (bt.Members != null)
                             {
-                                if (m.Name != "Finalize" && m.MemberType != MemberType.Constructor)
+                                foreach (var m in bt.Members)
                                 {
-                                    t.InheritedMembers[m.Id] = bt.Uid;
+                                    if (m.Name != "Finalize" && m.MemberType != MemberType.Constructor)
+                                    {
+                                        t.InheritedMembers[m.Id] = bt.Uid;
+                                    }
                                 }
                             }
                         }
                     }
-                }
-                if (t.Members != null)
-                {
-                    foreach (var m in t.Members)
+                    if (t.Members != null)
                     {
-                        if (t.InheritedMembers.ContainsKey(m.Id))
+                        foreach (var m in t.Members)
                         {
-                            t.InheritedMembers.Remove(m.Id);
+                            if (t.InheritedMembers.ContainsKey(m.Id))
+                            {
+                                t.InheritedMembers.Remove(m.Id);
+                            }
                         }
                     }
                 }

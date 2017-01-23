@@ -114,7 +114,8 @@ namespace ECMA2Yaml
                 Syntax = t.ToSyntaxDetailViewModel(),
                 Implements = t.Interfaces,
                 Inheritance = t.InheritanceUids,
-                InheritedMembers = t.InheritedMembers?.Select(p => p.Value + '.' + p.Key).OrderBy(s => s).ToList()
+                InheritedMembers = t.InheritedMembers?.Select(p => p.Value + '.' + p.Key).OrderBy(s => s).ToList(),
+                SupportedLanguages = new string[] { "C#" }
             };
             return item;
         }
@@ -148,16 +149,17 @@ namespace ECMA2Yaml
             {
                 Id = m.Id,
                 Uid = m.Uid,
-                Name = m.Name,
-                NameWithType = t.Name + '.' + m.Name,
-                FullName = m.FullName,
+                Name = m.DisplayName,
+                NameWithType = t.Name + '.' + m.DisplayName,
+                FullName = m.FullDisplayName,
                 Parent = m.Parent.Uid,
                 Type = m.MemberType,
                 AssemblyNameList = t.AssemblyInfo.Select(a => a.Name).ToList(),
                 NamespaceName = t.Parent.Name,
                 Overload = m.Overload,
                 Syntax = m.ToSyntaxDetailViewModel(),
-                IsExplicitInterfaceImplementation = m.MemberType != MemberType.Constructor && m.Name.Contains('.')
+                IsExplicitInterfaceImplementation = m.MemberType != MemberType.Constructor && m.Name.Contains('.'),
+                SupportedLanguages = new string[] { "C#"}
             };
             return item;
         }
@@ -198,9 +200,9 @@ namespace ECMA2Yaml
                 Uid = m.Uid,
                 Parent = m.Parent.Uid,
                 IsExternal = false,
-                Name = m.Name,
-                NameWithType = ((Models.Type)m.Parent).Name + '.' + m.Name,
-                FullName = m.FullName
+                Name = m.DisplayName,
+                NameWithType = ((Models.Type)m.Parent).Name + '.' + m.DisplayName,
+                FullName = m.FullDisplayName
             };
         }
 

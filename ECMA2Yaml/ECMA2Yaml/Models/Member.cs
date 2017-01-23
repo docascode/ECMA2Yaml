@@ -1,4 +1,5 @@
 ﻿using Microsoft.DocAsCode.DataContracts.ManagedReference;
+using Monodoc.Ecma;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,8 @@ namespace ECMA2Yaml.Models
 {
     public class Member : ReflectionItem
     {
-        public string FullName { get; set; }
+        public string DisplayName { get; set; }
+        public string FullDisplayName { get; set; }
         public MemberType MemberType { get; set; }
         public Dictionary<string, string> Signatures { get; set; }
         public List<AssemblyInfo> AssemblyInfo { get; set; }
@@ -20,6 +22,24 @@ namespace ECMA2Yaml.Models
         public string ReturnValueType { get; set; }
         public Docs Docs { get; set; }
         public string Overload { get; set; }
+
+        public void BuildName(ECMAStore store)
+        {
+            DisplayName = MemberType == MemberType.Constructor ? Parent.Name : Name;
+            if (DisplayName.Contains('<'))
+            {
+                DisplayName = DisplayName.Substring(0, DisplayName.IndexOf('<'));
+            }
+            if (Parameters?.Count > 0)
+            {
+                DisplayName += string.Format("({0})", string.Join(",", Parameters.Select(p => TypeStringToDisplayName(p.Type))));
+            }
+            else if (MemberType == MemberType.Method || MemberType == MemberType.Constructor)
+            {
+                DisplayName += "()";
+            }
+            FullDisplayName = ((Type)Parent).FullName + "." + DisplayName;
+        }
 
         //The ID of a generic method uses postfix ``n, n is the count of in method parameters, for example, System.Tuple.Create``1(``0)
         public override void BuildId(ECMAStore store)
@@ -52,13 +72,40 @@ namespace ECMA2Yaml.Models
             }
         }
 
+        private string TypeStringToDisplayName(string pt)
+        {
+            if (!pt.Contains('<'))
+            {
+                var parts = pt.Split('.');
+                return parts.Last();
+            }
+
+            EcmaDesc desc = null;
+            if (ECMAStore.EcmaParser.TryParse("T:" + pt, out desc))
+            {
+                return EcmaDescToDisplayName(desc);
+            }
+            return null;
+        }
+
+        private string EcmaDescToDisplayName(EcmaDesc desc)
+        {
+            if (desc.GenericMemberArgumentsCount == 0)
+            {
+                return desc.TypeName;
+            }
+            else
+            {
+                return string.Format("{0}<{1}>", desc.TypeName, string.Join(",", desc.GenericTypeArguments.Select(EcmaDescToDisplayName)));
+            }
+        }
+
         private List<string> GetParameterUids(ECMAStore store)
         {
             List<string> ids = new List<string>();
             foreach (var p in Parameters)
             {
-                var pt = p.Type.Replace('<', '{').Replace('>', '}');
-                var paraUid = store.TypesByFullName.ContainsKey(pt) ? store.TypesByFullName[pt].Uid : pt;
+                var paraUid = store.TypesByFullName.ContainsKey(p.Type) ? store.TypesByFullName[p.Type].Uid : p.Type.Replace('<', '{').Replace('>', '}');
                 if (p.RefType != null)
                 {
                     paraUid += "@";

@@ -109,12 +109,7 @@ namespace ECMA2Yaml
             var membersElement = tRoot.Element("Members");
             if (membersElement != null)
             {
-                t.Members = membersElement.Elements("Member").Select(m =>
-                {
-                    var member = LoadMember(t, m);
-                    member.FullName = t.FullName + "." + member.Name;
-                    return member;
-                }).ToList();
+                t.Members = membersElement.Elements("Member").Select(m => LoadMember(t, m)).ToList();
             }
 
             //Docs
@@ -226,7 +221,7 @@ namespace ECMA2Yaml
         private AssemblyInfo ParseAssemblyInfo(XElement ele)
         {
             var assembly = new AssemblyInfo();
-            assembly.Name = ele.Element("AssemblyName").Value;
+            assembly.Name = ele.Element("AssemblyName")?.Value;
             assembly.Versions = ele.Elements("AssemblyVersion").Select(v => v.Value).ToList();
             return assembly;
         }
