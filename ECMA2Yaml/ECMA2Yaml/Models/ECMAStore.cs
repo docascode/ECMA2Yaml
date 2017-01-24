@@ -36,6 +36,7 @@ namespace ECMA2Yaml.Models
             {
                 BuildOverload(t);
                 BuildInheritance(t);
+                BuildDocs(t);
             }
         }
 
@@ -144,6 +145,41 @@ namespace ECMA2Yaml.Models
                                 t.InheritedMembers.Remove(m.Id);
                             }
                         }
+                    }
+                }
+            }
+        }
+
+        private void BuildDocs(Type t)
+        {
+            if(t.TypeParameters != null && t.Docs?.TypeParameters != null)
+            {
+                foreach(var tp in t.TypeParameters)
+                {
+                    tp.Description = t.Docs.TypeParameters.ContainsKey(tp.Name) ? t.Docs.TypeParameters[tp.Name].Value : null;
+                }
+            }
+            if (t.Members != null)
+            {
+                foreach(var m in t.Members)
+                {
+                    if (m.TypeParameters != null && m.Docs?.TypeParameters != null)
+                    {
+                        foreach (var mtp in m.TypeParameters)
+                        {
+                            mtp.Description = m.Docs.TypeParameters.ContainsKey(mtp.Name) ? m.Docs.TypeParameters[mtp.Name].Value : null;
+                        }
+                    }
+                    if (m.Parameters != null && m.Docs?.Parameters != null)
+                    {
+                        foreach (var mp in m.Parameters)
+                        {
+                            mp.Description = m.Docs.Parameters.ContainsKey(mp.Name) ? m.Docs.Parameters[mp.Name].Value : null;
+                        }
+                    }
+                    if(m.ReturnValueType != null && m.Docs?.Returns != null)
+                    {
+                        m.ReturnValueType.Description = m.Docs.Returns;
                     }
                 }
             }

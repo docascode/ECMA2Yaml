@@ -46,7 +46,7 @@ namespace ECMA2Yaml
                 foreach (var t in store.Namespaces[nsPage.Key].Types)
                 {
                     var typePage = typePages[t.Uid];
-                    var fileName = Path.Combine(nsFolder, t.Uid + ".yml");
+                    var fileName = Path.Combine(nsFolder, t.Uid.Replace('`', '-') + ".yml");
                     YamlUtility.Serialize(fileName, typePage, YamlMime.ManagedReference);
                 }
             });

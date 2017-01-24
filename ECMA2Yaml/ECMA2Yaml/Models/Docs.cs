@@ -11,6 +11,7 @@ namespace ECMA2Yaml.Models
     {
         public string Summary { get; set; }
         public string Remarks { get; set; }
+        public string Examples { get; set; }
         public List<XElement> AltMembers { get; set; }
         public XElement Exception { get; set; }
         public Dictionary<string, XElement> Parameters { get; set; }
@@ -25,10 +26,34 @@ namespace ECMA2Yaml.Models
             {
                 return null;
             }
+
+            var remarks = dElement.Element("remarks");
+            string remarksText = null;
+            string examplesText = null;
+            if (remarks?.Element("format") != null)
+            {
+                remarksText = remarks.Element("format").Value;
+            }
+            else
+            {
+                remarksText = remarks?.Value;
+            }
+            if (remarksText != null)
+            {
+                remarksText = remarksText.Replace("## Remarks", "").Trim();
+                if (remarksText.Contains("## Examples"))
+                {
+                    var pos = remarksText.IndexOf("## Examples");
+                    examplesText = remarksText.Substring(pos).Trim();
+                    remarksText = remarksText.Substring(0, pos).Trim();
+                }
+            }
+            
             return new Docs()
             {
                 Summary = dElement.Element("summary")?.Value,
-                Remarks = dElement.Element("remarks")?.Value,
+                Remarks = remarksText,
+                Examples = examplesText,
                 AltMembers = dElement.Elements("altmember")?.ToList(),
                 Exception = dElement.Element("exception"),
                 Parameters = dElement.Elements("param")?.ToDictionary(p => p.Attribute("name").Value, p => p),

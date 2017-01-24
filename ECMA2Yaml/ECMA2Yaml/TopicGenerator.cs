@@ -98,7 +98,7 @@ namespace ECMA2Yaml
                     pv.References.AddRange(t.Overloads.Select(o => o.ToReferenceViewModel()));
                 }
             }
-            
+
             return pv;
         }
 
@@ -118,7 +118,10 @@ namespace ECMA2Yaml
                 Inheritance = t.InheritanceUids,
                 InheritedMembers = t.InheritedMembers?.Select(p => p.Value + '.' + p.Key).OrderBy(s => s).ToList(),
                 SupportedLanguages = languageList,
-                Platform = platformList
+                Platform = platformList,
+                Summary = t.Docs?.Summary,
+                Remarks = t.Docs?.Remarks,
+                Examples = string.IsNullOrEmpty(t.Docs?.Examples) ? null : new List<string> { t.Docs?.Examples }
             };
             return item;
         }
@@ -130,7 +133,7 @@ namespace ECMA2Yaml
             {
                 foreach (var att in t.Attributes)
                 {
-                    contentBuilder.AppendFormat("[{0}]\n",att);
+                    contentBuilder.AppendFormat("[{0}]\n", att);
                 }
             }
             contentBuilder.Append(t.Signatures["C#"]);
@@ -163,7 +166,10 @@ namespace ECMA2Yaml
                 Syntax = m.ToSyntaxDetailViewModel(store),
                 IsExplicitInterfaceImplementation = m.MemberType != MemberType.Constructor && m.Name.Contains('.'),
                 SupportedLanguages = languageList,
-                Platform = platformList
+                Platform = platformList,
+                Summary = m.Docs?.Summary,
+                Remarks = m.Docs?.Remarks,
+                Examples = string.IsNullOrEmpty(m.Docs?.Examples) ? null : new List<string> { m.Docs?.Examples }
             };
             return item;
         }
@@ -193,7 +199,7 @@ namespace ECMA2Yaml
             {
                 Name = p.Name,
                 Type = str,
-                Description = "Parameter description to be filled"
+                Description = p.Description ?? "To be added."
             };
 
             return ap;
