@@ -16,8 +16,12 @@ namespace ECMA2Yaml.Models
         public Dictionary<string, Type> TypesByUid { get; set; }
         public Dictionary<string, Member> MembersByUid { get; set; }
 
+        private static Dictionary<string, EcmaDesc> typeDescriptorCache;
+
         public ECMAStore(IEnumerable<Namespace> nsList, IEnumerable<Type> tList)
         {
+            typeDescriptorCache = new Dictionary<string, EcmaDesc>();
+
             Namespaces = nsList.ToDictionary(ns => ns.Name);
             TypesByFullName = tList.ToDictionary(t => t.FullName);
 
@@ -57,41 +61,6 @@ namespace ECMA2Yaml.Models
                     m.BuildName(this);
                 });
             }
-        }
-
-        private List<ReflectionItem> BuildMemberReferences(Member m)
-        {
-            var refs = new List<ReflectionItem>();
-            var r = BuildRefByTypeString(m.ReturnValueType);
-            if (r != null)
-            {
-                m.ReturnValueType = r.Uid;
-                refs.Add(r);
-            }
-            if (m.Parameters != null)
-            {
-                foreach (var p in m.Parameters)
-                {
-                    r = BuildRefByTypeString(p.Type);
-                    if (r != null)
-                    {
-                        p.Type = r.Uid;
-                        refs.Add(r);
-                    }
-                }
-            }
-            
-            return refs;
-        }
-
-        private ReflectionItem BuildRefByTypeString(string str)
-        {
-            if (TypesByFullName.ContainsKey(str))
-            {
-                return TypesByFullName[str];
-            }
-
-            return null;
         }
 
         private void BuildOverload(Type t)
@@ -177,6 +146,24 @@ namespace ECMA2Yaml.Models
                         }
                     }
                 }
+            }
+        }
+
+        public static EcmaDesc GetOrAddTypeDescriptor(string typeString)
+        {
+            if (typeDescriptorCache.ContainsKey(typeString))
+            {
+                return typeDescriptorCache[typeString];
+            }
+            else
+            {
+                EcmaDesc desc = null;
+                if (EcmaParser.TryParse("T:" + typeString, out desc))
+                {
+                    typeDescriptorCache.Add(typeString, desc);
+                    return desc;
+                }
+                return null;
             }
         }
     }

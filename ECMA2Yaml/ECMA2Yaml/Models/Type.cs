@@ -28,7 +28,7 @@ namespace ECMA2Yaml.Models
         {
             if (string.IsNullOrEmpty(Id))
             {
-                Id = Name.Replace('+', '.');
+                Id = Name;
                 if (TypeParameters?.Count > 0)
                 {
                     var parts = Name.Split('<', '>');
@@ -38,6 +38,7 @@ namespace ECMA2Yaml.Models
                     }
                     Id = parts[0] + '`' + TypeParameters.Count + parts[2];
                 }
+                Id = Id.Replace('+', '.');
             }
         }
     }

@@ -12,6 +12,7 @@ namespace ECMA2Yaml.Models
         public string Name { get; set; }
         public string Type { get; set; }
         public string RefType { get; set; }
+        public string Description { get; set; }
         public static Parameter FromXElement(XElement p)
         {
             if (p == null)

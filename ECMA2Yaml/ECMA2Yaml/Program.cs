@@ -52,8 +52,6 @@ namespace ECMA2Yaml
             });
             YamlUtility.Serialize(Path.Combine(outputFolder, "toc.yml"), TOCGenerator.Generate(store), YamlMime.TableOfContent);
             WriteLine("Done writing Yaml files.");
-
-            Console.ReadKey();
         }
 
         static void WriteLine(string format, params object[] args)

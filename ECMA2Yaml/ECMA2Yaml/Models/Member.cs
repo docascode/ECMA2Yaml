@@ -19,7 +19,7 @@ namespace ECMA2Yaml.Models
         public List<Parameter> TypeParameters { get; set; }
         public List<Parameter> Parameters { get; set; }
         public List<string> Attributes { get; set; }
-        public string ReturnValueType { get; set; }
+        public Parameter ReturnValueType { get; set; }
         public Docs Docs { get; set; }
         public string Overload { get; set; }
 
@@ -32,7 +32,7 @@ namespace ECMA2Yaml.Models
             }
             if (Parameters?.Count > 0)
             {
-                DisplayName += string.Format("({0})", string.Join(",", Parameters.Select(p => TypeStringToDisplayName(p.Type))));
+                DisplayName += string.Format("({0})", string.Join(",", Parameters.Select(p => p.Type.ToDisplayName())));
             }
             else if (MemberType == MemberType.Method || MemberType == MemberType.Constructor)
             {
@@ -58,7 +58,7 @@ namespace ECMA2Yaml.Models
                 //For example, an operator that converts from string to int should be Explicit(System.String to System.Int32).
                 if (Name == "op_Explicit")
                 {
-                    Id += string.Format("({0} to {1})", Parameters.First().Type, ReturnValueType);
+                    Id += string.Format("({0} to {1})", Parameters.First().Type, ReturnValueType.Type);
                 }
                 //spec is wrong, no need to treat indexer specially, so comment this part out
                 //else if (MemberType == MemberType.Property && Signatures.ContainsKey("C#") && Signatures["C#"].Contains("["))
@@ -69,34 +69,6 @@ namespace ECMA2Yaml.Models
                 {
                     Id += string.Format("({0})", string.Join(",", GetParameterUids(store)));
                 }
-            }
-        }
-
-        private string TypeStringToDisplayName(string pt)
-        {
-            if (!pt.Contains('<'))
-            {
-                var parts = pt.Split('.');
-                return parts.Last();
-            }
-
-            EcmaDesc desc = null;
-            if (ECMAStore.EcmaParser.TryParse("T:" + pt, out desc))
-            {
-                return EcmaDescToDisplayName(desc);
-            }
-            return null;
-        }
-
-        private string EcmaDescToDisplayName(EcmaDesc desc)
-        {
-            if (desc.GenericMemberArgumentsCount == 0)
-            {
-                return desc.TypeName;
-            }
-            else
-            {
-                return string.Format("{0}<{1}>", desc.TypeName, string.Join(",", desc.GenericTypeArguments.Select(EcmaDescToDisplayName)));
             }
         }
 

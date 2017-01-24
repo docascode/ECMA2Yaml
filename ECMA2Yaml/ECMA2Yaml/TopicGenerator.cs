@@ -38,6 +38,8 @@ namespace ECMA2Yaml
 
     public static class ModalConversionExtensions
     {
+        private static string[] languageList = new string[] { "csharp" };
+        private static List<string> platformList = new List<string>() { "net-11", "net-20", "netcore-10" };
         public static PageViewModel ToPageViewModel(this Namespace ns)
         {
             var pv = new PageViewModel();
@@ -58,7 +60,7 @@ namespace ECMA2Yaml
                 Name = ns.Name,
                 NameWithType = ns.Name,
                 FullName = ns.Name,
-                Type = Microsoft.DocAsCode.DataContracts.ManagedReference.MemberType.Namespace,
+                Type = MemberType.Namespace,
                 Children = ns.Types.Select(t => t.Uid).ToList()
             };
             return item;
@@ -81,7 +83,7 @@ namespace ECMA2Yaml
         {
             var pv = new PageViewModel();
             pv.Items = new List<ItemViewModel>();
-            pv.Items.Add(t.ToItemViewModel());
+            pv.Items.Add(t.ToItemViewModel(store));
             pv.References = new List<ReferenceViewModel>();
             if (t.BaseType != null)
             {
@@ -89,7 +91,7 @@ namespace ECMA2Yaml
             }
             if (t.Members != null)
             {
-                pv.Items.AddRange(t.Members.Select(m => m.ToItemViewModel()));
+                pv.Items.AddRange(t.Members.Select(m => m.ToItemViewModel(store)));
                 pv.References.AddRange(t.Members.SelectMany(m => m.ToReferenceViewModels(store)));
                 if (t.Overloads?.Count > 0)
                 {
@@ -100,7 +102,7 @@ namespace ECMA2Yaml
             return pv;
         }
 
-        public static ItemViewModel ToItemViewModel(this Models.Type t)
+        public static ItemViewModel ToItemViewModel(this Models.Type t, ECMAStore store)
         {
             var item = new ItemViewModel()
             {
@@ -111,16 +113,17 @@ namespace ECMA2Yaml
                 FullName = t.FullName,
                 Type = t.MemberType,
                 Children = t.Members?.Select(m => m.Uid).ToList(),
-                Syntax = t.ToSyntaxDetailViewModel(),
+                Syntax = t.ToSyntaxDetailViewModel(store),
                 Implements = t.Interfaces,
                 Inheritance = t.InheritanceUids,
                 InheritedMembers = t.InheritedMembers?.Select(p => p.Value + '.' + p.Key).OrderBy(s => s).ToList(),
-                SupportedLanguages = new string[] { "C#" }
+                SupportedLanguages = languageList,
+                Platform = platformList
             };
             return item;
         }
 
-        public static SyntaxDetailViewModel ToSyntaxDetailViewModel(this Models.Type t)
+        public static SyntaxDetailViewModel ToSyntaxDetailViewModel(this Models.Type t, ECMAStore store)
         {
             var contentBuilder = new StringBuilder();
             if (t.Attributes?.Count > 0)
@@ -136,13 +139,13 @@ namespace ECMA2Yaml
             {
                 Content = content,
                 //ContentForCSharp = content,
-                TypeParameters = t.TypeParameters?.Select(tp => tp.ToApiParameter()).ToList()
+                TypeParameters = t.TypeParameters?.Select(tp => tp.ToApiParameter(store)).ToList()
             };
 
             return syntax;
         }
 
-        public static ItemViewModel ToItemViewModel(this Member m)
+        public static ItemViewModel ToItemViewModel(this Member m, ECMAStore store)
         {
             var t = ((Models.Type)m.Parent);
             var item = new ItemViewModel()
@@ -157,36 +160,39 @@ namespace ECMA2Yaml
                 AssemblyNameList = t.AssemblyInfo.Select(a => a.Name).ToList(),
                 NamespaceName = t.Parent.Name,
                 Overload = m.Overload,
-                Syntax = m.ToSyntaxDetailViewModel(),
+                Syntax = m.ToSyntaxDetailViewModel(store),
                 IsExplicitInterfaceImplementation = m.MemberType != MemberType.Constructor && m.Name.Contains('.'),
-                SupportedLanguages = new string[] { "C#"}
+                SupportedLanguages = languageList,
+                Platform = platformList
             };
             return item;
         }
 
-        public static SyntaxDetailViewModel ToSyntaxDetailViewModel(this Member m)
+        public static SyntaxDetailViewModel ToSyntaxDetailViewModel(this Member m, ECMAStore store)
         {
             var syntax = new SyntaxDetailViewModel()
             {
                 Content = m.Signatures["C#"],
-                //ContentForCSharp = m.Signatures["C#"],
-                Parameters = m.Parameters?.Select(p => p.ToApiParameter()).ToList(),
-                Return = !string.IsNullOrEmpty(m.ReturnValueType) ? new ApiParameter()
-                {
-                    Type = ToSpecId(m.ReturnValueType),
-                    Description = "Return description to be filled"
-                } : null
+                Parameters = m.Parameters?.Select(p => p.ToApiParameter(store)).ToList()
             };
-
+            if (m.ReturnValueType != null && !string.IsNullOrEmpty(m.ReturnValueType.Type) && m.ReturnValueType.Type != "System.Void")
+            {
+                syntax.Return = m.ReturnValueType.ToApiParameter(store);
+            }
             return syntax;
         }
 
-        public static ApiParameter ToApiParameter(this Parameter p)
+        public static ApiParameter ToApiParameter(this Parameter p, ECMAStore store)
         {
+            string str = null;
+            if (!string.IsNullOrEmpty(p.Type))
+            {
+                str = store.TypesByFullName.ContainsKey(p.Type) ? store.TypesByFullName[p.Type].Uid : p.Type.ToSpecId();
+            }
             var ap = new ApiParameter()
             {
                 Name = p.Name,
-                Type = ToSpecId(p.Type),
+                Type = str,
                 Description = "Parameter description to be filled"
             };
 
@@ -212,9 +218,9 @@ namespace ECMA2Yaml
                 m.ToReferenceViewModel()
             };
 
-            if (!string.IsNullOrEmpty(m.ReturnValueType))
+            if (m.ReturnValueType != null && !string.IsNullOrEmpty(m.ReturnValueType.Type) && m.ReturnValueType.Type != "System.Void")
             {
-                var reference = GenerateReferenceByTypeString(m.ReturnValueType, store);
+                var reference = GenerateReferenceByTypeString(m.ReturnValueType.Type, store);
                 if (reference != null)
                 {
                     refs.Add(reference);
@@ -239,11 +245,11 @@ namespace ECMA2Yaml
             };
         }
 
-        private static ReferenceViewModel GenerateReferenceByTypeString(string type, ECMAStore store)
+        private static ReferenceViewModel GenerateReferenceByTypeString(string typeStr, ECMAStore store)
         {
-            if (store.TypesByFullName.ContainsKey(type))
+            if (store.TypesByFullName.ContainsKey(typeStr))
             {
-                var rt = store.TypesByFullName[type];
+                var rt = store.TypesByFullName[typeStr];
                 return new ReferenceViewModel()
                 {
                     Uid = rt.Uid,
@@ -254,13 +260,24 @@ namespace ECMA2Yaml
                     FullName = rt.FullName
                 };
             }
+            else
+            {
+                var desc = ECMAStore.GetOrAddTypeDescriptor(typeStr);
+                if (desc != null)
+                {
+                    return new ReferenceViewModel()
+                    {
+                        Uid = desc.ToSpecId(),
+                        Parent = desc.Namespace,
+                        IsExternal = store.TypesByUid.ContainsKey(desc.ToOuterTypeUid()) ? false : true,
+                        Name = desc.ToDisplayName(),
+                        NameWithType = desc.ToDisplayName(),
+                        FullName = typeStr
+                    };
+                }
+            }
 
             return null;
-        }
-
-        private static string ToSpecId(string typeStr)
-        {
-            return typeStr?.Replace('<', '{').Replace('>', '}');
         }
     }
 }

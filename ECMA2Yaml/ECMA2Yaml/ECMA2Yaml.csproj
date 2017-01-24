@@ -121,6 +121,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EcmaDescExtensions.cs" />
     <Compile Include="ECMALoader.cs" />
     <Compile Include="Models\AssemblyInfo.cs" />
     <Compile Include="Models\BaseType.cs" />

@@ -210,7 +210,10 @@ namespace ECMA2Yaml
                 m.Attributes = attrs.Elements("Attribute").Select(a => a.Element("AttributeName").Value).ToList();
             }
 
-            m.ReturnValueType = mElement.Element("ReturnValue")?.Element("ReturnType")?.Value;
+            m.ReturnValueType = new Parameter()
+            {
+                Type = mElement.Element("ReturnValue")?.Element("ReturnType")?.Value
+            };
 
             //Docs
             m.Docs = Docs.FromXElement(mElement.Element("Docs"));
