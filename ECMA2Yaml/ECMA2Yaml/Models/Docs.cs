@@ -44,7 +44,7 @@ namespace ECMA2Yaml.Models
                 if (remarksText.Contains("## Examples"))
                 {
                     var pos = remarksText.IndexOf("## Examples");
-                    examplesText = remarksText.Substring(pos).Trim();
+                    examplesText = remarksText.Substring(pos).Replace("## Examples", "").Trim();
                     remarksText = remarksText.Substring(0, pos).Trim();
                 }
             }
