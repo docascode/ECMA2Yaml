@@ -65,7 +65,9 @@ namespace ECMA2Yaml
 
         private Models.Type LoadType(string typeFile)
         {
-            XDocument tDoc = XDocument.Load(typeFile);
+            string xmlContent = File.ReadAllText(typeFile);
+            xmlContent = xmlContent.Replace("DefaultValue('&#x0;')</AttributeName>", "DefaultValue('\\0')</AttributeName>");
+            XDocument tDoc = XDocument.Parse(xmlContent);
             XElement tRoot = tDoc.Root;
             Models.Type t = new Models.Type();
             t.Name = tRoot.Attribute("Name").Value;

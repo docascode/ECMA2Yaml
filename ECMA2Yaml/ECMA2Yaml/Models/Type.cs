@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace ECMA2Yaml.Models
@@ -24,21 +25,17 @@ namespace ECMA2Yaml.Models
         public List<Member> Overloads { get; set; }
         public Docs Docs { get; set; }
 
+        private static Regex GenericRegex = new Regex("<[^<>]+>", RegexOptions.Compiled);
+
         public override void BuildId(ECMAStore store)
         {
             if (string.IsNullOrEmpty(Id))
             {
-                Id = Name;
-                if (TypeParameters?.Count > 0)
+                Id = Name.Replace('+', '.');
+                if (Id.Contains('<'))
                 {
-                    var parts = Name.Split('<', '>');
-                    if (parts.Length != 3)
-                    {
-                        throw new Exception("unknown generic type name: " + Name);
-                    }
-                    Id = parts[0] + '`' + TypeParameters.Count + parts[2];
+                    Id = GenericRegex.Replace(Id, match => "`" + (match.Value.Count(c => c == ',') + 1));
                 }
-                Id = Id.Replace('+', '.');
             }
         }
     }

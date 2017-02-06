@@ -80,7 +80,7 @@ namespace ECMA2Yaml.Models
                     }
                     overloads.Add(new Member()
                     {
-                        Name = group.First().MemberType == MemberType.Constructor ? t.Name : group.First().Name,
+                        DisplayName = group.First().MemberType == MemberType.Constructor ? t.Name : group.First().Name,
                         Id = id,
                         Parent = t
                     });
