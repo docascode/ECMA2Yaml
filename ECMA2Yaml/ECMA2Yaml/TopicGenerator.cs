@@ -61,6 +61,7 @@ namespace ECMA2Yaml
                 NameWithType = ns.Name,
                 FullName = ns.Name,
                 Type = MemberType.Namespace,
+                SupportedLanguages = languageList,
                 Children = ns.Types.Select(t => t.Uid).ToList()
             };
             return item;
@@ -169,7 +170,8 @@ namespace ECMA2Yaml
                 Platform = platformList,
                 Summary = m.Docs?.Summary,
                 Remarks = m.Docs?.Remarks,
-                Examples = string.IsNullOrEmpty(m.Docs?.Examples) ? null : new List<string> { m.Docs?.Examples }
+                Examples = string.IsNullOrEmpty(m.Docs?.Examples) ? null : new List<string> { m.Docs?.Examples },
+                Exceptions = m.Docs.Exceptions?.Select(ex => new ExceptionInfo() { CommentId = ex.CommentId, Description = ex.Description, Type = ex.Uid }).ToList()
             };
             return item;
         }

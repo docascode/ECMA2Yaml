@@ -13,7 +13,7 @@ namespace ECMA2Yaml.Models
         public string Remarks { get; set; }
         public string Examples { get; set; }
         public List<XElement> AltMembers { get; set; }
-        public XElement Exception { get; set; }
+        public List<ExceptionDef> Exceptions { get; set; }
         public Dictionary<string, XElement> Parameters { get; set; }
         public Dictionary<string, XElement> TypeParameters { get; set; }
         public string Returns { get; set; }
@@ -55,7 +55,16 @@ namespace ECMA2Yaml.Models
                 Remarks = remarksText,
                 Examples = examplesText,
                 AltMembers = dElement.Elements("altmember")?.ToList(),
-                Exception = dElement.Element("exception"),
+                Exceptions = dElement.Elements("exception")?.Select(el =>
+                {
+                    var cref = el.Attribute("cref").Value;
+                    return new ExceptionDef
+                    {
+                        CommentId = cref,
+                        Description = el.Value,
+                        Uid = cref.Substring(cref.IndexOf(':') + 1)
+                    };
+                }).ToList(),
                 Parameters = dElement.Elements("param")?.ToDictionary(p => p.Attribute("name").Value, p => p),
                 TypeParameters = dElement.Elements("typeparam")?.ToDictionary(p => p.Attribute("name").Value, p => p),
                 Returns = dElement.Element("returns")?.Value,

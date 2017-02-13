@@ -66,29 +66,34 @@ namespace ECMA2Yaml.Models
 
         private void BuildOverload(Type t)
         {
-            var methods = t.Members?.Where(m => m.MemberType == MemberType.Method).ToList();
-            var overloads = new List<Member>();
+            var methods = t.Members?.Where(m =>
+                m.MemberType == MemberType.Method
+                || m.MemberType == MemberType.Constructor
+                || m.MemberType == MemberType.Property
+                || m.MemberType == MemberType.Operator)
+                .ToList();
+            var overloads = new Dictionary<string, Member>();
             if (methods?.Count() > 0)
             {
-                foreach (var group in methods.GroupBy(m => m.Name).Where(g => g.Count() > 1))
+                foreach (var m in methods)
                 {
-                    string id = group.First().Name.Replace('.', '#') + "*";
-                    string overloadUid = string.Format("{0}.{1}", group.First().Parent.Uid, id);
-                    foreach (var method in group)
+                    string id = m.Name.Replace('.', '#') + "*";
+                    string overloadUid = string.Format("{0}.{1}", m.Parent.Uid, id);
+                    m.Overload = overloadUid;
+                    if (!overloads.ContainsKey(overloadUid))
                     {
-                        method.Overload = overloadUid;
+                        overloads.Add(overloadUid, new Member()
+                        {
+                            DisplayName = m.MemberType == MemberType.Constructor ? t.Name : m.Name,
+                            Id = id,
+                            Parent = t
+                        });
                     }
-                    overloads.Add(new Member()
-                    {
-                        DisplayName = group.First().MemberType == MemberType.Constructor ? t.Name : group.First().Name,
-                        Id = id,
-                        Parent = t
-                    });
                 }
             }
             if (overloads.Count > 0)
             {
-                t.Overloads = overloads;
+                t.Overloads = overloads.Values.ToList();
             }
         }
 
@@ -152,16 +157,16 @@ namespace ECMA2Yaml.Models
 
         private void BuildDocs(Type t)
         {
-            if(t.TypeParameters != null && t.Docs?.TypeParameters != null)
+            if (t.TypeParameters != null && t.Docs?.TypeParameters != null)
             {
-                foreach(var tp in t.TypeParameters)
+                foreach (var tp in t.TypeParameters)
                 {
                     tp.Description = t.Docs.TypeParameters.ContainsKey(tp.Name) ? t.Docs.TypeParameters[tp.Name].Value : null;
                 }
             }
             if (t.Members != null)
             {
-                foreach(var m in t.Members)
+                foreach (var m in t.Members)
                 {
                     if (m.TypeParameters != null && m.Docs?.TypeParameters != null)
                     {
@@ -177,7 +182,7 @@ namespace ECMA2Yaml.Models
                             mp.Description = m.Docs.Parameters.ContainsKey(mp.Name) ? m.Docs.Parameters[mp.Name].Value : null;
                         }
                     }
-                    if(m.ReturnValueType != null && m.Docs?.Returns != null)
+                    if (m.ReturnValueType != null && m.Docs?.Returns != null)
                     {
                         m.ReturnValueType.Description = m.Docs.Returns;
                     }

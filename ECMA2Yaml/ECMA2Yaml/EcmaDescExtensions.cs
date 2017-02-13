@@ -36,15 +36,19 @@ namespace ECMA2Yaml
             {
                 return null;
             }
-            var typeSTr = string.IsNullOrEmpty(desc.Namespace) ? desc.TypeName : desc.Namespace + "." + desc.TypeName;
-            if (desc.GenericTypeArgumentsCount == 0)
+            var typeStr = string.IsNullOrEmpty(desc.Namespace) ? desc.TypeName : desc.Namespace + "." + desc.TypeName;
+            if (desc.GenericTypeArgumentsCount > 0)
             {
-                return typeSTr;
+                typeStr = string.Format("{0}{{{1}}}", typeStr, string.Join(",", desc.GenericTypeArguments.Select(d => d.ToSpecId())));
             }
-            else
+            if (desc.ArrayDimensions?.Count > 0)
             {
-                return string.Format("{0}{{{1}}}", typeSTr, string.Join(",", desc.GenericTypeArguments.Select(d => d.ToSpecId())));
+                for (int i=0;i< desc.ArrayDimensions?.Count;i++)
+                {
+                    typeStr = typeStr + "[]";
+                }
             }
+            return typeStr;
         }
 
         public static string ToOuterTypeUid(this EcmaDesc desc)

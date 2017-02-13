@@ -39,36 +39,36 @@
       <HintPath>..\packages\HtmlAgilityPack.1.4.9\lib\Net45\HtmlAgilityPack.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.DocAsCode.Build.Common, Version=2.10.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.DocAsCode.Build.Common.2.10.2\lib\net452\Microsoft.DocAsCode.Build.Common.dll</HintPath>
+    <Reference Include="Microsoft.DocAsCode.Build.Common, Version=2.11.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.DocAsCode.Build.Common.2.11.3\lib\net452\Microsoft.DocAsCode.Build.Common.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.DocAsCode.Build.ManagedReference, Version=2.10.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.DocAsCode.Build.ManagedReference.2.10.2\lib\net452\Microsoft.DocAsCode.Build.ManagedReference.dll</HintPath>
+    <Reference Include="Microsoft.DocAsCode.Build.ManagedReference, Version=2.11.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.DocAsCode.Build.ManagedReference.2.11.3\lib\net452\Microsoft.DocAsCode.Build.ManagedReference.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.DocAsCode.Common, Version=2.10.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.DocAsCode.Common.2.10.2\lib\net452\Microsoft.DocAsCode.Common.dll</HintPath>
+    <Reference Include="Microsoft.DocAsCode.Common, Version=2.11.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.DocAsCode.Common.2.11.3\lib\net452\Microsoft.DocAsCode.Common.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.DocAsCode.DataContracts.Common, Version=2.10.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.DocAsCode.DataContracts.Common.2.10.2\lib\net452\Microsoft.DocAsCode.DataContracts.Common.dll</HintPath>
+    <Reference Include="Microsoft.DocAsCode.DataContracts.Common, Version=2.11.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.DocAsCode.DataContracts.Common.2.11.3\lib\net452\Microsoft.DocAsCode.DataContracts.Common.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.DocAsCode.DataContracts.ManagedReference, Version=2.10.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.DocAsCode.DataContracts.ManagedReference.2.10.2\lib\net452\Microsoft.DocAsCode.DataContracts.ManagedReference.dll</HintPath>
+    <Reference Include="Microsoft.DocAsCode.DataContracts.ManagedReference, Version=2.11.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.DocAsCode.DataContracts.ManagedReference.2.11.3\lib\net452\Microsoft.DocAsCode.DataContracts.ManagedReference.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.DocAsCode.MarkdownLite, Version=2.10.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.DocAsCode.MarkdownLite.2.10.2\lib\net452\Microsoft.DocAsCode.MarkdownLite.dll</HintPath>
+    <Reference Include="Microsoft.DocAsCode.MarkdownLite, Version=2.11.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.DocAsCode.MarkdownLite.2.11.3\lib\net452\Microsoft.DocAsCode.MarkdownLite.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.DocAsCode.Plugins, Version=2.10.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.DocAsCode.Plugins.2.10.2\lib\net452\Microsoft.DocAsCode.Plugins.dll</HintPath>
+    <Reference Include="Microsoft.DocAsCode.Plugins, Version=2.11.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.DocAsCode.Plugins.2.11.3\lib\net452\Microsoft.DocAsCode.Plugins.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.DocAsCode.YamlSerialization, Version=2.10.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.DocAsCode.YamlSerialization.2.10.2\lib\net452\Microsoft.DocAsCode.YamlSerialization.dll</HintPath>
+    <Reference Include="Microsoft.DocAsCode.YamlSerialization, Version=2.11.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.DocAsCode.YamlSerialization.2.11.3\lib\net452\Microsoft.DocAsCode.YamlSerialization.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Mono.Options, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -129,6 +129,7 @@
     <Compile Include="Models\BaseType.cs" />
     <Compile Include="Models\Docs.cs" />
     <Compile Include="Models\ECMAStore.cs" />
+    <Compile Include="Models\ExceptionDef.cs" />
     <Compile Include="Models\Item.cs" />
     <Compile Include="Models\Member.cs" />
     <Compile Include="Models\Namespace.cs" />
