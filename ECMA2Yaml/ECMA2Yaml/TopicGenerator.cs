@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MoreLinq;
 
 namespace ECMA2Yaml
 {
@@ -99,6 +100,7 @@ namespace ECMA2Yaml
                     pv.References.AddRange(t.Overloads.Select(o => o.ToReferenceViewModel()));
                 }
             }
+            pv.References = pv.References.DistinctBy(r => r.Uid).ToList();
 
             return pv;
         }
@@ -273,19 +275,26 @@ namespace ECMA2Yaml
                 var desc = ECMAStore.GetOrAddTypeDescriptor(typeStr);
                 if (desc != null)
                 {
-                    return new ReferenceViewModel()
+                    var refModel = new ReferenceViewModel()
                     {
                         Uid = desc.ToSpecId(),
-                        Parent = desc.Namespace,
+                        Parent = string.IsNullOrEmpty(desc.Namespace) ? null : desc.Namespace,
                         IsExternal = store.TypesByUid.ContainsKey(desc.ToOuterTypeUid()) ? false : true,
                         Name = desc.ToDisplayName(),
                         NameWithType = desc.ToDisplayName(),
                         FullName = typeStr
                     };
+                    if (desc.GenericTypeArgumentsCount > 0 || desc.ArrayDimensions?.Count > 0)
+                    {
+                        refModel.Specs.Add("csharp", desc.ToSpecItems());
+                    }
+                    return refModel;
                 }
             }
 
             return null;
         }
+
+        
     }
 }

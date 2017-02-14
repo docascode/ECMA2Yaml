@@ -1,4 +1,5 @@
 ﻿using ECMA2Yaml.Models;
+using Microsoft.DocAsCode.DataContracts.Common;
 using Monodoc.Ecma;
 using System;
 using System.Collections.Generic;
@@ -43,7 +44,7 @@ namespace ECMA2Yaml
             }
             if (desc.ArrayDimensions?.Count > 0)
             {
-                for (int i=0;i< desc.ArrayDimensions?.Count;i++)
+                for (int i = 0; i < desc.ArrayDimensions?.Count; i++)
                 {
                     typeStr = typeStr + "[]";
                 }
@@ -57,7 +58,7 @@ namespace ECMA2Yaml
             {
                 return null;
             }
-            var typeStr = desc.Namespace + "." + desc.TypeName;
+            var typeStr = string.IsNullOrEmpty(desc.Namespace) ? desc.TypeName : (desc.Namespace + "." + desc.TypeName);
             if (desc.GenericTypeArgumentsCount > 0)
             {
                 typeStr += "`" + desc.GenericTypeArgumentsCount;
@@ -80,6 +81,62 @@ namespace ECMA2Yaml
             {
                 return string.Format("{0}<{1}>", desc.TypeName, string.Join(",", desc.GenericTypeArguments.Select(d => d.ToDisplayName())));
             }
+        }
+
+        public static List<SpecViewModel> ToSpecItems(this EcmaDesc desc)
+        {
+            List<SpecViewModel> list = new List<SpecViewModel>();
+            list.Add(new SpecViewModel()
+            {
+                Name = desc.TypeName,
+                NameWithType = desc.TypeName,
+                FullName = desc.ToCompleteTypeName(),
+                Uid = desc.ToOuterTypeUid()
+            });
+
+            if (desc.GenericTypeArgumentsCount > 0)
+            {
+                list.Add(new SpecViewModel()
+                {
+                    Name = "<",
+                    NameWithType = "<",
+                    FullName = "<"
+                });
+
+                list.AddRange(desc.GenericTypeArguments.First().ToSpecItems());
+                for (int i = 1; i < desc.GenericTypeArgumentsCount; i++)
+                {
+                    list.Add(new SpecViewModel()
+                    {
+                        Name = ",",
+                        NameWithType = ",",
+                        FullName = ","
+                    });
+                    list.AddRange(desc.GenericTypeArguments[i].ToSpecItems());
+                }
+
+                list.Add(new SpecViewModel()
+                {
+                    Name = ">",
+                    NameWithType = ">",
+                    FullName = ">"
+                });
+            }
+
+            if (desc.ArrayDimensions != null && desc.ArrayDimensions.Count > 0)
+            {
+                foreach (var arr in desc.ArrayDimensions)
+                {
+                    list.Add(new SpecViewModel()
+                    {
+                        Name = "[]",
+                        NameWithType = "[]",
+                        FullName = "[]"
+                    });
+                }
+            }
+
+            return list;
         }
     }
 }
