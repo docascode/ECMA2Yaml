@@ -15,9 +15,11 @@ namespace ECMA2Yaml
         {
             string sourceFolder = null;
             string outputFolder = null;
+            bool flatten = false;
             var options = new OptionSet {
                 { "s|source=", "the folder path containing the mdoc generated xml files.", s => sourceFolder = s },
                 { "o|output=", "the output folder to put yml files.", o => outputFolder = o },
+                { "f|flatten", "to put all ymls in output root and not keep original folder structure.", f => flatten = f != null },
             };
 
             var extras = options.Parse(args);
@@ -39,14 +41,18 @@ namespace ECMA2Yaml
                 var nsFileName = Path.Combine(outputFolder, nsPage.Key + ".yml");
                 YamlUtility.Serialize(nsFileName, nsPage.Value, YamlMime.ManagedReference);
 
-                if (!Directory.Exists(nsFolder))
+                if (!flatten)
                 {
-                    Directory.CreateDirectory(nsFolder);
+                    if (!Directory.Exists(nsFolder))
+                    {
+                        Directory.CreateDirectory(nsFolder);
+                    }
                 }
+
                 foreach (var t in store.Namespaces[nsPage.Key].Types)
                 {
                     var typePage = typePages[t.Uid];
-                    var fileName = Path.Combine(nsFolder, t.Uid.Replace('`', '-') + ".yml");
+                    var fileName = Path.Combine(flatten ? outputFolder : nsFolder, t.Uid.Replace('`', '-') + ".yml");
                     YamlUtility.Serialize(fileName, typePage, YamlMime.ManagedReference);
                 }
             });
