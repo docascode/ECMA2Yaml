@@ -242,15 +242,32 @@ namespace ECMA2Yaml
             return m;
         }
 
-        public Docs LoadDocs(XElement dElement)
+        public XElement TransformDocs(XElement dElement)
         {
             if (dElement == null)
             {
                 return null;
             }
 
+            XElement remarks = dElement.Element("remarks");
+            remarks?.Remove();
+
             var dElement2 = _docsTransform.Transform(dElement.ToString(), SyntaxLanguage.CSharp).Root;
-            dElement = dElement2;
+
+            if (remarks != null)
+            {
+                dElement2.Add(remarks);
+            }
+            return dElement2;
+        }
+
+        public Docs LoadDocs(XElement dElement)
+        {
+            dElement = TransformDocs(dElement);
+            if (dElement == null)
+            {
+                return null;
+            }
 
             var remarks = dElement.Element("remarks");
             string remarksText = null;

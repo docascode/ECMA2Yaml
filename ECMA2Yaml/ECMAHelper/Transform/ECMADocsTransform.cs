@@ -10,6 +10,9 @@
     using Microsoft.DocAsCode.Common;
     using Microsoft.DocAsCode.DataContracts.ManagedReference;
 
+    /// <summary>
+    /// Thread safe, can be used in multi threads after loaded
+    /// </summary>
     public class ECMADocsTransform
     {
         private readonly XslCompiledTransform _transform;
