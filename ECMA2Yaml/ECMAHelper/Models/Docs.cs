@@ -36,7 +36,7 @@ namespace ECMA2Yaml.Models
             }
             else
             {
-                remarksText = remarks?.Value;
+                remarksText = TrimEmpty(remarks?.Value);
             }
             if (remarksText != null)
             {
@@ -51,7 +51,7 @@ namespace ECMA2Yaml.Models
             
             return new Docs()
             {
-                Summary = dElement.Element("summary")?.Value,
+                Summary = TrimEmpty(dElement.Element("summary")?.Value),
                 Remarks = remarksText,
                 Examples = examplesText,
                 AltMembers = dElement.Elements("altmember")?.ToList(),
@@ -67,11 +67,20 @@ namespace ECMA2Yaml.Models
                 }).ToList(),
                 Parameters = dElement.Elements("param")?.ToDictionary(p => p.Attribute("name").Value, p => p),
                 TypeParameters = dElement.Elements("typeparam")?.ToDictionary(p => p.Attribute("name").Value, p => p),
-                Returns = dElement.Element("returns")?.Value,
-                Since = dElement.Element("since")?.Value,
-                Value = dElement.Element("value")?.Value
+                Returns = TrimEmpty(dElement.Element("returns")?.Value),
+                Since = TrimEmpty(dElement.Element("since")?.Value),
+                Value = TrimEmpty(dElement.Element("value")?.Value)
             };
 
+        }
+
+        private static string TrimEmpty(string str)
+        {
+            if (string.IsNullOrEmpty(str) || str.Trim() == "To be added.")
+            {
+                return null;
+            }
+            return str.Trim();
         }
     }
 }

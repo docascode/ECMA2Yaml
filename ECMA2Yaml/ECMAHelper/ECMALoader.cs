@@ -56,9 +56,17 @@ namespace ECMA2Yaml
             List<Models.Type> types = new List<Models.Type>();
             foreach (var typeFile in Directory.EnumerateFiles(nsFolder, "*.xml"))
             {
-                var t = LoadType(typeFile);
-                t.Parent = ns;
-                types.Add(t);
+                try
+                {
+                    var t = LoadType(typeFile);
+                    t.Parent = ns;
+                    types.Add(t);
+                }
+                catch (Exception ex)
+                {
+                    Console.Error.WriteLine("Error loading xml file {0}: {1}", typeFile, ex.ToString());
+                    Environment.Exit(-1);
+                }
             }
             return types;
         }
