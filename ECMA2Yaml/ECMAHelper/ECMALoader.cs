@@ -295,7 +295,7 @@ namespace ECMA2Yaml
 
             return new Docs()
             {
-                Summary = TrimEmpty(dElement.Element("summary")?.Value),
+                Summary = TrimEmpty(GetInnerXml(dElement.Element("summary"))),
                 Remarks = remarksText,
                 Examples = examplesText,
                 AltMembers = dElement.Elements("altmember")?.ToList(),
@@ -311,11 +311,21 @@ namespace ECMA2Yaml
                 }).ToList(),
                 Parameters = dElement.Elements("param")?.ToDictionary(p => p.Attribute("name").Value, p => p),
                 TypeParameters = dElement.Elements("typeparam")?.ToDictionary(p => p.Attribute("name").Value, p => p),
-                Returns = TrimEmpty(dElement.Element("returns")?.Value),
+                Returns = TrimEmpty(GetInnerXml(dElement.Element("returns"))),
                 Since = TrimEmpty(dElement.Element("since")?.Value),
-                Value = TrimEmpty(dElement.Element("value")?.Value)
             };
 
+        }
+
+        private string GetInnerXml(XElement ele)
+        {
+            if (ele == null)
+            {
+                return null;
+            }
+            var reader = ele.CreateReader();
+            reader.MoveToContent();
+            return reader.ReadInnerXml();
         }
 
         private static string TrimEmpty(string str)
