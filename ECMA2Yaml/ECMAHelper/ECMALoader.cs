@@ -85,8 +85,10 @@ namespace ECMA2Yaml
         private Models.Type LoadType(string typeFile)
         {
             string xmlContent = File.ReadAllText(typeFile);
+            xmlContent = xmlContent.Replace("TextAntiAliasingQuality&nbsp;property.</summary>", "TextAntiAliasingQuality property.</summary>");
             xmlContent = xmlContent.Replace("DefaultValue('&#x0;')</AttributeName>", "DefaultValue('\\0')</AttributeName>");
             xmlContent = xmlContent.Replace("\0", "\\0");
+
             XDocument tDoc = XDocument.Parse(xmlContent);
             XElement tRoot = tDoc.Root;
             Models.Type t = new Models.Type();

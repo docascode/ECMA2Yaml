@@ -9,6 +9,9 @@
 
   <xsl:param name="input:language"/>
 
+  <xsl:variable name="smallcase" select="'abcdefghijklmnopqrstuvwxyz'" />
+  <xsl:variable name="uppercase" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZ'" />
+  
   <xsl:template match="para">
     <p>
       <xsl:apply-templates />
@@ -62,6 +65,15 @@
     <returns>
       <xsl:apply-templates />
     </returns>
+  </xsl:template>
+
+  <xsl:template match="block[@type]">
+    <div>
+      <xsl:attribute name="class">
+        <xsl:value-of select="concat('alert ', translate(@type, $smallcase, $uppercase))" />
+      </xsl:attribute>
+      <xsl:apply-templates />
+    </div>
   </xsl:template>
 
   <xsl:template match="see[@langword]">
