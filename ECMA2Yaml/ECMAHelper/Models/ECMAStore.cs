@@ -18,10 +18,21 @@ namespace ECMA2Yaml.Models
 
         private static Dictionary<string, EcmaDesc> typeDescriptorCache;
 
-        public ECMAStore(IEnumerable<Namespace> nsList, IEnumerable<Type> tList)
+        private IEnumerable<Namespace> nsList;
+        private IEnumerable<Type> tList;
+        private Dictionary<string, Dictionary<string, List<string>>> frameworks;
+
+        public ECMAStore(IEnumerable<Namespace> nsList, Dictionary<string, Dictionary<string, List<string>>> frameworks)
         {
             typeDescriptorCache = new Dictionary<string, EcmaDesc>();
 
+            this.nsList = nsList;
+            this.tList = nsList.SelectMany(ns => ns.Types).ToList();
+            this.frameworks = frameworks;
+        }
+
+        public void Build()
+        {
             Namespaces = nsList.ToDictionary(ns => ns.Name);
             TypesByFullName = tList.ToDictionary(t => t.FullName);
 
@@ -37,6 +48,33 @@ namespace ECMA2Yaml.Models
                 BuildOverload(t);
                 BuildInheritance(t);
                 BuildDocs(t);
+            }
+
+            BuildFrameworks(nsList, frameworks);
+        }
+
+        private void BuildFrameworks(IEnumerable<Namespace> nsList, Dictionary<string, Dictionary<string, List<string>>> frameworks)
+        {
+            foreach (var ns in nsList)
+            {
+                List<string> fxN = new List<string>();
+                foreach( var t in ns.Types)
+                {
+                    List<string> fxT = new List<string>();
+                    foreach( var m in t.Members)
+                    {
+                        var fx = frameworks.GetOrDefault(t.Uid, m.Signatures["C#"]);
+                        if (fx == null)
+                        {
+                            throw new Exception(string.Format("Unable to find framework info for {0} {1}", t.Uid, m.Signatures["C#"]));
+                        }
+                        m.Frameworks = fx;
+                        fxT.AddRange(fx);
+                    }
+                    t.Frameworks = fxT.Distinct().ToList();
+                    fxN.AddRange(t.Frameworks);
+                }
+                ns.Frameworks = fxN.Distinct().ToList();
             }
         }
 

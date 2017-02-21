@@ -31,6 +31,9 @@ namespace ECMA2Yaml
             WriteLine("Loaded {0} types.", store.TypesByFullName.Count);
             WriteLine("Loaded {0} members.", store.MembersByUid.Count);
 
+            WriteLine("Building context...");
+            store.Build();
+
             WriteLine("Generating Yaml models...");
             var nsPages = TopicGenerator.GenerateNamespacePages(store);
             var typePages = TopicGenerator.GenerateTypePages(store);

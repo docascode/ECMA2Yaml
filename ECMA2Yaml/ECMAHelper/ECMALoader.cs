@@ -23,6 +23,8 @@ namespace ECMA2Yaml
                 return null;
             }
 
+            var frameworks = LoadFrameworks(path);
+
             _baseFolder = path;
             List<Namespace> namespaces = new List<Namespace>();
             foreach (var nsFile in Directory.EnumerateFiles(_baseFolder, "ns-*.xml"))
@@ -42,7 +44,34 @@ namespace ECMA2Yaml
                 Environment.Exit(-1);
             }
 
-            return new ECMAStore(namespaces, namespaces.SelectMany(ns => ns.Types));
+            return new ECMAStore(namespaces, frameworks);
+        }
+
+        private void MarkFrameworks(ReflectionItem item, Dictionary<string, Dictionary<string, List<string>>> frameworks)
+        {
+
+        }
+
+        private Dictionary<string, Dictionary<string, List<string>>> LoadFrameworks(string path)
+        {
+            var frameworkFolder = Path.Combine(path, "FrameworksIndex");
+            Dictionary<string, Dictionary<string, List<string>>> frameworks = new Dictionary<string, Dictionary<string, List<string>>>();
+            foreach (var fxFile in Directory.EnumerateFiles(frameworkFolder, "*.xml"))
+            {
+                XDocument fxDoc = XDocument.Load(fxFile);
+                var fxName = fxDoc.Root.Attribute("Name").Value;
+                foreach(var tElement in fxDoc.Root.Elements("Type"))
+                {
+                    var t = tElement.Attribute("Name").Value.Replace('/', '.');
+                    foreach(var mElement in tElement.Elements("Memeber"))
+                    {
+                        var mSig = mElement.Attribute("Sig").Value;
+                        frameworks.AddWithKeys(t, mSig, fxName);
+                    }
+                }
+            }
+
+            return frameworks;
         }
 
         private Namespace LoadNamespace(string nsFile)

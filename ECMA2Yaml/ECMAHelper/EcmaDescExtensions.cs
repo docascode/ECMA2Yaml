@@ -138,5 +138,27 @@ namespace ECMA2Yaml
 
             return list;
         }
+
+        public static void AddWithKeys(this Dictionary<string, Dictionary<string, List<string>>> dict, string key1, string key2, string val)
+        {
+            if (!dict.ContainsKey(key1))
+            {
+                dict.Add(key1, new Dictionary<string, List<string>>());
+            }
+            if (!dict[key1].ContainsKey(key2))
+            {
+                dict[key1].Add(key2, new List<string>());
+            }
+            dict[key1][key2].Add(val);
+        }
+
+        public static List<string> GetOrDefault(this Dictionary<string, Dictionary<string, List<string>>> dict, string key1, string key2)
+        {
+            if (dict.ContainsKey(key1) && dict[key1].ContainsKey(key2))
+            {
+                return dict[key1][key2];
+            }
+            return null;
+        }
     }
 }

@@ -40,7 +40,6 @@ namespace ECMA2Yaml
     public static class ModalConversionExtensions
     {
         private static string[] languageList = new string[] { "csharp" };
-        private static List<string> platformList = new List<string>() { "net-11", "net-20", "netcore-10" };
         public static PageViewModel ToPageViewModel(this Namespace ns)
         {
             var pv = new PageViewModel();
@@ -121,7 +120,7 @@ namespace ECMA2Yaml
                 Inheritance = t.InheritanceUids,
                 InheritedMembers = t.InheritedMembers?.Select(p => p.Value + '.' + p.Key).OrderBy(s => s).ToList(),
                 SupportedLanguages = languageList,
-                Platform = platformList,
+                Platform = t.Frameworks,
                 Summary = t.Docs?.Summary,
                 Remarks = t.Docs?.Remarks,
                 Examples = string.IsNullOrEmpty(t.Docs?.Examples) ? null : new List<string> { t.Docs?.Examples }
@@ -169,7 +168,7 @@ namespace ECMA2Yaml
                 Syntax = m.ToSyntaxDetailViewModel(store),
                 IsExplicitInterfaceImplementation = m.MemberType != MemberType.Constructor && m.Name.Contains('.'),
                 SupportedLanguages = languageList,
-                Platform = platformList,
+                Platform = m.Frameworks,
                 Summary = m.Docs?.Summary,
                 Remarks = m.Docs?.Remarks,
                 Examples = string.IsNullOrEmpty(m.Docs?.Examples) ? null : new List<string> { m.Docs?.Examples },

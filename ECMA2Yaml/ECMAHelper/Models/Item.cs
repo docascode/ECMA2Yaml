@@ -24,6 +24,8 @@ namespace ECMA2Yaml.Models
         }
         public ReflectionItem Parent { get; set; }
 
+        public List<string> Frameworks { get; set; }
+
         public abstract void BuildId(ECMAStore store);
     }
 }
