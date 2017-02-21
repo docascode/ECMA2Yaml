@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Xml.Linq;
 using Microsoft.DocAsCode.DataContracts.ManagedReference;
+using System.Collections.Concurrent;
 
 namespace ECMA2Yaml
 {
@@ -26,8 +27,9 @@ namespace ECMA2Yaml
             var frameworks = LoadFrameworks(path);
 
             _baseFolder = path;
-            List<Namespace> namespaces = new List<Namespace>();
-            foreach (var nsFile in Directory.EnumerateFiles(_baseFolder, "ns-*.xml"))
+            ConcurrentBag<Namespace> namespaces = new ConcurrentBag<Namespace>();
+            ParallelOptions opt = new ParallelOptions() { MaxDegreeOfParallelism = Environment.ProcessorCount };
+            Parallel.ForEach(Directory.EnumerateFiles(_baseFolder, "ns-*.xml"), opt, nsFile =>
             {
                 var nsFileName = Path.GetFileName(nsFile);
                 var nsName = nsFileName.Substring("ns-".Length, nsFileName.Length - "ns-.xml".Length);
@@ -35,7 +37,7 @@ namespace ECMA2Yaml
                 {
                     namespaces.Add(LoadNamespace(nsFile));
                 }
-            }
+            });
 
             if (_errorFiles.Count > 0)
             {
@@ -44,7 +46,7 @@ namespace ECMA2Yaml
                 Environment.Exit(-1);
             }
 
-            return new ECMAStore(namespaces, frameworks);
+            return new ECMAStore(namespaces.ToArray(), frameworks);
         }
 
         private Dictionary<string, List<string>> LoadFrameworks(string path)
@@ -55,7 +57,7 @@ namespace ECMA2Yaml
             {
                 XDocument fxDoc = XDocument.Load(fxFile);
                 var fxName = fxDoc.Root.Attribute("Name").Value;
-                foreach(var tElement in fxDoc.Root.Elements("Type"))
+                foreach (var tElement in fxDoc.Root.Elements("Type"))
                 {
                     var t = tElement.Attribute("Name").Value.Replace('/', '.');
                     frameworks.AddWithKeys(t, null, fxName);

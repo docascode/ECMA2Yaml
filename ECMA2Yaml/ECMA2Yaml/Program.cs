@@ -38,7 +38,8 @@ namespace ECMA2Yaml
             var typePages = TopicGenerator.GenerateTypePages(store);
 
             WriteLine("Writing Yaml files...");
-            Parallel.ForEach(nsPages, nsPage =>
+            ParallelOptions opt = new ParallelOptions() { MaxDegreeOfParallelism = Environment.ProcessorCount };
+            Parallel.ForEach(nsPages, opt, nsPage =>
             {
                 var nsFolder = Path.Combine(outputFolder, nsPage.Key);
                 var nsFileName = Path.Combine(outputFolder, nsPage.Key + ".yml");
