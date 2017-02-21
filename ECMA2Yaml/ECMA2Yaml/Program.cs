@@ -27,12 +27,11 @@ namespace ECMA2Yaml
             ECMALoader loader = new ECMALoader();
             WriteLine("Loading ECMAXML files...");
             var store = loader.LoadFolder(sourceFolder);
+            WriteLine("Building loaded files...");
+            store.Build();
             WriteLine("Loaded {0} namespaces.", store.Namespaces.Count);
             WriteLine("Loaded {0} types.", store.TypesByFullName.Count);
             WriteLine("Loaded {0} members.", store.MembersByUid.Count);
-
-            WriteLine("Building context...");
-            store.Build();
 
             WriteLine("Generating Yaml models...");
             var nsPages = TopicGenerator.GenerateNamespacePages(store);

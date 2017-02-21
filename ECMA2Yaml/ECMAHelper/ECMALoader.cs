@@ -47,15 +47,10 @@ namespace ECMA2Yaml
             return new ECMAStore(namespaces, frameworks);
         }
 
-        private void MarkFrameworks(ReflectionItem item, Dictionary<string, Dictionary<string, List<string>>> frameworks)
-        {
-
-        }
-
-        private Dictionary<string, Dictionary<string, List<string>>> LoadFrameworks(string path)
+        private Dictionary<string, List<string>> LoadFrameworks(string path)
         {
             var frameworkFolder = Path.Combine(path, "FrameworksIndex");
-            Dictionary<string, Dictionary<string, List<string>>> frameworks = new Dictionary<string, Dictionary<string, List<string>>>();
+            Dictionary<string, List<string>> frameworks = new Dictionary<string, List<string>>();
             foreach (var fxFile in Directory.EnumerateFiles(frameworkFolder, "*.xml"))
             {
                 XDocument fxDoc = XDocument.Load(fxFile);
@@ -63,7 +58,8 @@ namespace ECMA2Yaml
                 foreach(var tElement in fxDoc.Root.Elements("Type"))
                 {
                     var t = tElement.Attribute("Name").Value.Replace('/', '.');
-                    foreach(var mElement in tElement.Elements("Memeber"))
+                    frameworks.AddWithKeys(t, null, fxName);
+                    foreach (var mElement in tElement.Elements("Member"))
                     {
                         var mSig = mElement.Attribute("Sig").Value;
                         frameworks.AddWithKeys(t, mSig, fxName);

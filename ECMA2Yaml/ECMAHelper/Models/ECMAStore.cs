@@ -18,61 +18,62 @@ namespace ECMA2Yaml.Models
 
         private static Dictionary<string, EcmaDesc> typeDescriptorCache;
 
-        private IEnumerable<Namespace> nsList;
-        private IEnumerable<Type> tList;
-        private Dictionary<string, Dictionary<string, List<string>>> frameworks;
+        private IEnumerable<Namespace> _nsList;
+        private IEnumerable<Type> _tList;
+        private Dictionary<string, List<string>> _frameworks;
 
-        public ECMAStore(IEnumerable<Namespace> nsList, Dictionary<string, Dictionary<string, List<string>>> frameworks)
+        public ECMAStore(IEnumerable<Namespace> nsList, Dictionary<string, List<string>> frameworks)
         {
             typeDescriptorCache = new Dictionary<string, EcmaDesc>();
 
-            this.nsList = nsList;
-            this.tList = nsList.SelectMany(ns => ns.Types).ToList();
-            this.frameworks = frameworks;
+            this._nsList = nsList;
+            this._tList = nsList.SelectMany(ns => ns.Types).ToList();
+            this._frameworks = frameworks;
         }
 
         public void Build()
         {
-            Namespaces = nsList.ToDictionary(ns => ns.Name);
-            TypesByFullName = tList.ToDictionary(t => t.FullName);
+            Namespaces = _nsList.ToDictionary(ns => ns.Name);
+            TypesByFullName = _tList.ToDictionary(t => t.FullName);
 
-            BuildIds(nsList, tList);
+            BuildIds(_nsList, _tList);
 
-            TypesByUid = tList.ToDictionary(t => t.Uid);
-            var allMembers = tList.Where(t => t.Members != null).SelectMany(t => t.Members).ToList();
+            TypesByUid = _tList.ToDictionary(t => t.Uid);
+            var allMembers = _tList.Where(t => t.Members != null).SelectMany(t => t.Members).ToList();
             var groups = allMembers.GroupBy(m => m.Uid).Where(g => g.Count() > 1).ToList();
             MembersByUid = allMembers.ToDictionary(m => m.Uid);
 
-            foreach (var t in tList)
+            foreach (var t in _tList)
             {
                 BuildOverload(t);
                 BuildInheritance(t);
                 BuildDocs(t);
             }
 
-            BuildFrameworks(nsList, frameworks);
+            BuildFrameworks();
         }
 
-        private void BuildFrameworks(IEnumerable<Namespace> nsList, Dictionary<string, Dictionary<string, List<string>>> frameworks)
+        private void BuildFrameworks()
         {
-            foreach (var ns in nsList)
+            foreach (var ns in _nsList)
             {
                 List<string> fxN = new List<string>();
-                foreach( var t in ns.Types)
+                foreach (var t in ns.Types)
                 {
-                    List<string> fxT = new List<string>();
-                    foreach( var m in t.Members)
-                    {
-                        var fx = frameworks.GetOrDefault(t.Uid, m.Signatures["C#"]);
-                        if (fx == null)
-                        {
-                            throw new Exception(string.Format("Unable to find framework info for {0} {1}", t.Uid, m.Signatures["C#"]));
-                        }
-                        m.Frameworks = fx;
-                        fxT.AddRange(fx);
-                    }
-                    t.Frameworks = fxT.Distinct().ToList();
+                    t.Frameworks = _frameworks.GetOrDefault(t.Uid, null);
                     fxN.AddRange(t.Frameworks);
+                    if (t.Members != null)
+                    {
+                        foreach (var m in t.Members)
+                        {
+                            var fx = _frameworks.GetOrDefault(t.Uid, m.Signatures["C#"]);
+                            if (fx == null)
+                            {
+                                throw new Exception(string.Format("Unable to find framework info for {0} {1}", t.Uid, m.Signatures["C#"]));
+                            }
+                            m.Frameworks = fx;
+                        }
+                    }
                 }
                 ns.Frameworks = fxN.Distinct().ToList();
             }
