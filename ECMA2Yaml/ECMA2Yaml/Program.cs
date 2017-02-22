@@ -15,15 +15,33 @@ namespace ECMA2Yaml
         {
             string sourceFolder = null;
             string outputFolder = null;
+            string logFilePath = "log.txt";
             bool flatten = false;
             var options = new OptionSet {
                 { "s|source=", "the folder path containing the mdoc generated xml files.", s => sourceFolder = s },
                 { "o|output=", "the output folder to put yml files.", o => outputFolder = o },
+                { "l|log=", "the log file path.", l => logFilePath = l },
                 { "f|flatten", "to put all ymls in output root and not keep original folder structure.", f => flatten = f != null },
             };
 
             var extras = options.Parse(args);
 
+            try
+            {
+                LoadAndConvert(sourceFolder, outputFolder, flatten);
+            }
+            catch(Exception ex)
+            {
+                OPSLogger.LogSystemError(ex.ToString());
+            }
+            finally
+            {
+                OPSLogger.Flush(logFilePath);
+            }
+        }
+
+        static void LoadAndConvert(string sourceFolder, string outputFolder, bool flatten)
+        {
             ECMALoader loader = new ECMALoader();
             WriteLine("Loading ECMAXML files...");
             var store = loader.LoadFolder(sourceFolder);

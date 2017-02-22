@@ -41,8 +41,7 @@ namespace ECMA2Yaml
 
             if (_errorFiles.Count > 0)
             {
-                Console.Error.WriteLine("---------------------------------------------");
-                Console.Error.WriteLine("Failed to load {0} files, aborting...", _errorFiles.Count);
+                OPSLogger.LogUserError(string.Format("Failed to load {0} files, aborting...", _errorFiles.Count));
                 Environment.Exit(-1);
             }
 
@@ -101,9 +100,8 @@ namespace ECMA2Yaml
                 }
                 catch (Exception ex)
                 {
-                    var err = string.Format("Error loading xml file {0}: {1}", typeFile, ex.Message);
-                    Console.Error.WriteLine(err);
-                    _errorFiles.Add(err);
+                    OPSLogger.LogUserError(ex.Message, typeFile);
+                    _errorFiles.Add(typeFile);
                 }
             }
             return types;
@@ -332,7 +330,7 @@ namespace ECMA2Yaml
                     return new ExceptionDef
                     {
                         CommentId = cref,
-                        Description = el.Value,
+                        Description = TrimEmpty(GetInnerXml(el)),
                         Uid = cref.Substring(cref.IndexOf(':') + 1)
                     };
                 }).ToList(),

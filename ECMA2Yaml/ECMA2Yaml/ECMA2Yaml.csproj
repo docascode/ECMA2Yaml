@@ -154,6 +154,7 @@
     <None Include="ECMA2Yaml.nuspec" />
     <None Include="packages.config" />
     <None Include="Scripts\nugetPack.bat" />
+    <None Include="Scripts\Run.ps1" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ECMAHelper\ECMAHelper.csproj">

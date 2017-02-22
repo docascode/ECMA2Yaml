@@ -1,0 +1,41 @@
+﻿using Newtonsoft.Json;
+using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ECMA2Yaml
+{
+    public class OPSLogger
+    {
+        private static ConcurrentBag<LogItem> logBag = new ConcurrentBag<LogItem>();
+
+        public static void LogUserError(string message, string file = null)
+        {
+            logBag.Add(new LogItem(message, "ECMA2Yaml", file, MessageSeverity.Error, LogItemType.User));
+        }
+
+        public static void LogSystemError(string message, string file = null)
+        {
+            logBag.Add(new LogItem(message, "ECMA2Yaml", file, MessageSeverity.Error, LogItemType.System));
+        }
+
+        public static void Flush(string filePath)
+        {
+            if (logBag.Count > 0)
+            {
+                StringBuilder sb = new StringBuilder();
+                foreach(var log in logBag.ToArray())
+                {
+                    var logStr = JsonConvert.SerializeObject(log);
+                    sb.AppendLine();
+                    Console.Error.WriteLine(logStr);
+                }
+                File.AppendAllText(filePath, sb.ToString());
+            }
+        }
+    }
+}
