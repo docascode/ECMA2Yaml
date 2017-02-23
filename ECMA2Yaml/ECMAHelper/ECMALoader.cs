@@ -46,7 +46,7 @@ namespace ECMA2Yaml
                 Environment.Exit(-1);
             }
 
-            return new ECMAStore(namespaces.ToArray(), frameworks);
+            return new ECMAStore(namespaces.OrderBy(ns => ns.Name).ToArray(), frameworks);
         }
 
         private Dictionary<string, List<string>> LoadFrameworks(string path)

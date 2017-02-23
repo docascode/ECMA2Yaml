@@ -11,7 +11,7 @@
 
   <xsl:variable name="smallcase" select="'abcdefghijklmnopqrstuvwxyz'" />
   <xsl:variable name="uppercase" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZ'" />
-  
+
   <xsl:template match="para">
     <p>
       <xsl:apply-templates />
@@ -90,11 +90,13 @@
   </xsl:template>
 
   <xsl:template match="see[@cref and not(parent::member)]">
-    <xref href="@cref">
-      <xsl:attribute name="href">
-        <xsl:value-of select="substring(@cref, 3)"/>
-      </xsl:attribute>
-    </xref>
+    <xsl:if test="string-length(normalize-space(@cref)) &gt; 2">
+      <xref href="@cref">
+        <xsl:attribute name="href">
+          <xsl:value-of select="substring(@cref, 3)"/>
+        </xsl:attribute>
+      </xref>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template match="see[@href and not(parent::member)]">
@@ -111,13 +113,17 @@
 
   <xsl:template match="paramref">
     <xsl:if test="normalize-space(@name)">
-      <code><xsl:value-of select="@name" /></code>
+      <code>
+        <xsl:value-of select="@name" />
+      </code>
     </xsl:if>
   </xsl:template>
 
   <xsl:template match="typeparamref">
     <xsl:if test="normalize-space(@name)">
-      <code><xsl:value-of select="@name" /></code>
+      <code>
+        <xsl:value-of select="@name" />
+      </code>
     </xsl:if>
   </xsl:template>
 
