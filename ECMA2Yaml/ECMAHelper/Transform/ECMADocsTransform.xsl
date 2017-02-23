@@ -89,6 +89,14 @@
     </xref>
   </xsl:template>
 
+  <xsl:template match="see[@cref and not(parent::member)]">
+    <xref href="@cref">
+      <xsl:attribute name="href">
+        <xsl:value-of select="substring(@cref, 3)"/>
+      </xsl:attribute>
+    </xref>
+  </xsl:template>
+
   <xsl:template match="see[@href and not(parent::member)]">
     <a>
       <xsl:apply-templates select="@*|node()"/>
@@ -103,17 +111,13 @@
 
   <xsl:template match="paramref">
     <xsl:if test="normalize-space(@name)">
-      <span class="paramref">
-        <xsl:value-of select="@name" />
-      </span>
+      <code><xsl:value-of select="@name" /></code>
     </xsl:if>
   </xsl:template>
 
   <xsl:template match="typeparamref">
     <xsl:if test="normalize-space(@name)">
-      <span class="typeparamref">
-        <xsl:value-of select="@name" />
-      </span>
+      <code><xsl:value-of select="@name" /></code>
     </xsl:if>
   </xsl:template>
 

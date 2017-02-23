@@ -8,6 +8,7 @@ using System.IO;
 using System.Xml.Linq;
 using Microsoft.DocAsCode.DataContracts.ManagedReference;
 using System.Collections.Concurrent;
+using System.Text.RegularExpressions;
 
 namespace ECMA2Yaml
 {
@@ -288,6 +289,8 @@ namespace ECMA2Yaml
             return dElement2;
         }
 
+        private static Regex xrefFix = new Regex("&lt;(xref:[\\w\\.]*)(%2A)?&gt;", RegexOptions.Compiled);
+
         public Docs LoadDocs(XElement dElement)
         {
             dElement = TransformDocs(dElement);
@@ -305,7 +308,7 @@ namespace ECMA2Yaml
             }
             else
             {
-                remarksText = TrimEmpty(remarks?.Value);
+                remarksText = NormalizeDocsElement(remarks?.Value);
             }
             if (remarksText != null)
             {
@@ -320,7 +323,7 @@ namespace ECMA2Yaml
 
             return new Docs()
             {
-                Summary = TrimEmpty(GetInnerXml(dElement.Element("summary"))),
+                Summary = NormalizeDocsElement(GetInnerXml(dElement.Element("summary"))),
                 Remarks = remarksText,
                 Examples = examplesText,
                 AltMembers = dElement.Elements("altmember")?.ToList(),
@@ -330,14 +333,14 @@ namespace ECMA2Yaml
                     return new ExceptionDef
                     {
                         CommentId = cref,
-                        Description = TrimEmpty(GetInnerXml(el)),
+                        Description = NormalizeDocsElement(GetInnerXml(el)),
                         Uid = cref.Substring(cref.IndexOf(':') + 1)
                     };
                 }).ToList(),
-                Parameters = dElement.Elements("param")?.ToDictionary(p => p.Attribute("name").Value, p => p),
-                TypeParameters = dElement.Elements("typeparam")?.ToDictionary(p => p.Attribute("name").Value, p => p),
-                Returns = TrimEmpty(GetInnerXml(dElement.Element("returns"))),
-                Since = TrimEmpty(dElement.Element("since")?.Value),
+                Parameters = dElement.Elements("param")?.ToDictionary(p => p.Attribute("name").Value, p => NormalizeDocsElement(GetInnerXml(p))),
+                TypeParameters = dElement.Elements("typeparam")?.ToDictionary(p => p.Attribute("name").Value, p => NormalizeDocsElement(GetInnerXml(p))),
+                Returns = NormalizeDocsElement(GetInnerXml(dElement.Element("returns"))),
+                Since = NormalizeDocsElement(dElement.Element("since")?.Value),
             };
 
         }
@@ -353,13 +356,13 @@ namespace ECMA2Yaml
             return reader.ReadInnerXml();
         }
 
-        private static string TrimEmpty(string str)
+        private static string NormalizeDocsElement(string str)
         {
             if (string.IsNullOrEmpty(str) || str.Trim() == "To be added.")
             {
                 return null;
             }
-            return str.Trim();
+            return xrefFix.Replace(str.Trim(), m => "<" + m.Groups[1].Value + (m.Groups.Count == 3 && !string.IsNullOrEmpty(m.Groups[2].Value) ? "*" : "") + ">");
         }
 
         private AssemblyInfo ParseAssemblyInfo(XElement ele)
