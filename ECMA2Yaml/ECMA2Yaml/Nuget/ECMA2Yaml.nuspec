@@ -2,14 +2,18 @@
 <package >
   <metadata>
     <id>Microsoft.DocAsCode.ECMA2Yaml</id>
-    <version>$version$</version>
-    <title>$title$</title>
+    <version>1.0.1</version>
+    <title>ECMA2Yaml</title>
     <authors>tianzh</authors>
-    <owners>$author$</owners>
+    <owners>Microsoft</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>OPS internal tool to convert ECMAXML documents to Yaml format.</description>
     <releaseNotes>Test release.</releaseNotes>
     <copyright>Copyright 2017</copyright>
     <tags>ECMAXML</tags>
   </metadata>
+  <files>
+    <file src="..\bin\Release\*.*" target="tools" exclude="..\bin\Release\*.xml;..\bin\Release\*.pdb;..\bin\Release\*.txt"/>
+    <file src="Run.ps1" target="tools\Run.ps1" />
+  </files>
 </package>

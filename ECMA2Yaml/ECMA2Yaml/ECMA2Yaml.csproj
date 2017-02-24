@@ -151,10 +151,12 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="ECMA2Yaml.nuspec" />
+    <None Include="Nuget\ECMA2Yaml.nuspec">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
-    <None Include="Scripts\nugetPack.bat" />
-    <None Include="Scripts\Run.ps1" />
+    <None Include="Nuget\nugetPack.bat" />
+    <None Include="Nuget\Run.ps1" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ECMAHelper\ECMAHelper.csproj">

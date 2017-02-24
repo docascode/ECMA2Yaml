@@ -93,6 +93,24 @@ namespace ECMA2Yaml
             if (t.Members != null)
             {
                 pv.Items.AddRange(t.Members.Select(m => m.ToItemViewModel(store)));
+                var allExceptions = pv.Items.Where(i => i.Exceptions != null).SelectMany(i => i.Exceptions).ToArray();
+                foreach (var ex in allExceptions)
+                {
+                    if (!store.TypesByUid.ContainsKey(ex.Type))
+                    {
+                        OPSLogger.LogUserWarning("Referenced exception type not found: " + ex.Type, t.FullName);
+                        pv.References.Add(new ReferenceViewModel()
+                        {
+                            Uid = ex.Type,
+                            IsExternal = true,
+                            Name = ex.Type
+                        });
+                    }
+                    else
+                    {
+                        pv.References.Add(store.TypesByUid[ex.Type].ToReferenceViewModel());
+                    }
+                }
                 pv.References.AddRange(t.Members.SelectMany(m => m.ToReferenceViewModels(store)));
                 if (t.Overloads?.Count > 0)
                 {
@@ -294,6 +312,6 @@ namespace ECMA2Yaml
             return null;
         }
 
-        
+
     }
 }

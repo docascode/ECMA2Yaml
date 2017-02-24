@@ -18,6 +18,11 @@ namespace ECMA2Yaml
             logBag.Add(new LogItem(message, "ECMA2Yaml", file, MessageSeverity.Error, LogItemType.User));
         }
 
+        public static void LogUserWarning(string message, string file = null)
+        {
+            logBag.Add(new LogItem(message, "ECMA2Yaml", file, MessageSeverity.Warning, LogItemType.User));
+        }
+
         public static void LogSystemError(string message, string file = null)
         {
             logBag.Add(new LogItem(message, "ECMA2Yaml", file, MessageSeverity.Error, LogItemType.System));
@@ -31,8 +36,11 @@ namespace ECMA2Yaml
                 foreach(var log in logBag.ToArray())
                 {
                     var logStr = JsonConvert.SerializeObject(log);
-                    sb.AppendLine();
-                    Console.Error.WriteLine(logStr);
+                    sb.AppendLine(logStr);
+                    if (log.MessageSeverity == MessageSeverity.Error)
+                    {
+                        Console.Error.WriteLine(logStr);
+                    }
                 }
                 File.AppendAllText(filePath, sb.ToString());
             }
