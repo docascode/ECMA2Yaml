@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECMA2Yaml", "ECMA2Yaml\ECMA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECMAHelper", "ECMAHelper\ECMAHelper.csproj", "{B5D18314-613F-492A-9564-C9BCD1A183E6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FixCodeSnippet", "FixCodeSnippet\FixCodeSnippet.csproj", "{D1EBF8FB-7541-4788-A88E-255D89571B74}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{B5D18314-613F-492A-9564-C9BCD1A183E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B5D18314-613F-492A-9564-C9BCD1A183E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B5D18314-613F-492A-9564-C9BCD1A183E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1EBF8FB-7541-4788-A88E-255D89571B74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1EBF8FB-7541-4788-A88E-255D89571B74}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1EBF8FB-7541-4788-A88E-255D89571B74}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1EBF8FB-7541-4788-A88E-255D89571B74}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

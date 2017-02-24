@@ -152,7 +152,7 @@ namespace ECMA2Yaml.Models
                     }
                     else
                     {
-                        //throw new Exception("External base type uid detected: " + uid);
+                        OPSLogger.LogUserWarning(string.Format("Type {0} has an external base type {1}", t.FullName, uid), t.FullName);
                         uid = null;
                         break;
                     }
