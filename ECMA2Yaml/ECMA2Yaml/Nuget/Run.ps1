@@ -27,8 +27,8 @@ $userSpecifiedChangeListTsvFilePath = $ParameterDictionary.context.userSpecified
 
 $ecmaConfigFile = Join-Path $repositoryRoot "ECMA2Yaml.config.json"
 $ecmaConfig = Get-Content -Raw -Path $ecmaConfigFile | ConvertFrom-Json
-$ecmaSourceXmlFolder = $ecmaConfig.SourceXmlFolder
-$ecmaOutputYamlFolder = $ecmaConfig.OutputYamlFolder
+$ecmaSourceXmlFolder = Join-Path $repositoryRoot $ecmaConfig.SourceXmlFolder
+$ecmaOutputYamlFolder = Join-Path $repositoryRoot $ecmaConfig.OutputYamlFolder
 $allArgs = @("-s", "$ecmaSourceXmlFolder", "-o", "$ecmaOutputYamlFolder", "-l", "$logFilePath");
 if ($ecmaConfig.Flatten)
 {
