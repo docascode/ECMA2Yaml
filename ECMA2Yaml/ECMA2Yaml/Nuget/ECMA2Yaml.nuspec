@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Microsoft.DocAsCode.ECMA2Yaml</id>
-    <version>1.0.3</version>
+    <version>1.0.5</version>
     <title>ECMA2Yaml</title>
     <authors>tianzh</authors>
     <owners>Microsoft</owners>

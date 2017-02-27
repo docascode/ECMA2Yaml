@@ -32,6 +32,7 @@ namespace ECMA2Yaml
             }
             catch(Exception ex)
             {
+                Console.Error.WriteLine(ex.ToString());
                 OPSLogger.LogSystemError(ex.ToString());
                 Environment.ExitCode = -1;
             }
