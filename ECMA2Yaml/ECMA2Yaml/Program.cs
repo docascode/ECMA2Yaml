@@ -15,7 +15,7 @@ namespace ECMA2Yaml
         {
             string sourceFolder = null;
             string outputFolder = null;
-            string logFilePath = "log.txt";
+            string logFilePath = "log.json";
             bool flatten = false;
             var options = new OptionSet {
                 { "s|source=", "the folder path containing the mdoc generated xml files.", s => sourceFolder = s },
@@ -46,6 +46,11 @@ namespace ECMA2Yaml
             ECMALoader loader = new ECMALoader();
             WriteLine("Loading ECMAXML files...");
             var store = loader.LoadFolder(sourceFolder);
+            if (store == null)
+            {
+                return;
+            }
+
             WriteLine("Building loaded files...");
             store.Build();
             WriteLine("Loaded {0} namespaces.", store.Namespaces.Count);

@@ -30,6 +30,7 @@ namespace ECMA2Yaml
             _baseFolder = path;
             ConcurrentBag<Namespace> namespaces = new ConcurrentBag<Namespace>();
             ParallelOptions opt = new ParallelOptions() { MaxDegreeOfParallelism = Environment.ProcessorCount };
+            //foreach(var nsFile in Directory.EnumerateFiles(_baseFolder, "ns-*.xml"))
             Parallel.ForEach(Directory.EnumerateFiles(_baseFolder, "ns-*.xml"), opt, nsFile =>
             {
                 var nsFileName = Path.GetFileName(nsFile);
@@ -43,7 +44,7 @@ namespace ECMA2Yaml
             if (_errorFiles.Count > 0)
             {
                 OPSLogger.LogUserError(string.Format("Failed to load {0} files, aborting...", _errorFiles.Count));
-                Environment.Exit(-1);
+                return null;
             }
 
             return new ECMAStore(namespaces.OrderBy(ns => ns.Name).ToArray(), frameworks);
@@ -337,8 +338,8 @@ namespace ECMA2Yaml
                         Uid = cref.Substring(cref.IndexOf(':') + 1)
                     };
                 }).ToList(),
-                Parameters = dElement.Elements("param")?.ToDictionary(p => p.Attribute("name").Value, p => NormalizeDocsElement(GetInnerXml(p))),
-                TypeParameters = dElement.Elements("typeparam")?.ToDictionary(p => p.Attribute("name").Value, p => NormalizeDocsElement(GetInnerXml(p))),
+                Parameters = dElement.Elements("param")?.Where(p => !string.IsNullOrEmpty(p.Attribute("name").Value)).ToDictionary(p => p.Attribute("name").Value, p => NormalizeDocsElement(GetInnerXml(p))),
+                TypeParameters = dElement.Elements("typeparam")?.Where(p => !string.IsNullOrEmpty(p.Attribute("name").Value)).ToDictionary(p => p.Attribute("name").Value, p => NormalizeDocsElement(GetInnerXml(p))),
                 Returns = NormalizeDocsElement(GetInnerXml(dElement.Element("returns"))),
                 Since = NormalizeDocsElement(dElement.Element("since")?.Value),
             };
