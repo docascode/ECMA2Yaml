@@ -22,6 +22,7 @@ namespace ECMA2Yaml
         {
             if (!Directory.Exists(path))
             {
+                OPSLogger.LogUserError(string.Format("Source folder does not exist: {0}", path));
                 return null;
             }
 

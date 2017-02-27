@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Microsoft.DocAsCode.ECMA2Yaml</id>
-    <version>1.0.1</version>
+    <version>1.0.3</version>
     <title>ECMA2Yaml</title>
     <authors>tianzh</authors>
     <owners>Microsoft</owners>
@@ -13,7 +13,7 @@
     <tags>ECMAXML</tags>
   </metadata>
   <files>
-    <file src="..\bin\Release\*.*" target="tools" exclude="..\bin\Release\*.xml;..\bin\Release\*.pdb;..\bin\Release\*.txt"/>
+    <file src="..\bin\Release\*.*" target="tools" exclude="..\bin\Release\*.xml;..\bin\Release\*.pdb;..\bin\Release\*.txt;..\bin\Release\log.*"/>
     <file src="Run.ps1" target="tools\Run.ps1" />
   </files>
 </package>
