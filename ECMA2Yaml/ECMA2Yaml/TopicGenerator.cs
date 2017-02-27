@@ -62,6 +62,7 @@ namespace ECMA2Yaml
                 FullName = ns.Name,
                 Type = MemberType.Namespace,
                 SupportedLanguages = languageList,
+                Platform = ns.Frameworks,
                 Children = ns.Types.Select(t => t.Uid).ToList()
             };
             return item;
