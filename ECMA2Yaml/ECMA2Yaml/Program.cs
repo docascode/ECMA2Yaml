@@ -13,6 +13,8 @@ namespace ECMA2Yaml
     {
         static void Main(string[] args)
         {
+            WriteLine("ECMA2Yaml converter started.");
+
             string sourceFolder = null;
             string outputFolder = null;
             string logFilePath = "log.json";
@@ -24,15 +26,14 @@ namespace ECMA2Yaml
                 { "f|flatten", "to put all ymls in output root and not keep original folder structure.", f => flatten = f != null },
             };
 
-            var extras = options.Parse(args);
-
             try
             {
+                var extras = options.Parse(args);
                 LoadAndConvert(sourceFolder, outputFolder, flatten);
             }
             catch(Exception ex)
             {
-                Console.Error.WriteLine(ex.ToString());
+                WriteLine(ex.ToString());
                 OPSLogger.LogSystemError(ex.ToString());
                 Environment.ExitCode = -1;
             }

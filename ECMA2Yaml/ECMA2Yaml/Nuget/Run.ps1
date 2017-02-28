@@ -35,9 +35,9 @@ if ($ecmaConfig.Flatten)
 	$allArgs += "-f";
 }
 $printAllArgs = [System.String]::Join(' ', $allArgs) 
-echo "Executing $ecma2yamlExeName $printAllArgs" | timestamp
-$docfxExeFilePath = Join-Path $currentDir $ecma2yamlExeName
-& "$docfxExeFilePath" $allArgs
+$ecma2yamlExeFilePath = Join-Path $currentDir $ecma2yamlExeName
+echo "Executing $ecma2yamlExeFilePath $printAllArgs" | timestamp
+& "$ecma2yamlExeFilePath" $allArgs 2>&1
 
 if ($LASTEXITCODE -ne 0)
 {

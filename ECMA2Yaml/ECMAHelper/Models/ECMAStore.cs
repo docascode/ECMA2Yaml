@@ -60,13 +60,16 @@ namespace ECMA2Yaml.Models
                 List<string> fxN = new List<string>();
                 foreach (var t in ns.Types)
                 {
-                    t.Frameworks = _frameworks.GetOrDefault(t.Uid, null);
-                    fxN.AddRange(t.Frameworks);
+                    t.Frameworks = _frameworks?.GetOrDefault(t.Uid, null);
+                    if (t.Frameworks != null)
+                    {
+                        fxN.AddRange(t.Frameworks);
+                    }
                     if (t.Members != null)
                     {
                         foreach (var m in t.Members)
                         {
-                            var fx = _frameworks.GetOrDefault(t.Uid, m.Signatures["C#"]);
+                            var fx = _frameworks?.GetOrDefault(t.Uid, m.Signatures["C#"]);
                             if (fx == null)
                             {
                                 throw new Exception(string.Format("Unable to find framework info for {0} {1}", t.Uid, m.Signatures["C#"]));

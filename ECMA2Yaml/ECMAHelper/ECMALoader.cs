@@ -54,11 +54,15 @@ namespace ECMA2Yaml
         private Dictionary<string, List<string>> LoadFrameworks(string path)
         {
             var frameworkFolder = Path.Combine(path, "FrameworksIndex");
+            if (!Directory.Exists(frameworkFolder))
+            {
+                return null;
+            }
             Dictionary<string, List<string>> frameworks = new Dictionary<string, List<string>>();
             foreach (var fxFile in Directory.EnumerateFiles(frameworkFolder, "*.xml"))
             {
                 XDocument fxDoc = XDocument.Load(fxFile);
-                var fxName = fxDoc.Root.Attribute("Name").Value;
+                var fxName = fxDoc.Root.Attribute("Name").Value.Replace(".", "");
                 foreach (var tElement in fxDoc.Root.Elements("Type"))
                 {
                     var t = tElement.Attribute("Name").Value.Replace('/', '.');
