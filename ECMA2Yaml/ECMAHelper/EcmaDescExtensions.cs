@@ -49,6 +49,10 @@ namespace ECMA2Yaml
                     typeStr = typeStr + "[]";
                 }
             }
+            if (desc.DescModifier == EcmaDesc.Mod.Pointer)
+            {
+                typeStr += "*";
+            }
             return typeStr;
         }
 
@@ -73,14 +77,29 @@ namespace ECMA2Yaml
             {
                 return null;
             }
-            else if (desc.GenericTypeArgumentsCount == 0)
+
+            string name = null;
+            if (desc.GenericTypeArgumentsCount == 0)
             {
-                return desc.TypeName;
+                name = desc.TypeName;
             }
             else
             {
-                return string.Format("{0}<{1}>", desc.TypeName, string.Join(",", desc.GenericTypeArguments.Select(d => d.ToDisplayName())));
+                name = string.Format("{0}<{1}>", desc.TypeName, string.Join(",", desc.GenericTypeArguments.Select(d => d.ToDisplayName())));
             }
+            if (desc.ArrayDimensions?.Count > 0)
+            {
+                for (int i = 0; i < desc.ArrayDimensions?.Count; i++)
+                {
+                    name += "[]";
+                }
+            }
+            if (desc.DescModifier == EcmaDesc.Mod.Pointer)
+            {
+                name += "*";
+            }
+
+            return name;
         }
 
         public static List<SpecViewModel> ToSpecItems(this EcmaDesc desc)
@@ -134,6 +153,15 @@ namespace ECMA2Yaml
                         FullName = "[]"
                     });
                 }
+            }
+            if (desc.DescModifier == EcmaDesc.Mod.Pointer)
+            {
+                list.Add(new SpecViewModel()
+                {
+                    Name = "*",
+                    NameWithType = "*",
+                    FullName = "*"
+                });
             }
 
             return list;

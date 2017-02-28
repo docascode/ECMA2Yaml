@@ -62,9 +62,13 @@ namespace ECMA2Yaml
                 FullName = ns.Name,
                 Type = MemberType.Namespace,
                 SupportedLanguages = languageList,
-                Platform = ns.Frameworks,
                 Children = ns.Types.Select(t => t.Uid).ToList()
             };
+            if (ns.Frameworks != null)
+            {
+                item.Metadata.Add("version", ns.Frameworks);
+            }
+            
             return item;
         }
 
@@ -139,11 +143,14 @@ namespace ECMA2Yaml
                 Inheritance = t.InheritanceUids,
                 InheritedMembers = t.InheritedMembers?.Select(p => p.Value + '.' + p.Key).OrderBy(s => s).ToList(),
                 SupportedLanguages = languageList,
-                Platform = t.Frameworks,
                 Summary = t.Docs?.Summary,
                 Remarks = t.Docs?.Remarks,
                 Examples = string.IsNullOrEmpty(t.Docs?.Examples) ? null : new List<string> { t.Docs?.Examples }
             };
+            if (t.Frameworks != null)
+            {
+                item.Metadata.Add("version", t.Frameworks);
+            }
             return item;
         }
 
@@ -187,12 +194,15 @@ namespace ECMA2Yaml
                 Syntax = m.ToSyntaxDetailViewModel(store),
                 IsExplicitInterfaceImplementation = m.MemberType != MemberType.Constructor && m.Name.Contains('.'),
                 SupportedLanguages = languageList,
-                Platform = m.Frameworks,
                 Summary = m.Docs?.Summary,
                 Remarks = m.Docs?.Remarks,
                 Examples = string.IsNullOrEmpty(m.Docs?.Examples) ? null : new List<string> { m.Docs?.Examples },
                 Exceptions = m.Docs.Exceptions?.Select(ex => new ExceptionInfo() { CommentId = ex.CommentId, Description = ex.Description, Type = ex.Uid }).ToList()
             };
+            if (m.Frameworks != null)
+            {
+                item.Metadata.Add("version", m.Frameworks);
+            }
             return item;
         }
 
@@ -302,7 +312,7 @@ namespace ECMA2Yaml
                         NameWithType = desc.ToDisplayName(),
                         FullName = typeStr
                     };
-                    if (desc.GenericTypeArgumentsCount > 0 || desc.ArrayDimensions?.Count > 0)
+                    if (desc.GenericTypeArgumentsCount > 0 || desc.ArrayDimensions?.Count > 0 || desc.DescModifier == Monodoc.Ecma.EcmaDesc.Mod.Pointer)
                     {
                         refModel.Specs.Add("csharp", desc.ToSpecItems());
                     }

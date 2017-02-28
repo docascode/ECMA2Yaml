@@ -234,20 +234,24 @@ namespace ECMA2Yaml.Models
 
         public static EcmaDesc GetOrAddTypeDescriptor(string typeString)
         {
+            EcmaDesc desc = null;
             if (typeDescriptorCache.ContainsKey(typeString))
             {
-                return typeDescriptorCache[typeString];
+                desc = typeDescriptorCache[typeString];
             }
-            else
+            else if(typeString!= null && typeString.EndsWith("*"))
             {
-                EcmaDesc desc = null;
-                if (EcmaParser.TryParse("T:" + typeString, out desc))
+                if (EcmaParser.TryParse("T:" + typeString.TrimEnd('*'), out desc))
                 {
+                    desc.DescModifier = EcmaDesc.Mod.Pointer;
                     typeDescriptorCache.Add(typeString, desc);
-                    return desc;
                 }
-                return null;
             }
+            else if (EcmaParser.TryParse("T:" + typeString, out desc))
+            {
+                typeDescriptorCache.Add(typeString, desc);
+            }
+            return desc;
         }
     }
 }
