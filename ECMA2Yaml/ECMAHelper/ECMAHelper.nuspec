@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Microsoft.DocAsCode.ECMAHelper</id>
+    <version>1.0.12</version>
+    <title>ECMAHelper</title>
+    <authors>tianzh</authors>
+    <owners>Microsoft</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>OPS internal lib to load and analysis ECMAXML documents</description>
+    <releaseNotes></releaseNotes>
+    <copyright>Copyright 2017</copyright>
+    <tags>ECMAXML</tags>
+  </metadata>
+</package>
