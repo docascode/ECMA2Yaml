@@ -294,8 +294,6 @@ namespace ECMA2Yaml
             return dElement2;
         }
 
-        private static Regex xrefFix = new Regex("&lt;(xref:[\\w\\.]*)(%2A)?&gt;", RegexOptions.Compiled);
-
         public Docs LoadDocs(XElement dElement)
         {
             dElement = TransformDocs(dElement);
@@ -358,16 +356,17 @@ namespace ECMA2Yaml
             }
             var reader = ele.CreateReader();
             reader.MoveToContent();
-            return reader.ReadInnerXml();
+            return System.Web.HttpUtility.HtmlDecode(reader.ReadInnerXml());
         }
 
+        private static Regex xrefFix = new Regex("<xref:[\\w\\.\\d\\?=]+%[\\w\\.\\d\\?=%]+>", RegexOptions.Compiled);
         private static string NormalizeDocsElement(string str)
         {
             if (string.IsNullOrEmpty(str) || str.Trim() == "To be added.")
             {
                 return null;
             }
-            return xrefFix.Replace(str.Trim(), m => "<" + m.Groups[1].Value + (m.Groups.Count == 3 && !string.IsNullOrEmpty(m.Groups[2].Value) ? "*" : "") + ">");
+            return xrefFix.Replace(str.Trim(), m => System.Web.HttpUtility.UrlDecode(m.Value));
         }
 
         private AssemblyInfo ParseAssemblyInfo(XElement ele)
