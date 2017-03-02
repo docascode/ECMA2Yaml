@@ -85,12 +85,13 @@ namespace ECMA2Yaml.Models
             List<string> ids = new List<string>();
             foreach (var p in Parameters)
             {
-                var paraUid = store.TypesByFullName.ContainsKey(p.Type) ? store.TypesByFullName[p.Type].Uid : p.Type.Replace('<', '{').Replace('>', '}');
+                var paraUid = p.Type.Replace('+', '.').Replace('<', '{').Replace('>', '}');
                 if (p.RefType != null)
                 {
                     paraUid += "@";
                 }
-                paraUid = ReplaceGenericInParameterUid(((Type)Parent).TypeParameters, "`", paraUid);
+                var parent = (Type)Parent;
+                paraUid = ReplaceGenericInParameterUid(parent.TypeParameters, "`", paraUid);
                 paraUid = ReplaceGenericInParameterUid(TypeParameters, "``", paraUid);
                 ids.Add(paraUid);
             }
