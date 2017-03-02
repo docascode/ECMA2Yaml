@@ -155,7 +155,6 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
-    <None Include="Nuget\nugetPack.bat" />
     <None Include="Nuget\Run.ps1" />
   </ItemGroup>
   <ItemGroup>

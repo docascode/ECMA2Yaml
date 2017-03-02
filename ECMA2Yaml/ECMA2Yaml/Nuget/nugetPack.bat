@@ -1,1 +1,0 @@
-nuget pack -IncludeReferencedProjects -properties Configuration=Release

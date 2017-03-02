@@ -70,7 +70,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ECMAHelper.nuspec" />
-    <None Include="Nuget\nugetPack.bat" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

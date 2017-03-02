@@ -2,13 +2,13 @@
 <package >
   <metadata>
     <id>Microsoft.DocAsCode.ECMA2Yaml</id>
-    <version>1.0.13</version>
+    <version>$version$</version>
     <title>ECMA2Yaml</title>
     <authors>tianzh</authors>
     <owners>Microsoft</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>OPS internal tool to convert ECMAXML documents to Yaml format.</description>
-    <releaseNotes>Test release.</releaseNotes>
+    <releaseNotes>$releaseNotes$</releaseNotes>
     <copyright>Copyright 2017</copyright>
     <tags>ECMAXML</tags>
   </metadata>
