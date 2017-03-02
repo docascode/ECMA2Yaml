@@ -121,7 +121,7 @@ namespace ECMA2Yaml.Models
                     }
                     else
                     {
-                        regex = new Regex("[^\\w]*" + tp.Name + "[^\\w]*", RegexOptions.Compiled);
+                        regex = new Regex("[^\\w]?" + tp.Name + "[^\\w]", RegexOptions.Compiled);
                         TypeParameterRegexes[tp.Name] = regex;
                     }
                     paraUid = regex.Replace(paraUid, match => match.Value.Replace(tp.Name, genericPara));

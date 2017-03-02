@@ -61,7 +61,7 @@ namespace ECMA2Yaml
             foreach (var fxFile in Directory.EnumerateFiles(frameworkFolder, "*.xml"))
             {
                 XDocument fxDoc = XDocument.Load(fxFile);
-                var fxName = fxDoc.Root.Attribute("Name").Value.Replace(".", "");
+                var fxName = fxDoc.Root.Attribute("Name").Value;
                 foreach (var tElement in fxDoc.Root.Elements("Type"))
                 {
                     var t = tElement.Attribute("Name").Value.Replace('/', '.');
