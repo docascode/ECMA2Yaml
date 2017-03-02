@@ -6,7 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Xml.Linq;
-using Microsoft.DocAsCode.DataContracts.ManagedReference;
 using System.Collections.Concurrent;
 using System.Text.RegularExpressions;
 
@@ -172,32 +171,32 @@ namespace ECMA2Yaml
             t.Docs = LoadDocs(tRoot.Element("Docs"));
 
             //MemberType
-            t.MemberType = InferTypeOfType(t);
+            t.ItemType = InferTypeOfType(t);
             return t;
         }
 
-        private static MemberType InferTypeOfType(Models.Type t)
+        private static ItemType InferTypeOfType(Models.Type t)
         {
             var signature = t.Signatures["C#"];
             if (t.BaseType == null && signature.Contains(" interface "))
             {
-                return MemberType.Interface;
+                return ItemType.Interface;
             }
             else if ("System.Enum" == t.BaseType?.Name && signature.Contains(" enum "))
             {
-                return MemberType.Enum;
+                return ItemType.Enum;
             }
             else if ("System.Delegate" == t.BaseType?.Name && signature.Contains(" delegate "))
             {
-                return MemberType.Delegate;
+                return ItemType.Delegate;
             }
             else if ("System.ValueType" == t.BaseType?.Name && signature.Contains(" struct "))
             {
-                return MemberType.Struct;
+                return ItemType.Struct;
             }
             else if (signature.Contains(" class "))
             {
-                return MemberType.Class;
+                return ItemType.Class;
             }
             else
             {
@@ -230,10 +229,10 @@ namespace ECMA2Yaml
             Member m = new Member();
             m.Parent = t;
             m.Name = mElement.Attribute("MemberName").Value;
-            m.MemberType = (MemberType)Enum.Parse(typeof(MemberType), mElement.Element("MemberType").Value);
-            if (m.Name.StartsWith("op_") && m.MemberType == MemberType.Method)
+            m.ItemType = (ItemType)Enum.Parse(typeof(ItemType), mElement.Element("MemberType").Value);
+            if (m.Name.StartsWith("op_") && m.ItemType == ItemType.Method)
             {
-                m.MemberType = MemberType.Operator;
+                m.ItemType = ItemType.Operator;
             }
 
             m.Signatures = new Dictionary<string, string>();

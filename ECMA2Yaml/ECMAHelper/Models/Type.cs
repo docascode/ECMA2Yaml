@@ -1,5 +1,4 @@
-﻿using Microsoft.DocAsCode.DataContracts.ManagedReference;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,7 +11,6 @@ namespace ECMA2Yaml.Models
     {
         public string FullName { get; set; }
         public BaseType BaseType { get; set; }
-        public MemberType MemberType { get; set; }
         public List<string> InheritanceUids { get; set; }
         public Dictionary<string, string> InheritedMembers { get; set; }
         public List<string> IsA { get; set; }

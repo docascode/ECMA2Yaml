@@ -1,12 +1,12 @@
 ﻿using ECMA2Yaml.Models;
-using Microsoft.DocAsCode.DataContracts.ManagedReference;
 using Microsoft.DocAsCode.DataContracts.Common;
+using Microsoft.DocAsCode.DataContracts.ManagedReference;
+using Monodoc.Ecma;
+using MoreLinq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using MoreLinq;
 
 namespace ECMA2Yaml
 {
@@ -136,7 +136,7 @@ namespace ECMA2Yaml
                 Name = t.Name,
                 NameWithType = t.Name,
                 FullName = t.FullName,
-                Type = t.MemberType,
+                Type = t.ItemType.ToMemberType(),
                 Children = t.Members?.Select(m => m.Uid).ToList(),
                 Syntax = t.ToSyntaxDetailViewModel(store),
                 Implements = t.Interfaces,
@@ -187,12 +187,12 @@ namespace ECMA2Yaml
                 NameWithType = t.Name + '.' + m.DisplayName,
                 FullName = m.FullDisplayName,
                 Parent = m.Parent.Uid,
-                Type = m.MemberType,
+                Type = m.ItemType.ToMemberType(),
                 AssemblyNameList = t.AssemblyInfo.Select(a => a.Name).ToList(),
                 NamespaceName = t.Parent.Name,
                 Overload = m.Overload,
                 Syntax = m.ToSyntaxDetailViewModel(store),
-                IsExplicitInterfaceImplementation = m.MemberType != MemberType.Constructor && m.Name.Contains('.'),
+                IsExplicitInterfaceImplementation = m.ItemType != ItemType.Constructor && m.Name.Contains('.'),
                 SupportedLanguages = languageList,
                 Summary = m.Docs?.Summary,
                 Remarks = m.Docs?.Remarks,
@@ -323,6 +323,74 @@ namespace ECMA2Yaml
             return null;
         }
 
+        public static List<SpecViewModel> ToSpecItems(this EcmaDesc desc)
+        {
+            List<SpecViewModel> list = new List<SpecViewModel>();
+            list.Add(new SpecViewModel()
+            {
+                Name = desc.TypeName,
+                NameWithType = desc.TypeName,
+                FullName = desc.ToCompleteTypeName(),
+                Uid = desc.ToOuterTypeUid()
+            });
 
+            if (desc.GenericTypeArgumentsCount > 0)
+            {
+                list.Add(new SpecViewModel()
+                {
+                    Name = "<",
+                    NameWithType = "<",
+                    FullName = "<"
+                });
+
+                list.AddRange(desc.GenericTypeArguments.First().ToSpecItems());
+                for (int i = 1; i < desc.GenericTypeArgumentsCount; i++)
+                {
+                    list.Add(new SpecViewModel()
+                    {
+                        Name = ",",
+                        NameWithType = ",",
+                        FullName = ","
+                    });
+                    list.AddRange(desc.GenericTypeArguments[i].ToSpecItems());
+                }
+
+                list.Add(new SpecViewModel()
+                {
+                    Name = ">",
+                    NameWithType = ">",
+                    FullName = ">"
+                });
+            }
+
+            if (desc.ArrayDimensions != null && desc.ArrayDimensions.Count > 0)
+            {
+                foreach (var arr in desc.ArrayDimensions)
+                {
+                    list.Add(new SpecViewModel()
+                    {
+                        Name = "[]",
+                        NameWithType = "[]",
+                        FullName = "[]"
+                    });
+                }
+            }
+            if (desc.DescModifier == EcmaDesc.Mod.Pointer)
+            {
+                list.Add(new SpecViewModel()
+                {
+                    Name = "*",
+                    NameWithType = "*",
+                    FullName = "*"
+                });
+            }
+
+            return list;
+        }
+
+        public static MemberType ToMemberType(this ItemType itemType)
+        {
+            return (MemberType)Enum.Parse(typeof(MemberType), itemType.ToString());
+        }
     }
 }

@@ -6,11 +6,31 @@ using System.Threading.Tasks;
 
 namespace ECMA2Yaml.Models
 {
+    public enum ItemType
+    {
+        Default = 0,
+        Toc = 1,
+        Assembly = 2,
+        Namespace = 3,
+        Class = 4,
+        Interface = 5,
+        Struct = 6,
+        Delegate = 7,
+        Enum = 8,
+        Field = 9,
+        Property = 10,
+        Event = 11,
+        Constructor = 12,
+        Method = 13,
+        Operator = 14
+    }
+
     public abstract class ReflectionItem
     {
         private string _uid;
         public string Name { get; set; }
         public string Id { get; set; }
+        public ItemType ItemType { get; set; }
         public string Uid
         {
             get

@@ -1,14 +1,12 @@
 ﻿namespace ECMA2Yaml
 {
+    using Models;
     using System.IO;
     using System.Net;
     using System.Xml;
     using System.Xml.Linq;
     using System.Xml.XPath;
     using System.Xml.Xsl;
-
-    using Microsoft.DocAsCode.Common;
-    using Microsoft.DocAsCode.DataContracts.ManagedReference;
 
     /// <summary>
     /// Thread safe, can be used in multi threads after loaded

@@ -1,10 +1,7 @@
-﻿using Microsoft.DocAsCode.DataContracts.ManagedReference;
-using Monodoc.Ecma;
+﻿using Monodoc.Ecma;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ECMA2Yaml.Models
 {
@@ -109,10 +106,10 @@ namespace ECMA2Yaml.Models
         private void BuildOverload(Type t)
         {
             var methods = t.Members?.Where(m =>
-                m.MemberType == MemberType.Method
-                || m.MemberType == MemberType.Constructor
-                || m.MemberType == MemberType.Property
-                || m.MemberType == MemberType.Operator)
+                m.ItemType == ItemType.Method
+                || m.ItemType == ItemType.Constructor
+                || m.ItemType == ItemType.Property
+                || m.ItemType == ItemType.Operator)
                 .ToList();
             var overloads = new Dictionary<string, Member>();
             if (methods?.Count() > 0)
@@ -126,7 +123,7 @@ namespace ECMA2Yaml.Models
                     {
                         overloads.Add(overloadUid, new Member()
                         {
-                            DisplayName = m.MemberType == MemberType.Constructor ? t.Name : m.Name,
+                            DisplayName = m.ItemType == ItemType.Constructor ? t.Name : m.Name,
                             Id = id,
                             Parent = t
                         });
@@ -163,7 +160,7 @@ namespace ECMA2Yaml.Models
 
                 t.InheritanceUids.Reverse();
 
-                if (t.MemberType == MemberType.Class)
+                if (t.ItemType == ItemType.Class)
                 {
                     t.InheritedMembers = new Dictionary<string, string>();
                     foreach (var btUid in t.InheritanceUids)
@@ -175,7 +172,7 @@ namespace ECMA2Yaml.Models
                             {
                                 foreach (var m in bt.Members)
                                 {
-                                    if (m.Name != "Finalize" && m.MemberType != MemberType.Constructor)
+                                    if (m.Name != "Finalize" && m.ItemType != ItemType.Constructor)
                                     {
                                         t.InheritedMembers[m.Id] = bt.Uid;
                                     }

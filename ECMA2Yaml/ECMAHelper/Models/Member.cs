@@ -1,5 +1,4 @@
-﻿using Microsoft.DocAsCode.DataContracts.ManagedReference;
-using Monodoc.Ecma;
+﻿using Monodoc.Ecma;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +8,20 @@ using System.Threading.Tasks;
 
 namespace ECMA2Yaml.Models
 {
+    public enum SyntaxLanguage
+    {
+        Default = 0,
+        CSharp = 1,
+        CPlusPlus = 2,
+        FSharp = 3,
+        Javascript = 4,
+        VB = 5
+    }
+
     public class Member : ReflectionItem
     {
         public string DisplayName { get; set; }
         public string FullDisplayName { get; set; }
-        public MemberType MemberType { get; set; }
         public Dictionary<string, string> Signatures { get; set; }
         public List<AssemblyInfo> AssemblyInfo { get; set; }
         public List<Parameter> TypeParameters { get; set; }
@@ -25,7 +33,7 @@ namespace ECMA2Yaml.Models
 
         public void BuildName(ECMAStore store)
         {
-            DisplayName = MemberType == MemberType.Constructor ? Parent.Name : Name;
+            DisplayName = ItemType == ItemType.Constructor ? Parent.Name : Name;
             if (DisplayName.Contains('<'))
             {
                 DisplayName = DisplayName.Substring(0, DisplayName.IndexOf('<'));
@@ -34,7 +42,7 @@ namespace ECMA2Yaml.Models
             {
                 DisplayName += string.Format("({0})", string.Join(",", Parameters.Select(p => p.Type.ToDisplayName())));
             }
-            else if (MemberType == MemberType.Method || MemberType == MemberType.Constructor)
+            else if (ItemType == ItemType.Method || ItemType == ItemType.Constructor)
             {
                 DisplayName += "()";
             }
