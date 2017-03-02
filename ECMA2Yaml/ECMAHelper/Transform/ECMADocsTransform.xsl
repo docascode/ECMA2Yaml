@@ -30,12 +30,6 @@
     </em>
   </xsl:template>
 
-  <xsl:template match="languageKeyword">
-    <span class="languagekeyword">
-      <xsl:apply-templates />
-    </span>
-  </xsl:template>
-
   <xsl:template match="ui">
     <strong>
       <xsl:apply-templates />
@@ -77,16 +71,7 @@
   </xsl:template>
 
   <xsl:template match="see[@langword]">
-    <xref>
-      <xsl:attribute name="uid">
-        <xsl:value-of select="concat('langword_', $input:language, '_', @langword)"/>
-      </xsl:attribute>
-      <xsl:attribute name="name">
-        <xsl:value-of select="@langword"/>
-      </xsl:attribute>
-      <xsl:attribute name="href">
-      </xsl:attribute>
-    </xref>
+    <xsl:value-of select="concat('`', @langword, '`')"/>
   </xsl:template>
 
   <xsl:template match="see[@cref and not(parent::member)]">
