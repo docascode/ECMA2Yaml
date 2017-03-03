@@ -40,6 +40,7 @@ namespace ECMA2Yaml
                     if (log.MessageSeverity == MessageSeverity.Error)
                     {
                         Console.Error.WriteLine(logStr);
+                        Environment.ExitCode = -1;
                     }
                 }
                 File.AppendAllText(filePath, sb.ToString());

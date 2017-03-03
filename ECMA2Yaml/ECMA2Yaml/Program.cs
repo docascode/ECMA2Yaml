@@ -35,7 +35,6 @@ namespace ECMA2Yaml
             {
                 WriteLine(ex.ToString());
                 OPSLogger.LogSystemError(ex.ToString());
-                Environment.ExitCode = -1;
             }
             finally
             {
