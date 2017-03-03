@@ -34,9 +34,11 @@ namespace ECMA2Yaml.Models
         public void BuildName(ECMAStore store)
         {
             DisplayName = ItemType == ItemType.Constructor ? Parent.Name : Name;
-            if (DisplayName.Contains('<'))
+            if (DisplayName.Contains('.')) //EII
             {
-                DisplayName = DisplayName.Substring(0, DisplayName.IndexOf('<'));
+                var typeStr = DisplayName.Substring(0, DisplayName.LastIndexOf('.'));
+                var memberStr = DisplayName.Substring(DisplayName.LastIndexOf('.') + 1);
+                DisplayName = typeStr.ToDisplayName() + '.' + memberStr;
             }
             if (Parameters?.Count > 0)
             {
@@ -86,7 +88,7 @@ namespace ECMA2Yaml.Models
             foreach (var p in Parameters)
             {
                 var paraUid = p.Type.Replace('+', '.').Replace('<', '{').Replace('>', '}');
-                if (p.RefType != null)
+                if (p.RefType == "ref" || p.RefType == "out")
                 {
                     paraUid += "@";
                 }

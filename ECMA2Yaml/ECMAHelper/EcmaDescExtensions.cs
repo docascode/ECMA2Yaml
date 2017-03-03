@@ -12,7 +12,11 @@ namespace ECMA2Yaml
     {
         public static string ToDisplayName(this string typeStr)
         {
-            if (string.IsNullOrEmpty(typeStr) || !typeStr.Contains('<'))
+            if (string.IsNullOrEmpty(typeStr))
+            {
+                return typeStr;
+            }
+            if (!typeStr.Contains('<'))
             {
                 var parts = typeStr.Split('.');
                 return parts.Last();
