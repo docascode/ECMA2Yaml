@@ -337,7 +337,7 @@ namespace ECMA2Yaml
                     {
                         CommentId = cref,
                         Description = NormalizeDocsElement(GetInnerXml(el)),
-                        Uid = cref.Substring(cref.IndexOf(':') + 1)
+                        Uid = cref.Substring(cref.IndexOf(':') + 1).Replace('+', '.')
                     };
                 }).ToList(),
                 Parameters = dElement.Elements("param")?.Where(p => !string.IsNullOrEmpty(p.Attribute("name").Value)).ToDictionary(p => p.Attribute("name").Value, p => NormalizeDocsElement(GetInnerXml(p))),
@@ -345,7 +345,6 @@ namespace ECMA2Yaml
                 Returns = NormalizeDocsElement(GetInnerXml(dElement.Element("returns"))),
                 Since = NormalizeDocsElement(dElement.Element("since")?.Value),
             };
-
         }
 
         private string GetInnerXml(XElement ele)

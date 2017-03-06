@@ -1,4 +1,5 @@
 ﻿using Microsoft.DocAsCode.Common;
+using Microsoft.DocAsCode.DataContracts.ManagedReference;
 using Mono.Options;
 using System;
 using System.Collections.Generic;
@@ -13,15 +14,15 @@ namespace ECMA2Yaml
     {
         static void Main(string[] args)
         {
-            WriteLine("ECMA2Yaml converter started.");
-
             string sourceFolder = null;
+            string metadataFolder = null;
             string outputFolder = null;
             string logFilePath = "log.json";
             bool flatten = false;
             var options = new OptionSet {
-                { "s|source=", "the folder path containing the mdoc generated xml files.", s => sourceFolder = s },
-                { "o|output=", "the output folder to put yml files.", o => outputFolder = o },
+                { "s|source=", "[Required] the folder path containing the mdoc generated xml files.", s => sourceFolder = s },
+                { "o|output=", "[Required] the output folder to put yml files.", o => outputFolder = o },
+                { "m|metadata=", "the folder path containing the overwrite MD files for metadata.", s => metadataFolder = s },
                 { "l|log=", "the log file path.", l => logFilePath = l },
                 { "f|flatten", "to put all ymls in output root and not keep original folder structure.", f => flatten = f != null },
             };
@@ -29,9 +30,18 @@ namespace ECMA2Yaml
             try
             {
                 var extras = options.Parse(args);
-                LoadAndConvert(sourceFolder, outputFolder, flatten);
+                if (string.IsNullOrEmpty(sourceFolder) || string.IsNullOrEmpty(outputFolder))
+                {
+                    OPSLogger.LogUserError("Invalid command line parameter.");
+                    Console.WriteLine("Usage: ECMA2Yaml.exe <Options>");
+                    options.WriteOptionDescriptions(Console.Out);
+                }
+                else
+                {
+                    LoadAndConvert(sourceFolder, metadataFolder, outputFolder, flatten);
+                }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 WriteLine(ex.ToString());
                 OPSLogger.LogSystemError(ex.ToString());
@@ -42,7 +52,7 @@ namespace ECMA2Yaml
             }
         }
 
-        static void LoadAndConvert(string sourceFolder, string outputFolder, bool flatten)
+        static void LoadAndConvert(string sourceFolder, string metadataFolder, string outputFolder, bool flatten)
         {
             ECMALoader loader = new ECMALoader();
             WriteLine("Loading ECMAXML files...");
@@ -61,6 +71,22 @@ namespace ECMA2Yaml
             WriteLine("Generating Yaml models...");
             var nsPages = TopicGenerator.GenerateNamespacePages(store);
             var typePages = TopicGenerator.GenerateTypePages(store);
+
+            if (!string.IsNullOrEmpty(metadataFolder))
+            {
+                WriteLine("Loading metadata overwrite files...");
+                var metadataDict = YamlHeaderParser.LoadOverwriteMetadata(metadataFolder);
+                var nsCount = ApplyMetadata(nsPages, metadataDict);
+                if (nsCount > 0)
+                {
+                    WriteLine("Applied metadata overwrite for {0} namespaces", nsCount);
+                }
+                var typeCount = ApplyMetadata(typePages, metadataDict);
+                if (typeCount > 0)
+                {
+                    WriteLine("Applied metadata overwrite for {0} types", typeCount);
+                }
+            }
 
             WriteLine("Writing Yaml files...");
             ParallelOptions opt = new ParallelOptions() { MaxDegreeOfParallelism = Environment.ProcessorCount };
@@ -87,6 +113,33 @@ namespace ECMA2Yaml
             });
             YamlUtility.Serialize(Path.Combine(outputFolder, "toc.yml"), TOCGenerator.Generate(store), YamlMime.TableOfContent);
             WriteLine("Done writing Yaml files.");
+        }
+
+        static int ApplyMetadata(Dictionary<string, PageViewModel> pages, Dictionary<string, Dictionary<string, object>> metadataDict)
+        {
+            int count = 0;
+            foreach(var page in pages)
+            {
+                if (page.Value != null)
+                {
+                    foreach(var item in page.Value.Items)
+                    {
+                        if (metadataDict.ContainsKey(item.Uid))
+                        {
+                            if (item.Metadata == null)
+                            {
+                                item.Metadata = new Dictionary<string, object>();
+                            }
+                            foreach(var mtaPair in metadataDict[item.Uid])
+                            {
+                                item.Metadata.Add(mtaPair.Key, mtaPair.Value);
+                            }
+                            count++;
+                        }
+                    }
+                }
+            }
+            return count;
         }
 
         static void WriteLine(string format, params object[] args)

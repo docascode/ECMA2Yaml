@@ -101,7 +101,15 @@ namespace ECMA2Yaml
                 var allExceptions = pv.Items.Where(i => i.Exceptions != null).SelectMany(i => i.Exceptions).ToArray();
                 foreach (var ex in allExceptions)
                 {
-                    if (!store.TypesByUid.ContainsKey(ex.Type))
+                    if (store.TypesByUid.ContainsKey(ex.Type))
+                    {
+                        pv.References.Add(store.TypesByUid[ex.Type].ToReferenceViewModel());
+                    }
+                    else if (store.MembersByUid.ContainsKey(ex.Type))
+                    {
+                        pv.References.Add(store.MembersByUid[ex.Type].ToReferenceViewModel());
+                    }
+                    else
                     {
                         OPSLogger.LogUserWarning("Referenced exception type not found: " + ex.Type, t.FullName);
                         pv.References.Add(new ReferenceViewModel()
@@ -110,10 +118,6 @@ namespace ECMA2Yaml
                             IsExternal = true,
                             Name = ex.Type
                         });
-                    }
-                    else
-                    {
-                        pv.References.Add(store.TypesByUid[ex.Type].ToReferenceViewModel());
                     }
                 }
                 pv.References.AddRange(t.Members.SelectMany(m => m.ToReferenceViewModels(store)));
