@@ -62,14 +62,19 @@ namespace ECMA2Yaml
             {
                 XDocument fxDoc = XDocument.Load(fxFile);
                 var fxName = fxDoc.Root.Attribute("Name").Value;
-                foreach (var tElement in fxDoc.Root.Elements("Type"))
+                foreach (var nsElement in fxDoc.Root.Elements("Namespace"))
                 {
-                    var t = tElement.Attribute("Name").Value.Replace('/', '.');
-                    frameworks.AddWithKeys(t, null, fxName);
-                    foreach (var mElement in tElement.Elements("Member"))
+                    var ns = nsElement.Attribute("Name").Value;
+                    frameworks.AddWithKey(ns, fxName);
+                    foreach (var tElement in nsElement.Elements("Type"))
                     {
-                        var mSig = mElement.Attribute("Sig").Value;
-                        frameworks.AddWithKeys(t, mSig, fxName);
+                        var t = tElement.Attribute("Id").Value;
+                        frameworks.AddWithKey(t, fxName);
+                        foreach (var mElement in tElement.Elements("Member"))
+                        {
+                            var m = mElement.Attribute("Id").Value;
+                            frameworks.AddWithKey(m, fxName);
+                        }
                     }
                 }
             }

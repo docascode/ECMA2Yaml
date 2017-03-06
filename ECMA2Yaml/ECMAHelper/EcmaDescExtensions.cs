@@ -105,9 +105,8 @@ namespace ECMA2Yaml
             return name;
         }
 
-        public static void AddWithKeys(this Dictionary<string, List<string>> dict, string key1, string key2, string val)
+        public static void AddWithKey(this Dictionary<string, List<string>> dict, string key, string val)
         {
-            var key = key1 + (string.IsNullOrEmpty(key2) ? "" : (" - " + key2));
             if (!dict.ContainsKey(key))
             {
                 dict[key] = new List<string>();
@@ -115,9 +114,8 @@ namespace ECMA2Yaml
             dict[key].Add(val);
         }
 
-        public static List<string> GetOrDefault(this Dictionary<string, List<string>> dict, string key1, string key2)
+        public static List<string> GetOrDefault(this Dictionary<string, List<string>> dict, string key)
         {
-            var key = key1 + (string.IsNullOrEmpty(key2) ? "" : (" - " + key2));
             if (dict.ContainsKey(key))
             {
                 return dict[key];

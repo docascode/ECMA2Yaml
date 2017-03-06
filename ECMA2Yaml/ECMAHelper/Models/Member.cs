@@ -30,7 +30,13 @@ namespace ECMA2Yaml.Models
         public Parameter ReturnValueType { get; set; }
         public Docs Docs { get; set; }
         public string Overload { get; set; }
-
+        public string DocId
+        {
+            get
+            {
+                return Signatures["DocId"];
+            }
+        }
         public void BuildName(ECMAStore store)
         {
             DisplayName = ItemType == ItemType.Constructor ? Parent.Name : Name;

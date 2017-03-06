@@ -54,28 +54,31 @@ namespace ECMA2Yaml.Models
         {
             foreach (var ns in _nsList)
             {
-                List<string> fxN = new List<string>();
+                if (_frameworks.ContainsKey(ns.Uid))
+                {
+                    ns.Frameworks = _frameworks[ns.Uid];
+                }
                 foreach (var t in ns.Types)
                 {
-                    t.Frameworks = _frameworks?.GetOrDefault(t.Uid, null);
-                    if (t.Frameworks != null)
+                    if (_frameworks.ContainsKey(t.DocId))
                     {
-                        fxN.AddRange(t.Frameworks);
+                        t.Frameworks = _frameworks[t.DocId];
                     }
                     if (t.Members != null)
                     {
                         foreach (var m in t.Members)
                         {
-                            var fx = _frameworks?.GetOrDefault(t.Uid, m.Signatures["C#"]);
-                            if (fx == null)
+                            if (_frameworks.ContainsKey(m.DocId))
+                            {
+                                m.Frameworks = _frameworks[m.DocId];
+                            }
+                            else
                             {
                                 throw new Exception(string.Format("Unable to find framework info for {0} {1}", t.Uid, m.Signatures["C#"]));
                             }
-                            m.Frameworks = fx;
                         }
                     }
                 }
-                ns.Frameworks = fxN.Distinct().ToList();
             }
         }
 
@@ -236,7 +239,7 @@ namespace ECMA2Yaml.Models
             {
                 desc = typeDescriptorCache[typeString];
             }
-            else if(typeString!= null && typeString.EndsWith("*"))
+            else if (typeString != null && typeString.EndsWith("*"))
             {
                 if (EcmaParser.TryParse("T:" + typeString.TrimEnd('*'), out desc))
                 {
