@@ -17,22 +17,26 @@ $buildOutputSubfolder = $ParameterDictionary.docset.buildOutputSubfolder
 $logOutputFolder = $currentDictionary.environment.logOutputFolder
 $dependencyPackages = $ParameterDictionary.environment.packages
 
-$docfxIntermediateFolder = $ParameterDictionary.docset.docfxIntermediateFolder
-$buildOutputFolder = $ParameterDictionary.docset.buildOutputFolder
-$docfxConfigFile = $ParameterDictionary.docset.docfxConfigFile
-
 $dependentFileListFilePath = $ParameterDictionary.context.dependentFileListFilePath
 $changeListTsvFilePath = $ParameterDictionary.context.changeListTsvFilePath
 $userSpecifiedChangeListTsvFilePath = $ParameterDictionary.context.userSpecifiedChangeListTsvFilePath
 
-$ecmaConfigFile = Join-Path $repositoryRoot "ECMA2Yaml.config.json"
-$ecmaConfig = Get-Content -Raw -Path $ecmaConfigFile | ConvertFrom-Json
+$currentBranch = ''
+git branch | foreach {
+    if ($_ -match "^\* (.*)") {
+        $currentBranch += $matches[1]
+    }
+}
+
+$ecmaConfig = $ParameterDictionary.environment.publishConfigContent.ECMA2Yaml
+$ecmaXmlGitUrlBase = $ecmaConfig.RepoUrl + "blob/" + $currentBranch
+echo "Using $ecmaXmlGitUrlBase as url base"
 $ecmaSourceXmlFolder = Join-Path $repositoryRoot $ecmaConfig.SourceXmlFolder
 $ecmaOutputYamlFolder = Join-Path $repositoryRoot $ecmaConfig.OutputYamlFolder
-$allArgs = @("-s", "$ecmaSourceXmlFolder", "-o", "$ecmaOutputYamlFolder", "-l", "$logFilePath");
+$allArgs = @("-s", "$ecmaSourceXmlFolder", "-o", "$ecmaOutputYamlFolder", "-l", "$logFilePath", "-p", '"$repositoryRoot=>$ecmaXmlGitUrlBase"');
 if ($ecmaConfig.Flatten)
 {
-	$allArgs += "-f";
+    $allArgs += "-f";
 }
 $printAllArgs = [System.String]::Join(' ', $allArgs) 
 $ecma2yamlExeFilePath = Join-Path $currentDir $ecma2yamlExeName

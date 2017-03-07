@@ -23,9 +23,44 @@ namespace ECMA2Yaml.Models
         {
             typeDescriptorCache = new Dictionary<string, EcmaDesc>();
 
-            this._nsList = nsList;
-            this._tList = nsList.SelectMany(ns => ns.Types).ToList();
-            this._frameworks = frameworks;
+            _nsList = nsList;
+            _tList = nsList.SelectMany(ns => ns.Types).ToList();
+            _frameworks = frameworks;
+        }
+
+        public void TranslateSourceLocation(string sourcePathRoot, string gitBaseUrl)
+        {
+            if (!sourcePathRoot.EndsWith("\\"))
+            {
+                sourcePathRoot += "\\";
+            }
+            if (!gitBaseUrl.EndsWith("/"))
+            {
+                gitBaseUrl += "/";
+            }
+            foreach (var ns in _nsList)
+            {
+                TranslateSourceLocation(ns, sourcePathRoot, gitBaseUrl);
+                foreach (var t in ns.Types)
+                {
+                    TranslateSourceLocation(t, sourcePathRoot, gitBaseUrl);
+                    if (t.Members != null)
+                    {
+                        foreach (var m in t.Members)
+                        {
+                            TranslateSourceLocation(m, sourcePathRoot, gitBaseUrl);
+                        }
+                    }
+                }
+            }
+        }
+
+        private void TranslateSourceLocation(ReflectionItem item, string sourcePathRoot, string gitBaseUrl)
+        {
+            if (!string.IsNullOrEmpty(item.ECMASourcePath))
+            {
+                item.ECMASourcePath = item.ECMASourcePath.Replace(sourcePathRoot, gitBaseUrl).Replace("\\", "/");
+            }
         }
 
         public void Build()

@@ -46,6 +46,8 @@ namespace ECMA2Yaml.Models
 
         public List<string> Frameworks { get; set; }
 
+        public string ECMASourcePath { get; set; }
+
         public abstract void BuildId(ECMAStore store);
     }
 }

@@ -1,11 +1,8 @@
 ﻿using Microsoft.DocAsCode.Common;
 using Microsoft.DocAsCode.DataContracts.ManagedReference;
-using Mono.Options;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ECMA2Yaml
@@ -14,31 +11,13 @@ namespace ECMA2Yaml
     {
         static void Main(string[] args)
         {
-            string sourceFolder = null;
-            string metadataFolder = null;
-            string outputFolder = null;
-            string logFilePath = "log.json";
-            bool flatten = false;
-            var options = new OptionSet {
-                { "s|source=", "[Required] the folder path containing the mdoc generated xml files.", s => sourceFolder = s },
-                { "o|output=", "[Required] the output folder to put yml files.", o => outputFolder = o },
-                { "m|metadata=", "the folder path containing the overwrite MD files for metadata.", s => metadataFolder = s },
-                { "l|log=", "the log file path.", l => logFilePath = l },
-                { "f|flatten", "to put all ymls in output root and not keep original folder structure.", f => flatten = f != null },
-            };
+            var opt = new CommandLineOptions();
 
             try
             {
-                var extras = options.Parse(args);
-                if (string.IsNullOrEmpty(sourceFolder) || string.IsNullOrEmpty(outputFolder))
+                if (opt.Parse(args))
                 {
-                    OPSLogger.LogUserError("Invalid command line parameter.");
-                    Console.WriteLine("Usage: ECMA2Yaml.exe <Options>");
-                    options.WriteOptionDescriptions(Console.Out);
-                }
-                else
-                {
-                    LoadAndConvert(sourceFolder, metadataFolder, outputFolder, flatten);
+                    LoadAndConvert(opt);
                 }
             }
             catch (Exception ex)
@@ -48,22 +27,27 @@ namespace ECMA2Yaml
             }
             finally
             {
-                OPSLogger.Flush(logFilePath);
+                OPSLogger.Flush(opt.LogFilePath);
             }
         }
 
-        static void LoadAndConvert(string sourceFolder, string metadataFolder, string outputFolder, bool flatten)
+        static void LoadAndConvert(CommandLineOptions opt)
         {
             ECMALoader loader = new ECMALoader();
             WriteLine("Loading ECMAXML files...");
-            var store = loader.LoadFolder(sourceFolder);
+            var store = loader.LoadFolder(opt.SourceFolder);
             if (store == null)
             {
                 return;
             }
 
             WriteLine("Building loaded files...");
+            if (!string.IsNullOrEmpty(opt.RepoRootPath) && !string.IsNullOrEmpty(opt.GitBaseUrl))
+            {
+                store.TranslateSourceLocation(opt.RepoRootPath, opt.GitBaseUrl);
+            }
             store.Build();
+            
             WriteLine("Loaded {0} namespaces.", store.Namespaces.Count);
             WriteLine("Loaded {0} types.", store.TypesByFullName.Count);
             WriteLine("Loaded {0} members.", store.MembersByUid.Count);
@@ -72,10 +56,10 @@ namespace ECMA2Yaml
             var nsPages = TopicGenerator.GenerateNamespacePages(store);
             var typePages = TopicGenerator.GenerateTypePages(store);
 
-            if (!string.IsNullOrEmpty(metadataFolder))
+            if (!string.IsNullOrEmpty(opt.MetadataFolder))
             {
                 WriteLine("Loading metadata overwrite files...");
-                var metadataDict = YamlHeaderParser.LoadOverwriteMetadata(metadataFolder);
+                var metadataDict = YamlHeaderParser.LoadOverwriteMetadata(opt.MetadataFolder);
                 var nsCount = ApplyMetadata(nsPages, metadataDict);
                 if (nsCount > 0)
                 {
@@ -89,14 +73,14 @@ namespace ECMA2Yaml
             }
 
             WriteLine("Writing Yaml files...");
-            ParallelOptions opt = new ParallelOptions() { MaxDegreeOfParallelism = Environment.ProcessorCount };
-            Parallel.ForEach(nsPages, opt, nsPage =>
+            ParallelOptions po = new ParallelOptions() { MaxDegreeOfParallelism = Environment.ProcessorCount };
+            Parallel.ForEach(nsPages, po, nsPage =>
             {
-                var nsFolder = Path.Combine(outputFolder, nsPage.Key);
-                var nsFileName = Path.Combine(outputFolder, nsPage.Key + ".yml");
+                var nsFolder = Path.Combine(opt.OutputFolder, nsPage.Key);
+                var nsFileName = Path.Combine(opt.OutputFolder, nsPage.Key + ".yml");
                 YamlUtility.Serialize(nsFileName, nsPage.Value, YamlMime.ManagedReference);
 
-                if (!flatten)
+                if (!opt.Flatten)
                 {
                     if (!Directory.Exists(nsFolder))
                     {
@@ -107,11 +91,11 @@ namespace ECMA2Yaml
                 foreach (var t in store.Namespaces[nsPage.Key].Types)
                 {
                     var typePage = typePages[t.Uid];
-                    var fileName = Path.Combine(flatten ? outputFolder : nsFolder, t.Uid.Replace('`', '-') + ".yml");
+                    var fileName = Path.Combine(opt.Flatten ? opt.OutputFolder : nsFolder, t.Uid.Replace('`', '-') + ".yml");
                     YamlUtility.Serialize(fileName, typePage, YamlMime.ManagedReference);
                 }
             });
-            YamlUtility.Serialize(Path.Combine(outputFolder, "toc.yml"), TOCGenerator.Generate(store), YamlMime.TableOfContent);
+            YamlUtility.Serialize(Path.Combine(opt.OutputFolder, "toc.yml"), TOCGenerator.Generate(store), YamlMime.TableOfContent);
             WriteLine("Done writing Yaml files.");
         }
 
