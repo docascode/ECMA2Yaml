@@ -33,7 +33,7 @@ $ecmaXmlGitUrlBase = $ecmaConfig.RepoUrl + "blob/" + $currentBranch
 echo "Using $ecmaXmlGitUrlBase as url base"
 $ecmaSourceXmlFolder = Join-Path $repositoryRoot $ecmaConfig.SourceXmlFolder
 $ecmaOutputYamlFolder = Join-Path $repositoryRoot $ecmaConfig.OutputYamlFolder
-$allArgs = @("-s", "$ecmaSourceXmlFolder", "-o", "$ecmaOutputYamlFolder", "-l", "$logFilePath", "-p", '"$repositoryRoot=>$ecmaXmlGitUrlBase"');
+$allArgs = @("-s", "$ecmaSourceXmlFolder", "-o", "$ecmaOutputYamlFolder", "-l", "$logFilePath", "-p", """$repositoryRoot=>$ecmaXmlGitUrlBase""");
 if ($ecmaConfig.Flatten)
 {
     $allArgs += "-f";
