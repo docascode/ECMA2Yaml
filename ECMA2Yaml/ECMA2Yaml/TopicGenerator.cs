@@ -70,7 +70,7 @@ namespace ECMA2Yaml
             }
             if (!string.IsNullOrEmpty(ns.ECMASourcePath))
             {
-                item.Metadata.Add("original_content_git_url", ns.ECMASourcePath);
+                item.Metadata.Add("content_git_url", ns.ECMASourcePath);
             }
             
             return item;
@@ -161,7 +161,7 @@ namespace ECMA2Yaml
             }
             if (!string.IsNullOrEmpty(t.ECMASourcePath))
             {
-                item.Metadata.Add("original_content_git_url", t.ECMASourcePath);
+                item.Metadata.Add("content_git_url", t.ECMASourcePath);
             }
             return item;
         }
@@ -217,7 +217,7 @@ namespace ECMA2Yaml
             }
             if (!string.IsNullOrEmpty(m.ECMASourcePath))
             {
-                item.Metadata.Add("original_content_git_url", m.ECMASourcePath);
+                item.Metadata.Add("content_git_url", m.ECMASourcePath);
             }
             return item;
         }

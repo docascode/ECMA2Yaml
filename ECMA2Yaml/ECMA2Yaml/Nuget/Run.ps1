@@ -46,3 +46,5 @@ if ($LASTEXITCODE -ne 0)
 {
     exit $LASTEXITCODE
 }
+
+# $changeList = Import-Csv -Delimiter "`t" -Path $changeListTsvFilePath -Header "FileName", "Change"
