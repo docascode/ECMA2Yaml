@@ -1,4 +1,4 @@
-﻿param (
+param (
     [parameter(mandatory=$true)]
     [hashtable]$ParameterDictionary
 )
@@ -38,7 +38,7 @@ if ($ecmaConfig.Flatten)
 {
     $allArgs += "-f";
 }
-$printAllArgs = [System.String]::Join(' ', $allArgs) 
+$printAllArgs = [System.String]::Join(' ', $allArgs)
 $ecma2yamlExeFilePath = Join-Path $currentDir $ecma2yamlExeName
 echo "Executing $ecma2yamlExeFilePath $printAllArgs" | timestamp
 & "$ecma2yamlExeFilePath" $allArgs
@@ -51,7 +51,7 @@ echo "Executing docfx merge command" | timestamp
 $docfxExe = Join-Path $parameterDictionary.environment.packages["docfx.console"].packageRootFolder "tools/docfx.exe"
 
 echo $ParameterDictionary.docset.docfxConfigFile
-& $docfxExe merge (Join-Path $ParameterDictionary.environment.publishConfigContent.docsets_to_publish[0].build_source_folder "docfx.json")
+& $docfxExe merge ([io.path]::combine($ParameterDictionary.environment.repositoryRoot, $ParameterDictionary.environment.publishConfigContent.docsets_to_publish[0].build_source_folder ,"docfx.json"))
 if ($LASTEXITCODE -ne 0)
 {
     exit $LASTEXITCODE
