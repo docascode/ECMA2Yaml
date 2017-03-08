@@ -42,12 +42,15 @@ namespace ECMA2Yaml
         private static string[] languageList = new string[] { "csharp" };
         public static PageViewModel ToPageViewModel(this Namespace ns)
         {
-            var pv = new PageViewModel();
-            pv.Items = new List<ItemViewModel>()
+            var item = ns.ToItemViewModel();
+            var pv = new PageViewModel()
             {
-                ns.ToItemViewModel()
+                Items = new List<ItemViewModel>()
+                {
+                    item
+                },
+                References = ns.Types.Select(t => t.ToReferenceViewModel()).ToList()
             };
-            pv.References = ns.Types.Select(t => t.ToReferenceViewModel()).ToList();
             return pv;
         }
 
@@ -64,15 +67,8 @@ namespace ECMA2Yaml
                 SupportedLanguages = languageList,
                 Children = ns.Types.Select(t => t.Uid).ToList()
             };
-            if (ns.Frameworks != null)
-            {
-                item.Metadata.Add("version", ns.Frameworks);
-            }
-            if (!string.IsNullOrEmpty(ns.ECMASourcePath))
-            {
-                item.Metadata.Add("content_git_url", ns.ECMASourcePath);
-            }
-            
+            item.Metadata.MergeMetadata(ns.Metadata);
+
             return item;
         }
 
@@ -155,14 +151,7 @@ namespace ECMA2Yaml
                 Remarks = t.Docs?.Remarks,
                 Examples = string.IsNullOrEmpty(t.Docs?.Examples) ? null : new List<string> { t.Docs?.Examples }
             };
-            if (t.Frameworks != null)
-            {
-                item.Metadata.Add("version", t.Frameworks);
-            }
-            if (!string.IsNullOrEmpty(t.ECMASourcePath))
-            {
-                item.Metadata.Add("content_git_url", t.ECMASourcePath);
-            }
+            item.Metadata.MergeMetadata(t.Metadata);
             return item;
         }
 
@@ -211,14 +200,7 @@ namespace ECMA2Yaml
                 Examples = string.IsNullOrEmpty(m.Docs?.Examples) ? null : new List<string> { m.Docs?.Examples },
                 Exceptions = m.Docs.Exceptions?.Select(ex => new ExceptionInfo() { CommentId = ex.CommentId, Description = ex.Description, Type = ex.Uid }).ToList()
             };
-            if (m.Frameworks != null)
-            {
-                item.Metadata.Add("version", m.Frameworks);
-            }
-            if (!string.IsNullOrEmpty(m.ECMASourcePath))
-            {
-                item.Metadata.Add("content_git_url", m.ECMASourcePath);
-            }
+            item.Metadata.MergeMetadata(m.Metadata);
             return item;
         }
 
@@ -407,6 +389,17 @@ namespace ECMA2Yaml
         public static MemberType ToMemberType(this ItemType itemType)
         {
             return (MemberType)Enum.Parse(typeof(MemberType), itemType.ToString());
+        }
+
+        public static void MergeMetadata(this Dictionary<string, object> mta, Dictionary<string, object> mta1)
+        {
+            if (mta != null && mta1 != null && mta1.Count > 0)
+            {
+                foreach (var pair in mta1)
+                {
+                    mta.Add(pair.Key, pair.Value);
+                }
+            }
         }
     }
 }

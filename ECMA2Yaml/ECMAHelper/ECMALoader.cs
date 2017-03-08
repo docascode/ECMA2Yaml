@@ -89,7 +89,7 @@ namespace ECMA2Yaml
             ns.Id = ns.Name = nsDoc.Root.Attribute("Name").Value;
             ns.Types = LoadTypes(ns);
             ns.Docs = LoadDocs(nsDoc.Root.Element("Docs"));
-            ns.ECMASourcePath = nsFile;
+            ns.Metadata[OPSMetadata.XMLLocalPath] = nsFile;
             return ns;
         }
 
@@ -130,7 +130,7 @@ namespace ECMA2Yaml
             Models.Type t = new Models.Type();
             t.Name = tRoot.Attribute("Name").Value;
             t.FullName = tRoot.Attribute("FullName").Value;
-            t.ECMASourcePath = typeFile;
+            t.Metadata[OPSMetadata.XMLLocalPath] = typeFile;
 
             //TypeSignature
             t.Signatures = new Dictionary<string, string>();
@@ -173,7 +173,7 @@ namespace ECMA2Yaml
                 t.Members = membersElement.Elements("Member").Select(m => LoadMember(t, m)).ToList();
                 foreach(var m in t.Members)
                 {
-                    m.ECMASourcePath = typeFile;
+                    m.Metadata[OPSMetadata.XMLLocalPath] = typeFile;
                 }
             }
 

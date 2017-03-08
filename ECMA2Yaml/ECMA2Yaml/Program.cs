@@ -1,6 +1,9 @@
-﻿using Microsoft.DocAsCode.Common;
+﻿using ECMA2Yaml.Models;
+using Microsoft.DocAsCode.Common;
 using Microsoft.DocAsCode.DataContracts.ManagedReference;
 using System;
+using System.Linq;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
@@ -73,13 +76,14 @@ namespace ECMA2Yaml
             }
 
             WriteLine("Writing Yaml files...");
+            ConcurrentDictionary<string, string> fileMapping = new ConcurrentDictionary<string, string>();
             ParallelOptions po = new ParallelOptions() { MaxDegreeOfParallelism = Environment.ProcessorCount };
-            Parallel.ForEach(nsPages, po, nsPage =>
+            Parallel.ForEach(store.Namespaces, po, ns =>
             {
-                var nsFolder = Path.Combine(opt.OutputFolder, nsPage.Key);
-                var nsFileName = Path.Combine(opt.OutputFolder, nsPage.Key + ".yml");
-                YamlUtility.Serialize(nsFileName, nsPage.Value, YamlMime.ManagedReference);
-
+                var nsFolder = Path.Combine(opt.OutputFolder, ns.Key);
+                var nsFileName = Path.Combine(opt.OutputFolder, ns.Key + ".yml");
+                YamlUtility.Serialize(nsFileName, nsPages[ns.Key], YamlMime.ManagedReference);
+                fileMapping.TryAdd(ns.Value.Metadata[OPSMetadata.XMLLocalPath].ToString(), nsFileName);
                 if (!opt.Flatten)
                 {
                     if (!Directory.Exists(nsFolder))
@@ -88,14 +92,16 @@ namespace ECMA2Yaml
                     }
                 }
 
-                foreach (var t in store.Namespaces[nsPage.Key].Types)
+                foreach (var t in store.Namespaces[ns.Key].Types)
                 {
                     var typePage = typePages[t.Uid];
-                    var fileName = Path.Combine(opt.Flatten ? opt.OutputFolder : nsFolder, t.Uid.Replace('`', '-') + ".yml");
-                    YamlUtility.Serialize(fileName, typePage, YamlMime.ManagedReference);
+                    var tFileName = Path.Combine(opt.Flatten ? opt.OutputFolder : nsFolder, t.Uid.Replace('`', '-') + ".yml");
+                    YamlUtility.Serialize(tFileName, typePage, YamlMime.ManagedReference);
+                    fileMapping.TryAdd(t.Metadata[OPSMetadata.XMLLocalPath].ToString(), tFileName);
                 }
             });
             YamlUtility.Serialize(Path.Combine(opt.OutputFolder, "toc.yml"), TOCGenerator.Generate(store), YamlMime.TableOfContent);
+            JsonUtility.Serialize(Path.Combine(opt.OutputFolder, "XmlYamlMapping.json"), fileMapping, Newtonsoft.Json.Formatting.Indented);
             WriteLine("Done writing Yaml files.");
         }
 

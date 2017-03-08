@@ -8,16 +8,6 @@ using System.Threading.Tasks;
 
 namespace ECMA2Yaml.Models
 {
-    public enum SyntaxLanguage
-    {
-        Default = 0,
-        CSharp = 1,
-        CPlusPlus = 2,
-        FSharp = 3,
-        Javascript = 4,
-        VB = 5
-    }
-
     public class Member : ReflectionItem
     {
         public string DisplayName { get; set; }

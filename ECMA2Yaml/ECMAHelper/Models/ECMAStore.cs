@@ -57,9 +57,9 @@ namespace ECMA2Yaml.Models
 
         private void TranslateSourceLocation(ReflectionItem item, string sourcePathRoot, string gitBaseUrl)
         {
-            if (!string.IsNullOrEmpty(item.ECMASourcePath))
+            if (item.Metadata.ContainsKey(OPSMetadata.XMLLocalPath))
             {
-                item.ECMASourcePath = item.ECMASourcePath.Replace(sourcePathRoot, gitBaseUrl).Replace("\\", "/");
+                item.Metadata[OPSMetadata.ContentUrl] = ((string)item.Metadata[OPSMetadata.XMLLocalPath]).Replace(sourcePathRoot, gitBaseUrl).Replace("\\", "/");
             }
         }
 
@@ -91,13 +91,13 @@ namespace ECMA2Yaml.Models
             {
                 if (_frameworks.ContainsKey(ns.Uid))
                 {
-                    ns.Frameworks = _frameworks[ns.Uid];
+                    ns.Metadata[OPSMetadata.Version] = _frameworks[ns.Uid];
                 }
                 foreach (var t in ns.Types)
                 {
                     if (_frameworks.ContainsKey(t.DocId))
                     {
-                        t.Frameworks = _frameworks[t.DocId];
+                        t.Metadata[OPSMetadata.Version] = _frameworks[t.DocId];
                     }
                     if (t.Members != null)
                     {
@@ -105,7 +105,7 @@ namespace ECMA2Yaml.Models
                         {
                             if (_frameworks.ContainsKey(m.DocId))
                             {
-                                m.Frameworks = _frameworks[m.DocId];
+                                m.Metadata[OPSMetadata.Version] = _frameworks[m.DocId];
                             }
                             else
                             {

@@ -44,9 +44,12 @@ namespace ECMA2Yaml.Models
         }
         public ReflectionItem Parent { get; set; }
 
-        public List<string> Frameworks { get; set; }
+        public Dictionary<string, object> Metadata { get; set; }
 
-        public string ECMASourcePath { get; set; }
+        public ReflectionItem()
+        {
+            Metadata = new Dictionary<string, object>();
+        }
 
         public abstract void BuildId(ECMAStore store);
     }

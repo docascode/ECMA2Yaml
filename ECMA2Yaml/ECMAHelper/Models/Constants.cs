@@ -1,0 +1,24 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ECMA2Yaml.Models
+{
+    public class OPSMetadata
+    {
+        public static readonly string Version = "version";
+        public static readonly string ContentUrl = "content_git_url";
+        public static readonly string XMLLocalPath = "original_ecmaxml_local_path";
+    }
+    public enum SyntaxLanguage
+    {
+        Default = 0,
+        CSharp = 1,
+        CPlusPlus = 2,
+        FSharp = 3,
+        Javascript = 4,
+        VB = 5
+    }
+}
