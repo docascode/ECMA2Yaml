@@ -47,4 +47,14 @@ if ($LASTEXITCODE -ne 0)
     exit $LASTEXITCODE
 }
 
+echo "Executing docfx merge command" | timestamp
+$docfxExe = Join-Path $parameterDictionary.environment.packages["docfx.console"].packageRootFolder "tools/docfx.exe"
+
+echo $ParameterDictionary.docset.docfxConfigFile
+& $docfxExe merge (Join-Path $ParameterDictionary.environment.publishConfigContent.docsets_to_publish[0].build_source_folder "docfx.json")
+if ($LASTEXITCODE -ne 0)
+{
+    exit $LASTEXITCODE
+}
+
 # $changeList = Import-Csv -Delimiter "`t" -Path $changeListTsvFilePath -Header "FileName", "Change"
