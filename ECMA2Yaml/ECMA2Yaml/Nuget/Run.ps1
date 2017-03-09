@@ -49,15 +49,18 @@ if ($LASTEXITCODE -ne 0)
 
 echo "Executing docfx merge command" | timestamp
 $docfxConfigFile = $ParameterDictionary.docset.docfxConfigFile
-$docfxConfig = $ParameterDictionary.docset.docsetInfo
+$docfxConfigFolder = (Get-Item $docfxConfigFile).DirectoryName
 if ($docfxConfig["merge"] -ne $null)
 {
+	pushd $docfxConfigFolder
     $docfxExe = Join-Path $parameterDictionary.environment.packages["docfx.console"].packageRootFolder "tools/docfx.exe"
-    & $docfxExe merge $docfxConfigFile
+    & $docfxExe merge
     if ($LASTEXITCODE -ne 0)
     {
+		popd
         exit $LASTEXITCODE
     }
+	popd
 }
 else
 {
@@ -82,4 +85,5 @@ if (Test-Path $changeListTsvFilePath)
     }
     $stringBuilder.ToString() | Set-Content $newChangeList
     echo "Saved new changelist to $newChangeList" | timestamp
+	$ParameterDictionary.context.changeListTsvFilePath = $newChangeList
 }
