@@ -5,8 +5,7 @@ build_script:
   - msbuild ./ECMA2Yaml/ECMA2Yaml.sln /p:Configuration=Release
 test: off
 on_success:
-  - pushd ECMA2Yaml
+  - cd ECMA2Yaml
   - pack.bat %APPVEYOR_BUILD_VERSION%
   - nuget push ./_nuget/Microsoft.DocAsCode.ECMA2Yaml.%APPVEYOR_BUILD_VERSION%.nupkg %mygetKey% -Source %mygetUrl%
   - nuget push ./_nuget/Microsoft.DocAsCode.ECMAHelper.%APPVEYOR_BUILD_VERSION%.nupkg %mygetKey% -Source %mygetUrl%
-  - popd
