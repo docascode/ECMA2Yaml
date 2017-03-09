@@ -71,7 +71,7 @@ else
 if (Test-Path $changeListTsvFilePath)
 {
     $mappingFile = Join-Path $logOutputFolder "XmlYamlMapping.json"
-    $mapping = Get-Content $mappingFile | ConvertFrom-Json
+    $mapping = (Get-Content $mappingFile) -join "`n" | ConvertFrom-Json
     $newChangeList = $changeListTsvFilePath -replace "\.tsv$",".mapped.tsv"
     $stringBuilder = New-Object System.Text.StringBuilder
     $changeList = Import-Csv -Delimiter "`t" -Path $changeListTsvFilePath -Header "Path", "Change"
