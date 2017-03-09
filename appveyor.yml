@@ -5,6 +5,8 @@ build_script:
   - msbuild ./ECMA2Yaml/ECMA2Yaml.sln /p:Configuration=Release
 test: off
 on_success:
-  - powershell ./ECMA2Yaml/pack.bat 1.0.{build}
+  - pushd ECMA2Yaml
+  - pack.bat 1.0.{build}
   - nuget push ./_nuget/Microsoft.DocAsCode.ECMA2Yaml.1.0.{build}.nupkg %mygetKey% -Source %mygetUrl%
   - nuget push ./_nuget/Microsoft.DocAsCode.ECMAHelper.1.0.{build}.nupkg %mygetKey% -Source %mygetUrl%
+  - popd
