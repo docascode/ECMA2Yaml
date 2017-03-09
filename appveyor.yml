@@ -6,7 +6,7 @@ build_script:
 test: off
 on_success:
   - pushd ECMA2Yaml
-  - pack.bat 1.0.{build}
-  - nuget push ./_nuget/Microsoft.DocAsCode.ECMA2Yaml.1.0.{build}.nupkg %mygetKey% -Source %mygetUrl%
-  - nuget push ./_nuget/Microsoft.DocAsCode.ECMAHelper.1.0.{build}.nupkg %mygetKey% -Source %mygetUrl%
+  - pack.bat %APPVEYOR_BUILD_VERSION%
+  - nuget push ./_nuget/Microsoft.DocAsCode.ECMA2Yaml.%APPVEYOR_BUILD_VERSION%.nupkg %mygetKey% -Source %mygetUrl%
+  - nuget push ./_nuget/Microsoft.DocAsCode.ECMAHelper.%APPVEYOR_BUILD_VERSION%.nupkg %mygetKey% -Source %mygetUrl%
   - popd
