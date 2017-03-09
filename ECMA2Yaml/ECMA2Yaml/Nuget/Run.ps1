@@ -1,4 +1,4 @@
-param (
+﻿param (
     [parameter(mandatory=$true)]
     [hashtable]$ParameterDictionary
 )
@@ -48,13 +48,38 @@ if ($LASTEXITCODE -ne 0)
 }
 
 echo "Executing docfx merge command" | timestamp
-$docfxExe = Join-Path $parameterDictionary.environment.packages["docfx.console"].packageRootFolder "tools/docfx.exe"
-
-echo $ParameterDictionary.docset.docfxConfigFile
-& $docfxExe merge ([io.path]::combine($ParameterDictionary.environment.repositoryRoot, $ParameterDictionary.environment.publishConfigContent.docsets_to_publish[0].build_source_folder ,"docfx.json"))
-if ($LASTEXITCODE -ne 0)
+$docfxConfigFile = $ParameterDictionary.docset.docfxConfigFile
+$docfxConfig = $ParameterDictionary.docset.docsetInfo
+if ($docfxConfig["merge"] -ne $null)
 {
-    exit $LASTEXITCODE
+    $docfxExe = Join-Path $parameterDictionary.environment.packages["docfx.console"].packageRootFolder "tools/docfx.exe"
+    & $docfxExe merge $docfxConfigFile
+    if ($LASTEXITCODE -ne 0)
+    {
+        exit $LASTEXITCODE
+    }
+}
+else
+{
+    echo "Can't find merge config in $docfxConfigFile, merging skipped." | timestamp
 }
 
-# $changeList = Import-Csv -Delimiter "`t" -Path $changeListTsvFilePath -Header "FileName", "Change"
+if (Test-Path $changeListTsvFilePath)
+{
+    $mappingFile = Join-Path $logOutputFolder "XmlYamlMapping.json"
+    $mapping = Get-Content $mappingFile | ConvertFrom-Json
+    $newChangeList = $changeListTsvFilePath -replace "\.tsv$",".mapped.tsv"
+    $stringBuilder = New-Object System.Text.StringBuilder
+    $changeList = Import-Csv -Delimiter "`t" -Path $changeListTsvFilePath -Header "Path", "Change"
+    Foreach($file in $changeList)
+    {
+        $path = $file.Path -replace "/","\"
+        if ($mapping.$path -ne $null)
+        {
+            $path = $mapping.$path
+        }
+        $stringBuilder.AppendLine($path + "`t" + $file.Change)
+    }
+    $stringBuilder.ToString() | Set-Content $newChangeList
+    echo "Saved new changelist to $newChangeList" | timestamp
+}
