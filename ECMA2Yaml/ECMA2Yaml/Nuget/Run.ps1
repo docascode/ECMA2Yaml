@@ -21,7 +21,7 @@ $dependentFileListFilePath = $ParameterDictionary.context.dependentFileListFileP
 $changeListTsvFilePath = $ParameterDictionary.context.changeListTsvFilePath
 $userSpecifiedChangeListTsvFilePath = $ParameterDictionary.context.userSpecifiedChangeListTsvFilePath
 
-$currentBranch = ''
+$currentBranch = 'master'
 git branch | foreach {
     if ($_ -match "^\* (.*)") {
         $currentBranch += $matches[1]
@@ -50,6 +50,7 @@ if ($LASTEXITCODE -ne 0)
 echo "Executing docfx merge command" | timestamp
 $docfxConfigFile = $ParameterDictionary.docset.docfxConfigFile
 $docfxConfigFolder = (Get-Item $docfxConfigFile).DirectoryName
+$docfxConfig = $ParameterDictionary.docset.docsetInfo
 if ($docfxConfig["merge"] -ne $null)
 {
 	pushd $docfxConfigFolder
