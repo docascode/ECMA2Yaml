@@ -3,12 +3,28 @@
     [hashtable]$ParameterDictionary
 )
 
+Function GetLargeJsonContent([string]$jsonFilePath)
+{
+    try {
+        [void][System.Reflection.Assembly]::LoadWithPartialName("System.Web.Extensions")
+        $jsonSerializer= New-Object -TypeName System.Web.Script.Serialization.JavaScriptSerializer
+        $jsonSerializer.MaxJsonLength  = [System.Int32]::MaxValue
+
+        $jsonContent = Get-Content $jsonFilePath -Raw -Encoding UTF8
+        return $jsonSerializer.DeserializeObject($jsonContent)
+    }
+    catch {
+        Write-Callstack
+        Write-Error "Invalid JSON file $jsonFilePath. JSON content detail: $jsonContent" -ErrorAction Continue
+        throw
+    }
+}
+
 $currentDir = $($MyInvocation.MyCommand.Definition) | Split-Path
 $ecma2yamlExeName = "ECMA2Yaml.exe"
 
 # Main
 $errorActionPreference = 'Stop'
-$source = $($MyInvocation.MyCommand.Definition)
 
 $repositoryRoot = $ParameterDictionary.environment.repositoryRoot
 $logFilePath = $ParameterDictionary.environment.logFile
@@ -18,11 +34,16 @@ $dependentFileListFilePath = $ParameterDictionary.context.dependentFileListFileP
 $changeListTsvFilePath = $ParameterDictionary.context.changeListTsvFilePath
 $userSpecifiedChangeListTsvFilePath = $ParameterDictionary.context.userSpecifiedChangeListTsvFilePath
 
-$repoUrl = $ParameterDictionary.environment.repositoryOriginUrl -replace "\.git$", "/"
-$ecmaXmlGitUrlBase = $repoUrl + "blob/" + $ParameterDictionary.environment.repositoryCurrentBranch
-echo "Using $ecmaXmlGitUrlBase as url base"
+$currentBranch = 'master'
+git branch | foreach {
+    if ($_ -match "^\* (.*)") {
+        $currentBranch = $matches[1]
+    }
+}
 
 $ecmaConfig = $ParameterDictionary.environment.publishConfigContent.ECMA2Yaml
+$ecmaXmlGitUrlBase = $ecmaConfig.RepoUrl + "blob/" + $currentBranch
+echo "Using $ecmaXmlGitUrlBase as url base"
 $ecmaSourceXmlFolder = Join-Path $repositoryRoot $ecmaConfig.SourceXmlFolder
 $ecmaOutputYamlFolder = Join-Path $repositoryRoot $ecmaConfig.OutputYamlFolder
 $allArgs = @("-s", "$ecmaSourceXmlFolder", "-o", "$ecmaOutputYamlFolder", "-l", "$logFilePath", "-p", """$repositoryRoot=>$ecmaXmlGitUrlBase""");
@@ -63,7 +84,7 @@ else
 if (Test-Path $changeListTsvFilePath)
 {
     $mappingFile = Join-Path $logOutputFolder "XmlYamlMapping.json"
-    $mapping = (Get-Content $mappingFile) -join "`n" | ConvertFrom-Json
+    $mapping = GetLargeJsonContent($mappingFile)
     $newChangeList = $changeListTsvFilePath -replace "\.tsv$",".mapped.tsv"
     $stringBuilder = New-Object System.Text.StringBuilder
     $changeList = Import-Csv -Delimiter "`t" -Path $changeListTsvFilePath -Header "Path", "Change"
