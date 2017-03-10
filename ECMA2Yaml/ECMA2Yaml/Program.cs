@@ -1,4 +1,4 @@
-using ECMA2Yaml.Models;
+﻿using ECMA2Yaml.Models;
 using Microsoft.DocAsCode.Common;
 using Microsoft.DocAsCode.DataContracts.ManagedReference;
 using System;
@@ -82,12 +82,12 @@ namespace ECMA2Yaml
             {
                 var nsFolder = Path.Combine(opt.OutputFolder, ns.Key);
                 var nsFileName = Path.Combine(opt.OutputFolder, ns.Key + ".yml");
-                YamlUtility.Serialize(nsFileName, nsPages[ns.Key], YamlMime.ManagedReference);
                 if (ns.Value.Metadata.ContainsKey(OPSMetadata.XMLLocalPath))
                 {
                     fileMapping.TryAdd(ns.Value.Metadata[OPSMetadata.XMLLocalPath].ToString(), nsFileName);
                     ns.Value.Metadata.Remove(OPSMetadata.XMLLocalPath);
                 }
+                YamlUtility.Serialize(nsFileName, nsPages[ns.Key], YamlMime.ManagedReference);
                 
                 if (!opt.Flatten)
                 {
@@ -101,12 +101,12 @@ namespace ECMA2Yaml
                 {
                     var typePage = typePages[t.Uid];
                     var tFileName = Path.Combine(opt.Flatten ? opt.OutputFolder : nsFolder, t.Uid.Replace('`', '-') + ".yml");
-                    YamlUtility.Serialize(tFileName, typePage, YamlMime.ManagedReference);
                     if (t.Metadata.ContainsKey(OPSMetadata.XMLLocalPath))
                     {
                         fileMapping.TryAdd(t.Metadata[OPSMetadata.XMLLocalPath].ToString(), tFileName);
                         t.Metadata.Remove(OPSMetadata.XMLLocalPath);
                     }
+                    YamlUtility.Serialize(tFileName, typePage, YamlMime.ManagedReference);
                 }
             });
             YamlUtility.Serialize(Path.Combine(opt.OutputFolder, "toc.yml"), TOCGenerator.Generate(store), YamlMime.TableOfContent);
