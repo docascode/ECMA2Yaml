@@ -397,7 +397,10 @@ namespace ECMA2Yaml
             {
                 foreach (var pair in mta1)
                 {
-                    mta.Add(pair.Key, pair.Value);
+                    if (pair.Key != OPSMetadata.XMLLocalPath)
+                    {
+                        mta.Add(pair.Key, pair.Value);
+                    }
                 }
             }
         }

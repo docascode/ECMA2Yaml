@@ -85,7 +85,6 @@ namespace ECMA2Yaml
                 if (ns.Value.Metadata.ContainsKey(OPSMetadata.XMLLocalPath))
                 {
                     fileMapping.TryAdd(ns.Value.Metadata[OPSMetadata.XMLLocalPath].ToString(), nsFileName);
-                    ns.Value.Metadata.Remove(OPSMetadata.XMLLocalPath);
                 }
                 YamlUtility.Serialize(nsFileName, nsPages[ns.Key], YamlMime.ManagedReference);
                 
@@ -104,7 +103,6 @@ namespace ECMA2Yaml
                     if (t.Metadata.ContainsKey(OPSMetadata.XMLLocalPath))
                     {
                         fileMapping.TryAdd(t.Metadata[OPSMetadata.XMLLocalPath].ToString(), tFileName);
-                        t.Metadata.Remove(OPSMetadata.XMLLocalPath);
                     }
                     YamlUtility.Serialize(tFileName, typePage, YamlMime.ManagedReference);
                 }
