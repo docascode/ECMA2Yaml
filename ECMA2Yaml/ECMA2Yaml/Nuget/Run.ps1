@@ -34,12 +34,14 @@ $dependentFileListFilePath = $ParameterDictionary.context.dependentFileListFileP
 $changeListTsvFilePath = $ParameterDictionary.context.changeListTsvFilePath
 $userSpecifiedChangeListTsvFilePath = $ParameterDictionary.context.userSpecifiedChangeListTsvFilePath
 
+pushd $repositoryRoot
 $currentBranch = 'master'
 git branch | foreach {
     if ($_ -match "^\* (.*)") {
         $currentBranch = $matches[1]
     }
 }
+popd
 
 $ecmaConfig = $ParameterDictionary.environment.publishConfigContent.ECMA2Yaml
 $ecmaXmlGitUrlBase = $ecmaConfig.RepoUrl + "blob/" + $currentBranch
