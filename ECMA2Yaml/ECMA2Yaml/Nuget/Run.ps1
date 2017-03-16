@@ -53,6 +53,12 @@ if ($ecmaConfig.Flatten)
 {
     $allArgs += "-f";
 }
+if (-not [string]::IsNullOrEmpty($ecmaConfig.SourceMetadataFolder))
+{
+	$ecmaSourceMetadataFolder = Join-Path $repositoryRoot $ecmaConfig.SourceMetadataFolder
+	$allArgs += "-m";
+	$allArgs += "$ecmaSourceMetadataFolder";
+}
 $printAllArgs = [System.String]::Join(' ', $allArgs)
 $ecma2yamlExeFilePath = Join-Path $currentDir $ecma2yamlExeName
 echo "Executing $ecma2yamlExeFilePath $printAllArgs" | timestamp
