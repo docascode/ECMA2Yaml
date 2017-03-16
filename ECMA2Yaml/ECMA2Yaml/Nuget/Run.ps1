@@ -88,7 +88,6 @@ if (Test-Path $changeListTsvFilePath)
     $mappingFile = Join-Path $logOutputFolder "XmlYamlMapping.json"
     $mapping = GetLargeJsonContent($mappingFile)
     $newChangeList = $changeListTsvFilePath -replace "\.tsv$",".mapped.tsv"
-    $stringBuilder = New-Object System.Text.StringBuilder
     $changeList = Import-Csv -Delimiter "`t" -Path $changeListTsvFilePath -Header "Path", "Change"
     Foreach($file in $changeList)
     {
@@ -97,9 +96,8 @@ if (Test-Path $changeListTsvFilePath)
         {
             $path = $mapping.$path
         }
-        $stringBuilder.AppendLine($path + "`t" + $file.Change)
+		Add-Content $newChangeList ("`n" + $path + "`t" + $file.Chang)
     }
-    $stringBuilder.ToString() | Set-Content $newChangeList
     echo "Saved new changelist to $newChangeList" | timestamp
 	$ParameterDictionary.context.changeListTsvFilePath = $newChangeList
 }
@@ -111,7 +109,6 @@ if ($userSpecifiedChangeListTsvFilePath -ne $null)
 		$mappingFile = Join-Path $logOutputFolder "XmlYamlMapping.json"
 		$mapping = GetLargeJsonContent($mappingFile)
 		$newChangeList = $userSpecifiedChangeListTsvFilePath -replace "\.tsv$",".mapped.tsv"
-		$stringBuilder = New-Object System.Text.StringBuilder
 		$changeList = Import-Csv -Delimiter "`t" -Path $userSpecifiedChangeListTsvFilePath -Header "Path", "Change"
 		Foreach($file in $changeList)
 		{
@@ -120,9 +117,8 @@ if ($userSpecifiedChangeListTsvFilePath -ne $null)
 			{
 				$path = $mapping.$path
 			}
-			$stringBuilder.AppendLine($path + "`t" + $file.Change)
+			Add-Content $newChangeList ("`n" + $path + "`t" + $file.Chang)
 		}
-		$stringBuilder.ToString() | Set-Content $newChangeList
 		echo "Saved new changelist to $newChangeList" | timestamp
 		$ParameterDictionary.context.changeListTsvFilePath = $newChangeList
 	}
