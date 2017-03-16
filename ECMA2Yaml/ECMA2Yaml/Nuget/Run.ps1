@@ -102,7 +102,7 @@ if (Test-Path $changeListTsvFilePath)
 	$ParameterDictionary.context.changeListTsvFilePath = $newChangeList
 }
 
-if ($userSpecifiedChangeListTsvFilePath -ne $null)
+if (-not [string]::IsNullOrEmpty($userSpecifiedChangeListTsvFilePath))
 {
 	if (Test-Path $userSpecifiedChangeListTsvFilePath)
 	{
