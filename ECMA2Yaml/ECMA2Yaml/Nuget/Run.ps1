@@ -94,6 +94,7 @@ if (Test-Path $changeListTsvFilePath)
     $mappingFile = Join-Path $logOutputFolder "XmlYamlMapping.json"
     $mapping = GetLargeJsonContent($mappingFile)
     $newChangeList = $changeListTsvFilePath -replace "\.tsv$",".mapped.tsv"
+	New-Item $newChangeList -type file -force
     $changeList = Import-Csv -Delimiter "`t" -Path $changeListTsvFilePath -Header "Path", "Change"
     Foreach($file in $changeList)
     {
@@ -115,6 +116,7 @@ if (-not [string]::IsNullOrEmpty($userSpecifiedChangeListTsvFilePath))
 		$mappingFile = Join-Path $logOutputFolder "XmlYamlMapping.json"
 		$mapping = GetLargeJsonContent($mappingFile)
 		$newChangeList = $userSpecifiedChangeListTsvFilePath -replace "\.tsv$",".mapped.tsv"
+		New-Item $newChangeList -type file -force
 		$changeList = Import-Csv -Delimiter "`t" -Path $userSpecifiedChangeListTsvFilePath -Header "Path", "Change"
 		Foreach($file in $changeList)
 		{
