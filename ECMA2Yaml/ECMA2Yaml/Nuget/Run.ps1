@@ -126,6 +126,6 @@ if (-not [string]::IsNullOrEmpty($userSpecifiedChangeListTsvFilePath))
 			Add-Content $newChangeList ("`n" + $path + "`t" + $file.Change)
 		}
 		echo "Saved new changelist to $newChangeList" | timestamp
-		$ParameterDictionary.context.changeListTsvFilePath = $newChangeList
+		$ParameterDictionary.context.userSpecifiedChangeListTsvFilePath = $newChangeList
 	}
 }
