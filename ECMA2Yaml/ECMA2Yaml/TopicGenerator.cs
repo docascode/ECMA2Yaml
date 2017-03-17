@@ -65,7 +65,10 @@ namespace ECMA2Yaml
                 FullName = ns.Name,
                 Type = MemberType.Namespace,
                 SupportedLanguages = languageList,
-                Children = ns.Types.Select(t => t.Uid).ToList()
+                Children = ns.Types.Select(t => t.Uid).ToList(),
+                Summary = ns.Docs?.Summary,
+                Remarks = ns.Docs?.Remarks,
+                Examples = string.IsNullOrEmpty(ns.Docs?.Examples) ? null : new List<string> { ns.Docs?.Examples }
             };
             item.Metadata.MergeMetadata(ns.Metadata);
 
