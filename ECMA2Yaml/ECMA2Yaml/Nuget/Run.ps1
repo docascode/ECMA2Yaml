@@ -103,7 +103,7 @@ if (Test-Path $changeListTsvFilePath)
         {
             $path = $mapping.$path
         }
-		Add-Content $newChangeList ("`n" + $path + "`t" + $file.Change)
+		Add-Content $newChangeList ($path + "`t" + $file.Change)
     }
     echo "Saved new changelist to $newChangeList" | timestamp
 	$ParameterDictionary.context.changeListTsvFilePath = $newChangeList
@@ -125,7 +125,7 @@ if (-not [string]::IsNullOrEmpty($userSpecifiedChangeListTsvFilePath))
 			{
 				$path = $mapping.$path
 			}
-			Add-Content $newChangeList ("`n" + $path + "`t" + $file.Change)
+			Add-Content $newChangeList ($path + "`t" + $file.Change)
 		}
 		echo "Saved new changelist to $newChangeList" | timestamp
 		$ParameterDictionary.context.userSpecifiedChangeListTsvFilePath = $newChangeList
