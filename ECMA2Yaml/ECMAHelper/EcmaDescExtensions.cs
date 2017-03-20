@@ -123,4 +123,29 @@ namespace ECMA2Yaml
             return null;
         }
     }
+
+    public class TypeIdComparer : IComparer<string>
+    {
+
+        public int Compare(string stringA, string stringB)
+        {
+            String[] valueA = stringA.Split('`');
+            String[] valueB = stringB.Split('`');
+
+            if (valueA.Length != 2 || valueB.Length != 2)
+                return String.Compare(stringA, stringB);
+
+            int iA = 0, iB = 0;
+            if (valueA[0] == valueB[0] && int.TryParse(valueA[1], out iA) && int.TryParse(valueB[1], out iB))
+            {
+                return iA.CompareTo(iB);
+            }
+            else
+            {
+                return String.Compare(valueA[0], valueB[0]);
+            }
+
+        }
+
+    }
 }

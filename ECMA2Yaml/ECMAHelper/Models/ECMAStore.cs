@@ -149,6 +149,11 @@ namespace ECMA2Yaml.Models
                     m.BuildName(this);
                 });
             }
+
+            foreach (var ns in nsList)
+            {
+                ns.Types = ns.Types.OrderBy(t => t.Uid, new TypeIdComparer()).ToList();
+            }
         }
 
         private void BuildOverload(Type t)
