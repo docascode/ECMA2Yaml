@@ -73,6 +73,16 @@ namespace ECMA2Yaml.Models
             TypesByUid = _tList.ToDictionary(t => t.Uid);
             var allMembers = _tList.Where(t => t.Members != null).SelectMany(t => t.Members).ToList();
             var groups = allMembers.GroupBy(m => m.Uid).Where(g => g.Count() > 1).ToList();
+            if (groups.Count > 0)
+            {
+                foreach(var group in groups)
+                {
+                    foreach(var member in group)
+                    {
+                        OPSLogger.LogUserError(string.Format("Member {0}'s name and signature is not unique", member.FullDisplayName), member.Metadata[OPSMetadata.XMLLocalPath].ToString());
+                    }
+                }
+            }
             MembersByUid = allMembers.ToDictionary(m => m.Uid);
 
             foreach (var t in _tList)
