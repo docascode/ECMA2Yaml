@@ -128,8 +128,8 @@ namespace ECMA2Yaml
             XDocument tDoc = XDocument.Parse(xmlContent);
             XElement tRoot = tDoc.Root;
             Models.Type t = new Models.Type();
-            t.Name = tRoot.Attribute("Name").Value;
-            t.FullName = tRoot.Attribute("FullName").Value;
+            t.Name = tRoot.Attribute("Name").Value.Replace('+', '.');
+            t.FullName = tRoot.Attribute("FullName").Value.Replace('+', '.');
             t.Metadata[OPSMetadata.XMLLocalPath] = typeFile;
 
             //TypeSignature
