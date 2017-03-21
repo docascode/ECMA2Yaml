@@ -72,7 +72,7 @@ echo "Executing docfx merge command" | timestamp
 $docfxConfigFile = $ParameterDictionary.docset.docfxConfigFile
 $docfxConfigFolder = (Get-Item $docfxConfigFile).DirectoryName
 $docfxConfig = $ParameterDictionary.docset.docsetInfo
-if ($docfxConfig["merge"] -ne $null)
+if ($docfxConfig.merge -ne $null)
 {
 	pushd $docfxConfigFolder
     $docfxExe = Join-Path $parameterDictionary.environment.packages["docfx.console"].packageRootFolder "tools/docfx.exe"
