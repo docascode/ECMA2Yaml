@@ -68,27 +68,6 @@ if ($LASTEXITCODE -ne 0)
     exit $LASTEXITCODE
 }
 
-echo "Executing docfx merge command" | timestamp
-$docfxConfigFile = $ParameterDictionary.docset.docfxConfigFile
-$docfxConfigFolder = (Get-Item $docfxConfigFile).DirectoryName
-$docfxConfig = Get-Content $docfxConfigFile | ConvertFrom-Json
-if ($docfxConfig.merge -ne $null)
-{
-	pushd $docfxConfigFolder
-    $docfxExe = Join-Path $parameterDictionary.environment.packages["docfx.console"].packageRootFolder "tools/docfx.exe"
-    & $docfxExe merge
-    if ($LASTEXITCODE -ne 0)
-    {
-		popd
-        exit $LASTEXITCODE
-    }
-	popd
-}
-else
-{
-    echo "Can't find merge config in $docfxConfigFile, merging skipped." | timestamp
-}
-
 if (Test-Path $changeListTsvFilePath)
 {
     $mappingFile = Join-Path $logOutputFolder "XmlYamlMapping.json"
