@@ -71,7 +71,7 @@ if ($LASTEXITCODE -ne 0)
 echo "Executing docfx merge command" | timestamp
 $docfxConfigFile = $ParameterDictionary.docset.docfxConfigFile
 $docfxConfigFolder = (Get-Item $docfxConfigFile).DirectoryName
-$docfxConfig = $ParameterDictionary.docset.docsetInfo
+$docfxConfig = Get-Content $docfxConfigFile | ConvertFrom-Json
 if ($docfxConfig.merge -ne $null)
 {
 	pushd $docfxConfigFolder
