@@ -37,7 +37,20 @@ namespace ECMA2Yaml
                 var nsName = nsFileName.Substring("ns-".Length, nsFileName.Length - "ns-.xml".Length);
                 if (!string.IsNullOrEmpty(nsName))
                 {
-                    namespaces.Add(LoadNamespace(nsFile));
+                    var ns = LoadNamespace(nsFile);
+                    
+                    if (ns == null )
+                    {
+                        OPSLogger.LogUserError("failed to load namespace", nsFile);
+                    }
+                    else if (ns.Types == null)
+                    {
+                        OPSLogger.LogUserWarning(string.Format("Namespace {0} has no types", ns.Name), nsFile);
+                    }
+                    else
+                    {
+                        namespaces.Add(ns);
+                    }
                 }
             });
 
