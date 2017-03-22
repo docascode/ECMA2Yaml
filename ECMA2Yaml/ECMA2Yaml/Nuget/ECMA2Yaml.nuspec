@@ -15,5 +15,6 @@
   <files>
     <file src="..\bin\Release\*.*" target="tools" exclude="..\bin\Release\*.xml;..\bin\Release\*.pdb;..\bin\Release\*.txt;..\bin\Release\log.*"/>
     <file src="Run.ps1" target="tools\Run.ps1" />
+    <file src="PostBuild.ps1" target="tools\PostBuild.ps1" />
   </files>
 </package>
