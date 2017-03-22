@@ -29,6 +29,8 @@ $errorActionPreference = 'Stop'
 $repositoryRoot = $ParameterDictionary.environment.repositoryRoot
 $logFilePath = $ParameterDictionary.environment.logFile
 $logOutputFolder = $currentDictionary.environment.logOutputFolder
+$cacheFolder = $currentDictionary.environment.cacheFolder
+$outputFolder = $currentDictionary.environment.outputFolder
 
 $dependentFileListFilePath = $ParameterDictionary.context.dependentFileListFilePath
 $changeListTsvFilePath = $ParameterDictionary.context.changeListTsvFilePath

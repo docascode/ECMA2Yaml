@@ -156,6 +156,7 @@
     <None Include="Nuget\ECMA2Yaml.nuspec">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Nuget\PostBuild.ps1" />
     <None Include="packages.config" />
     <None Include="Nuget\Run.ps1" />
   </ItemGroup>
