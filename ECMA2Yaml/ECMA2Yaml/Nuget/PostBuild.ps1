@@ -14,3 +14,8 @@ $ecmaOutputYamlFolder = Join-Path $repositoryRoot $ecmaConfig.OutputYamlFolder
 
 $ymlOutputFolder = Join-Path $outputFolder "_yml"
 & robocopy $ecmaOutputYamlFolder $ymlOutputFolder *.yml /s
+if ($LASTEXITCODE -ne 1)
+{
+    exit $LASTEXITCODE
+}
+exit 0
