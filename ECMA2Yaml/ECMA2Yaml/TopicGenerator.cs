@@ -324,6 +324,18 @@ namespace ECMA2Yaml
             return null;
         }
 
+        public static string ToSpecItemFullName(this EcmaDesc desc)
+        {
+            if (string.IsNullOrEmpty(desc.Namespace))
+            {
+                return desc.TypeName;
+            }
+            else
+            {
+                return desc.Namespace + '.' + desc.TypeName;
+            }
+        }
+
         public static List<SpecViewModel> ToSpecItems(this EcmaDesc desc)
         {
             List<SpecViewModel> list = new List<SpecViewModel>();
@@ -331,7 +343,7 @@ namespace ECMA2Yaml
             {
                 Name = desc.TypeName,
                 NameWithType = desc.TypeName,
-                FullName = desc.ToCompleteTypeName(),
+                FullName = desc.ToSpecItemFullName(),
                 Uid = desc.ToOuterTypeUid()
             });
 
