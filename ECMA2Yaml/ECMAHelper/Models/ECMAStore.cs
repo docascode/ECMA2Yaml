@@ -12,6 +12,7 @@ namespace ECMA2Yaml.Models
         public Dictionary<string, Type> TypesByFullName { get; set; }
         public Dictionary<string, Type> TypesByUid { get; set; }
         public Dictionary<string, Member> MembersByUid { get; set; }
+        public bool StrictMode { get; set; }
 
         private static Dictionary<string, EcmaDesc> typeDescriptorCache;
 
@@ -205,7 +206,10 @@ namespace ECMA2Yaml.Models
                     }
                     else
                     {
-                        OPSLogger.LogUserWarning(string.Format("Type {0} has an external base type {1}", t.FullName, uid), t.FullName);
+                        if (StrictMode)
+                        {
+                            OPSLogger.LogUserWarning(string.Format("Type {0} has an external base type {1}", t.FullName, uid), t.FullName);
+                        } 
                         uid = null;
                         break;
                     }
@@ -277,6 +281,16 @@ namespace ECMA2Yaml.Models
                     if (m.ReturnValueType != null && m.Docs?.Returns != null)
                     {
                         m.ReturnValueType.Description = m.Docs.Returns;
+                    }
+                    if (StrictMode && m.Docs?.Exceptions != null)
+                    {
+                        foreach(var ex in m.Docs?.Exceptions)
+                        {
+                            if (!TypesByUid.ContainsKey(ex.Uid) && !MembersByUid.ContainsKey(ex.Uid))
+                            {
+                                OPSLogger.LogUserWarning("Referenced exception type not found: " + ex.Uid, t.FullName);
+                            }
+                        }
                     }
                 }
             }

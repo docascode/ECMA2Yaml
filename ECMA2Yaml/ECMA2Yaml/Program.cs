@@ -43,6 +43,7 @@ namespace ECMA2Yaml
             {
                 return;
             }
+            store.StrictMode = opt.StrictMode;
 
             WriteLine("Building loaded files...");
             if (!string.IsNullOrEmpty(opt.RepoRootPath) && !string.IsNullOrEmpty(opt.GitBaseUrl))

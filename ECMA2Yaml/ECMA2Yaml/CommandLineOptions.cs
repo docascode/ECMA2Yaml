@@ -13,6 +13,7 @@ namespace ECMA2Yaml
         public string GitBaseUrl = null;
         public string LogFilePath = "log.json";
         public bool Flatten = false;
+        public bool StrictMode = false;
 
         List<string> Extras = null;
 
@@ -27,6 +28,7 @@ namespace ECMA2Yaml
                 { "l|log=", "the log file path.", l => LogFilePath = l },
                 { "f|flatten", "to put all ymls in output root and not keep original folder structure.", f => Flatten = f != null },
                 { "p|pathUrlMapping={=>}", "map local xml path to the Github url.", (p, u) => { RepoRootPath = p;  GitBaseUrl = u; } },
+                { "strict", "strict mode, means that any unresolved type reference will cause a warning",  s => StrictMode = s != null }
             };
         }
 

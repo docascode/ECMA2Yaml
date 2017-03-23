@@ -114,7 +114,6 @@ namespace ECMA2Yaml
                     }
                     else
                     {
-                        OPSLogger.LogUserWarning("Referenced exception type not found: " + ex.Type, t.FullName);
                         pv.References.Add(new ReferenceViewModel()
                         {
                             Uid = ex.Type,

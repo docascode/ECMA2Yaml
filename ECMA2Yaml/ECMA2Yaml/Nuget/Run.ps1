@@ -55,6 +55,10 @@ if ($ecmaConfig.Flatten)
 {
     $allArgs += "-f";
 }
+if ($ecmaConfig.StrictMode)
+{
+    $allArgs += "-strict";
+}
 if (-not [string]::IsNullOrEmpty($ecmaConfig.SourceMetadataFolder))
 {
 	$ecmaSourceMetadataFolder = Join-Path $repositoryRoot $ecmaConfig.SourceMetadataFolder
