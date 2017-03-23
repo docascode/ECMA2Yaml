@@ -83,9 +83,9 @@ namespace ECMA2Yaml
             {
                 var nsFolder = Path.Combine(opt.OutputFolder, ns.Key);
                 var nsFileName = Path.Combine(opt.OutputFolder, ns.Key + ".yml");
-                if (ns.Value.Metadata.ContainsKey(OPSMetadata.XMLLocalPath))
+                if (!string.IsNullOrEmpty(ns.Value.SourceFileLocalPath))
                 {
-                    fileMapping.TryAdd(ns.Value.Metadata[OPSMetadata.XMLLocalPath].ToString(), nsFileName);
+                    fileMapping.TryAdd(ns.Value.SourceFileLocalPath, nsFileName);
                 }
                 YamlUtility.Serialize(nsFileName, nsPages[ns.Key], YamlMime.ManagedReference);
                 
@@ -101,9 +101,9 @@ namespace ECMA2Yaml
                 {
                     var typePage = typePages[t.Uid];
                     var tFileName = Path.Combine(opt.Flatten ? opt.OutputFolder : nsFolder, t.Uid.Replace('`', '-') + ".yml");
-                    if (t.Metadata.ContainsKey(OPSMetadata.XMLLocalPath))
+                    if (!string.IsNullOrEmpty(t.SourceFileLocalPath))
                     {
-                        fileMapping.TryAdd(t.Metadata[OPSMetadata.XMLLocalPath].ToString(), tFileName);
+                        fileMapping.TryAdd(t.SourceFileLocalPath, tFileName);
                     }
                     YamlUtility.Serialize(tFileName, typePage, YamlMime.ManagedReference);
                 }

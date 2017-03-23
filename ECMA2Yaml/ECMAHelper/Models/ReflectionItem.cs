@@ -44,6 +44,8 @@ namespace ECMA2Yaml.Models
         }
         public ReflectionItem Parent { get; set; }
 
+        public string SourceFileLocalPath { get; set; }
+
         public Dictionary<string, object> Metadata { get; set; }
 
         public ReflectionItem()

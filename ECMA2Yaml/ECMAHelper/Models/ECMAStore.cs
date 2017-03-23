@@ -58,9 +58,9 @@ namespace ECMA2Yaml.Models
 
         private void TranslateSourceLocation(ReflectionItem item, string sourcePathRoot, string gitBaseUrl)
         {
-            if (item.Metadata.ContainsKey(OPSMetadata.XMLLocalPath))
+            if (!string.IsNullOrEmpty(item.SourceFileLocalPath))
             {
-                item.Metadata[OPSMetadata.ContentUrl] = ((string)item.Metadata[OPSMetadata.XMLLocalPath]).Replace(sourcePathRoot, gitBaseUrl).Replace("\\", "/");
+                item.Metadata[OPSMetadata.ContentUrl] = item.SourceFileLocalPath.Replace(sourcePathRoot, gitBaseUrl).Replace("\\", "/");
             }
         }
 
@@ -80,7 +80,7 @@ namespace ECMA2Yaml.Models
                 {
                     foreach(var member in group)
                     {
-                        OPSLogger.LogUserError(string.Format("Member {0}'s name and signature is not unique", member.FullDisplayName), member.Metadata[OPSMetadata.XMLLocalPath].ToString());
+                        OPSLogger.LogUserError(string.Format("Member {0}'s name and signature is not unique", member.FullDisplayName), member.SourceFileLocalPath);
                     }
                 }
             }
@@ -208,7 +208,7 @@ namespace ECMA2Yaml.Models
                     {
                         if (StrictMode)
                         {
-                            OPSLogger.LogUserWarning(string.Format("Type {0} has an external base type {1}", t.FullName, uid), t.FullName);
+                            OPSLogger.LogUserWarning(string.Format("Type {0} has an external base type {1}", t.FullName, uid), t.SourceFileLocalPath);
                         } 
                         uid = null;
                         break;
@@ -288,7 +288,7 @@ namespace ECMA2Yaml.Models
                         {
                             if (!TypesByUid.ContainsKey(ex.Uid) && !MembersByUid.ContainsKey(ex.Uid))
                             {
-                                OPSLogger.LogUserWarning("Referenced exception type not found: " + ex.Uid, t.FullName);
+                                OPSLogger.LogUserWarning("Referenced exception type not found: " + ex.Uid, m.SourceFileLocalPath);
                             }
                         }
                     }
