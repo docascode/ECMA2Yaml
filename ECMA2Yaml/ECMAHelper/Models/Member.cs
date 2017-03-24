@@ -62,7 +62,7 @@ namespace ECMA2Yaml.Models
                 //Type conversion operator can be considered a special operator whose name is the UID of the target type,
                 //with one parameter of the source type.
                 //For example, an operator that converts from string to int should be Explicit(System.String to System.Int32).
-                if (Name == "op_Explicit")
+                if (Name == "op_Explicit" || Name == "op_Implicit")
                 {
                     Id += string.Format("({0} to {1})", Parameters.First().Type, ReturnValueType.Type);
                 }

@@ -38,15 +38,28 @@ $userSpecifiedChangeListTsvFilePath = $ParameterDictionary.context.userSpecified
 
 pushd $repositoryRoot
 $currentBranch = 'master'
-git branch | foreach {
+& git branch | foreach {
     if ($_ -match "^\* (.*)") {
         $currentBranch = $matches[1]
     }
 }
+$gitOrigin = & git config --get remote.origin.url
+if ($gitOrigin.EndsWith(".git"))
+{
+	$gitOrigin = $gitOrigin.Substring(0, $gitOrigin.Length - 4)
+}
 popd
 
 $ecmaConfig = $ParameterDictionary.environment.publishConfigContent.ECMA2Yaml
-$ecmaXmlGitUrlBase = $ecmaConfig.RepoUrl + "blob/" + $currentBranch
+if (-not [string]::IsNullOrEmpty($ecmaConfig.RepoUrl))
+{
+	$gitOrigin = $ecmaConfig.RepoUrl
+}
+if (-not $gitOrigin.EndsWith("/"))
+{
+	$gitOrigin += "/"
+}
+$ecmaXmlGitUrlBase = $gitOrigin + "blob/" + $currentBranch
 echo "Using $ecmaXmlGitUrlBase as url base"
 $ecmaSourceXmlFolder = Join-Path $repositoryRoot $ecmaConfig.SourceXmlFolder
 $ecmaOutputYamlFolder = Join-Path $repositoryRoot $ecmaConfig.OutputYamlFolder

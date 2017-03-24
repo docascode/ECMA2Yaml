@@ -183,10 +183,21 @@ namespace ECMA2Yaml
             var membersElement = tRoot.Element("Members");
             if (membersElement != null)
             {
-                t.Members = membersElement.Elements("Member").Select(m => LoadMember(t, m)).ToList();
-                foreach(var m in t.Members)
+                t.Members = membersElement.Elements("Member")?.Select(m => LoadMember(t, m)).ToList();
+                if (t.Members != null)
                 {
-                    m.SourceFileLocalPath = typeFile;
+                    foreach (var m in t.Members)
+                    {
+                        m.SourceFileLocalPath = typeFile;
+                    }
+                }
+                t.Overloads = membersElement.Elements("MemberGroup")?.Select(m => LoadMemberGroup(t, m)).ToList();
+                if (t.Overloads != null)
+                {
+                    foreach (var m in t.Overloads)
+                    {
+                        m.SourceFileLocalPath = typeFile;
+                    }
                 }
             }
 
@@ -295,6 +306,16 @@ namespace ECMA2Yaml
             //Docs
             m.Docs = LoadDocs(mElement.Element("Docs"));
 
+            return m;
+        }
+
+        private Member LoadMemberGroup(Models.Type t, XElement mElement)
+        {
+            Member m = new Member();
+            m.Parent = t;
+            m.Name = mElement.Attribute("MemberName").Value;
+            m.AssemblyInfo = mElement.Elements("AssemblyInfo")?.Select(a => ParseAssemblyInfo(a)).ToList();
+            m.Docs = LoadDocs(mElement.Element("Docs"));
             return m;
         }
 

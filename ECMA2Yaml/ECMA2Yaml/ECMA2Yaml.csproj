@@ -148,6 +148,7 @@
     <Compile Include="TOCGenerator.cs" />
     <Compile Include="TopicGenerator.cs" />
     <Compile Include="YamlHeaderParser.cs" />
+    <Compile Include="YamlHeaderWriter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">

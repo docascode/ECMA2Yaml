@@ -80,7 +80,7 @@ namespace ECMA2Yaml.Models
                 {
                     foreach(var member in group)
                     {
-                        OPSLogger.LogUserError(string.Format("Member {0}'s name and signature is not unique", member.FullDisplayName), member.SourceFileLocalPath);
+                        OPSLogger.LogUserError(string.Format("Member {0}'s name and signature is not unique", member.Uid), member.SourceFileLocalPath);
                     }
                 }
             }
@@ -165,7 +165,7 @@ namespace ECMA2Yaml.Models
                 || m.ItemType == ItemType.Property
                 || m.ItemType == ItemType.Operator)
                 .ToList();
-            var overloads = new Dictionary<string, Member>();
+            var overloads = t.Overloads?.ToDictionary(o => o.Name) ?? new Dictionary<string, Member>();
             if (methods?.Count() > 0)
             {
                 foreach (var m in methods)
@@ -173,15 +173,16 @@ namespace ECMA2Yaml.Models
                     string id = m.Name.Replace('.', '#') + "*";
                     string overloadUid = string.Format("{0}.{1}", m.Parent.Uid, id);
                     m.Overload = overloadUid;
-                    if (!overloads.ContainsKey(overloadUid))
+                    if (!overloads.ContainsKey(m.Name))
                     {
-                        overloads.Add(overloadUid, new Member()
+                        overloads.Add(m.Name, new Member()
                         {
-                            DisplayName = m.ItemType == ItemType.Constructor ? t.Name : m.Name,
-                            Id = id,
+                            Name = m.Name,
                             Parent = t
                         });
                     }
+                    overloads[m.Name].Id = id;
+                    overloads[m.Name].DisplayName = m.ItemType == ItemType.Constructor ? t.Name : m.Name;
                 }
             }
             if (overloads.Count > 0)
