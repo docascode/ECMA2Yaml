@@ -13,7 +13,7 @@ using YamlDotNet.Serialization;
 
 namespace ECMA2Yaml
 {
-    class Overload
+    public class Overload
     {
         public Overload() { }
 
@@ -48,7 +48,7 @@ namespace ECMA2Yaml
 
         public static void WriterOverload(Member overload, string folder)
         {
-            string fileName = Path.Combine(folder, overload.Uid.Replace("*", ""));
+            string fileName = Path.Combine(folder, overload.Uid.Replace("*", "") + ".md");
             var model = new Overload
             {
                 Uid = overload.Uid

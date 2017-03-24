@@ -77,6 +77,11 @@ namespace ECMA2Yaml
             }
 
             WriteLine("Writing Yaml files...");
+            string overwriteFolder = Path.Combine(opt.OutputFolder, "overwrites");
+            if (!Directory.Exists(overwriteFolder))
+            {
+                Directory.CreateDirectory(overwriteFolder);
+            }
             ConcurrentDictionary<string, string> fileMapping = new ConcurrentDictionary<string, string>();
             ParallelOptions po = new ParallelOptions() { MaxDegreeOfParallelism = Environment.ProcessorCount };
             Parallel.ForEach(store.Namespaces, po, ns =>
@@ -106,6 +111,13 @@ namespace ECMA2Yaml
                         fileMapping.TryAdd(t.SourceFileLocalPath, tFileName);
                     }
                     YamlUtility.Serialize(tFileName, typePage, YamlMime.ManagedReference);
+                    if (t.Overloads != null && t.Overloads.Any(o => o.Docs != null))
+                    {
+                        foreach(var overload in t.Overloads.Where(o => o.Docs != null))
+                        {
+                            YamlHeaderWriter.WriterOverload(overload, overwriteFolder);
+                        }
+                    }
                 }
             });
             YamlUtility.Serialize(Path.Combine(opt.OutputFolder, "toc.yml"), TOCGenerator.Generate(store), YamlMime.TableOfContent);
