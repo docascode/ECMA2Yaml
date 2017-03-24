@@ -32,6 +32,8 @@ namespace ECMA2Yaml
         [YamlMember(Alias = "example")]
         public List<string> Examples { get; set; }
 
+        [JsonProperty("uid")]
+        [YamlMember(Alias = "uid")]
         public string Uid { get; set; }
     }
 
