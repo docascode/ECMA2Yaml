@@ -38,7 +38,7 @@ namespace ECMA2Yaml.Models
             }
             if (Parameters?.Count > 0)
             {
-                DisplayName += string.Format("({0})", string.Join(",", Parameters.Select(p => p.Type.ToDisplayName())));
+                DisplayName += string.Format("({0})", string.Join(", ", Parameters.Select(p => p.Type.ToDisplayName())));
             }
             else if (ItemType == ItemType.Method || ItemType == ItemType.Constructor)
             {
