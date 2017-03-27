@@ -67,7 +67,14 @@ namespace ECMA2Yaml
                         {
                             var uid = result["uid"].ToString();
                             result.Remove("uid");
-                            rval.Add(uid, result);
+                            if (rval.ContainsKey(uid))
+                            {
+                                OPSLogger.LogUserWarning(string.Format("Duplicate uid found: {0}", uid), path);
+                            }
+                            else
+                            {
+                                rval[uid] = result;
+                            }
                         }
                     }
                 }
