@@ -275,12 +275,7 @@ namespace ECMA2Yaml
 
         public static ReferenceViewModel ToReferenceViewModel(this BaseType bt, ECMAStore store)
         {
-            return new ReferenceViewModel()
-            {
-                Uid = bt.Uid,
-                IsExternal = store.MembersByUid.ContainsKey(bt.Uid),
-                Name = bt.Name,
-            };
+            return GenerateReferenceByTypeString(bt.Name, store);
         }
 
         private static ReferenceViewModel GenerateReferenceByTypeString(string typeStr, ECMAStore store)

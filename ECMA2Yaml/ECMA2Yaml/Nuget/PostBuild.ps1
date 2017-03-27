@@ -13,7 +13,7 @@ $ecmaConfig = $ParameterDictionary.environment.publishConfigContent.ECMA2Yaml
 $ecmaOutputYamlFolder = Join-Path $repositoryRoot $ecmaConfig.OutputYamlFolder
 
 $ymlOutputFolder = Join-Path $outputFolder "_yml"
-& robocopy $ecmaOutputYamlFolder $ymlOutputFolder *.yml /s
+& robocopy $ecmaOutputYamlFolder $ymlOutputFolder *.yml *.md /s
 if ($LASTEXITCODE -ne 1)
 {
     exit $LASTEXITCODE
