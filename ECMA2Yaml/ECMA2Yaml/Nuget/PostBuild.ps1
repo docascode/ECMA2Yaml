@@ -11,9 +11,12 @@ $outputFolder = $currentDictionary.environment.outputFolder
 
 $ecmaConfig = $ParameterDictionary.environment.publishConfigContent.ECMA2Yaml
 $ecmaOutputYamlFolder = Join-Path $repositoryRoot $ecmaConfig.OutputYamlFolder
+$ecmaOutputMDFolder = Join-Path $ecmaOutputYamlFolder "overwrites"
 
 $ymlOutputFolder = Join-Path $outputFolder "_yml"
-& robocopy $ecmaOutputYamlFolder $ymlOutputFolder *.yml *.md /s
+$mdOutputFolder = Join-Path $ymlOutputFolder "overwrites"
+& robocopy $ecmaOutputYamlFolder $ymlOutputFolder *.yml /s
+& robocopy $ecmaOutputMDFolder $mdOutputFolder *.md /s
 if ($LASTEXITCODE -ne 1)
 {
     exit $LASTEXITCODE
