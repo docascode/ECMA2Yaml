@@ -20,6 +20,10 @@ namespace ECMA2Yaml
             {
                 if (opt.Parse(args))
                 {
+                    if (!string.IsNullOrEmpty(opt.RepoRootPath))
+                    {
+                        OPSLogger.PathTrimPrefix = opt.RepoRootPath;
+                    }
                     LoadAndConvert(opt);
                 }
             }

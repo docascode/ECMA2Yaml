@@ -11,6 +11,8 @@ namespace ECMA2Yaml
 {
     public class OPSLogger
     {
+        public static string PathTrimPrefix = "";
+
         private static ConcurrentBag<LogItem> logBag = new ConcurrentBag<LogItem>();
 
         public static void LogUserError(string message, string file = null)
@@ -35,6 +37,10 @@ namespace ECMA2Yaml
                 StringBuilder sb = new StringBuilder();
                 foreach(var log in logBag.ToArray())
                 {
+                    if (!string.IsNullOrEmpty(log.File) && !string.IsNullOrEmpty(PathTrimPrefix))
+                    {
+                        log.File = log.File.Replace(PathTrimPrefix, "");
+                    }
                     var logStr = JsonConvert.SerializeObject(log);
                     sb.AppendLine(logStr);
                     if (log.MessageSeverity == MessageSeverity.Error)

@@ -125,7 +125,7 @@ namespace ECMA2Yaml
                 pv.References.AddRange(t.Members.SelectMany(m => m.ToReferenceViewModels(store)));
                 if (t.Overloads?.Count > 0)
                 {
-                    pv.References.AddRange(t.Overloads.Select(o => o.ToReferenceViewModel()));
+                    pv.References.AddRange(t.Overloads.Select(o => o.ToReferenceViewModel(withMetadata: true)));
                 }
             }
             pv.References = pv.References.DistinctBy(r => r.Uid).ToList();
@@ -237,9 +237,9 @@ namespace ECMA2Yaml
             return ap;
         }
 
-        public static ReferenceViewModel ToReferenceViewModel(this Member m)
+        public static ReferenceViewModel ToReferenceViewModel(this Member m, bool withMetadata = false)
         {
-            return new ReferenceViewModel()
+            var r = new ReferenceViewModel()
             {
                 Uid = m.Uid,
                 Parent = m.Parent.Uid,
@@ -248,6 +248,11 @@ namespace ECMA2Yaml
                 NameWithType = ((Models.Type)m.Parent).Name + '.' + m.DisplayName,
                 FullName = m.FullDisplayName
             };
+            if (withMetadata)
+            {
+                r.Additional.MergeMetadata(m.Metadata);
+            }
+            return r;
         }
 
         public static List<ReferenceViewModel> ToReferenceViewModels(this Member m, ECMAStore store)

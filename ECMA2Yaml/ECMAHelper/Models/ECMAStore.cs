@@ -51,6 +51,13 @@ namespace ECMA2Yaml.Models
                         {
                             TranslateSourceLocation(m, sourcePathRoot, gitBaseUrl);
                         }
+                        if (t.Overloads != null)
+                        {
+                            foreach (var o in t.Overloads)
+                            {
+                                TranslateSourceLocation(o, sourcePathRoot, gitBaseUrl);
+                            }
+                        }
                     }
                 }
             }
@@ -183,6 +190,7 @@ namespace ECMA2Yaml.Models
                     }
                     overloads[m.Name].Id = id;
                     overloads[m.Name].DisplayName = m.ItemType == ItemType.Constructor ? t.Name : m.Name;
+                    overloads[m.Name].SourceFileLocalPath = m.SourceFileLocalPath;
                 }
             }
             if (overloads.Count > 0)
