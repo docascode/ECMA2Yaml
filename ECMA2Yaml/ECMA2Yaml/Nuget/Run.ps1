@@ -72,7 +72,7 @@ if ($ecmaConfig.StrictMode)
 {
     $allArgs += "-strict";
 }
-if (-not [string]::IsNullOrEmpty($ecmaConfig.SourceMetadataFolder))
+if (-not [string]::IsNullOrEmpty($ecmaConfig.SourceMetadataFolder) -and (Test-Path $ecmaConfig.SourceMetadataFolder))
 {
 	$ecmaSourceMetadataFolder = Join-Path $repositoryRoot $ecmaConfig.SourceMetadataFolder
 	$allArgs += "-m";
