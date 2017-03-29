@@ -387,6 +387,7 @@ namespace ECMA2Yaml
                 Parameters = dElement.Elements("param")?.Where(p => !string.IsNullOrEmpty(p.Attribute("name").Value)).ToDictionary(p => p.Attribute("name").Value, p => NormalizeDocsElement(GetInnerXml(p))),
                 TypeParameters = dElement.Elements("typeparam")?.Where(p => !string.IsNullOrEmpty(p.Attribute("name").Value)).ToDictionary(p => p.Attribute("name").Value, p => NormalizeDocsElement(GetInnerXml(p))),
                 Returns = NormalizeDocsElement(GetInnerXml(dElement.Element("returns"))),
+                ThreadSafety = NormalizeDocsElement(GetInnerXml(dElement.Element("threadsafe"))),
                 Since = NormalizeDocsElement(dElement.Element("since")?.Value),
             };
         }

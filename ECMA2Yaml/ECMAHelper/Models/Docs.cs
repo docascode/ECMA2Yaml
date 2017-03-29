@@ -12,6 +12,7 @@ namespace ECMA2Yaml.Models
         public string Summary { get; set; }
         public string Remarks { get; set; }
         public string Examples { get; set; }
+        public string ThreadSafety { get; set; }
         public List<XElement> AltMembers { get; set; }
         public List<ExceptionDef> Exceptions { get; set; }
         public Dictionary<string, string> Parameters { get; set; }

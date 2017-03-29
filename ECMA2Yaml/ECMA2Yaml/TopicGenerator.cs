@@ -154,6 +154,10 @@ namespace ECMA2Yaml
                 Examples = string.IsNullOrEmpty(t.Docs?.Examples) ? null : new List<string> { t.Docs?.Examples }
             };
             item.Metadata.MergeMetadata(t.Metadata);
+            if (t.Docs != null && !string.IsNullOrEmpty(t.Docs.ThreadSafety))
+            {
+                item.Metadata[OPSMetadata.ThreadSafety] = t.Docs.ThreadSafety;
+            }
             return item;
         }
 
@@ -203,6 +207,10 @@ namespace ECMA2Yaml
                 Exceptions = m.Docs.Exceptions?.Select(ex => new ExceptionInfo() { CommentId = ex.CommentId, Description = ex.Description, Type = ex.Uid }).ToList()
             };
             item.Metadata.MergeMetadata(m.Metadata);
+            if (m.Docs != null && !string.IsNullOrEmpty(m.Docs.ThreadSafety))
+            {
+                item.Metadata[OPSMetadata.ThreadSafety] = m.Docs.ThreadSafety;
+            }
             return item;
         }
 
