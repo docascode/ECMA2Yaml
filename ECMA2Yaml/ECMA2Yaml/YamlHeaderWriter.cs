@@ -50,7 +50,14 @@ namespace ECMA2Yaml
 
         public static void WriterOverload(Member overload, string folder)
         {
-            string fileName = Path.Combine(folder, overload.Uid.Replace("*", "") + ".md");
+            string fileName = null;
+            try{
+            fileName = Path.Combine(folder, overload.Uid.Replace("*", "_").Replace("?", "_") ".md");
+            }catch(Exception ex)
+            {
+                OPSLogger.LogUserError("Unable to save overload md file for " + overload.Uid);
+                return;
+            }
             var model = new Overload
             {
                 Uid = overload.Uid
