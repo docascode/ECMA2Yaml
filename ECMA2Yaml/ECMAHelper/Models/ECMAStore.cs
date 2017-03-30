@@ -12,6 +12,9 @@ namespace ECMA2Yaml.Models
         public Dictionary<string, Type> TypesByFullName { get; set; }
         public Dictionary<string, Type> TypesByUid { get; set; }
         public Dictionary<string, Member> MembersByUid { get; set; }
+        public Dictionary<string, List<string>> InheritanceByUid { get; set; }
+        public Dictionary<string, ExtensionMethod> ExtensionMethodsByMemberDocId { get; set; }
+        public ILookup<string, ExtensionMethod> ExtensionMethodUidsByTargetUid { get; set; }
         public bool StrictMode { get; set; }
 
         private static Dictionary<string, EcmaDesc> typeDescriptorCache;
@@ -19,14 +22,18 @@ namespace ECMA2Yaml.Models
         private IEnumerable<Namespace> _nsList;
         private IEnumerable<Type> _tList;
         private Dictionary<string, List<string>> _frameworks;
+        private List<ExtensionMethod> _extensionMethods;
 
-        public ECMAStore(IEnumerable<Namespace> nsList, Dictionary<string, List<string>> frameworks)
+        public ECMAStore(IEnumerable<Namespace> nsList, Dictionary<string, List<string>> frameworks, List<ExtensionMethod> extensionMethods)
         {
             typeDescriptorCache = new Dictionary<string, EcmaDesc>();
 
             _nsList = nsList;
             _tList = nsList.SelectMany(ns => ns.Types).ToList();
             _frameworks = frameworks;
+            _extensionMethods = extensionMethods;
+
+            InheritanceByUid = new Dictionary<string, List<string>>();
         }
 
         public void TranslateSourceLocation(string sourcePathRoot, string gitBaseUrl)
@@ -83,9 +90,9 @@ namespace ECMA2Yaml.Models
             var groups = allMembers.GroupBy(m => m.Uid).Where(g => g.Count() > 1).ToList();
             if (groups.Count > 0)
             {
-                foreach(var group in groups)
+                foreach (var group in groups)
                 {
-                    foreach(var member in group)
+                    foreach (var member in group)
                     {
                         OPSLogger.LogUserError(string.Format("Member {0}'s name and signature is not unique", member.Uid), member.SourceFileLocalPath);
                     }
@@ -100,7 +107,53 @@ namespace ECMA2Yaml.Models
                 BuildDocs(t);
             }
 
+            BuildExtensionMethods();
+
             BuildFrameworks();
+        }
+
+        private void BuildExtensionMethods()
+        {
+            ExtensionMethodsByMemberDocId = _extensionMethods.ToDictionary(ex => ex.MemberDocId);
+
+            foreach(var m in MembersByUid.Values)
+            {
+                if (ExtensionMethodsByMemberDocId.ContainsKey(m.DocId))
+                {
+                    m.IsExtensionMethod = true;
+                    ExtensionMethodsByMemberDocId[m.DocId].Uid = m.Uid;
+                }
+            }
+
+            ExtensionMethodUidsByTargetUid = _extensionMethods.ToLookup(ex => ex.TargetDocId.Replace("T:", ""));
+            foreach(var ex in _extensionMethods.Where(ex => ex.Uid == null))
+            {
+                OPSLogger.LogUserWarning(string.Format("ExtensionMethod {0} not found in its type {1}", ex.MemberDocId, ex.ParentType), "index.xml");
+            }
+
+            foreach (var t in _tList)
+            {
+                List<string> extensionMethods = new List<string>();
+                Stack<string> uidsToCheck = new Stack<string>();
+                uidsToCheck.Push(t.Uid);
+                while(uidsToCheck.Count > 0)
+                {
+                    var uid = uidsToCheck.Pop();
+                    if (InheritanceByUid.ContainsKey(uid))
+                    {
+                        InheritanceByUid[uid].ForEach(u => uidsToCheck.Push(u));
+                    }
+                    if (ExtensionMethodUidsByTargetUid.Contains(uid))
+                    {
+                        extensionMethods.AddRange(ExtensionMethodUidsByTargetUid[uid].Where(ex => !string.IsNullOrEmpty(ex.Uid)).Select(ex => ex.Uid));
+                    }
+                }
+                if (extensionMethods.Count > 0)
+                {
+                    t.ExtensionMethods = extensionMethods.Distinct().ToList();
+                    t.ExtensionMethods.Sort();
+                }
+            }
         }
 
         private void BuildFrameworks()
@@ -139,21 +192,21 @@ namespace ECMA2Yaml.Models
         {
             foreach (var ns in nsList)
             {
-                ns.BuildId(this);
+                ns.Build(this);
             }
             foreach (var t in tList)
             {
-                t.BuildId(this);
+                t.Build(this);
                 if (t.BaseType != null)
                 {
-                    t.BaseType.BuildId(this);
+                    t.BaseType.Build(this);
                 }
             }
             foreach (var t in tList.Where(x => x.Members?.Count > 0))
             {
                 t.Members.ForEach(m =>
                 {
-                    m.BuildId(this);
+                    m.Build(this);
                     m.BuildName(this);
                 });
             }
@@ -199,30 +252,47 @@ namespace ECMA2Yaml.Models
             }
         }
 
+        private void AddInheritanceMapping(string childUid, string parentUid)
+        {
+            if (!InheritanceByUid.ContainsKey(childUid))
+            {
+                InheritanceByUid.Add(childUid, new List<string>());
+            }
+            InheritanceByUid[childUid].Add(parentUid);
+        }
+
         private void BuildInheritance(Type t)
         {
+            if (t.Interfaces?.Count > 0)
+            {
+                foreach (var f in t.Interfaces)
+                {
+                    AddInheritanceMapping(t.Uid, f.ToOuterTypeUid());
+                }
+            }
             if (t.BaseType != null)
             {
                 t.InheritanceUids = new List<string>();
-                string uid = t.BaseType.Uid;
+                string baseUid = t.BaseType.Uid;
+                AddInheritanceMapping(t.Uid, baseUid);
                 do
                 {
-                    t.InheritanceUids.Add(uid);
-                    if (TypesByUid.ContainsKey(uid))
+                    t.InheritanceUids.Add(baseUid);
+                    if (TypesByUid.ContainsKey(baseUid))
                     {
-                        var tb = TypesByUid[uid];
-                        uid = tb.BaseType?.Uid;
+                        var tb = TypesByUid[baseUid];
+                        baseUid = tb.BaseType?.Uid;
                     }
                     else
                     {
                         if (StrictMode)
                         {
-                            OPSLogger.LogUserWarning(string.Format("Type {0} has an external base type {1}", t.FullName, uid), t.SourceFileLocalPath);
-                        } 
-                        uid = null;
+                            OPSLogger.LogUserWarning(string.Format("Type {0} has an external base type {1}", t.FullName, baseUid), t.SourceFileLocalPath);
+                        }
+                        baseUid = null;
                         break;
                     }
-                } while (uid != null);
+                } while (baseUid != null);
 
                 t.InheritanceUids.Reverse();
 
@@ -293,7 +363,7 @@ namespace ECMA2Yaml.Models
                     }
                     if (StrictMode && m.Docs?.Exceptions != null)
                     {
-                        foreach(var ex in m.Docs?.Exceptions)
+                        foreach (var ex in m.Docs?.Exceptions)
                         {
                             if (!TypesByUid.ContainsKey(ex.Uid) && !MembersByUid.ContainsKey(ex.Uid))
                             {

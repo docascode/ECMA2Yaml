@@ -59,6 +59,7 @@ namespace ECMA2Yaml
             WriteLine("Loaded {0} namespaces.", store.Namespaces.Count);
             WriteLine("Loaded {0} types.", store.TypesByFullName.Count);
             WriteLine("Loaded {0} members.", store.MembersByUid.Count);
+            WriteLine("Loaded {0} extension methods.", store.ExtensionMethodsByMemberDocId.Values.Count);
 
             WriteLine("Generating Yaml models...");
             var nsPages = TopicGenerator.GenerateNamespacePages(store);

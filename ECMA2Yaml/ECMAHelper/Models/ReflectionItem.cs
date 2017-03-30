@@ -53,6 +53,6 @@ namespace ECMA2Yaml.Models
             Metadata = new Dictionary<string, object>();
         }
 
-        public abstract void BuildId(ECMAStore store);
+        public abstract void Build(ECMAStore store);
     }
 }

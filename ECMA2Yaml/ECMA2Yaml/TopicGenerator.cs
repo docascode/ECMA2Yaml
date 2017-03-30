@@ -96,7 +96,7 @@ namespace ECMA2Yaml
             pv.References = new List<ReferenceViewModel>();
             if (t.BaseType != null)
             {
-                pv.References.Add(t.BaseType.ToReferenceViewModel(store));
+                pv.References.AddRange(t.BaseType.ToReferenceViewModel(store));
             }
             if (t.Members != null)
             {
@@ -128,6 +128,10 @@ namespace ECMA2Yaml
                     pv.References.AddRange(t.Overloads.Select(o => o.ToReferenceViewModel(withMetadata: true)));
                 }
             }
+            if (t.ExtensionMethods?.Count > 0)
+            {
+                pv.References.AddRange(t.ExtensionMethods.Select(ex => store.MembersByUid[ex].ToReferenceViewModel()));
+            }
             pv.References = pv.References.DistinctBy(r => r.Uid).ToList();
 
             return pv;
@@ -151,7 +155,8 @@ namespace ECMA2Yaml
                 SupportedLanguages = languageList,
                 Summary = t.Docs?.Summary,
                 Remarks = t.Docs?.Remarks,
-                Examples = string.IsNullOrEmpty(t.Docs?.Examples) ? null : new List<string> { t.Docs?.Examples }
+                Examples = string.IsNullOrEmpty(t.Docs?.Examples) ? null : new List<string> { t.Docs?.Examples },
+                ExtensionMethods = t.ExtensionMethods
             };
             item.Metadata.MergeMetadata(t.Metadata);
             if (t.Docs != null && !string.IsNullOrEmpty(t.Docs.ThreadSafety))
@@ -271,32 +276,53 @@ namespace ECMA2Yaml
 
             if (m.ReturnValueType != null && !string.IsNullOrEmpty(m.ReturnValueType.Type) && m.ReturnValueType.Type != "System.Void")
             {
-                var reference = GenerateReferenceByTypeString(m.ReturnValueType.Type, store);
+                var reference = GenerateReferencesByTypeString(m.ReturnValueType.Type, store);
                 if (reference != null)
                 {
-                    refs.Add(reference);
+                    refs.AddRange(reference);
                 }
             }
 
             if (m.Parameters?.Count > 0)
             {
-                refs.AddRange(m.Parameters.Select(p => GenerateReferenceByTypeString(p.Type, store)).Where(r => r != null));
+                refs.AddRange(m.Parameters.SelectMany(p => GenerateReferencesByTypeString(p.Type, store)).Where(r => r != null));
             }
 
             return refs;
         }
 
-        public static ReferenceViewModel ToReferenceViewModel(this BaseType bt, ECMAStore store)
+        public static List<ReferenceViewModel> ToReferenceViewModel(this BaseType bt, ECMAStore store)
         {
-            return GenerateReferenceByTypeString(bt.Name, store);
+            return GenerateReferencesByTypeString(bt.Name, store);
         }
 
-        private static ReferenceViewModel GenerateReferenceByTypeString(string typeStr, ECMAStore store)
+        public static ReferenceViewModel ToReferenceViewModel(this SpecViewModel spec, ECMAStore store)
+        {
+            if (store.TypesByUid.ContainsKey(spec.Uid))
+            {
+                return new ReferenceViewModel()
+                {
+                    Uid = store.TypesByUid[spec.Uid].Uid,
+                    Name = store.TypesByUid[spec.Uid].Name,
+                    NameWithType = store.TypesByUid[spec.Uid].Name,
+                    FullName = store.TypesByUid[spec.Uid].FullName
+                };
+            }
+            return new ReferenceViewModel()
+            {
+                Uid = spec.Uid,
+                Name = spec.Name,
+                NameWithType = spec.NameWithType,
+                FullName = spec.FullName
+            };
+        }
+
+        private static List<ReferenceViewModel> GenerateReferencesByTypeString(string typeStr, ECMAStore store)
         {
             if (store.TypesByFullName.ContainsKey(typeStr))
             {
                 var rt = store.TypesByFullName[typeStr];
-                return new ReferenceViewModel()
+                return new List<ReferenceViewModel>() {new ReferenceViewModel()
                 {
                     Uid = rt.Uid,
                     Parent = rt.Parent.Uid,
@@ -304,10 +330,11 @@ namespace ECMA2Yaml
                     Name = rt.Name,
                     NameWithType = rt.Name,
                     FullName = rt.FullName
-                };
+                } };
             }
             else
             {
+                var refs = new List<ReferenceViewModel>();
                 var desc = ECMAStore.GetOrAddTypeDescriptor(typeStr);
                 if (desc != null)
                 {
@@ -323,8 +350,13 @@ namespace ECMA2Yaml
                     if (desc.GenericTypeArgumentsCount > 0 || desc.ArrayDimensions?.Count > 0 || desc.DescModifier == Monodoc.Ecma.EcmaDesc.Mod.Pointer)
                     {
                         refModel.Specs.Add("csharp", desc.ToSpecItems());
+                        foreach (var spec in refModel.Specs["csharp"].Where(s => !string.IsNullOrEmpty(s.Uid)))
+                        {
+                            refs.Add(spec.ToReferenceViewModel(store));
+                        }
+                        refs.Add(refModel);
                     }
-                    return refModel;
+                    return refs;
                 }
             }
 

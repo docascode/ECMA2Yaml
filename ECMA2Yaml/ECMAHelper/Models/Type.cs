@@ -29,9 +29,10 @@ namespace ECMA2Yaml.Models
                 return Signatures["DocId"];
             }
         }
+        public List<string> ExtensionMethods { get; set; }
         private static Regex GenericRegex = new Regex("<[^<>]+>", RegexOptions.Compiled);
 
-        public override void BuildId(ECMAStore store)
+        public override void Build(ECMAStore store)
         {
             if (string.IsNullOrEmpty(Id))
             {

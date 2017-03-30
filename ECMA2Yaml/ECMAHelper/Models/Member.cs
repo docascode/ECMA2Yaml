@@ -24,9 +24,11 @@ namespace ECMA2Yaml.Models
         {
             get
             {
-                return Signatures["DocId"];
+                return Signatures.ContainsKey("DocId") ? Signatures["DocId"] : null;
             }
         }
+        public bool IsExtensionMethod { get; set; }
+
         public void BuildName(ECMAStore store)
         {
             DisplayName = ItemType == ItemType.Constructor ? Parent.Name : Name;
@@ -48,7 +50,7 @@ namespace ECMA2Yaml.Models
         }
 
         //The ID of a generic method uses postfix ``n, n is the count of in method parameters, for example, System.Tuple.Create``1(``0)
-        public override void BuildId(ECMAStore store)
+        public override void Build(ECMAStore store)
         {
             Id = Name.Replace('.', '#');
             if (TypeParameters?.Count > 0)

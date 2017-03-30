@@ -11,7 +11,7 @@ namespace ECMA2Yaml.Models
         public List<Type> Types { get; set; }
         public Docs Docs { get; set; }
 
-        public override void BuildId(ECMAStore store)
+        public override void Build(ECMAStore store)
         {
             Id = Name;
         }

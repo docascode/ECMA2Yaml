@@ -16,7 +16,7 @@ namespace ECMA2Yaml.Models
     {
         public List<BaseTypeArgument> TypeArguments { get; set; }
 
-        public override void BuildId(ECMAStore store)
+        public override void Build(ECMAStore store)
         {
             if (TypeArguments?.Count > 0)
             {

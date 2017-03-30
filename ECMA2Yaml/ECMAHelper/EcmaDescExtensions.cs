@@ -25,16 +25,16 @@ namespace ECMA2Yaml
             return ECMAStore.GetOrAddTypeDescriptor(typeStr).ToDisplayName();
         }
 
-        public static string ToSpecId(this string typeStr)
+        public static string ToSpecId(this string typeStr, List<string> knownTypeParams = null)
         {
             if (string.IsNullOrEmpty(typeStr) || !typeStr.Contains('<'))
             {
                 return typeStr;
             }
-            return ECMAStore.GetOrAddTypeDescriptor(typeStr).ToSpecId();
+            return ECMAStore.GetOrAddTypeDescriptor(typeStr).ToSpecId(knownTypeParams);
         }
 
-        public static string ToSpecId(this EcmaDesc desc)
+        public static string ToSpecId(this EcmaDesc desc, List<string> knownTypeParams = null)
         {
             if (desc == null)
             {
@@ -43,7 +43,14 @@ namespace ECMA2Yaml
             var typeStr = string.IsNullOrEmpty(desc.Namespace) ? desc.TypeName : desc.Namespace + "." + desc.TypeName;
             if (desc.GenericTypeArgumentsCount > 0)
             {
-                typeStr = string.Format("{0}{{{1}}}", typeStr, string.Join(",", desc.GenericTypeArguments.Select(d => d.ToSpecId())));
+                if (knownTypeParams != null && desc.GenericTypeArguments.All(ta => knownTypeParams.Contains(ta.TypeName)))
+                {
+                    typeStr = string.Format("{0}`{1}", typeStr, desc.GenericTypeArgumentsCount);
+                }
+                else
+                {
+                    typeStr = string.Format("{0}{{{1}}}", typeStr, string.Join(",", desc.GenericTypeArguments.Select(d => d.ToSpecId(knownTypeParams))));
+                }
             }
             if (desc.ArrayDimensions?.Count > 0)
             {
@@ -57,6 +64,15 @@ namespace ECMA2Yaml
                 typeStr += "*";
             }
             return typeStr;
+        }
+
+        public static string ToOuterTypeUid(this string typeStr)
+        {
+            if (string.IsNullOrEmpty(typeStr) || !typeStr.Contains('<'))
+            {
+                return typeStr;
+            }
+            return ECMAStore.GetOrAddTypeDescriptor(typeStr).ToOuterTypeUid();
         }
 
         public static string ToOuterTypeUid(this EcmaDesc desc)

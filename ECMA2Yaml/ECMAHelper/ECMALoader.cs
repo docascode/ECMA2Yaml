@@ -59,7 +59,7 @@ namespace ECMA2Yaml
                 return null;
             }
 
-            return new ECMAStore(namespaces.OrderBy(ns => ns.Name).ToArray(), frameworks);
+            return new ECMAStore(namespaces.OrderBy(ns => ns.Name).ToArray(), frameworks, extensionMethods);
         }
 
         private Dictionary<string, List<string>> LoadFrameworks(string path)
