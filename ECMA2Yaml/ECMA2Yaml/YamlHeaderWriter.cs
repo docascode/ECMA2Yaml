@@ -52,7 +52,7 @@ namespace ECMA2Yaml
         {
             string fileName = null;
             try{
-            fileName = Path.Combine(folder, overload.Uid.Replace("*", "_").Replace("?", "_") ".md");
+            fileName = Path.Combine(folder, overload.Uid.Replace("*", "_").Replace("?", "_") + ".md");
             }catch(Exception ex)
             {
                 OPSLogger.LogUserError("Unable to save overload md file for " + overload.Uid);
