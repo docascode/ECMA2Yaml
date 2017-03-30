@@ -13,7 +13,6 @@ namespace ECMA2Yaml
 {
     public class ECMALoader
     {
-        private string _baseFolder;
         private List<string> _errorFiles = new List<string>();
         private ECMADocsTransform _docsTransform = new ECMADocsTransform();
 
@@ -26,18 +25,18 @@ namespace ECMA2Yaml
             }
 
             var frameworks = LoadFrameworks(path);
+            var extensionMethods = LoadExtensionMethods(path);
 
-            _baseFolder = path;
             ConcurrentBag<Namespace> namespaces = new ConcurrentBag<Namespace>();
             ParallelOptions opt = new ParallelOptions() { MaxDegreeOfParallelism = Environment.ProcessorCount };
             //foreach(var nsFile in Directory.EnumerateFiles(_baseFolder, "ns-*.xml"))
-            Parallel.ForEach(Directory.EnumerateFiles(_baseFolder, "ns-*.xml"), opt, nsFile =>
+            Parallel.ForEach(Directory.EnumerateFiles(path, "ns-*.xml"), opt, nsFile =>
             {
                 var nsFileName = Path.GetFileName(nsFile);
                 var nsName = nsFileName.Substring("ns-".Length, nsFileName.Length - "ns-.xml".Length);
                 if (!string.IsNullOrEmpty(nsName))
                 {
-                    var ns = LoadNamespace(nsFile);
+                    var ns = LoadNamespace(path, nsFile);
                     
                     if (ns == null )
                     {
@@ -95,20 +94,43 @@ namespace ECMA2Yaml
             return frameworks;
         }
 
-        private Namespace LoadNamespace(string nsFile)
+        private List<ExtensionMethod> LoadExtensionMethods(string path)
+        {
+            var indexFile = Path.Combine(path, "index.xml");
+            if (!File.Exists(indexFile))
+            {
+                return null;
+            }
+
+            var extensionMethods = new List<ExtensionMethod>();
+            XDocument idxDoc = XDocument.Load(indexFile);
+            var emElements = idxDoc?.Root?.Element("ExtensionMethods")?.Elements("ExtensionMethod");
+            foreach(var em in emElements)
+            {
+                extensionMethods.Add(new ExtensionMethod()
+                {
+                    TargetDocId = em.Element("Targets").Element("Target").Attribute("Type").Value,
+                    MemberDocId = em.Element("Member").Element("Link").Attribute("Member").Value,
+                    ParentType = em.Element("Member").Element("Link").Attribute("Type").Value
+                });
+            }
+            return extensionMethods;
+        }
+
+        private Namespace LoadNamespace(string basePath, string nsFile)
         {
             XDocument nsDoc = XDocument.Load(nsFile);
             Namespace ns = new Namespace();
             ns.Id = ns.Name = nsDoc.Root.Attribute("Name").Value;
-            ns.Types = LoadTypes(ns);
+            ns.Types = LoadTypes(basePath, ns);
             ns.Docs = LoadDocs(nsDoc.Root.Element("Docs"));
             ns.SourceFileLocalPath = nsFile;
             return ns;
         }
 
-        private List<Models.Type> LoadTypes(Namespace ns)
+        private List<Models.Type> LoadTypes(string basePath, Namespace ns)
         {
-            string nsFolder = Path.Combine(_baseFolder, ns.Name);
+            string nsFolder = Path.Combine(basePath, ns.Name);
             if (!Directory.Exists(nsFolder))
             {
                 return null;

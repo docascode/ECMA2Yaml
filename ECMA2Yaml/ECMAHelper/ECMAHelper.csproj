@@ -60,6 +60,7 @@
     <Compile Include="Models\Docs.cs" />
     <Compile Include="Models\ECMAStore.cs" />
     <Compile Include="Models\ExceptionDef.cs" />
+    <Compile Include="Models\ExtensionMethod.cs" />
     <Compile Include="Models\ReflectionItem.cs" />
     <Compile Include="Logging\LogItem.cs" />
     <Compile Include="Models\Member.cs" />
