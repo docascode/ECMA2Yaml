@@ -356,11 +356,13 @@ namespace ECMA2Yaml
                         }
                         refs.Add(refModel);
                     }
-                    return refs;
                 }
+                else
+                {
+                    OPSLogger.LogUserWarning("Unable to parse type string " + typeStr);
+                }
+                return refs;
             }
-
-            return null;
         }
 
         public static string ToSpecItemFullName(this EcmaDesc desc)
