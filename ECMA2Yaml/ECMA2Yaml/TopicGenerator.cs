@@ -364,8 +364,8 @@ namespace ECMA2Yaml
                         {
                             refs.Add(spec.ToReferenceViewModel(store));
                         }
-                        refs.Add(refModel);
                     }
+                    refs.Add(refModel);
                 }
                 else
                 {
@@ -476,19 +476,9 @@ namespace ECMA2Yaml
             }
             return attributes.Select(attr =>
             {
-                var fqn = attr.Declaration;
-                if (fqn.Contains("("))
-                {
-                    fqn = fqn.Substring(0, fqn.IndexOf("("));
-                }
-                var nameWithSuffix = fqn + "Attribute";
-                if (store.TypesByFullName.ContainsKey(nameWithSuffix))
-                {
-                    fqn = nameWithSuffix;
-                }
                 return new AttributeInfo()
                 {
-                    Type = fqn
+                    Type = attr.TypeFullName
                 };
             }).ToList();
         }

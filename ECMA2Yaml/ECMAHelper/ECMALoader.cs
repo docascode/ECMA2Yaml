@@ -62,6 +62,35 @@ namespace ECMA2Yaml
             return new ECMAStore(namespaces.OrderBy(ns => ns.Name).ToArray(), frameworks, extensionMethods);
         }
 
+        //private FilterStore LoadFilters(string path)
+        //{
+        //    var filterFile = Path.Combine(path, "_filter.xml");
+        //    if (!File.Exists(filterFile))
+        //    {
+        //        return null;
+        //    }
+        //    XDocument filterDoc = XDocument.Load(filterFile);
+        //    var attrFilterElements = filterDoc.Root.Element("attributeFilter")?.Elements("namespaceFilter");
+        //    if (attrFilterElements != null)
+        //    {
+        //        var filterStore = new FilterStore()
+        //        {
+        //            AttributeFilters = new List<IFilter>()
+        //        };
+        //        foreach(var fElement in attrFilterElements)
+        //        {
+        //            FullNameFilter filter = new FullNameFilter()
+        //            {
+        //                Namespace = fElement.Attribute("name").Value
+        //            };
+        //            foreach(var tFiler in fElement.Elements("typeFilter"))
+        //            {
+
+        //            }
+        //        }
+        //    }
+        //}
+
         private Dictionary<string, List<string>> LoadFrameworks(string path)
         {
             var frameworkFolder = Path.Combine(path, "FrameworksIndex");

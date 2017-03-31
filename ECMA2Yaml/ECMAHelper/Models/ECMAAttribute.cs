@@ -10,5 +10,6 @@ namespace ECMA2Yaml.Models
     {
         public string TypeFullName { get; set; }
         public string Declaration { get; set; }
+        public bool Visible { get; set; }
     }
 }

@@ -109,6 +109,8 @@ namespace ECMA2Yaml.Models
                 BuildDocs(t);
             }
 
+            BuildAttributes();
+
             BuildExtensionMethods();
 
             BuildFrameworks();
@@ -256,6 +258,42 @@ namespace ECMA2Yaml.Models
             {
                 t.Overloads = overloads.Values.ToList();
             }
+        }
+
+        private void BuildAttributes()
+        {
+            foreach(var t in _tList)
+            {
+                if (t.Attributes?.Count > 0)
+                {
+                    t.Attributes.ForEach(attr => ResolveAttribute(attr));
+                }
+                if (t.Members?.Count > 0)
+                {
+                    foreach (var m in t.Members)
+                    {
+                        if (m.Attributes?.Count > 0)
+                        {
+                            m.Attributes.ForEach(attr => ResolveAttribute(attr));
+                        }
+                    }
+                }
+            }
+        }
+
+        private void ResolveAttribute(ECMAAttribute attr)
+        {
+            var fqn = attr.Declaration;
+            if (fqn.Contains("("))
+            {
+                fqn = fqn.Substring(0, fqn.IndexOf("("));
+            }
+            var nameWithSuffix = fqn + "Attribute";
+            if (TypesByFullName.ContainsKey(nameWithSuffix))
+            {
+                fqn = nameWithSuffix;
+            }
+            attr.TypeFullName = fqn;
         }
 
         private void AddInheritanceMapping(string childUid, string parentUid)
