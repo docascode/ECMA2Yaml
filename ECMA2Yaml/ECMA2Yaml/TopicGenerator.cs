@@ -182,7 +182,7 @@ namespace ECMA2Yaml
             {
                 foreach (var att in t.Attributes)
                 {
-                    contentBuilder.AppendFormat("[{0}]\n", att);
+                    contentBuilder.AppendFormat("[{0}]\n", att.Declaration);
                 }
             }
             contentBuilder.Append(t.Signatures["C#"]);
