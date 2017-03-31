@@ -182,7 +182,7 @@ namespace ECMA2Yaml.Models
                             }
                             else
                             {
-                                throw new Exception(string.Format("Unable to find framework info for {0} {1}", t.Uid, m.Signatures["C#"]));
+                                OPSLogger.LogUserError(string.Format("Unable to find framework info for {0}", m.DocId), m.SourceFileLocalPath);
                             }
                         }
                     }

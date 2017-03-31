@@ -55,6 +55,7 @@
     <Compile Include="ECMALoader.cs" />
     <Compile Include="Logging\OPSLogger.cs" />
     <Compile Include="Models\AssemblyInfo.cs" />
+    <Compile Include="Models\Attribute.cs" />
     <Compile Include="Models\BaseType.cs" />
     <Compile Include="Models\Constants.cs" />
     <Compile Include="Models\Docs.cs" />

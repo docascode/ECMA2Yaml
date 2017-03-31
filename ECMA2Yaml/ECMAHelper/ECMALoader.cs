@@ -198,7 +198,7 @@ namespace ECMA2Yaml
             var attrs = tRoot.Element("Attributes");
             if (attrs != null)
             {
-                t.Attributes = attrs.Elements("Attribute").Select(a => a.Element("AttributeName").Value).ToList();
+                t.Attributes = attrs.Elements("Attribute").Select(a => LoadAttribute(a)).ToList();
             }
 
             //Members
@@ -328,7 +328,7 @@ namespace ECMA2Yaml
             var attrs = mElement.Element("Attributes");
             if (attrs != null)
             {
-                m.Attributes = attrs.Elements("Attribute").Select(a => a.Element("AttributeName").Value).ToList();
+                m.Attributes = attrs.Elements("Attribute").Select(a => LoadAttribute(a)).ToList();
             }
 
             m.ReturnValueType = new Parameter()
@@ -340,6 +340,14 @@ namespace ECMA2Yaml
             m.Docs = LoadDocs(mElement.Element("Docs"));
 
             return m;
+        }
+
+        private ECMAAttribute LoadAttribute(XElement attrElement)
+        {
+            return new ECMAAttribute()
+            {
+                Declaration = attrElement.Element("AttributeName").Value
+            };
         }
 
         private Member LoadMemberGroup(Models.Type t, XElement mElement)

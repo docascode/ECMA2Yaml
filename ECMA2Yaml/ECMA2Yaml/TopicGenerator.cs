@@ -468,7 +468,7 @@ namespace ECMA2Yaml
             }
         }
 
-        public static List<AttributeInfo> GetAttributeInfo(this List<string> attributes, ECMAStore store)
+        public static List<AttributeInfo> GetAttributeInfo(this List<ECMAAttribute> attributes, ECMAStore store)
         {
             if (attributes == null)
             {
@@ -476,18 +476,19 @@ namespace ECMA2Yaml
             }
             return attributes.Select(attr =>
             {
-                if (attr.Contains("("))
+                var fqn = attr.Declaration;
+                if (fqn.Contains("("))
                 {
-                    attr = attr.Substring(0, attr.IndexOf("("));
+                    fqn = fqn.Substring(0, fqn.IndexOf("("));
                 }
-                var nameWithSuffix = attr + "Attribute";
+                var nameWithSuffix = fqn + "Attribute";
                 if (store.TypesByFullName.ContainsKey(nameWithSuffix))
                 {
-                    attr = nameWithSuffix;
+                    fqn = nameWithSuffix;
                 }
                 return new AttributeInfo()
                 {
-                    Type = attr
+                    Type = fqn
                 };
             }).ToList();
         }

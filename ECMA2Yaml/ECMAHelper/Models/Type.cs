@@ -18,7 +18,7 @@ namespace ECMA2Yaml.Models
         public List<AssemblyInfo> AssemblyInfo { get; set; }
         public List<Parameter> TypeParameters { get; set; }
         public List<string> Interfaces { get; set; }
-        public List<string> Attributes { get; set; }
+        public List<ECMAAttribute> Attributes { get; set; }
         public List<Member> Members { get; set; }
         public List<Member> Overloads { get; set; }
         public Docs Docs { get; set; }
