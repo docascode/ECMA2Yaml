@@ -157,6 +157,7 @@ namespace ECMA2Yaml
                 Remarks = t.Docs?.Remarks,
                 Examples = string.IsNullOrEmpty(t.Docs?.Examples) ? null : new List<string> { t.Docs?.Examples },
                 ExtensionMethods = t.ExtensionMethods,
+                Attributes = t.Attributes.GetAttributeInfo(store)
             };
             item.Metadata.MergeMetadata(t.Metadata);
             if (t.Docs != null && !string.IsNullOrEmpty(t.Docs.ThreadSafety))
@@ -217,7 +218,8 @@ namespace ECMA2Yaml
                 Summary = m.Docs?.Summary,
                 Remarks = m.Docs?.Remarks,
                 Examples = string.IsNullOrEmpty(m.Docs?.Examples) ? null : new List<string> { m.Docs?.Examples },
-                Exceptions = m.Docs.Exceptions?.Select(ex => new ExceptionInfo() { CommentId = ex.CommentId, Description = ex.Description, Type = ex.Uid }).ToList()
+                Exceptions = m.Docs.Exceptions?.Select(ex => new ExceptionInfo() { CommentId = ex.CommentId, Description = ex.Description, Type = ex.Uid }).ToList(),
+                Attributes = m.Attributes.GetAttributeInfo(store)
             };
             item.Metadata.MergeMetadata(m.Metadata);
             if (m.Docs != null && !string.IsNullOrEmpty(m.Docs.ThreadSafety))
@@ -464,6 +466,30 @@ namespace ECMA2Yaml
                     mta.Add(pair.Key, pair.Value);
                 }
             }
+        }
+
+        public static List<AttributeInfo> GetAttributeInfo(this List<string> attributes, ECMAStore store)
+        {
+            if (attributes == null)
+            {
+                return null;
+            }
+            return attributes.Select(attr =>
+            {
+                if (attr.Contains("("))
+                {
+                    attr = attr.Substring(0, attr.IndexOf("("));
+                }
+                var nameWithSuffix = attr + "Attribute";
+                if (store.TypesByFullName.ContainsKey(nameWithSuffix))
+                {
+                    attr = nameWithSuffix;
+                }
+                return new AttributeInfo()
+                {
+                    Type = attr
+                };
+            }).ToList();
         }
     }
 }
