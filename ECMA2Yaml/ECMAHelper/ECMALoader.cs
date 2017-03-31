@@ -206,6 +206,17 @@ namespace ECMA2Yaml
             if (membersElement != null)
             {
                 t.Members = membersElement.Elements("Member")?.Select(m => LoadMember(t, m)).ToList();
+                t.Members.Sort((m1, m2) =>
+                {
+                    if (m1.IsEII == m2.IsEII)
+                    {
+                        return string.Compare(m1.Name, m2.Name);
+                    }
+                    else
+                    {
+                        return m1.IsEII ? 1 : -1; //non-EII first, EII later
+                    }
+                });
                 if (t.Members != null)
                 {
                     foreach (var m in t.Members)

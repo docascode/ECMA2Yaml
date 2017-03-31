@@ -28,7 +28,13 @@ namespace ECMA2Yaml.Models
             }
         }
         public bool IsExtensionMethod { get; set; }
-
+        public bool IsEII
+        {
+            get
+            {
+                return ItemType != ItemType.Constructor && Name.Contains('.');
+            }
+        }
         public void BuildName(ECMAStore store)
         {
             DisplayName = ItemType == ItemType.Constructor ? Parent.Name : Name;

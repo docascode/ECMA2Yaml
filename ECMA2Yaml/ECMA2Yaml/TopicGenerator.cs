@@ -156,12 +156,20 @@ namespace ECMA2Yaml
                 Summary = t.Docs?.Summary,
                 Remarks = t.Docs?.Remarks,
                 Examples = string.IsNullOrEmpty(t.Docs?.Examples) ? null : new List<string> { t.Docs?.Examples },
-                ExtensionMethods = t.ExtensionMethods
+                ExtensionMethods = t.ExtensionMethods,
             };
             item.Metadata.MergeMetadata(t.Metadata);
             if (t.Docs != null && !string.IsNullOrEmpty(t.Docs.ThreadSafety))
             {
                 item.Metadata[OPSMetadata.ThreadSafety] = t.Docs.ThreadSafety;
+            }
+            //not interface, not top level class like System.Object, has children
+            if (t.ItemType != ItemType.Interface
+                && store.InheritanceParentsByUid.ContainsKey(t.Uid)
+                && store.InheritanceParentsByUid[t.Uid]?.Count > 0
+                && store.InheritanceChildrenByUid.ContainsKey(t.Uid))
+            {
+                item.DerivedClasses = store.InheritanceChildrenByUid[t.Uid];
             }
             return item;
         }
@@ -204,7 +212,7 @@ namespace ECMA2Yaml
                 NamespaceName = t.Parent.Name,
                 Overload = m.Overload,
                 Syntax = m.ToSyntaxDetailViewModel(store),
-                IsExplicitInterfaceImplementation = m.ItemType != ItemType.Constructor && m.Name.Contains('.'),
+                IsExplicitInterfaceImplementation = m.IsEII,
                 SupportedLanguages = languageList,
                 Summary = m.Docs?.Summary,
                 Remarks = m.Docs?.Remarks,

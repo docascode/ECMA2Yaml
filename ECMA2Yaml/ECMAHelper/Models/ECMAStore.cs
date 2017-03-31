@@ -12,7 +12,8 @@ namespace ECMA2Yaml.Models
         public Dictionary<string, Type> TypesByFullName { get; set; }
         public Dictionary<string, Type> TypesByUid { get; set; }
         public Dictionary<string, Member> MembersByUid { get; set; }
-        public Dictionary<string, List<string>> InheritanceByUid { get; set; }
+        public Dictionary<string, List<string>> InheritanceParentsByUid { get; set; }
+        public Dictionary<string, List<string>> InheritanceChildrenByUid { get; set; }
         public Dictionary<string, ExtensionMethod> ExtensionMethodsByMemberDocId { get; set; }
         public ILookup<string, ExtensionMethod> ExtensionMethodUidsByTargetUid { get; set; }
         public bool StrictMode { get; set; }
@@ -33,7 +34,8 @@ namespace ECMA2Yaml.Models
             _frameworks = frameworks;
             _extensionMethods = extensionMethods;
 
-            InheritanceByUid = new Dictionary<string, List<string>>();
+            InheritanceParentsByUid = new Dictionary<string, List<string>>();
+            InheritanceChildrenByUid = new Dictionary<string, List<string>>();
         }
 
         public void TranslateSourceLocation(string sourcePathRoot, string gitBaseUrl)
@@ -139,9 +141,9 @@ namespace ECMA2Yaml.Models
                 while(uidsToCheck.Count > 0)
                 {
                     var uid = uidsToCheck.Pop();
-                    if (InheritanceByUid.ContainsKey(uid))
+                    if (InheritanceParentsByUid.ContainsKey(uid))
                     {
-                        InheritanceByUid[uid].ForEach(u => uidsToCheck.Push(u));
+                        InheritanceParentsByUid[uid].ForEach(u => uidsToCheck.Push(u));
                     }
                     if (ExtensionMethodUidsByTargetUid.Contains(uid))
                     {
@@ -230,9 +232,12 @@ namespace ECMA2Yaml.Models
             {
                 foreach (var m in methods)
                 {
-                    string id = m.Name.Replace('.', '#') + "*";
-                    string overloadUid = string.Format("{0}.{1}", m.Parent.Uid, id);
-                    m.Overload = overloadUid;
+                    string id = m.Id;
+                    if (id.Contains("("))
+                    {
+                        id = id.Substring(0, id.IndexOf("("));
+                    }
+                    id += "*";
                     if (!overloads.ContainsKey(m.Name))
                     {
                         overloads.Add(m.Name, new Member()
@@ -244,6 +249,7 @@ namespace ECMA2Yaml.Models
                     overloads[m.Name].Id = id;
                     overloads[m.Name].DisplayName = m.ItemType == ItemType.Constructor ? t.Name : m.Name;
                     overloads[m.Name].SourceFileLocalPath = m.SourceFileLocalPath;
+                    m.Overload = overloads[m.Name].Uid;
                 }
             }
             if (overloads.Count > 0)
@@ -254,11 +260,17 @@ namespace ECMA2Yaml.Models
 
         private void AddInheritanceMapping(string childUid, string parentUid)
         {
-            if (!InheritanceByUid.ContainsKey(childUid))
+            if (!InheritanceParentsByUid.ContainsKey(childUid))
             {
-                InheritanceByUid.Add(childUid, new List<string>());
+                InheritanceParentsByUid.Add(childUid, new List<string>());
             }
-            InheritanceByUid[childUid].Add(parentUid);
+            InheritanceParentsByUid[childUid].Add(parentUid);
+
+            if (!InheritanceChildrenByUid.ContainsKey(parentUid))
+            {
+                InheritanceChildrenByUid.Add(parentUid, new List<string>());
+            }
+            InheritanceChildrenByUid[parentUid].Add(childUid);
         }
 
         private void BuildInheritance(Type t)
