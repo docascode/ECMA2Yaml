@@ -181,7 +181,7 @@ namespace ECMA2Yaml
             var contentBuilder = new StringBuilder();
             if (t.Attributes?.Count > 0)
             {
-                foreach (var att in t.Attributes)
+                foreach (var att in t.Attributes.Where(attr => attr.Visible))
                 {
                     contentBuilder.AppendFormat("[{0}]\n", att.Declaration);
                 }
@@ -476,7 +476,7 @@ namespace ECMA2Yaml
             {
                 return null;
             }
-            return attributes.Select(attr =>
+            return attributes.Where(attr => attr.Visible).Select(attr =>
             {
                 return new AttributeInfo()
                 {

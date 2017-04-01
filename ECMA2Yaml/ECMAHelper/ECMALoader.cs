@@ -26,6 +26,7 @@ namespace ECMA2Yaml
 
             var frameworks = LoadFrameworks(path);
             var extensionMethods = LoadExtensionMethods(path);
+            var filterStore = LoadFilters(path);
 
             ConcurrentBag<Namespace> namespaces = new ConcurrentBag<Namespace>();
             ParallelOptions opt = new ParallelOptions() { MaxDegreeOfParallelism = Environment.ProcessorCount };
@@ -59,37 +60,56 @@ namespace ECMA2Yaml
                 return null;
             }
 
-            return new ECMAStore(namespaces.OrderBy(ns => ns.Name).ToArray(), frameworks, extensionMethods);
+            var store = new ECMAStore(namespaces.OrderBy(ns => ns.Name).ToArray(), frameworks, extensionMethods);
+            store.FilterStore = filterStore;
+
+            return store;
         }
 
-        //private FilterStore LoadFilters(string path)
-        //{
-        //    var filterFile = Path.Combine(path, "_filter.xml");
-        //    if (!File.Exists(filterFile))
-        //    {
-        //        return null;
-        //    }
-        //    XDocument filterDoc = XDocument.Load(filterFile);
-        //    var attrFilterElements = filterDoc.Root.Element("attributeFilter")?.Elements("namespaceFilter");
-        //    if (attrFilterElements != null)
-        //    {
-        //        var filterStore = new FilterStore()
-        //        {
-        //            AttributeFilters = new List<IFilter>()
-        //        };
-        //        foreach(var fElement in attrFilterElements)
-        //        {
-        //            FullNameFilter filter = new FullNameFilter()
-        //            {
-        //                Namespace = fElement.Attribute("name").Value
-        //            };
-        //            foreach(var tFiler in fElement.Elements("typeFilter"))
-        //            {
+        private FilterStore LoadFilters(string path)
+        {
+            var filterFile = Path.Combine(path, "_filter.xml");
+            if (File.Exists(filterFile))
+            {
+                XDocument filterDoc = XDocument.Load(filterFile);
+                var attrFilterElements = filterDoc.Root.Element("attributeFilter")?.Elements("namespaceFilter");
+                if (attrFilterElements != null)
+                {
+                    var filterStore = new FilterStore()
+                    {
+                        AttributeFilters = new List<IFilter>()
+                    };
+                    foreach (var fElement in attrFilterElements)
+                    {
+                        FullNameFilter filter = new FullNameFilter()
+                        {
+                            Namespace = fElement.Attribute("name").Value,
+                            TypeFilters = new Dictionary<string, bool>(),
+                            DefaultValue = true
+                        };
+                        foreach (var tFiler in fElement.Elements("typeFilter"))
+                        {
+                            bool expose = false;
+                            bool.TryParse(tFiler.Attribute("expose").Value, out expose);
+                            string name = tFiler.Attribute("name").Value;
+                            if (name == "*")
+                            {
+                                filter.DefaultValue = expose;
+                            }
+                            else
+                            {
+                                filter.TypeFilters[name] = expose;
+                            }
+                        }
+                        filterStore.AttributeFilters.Add(filter);
+                    }
 
-        //            }
-        //        }
-        //    }
-        //}
+                    return filterStore;
+                }
+            }
+            
+            return null;
+        }
 
         private Dictionary<string, List<string>> LoadFrameworks(string path)
         {
@@ -376,7 +396,8 @@ namespace ECMA2Yaml
         {
             return new ECMAAttribute()
             {
-                Declaration = attrElement.Element("AttributeName").Value
+                Declaration = attrElement.Element("AttributeName").Value,
+                Visible = true
             };
         }
 

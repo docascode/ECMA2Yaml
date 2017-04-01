@@ -60,6 +60,7 @@ namespace ECMA2Yaml
             WriteLine("Loaded {0} types.", store.TypesByFullName.Count);
             WriteLine("Loaded {0} members.", store.MembersByUid.Count);
             WriteLine("Loaded {0} extension methods.", store.ExtensionMethodsByMemberDocId.Values.Count);
+            WriteLine("Loaded {0} attribute filters.", store.FilterStore?.AttributeFilters?.Count ?? 0);
 
             WriteLine("Generating Yaml models...");
             var nsPages = TopicGenerator.GenerateNamespacePages(store);

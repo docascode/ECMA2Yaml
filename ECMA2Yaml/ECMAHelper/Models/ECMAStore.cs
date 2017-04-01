@@ -16,6 +16,7 @@ namespace ECMA2Yaml.Models
         public Dictionary<string, List<string>> InheritanceChildrenByUid { get; set; }
         public Dictionary<string, ExtensionMethod> ExtensionMethodsByMemberDocId { get; set; }
         public ILookup<string, ExtensionMethod> ExtensionMethodUidsByTargetUid { get; set; }
+        public FilterStore FilterStore { get; set; }
         public bool StrictMode { get; set; }
 
         private static Dictionary<string, EcmaDesc> typeDescriptorCache;
@@ -294,6 +295,21 @@ namespace ECMA2Yaml.Models
                 fqn = nameWithSuffix;
             }
             attr.TypeFullName = fqn;
+            if (TypesByFullName.ContainsKey(fqn))
+            {
+                var t = TypesByFullName[fqn];
+                if (FilterStore?.AttributeFilters?.Count > 0)
+                {
+                    foreach (var f in FilterStore.AttributeFilters)
+                    {
+                        var result = f.Filter(t);
+                        if (result.HasValue)
+                        {
+                            attr.Visible = result.Value;
+                        }
+                    }
+                }
+            }
         }
 
         private void AddInheritanceMapping(string childUid, string parentUid)
