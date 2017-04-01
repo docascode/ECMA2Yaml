@@ -202,6 +202,7 @@ namespace ECMA2Yaml
             {
                 t.Signatures[sig.Attribute("Language").Value] = sig.Attribute("Value").Value;
             }
+            t.DocId = t.Signatures.ContainsKey("DocId") ? t.Signatures["DocId"] : null;
 
             //AssemblyInfo
             t.AssemblyInfo = tRoot.Elements("AssemblyInfo")?.Select(a => ParseAssemblyInfo(a)).ToList();
@@ -336,7 +337,7 @@ namespace ECMA2Yaml
             {
                 m.Signatures[sig.Attribute("Language").Value] = sig.Attribute("Value").Value;
             }
-
+            m.DocId = m.Signatures.ContainsKey("DocId") ? m.Signatures["DocId"] : null;
             m.AssemblyInfo = mElement.Elements("AssemblyInfo")?.Select(a => ParseAssemblyInfo(a)).ToList();
 
             //TypeParameters

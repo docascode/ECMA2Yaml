@@ -42,6 +42,7 @@ namespace ECMA2Yaml.Models
                 return _uid;
             }
         }
+        public string DocId { get; set; }
         public ReflectionItem Parent { get; set; }
 
         public string SourceFileLocalPath { get; set; }

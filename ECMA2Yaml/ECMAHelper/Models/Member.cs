@@ -20,13 +20,6 @@ namespace ECMA2Yaml.Models
         public Parameter ReturnValueType { get; set; }
         public Docs Docs { get; set; }
         public string Overload { get; set; }
-        public string DocId
-        {
-            get
-            {
-                return Signatures.ContainsKey("DocId") ? Signatures["DocId"] : null;
-            }
-        }
         public bool IsExtensionMethod { get; set; }
         public bool IsEII
         {

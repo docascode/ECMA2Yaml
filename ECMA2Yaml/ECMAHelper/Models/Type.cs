@@ -22,13 +22,6 @@ namespace ECMA2Yaml.Models
         public List<Member> Members { get; set; }
         public List<Member> Overloads { get; set; }
         public Docs Docs { get; set; }
-        public string DocId
-        {
-            get
-            {
-                return Signatures["DocId"];
-            }
-        }
         public List<string> ExtensionMethods { get; set; }
         private static Regex GenericRegex = new Regex("<[^<>]+>", RegexOptions.Compiled);
 
