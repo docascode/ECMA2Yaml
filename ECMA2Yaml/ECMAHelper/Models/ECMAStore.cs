@@ -192,6 +192,15 @@ namespace ECMA2Yaml.Models
                             }
                         }
                     }
+                    //special handling for monikers metadata
+                    if (t.Overloads != null)
+                    {
+                        foreach(var ol in t.Overloads)
+                        {
+                            var monikers = t.Members.Where(m => m.Overload == ol.Uid).SelectMany(m => _frameworks[m.DocId]).Distinct().ToList();
+                            ol.Metadata[OPSMetadata.Monikers] = monikers;
+                        }
+                    }
                 }
             }
         }
