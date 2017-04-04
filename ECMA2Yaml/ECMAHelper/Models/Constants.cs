@@ -8,6 +8,7 @@ namespace ECMA2Yaml.Models
 {
     public class OPSMetadata
     {
+        public static readonly string Monikers = "monikers";
         public static readonly string Version = "version";
         public static readonly string ContentUrl = "content_git_url";
         public static readonly string ThreadSafety = "thread_safety";
