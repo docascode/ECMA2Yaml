@@ -50,11 +50,11 @@ namespace ECMA2Yaml
             store.StrictMode = opt.StrictMode;
 
             WriteLine("Building loaded files...");
+            store.Build();
             if (!string.IsNullOrEmpty(opt.RepoRootPath) && !string.IsNullOrEmpty(opt.GitBaseUrl))
             {
                 store.TranslateSourceLocation(opt.RepoRootPath, opt.GitBaseUrl);
             }
-            store.Build();
             
             WriteLine("Loaded {0} namespaces.", store.Namespaces.Count);
             WriteLine("Loaded {0} types.", store.TypesByFullName.Count);
