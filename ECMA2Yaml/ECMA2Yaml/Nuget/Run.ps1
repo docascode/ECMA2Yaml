@@ -37,29 +37,36 @@ $changeListTsvFilePath = $ParameterDictionary.context.changeListTsvFilePath
 $userSpecifiedChangeListTsvFilePath = $ParameterDictionary.context.userSpecifiedChangeListTsvFilePath
 
 pushd $repositoryRoot
-$currentBranch = 'master'
+$publicBranch = 'master'
+
+$publicGitUrl = & git config --get remote.origin.url
+if ($publicGitUrl.EndsWith(".git"))
+{
+	$publicGitUrl = $publicGitUrl.Substring(0, $publicGitUrl.Length - 4)
+}
 & git branch | foreach {
     if ($_ -match "^\* (.*)") {
-        $currentBranch = $matches[1]
+        $publicBranch = $matches[1]
     }
-}
-$gitOrigin = & git config --get remote.origin.url
-if ($gitOrigin.EndsWith(".git"))
-{
-	$gitOrigin = $gitOrigin.Substring(0, $gitOrigin.Length - 4)
 }
 popd
 
+if (-not [string]::IsNullOrEmpty($ParameterDictionary.environment.publishConfigContent.git_repository_url_open_to_public_contributors))
+{
+    $publicGitUrl = $ParameterDictionary.environment.publishConfigContent.git_repository_url_open_to_public_contributors
+}
+if (-not [string]::IsNullOrEmpty($ParameterDictionary.environment.publishConfigContent.git_repository_branch_open_to_public_contributors))
+{
+    $publicBranch = $ParameterDictionary.environment.publishConfigContent.git_repository_branch_open_to_public_contributors
+}
+if (-not $publicGitUrl.EndsWith("/"))
+{
+	$publicGitUrl += "/"
+}
+
 $ecmaConfig = $ParameterDictionary.environment.publishConfigContent.ECMA2Yaml
-if (-not [string]::IsNullOrEmpty($ecmaConfig.RepoUrl))
-{
-	$gitOrigin = $ecmaConfig.RepoUrl
-}
-if (-not $gitOrigin.EndsWith("/"))
-{
-	$gitOrigin += "/"
-}
-$ecmaXmlGitUrlBase = $gitOrigin + "blob/" + $currentBranch
+
+$ecmaXmlGitUrlBase = $publicGitUrl + "blob/" + $publicBranch
 echo "Using $ecmaXmlGitUrlBase as url base"
 $ecmaSourceXmlFolder = Join-Path $repositoryRoot $ecmaConfig.SourceXmlFolder
 $ecmaOutputYamlFolder = Join-Path $repositoryRoot $ecmaConfig.OutputYamlFolder
