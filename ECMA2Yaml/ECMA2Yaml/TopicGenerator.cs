@@ -165,9 +165,8 @@ namespace ECMA2Yaml
             {
                 item.Metadata[OPSMetadata.ThreadSafety] = t.Docs.ThreadSafety;
             }
-            //not interface, not top level class like System.Object, has children
-            if (t.ItemType != ItemType.Interface
-                && store.InheritanceParentsByUid.ContainsKey(t.Uid)
+            //not top level class like System.Object, has children
+            if (store.InheritanceParentsByUid.ContainsKey(t.Uid)
                 && store.InheritanceParentsByUid[t.Uid]?.Count > 0
                 && store.InheritanceChildrenByUid.ContainsKey(t.Uid))
             {
@@ -233,9 +232,19 @@ namespace ECMA2Yaml
 
         public static SyntaxDetailViewModel ToSyntaxDetailViewModel(this Member m, ECMAStore store)
         {
+            var contentBuilder = new StringBuilder();
+            if (m.Attributes?.Count > 0)
+            {
+                foreach (var att in m.Attributes.Where(attr => attr.Visible))
+                {
+                    contentBuilder.AppendFormat("[{0}]\n", att.Declaration);
+                }
+            }
+            contentBuilder.Append(m.Signatures["C#"]);
+            var content = contentBuilder.ToString();
             var syntax = new SyntaxDetailViewModel()
             {
-                Content = m.Signatures["C#"],
+                Content = content,
                 Parameters = m.Parameters?.Select(p => p.ToApiParameter(store)).ToList()
             };
             if (m.ReturnValueType != null && !string.IsNullOrEmpty(m.ReturnValueType.Type) && m.ReturnValueType.Type != "System.Void")

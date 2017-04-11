@@ -39,7 +39,14 @@ namespace ECMA2Yaml.Models
             }
             if (Parameters?.Count > 0)
             {
-                DisplayName += string.Format("({0})", string.Join(", ", Parameters.Select(p => p.Type.ToDisplayName())));
+                if (Name == "op_Explicit" || Name == "op_Implicit")
+                {
+                    DisplayName += string.Format("({0} to {1})", Parameters.First().Type.ToDisplayName(), ReturnValueType.Type.ToDisplayName());
+                }
+                else
+                {
+                    DisplayName += string.Format("({0})", string.Join(", ", Parameters.Select(p => p.Type.ToDisplayName())));
+                }
             }
             else if (ItemType == ItemType.Method || ItemType == ItemType.Constructor)
             {
