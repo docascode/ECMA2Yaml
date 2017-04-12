@@ -17,6 +17,7 @@ namespace ECMA2Yaml.Models
         public List<ExceptionDef> Exceptions { get; set; }
         public Dictionary<string, string> Parameters { get; set; }
         public Dictionary<string, string> TypeParameters { get; set; }
+        public Dictionary<string, string> AdditionalNotes { get; set; }
         public string Returns { get; set; }
         public string Since { get; set; }
         public string Value { get; set; }

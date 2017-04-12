@@ -39,27 +39,30 @@ namespace ECMA2Yaml
 
     public class YamlHeaderWriter
     {
-        public static void WriteFile(object headerModel, string filePath)
+        public static string GenerateOverwriteBlock(object headerModel)
         {
             StringWriter sw = new StringWriter();
             sw.WriteLine("---");
             YamlUtility.Serialize(sw, headerModel);
             sw.WriteLine("---");
-            File.WriteAllText(filePath, sw.ToString());
+            return sw.ToString();
         }
 
-        public static void WriterOverload(Member overload, string folder)
+        public static string GenerateOverwriteBlockForMarkup(string uid, string metadataName, string mdContent)
         {
-            string fileName = null;
-            try
-            {
-                fileName = Path.Combine(folder, overload.Uid.Replace("*", "_") + ".md");
-            }
-            catch (Exception ex)
-            {
-                OPSLogger.LogUserError("Unable to save overload md file for " + overload.Uid);
-                return;
-            }
+            StringWriter sw = new StringWriter();
+            sw.WriteLine("---");
+            sw.WriteLine("uid: {0}", uid);
+            sw.WriteLine("{0}: {1}", metadataName, "*content");
+            sw.WriteLine("---");
+            sw.WriteLine();
+            sw.WriteLine(mdContent);
+            sw.WriteLine();
+            return sw.ToString();
+        }
+
+        public static void WriteOverload(Member overload, string folder)
+        {
             var model = new Overload
             {
                 Uid = overload.Uid
@@ -76,7 +79,59 @@ namespace ECMA2Yaml
             {
                 model.Examples = new List<string> { overload.Docs.Examples };
             }
-            WriteFile(model, fileName);
+            var fileContent = GenerateOverwriteBlock(model);
+
+            string fileName = null;
+            try
+            {
+                fileName = Path.Combine(folder, overload.Uid.Replace("*", "_") + ".md");
+                File.WriteAllText(fileName, fileContent);
+            }
+            catch (Exception ex)
+            {
+                OPSLogger.LogUserError("Unable to save overload md file for " + overload.Uid);
+                return;
+            }
+        }
+
+        public static void WriteCustomContentIfAny(string uid, Docs docs, string folder)
+        {
+            List<string> blocks = new List<string>();
+            if (!string.IsNullOrEmpty(docs.ThreadSafety))
+            {
+                blocks.Add(GenerateOverwriteBlockForMarkup(uid, OPSMetadata.ThreadSafety, docs.ThreadSafety.TrimEnd()));
+            }
+            if (docs.AdditionalNotes != null)
+            {
+                foreach(var note in docs.AdditionalNotes)
+                {
+                    blocks.Add(GenerateOverwriteBlockForMarkup(uid, string.Format(OPSMetadata.AdditionalNotes_Format, note.Key), note.Value.TrimEnd()));
+                }
+            }
+
+            string fileName = null;
+            if (blocks.Count > 0)
+            {
+                try
+                {
+                    fileName = Path.Combine(folder, TruncateUid(uid.Replace("*", "_")) + ".misc.md");
+                    File.WriteAllLines(fileName, blocks);
+                }
+                catch (Exception ex)
+                {
+                    OPSLogger.LogUserError("Unable to save content overwrite md file for " + uid);
+                    return;
+                }
+            }
+        }
+
+        private static string TruncateUid(string uid)
+        {
+            if (uid.Length <= 210)
+            {
+                return uid;
+            }
+            return uid.Substring(0, 210) + uid.GetHashCode();
         }
     }
 }

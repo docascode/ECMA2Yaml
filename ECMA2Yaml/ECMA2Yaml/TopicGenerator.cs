@@ -161,10 +161,6 @@ namespace ECMA2Yaml
                 Attributes = t.Attributes.GetAttributeInfo(store)
             };
             item.Metadata.MergeMetadata(t.Metadata);
-            if (t.Docs != null && !string.IsNullOrEmpty(t.Docs.ThreadSafety))
-            {
-                item.Metadata[OPSMetadata.ThreadSafety] = t.Docs.ThreadSafety;
-            }
             //not top level class like System.Object, has children
             if (store.InheritanceParentsByUid.ContainsKey(t.Uid)
                 && store.InheritanceParentsByUid[t.Uid]?.Count > 0
@@ -223,10 +219,6 @@ namespace ECMA2Yaml
                 Attributes = m.Attributes.GetAttributeInfo(store)
             };
             item.Metadata.MergeMetadata(m.Metadata);
-            if (m.Docs != null && !string.IsNullOrEmpty(m.Docs.ThreadSafety))
-            {
-                item.Metadata[OPSMetadata.ThreadSafety] = m.Docs.ThreadSafety;
-            }
             return item;
         }
 

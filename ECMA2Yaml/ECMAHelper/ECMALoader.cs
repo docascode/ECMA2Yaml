@@ -460,6 +460,17 @@ namespace ECMA2Yaml
                 }
             }
 
+            Dictionary<string, string> additionalNotes = null;
+            var blocks = dElement.Elements("block")?.Where(p => !string.IsNullOrEmpty(p.Attribute("type").Value)).ToList();
+            if (blocks != null && blocks.Count > 0)
+            {
+                additionalNotes = new Dictionary<string, string>();
+                foreach(var block in blocks)
+                {
+                    additionalNotes[block.Attribute("type").Value] = NormalizeDocsElement(GetInnerXml(block));
+                }
+            }
+
             return new Docs()
             {
                 Summary = NormalizeDocsElement(GetInnerXml(dElement.Element("summary"))),
@@ -478,6 +489,7 @@ namespace ECMA2Yaml
                 }).ToList(),
                 Parameters = dElement.Elements("param")?.Where(p => !string.IsNullOrEmpty(p.Attribute("name").Value)).ToDictionary(p => p.Attribute("name").Value, p => NormalizeDocsElement(GetInnerXml(p))),
                 TypeParameters = dElement.Elements("typeparam")?.Where(p => !string.IsNullOrEmpty(p.Attribute("name").Value)).ToDictionary(p => p.Attribute("name").Value, p => NormalizeDocsElement(GetInnerXml(p))),
+                AdditionalNotes = additionalNotes,
                 Returns = NormalizeDocsElement(GetInnerXml(dElement.Element("returns"))),
                 ThreadSafety = NormalizeDocsElement(GetInnerXml(dElement.Element("threadsafe"))),
                 Since = NormalizeDocsElement(dElement.Element("since")?.Value),

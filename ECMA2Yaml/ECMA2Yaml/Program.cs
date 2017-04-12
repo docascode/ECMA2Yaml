@@ -121,7 +121,16 @@ namespace ECMA2Yaml
                     {
                         foreach(var overload in t.Overloads.Where(o => o.Docs != null))
                         {
-                            YamlHeaderWriter.WriterOverload(overload, overwriteFolder);
+                            YamlHeaderWriter.WriteOverload(overload, overwriteFolder);
+                        }
+                    }
+
+                    YamlHeaderWriter.WriteCustomContentIfAny(t.Uid, t.Docs, overwriteFolder);
+                    if (t.Members != null)
+                    {
+                        foreach(var m in t.Members)
+                        {
+                            YamlHeaderWriter.WriteCustomContentIfAny(m.Uid, m.Docs, overwriteFolder);
                         }
                     }
                 }
