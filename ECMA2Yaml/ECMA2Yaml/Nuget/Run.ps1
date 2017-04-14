@@ -126,8 +126,8 @@ foreach($ecmaConfig in $jobs)
 	if (-not [string]::IsNullOrEmpty($ecmaConfig.id))
 	{
 		$tocPath = Join-Path $ecmaOutputYamlFolder "toc.yml"
-		$tocNewName = $ecmaConfig.id + "_toc.yml"
-		Rename-Item $tocPath $tocNewName
+		$newTocPath = Join-Path $ecmaOutputYamlFolder $ecmaConfig.id
+		Rename-Item $tocPath $newTocPath
 	}
 
 	$mappingFile = Join-Path $logOutputFolder "XmlYamlMapping.json"
