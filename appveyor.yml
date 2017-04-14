@@ -4,8 +4,21 @@ build_script:
   - nuget restore ./ECMA2Yaml/ECMA2Yaml.sln
   - msbuild ./ECMA2Yaml/ECMA2Yaml.sln /p:Configuration=Release
 test: off
-on_success:
-  - cd ECMA2Yaml
-  - pack.bat %APPVEYOR_BUILD_VERSION%
-  - nuget push ./_nuget/Microsoft.DocAsCode.ECMA2Yaml.%APPVEYOR_BUILD_VERSION%.nupkg %mygetKey% -Source %mygetUrl%
-  - nuget push ./_nuget/Microsoft.DocAsCode.ECMAHelper.%APPVEYOR_BUILD_VERSION%.nupkg %mygetKey% -Source %mygetUrl%
+-
+  branches:
+    only:
+      - master
+  on_success:
+    - cd ECMA2Yaml
+    - pack.bat %APPVEYOR_BUILD_VERSION%
+    - nuget push ./_nuget/Microsoft.DocAsCode.ECMA2Yaml.%APPVEYOR_BUILD_VERSION%.nupkg %mygetKey% -Source %mygetUrl%
+    - nuget push ./_nuget/Microsoft.DocAsCode.ECMAHelper.%APPVEYOR_BUILD_VERSION%.nupkg %mygetKey% -Source %mygetUrl%
+-
+  branches:
+    only:
+      - develop
+  on_success:
+    - cd ECMA2Yaml
+    - pack.bat %APPVEYOR_BUILD_VERSION%
+    - nuget push ./_nuget/Microsoft.DocAsCode.ECMA2Yaml.%APPVEYOR_BUILD_VERSION%.nupkg %appgetKey% -Source %appgetUrl%
+    - nuget push ./_nuget/Microsoft.DocAsCode.ECMAHelper.%APPVEYOR_BUILD_VERSION%.nupkg %appgetKey% -Source %appgetUrl%
