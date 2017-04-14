@@ -26,5 +26,5 @@
   on_success:
     - cd ECMA2Yaml
     - pack.bat %APPVEYOR_BUILD_VERSION%
-    - nuget push ./_nuget/Microsoft.DocAsCode.ECMA2Yaml.%APPVEYOR_BUILD_VERSION%.nupkg %appgetKey% -Source %appgetUrl%
-    - nuget push ./_nuget/Microsoft.DocAsCode.ECMAHelper.%APPVEYOR_BUILD_VERSION%.nupkg %appgetKey% -Source %appgetUrl%
+    - nuget push ./_nuget/Microsoft.DocAsCode.ECMA2Yaml.%APPVEYOR_BUILD_VERSION%.nupkg %appgetKey% -Source %nugetKey%
+    - nuget push ./_nuget/Microsoft.DocAsCode.ECMAHelper.%APPVEYOR_BUILD_VERSION%.nupkg %appgetKey% -Source %nugetUrl%
