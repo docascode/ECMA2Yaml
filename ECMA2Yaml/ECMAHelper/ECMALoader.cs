@@ -447,7 +447,7 @@ namespace ECMA2Yaml
             }
             else
             {
-                remarksText = NormalizeDocsElement(remarks?.Value);
+                remarksText = NormalizeDocsElement(GetInnerXml(remarks));
             }
             if (remarksText != null)
             {
