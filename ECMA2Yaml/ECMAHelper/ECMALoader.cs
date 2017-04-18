@@ -475,6 +475,12 @@ namespace ECMA2Yaml
                 }
             }
 
+            string altCompliant = dElement.Element("altCompliant")?.Attribute("cref")?.Value;
+            if (!string.IsNullOrEmpty(altCompliant) && altCompliant.Contains(":"))
+            {
+                altCompliant = altCompliant.Substring(altCompliant.IndexOf(':') + 1);
+            }
+
             return new Docs()
             {
                 Summary = NormalizeDocsElement(GetInnerXml(dElement.Element("summary"))),
@@ -497,6 +503,7 @@ namespace ECMA2Yaml
                 Returns = NormalizeDocsElement(GetInnerXml(dElement.Element("returns"))),
                 ThreadSafety = NormalizeDocsElement(GetInnerXml(dElement.Element("threadsafe"))),
                 Since = NormalizeDocsElement(dElement.Element("since")?.Value),
+                AltCompliant = altCompliant
             };
         }
 

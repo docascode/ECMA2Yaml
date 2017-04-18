@@ -115,6 +115,36 @@ namespace ECMA2Yaml.Models
             BuildExtensionMethods();
 
             BuildFrameworks();
+
+            BuildOtherMetadata();
+        }
+
+        private void BuildOtherMetadata()
+        {
+            foreach (var ns in _nsList)
+            {
+                if (!string.IsNullOrEmpty(ns.Docs?.AltCompliant))
+                {
+                    ns.Metadata[OPSMetadata.AltCompliant] = ns.Docs?.AltCompliant;
+                }
+                foreach (var t in ns.Types)
+                {
+                    if (!string.IsNullOrEmpty(t.Docs?.AltCompliant))
+                    {
+                        t.Metadata[OPSMetadata.AltCompliant] = t.Docs?.AltCompliant;
+                    }
+                    if (t.Members != null)
+                    {
+                        foreach (var m in t.Members)
+                        {
+                            if (!string.IsNullOrEmpty(m.Docs?.AltCompliant))
+                            {
+                                m.Metadata[OPSMetadata.AltCompliant] = m.Docs?.AltCompliant;
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         private void BuildExtensionMethods()

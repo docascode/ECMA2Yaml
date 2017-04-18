@@ -21,5 +21,6 @@ namespace ECMA2Yaml.Models
         public string Returns { get; set; }
         public string Since { get; set; }
         public string Value { get; set; }
+        public string AltCompliant { get; set; }
     }
 }
