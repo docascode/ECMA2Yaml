@@ -148,6 +148,7 @@ namespace ECMA2Yaml
                 NameWithType = t.Name,
                 FullName = t.FullName,
                 Type = t.ItemType.ToMemberType(),
+                NamespaceName = t.Parent.Name,
                 Children = t.Members?.Select(m => m.Uid).ToList(),
                 Syntax = t.ToSyntaxDetailViewModel(store),
                 Implements = t.Interfaces,
