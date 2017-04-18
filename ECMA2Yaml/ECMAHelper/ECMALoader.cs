@@ -419,11 +419,15 @@ namespace ECMA2Yaml
             }
 
             XElement remarks = dElement.Element("remarks");
-            remarks?.Remove();
+            bool skipRemarks = remarks?.Element("format") != null;
+            if (remarks != null && skipRemarks)
+            {
+                remarks.Remove();
+            }
 
             var dElement2 = _docsTransform.Transform(dElement.ToString(), SyntaxLanguage.CSharp).Root;
 
-            if (remarks != null)
+            if (remarks != null && skipRemarks)
             {
                 dElement2.Add(remarks);
             }
@@ -471,6 +475,12 @@ namespace ECMA2Yaml
                 }
             }
 
+            string altCompliant = dElement.Element("altCompliant")?.Attribute("cref")?.Value;
+            if (!string.IsNullOrEmpty(altCompliant) && altCompliant.Contains(":"))
+            {
+                altCompliant = altCompliant.Substring(altCompliant.IndexOf(':') + 1);
+            }
+
             return new Docs()
             {
                 Summary = NormalizeDocsElement(GetInnerXml(dElement.Element("summary"))),
@@ -493,6 +503,7 @@ namespace ECMA2Yaml
                 Returns = NormalizeDocsElement(GetInnerXml(dElement.Element("returns"))),
                 ThreadSafety = NormalizeDocsElement(GetInnerXml(dElement.Element("threadsafe"))),
                 Since = NormalizeDocsElement(dElement.Element("since")?.Value),
+                AltCompliant = altCompliant
             };
         }
 
