@@ -127,11 +127,11 @@ namespace ECMA2Yaml
 
         private static string TruncateUid(string uid)
         {
-            if (uid.Length <= 210)
+            if (uid.Length <= 180)
             {
                 return uid;
             }
-            return uid.Substring(0, 210) + uid.GetHashCode();
+            return uid.Substring(0, 180) + uid.GetHashCode();
         }
     }
 }
