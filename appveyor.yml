@@ -11,8 +11,8 @@
   on_success:
     - cd ECMA2Yaml
     - pack.bat %APPVEYOR_BUILD_VERSION%
-    - nuget push ./_nuget/Microsoft.DocAsCode.ECMA2Yaml.%APPVEYOR_BUILD_VERSION%.nupkg %mygetKey% -Source %mygetUrl%
-    - nuget push ./_nuget/Microsoft.DocAsCode.ECMAHelper.%APPVEYOR_BUILD_VERSION%.nupkg %mygetKey% -Source %mygetUrl%
+    - nuget push ./_nuget/Microsoft.DocAsCode.ECMA2Yaml.%APPVEYOR_BUILD_VERSION%.nupkg %opFeedKey% -Source %opFeedUrl%
+    - nuget push ./_nuget/Microsoft.DocAsCode.ECMAHelper.%APPVEYOR_BUILD_VERSION%.nupkg %opFeedKey% -Source %opFeedUrl%
 -
   branches:
     only:
@@ -26,5 +26,5 @@
   on_success:
     - cd ECMA2Yaml
     - pack.bat %APPVEYOR_BUILD_VERSION%
-    - nuget push ./_nuget/Microsoft.DocAsCode.ECMA2Yaml.%APPVEYOR_BUILD_VERSION%.nupkg %nugetKey% -Source %nugetUrl%
-    - nuget push ./_nuget/Microsoft.DocAsCode.ECMAHelper.%APPVEYOR_BUILD_VERSION%.nupkg %nugetKey% -Source %nugetUrl%
+    - nuget push ./_nuget/Microsoft.DocAsCode.ECMA2Yaml.%APPVEYOR_BUILD_VERSION%.nupkg %opFeedKey% -Source %opDevFeedUrl%
+    - nuget push ./_nuget/Microsoft.DocAsCode.ECMAHelper.%APPVEYOR_BUILD_VERSION%.nupkg %opFeedKey% -Source %opDevFeedUrl%
