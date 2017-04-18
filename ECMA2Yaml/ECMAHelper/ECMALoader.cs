@@ -419,11 +419,15 @@ namespace ECMA2Yaml
             }
 
             XElement remarks = dElement.Element("remarks");
-            remarks?.Remove();
+            bool skipRemarks = remarks?.Element("format") != null;
+            if (remarks != null && skipRemarks)
+            {
+                remarks.Remove();
+            }
 
             var dElement2 = _docsTransform.Transform(dElement.ToString(), SyntaxLanguage.CSharp).Root;
 
-            if (remarks != null)
+            if (remarks != null && skipRemarks)
             {
                 dElement2.Add(remarks);
             }
