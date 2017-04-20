@@ -14,7 +14,9 @@ namespace ECMA2Yaml
         public string LogFilePath = "log.json";
         public bool Flatten = false;
         public bool StrictMode = false;
-        public string ServiceMappingFilePath = null;
+        public bool JoinTOC = false;
+        public string TopLevelTOCPath = null;
+        public string RefTOCPath = null;
 
         List<string> Extras = null;
 
@@ -30,21 +32,30 @@ namespace ECMA2Yaml
                 { "f|flatten", "to put all ymls in output root and not keep original folder structure.", f => Flatten = f != null },
                 { "p|pathUrlMapping={=>}", "map local xml path to the Github url.", (p, u) => { RepoRootPath = p;  GitBaseUrl = u; } },
                 { "strict", "strict mode, means that any unresolved type reference will cause a warning",  s => StrictMode = s != null },
-                { "serviceMapping=", "service mapping file path, used to group namespaces by services",  s => ServiceMappingFilePath = s }
+
+                { "joinTOC", "join top level TOC with reference TOC by pattern matching",  j => JoinTOC = j != null },
+                { "topLevelTOC=", "top level TOC file path, used in -joinTOC mode",  s => TopLevelTOCPath = s },
+                { "refTOC=", "reference TOC file path, used in -joinTOC mode",  s => RefTOCPath = s }
             };
         }
 
         public bool Parse(string[] args)
         {
             Extras = _options.Parse(args);
-            if (string.IsNullOrEmpty(SourceFolder) || string.IsNullOrEmpty(OutputFolder))
+            if (!JoinTOC && (string.IsNullOrEmpty(SourceFolder) || string.IsNullOrEmpty(OutputFolder))
+                || JoinTOC && (string.IsNullOrEmpty(TopLevelTOCPath) || string.IsNullOrEmpty(RefTOCPath)))
             {
-                OPSLogger.LogUserError("Invalid command line parameter.");
-                Console.WriteLine("Usage: ECMA2Yaml.exe <Options>");
-                _options.WriteOptionDescriptions(Console.Out);
+                PrintUsage();
                 return false;
             }
             return true;
+        }
+
+        private void PrintUsage()
+        {
+            OPSLogger.LogUserError("Invalid command line parameter.");
+            Console.WriteLine("Usage: ECMA2Yaml.exe <Options>");
+            _options.WriteOptionDescriptions(Console.Out);
         }
     }
 }
