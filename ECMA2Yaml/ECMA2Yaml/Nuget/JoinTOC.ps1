@@ -18,8 +18,8 @@ if ($jobs -isnot [system.array])
 }
 foreach($JoinTOCConfig in $jobs)
 {
-	$topTOC = $JoinTOCConfig.TopLevelTOC
-	$refTOC = $JoinTOCConfig.ReferenceTOC
+	$topTOC = Join-Path $repositoryRoot $JoinTOCConfig.TopLevelTOC
+	$refTOC = Join-Path $repositoryRoot $JoinTOCConfig.ReferenceTOC
     $allArgs = @("-joinTOC", "-topLevelTOC", "$topTOC", "-refTOC", "$refTOC", "-l", "$logFilePath");
 
     $printAllArgs = [System.String]::Join(' ', $allArgs)
