@@ -15,6 +15,7 @@ namespace ECMA2Yaml.Models
         public static readonly string AdditionalNotes_Format = "additional_notes.{0}";
         public static readonly string XMLLocalPath = "original_ecmaxml_local_path";
         public static readonly string AltCompliant = "altCompliant";
+        public static readonly string InternalOnly = "internal_use_only";
     }
     public enum SyntaxLanguage
     {

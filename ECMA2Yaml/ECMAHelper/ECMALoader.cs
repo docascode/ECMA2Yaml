@@ -503,7 +503,8 @@ namespace ECMA2Yaml
                 Returns = NormalizeDocsElement(GetInnerXml(dElement.Element("returns"))),
                 ThreadSafety = NormalizeDocsElement(GetInnerXml(dElement.Element("threadsafe"))),
                 Since = NormalizeDocsElement(dElement.Element("since")?.Value),
-                AltCompliant = altCompliant
+                AltCompliant = altCompliant,
+                InternalOnly = dElement.Element("forInternalUseOnly") != null
             };
         }
 
