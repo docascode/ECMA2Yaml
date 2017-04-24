@@ -1,5 +1,6 @@
 ﻿using Microsoft.DocAsCode.Common;
 using Microsoft.DocAsCode.DataContracts.Common;
+using Microsoft.DocAsCode.DataContracts.ManagedReference;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -13,9 +14,14 @@ namespace ECMA2Yaml
     public class TOCMerger
     {
         public const string ChildrenMetadata = "children";
+        public const string LandingPageTypeMetadata = "landingPageType";
 
-        public static void Merge(string topLevelTOCPath, string refTOCPath)
+        public static void Merge(string topLevelTOCPath, string refTOCPath, string outputPath)
         {
+            if (string.IsNullOrEmpty(outputPath))
+            {
+                outputPath = Path.GetDirectoryName(refTOCPath);
+            }
             var topTOC = YamlUtility.Deserialize<TocViewModel>(topLevelTOCPath);
             var refTOC = YamlUtility.Deserialize<TocViewModel>(refTOCPath);
             var refTOCDict = refTOC.ToDictionary(t => t.Name);
@@ -28,31 +34,40 @@ namespace ECMA2Yaml
                 {
                     item.Items.ForEach(t => itemsToGo.Push(t));
                 }
-                if (item.Metadata != null && item.Metadata.ContainsKey(ChildrenMetadata))
+                if (item.Metadata != null)
                 {
-                    var children = (List<object>)item.Metadata[ChildrenMetadata];
-                    foreach(var child in children.Cast<string>())
+                    if (item.Metadata.ContainsKey(ChildrenMetadata))
                     {
-                        var regex = WildCardToRegex(child);
-                        var matched = refTOCDict.Keys.Where(key => regex.IsMatch(key)).ToList();
-                        if (matched.Count > 0)
+                        var children = (List<object>)item.Metadata[ChildrenMetadata];
+                        foreach (var child in children.Cast<string>())
                         {
-                            if (item.Items == null)
+                            var regex = WildCardToRegex(child);
+                            var matched = refTOCDict.Keys.Where(key => regex.IsMatch(key)).ToList();
+                            if (matched.Count > 0)
                             {
-                                item.Items = new TocViewModel();
+                                if (item.Items == null)
+                                {
+                                    item.Items = new TocViewModel();
+                                }
+                                foreach (var match in matched)
+                                {
+                                    item.Items.Add(refTOCDict[match]);
+                                    refTOCDict.Remove(match);
+                                }
                             }
-                            foreach(var match in matched)
+                            else
                             {
-                                item.Items.Add(refTOCDict[match]);
-                                refTOCDict.Remove(match);
+                                OPSLogger.LogUserError(string.Format("Children pattern {0} cannot match any sub TOC", child), topLevelTOCPath);
                             }
                         }
-                        else
-                        {
-                            OPSLogger.LogUserError(string.Format("Children pattern {0} cannot match any sub TOC", child), topLevelTOCPath);
-                        }
+                        item.Metadata.Remove(ChildrenMetadata);
                     }
-                    item.Metadata.Remove(ChildrenMetadata);
+                    if (!string.IsNullOrEmpty(item.Uid) && item.Metadata.ContainsKey(LandingPageTypeMetadata))
+                    {
+                        var page = CreateLandingPage(item);
+                        var fileName = Path.Combine(outputPath, item.Uid + ".yml");
+                        YamlUtility.Serialize(fileName, page, YamlMime.ManagedReference);
+                    }
                 }
             }
             if (refTOCDict.Count > 0)
@@ -69,6 +84,38 @@ namespace ECMA2Yaml
         private static Regex WildCardToRegex(String value)
         {
             return new Regex("^" + Regex.Escape(value).Replace("\\?", ".").Replace("\\*", ".*") + "$", RegexOptions.Compiled);
+        }
+
+        private static PageViewModel CreateLandingPage(TocItemViewModel tocItem)
+        {
+            var validChildren = tocItem.Items.Where(i => !string.IsNullOrEmpty(i.Uid)).ToList();
+            var item = new ItemViewModel()
+            {
+                Uid = tocItem.Uid,
+                Name = tocItem.Name,
+                FullName = tocItem.Name,
+                Type = MemberType.Default,
+                Children = validChildren.Select(t => t.Uid).ToList(),
+            };
+
+            var refs = validChildren.Select(i => new ReferenceViewModel()
+            {
+                Name = i.Name,
+                Uid = i.Uid
+            }).ToList();
+
+            var page = new PageViewModel()
+            {
+                Items = new List<ItemViewModel>()
+                {
+                    item
+                },
+                References = refs
+            };
+
+            page.Metadata.Add(LandingPageTypeMetadata, tocItem.Metadata[LandingPageTypeMetadata]);
+
+            return page;
         }
     }
 }
