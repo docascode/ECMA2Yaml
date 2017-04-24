@@ -93,6 +93,7 @@ namespace ECMA2Yaml
             {
                 Uid = tocItem.Uid,
                 Name = tocItem.Name,
+                NameWithType = tocItem.Name,
                 FullName = tocItem.Name,
                 Type = MemberType.Default,
                 Children = validChildren.Select(t => t.Uid).ToList(),
