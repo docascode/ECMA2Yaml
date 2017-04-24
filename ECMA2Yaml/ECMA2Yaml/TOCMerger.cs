@@ -91,6 +91,7 @@ namespace ECMA2Yaml
             var validChildren = tocItem.Items.Where(i => !string.IsNullOrEmpty(i.Uid)).ToList();
             var item = new ItemViewModel()
             {
+                Id = tocItem.Uid,
                 Uid = tocItem.Uid,
                 Name = tocItem.Name,
                 NameWithType = tocItem.Name,
