@@ -164,8 +164,8 @@ namespace ECMA2Yaml
             };
             item.Metadata.MergeMetadata(t.Metadata);
             //not top level class like System.Object, has children
-            if (store.InheritanceParentsByUid.ContainsKey(t.Uid)
-                && store.InheritanceParentsByUid[t.Uid]?.Count > 0
+            if ((t.ItemType == ItemType.Interface 
+                || (store.InheritanceParentsByUid.ContainsKey(t.Uid) && store.InheritanceParentsByUid[t.Uid]?.Count > 0))
                 && store.InheritanceChildrenByUid.ContainsKey(t.Uid))
             {
                 item.DerivedClasses = store.InheritanceChildrenByUid[t.Uid];
