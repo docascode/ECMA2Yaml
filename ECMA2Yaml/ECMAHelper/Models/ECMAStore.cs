@@ -123,23 +123,38 @@ namespace ECMA2Yaml.Models
         {
             foreach (var ns in _nsList)
             {
+                bool nsInternalOnly = ns.Docs?.InternalOnly ??  false;
                 if (!string.IsNullOrEmpty(ns.Docs?.AltCompliant))
                 {
                     ns.Metadata[OPSMetadata.AltCompliant] = ns.Docs?.AltCompliant;
                 }
+                if (nsInternalOnly)
+                {
+                    ns.Metadata[OPSMetadata.InternalOnly] = nsInternalOnly;
+                }
                 foreach (var t in ns.Types)
                 {
+                    bool tInternalOnly = t.Docs?.InternalOnly ?? nsInternalOnly;
                     if (!string.IsNullOrEmpty(t.Docs?.AltCompliant))
                     {
                         t.Metadata[OPSMetadata.AltCompliant] = t.Docs?.AltCompliant;
+                    }
+                    if (tInternalOnly)
+                    {
+                        t.Metadata[OPSMetadata.InternalOnly] = tInternalOnly;
                     }
                     if (t.Members != null)
                     {
                         foreach (var m in t.Members)
                         {
+                            bool mInternalOnly = m.Docs?.InternalOnly ?? tInternalOnly;
                             if (!string.IsNullOrEmpty(m.Docs?.AltCompliant))
                             {
                                 m.Metadata[OPSMetadata.AltCompliant] = m.Docs?.AltCompliant;
+                            }
+                            if (mInternalOnly)
+                            {
+                                m.Metadata[OPSMetadata.InternalOnly] = mInternalOnly;
                             }
                         }
                     }

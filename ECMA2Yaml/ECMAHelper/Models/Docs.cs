@@ -22,5 +22,6 @@ namespace ECMA2Yaml.Models
         public string Since { get; set; }
         public string Value { get; set; }
         public string AltCompliant { get; set; }
+        public bool InternalOnly { get; set; }
     }
 }
