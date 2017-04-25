@@ -52,7 +52,7 @@ namespace ECMA2Yaml.Models
             {
                 DisplayName += "()";
             }
-            FullDisplayName = ((Type)Parent).FullName + "." + DisplayName;
+            FullDisplayName = ((Type)Parent).Name + "." + DisplayName;
         }
 
         //The ID of a generic method uses postfix ``n, n is the count of in method parameters, for example, System.Tuple.Create``1(``0)
