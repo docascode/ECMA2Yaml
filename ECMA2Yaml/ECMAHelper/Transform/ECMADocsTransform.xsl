@@ -66,10 +66,17 @@
   </xsl:template>
 
   <xsl:template match="see[@cref and not(parent::member)]">
-    <xsl:if test="string-length(normalize-space(@cref)) &gt; 2">
+    <xsl:if test="contains(normalize-space(@cref), ':')">
       <xref href="@cref">
         <xsl:attribute name="href">
-          <xsl:value-of select="substring(@cref, 3)"/>
+          <xsl:value-of select="substring-after(@cref, ':')"/>
+        </xsl:attribute>
+      </xref>
+    </xsl:if>
+    <xsl:if test="not(contains(normalize-space(@cref), ':'))">
+      <xref href="@cref">
+        <xsl:attribute name="href">
+          <xsl:value-of select="normalize-space(@cref)"/>
         </xsl:attribute>
       </xref>
     </xsl:if>
