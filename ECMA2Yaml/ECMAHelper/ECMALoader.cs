@@ -154,7 +154,9 @@ namespace ECMA2Yaml
             var extensionMethods = new List<ExtensionMethod>();
             XDocument idxDoc = XDocument.Load(indexFile);
             var emElements = idxDoc?.Root?.Element("ExtensionMethods")?.Elements("ExtensionMethod");
-            foreach(var em in emElements)
+            if (emElements != null)
+            {
+                foreach(var em in emElements)
             {
                 extensionMethods.Add(new ExtensionMethod()
                 {
@@ -163,6 +165,8 @@ namespace ECMA2Yaml
                     ParentType = em.Element("Member").Element("Link").Attribute("Type").Value
                 });
             }
+            }
+            
             return extensionMethods;
         }
 
