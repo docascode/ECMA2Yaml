@@ -157,14 +157,14 @@ namespace ECMA2Yaml
             if (emElements != null)
             {
                 foreach(var em in emElements)
-            {
-                extensionMethods.Add(new ExtensionMethod()
                 {
-                    TargetDocId = em.Element("Targets").Element("Target").Attribute("Type").Value,
-                    MemberDocId = em.Element("Member").Element("Link").Attribute("Member").Value,
-                    ParentType = em.Element("Member").Element("Link").Attribute("Type").Value
-                });
-            }
+                    extensionMethods.Add(new ExtensionMethod()
+                    {
+                        TargetDocId = em.Element("Targets").Element("Target").Attribute("Type").Value,
+                        MemberDocId = em.Element("Member").Element("Link").Attribute("Member").Value,
+                        ParentType = em.Element("Member").Element("Link").Attribute("Type").Value
+                    });
+                }
             }
             
             return extensionMethods;
