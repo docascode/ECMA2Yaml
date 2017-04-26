@@ -57,7 +57,7 @@ namespace ECMA2Yaml
                             }
                             else
                             {
-                                OPSLogger.LogUserError(string.Format("Children pattern {0} cannot match any sub TOC", child), topLevelTOCPath);
+                                OPSLogger.LogUserWarning(string.Format("Children pattern {0} cannot match any sub TOC", child), topLevelTOCPath);
                             }
                         }
                         item.Metadata.Remove(ChildrenMetadata);
