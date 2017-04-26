@@ -66,6 +66,13 @@
   </xsl:template>
 
   <xsl:template match="see[@cref and not(parent::member)]">
+    <xsl:if test="contains(normalize-space(@cref), 'Overload:')">
+      <xref href="@cref">
+        <xsl:attribute name="href">
+          <xsl:value-of select="concat(substring-after(@cref, ':'), '*')"/>
+        </xsl:attribute>
+      </xref>
+    </xsl:if>
     <xsl:if test="contains(normalize-space(@cref), ':')">
       <xref href="@cref">
         <xsl:attribute name="href">
