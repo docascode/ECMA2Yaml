@@ -37,7 +37,7 @@ namespace ECMA2Yaml
         }
     }
 
-    public static class ModalConversionExtensions
+    public static class ModelConversionExtensions
     {
         private static string[] languageList = new string[] { "csharp" };
         public static PageViewModel ToPageViewModel(this Namespace ns)
@@ -239,7 +239,8 @@ namespace ECMA2Yaml
             var syntax = new SyntaxDetailViewModel()
             {
                 Content = content,
-                Parameters = m.Parameters?.Select(p => p.ToApiParameter(store)).ToList()
+                Parameters = m.Parameters?.Select(p => p.ToApiParameter(store))?.ToList(),
+                TypeParameters = m.TypeParameters?.Select(p => p.ToApiParameter(store))?.ToList()
             };
             if (m.ReturnValueType != null && !string.IsNullOrEmpty(m.ReturnValueType.Type) && m.ReturnValueType.Type != "System.Void")
             {
