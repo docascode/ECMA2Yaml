@@ -164,6 +164,10 @@ namespace ECMA2Yaml.Models
 
         private void BuildExtensionMethods()
         {
+            if (_extensionMethods == null)
+            {
+                return;
+            }
             ExtensionMethodsByMemberDocId = _extensionMethods.ToDictionary(ex => ex.MemberDocId);
 
             foreach(var m in MembersByUid.Values)
