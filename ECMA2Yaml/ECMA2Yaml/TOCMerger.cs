@@ -55,6 +55,7 @@ namespace ECMA2Yaml
                                         if (File.Exists(subTOCPath))
                                         {
                                             InjectTOCMetadata(subTOCPath, OPSMetadata.Universal_Conceptual_TOC, opt.ConceptualTOCUrl);
+                                            InjectTOCMetadata(subTOCPath, OPSMetadata.Universal_Ref_TOC, opt.RefTOCUrl);
                                         }
                                     }
                                     item.Items.Add(refTOCDict[match]);
