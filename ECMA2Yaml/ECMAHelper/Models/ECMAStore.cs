@@ -164,7 +164,7 @@ namespace ECMA2Yaml.Models
 
         private void BuildExtensionMethods()
         {
-            if (_extensionMethods == null)
+            if (_extensionMethods == null || _extensionMethods.Count == 0)
             {
                 return;
             }
