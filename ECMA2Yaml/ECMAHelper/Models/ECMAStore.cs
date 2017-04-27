@@ -212,6 +212,10 @@ namespace ECMA2Yaml.Models
 
         private void BuildFrameworks()
         {
+            if (_frameworks == null || _frameworks.Count == 0)
+            {
+                return;
+            }
             foreach (var ns in _nsList)
             {
                 if (_frameworks.ContainsKey(ns.Uid))
