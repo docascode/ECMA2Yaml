@@ -1,4 +1,5 @@
-﻿using Microsoft.DocAsCode.Common;
+﻿using ECMA2Yaml.Models;
+using Microsoft.DocAsCode.Common;
 using Microsoft.DocAsCode.DataContracts.Common;
 using Microsoft.DocAsCode.DataContracts.ManagedReference;
 using System;
@@ -16,23 +17,20 @@ namespace ECMA2Yaml
         public const string ChildrenMetadata = "children";
         public const string LandingPageTypeMetadata = "landingPageType";
 
-        public static void Merge(string topLevelTOCPath, string refTOCPath, string outputPath)
+        public static void Merge(CommandLineOptions opt)
         {
-            if (string.IsNullOrEmpty(outputPath))
-            {
-                outputPath = Path.GetDirectoryName(refTOCPath);
-            }
-            var topTOC = YamlUtility.Deserialize<TocViewModel>(topLevelTOCPath);
-            var refTOC = YamlUtility.Deserialize<TocViewModel>(refTOCPath);
+            string outputPath = opt.OutputFolder ?? Path.GetDirectoryName(opt.RefTOCPath);
+            var topTOC = YamlUtility.Deserialize<TocViewModel>(opt.TopLevelTOCPath);
+            var refTOC = YamlUtility.Deserialize<TocViewModel>(opt.RefTOCPath);
             var refTOCDict = refTOC.ToDictionary(t => t.Name);
-            Stack<TocItemViewModel> itemsToGo = new Stack<TocItemViewModel>();
-            topTOC.ForEach(t => itemsToGo.Push(t));
+            Queue<TocItemViewModel> itemsToGo = new Queue<TocItemViewModel>();
+            topTOC.ForEach(t => itemsToGo.Enqueue(t));
             while (itemsToGo.Count > 0)
             {
-                var item = itemsToGo.Pop();
+                var item = itemsToGo.Dequeue();
                 if (item.Items != null)
                 {
-                    item.Items.ForEach(t => itemsToGo.Push(t));
+                    item.Items.ForEach(t => itemsToGo.Enqueue(t));
                 }
                 if (item.Metadata != null)
                 {
@@ -51,18 +49,26 @@ namespace ECMA2Yaml
                                 }
                                 foreach (var match in matched)
                                 {
+                                    if (refTOCDict[match].Href != null && refTOCDict[match].Href.EndsWith("/"))
+                                    {
+                                        var subTOCPath = Path.Combine(Path.GetDirectoryName(opt.RefTOCPath), refTOCDict[match].Href, "toc.yml");
+                                        if (File.Exists(subTOCPath))
+                                        {
+                                            InjectTOCMetadata(subTOCPath, OPSMetadata.Universal_Conceptual_TOC, opt.ConceptualTOCUrl);
+                                        }
+                                    }
                                     item.Items.Add(refTOCDict[match]);
                                     refTOCDict.Remove(match);
                                 }
                             }
                             else
                             {
-                                OPSLogger.LogUserWarning(string.Format("Children pattern {0} cannot match any sub TOC", child), topLevelTOCPath);
+                                OPSLogger.LogUserWarning(string.Format("Children pattern {0} cannot match any sub TOC", child), opt.TopLevelTOCPath);
                             }
                         }
                         item.Metadata.Remove(ChildrenMetadata);
                     }
-                    if (!string.IsNullOrEmpty(item.Uid) && item.Metadata.ContainsKey(LandingPageTypeMetadata))
+                    if (!string.IsNullOrEmpty(item.Uid) && item.Metadata.ContainsKey(LandingPageTypeMetadata) && item.Items != null)
                     {
                         var page = CreateLandingPage(item);
                         var fileName = Path.Combine(outputPath, item.Uid + ".yml");
@@ -77,8 +83,13 @@ namespace ECMA2Yaml
                     topTOC.Add(remainingItem);
                 }
             }
+            if (!string.IsNullOrEmpty(opt.ConceptualTOCUrl))
+            {
+                topTOC.First().Metadata[OPSMetadata.Universal_Conceptual_TOC] = opt.ConceptualTOCUrl;
+            }
+            YamlUtility.Serialize(opt.RefTOCPath, topTOC);
 
-            YamlUtility.Serialize(refTOCPath, topTOC);
+            InjectTOCMetadata(opt.ConceptualTOCPath, OPSMetadata.Universal_Ref_TOC, opt.RefTOCUrl);
         }
 
         private static Regex WildCardToRegex(String value)
@@ -118,6 +129,19 @@ namespace ECMA2Yaml
             page.Metadata.Add(LandingPageTypeMetadata, tocItem.Metadata[LandingPageTypeMetadata]);
 
             return page;
+        }
+
+        private static void InjectTOCMetadata(string tocPath, string metaName, string metaValue)
+        {
+            if (!string.IsNullOrEmpty(tocPath) && File.Exists(tocPath))
+            {
+                var toc = YamlUtility.Deserialize<TocViewModel>(tocPath);
+                if (toc != null && toc.Count > 0)
+                {
+                    toc.First().Metadata[metaName] = metaValue;
+                }
+                YamlUtility.Serialize(tocPath, toc);
+            }
         }
     }
 }

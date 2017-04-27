@@ -20,7 +20,30 @@ foreach($JoinTOCConfig in $jobs)
 {
 	$topTOC = Join-Path $repositoryRoot $JoinTOCConfig.TopLevelTOC
 	$refTOC = Join-Path $repositoryRoot $JoinTOCConfig.ReferenceTOC
+
+	$conceptualTOC = Join-Path $repositoryRoot $JoinTOCConfig.ConceptualTOC
+	$refTOCUrl = $JoinTOCConfig.ReferenceTOCUrl
+	$conceptualTOCUrl = $JoinTOCConfig.ConceptualTOCUrl
+
     $allArgs = @("-joinTOC", "-topLevelTOC", "$topTOC", "-refTOC", "$refTOC", "-l", "$logFilePath");
+
+	if (-not [string]::IsNullOrEmpty($conceptualTOC) -and (Test-Path $conceptualTOC))
+    {
+        $allArgs += "-conceptualTOC";
+        $allArgs += "$conceptualTOC";
+    }
+
+	if (-not [string]::IsNullOrEmpty($refTOCUrl))
+    {
+        $allArgs += "-refTOCUrl";
+        $allArgs += "$refTOCUrl";
+    }
+
+	if (-not [string]::IsNullOrEmpty($conceptualTOCUrl))
+    {
+        $allArgs += "-conceptualTOCUrl";
+        $allArgs += "$conceptualTOCUrl";
+    }
 
     $printAllArgs = [System.String]::Join(' ', $allArgs)
     $ecma2yamlExeFilePath = Join-Path $currentDir $ecma2yamlExeName

@@ -26,7 +26,7 @@ namespace ECMA2Yaml
                     }
                     if(opt.JoinTOC)
                     {
-                        TOCMerger.Merge(opt.TopLevelTOCPath, opt.RefTOCPath, opt.OutputFolder);
+                        TOCMerger.Merge(opt);
                     }
                     else
                     {

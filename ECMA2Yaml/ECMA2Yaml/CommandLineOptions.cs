@@ -14,9 +14,13 @@ namespace ECMA2Yaml
         public string LogFilePath = "log.json";
         public bool Flatten = false;
         public bool StrictMode = false;
+
         public bool JoinTOC = false;
         public string TopLevelTOCPath = null;
         public string RefTOCPath = null;
+        public string ConceptualTOCPath = null;
+        public string ConceptualTOCUrl = null;
+        public string RefTOCUrl = null;
 
         List<string> Extras = null;
 
@@ -35,7 +39,10 @@ namespace ECMA2Yaml
 
                 { "joinTOC", "join top level TOC with reference TOC by pattern matching",  j => JoinTOC = j != null },
                 { "topLevelTOC=", "top level TOC file path, used in -joinTOC mode",  s => TopLevelTOCPath = s },
-                { "refTOC=", "reference TOC file path, used in -joinTOC mode",  s => RefTOCPath = s }
+                { "refTOC=", "reference TOC file path, used in -joinTOC mode",  s => RefTOCPath = s },
+                { "refTOCUrl=", "reference TOC published url, used in -joinTOC mode",  c => RefTOCUrl = c },
+                { "conceptualTOC=", "conceptual TOC file path, used in -joinTOC mode",  c => ConceptualTOCPath = c },
+                { "conceptualTOCUrl=", "conceptual TOC published url, used in -joinTOC mode",  c => ConceptualTOCUrl = c }
             };
         }
 
