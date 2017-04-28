@@ -21,6 +21,7 @@ namespace ECMA2Yaml
         public string ConceptualTOCPath = null;
         public string ConceptualTOCUrl = null;
         public string RefTOCUrl = null;
+        public bool HideEmptyNode = false;
 
         List<string> Extras = null;
 
@@ -42,7 +43,8 @@ namespace ECMA2Yaml
                 { "refTOC=", "reference TOC file path, used in -joinTOC mode",  s => RefTOCPath = s },
                 { "refTOCUrl=", "reference TOC published url, used in -joinTOC mode",  c => RefTOCUrl = c },
                 { "conceptualTOC=", "conceptual TOC file path, used in -joinTOC mode",  c => ConceptualTOCPath = c },
-                { "conceptualTOCUrl=", "conceptual TOC published url, used in -joinTOC mode",  c => ConceptualTOCUrl = c }
+                { "conceptualTOCUrl=", "conceptual TOC published url, used in -joinTOC mode",  c => ConceptualTOCUrl = c },
+                { "hideEmptyNode", "hide a parent if its children pattern does not match any ref nodes, used in -joinTOC mode",  c => HideEmptyNode = c != null }
             };
         }
 

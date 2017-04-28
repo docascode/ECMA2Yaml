@@ -45,6 +45,11 @@ foreach($JoinTOCConfig in $jobs)
         $allArgs += "$conceptualTOCUrl";
     }
 
+	if ($JoinTOCConfig.HideEmptyNode)
+	{
+		$allArgs += "-hideEmptyNode";
+	}
+
     $printAllArgs = [System.String]::Join(' ', $allArgs)
     $ecma2yamlExeFilePath = Join-Path $currentDir $ecma2yamlExeName
     echo "Executing $ecma2yamlExeFilePath $printAllArgs" | timestamp

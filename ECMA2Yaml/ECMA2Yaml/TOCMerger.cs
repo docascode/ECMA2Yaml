@@ -67,7 +67,6 @@ namespace ECMA2Yaml
                                 OPSLogger.LogUserWarning(string.Format("Children pattern {0} cannot match any sub TOC", child), opt.TopLevelTOCPath);
                             }
                         }
-                        item.Metadata.Remove(ChildrenMetadata);
                     }
                     if (!string.IsNullOrEmpty(item.Uid) && item.Metadata.ContainsKey(LandingPageTypeMetadata) && item.Items != null)
                     {
@@ -88,9 +87,27 @@ namespace ECMA2Yaml
             {
                 topTOC.First().Metadata[OPSMetadata.Universal_Conceptual_TOC] = opt.ConceptualTOCUrl;
             }
+            TrimTOC(topTOC, opt.HideEmptyNode);
             YamlUtility.Serialize(opt.RefTOCPath, topTOC);
 
             InjectTOCMetadata(opt.ConceptualTOCPath, OPSMetadata.Universal_Ref_TOC, opt.RefTOCUrl);
+        }
+
+        private static void TrimTOC(TocViewModel toc, bool removeEmptyNode = false)
+        {
+            if (toc != null && toc.Count > 0)
+            {
+                if (removeEmptyNode)
+                {
+                    toc.RemoveAll(item => item.Metadata.ContainsKey(ChildrenMetadata) && (item.Items == null || item.Items.Count == 0));
+                }
+
+                foreach(var item in toc)
+                {
+                    item.Metadata.Remove(ChildrenMetadata);
+                    TrimTOC(item.Items, removeEmptyNode);
+                }
+            }
         }
 
         private static Regex WildCardToRegex(String value)
