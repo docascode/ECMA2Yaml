@@ -68,12 +68,6 @@ namespace ECMA2Yaml
                             }
                         }
                     }
-                    if (!string.IsNullOrEmpty(item.Uid) && item.Metadata.ContainsKey(LandingPageTypeMetadata) && item.Items != null)
-                    {
-                        var page = CreateLandingPage(item);
-                        var fileName = Path.Combine(outputPath, item.Uid + ".yml");
-                        YamlUtility.Serialize(fileName, page, YamlMime.ManagedReference);
-                    }
                 }
             }
             if (refTOCDict.Count > 0)
@@ -87,13 +81,13 @@ namespace ECMA2Yaml
             {
                 topTOC.First().Metadata[OPSMetadata.Universal_Conceptual_TOC] = opt.ConceptualTOCUrl;
             }
-            TrimTOC(topTOC, opt.HideEmptyNode);
+            TrimTOCAndCreateLandingPage(topTOC, outputPath, opt.HideEmptyNode);
             YamlUtility.Serialize(opt.RefTOCPath, topTOC);
 
             InjectTOCMetadata(opt.ConceptualTOCPath, OPSMetadata.Universal_Ref_TOC, opt.RefTOCUrl);
         }
 
-        private static void TrimTOC(TocViewModel toc, bool removeEmptyNode = false)
+        private static void TrimTOCAndCreateLandingPage(TocViewModel toc, string outputPath, bool removeEmptyNode = false)
         {
             if (toc != null && toc.Count > 0)
             {
@@ -105,7 +99,13 @@ namespace ECMA2Yaml
                 foreach(var item in toc)
                 {
                     item.Metadata.Remove(ChildrenMetadata);
-                    TrimTOC(item.Items, removeEmptyNode);
+                    TrimTOCAndCreateLandingPage(item.Items, outputPath, removeEmptyNode);
+                    if (!string.IsNullOrEmpty(item.Uid) && item.Metadata.ContainsKey(LandingPageTypeMetadata) && item.Items != null)
+                    {
+                        var page = CreateLandingPage(item);
+                        var fileName = Path.Combine(outputPath, item.Uid + ".yml");
+                        YamlUtility.Serialize(fileName, page, YamlMime.ManagedReference);
+                    }
                 }
             }
         }
