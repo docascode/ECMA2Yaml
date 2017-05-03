@@ -25,8 +25,6 @@ foreach($JoinTOCConfig in $jobs)
 	$refTOCUrl = $JoinTOCConfig.ReferenceTOCUrl
 	$conceptualTOCUrl = $JoinTOCConfig.ConceptualTOCUrl
 
-	$outputFolder = Join-Path $repositoryRoot $JoinTOCConfig.OutputFolder
-
     $allArgs = @("-joinTOC", "-topLevelTOC", "$topTOC", "-refTOC", "$refTOC", "-l", "$logFilePath");
 
 	if (-not [string]::IsNullOrEmpty($conceptualTOC) -and (Test-Path $conceptualTOC))
@@ -52,8 +50,9 @@ foreach($JoinTOCConfig in $jobs)
 		$allArgs += "-hideEmptyNode";
 	}
 
-	if (-not [string]::IsNullOrEmpty($outputFolder))
+	if (-not [string]::IsNullOrEmpty($JoinTOCConfig.OutputFolder))
     {
+		$outputFolder = Join-Path $repositoryRoot $JoinTOCConfig.OutputFolder
         $allArgs += "-o";
         $allArgs += "$outputFolder";
     }
