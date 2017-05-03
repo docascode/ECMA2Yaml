@@ -27,7 +27,7 @@ Function TranslateChangeList([string]$changeListFile, $mapping)
         if (Test-Path $changeListFile)
         {
             $newChangeList = $changeListFile -replace "\.tsv$",".mapped.tsv"
-            New-Item $newChangeList -type file -force
+            New-Item $newChangeList -type file -force | Out-Null
             $changeList = Import-Csv -Delimiter "`t" -Path $changeListFile -Header "Path", "Change"
             Foreach($file in $changeList)
             {
@@ -38,7 +38,7 @@ Function TranslateChangeList([string]$changeListFile, $mapping)
                 }
                 Add-Content $newChangeList ($path + "`t" + $file.Change)
             }
-            echo "Saved new changelist to $newChangeList" | timestamp
+            Write-Host "Saved new changelist to $newChangeList"
             return $newChangeList
         }
     }
