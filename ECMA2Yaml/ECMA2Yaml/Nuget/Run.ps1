@@ -136,15 +136,14 @@ foreach($ecmaConfig in $jobs)
 
     $mappingFile = Join-Path $logOutputFolder "XmlYamlMapping.json"
     $mapping = GetLargeJsonContent($mappingFile)
-    $newChangeList = TranslateChangeList($ParameterDictionary.context.changeListTsvFilePath, $mapping);
+    $newChangeList = TranslateChangeList ($ParameterDictionary.context.changeListTsvFilePath) ($mapping)
     if (-not [string]::IsNullOrEmpty($newChangeList))
     {
         $ParameterDictionary.context.changeListTsvFilePath = $newChangeList
     }
-    $newChangeList = TranslateChangeList($ParameterDictionary.context.userSpecifiedChangeListTsvFilePath, $mapping);
+    $newChangeList = TranslateChangeList ($ParameterDictionary.context.userSpecifiedChangeListTsvFilePath) ($mapping)
     if (-not [string]::IsNullOrEmpty($newChangeList))
     {
         $ParameterDictionary.context.userSpecifiedChangeListTsvFilePath = $newChangeList
     }
 }
-
