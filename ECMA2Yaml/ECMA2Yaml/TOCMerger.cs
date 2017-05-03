@@ -131,7 +131,7 @@ namespace ECMA2Yaml
                 Name = tocItem.Name,
                 NameWithType = tocItem.Name,
                 FullName = tocItem.Name,
-                Type = MemberType.Default,
+                Type = MemberType.Container,
                 Children = validChildren.Select(t => t.Uid).ToList(),
             };
 
