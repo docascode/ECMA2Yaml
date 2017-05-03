@@ -20,6 +20,10 @@ namespace ECMA2Yaml
         public static void Merge(CommandLineOptions opt)
         {
             string outputPath = opt.OutputFolder ?? Path.GetDirectoryName(opt.RefTOCPath);
+            if (!Directory.Exists(outputPath))
+            {
+                Directory.CreateDirectory(outputPath);
+            }
             var topTOC = YamlUtility.Deserialize<TocViewModel>(opt.TopLevelTOCPath);
             var refTOC = YamlUtility.Deserialize<TocViewModel>(opt.RefTOCPath);
             var refTOCDict = refTOC.ToDictionary(t => t.Name);
@@ -103,7 +107,9 @@ namespace ECMA2Yaml
                     if (!string.IsNullOrEmpty(item.Uid) && item.Metadata.ContainsKey(LandingPageTypeMetadata) && item.Items != null)
                     {
                         var page = CreateLandingPage(item);
-                        var fileName = Path.Combine(outputPath, item.Uid + ".yml");
+                        var landingPageType = (string)item.Metadata[LandingPageTypeMetadata];
+                        var fileName = (landingPageType == "Root" ? "index" : item.Name.Replace(" ", "")) + ".yml";
+                        fileName = Path.Combine(outputPath, fileName);
                         YamlUtility.Serialize(fileName, page, YamlMime.ManagedReference);
                     }
                 }
