@@ -16,6 +16,7 @@ namespace ECMA2Yaml.Models
         public static readonly string XMLLocalPath = "original_ecmaxml_local_path";
         public static readonly string AltCompliant = "altCompliant";
         public static readonly string InternalOnly = "internal_use_only";
+        public static readonly string NugetPackageNames = "nuget_package_names";
 
         public static readonly string Universal_Conceptual_TOC = "universal_conceptual_toc";
         public static readonly string Universal_Ref_TOC = "universal_ref_toc";
