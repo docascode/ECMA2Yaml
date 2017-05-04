@@ -24,7 +24,7 @@ foreach($JoinTOCConfig in $jobs)
 	$conceptualTOC = Join-Path $repositoryRoot $JoinTOCConfig.ConceptualTOC
 	$refTOCUrl = $JoinTOCConfig.ReferenceTOCUrl
 	$conceptualTOCUrl = $JoinTOCConfig.ConceptualTOCUrl
-
+	$landingPageFolder = $JoinTOCConfig.OutputFolder
     $allArgs = @("-joinTOC", "-topLevelTOC", "$topTOC", "-refTOC", "$refTOC", "-l", "$logFilePath");
 
 	if (-not [string]::IsNullOrEmpty($conceptualTOC) -and (Test-Path $conceptualTOC))
@@ -50,11 +50,11 @@ foreach($JoinTOCConfig in $jobs)
 		$allArgs += "-hideEmptyNode";
 	}
 
-	if (-not [string]::IsNullOrEmpty($JoinTOCConfig.OutputFolder))
+	if (-not [string]::IsNullOrEmpty($landingPageFolder))
     {
-		$outputFolder = Join-Path $repositoryRoot $JoinTOCConfig.OutputFolder
+		$landingPageFolder = Join-Path $repositoryRoot $landingPageFolder
         $allArgs += "-o";
-        $allArgs += "$outputFolder";
+        $allArgs += "$landingPageFolder";
     }
 
     $printAllArgs = [System.String]::Join(' ', $allArgs)
@@ -66,15 +66,25 @@ foreach($JoinTOCConfig in $jobs)
         exit $LASTEXITCODE
     }
 
-    if (-not [string]::IsNullOrEmpty($ecmaConfig.id))
-    {
-        $tocPath = Join-Path $ecmaOutputYamlFolder "toc.yml"
-        $newTocPath = Join-Path $ecmaOutputYamlFolder $ecmaConfig.id
-        if (-not (Test-Path $newTocPath))
-        {
-            New-Item -ItemType Directory -Force -Path $newTocPath
-        }
-        Move-Item $tocPath $newTocPath
-    }
+	if ($JoinTOCConfig.Debug)
+	{
+		$outputFolder = $currentDictionary.environment.outputFolder
+
+		$fusionTOCOutputFolder = Join-Path $outputFolder "_fusionTOC"
+
+		if (-not [string]::IsNullOrEmpty($landingPageFolder))
+		{
+			& robocopy $landingPageFolder $fusionTOCOutputFolder *.yml
+		}
+		
+		& copy $refTOC "$fusionTOCOutputFolder/ref_toc.yml"
+		& copy $conceptualTOC "$fusionTOCOutputFolder/conceptual_toc.yml"
+		if ($LASTEXITCODE -ne 1)
+		{
+			exit $LASTEXITCODE
+		}
+	}
+
+	exit 0
 }
 
