@@ -2,6 +2,7 @@
 using Microsoft.DocAsCode.Common;
 using Microsoft.DocAsCode.DataContracts.Common;
 using Microsoft.DocAsCode.DataContracts.ManagedReference;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -27,6 +28,7 @@ namespace ECMA2Yaml
             var topTOC = YamlUtility.Deserialize<TocViewModel>(opt.TopLevelTOCPath);
             var refTOC = YamlUtility.Deserialize<TocViewModel>(opt.RefTOCPath);
             var refTOCDict = refTOC.ToDictionary(t => t.Name);
+            Dictionary<string, object> metadata = ParseMetadataJson(opt.LandingPageMetadata);
             Queue<TocItemViewModel> itemsToGo = new Queue<TocItemViewModel>();
             topTOC.ForEach(t => itemsToGo.Enqueue(t));
             while (itemsToGo.Count > 0)
@@ -85,13 +87,34 @@ namespace ECMA2Yaml
             {
                 topTOC.First().Metadata[OPSMetadata.Universal_Conceptual_TOC] = opt.ConceptualTOCUrl;
             }
-            TrimTOCAndCreateLandingPage(topTOC, outputPath, opt.HideEmptyNode);
+            TrimTOCAndCreateLandingPage(topTOC, outputPath, metadata, opt.HideEmptyNode);
             YamlUtility.Serialize(opt.RefTOCPath, topTOC);
 
             InjectTOCMetadata(opt.ConceptualTOCPath, OPSMetadata.Universal_Ref_TOC, opt.RefTOCUrl);
         }
 
-        private static void TrimTOCAndCreateLandingPage(TocViewModel toc, string outputPath, bool removeEmptyNode = false)
+        private static Dictionary<string, object> ParseMetadataJson(string json)
+        {
+            if (string.IsNullOrEmpty(json))
+            {
+                return null;
+            }
+            var metadata = JsonConvert.DeserializeObject<Dictionary<string, object>>(json);
+            if (metadata != null)
+            {
+                metadata = metadata.ToDictionary(pair => pair.Key, pair =>
+                {
+                    if (pair.Value is Newtonsoft.Json.Linq.JArray)
+                    {
+                        return ((Newtonsoft.Json.Linq.JArray)pair.Value).ToObject<string[]>();
+                    }
+                    return pair.Value;
+                });
+            }
+            return metadata;
+        }
+
+        private static void TrimTOCAndCreateLandingPage(TocViewModel toc, string outputPath, Dictionary<string, object> metadata, bool removeEmptyNode = false)
         {
             if (toc != null && toc.Count > 0)
             {
@@ -103,10 +126,10 @@ namespace ECMA2Yaml
                 foreach(var item in toc)
                 {
                     item.Metadata.Remove(ChildrenMetadata);
-                    TrimTOCAndCreateLandingPage(item.Items, outputPath, removeEmptyNode);
-                    if (!string.IsNullOrEmpty(item.Uid) && item.Metadata.ContainsKey(LandingPageTypeMetadata) && item.Items != null)
+                    TrimTOCAndCreateLandingPage(item.Items, outputPath, metadata, removeEmptyNode);
+                    if (!string.IsNullOrEmpty(item.Uid) && item.Metadata.ContainsKey(LandingPageTypeMetadata) && (item.Items != null || !removeEmptyNode))
                     {
-                        var page = CreateLandingPage(item);
+                        var page = CreateLandingPage(item, metadata);
                         var landingPageType = (string)item.Metadata[LandingPageTypeMetadata];
                         var fileName = (landingPageType == "Root" ? "index" : item.Name.Replace(" ", "")) + ".yml";
                         fileName = Path.Combine(outputPath, fileName);
@@ -121,7 +144,7 @@ namespace ECMA2Yaml
             return new Regex("^" + Regex.Escape(value).Replace("\\?", ".").Replace("\\*", ".*") + "$", RegexOptions.Compiled);
         }
 
-        private static PageViewModel CreateLandingPage(TocItemViewModel tocItem)
+        private static PageViewModel CreateLandingPage(TocItemViewModel tocItem, Dictionary<string, object> metadata)
         {
             var validChildren = tocItem.Items.Where(i => !string.IsNullOrEmpty(i.Uid)).ToList();
             var item = new ItemViewModel()
@@ -134,7 +157,20 @@ namespace ECMA2Yaml
                 Type = MemberType.Container,
                 Children = validChildren.Select(t => t.Uid).ToList(),
             };
-
+            if (metadata != null)
+            {
+                foreach(var meta in metadata)
+                {
+                    if (meta.Key == "langs")
+                    {
+                        item.SupportedLanguages = meta.Value as string[];
+                    }
+                    else
+                    {
+                        item.Metadata.Add(meta.Key, meta.Value);
+                    }
+                }
+            }
             var refs = validChildren.Select(i => new ReferenceViewModel()
             {
                 Name = i.Name,

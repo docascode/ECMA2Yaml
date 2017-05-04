@@ -50,6 +50,15 @@ foreach($JoinTOCConfig in $jobs)
 		$allArgs += "-hideEmptyNode";
 	}
 
+	if ($JoinTOCConfig.ContainerPageMetadata)
+	{
+		$allArgs += "-landingPageMetadata";
+		$meta = $JoinTOCConfig.ContainerPageMetadata;
+		$json = ConvertTo-Json $meta -Compress
+		$json = $json -replace """","\"""
+		$allArgs += "$json";
+	}
+
 	if (-not [string]::IsNullOrEmpty($landingPageFolder))
     {
 		$landingPageFolder = Join-Path $repositoryRoot $landingPageFolder

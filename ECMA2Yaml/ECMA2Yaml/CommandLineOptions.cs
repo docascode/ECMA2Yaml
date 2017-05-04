@@ -22,7 +22,7 @@ namespace ECMA2Yaml
         public string ConceptualTOCUrl = null;
         public string RefTOCUrl = null;
         public bool HideEmptyNode = false;
-
+        public string LandingPageMetadata;
         List<string> Extras = null;
 
         OptionSet _options = null;
@@ -44,7 +44,8 @@ namespace ECMA2Yaml
                 { "refTOCUrl=", "reference TOC published url, used in -joinTOC mode",  c => RefTOCUrl = c },
                 { "conceptualTOC=", "conceptual TOC file path, used in -joinTOC mode",  c => ConceptualTOCPath = c },
                 { "conceptualTOCUrl=", "conceptual TOC published url, used in -joinTOC mode",  c => ConceptualTOCUrl = c },
-                { "hideEmptyNode", "hide a parent if its children pattern does not match any ref nodes, used in -joinTOC mode",  c => HideEmptyNode = c != null }
+                { "hideEmptyNode", "hide a parent if its children pattern does not match any ref nodes, used in -joinTOC mode",  c => HideEmptyNode = c != null },
+                { "landingPageMetadata=", "metadata json string, used in -joinTOC mode",  c => LandingPageMetadata = c },
             };
         }
 
