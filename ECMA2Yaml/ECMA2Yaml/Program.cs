@@ -28,6 +28,10 @@ namespace ECMA2Yaml
                     {
                         TOCMerger.Merge(opt);
                     }
+                    else if (opt.FolderDiff)
+                    {
+                        FolderDiff.Run(opt);
+                    }
                     else
                     {
                         LoadAndConvert(opt);

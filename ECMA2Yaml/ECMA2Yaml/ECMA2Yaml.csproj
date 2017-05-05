@@ -134,6 +134,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommandLineOptions.cs" />
+    <Compile Include="FolderDiff.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TOCGenerator.cs" />
@@ -149,6 +150,7 @@
     <None Include="Nuget\ECMA2Yaml.nuspec">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Nuget\DiffFolder.ps1" />
     <None Include="Nuget\PostBuild.ps1" />
     <None Include="Nuget\JoinTOC.ps1" />
     <None Include="packages.config" />
