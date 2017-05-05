@@ -132,6 +132,10 @@ namespace ECMA2Yaml
             {
                 pv.References.AddRange(t.ExtensionMethods.Select(ex => store.MembersByUid[ex].ToReferenceViewModel()));
             }
+            if (t.Interfaces?.Count > 0)
+            {
+                pv.References.AddRange(t.Interfaces.SelectMany(i => GenerateReferencesByTypeString(i, store)));
+            }
             pv.References = pv.References.DistinctBy(r => r.Uid).ToList();
 
             return pv;
@@ -151,7 +155,7 @@ namespace ECMA2Yaml
                 NamespaceName = t.Parent.Name,
                 Children = t.Members?.Select(m => m.Uid).ToList(),
                 Syntax = t.ToSyntaxDetailViewModel(store),
-                Implements = t.Interfaces,
+                Implements = t.Interfaces?.Where(i => i != null).Select(i => i.ToSpecId()).ToList(),
                 Inheritance = t.InheritanceUids,
                 AssemblyNameList = t.AssemblyInfo.Select(a => a.Name).ToList(),
                 InheritedMembers = t.InheritedMembers?.Select(p => p.Value + '.' + p.Key).OrderBy(s => s).ToList(),
