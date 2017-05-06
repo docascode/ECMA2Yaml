@@ -187,7 +187,7 @@ namespace ECMA2Yaml
             };
 
             page.Metadata.Add(LandingPageTypeMetadata, tocItem.Metadata[LandingPageTypeMetadata]);
-
+            page.Metadata.Add(OPSMetadata.OpenToPublic, false);
             return page;
         }
 
