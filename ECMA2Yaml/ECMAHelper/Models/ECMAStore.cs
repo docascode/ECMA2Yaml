@@ -117,6 +117,8 @@ namespace ECMA2Yaml.Models
             BuildFrameworks();
 
             BuildOtherMetadata();
+
+            FindMissingAssemblyNames();
         }
 
         private void BuildOtherMetadata()
@@ -492,6 +494,30 @@ namespace ECMA2Yaml.Models
                             if (!TypesByUid.ContainsKey(ex.Uid) && !MembersByUid.ContainsKey(ex.Uid))
                             {
                                 OPSLogger.LogUserWarning("Referenced exception type not found: " + ex.Uid, m.SourceFileLocalPath);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void FindMissingAssemblyNames()
+        {
+            foreach(var t in _tList)
+            {
+               if (t.AssemblyInfo?.Count > 0 && t.Members?.Count > 0)
+                {
+                    foreach(var m in t.Members)
+                    {
+                        if (m.AssemblyInfo?.Count > 0)
+                        {
+                            foreach(var asm in m.AssemblyInfo)
+                            {
+                                if (string.IsNullOrEmpty(asm.Name) && asm.Versions?.Count > 0)
+                                {
+                                    var fallback = t.AssemblyInfo.FirstOrDefault(ta => ta.Versions.Intersect(asm.Versions).Count() == asm.Versions.Count);
+                                    asm.Name = fallback?.Name;
+                                }
                             }
                         }
                     }
