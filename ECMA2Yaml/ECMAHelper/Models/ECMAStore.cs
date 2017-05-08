@@ -25,8 +25,9 @@ namespace ECMA2Yaml.Models
         private IEnumerable<Type> _tList;
         private Dictionary<string, List<string>> _frameworks;
         private List<ExtensionMethod> _extensionMethods;
+        private Dictionary<string, string> _monikerNugetMapping;
 
-        public ECMAStore(IEnumerable<Namespace> nsList, Dictionary<string, List<string>> frameworks, List<ExtensionMethod> extensionMethods)
+        public ECMAStore(IEnumerable<Namespace> nsList, Dictionary<string, List<string>> frameworks, List<ExtensionMethod> extensionMethods, Dictionary<string, string> monikerNugetMapping = null)
         {
             typeDescriptorCache = new Dictionary<string, EcmaDesc>();
 
@@ -34,6 +35,7 @@ namespace ECMA2Yaml.Models
             _tList = nsList.SelectMany(ns => ns.Types).ToList();
             _frameworks = frameworks;
             _extensionMethods = extensionMethods;
+            _monikerNugetMapping = monikerNugetMapping;
 
             InheritanceParentsByUid = new Dictionary<string, List<string>>();
             InheritanceChildrenByUid = new Dictionary<string, List<string>>();
@@ -134,6 +136,22 @@ namespace ECMA2Yaml.Models
                 {
                     ns.Metadata[OPSMetadata.InternalOnly] = nsInternalOnly;
                 }
+                if (_monikerNugetMapping != null && ns.Metadata.ContainsKey(OPSMetadata.Monikers))
+                {
+                    var monikers = (List<string>)ns.Metadata[OPSMetadata.Monikers];
+                    List<string> packages = new List<string>();
+                    foreach(var moniker in monikers)
+                    {
+                        if (_monikerNugetMapping.ContainsKey(moniker))
+                        {
+                            packages.Add(_monikerNugetMapping[moniker]);
+                        }
+                    }
+                    if (packages.Count > 0)
+                    {
+                        ns.Metadata[OPSMetadata.NugetPackageNames] = packages.ToArray();
+                    }
+                }
                 foreach (var t in ns.Types)
                 {
                     bool tInternalOnly = t.Docs?.InternalOnly ?? nsInternalOnly;
@@ -166,6 +184,10 @@ namespace ECMA2Yaml.Models
 
         private void BuildExtensionMethods()
         {
+            if (_extensionMethods == null || _extensionMethods.Count == 0)
+            {
+                return;
+            }
             ExtensionMethodsByMemberDocId = _extensionMethods.ToDictionary(ex => ex.MemberDocId);
 
             foreach(var m in MembersByUid.Values)
@@ -210,6 +232,10 @@ namespace ECMA2Yaml.Models
 
         private void BuildFrameworks()
         {
+            if (_frameworks == null || _frameworks.Count == 0)
+            {
+                return;
+            }
             foreach (var ns in _nsList)
             {
                 if (_frameworks.ContainsKey(ns.Uid))

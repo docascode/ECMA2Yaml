@@ -8,6 +8,7 @@ using System.IO;
 using System.Xml.Linq;
 using System.Collections.Concurrent;
 using System.Text.RegularExpressions;
+using Newtonsoft.Json;
 
 namespace ECMA2Yaml
 {
@@ -27,6 +28,7 @@ namespace ECMA2Yaml
             var frameworks = LoadFrameworks(path);
             var extensionMethods = LoadExtensionMethods(path);
             var filterStore = LoadFilters(path);
+            var monikerNugetMapping = LoadMonikerPackageMapping(path);
 
             ConcurrentBag<Namespace> namespaces = new ConcurrentBag<Namespace>();
             ParallelOptions opt = new ParallelOptions() { MaxDegreeOfParallelism = Environment.ProcessorCount };
@@ -60,7 +62,7 @@ namespace ECMA2Yaml
                 return null;
             }
 
-            var store = new ECMAStore(namespaces.OrderBy(ns => ns.Name).ToArray(), frameworks, extensionMethods);
+            var store = new ECMAStore(namespaces.OrderBy(ns => ns.Name).ToArray(), frameworks, extensionMethods, monikerNugetMapping);
             store.FilterStore = filterStore;
 
             return store;
@@ -111,9 +113,9 @@ namespace ECMA2Yaml
             return null;
         }
 
-        private Dictionary<string, List<string>> LoadFrameworks(string path)
+        private Dictionary<string, List<string>> LoadFrameworks(string folder)
         {
-            var frameworkFolder = Path.Combine(path, "FrameworksIndex");
+            var frameworkFolder = Path.Combine(folder, "FrameworksIndex");
             if (!Directory.Exists(frameworkFolder))
             {
                 return null;
@@ -143,6 +145,24 @@ namespace ECMA2Yaml
             return frameworks;
         }
 
+        private Dictionary<string, string> LoadMonikerPackageMapping(string folder)
+        {
+            var file = Path.Combine(folder, "moniker2nuget.json");
+            if (File.Exists(file))
+            {
+                try
+                {
+                    return JsonConvert.DeserializeObject<Dictionary<string, string>>(File.ReadAllText(file));
+                }
+                catch(Exception ex)
+                {
+                    OPSLogger.LogUserError("Unable to load moniker to nuget mapping: " + ex.ToString(), file);
+                    return null;
+                }
+            }
+            return null;
+        }
+
         private List<ExtensionMethod> LoadExtensionMethods(string path)
         {
             var indexFile = Path.Combine(path, "index.xml");
@@ -154,15 +174,19 @@ namespace ECMA2Yaml
             var extensionMethods = new List<ExtensionMethod>();
             XDocument idxDoc = XDocument.Load(indexFile);
             var emElements = idxDoc?.Root?.Element("ExtensionMethods")?.Elements("ExtensionMethod");
-            foreach(var em in emElements)
+            if (emElements != null)
             {
-                extensionMethods.Add(new ExtensionMethod()
+                foreach(var em in emElements)
                 {
-                    TargetDocId = em.Element("Targets").Element("Target").Attribute("Type").Value,
-                    MemberDocId = em.Element("Member").Element("Link").Attribute("Member").Value,
-                    ParentType = em.Element("Member").Element("Link").Attribute("Type").Value
-                });
+                    extensionMethods.Add(new ExtensionMethod()
+                    {
+                        TargetDocId = em.Element("Targets").Element("Target").Attribute("Type").Value,
+                        MemberDocId = em.Element("Member").Element("Link").Attribute("Member").Value,
+                        ParentType = em.Element("Member").Element("Link").Attribute("Type").Value
+                    });
+                }
             }
+            
             return extensionMethods;
         }
 

@@ -24,7 +24,18 @@ namespace ECMA2Yaml
                     {
                         OPSLogger.PathTrimPrefix = opt.RepoRootPath;
                     }
-                    LoadAndConvert(opt);
+                    if(opt.JoinTOC)
+                    {
+                        TOCMerger.Merge(opt);
+                    }
+                    else if (opt.FolderDiff)
+                    {
+                        FolderDiff.Run(opt);
+                    }
+                    else
+                    {
+                        LoadAndConvert(opt);
+                    }
                 }
             }
             catch (Exception ex)
@@ -59,7 +70,7 @@ namespace ECMA2Yaml
             WriteLine("Loaded {0} namespaces.", store.Namespaces.Count);
             WriteLine("Loaded {0} types.", store.TypesByFullName.Count);
             WriteLine("Loaded {0} members.", store.MembersByUid.Count);
-            WriteLine("Loaded {0} extension methods.", store.ExtensionMethodsByMemberDocId.Values.Count);
+            WriteLine("Loaded {0} extension methods.", store.ExtensionMethodsByMemberDocId?.Values?.Count ?? 0);
             WriteLine("Loaded {0} attribute filters.", store.FilterStore?.AttributeFilters?.Count ?? 0);
 
             WriteLine("Generating Yaml models...");
