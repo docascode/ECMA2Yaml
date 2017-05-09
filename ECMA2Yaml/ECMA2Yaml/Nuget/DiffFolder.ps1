@@ -34,6 +34,7 @@ foreach($folder in $jobs)
 	$changelistBefore = Join-Path $logOutputFolder "ChangeListUpdateLog/$folder/before.tsv"
 	$changelistAfter = Join-Path $logOutputFolder "ChangeListUpdateLog/$folder/after.tsv"
 
+	Write-Host "Saving change list to $changelistBefore"
 	New-Item -Force $changelistBefore
 	copy-item $changeListPath $changelistBefore -Force
 
@@ -47,6 +48,7 @@ foreach($folder in $jobs)
     {
         exit $LASTEXITCODE
     }
+	Write-Host "Saving change list to $changelistAfter"
 	New-Item -Force $changelistAfter
 	copy-item $changeListPath $changelistAfter -Force
 	exit 0
