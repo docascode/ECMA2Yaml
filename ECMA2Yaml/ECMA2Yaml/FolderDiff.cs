@@ -61,6 +61,14 @@ namespace ECMA2Yaml
                 }
             }
 
+            if (diff.Count > 0)
+            {
+                Console.WriteLine("{0} files created, {1} files updated, {2} files deleted",
+                    diff.Count(d => d.Value == OP_Add),
+                    diff.Count(d => d.Value == OP_Update),
+                    diff.Count(d => d.Value == OP_Delete));
+            }
+            
             //remove repo root from new md5Cache key to save to disk
             if (!string.IsNullOrEmpty(opt.RepoRootPath))
             {
