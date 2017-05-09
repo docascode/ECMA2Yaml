@@ -13,6 +13,8 @@ $repositoryRoot = $ParameterDictionary.environment.repositoryRoot
 $logFilePath = $ParameterDictionary.environment.logFile
 $changeListPath = $ParameterDictionary.context.changeListTsvFilePath
 $cacheFolder = $ParameterDictionary.environment.cacheFolder
+$outputFolder = $currentDictionary.environment.outputFolder
+$logOutputFolder = $currentDictionary.environment.logOutputFolder
 
 if ([string]::IsNullOrEmpty($changeListPath) -or -not (Test-Path $changeListPath))
 {
@@ -29,6 +31,11 @@ foreach($folder in $jobs)
 {
 	$folderToDiff = Join-Path $repositoryRoot $folder
 	$cacheFile = Join-Path $cacheFolder "DiffFolderMD5Cache/$folder/md5Cache.json"
+	$changelistBefore = Join-Path $logOutputFolder "ChangeListUpdateLog/$folder/before.tsv"
+	$changelistAfter = Join-Path $logOutputFolder "ChangeListUpdateLog/$folder/after.tsv"
+
+	New-Item -Force $changelistBefore
+	copy-item $changeListPath $changelistBefore -Force
 
     $allArgs = @("-diffFolder", "-changelistFile", "$changeListPath", "-folderToDiff", "$folderToDiff", "-l", "$logFilePath", "-cacheFile", "$cacheFile", "-p", """$repositoryRoot=>""");
 
@@ -40,7 +47,8 @@ foreach($folder in $jobs)
     {
         exit $LASTEXITCODE
     }
-
+	New-Item -Force $changelistAfter
+	copy-item $changeListPath $changelistAfter -Force
 	exit 0
 }
 

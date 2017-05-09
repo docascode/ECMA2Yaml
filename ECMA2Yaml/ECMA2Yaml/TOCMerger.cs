@@ -68,7 +68,7 @@ namespace ECMA2Yaml
                                     refTOCDict.Remove(match);
                                 }
                             }
-                            else
+                            else if (!opt.HideEmptyNode && child != "*")
                             {
                                 OPSLogger.LogUserWarning(string.Format("Children pattern {0} cannot match any sub TOC", child), opt.TopLevelTOCPath);
                             }
