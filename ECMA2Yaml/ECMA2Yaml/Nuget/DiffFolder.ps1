@@ -51,6 +51,6 @@ foreach($folder in $jobs)
 	Write-Host "Saving change list to $changelistAfter"
 	New-Item -Force $changelistAfter
 	copy-item $changeListPath $changelistAfter -Force
-	exit 0
 }
+exit 0
 
