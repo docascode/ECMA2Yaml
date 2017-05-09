@@ -16,6 +16,7 @@ namespace ECMA2Yaml
     public class TOCMerger
     {
         public const string ChildrenMetadata = "children";
+        public const string VisibleMetadata = "visible";
         public const string LandingPageTypeMetadata = "landingPageType";
 
         public static void Merge(CommandLineOptions opt)
@@ -122,10 +123,11 @@ namespace ECMA2Yaml
                 {
                     toc.RemoveAll(item => item.Metadata.ContainsKey(ChildrenMetadata) && (item.Items == null || item.Items.Count == 0));
                 }
-
-                foreach(var item in toc)
+                toc.RemoveAll(item => item.Metadata.ContainsKey(VisibleMetadata) && item.Metadata[VisibleMetadata] is bool && !(bool)item.Metadata[VisibleMetadata]);
+                foreach (var item in toc)
                 {
                     item.Metadata.Remove(ChildrenMetadata);
+                    item.Metadata.Remove(VisibleMetadata);
                     TrimTOCAndCreateLandingPage(item.Items, outputPath, metadata, removeEmptyNode);
                     if (!string.IsNullOrEmpty(item.Uid) && item.Metadata.ContainsKey(LandingPageTypeMetadata) && (item.Items != null || !removeEmptyNode))
                     {
