@@ -35,7 +35,7 @@ foreach($folder in $jobs)
 	$changelistAfter = Join-Path $logOutputFolder "ChangeListUpdateLog/$folder/after.tsv"
 
 	Write-Host "Saving change list to $changelistBefore"
-	New-Item -Force $changelistBefore
+	New-Item -Force $changelistBefore -type file
 	copy-item $changeListPath $changelistBefore -Force
 
     $allArgs = @("-diffFolder", "-changelistFile", "$changeListPath", "-folderToDiff", "$folderToDiff", "-l", "$logFilePath", "-cacheFile", "$cacheFile", "-p", """$repositoryRoot=>""");
@@ -49,7 +49,7 @@ foreach($folder in $jobs)
         exit $LASTEXITCODE
     }
 	Write-Host "Saving change list to $changelistAfter"
-	New-Item -Force $changelistAfter
+	New-Item -Force $changelistAfter -type file
 	copy-item $changeListPath $changelistAfter -Force
 }
 exit 0
