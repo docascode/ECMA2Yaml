@@ -26,70 +26,74 @@ namespace ECMA2Yaml
             {
                 Directory.CreateDirectory(outputPath);
             }
-            var topTOC = YamlUtility.Deserialize<TocViewModel>(opt.TopLevelTOCPath);
-            var refTOC = YamlUtility.Deserialize<TocViewModel>(opt.RefTOCPath);
-            var refTOCDict = refTOC.ToDictionary(t => t.Name);
             Dictionary<string, object> metadata = ParseMetadataJson(opt.LandingPageMetadata);
-            Queue<TocItemViewModel> itemsToGo = new Queue<TocItemViewModel>();
-            topTOC.ForEach(t => itemsToGo.Enqueue(t));
-            while (itemsToGo.Count > 0)
+            var topTOC = YamlUtility.Deserialize<TocViewModel>(opt.TopLevelTOCPath);
+            if (!string.IsNullOrEmpty(opt.RefTOCPath) && File.Exists(opt.RefTOCPath))
             {
-                var item = itemsToGo.Dequeue();
-                if (item.Items != null)
+                var refTOC = YamlUtility.Deserialize<TocViewModel>(opt.RefTOCPath);
+                var refTOCDict = refTOC.ToDictionary(t => t.Name);
+                Queue<TocItemViewModel> itemsToGo = new Queue<TocItemViewModel>();
+                topTOC.ForEach(t => itemsToGo.Enqueue(t));
+                while (itemsToGo.Count > 0)
                 {
-                    item.Items.ForEach(t => itemsToGo.Enqueue(t));
-                }
-                if (item.Metadata != null)
-                {
-                    if (item.Metadata.ContainsKey(ChildrenMetadata))
+                    var item = itemsToGo.Dequeue();
+                    if (item.Items != null)
                     {
-                        var children = (List<object>)item.Metadata[ChildrenMetadata];
-                        foreach (var child in children.Cast<string>())
+                        item.Items.ForEach(t => itemsToGo.Enqueue(t));
+                    }
+                    if (item.Metadata != null)
+                    {
+                        if (item.Metadata.ContainsKey(ChildrenMetadata))
                         {
-                            var regex = WildCardToRegex(child);
-                            var matched = refTOCDict.Keys.Where(key => regex.IsMatch(key)).ToList();
-                            if (matched.Count > 0)
+                            var children = (List<object>)item.Metadata[ChildrenMetadata];
+                            foreach (var child in children.Cast<string>())
                             {
-                                if (item.Items == null)
+                                var regex = WildCardToRegex(child);
+                                var matched = refTOCDict.Keys.Where(key => regex.IsMatch(key)).ToList();
+                                if (matched.Count > 0)
                                 {
-                                    item.Items = new TocViewModel();
-                                }
-                                foreach (var match in matched)
-                                {
-                                    if (refTOCDict[match].Href != null && refTOCDict[match].Href.EndsWith("/"))
+                                    if (item.Items == null)
                                     {
-                                        var subTOCPath = Path.Combine(Path.GetDirectoryName(opt.RefTOCPath), refTOCDict[match].Href, "toc.yml");
-                                        if (File.Exists(subTOCPath))
-                                        {
-                                            InjectTOCMetadata(subTOCPath, OPSMetadata.Universal_Conceptual_TOC, opt.ConceptualTOCUrl);
-                                            InjectTOCMetadata(subTOCPath, OPSMetadata.Universal_Ref_TOC, opt.RefTOCUrl);
-                                        }
+                                        item.Items = new TocViewModel();
                                     }
-                                    item.Items.Add(refTOCDict[match]);
-                                    refTOCDict.Remove(match);
+                                    foreach (var match in matched)
+                                    {
+                                        if (refTOCDict[match].Href != null && refTOCDict[match].Href.EndsWith("/"))
+                                        {
+                                            var subTOCPath = Path.Combine(Path.GetDirectoryName(opt.RefTOCPath), refTOCDict[match].Href, "toc.yml");
+                                            if (File.Exists(subTOCPath))
+                                            {
+                                                InjectTOCMetadata(subTOCPath, OPSMetadata.Universal_Conceptual_TOC, opt.ConceptualTOCUrl);
+                                                InjectTOCMetadata(subTOCPath, OPSMetadata.Universal_Ref_TOC, opt.RefTOCUrl);
+                                            }
+                                        }
+                                        item.Items.Add(refTOCDict[match]);
+                                        refTOCDict.Remove(match);
+                                    }
                                 }
-                            }
-                            else if (!opt.HideEmptyNode && child != "*")
-                            {
-                                OPSLogger.LogUserWarning(string.Format("Children pattern {0} cannot match any sub TOC", child), opt.TopLevelTOCPath);
+                                else if (!opt.HideEmptyNode && child != "*")
+                                {
+                                    OPSLogger.LogUserWarning(string.Format("Children pattern {0} cannot match any sub TOC", child), opt.TopLevelTOCPath);
+                                }
                             }
                         }
                     }
                 }
-            }
-            if (refTOCDict.Count > 0)
-            {
-                foreach(var remainingItem in refTOCDict.Values)
+                if (refTOCDict.Count > 0)
                 {
-                    topTOC.Add(remainingItem);
+                    foreach (var remainingItem in refTOCDict.Values)
+                    {
+                        topTOC.Add(remainingItem);
+                    }
                 }
             }
+            
             if (!string.IsNullOrEmpty(opt.ConceptualTOCUrl))
             {
                 topTOC.First().Metadata[OPSMetadata.Universal_Conceptual_TOC] = opt.ConceptualTOCUrl;
             }
             TrimTOCAndCreateLandingPage(topTOC, outputPath, metadata, opt.HideEmptyNode);
-            YamlUtility.Serialize(opt.RefTOCPath, topTOC);
+            YamlUtility.Serialize(opt.RefTOCPath ?? opt.TopLevelTOCPath, topTOC);
 
             InjectTOCMetadata(opt.ConceptualTOCPath, OPSMetadata.Universal_Ref_TOC, opt.RefTOCUrl);
         }

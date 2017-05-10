@@ -62,7 +62,7 @@ namespace ECMA2Yaml
         public bool Parse(string[] args)
         {
             Extras = _options.Parse(args);
-            if (JoinTOC && (string.IsNullOrEmpty(TopLevelTOCPath) || string.IsNullOrEmpty(RefTOCPath)))
+            if (JoinTOC && string.IsNullOrEmpty(TopLevelTOCPath))
             {
                 PrintUsage();
                 return false;

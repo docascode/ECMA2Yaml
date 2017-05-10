@@ -19,13 +19,18 @@ if ($jobs -isnot [system.array])
 foreach($JoinTOCConfig in $jobs)
 {
 	$topTOC = Join-Path $repositoryRoot $JoinTOCConfig.TopLevelTOC
-	$refTOC = Join-Path $repositoryRoot $JoinTOCConfig.ReferenceTOC
-
 	$conceptualTOC = Join-Path $repositoryRoot $JoinTOCConfig.ConceptualTOC
 	$refTOCUrl = $JoinTOCConfig.ReferenceTOCUrl
 	$conceptualTOCUrl = $JoinTOCConfig.ConceptualTOCUrl
 	$landingPageFolder = $JoinTOCConfig.OutputFolder
-    $allArgs = @("-joinTOC", "-topLevelTOC", "$topTOC", "-refTOC", "$refTOC", "-l", "$logFilePath");
+    $allArgs = @("-joinTOC", "-topLevelTOC", "$topTOC", "-l", "$logFilePath");
+
+	if (-not [string]::IsNullOrEmpty($JoinTOCConfig.ReferenceTOC))
+    {
+		$refTOC = Join-Path $repositoryRoot $JoinTOCConfig.ReferenceTOC
+        $allArgs += "-refTOC";
+        $allArgs += "$refTOC";
+    }
 
 	if (-not [string]::IsNullOrEmpty($conceptualTOC) -and (Test-Path $conceptualTOC))
     {
