@@ -80,24 +80,20 @@ foreach($JoinTOCConfig in $jobs)
         exit $LASTEXITCODE
     }
 
-	if ($JoinTOCConfig.Debug)
+	$outputFolder = $currentDictionary.environment.outputFolder
+
+	$fusionTOCOutputFolder = Join-Path $outputFolder "_fusionTOC"
+	New-Item -ItemType Directory -Force -Path $fusionTOCOutputFolder
+	if (-not [string]::IsNullOrEmpty($landingPageFolder))
 	{
-		$outputFolder = $currentDictionary.environment.outputFolder
-
-		$fusionTOCOutputFolder = Join-Path $outputFolder "_fusionTOC"
-
-		if (-not [string]::IsNullOrEmpty($landingPageFolder))
-		{
-			& robocopy $landingPageFolder $fusionTOCOutputFolder *.yml
-		}
-		
-		& copy $refTOC "$fusionTOCOutputFolder/ref_toc.yml"
-		& copy $conceptualTOC "$fusionTOCOutputFolder/conceptual_toc.yml"
-		if ($LASTEXITCODE -ne 1)
-		{
-			exit $LASTEXITCODE
-		}
+		& robocopy $landingPageFolder $fusionTOCOutputFolder *.yml
 	}
+	copy-item $topTOC "$fusionTOCOutputFolder/TopLevelTOC.yml" -Force
+	if (-not [string]::IsNullOrEmpty($refTOC))
+	{
+		copy-item $refTOC "$fusionTOCOutputFolder/ReferenceTOC.yml" -Force 
+	}
+	copy-item $conceptualTOC "$fusionTOCOutputFolder/ConceptualTOC.yml" -Force 
 
 	exit 0
 }
