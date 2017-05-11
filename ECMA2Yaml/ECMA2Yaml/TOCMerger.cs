@@ -21,7 +21,7 @@ namespace ECMA2Yaml
 
         public static void Merge(CommandLineOptions opt)
         {
-            string outputPath = opt.OutputFolder ?? Path.GetDirectoryName(opt.RefTOCPath);
+            string outputPath = opt.OutputFolder ?? Path.GetDirectoryName(opt.RefTOCPath) ?? Path.GetDirectoryName(opt.TopLevelTOCPath);
             if (!Directory.Exists(outputPath))
             {
                 Directory.CreateDirectory(outputPath);
