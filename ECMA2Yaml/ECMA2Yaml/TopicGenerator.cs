@@ -128,6 +128,10 @@ namespace ECMA2Yaml
                     pv.References.AddRange(t.Overloads.Select(o => o.ToReferenceViewModel(withMetadata: true)));
                 }
             }
+            if(t.InheritedMembers?.Count > 0)
+            {
+                pv.References.AddRange(t.InheritedMembers.Select(p => p.Value + '.' + p.Key).Select(ex => store.MembersByUid[ex].ToReferenceViewModel()));
+            }
             if (t.ExtensionMethods?.Count > 0)
             {
                 pv.References.AddRange(t.ExtensionMethods.Select(ex => store.MembersByUid[ex].ToReferenceViewModel()));
