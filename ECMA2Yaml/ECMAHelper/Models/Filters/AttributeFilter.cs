@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ECMA2Yaml.Models
 {
-    public class FullNameFilter : IFilter
+    public class AttributeFilter
     {
         public string Namespace { get; set; }
         public Dictionary<string, bool> TypeFilters { get; set; }

@@ -63,9 +63,11 @@
     <Compile Include="Models\ECMAStore.cs" />
     <Compile Include="Models\ExceptionDef.cs" />
     <Compile Include="Models\ExtensionMethod.cs" />
+    <Compile Include="Models\Filters\MemberFilter.cs" />
+    <Compile Include="Models\Filters\BasicFilter.cs" />
+    <Compile Include="Models\Filters\TypeFilter.cs" />
     <Compile Include="Models\Filters\FilterStore.cs" />
-    <Compile Include="Models\Filters\FullNameFilter.cs" />
-    <Compile Include="Models\Filters\IFilter.cs" />
+    <Compile Include="Models\Filters\AttributeFilter.cs" />
     <Compile Include="Models\ReflectionItem.cs" />
     <Compile Include="Logging\LogItem.cs" />
     <Compile Include="Models\Member.cs" />

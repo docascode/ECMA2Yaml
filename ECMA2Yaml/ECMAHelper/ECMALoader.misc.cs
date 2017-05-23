@@ -19,41 +19,79 @@ namespace ECMA2Yaml
             var filterFile = Path.Combine(path, "_filter.xml");
             if (File.Exists(filterFile))
             {
+                var filterStore = new FilterStore();
                 XDocument filterDoc = XDocument.Load(filterFile);
-                var attrFilterElements = filterDoc.Root.Element("attributeFilter")?.Elements("namespaceFilter");
-                if (attrFilterElements != null)
+                var attrFilter = filterDoc.Root.Element("attributeFilter");
+                if (attrFilter != null && attrFilter.Attribute("apply").Value == "true")
                 {
-                    var filterStore = new FilterStore()
+                    var attrFilterElements = attrFilter.Elements("namespaceFilter");
+                    if (attrFilterElements != null)
                     {
-                        AttributeFilters = new List<IFilter>()
-                    };
-                    foreach (var fElement in attrFilterElements)
-                    {
-                        FullNameFilter filter = new FullNameFilter()
+                        filterStore.AttributeFilters = new List<AttributeFilter>();
+                        foreach (var fElement in attrFilterElements)
                         {
-                            Namespace = fElement.Attribute("name").Value,
-                            TypeFilters = new Dictionary<string, bool>(),
-                            DefaultValue = true
-                        };
-                        foreach (var tFiler in fElement.Elements("typeFilter"))
-                        {
-                            bool expose = false;
-                            bool.TryParse(tFiler.Attribute("expose").Value, out expose);
-                            string name = tFiler.Attribute("name").Value;
-                            if (name == "*")
+                            AttributeFilter filter = new AttributeFilter()
                             {
-                                filter.DefaultValue = expose;
-                            }
-                            else
+                                Namespace = fElement.Attribute("name").Value,
+                                TypeFilters = new Dictionary<string, bool>(),
+                                DefaultValue = true
+                            };
+                            foreach (var tFiler in fElement.Elements("typeFilter"))
                             {
-                                filter.TypeFilters[name] = expose;
+                                bool expose = false;
+                                bool.TryParse(tFiler.Attribute("expose").Value, out expose);
+                                string name = tFiler.Attribute("name").Value;
+                                if (name == "*")
+                                {
+                                    filter.DefaultValue = expose;
+                                }
+                                else
+                                {
+                                    filter.TypeFilters[name] = expose;
+                                }
                             }
+                            filterStore.AttributeFilters.Add(filter);
                         }
-                        filterStore.AttributeFilters.Add(filter);
-                    }
 
-                    return filterStore;
+                        return filterStore;
+                    }
                 }
+                var apiFilter = filterDoc.Root.Element("apiFilter");
+                if (apiFilter != null && apiFilter.Attribute("apply").Value == "true")
+                {
+                    var apiFilterElements = apiFilter.Elements("namespaceFilter");
+                    if (apiFilterElements != null)
+                    {
+                        filterStore.TypeFilters = new List<TypeFilter>();
+                        filterStore.MemberFilters = new List<MemberFilter>();
+                        foreach (var fElement in apiFilterElements)
+                        {
+                            var nsName = fElement.Attribute("name").Value;
+                            foreach(var tElement in fElement.Elements("typeFilter"))
+                            {
+                                var tFilter = new TypeFilter(tElement)
+                                {
+                                    Namespace = nsName
+                                };
+                                filterStore.TypeFilters.Add(tFilter);
+
+                                var memberFilterElements = tElement.Elements("memberFilter");
+                                if (memberFilterElements != null)
+                                {
+                                    foreach(var mElement in memberFilterElements)
+                                    {
+                                        filterStore.MemberFilters.Add(new MemberFilter(mElement)
+                                        {
+                                            Parent = tFilter
+                                        });
+                                    }
+                                }
+                            }
+                            
+                        }
+                    }
+                }
+                    
             }
             
             return null;
