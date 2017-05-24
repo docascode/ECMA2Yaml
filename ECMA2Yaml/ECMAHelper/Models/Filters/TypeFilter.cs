@@ -17,7 +17,7 @@ namespace ECMA2Yaml.Models
 
         public bool? Filter(Type t)
         {
-            if (t.Parent.Name == Namespace && (Name == "*" || t.Name == Name))
+            if ((Namespace == "*" || t.Parent.Name == Namespace) && (Name == "*" || t.Name == Name))
             {
                 bool expose = Expose;
                 if (t.Attributes?.Count > 0 && AttributeFilters?.Count > 0)

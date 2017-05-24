@@ -38,8 +38,7 @@ namespace ECMA2Yaml
                             };
                             foreach (var tFiler in fElement.Elements("typeFilter"))
                             {
-                                bool expose = false;
-                                bool.TryParse(tFiler.Attribute("expose").Value, out expose);
+                                bool.TryParse(tFiler.Attribute("expose").Value, out bool expose);
                                 string name = tFiler.Attribute("name").Value;
                                 if (name == "*")
                                 {
@@ -52,8 +51,6 @@ namespace ECMA2Yaml
                             }
                             filterStore.AttributeFilters.Add(filter);
                         }
-
-                        return filterStore;
                     }
                 }
                 var apiFilter = filterDoc.Root.Element("apiFilter");
@@ -91,7 +88,7 @@ namespace ECMA2Yaml
                         }
                     }
                 }
-                    
+                return filterStore;
             }
             
             return null;

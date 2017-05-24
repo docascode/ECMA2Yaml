@@ -62,6 +62,16 @@ namespace ECMA2Yaml
                 return null;
             }
 
+            var filteredNS = Filter(namespaces, filterStore);
+            var store = new ECMAStore(filteredNS.OrderBy(ns => ns.Name).ToArray(), frameworks, extensionMethods, monikerNugetMapping)
+            {
+                FilterStore = filterStore
+            };
+            return store;
+        }
+
+        private List<Namespace> Filter(IEnumerable<Namespace> namespaces, FilterStore filterStore)
+        {
             var filteredNS = namespaces.ToList();
             if (filterStore?.TypeFilters?.Count > 0)
             {
@@ -70,7 +80,7 @@ namespace ECMA2Yaml
                     if (ns.Types?.Count > 0)
                     {
                         ns.Types = ns.Types.Where(t => {
-                            var lastMatchedFilter = filterStore.TypeFilters.Last(tf => tf.Filter(t).HasValue);
+                            var lastMatchedFilter = filterStore.TypeFilters.LastOrDefault(tf => tf.Filter(t).HasValue);
                             return lastMatchedFilter == null ? true : lastMatchedFilter.Filter(t).Value;
                         }).ToList();
                     }
@@ -78,10 +88,7 @@ namespace ECMA2Yaml
                 filteredNS = filteredNS.Where(ns => ns.Types?.Count > 0).ToList();
             }
 
-            var store = new ECMAStore(filteredNS.OrderBy(ns => ns.Name).ToArray(), frameworks, extensionMethods, monikerNugetMapping);
-            store.FilterStore = filterStore;
-
-            return store;
+            return filteredNS;
         }
 
         private Namespace LoadNamespace(string basePath, string nsFile)
