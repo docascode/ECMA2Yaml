@@ -41,6 +41,46 @@ namespace ECMA2Yaml.Models
             InheritanceChildrenByUid = new Dictionary<string, List<string>>();
         }
 
+        public void Build()
+        {
+            Namespaces = _nsList.ToDictionary(ns => ns.Name);
+            TypesByFullName = _tList.ToDictionary(t => t.FullName);
+
+            BuildIds(_nsList, _tList);
+
+            TypesByUid = _tList.ToDictionary(t => t.Uid);
+            var allMembers = _tList.Where(t => t.Members != null).SelectMany(t => t.Members).ToList();
+            var groups = allMembers.GroupBy(m => m.Uid).Where(g => g.Count() > 1).ToList();
+            if (groups.Count > 0)
+            {
+                foreach (var group in groups)
+                {
+                    foreach (var member in group)
+                    {
+                        OPSLogger.LogUserError(string.Format("Member {0}'s name and signature is not unique", member.Uid), member.SourceFileLocalPath);
+                    }
+                }
+            }
+            MembersByUid = allMembers.ToDictionary(m => m.Uid);
+
+            foreach (var t in _tList)
+            {
+                BuildOverload(t);
+                BuildInheritance(t);
+                BuildDocs(t);
+            }
+
+            BuildAttributes();
+
+            BuildExtensionMethods();
+
+            BuildFrameworks();
+
+            BuildOtherMetadata();
+
+            FindMissingAssemblyNames();
+        }
+
         public void TranslateSourceLocation(string sourcePathRoot, string gitBaseUrl)
         {
             if (!sourcePathRoot.EndsWith("\\"))
@@ -81,46 +121,6 @@ namespace ECMA2Yaml.Models
             {
                 item.Metadata[OPSMetadata.ContentUrl] = item.SourceFileLocalPath.Replace(sourcePathRoot, gitBaseUrl).Replace("\\", "/");
             }
-        }
-
-        public void Build()
-        {
-            Namespaces = _nsList.ToDictionary(ns => ns.Name);
-            TypesByFullName = _tList.ToDictionary(t => t.FullName);
-
-            BuildIds(_nsList, _tList);
-
-            TypesByUid = _tList.ToDictionary(t => t.Uid);
-            var allMembers = _tList.Where(t => t.Members != null).SelectMany(t => t.Members).ToList();
-            var groups = allMembers.GroupBy(m => m.Uid).Where(g => g.Count() > 1).ToList();
-            if (groups.Count > 0)
-            {
-                foreach (var group in groups)
-                {
-                    foreach (var member in group)
-                    {
-                        OPSLogger.LogUserError(string.Format("Member {0}'s name and signature is not unique", member.Uid), member.SourceFileLocalPath);
-                    }
-                }
-            }
-            MembersByUid = allMembers.ToDictionary(m => m.Uid);
-
-            foreach (var t in _tList)
-            {
-                BuildOverload(t);
-                BuildInheritance(t);
-                BuildDocs(t);
-            }
-
-            BuildAttributes();
-
-            BuildExtensionMethods();
-
-            BuildFrameworks();
-
-            BuildOtherMetadata();
-
-            FindMissingAssemblyNames();
         }
 
         private void BuildOtherMetadata()

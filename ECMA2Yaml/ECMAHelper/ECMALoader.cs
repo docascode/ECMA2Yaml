@@ -62,7 +62,23 @@ namespace ECMA2Yaml
                 return null;
             }
 
-            var store = new ECMAStore(namespaces.OrderBy(ns => ns.Name).ToArray(), frameworks, extensionMethods, monikerNugetMapping);
+            var filteredNS = namespaces.ToList();
+            if (filterStore?.TypeFilters?.Count > 0)
+            {
+                foreach (var ns in filteredNS)
+                {
+                    if (ns.Types?.Count > 0)
+                    {
+                        ns.Types = ns.Types.Where(t => {
+                            var lastMatchedFilter = filterStore.TypeFilters.Last(tf => tf.Filter(t).HasValue);
+                            return lastMatchedFilter == null ? true : lastMatchedFilter.Filter(t).Value;
+                        }).ToList();
+                    }
+                }
+                filteredNS = filteredNS.Where(ns => ns.Types?.Count > 0).ToList();
+            }
+
+            var store = new ECMAStore(filteredNS.OrderBy(ns => ns.Name).ToArray(), frameworks, extensionMethods, monikerNugetMapping);
             store.FilterStore = filterStore;
 
             return store;
