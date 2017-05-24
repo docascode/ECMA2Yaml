@@ -40,8 +40,8 @@ namespace ECMA2Yaml
                 if (!string.IsNullOrEmpty(nsName))
                 {
                     var ns = LoadNamespace(path, nsFile);
-                    
-                    if (ns == null )
+
+                    if (ns == null)
                     {
                         OPSLogger.LogUserError("failed to load namespace", nsFile);
                     }
@@ -79,15 +79,33 @@ namespace ECMA2Yaml
                 {
                     if (ns.Types?.Count > 0)
                     {
-                        ns.Types = ns.Types.Where(t => {
+                        ns.Types = ns.Types.Where(t =>
+                        {
                             var lastMatchedFilter = filterStore.TypeFilters.LastOrDefault(tf => tf.Filter(t).HasValue);
                             return lastMatchedFilter == null ? true : lastMatchedFilter.Filter(t).Value;
                         }).ToList();
+
                     }
                 }
                 filteredNS = filteredNS.Where(ns => ns.Types?.Count > 0).ToList();
             }
-
+            if (filterStore?.MemberFilters?.Count > 0)
+            {
+                foreach (var ns in filteredNS)
+                {
+                    foreach (var t in ns.Types)
+                    {
+                        if (t.Members?.Count > 0)
+                        {
+                            t.Members = t.Members.Where(m =>
+                            {
+                                var lastMatchedFilter = filterStore.MemberFilters.LastOrDefault(mf => mf.Filter(m).HasValue);
+                                return lastMatchedFilter == null ? true : lastMatchedFilter.Filter(m).Value;
+                            }).ToList();
+                        }
+                    }
+                }
+            }
             return filteredNS;
         }
 
@@ -394,7 +412,7 @@ namespace ECMA2Yaml
             if (blocks != null && blocks.Count > 0)
             {
                 additionalNotes = new Dictionary<string, string>();
-                foreach(var block in blocks)
+                foreach (var block in blocks)
                 {
                     additionalNotes[block.Attribute("type").Value] = NormalizeDocsElement(GetInnerXml(block));
                 }
