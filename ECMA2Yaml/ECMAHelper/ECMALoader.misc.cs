@@ -38,7 +38,8 @@ namespace ECMA2Yaml
                             };
                             foreach (var tFiler in fElement.Elements("typeFilter"))
                             {
-                                bool.TryParse(tFiler.Attribute("expose").Value, out bool expose);
+                                bool expose = false;
+                                bool.TryParse(tFiler.Attribute("expose").Value, out expose);
                                 string name = tFiler.Attribute("name").Value;
                                 if (name == "*")
                                 {
