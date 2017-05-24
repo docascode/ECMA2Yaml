@@ -108,11 +108,14 @@ foreach($ecmaConfig in $jobs)
     {
         $allArgs += "-strict";
     }
-    if (-not [string]::IsNullOrEmpty($ecmaConfig.SourceMetadataFolder) -and (Test-Path $ecmaConfig.SourceMetadataFolder))
+    if (-not [string]::IsNullOrEmpty($ecmaConfig.SourceMetadataFolder))
     {
         $ecmaSourceMetadataFolder = Join-Path $repositoryRoot $ecmaConfig.SourceMetadataFolder
-        $allArgs += "-m";
-        $allArgs += "$ecmaSourceMetadataFolder";
+		if (Test-Path $ecmaSourceMetadataFolder)
+		{
+			$allArgs += "-m";
+            $allArgs += "$ecmaSourceMetadataFolder";
+		}
     }
     $printAllArgs = [System.String]::Join(' ', $allArgs)
     $ecma2yamlExeFilePath = Join-Path $currentDir $ecma2yamlExeName
