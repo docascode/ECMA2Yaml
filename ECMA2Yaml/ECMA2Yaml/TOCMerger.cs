@@ -32,14 +32,20 @@ namespace ECMA2Yaml
             {
                 var refTOC = YamlUtility.Deserialize<TocViewModel>(opt.RefTOCPath);
                 var refTOCDict = refTOC.ToDictionary(t => t.Name);
-                Queue<TocItemViewModel> itemsToGo = new Queue<TocItemViewModel>();
-                topTOC.ForEach(t => itemsToGo.Enqueue(t));
+                Stack<TocItemViewModel> itemsToGo = new Stack<TocItemViewModel>();
+                foreach(var t in topTOC.AsEnumerable().Reverse())
+                {
+                    itemsToGo.Push(t);
+                }
                 while (itemsToGo.Count > 0)
                 {
-                    var item = itemsToGo.Dequeue();
+                    var item = itemsToGo.Pop();
                     if (item.Items != null)
                     {
-                        item.Items.ForEach(t => itemsToGo.Enqueue(t));
+                        foreach (var t in item.Items.AsEnumerable().Reverse())
+                        {
+                            itemsToGo.Push(t);
+                        }
                     }
                     if (item.Metadata != null)
                     {
@@ -92,7 +98,10 @@ namespace ECMA2Yaml
             {
                 topTOC.First().Metadata[OPSMetadata.Universal_Conceptual_TOC] = opt.ConceptualTOCUrl;
             }
-            TrimTOCAndCreateLandingPage(topTOC, outputPath, metadata, opt.HideEmptyNode);
+            foreach(var root in topTOC)
+            {
+                TrimTOCAndCreateLandingPage(root, outputPath, metadata, 1, opt.HideEmptyNode);
+            }
             YamlUtility.Serialize(opt.RefTOCPath ?? opt.TopLevelTOCPath, topTOC);
 
             InjectTOCMetadata(opt.ConceptualTOCPath, OPSMetadata.Universal_Ref_TOC, opt.RefTOCUrl);
@@ -119,28 +128,31 @@ namespace ECMA2Yaml
             return metadata;
         }
 
-        private static void TrimTOCAndCreateLandingPage(TocViewModel toc, string outputPath, Dictionary<string, object> metadata, bool removeEmptyNode = false)
+        private static void TrimTOCAndCreateLandingPage(TocItemViewModel item, string outputPath, Dictionary<string, object> metadata, int flattenTopLevels, bool removeEmptyNode = false)
         {
-            if (toc != null && toc.Count > 0)
+            if (item?.Items?.Count > 0)
             {
                 if (removeEmptyNode)
                 {
-                    toc.RemoveAll(item => item.Metadata.ContainsKey(ChildrenMetadata) && (item.Items == null || item.Items.Count == 0));
+                    item.Items.RemoveAll(it => it.Metadata.ContainsKey(ChildrenMetadata) && (it.Items == null || it.Items.Count == 0));
                 }
-                toc.RemoveAll(item => item.Metadata.ContainsKey(VisibleMetadata) && item.Metadata[VisibleMetadata] is bool && !(bool)item.Metadata[VisibleMetadata]);
-                foreach (var item in toc)
+                item.Items.RemoveAll(it => it.Metadata.ContainsKey(VisibleMetadata) && it.Metadata[VisibleMetadata] is bool && !(bool)it.Metadata[VisibleMetadata]);
+                item.Metadata.Remove(ChildrenMetadata);
+                item.Metadata.Remove(VisibleMetadata);
+                var trimmedName = item.Name.Replace(" ", "").Trim();
+                var outputPathForChild = flattenTopLevels > 0 ? outputPath : Path.Combine(outputPath, trimmedName);
+                foreach (var child in item.Items)
                 {
-                    item.Metadata.Remove(ChildrenMetadata);
-                    item.Metadata.Remove(VisibleMetadata);
-                    TrimTOCAndCreateLandingPage(item.Items, outputPath, metadata, removeEmptyNode);
-                    if (!string.IsNullOrEmpty(item.Uid) && item.Metadata.ContainsKey(LandingPageTypeMetadata) && (item.Items != null || !removeEmptyNode))
-                    {
-                        var page = CreateLandingPage(item, metadata);
-                        var landingPageType = (string)item.Metadata[LandingPageTypeMetadata];
-                        var fileName = (landingPageType == "Root" ? "index" : item.Name.Replace(" ", "")) + ".yml";
-                        fileName = Path.Combine(outputPath, fileName);
-                        YamlUtility.Serialize(fileName, page, YamlMime.ManagedReference);
-                    }
+                    TrimTOCAndCreateLandingPage(child, outputPathForChild, metadata, flattenTopLevels - 1, removeEmptyNode);
+                }
+
+                if (!string.IsNullOrEmpty(item.Uid) && item.Metadata.ContainsKey(LandingPageTypeMetadata) && (item.Items != null || !removeEmptyNode))
+                {
+                    var page = CreateLandingPage(item, metadata);
+                    var landingPageType = (string)item.Metadata[LandingPageTypeMetadata];
+                    var fileName = (landingPageType == "Root" ? "index" : trimmedName) + ".yml";
+                    fileName = Path.Combine(outputPath, fileName);
+                    YamlUtility.Serialize(fileName, page, YamlMime.ManagedReference);
                 }
             }
         }
