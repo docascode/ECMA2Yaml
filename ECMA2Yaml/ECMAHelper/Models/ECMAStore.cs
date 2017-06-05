@@ -192,7 +192,7 @@ namespace ECMA2Yaml.Models
 
             foreach(var m in MembersByUid.Values)
             {
-                if (ExtensionMethodsByMemberDocId.ContainsKey(m.DocId))
+                if (!string.IsNullOrEmpty(m.DocId) && ExtensionMethodsByMemberDocId.ContainsKey(m.DocId))
                 {
                     m.IsExtensionMethod = true;
                     ExtensionMethodsByMemberDocId[m.DocId].Uid = m.Uid;
