@@ -252,9 +252,9 @@ namespace ECMA2Yaml.Models
                     }
                     if (t.Members != null)
                     {
-                        foreach (var m in t.Members)
+                        foreach (var m in t.Members.Where(m=> !string.IsNullOrEmpty(m.DocId)))
                         {
-                            if (!string.IsNullOrEmpty(m.DocId) && _frameworks.ContainsKey(m.DocId))
+                            if (_frameworks.ContainsKey(m.DocId))
                             {
                                 m.Metadata[OPSMetadata.Version] = _frameworks[m.DocId];
                                 m.Metadata[OPSMetadata.Monikers] = _frameworks[m.DocId];
