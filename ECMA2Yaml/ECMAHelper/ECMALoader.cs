@@ -104,7 +104,7 @@ namespace ECMA2Yaml
                             t.Members = t.Members.Where(m =>
                             {
                                 bool expose = true;
-                                foreach (var filter in filterStore.TypeFilters.Where(tf => tf.Filter(m).HasValue))
+                                foreach (var filter in filterStore.MemberFilters.Where(mf => mf.Filter(m).HasValue))
                                 {
                                     expose = expose && filter.Filter(m).Value;
                                 }
