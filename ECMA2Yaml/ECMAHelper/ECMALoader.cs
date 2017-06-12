@@ -81,8 +81,12 @@ namespace ECMA2Yaml
                     {
                         ns.Types = ns.Types.Where(t =>
                         {
-                            var lastMatchedFilter = filterStore.TypeFilters.LastOrDefault(tf => tf.Filter(t).HasValue);
-                            return lastMatchedFilter == null ? true : lastMatchedFilter.Filter(t).Value;
+                            bool expose = true;
+                            foreach(var filter in filterStore.TypeFilters.Where(tf => tf.Filter(t).HasValue))
+                            {
+                                expose = expose && filter.Filter(t).Value;
+                            }
+                            return expose;
                         }).ToList();
 
                     }
@@ -99,8 +103,12 @@ namespace ECMA2Yaml
                         {
                             t.Members = t.Members.Where(m =>
                             {
-                                var lastMatchedFilter = filterStore.MemberFilters.LastOrDefault(mf => mf.Filter(m).HasValue);
-                                return lastMatchedFilter == null ? true : lastMatchedFilter.Filter(m).Value;
+                                bool expose = true;
+                                foreach (var filter in filterStore.TypeFilters.Where(tf => tf.Filter(m).HasValue))
+                                {
+                                    expose = expose && filter.Filter(m).Value;
+                                }
+                                return expose;
                             }).ToList();
                         }
                     }
