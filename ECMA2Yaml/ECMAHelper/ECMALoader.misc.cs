@@ -64,7 +64,7 @@ namespace ECMA2Yaml
                         filterStore.MemberFilters = new List<MemberFilter>();
                         foreach (var fElement in apiFilterElements)
                         {
-                            var nsName = fElement.Attribute("name").Value;
+                            var nsName = fElement.Attribute("name").Value?.Trim();
                             foreach(var tElement in fElement.Elements("typeFilter"))
                             {
                                 var tFilter = new TypeFilter(tElement)
