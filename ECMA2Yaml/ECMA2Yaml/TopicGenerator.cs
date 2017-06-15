@@ -268,7 +268,7 @@ namespace ECMA2Yaml
             {
                 Name = p.Name,
                 Type = str,
-                Description = p.Description ?? "To be added."
+                Description = p.Description ?? ""
             };
 
             return ap;
