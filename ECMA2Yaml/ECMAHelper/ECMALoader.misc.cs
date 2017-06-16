@@ -130,6 +130,10 @@ namespace ECMA2Yaml
         private Dictionary<string, string> LoadMonikerPackageMapping(string folder)
         {
             var file = Path.Combine(folder, "moniker2nuget.json");
+            if (!File.Exists(file))
+            {
+                file = Path.Combine(folder, "_moniker2nuget.json");
+            }
             if (File.Exists(file))
             {
                 try
@@ -139,6 +143,24 @@ namespace ECMA2Yaml
                 catch(Exception ex)
                 {
                     OPSLogger.LogUserError("Unable to load moniker to nuget mapping: " + ex.ToString(), file);
+                    return null;
+                }
+            }
+            return null;
+        }
+
+        private Dictionary<string, List<string>> LoadMonikerAssemblyMapping(string folder)
+        {
+            var file = Path.Combine(folder, "_moniker2Assembly.json");
+            if (File.Exists(file))
+            {
+                try
+                {
+                    return JsonConvert.DeserializeObject<Dictionary<string, List<string>>>(File.ReadAllText(file));
+                }
+                catch (Exception ex)
+                {
+                    OPSLogger.LogUserError("Unable to load moniker to assembly mapping: " + ex.ToString(), file);
                     return null;
                 }
             }
