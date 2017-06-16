@@ -15,7 +15,6 @@ namespace ECMA2Yaml.Models
         public Dictionary<string, string> InheritedMembers { get; set; }
         public List<string> IsA { get; set; }
         public Dictionary<string, string> Signatures { get; set; }
-        public List<AssemblyInfo> AssemblyInfo { get; set; }
         public List<Parameter> TypeParameters { get; set; }
         public List<string> Interfaces { get; set; }
         public List<ECMAAttribute> Attributes { get; set; }

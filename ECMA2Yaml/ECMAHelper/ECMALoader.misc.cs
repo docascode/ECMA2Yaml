@@ -64,7 +64,7 @@ namespace ECMA2Yaml
                         filterStore.MemberFilters = new List<MemberFilter>();
                         foreach (var fElement in apiFilterElements)
                         {
-                            var nsName = fElement.Attribute("name").Value;
+                            var nsName = fElement.Attribute("name").Value?.Trim();
                             foreach(var tElement in fElement.Elements("typeFilter"))
                             {
                                 var tFilter = new TypeFilter(tElement)
@@ -130,6 +130,10 @@ namespace ECMA2Yaml
         private Dictionary<string, string> LoadMonikerPackageMapping(string folder)
         {
             var file = Path.Combine(folder, "moniker2nuget.json");
+            if (!File.Exists(file))
+            {
+                file = Path.Combine(folder, "_moniker2nuget.json");
+            }
             if (File.Exists(file))
             {
                 try
@@ -139,6 +143,24 @@ namespace ECMA2Yaml
                 catch(Exception ex)
                 {
                     OPSLogger.LogUserError("Unable to load moniker to nuget mapping: " + ex.ToString(), file);
+                    return null;
+                }
+            }
+            return null;
+        }
+
+        private Dictionary<string, List<string>> LoadMonikerAssemblyMapping(string folder)
+        {
+            var file = Path.Combine(folder, "_moniker2Assembly.json");
+            if (File.Exists(file))
+            {
+                try
+                {
+                    return JsonConvert.DeserializeObject<Dictionary<string, List<string>>>(File.ReadAllText(file));
+                }
+                catch (Exception ex)
+                {
+                    OPSLogger.LogUserError("Unable to load moniker to assembly mapping: " + ex.ToString(), file);
                     return null;
                 }
             }

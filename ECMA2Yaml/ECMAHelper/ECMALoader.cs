@@ -29,6 +29,7 @@ namespace ECMA2Yaml
             var extensionMethods = LoadExtensionMethods(path);
             var filterStore = LoadFilters(path);
             var monikerNugetMapping = LoadMonikerPackageMapping(path);
+            var monikerAssemblyMapping = LoadMonikerAssemblyMapping(path);
 
             ConcurrentBag<Namespace> namespaces = new ConcurrentBag<Namespace>();
             ParallelOptions opt = new ParallelOptions() { MaxDegreeOfParallelism = Environment.ProcessorCount };
@@ -63,7 +64,7 @@ namespace ECMA2Yaml
             }
 
             var filteredNS = Filter(namespaces, filterStore);
-            var store = new ECMAStore(filteredNS.OrderBy(ns => ns.Name).ToArray(), frameworks, extensionMethods, monikerNugetMapping)
+            var store = new ECMAStore(filteredNS.OrderBy(ns => ns.Name).ToArray(), frameworks, extensionMethods, monikerNugetMapping, monikerAssemblyMapping)
             {
                 FilterStore = filterStore
             };

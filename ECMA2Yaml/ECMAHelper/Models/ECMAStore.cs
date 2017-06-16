@@ -26,8 +26,14 @@ namespace ECMA2Yaml.Models
         private Dictionary<string, List<string>> _frameworks;
         private List<ExtensionMethod> _extensionMethods;
         private Dictionary<string, string> _monikerNugetMapping;
+        private Dictionary<string, List<string>> _monikerAssemblyMapping;
+        private Dictionary<string, List<string>> _assemblyMonikerMapping;
 
-        public ECMAStore(IEnumerable<Namespace> nsList, Dictionary<string, List<string>> frameworks, List<ExtensionMethod> extensionMethods, Dictionary<string, string> monikerNugetMapping = null)
+        public ECMAStore(IEnumerable<Namespace> nsList,
+            Dictionary<string, List<string>> frameworks, 
+            List<ExtensionMethod> extensionMethods, 
+            Dictionary<string, string> monikerNugetMapping = null,
+            Dictionary<string, List<string>> monikerAssemblyMapping = null)
         {
             typeDescriptorCache = new Dictionary<string, EcmaDesc>();
 
@@ -36,6 +42,7 @@ namespace ECMA2Yaml.Models
             _frameworks = frameworks;
             _extensionMethods = extensionMethods;
             _monikerNugetMapping = monikerNugetMapping;
+            _monikerAssemblyMapping = monikerAssemblyMapping;
 
             InheritanceParentsByUid = new Dictionary<string, List<string>>();
             InheritanceChildrenByUid = new Dictionary<string, List<string>>();
@@ -125,6 +132,11 @@ namespace ECMA2Yaml.Models
 
         private void BuildOtherMetadata()
         {
+            if (_monikerAssemblyMapping != null)
+            {
+                _assemblyMonikerMapping = _monikerAssemblyMapping.SelectMany(p => p.Value.Select(v => Tuple.Create(p.Key, v)))
+                    .GroupBy(p => p.Item2).ToDictionary(g => g.Key, g => g.Select(p => p.Item1).ToList());
+            }
             foreach (var ns in _nsList)
             {
                 bool nsInternalOnly = ns.Docs?.InternalOnly ??  false;
@@ -154,6 +166,8 @@ namespace ECMA2Yaml.Models
                 }
                 foreach (var t in ns.Types)
                 {
+                    BuildAssemblyMonikerMapping(t);
+
                     bool tInternalOnly = t.Docs?.InternalOnly ?? nsInternalOnly;
                     if (!string.IsNullOrEmpty(t.Docs?.AltCompliant))
                     {
@@ -178,6 +192,31 @@ namespace ECMA2Yaml.Models
                             }
                         }
                     }
+                }
+            }
+        }
+
+        private void BuildAssemblyMonikerMapping(ReflectionItem item)
+        {
+            if (_assemblyMonikerMapping != null && item.AssemblyInfo?.Count > 0 && item.Metadata.ContainsKey(OPSMetadata.Monikers))
+            {
+                var assemblies = item.AssemblyInfo.Select(asm => asm.Name).Distinct();
+                var monikers = (List<string>)(item.Metadata[OPSMetadata.Monikers]);
+                var dict = new Dictionary<string, List<string>>();
+                foreach(var asm in assemblies)
+                {
+                    if (_assemblyMonikerMapping.ContainsKey(asm))
+                    {
+                        dict[asm] = _assemblyMonikerMapping[asm].Intersect(monikers).ToList();
+                    }
+                    else
+                    {
+                        OPSLogger.LogUserWarning(string.Format("Assembly name {0} of {1} cannot be found in moniker2assembly mapping", asm, item.Uid), item.SourceFileLocalPath);
+                    }
+                }
+                if (dict.Any())
+                {
+                    item.Metadata[OPSMetadata.AssemblyMonikerMapping] = dict;
                 }
             }
         }
@@ -339,7 +378,7 @@ namespace ECMA2Yaml.Models
                     }
                     overloads[m.Name].Id = id;
                     overloads[m.Name].DisplayName = m.ItemType == ItemType.Constructor ? t.Name : m.Name;
-                    overloads[m.Name].FullDisplayName = t.Name + "." + overloads[m.Name].DisplayName;
+                    overloads[m.Name].FullDisplayName = t.FullName + "." + overloads[m.Name].DisplayName;
                     overloads[m.Name].SourceFileLocalPath = m.SourceFileLocalPath;
                     m.Overload = overloads[m.Name].Uid;
                 }

@@ -49,6 +49,8 @@ namespace ECMA2Yaml.Models
 
         public Dictionary<string, object> Metadata { get; set; }
 
+        public List<AssemblyInfo> AssemblyInfo { get; set; }
+
         public ReflectionItem()
         {
             Metadata = new Dictionary<string, object>();

@@ -15,7 +15,7 @@ namespace ECMA2Yaml.Models
 
         public BasicFilter(XElement element)
         {
-            Name = element.Attribute("name").Value;
+            Name = element.Attribute("name").Value?.Trim();
             Expose = bool.Parse(element.Attribute("expose")?.Value ?? "true");
 
             var attrFilterElements = element.Elements("attributeFilter");
