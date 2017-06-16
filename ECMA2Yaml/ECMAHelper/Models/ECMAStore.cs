@@ -181,8 +181,6 @@ namespace ECMA2Yaml.Models
                     {
                         foreach (var m in t.Members)
                         {
-                            BuildAssemblyMonikerMapping(m);
-
                             bool mInternalOnly = m.Docs?.InternalOnly ?? tInternalOnly;
                             if (!string.IsNullOrEmpty(m.Docs?.AltCompliant))
                             {
