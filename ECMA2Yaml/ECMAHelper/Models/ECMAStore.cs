@@ -357,38 +357,34 @@ namespace ECMA2Yaml.Models
                 || m.ItemType == ItemType.Property
                 || m.ItemType == ItemType.Operator)
                 .ToList();
-            var overloads = t.Overloads?.ToDictionary(o => o.Name) ?? new Dictionary<string, Member>();
+            var overloads = t.Overloads?.ToDictionary(o => o.GetOverloadId()) ?? new Dictionary<string, Member>();
             if (methods?.Count() > 0)
             {
                 foreach (var m in methods)
                 {
-                    string id = m.Id;
-                    if (id.Contains("("))
+                    string id = m.GetOverloadId();
+                    if (!overloads.ContainsKey(id))
                     {
-                        id = id.Substring(0, id.IndexOf("("));
-                    }
-                    if (m.TypeParameters?.Count > 0)
-                    {
-                        var suffix = "``" + m.TypeParameters.Count;
-                        if (id.EndsWith(suffix))
-                        {
-                            id = id.Remove(id.Length - suffix.Length);
-                        }
-                    }
-                    id += "*";
-                    if (!overloads.ContainsKey(m.Name))
-                    {
-                        overloads.Add(m.Name, new Member()
+                        overloads.Add(id, new Member()
                         {
                             Name = m.Name,
                             Parent = t
                         });
                     }
-                    overloads[m.Name].Id = id;
-                    overloads[m.Name].DisplayName = m.ItemType == ItemType.Constructor ? t.Name : m.Name;
-                    overloads[m.Name].FullDisplayName = t.FullName + "." + overloads[m.Name].DisplayName;
-                    overloads[m.Name].SourceFileLocalPath = m.SourceFileLocalPath;
-                    m.Overload = overloads[m.Name].Uid;
+                    var displayName = m.DisplayName;
+                    if (displayName.Contains("("))
+                    {
+                        displayName = displayName.Substring(0, displayName.IndexOf("("));
+                    }
+                    if (displayName.Contains("<"))
+                    {
+                        displayName = displayName.Substring(0, displayName.IndexOf("<"));
+                    }
+                    overloads[id].Id = id;
+                    overloads[id].DisplayName = m.ItemType == ItemType.Constructor ? t.Name : displayName;
+                    overloads[id].FullDisplayName = t.FullName + "." + overloads[id].DisplayName;
+                    overloads[id].SourceFileLocalPath = m.SourceFileLocalPath;
+                    m.Overload = overloads[id].Uid;
                 }
             }
             if (overloads.Count > 0)

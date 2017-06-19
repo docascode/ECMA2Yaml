@@ -85,6 +85,18 @@ namespace ECMA2Yaml.Models
             }
         }
 
+        public string GetOverloadId()
+        {
+            var overloadId = Name.Replace('.', '#');
+            if (TypeParameters?.Count > 0)
+            {
+                overloadId = overloadId.Substring(0, Id.LastIndexOf('<'));
+            }
+            overloadId = overloadId.Replace('<', '{').Replace('>', '}');
+
+            return overloadId + "*";
+        }
+
         private List<string> GetParameterUids(ECMAStore store)
         {
             List<string> ids = new List<string>();
