@@ -367,6 +367,14 @@ namespace ECMA2Yaml.Models
                     {
                         id = id.Substring(0, id.IndexOf("("));
                     }
+                    if (m.TypeParameters?.Count > 0)
+                    {
+                        var suffix = "``" + m.TypeParameters.Count;
+                        if (id.EndsWith(suffix))
+                        {
+                            id = id.Remove(id.Length - suffix.Length);
+                        }
+                    }
                     id += "*";
                     if (!overloads.ContainsKey(m.Name))
                     {
