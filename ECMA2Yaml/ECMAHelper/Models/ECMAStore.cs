@@ -357,9 +357,18 @@ namespace ECMA2Yaml.Models
                 || m.ItemType == ItemType.Property
                 || m.ItemType == ItemType.Operator)
                 .ToList();
-            var overloads = t.Overloads?.ToDictionary(o => o.GetOverloadId()) ?? new Dictionary<string, Member>();
             if (methods?.Count() > 0)
             {
+                Dictionary<string, Member> overloads = null;
+                if (t.Overloads?.Count > 0)
+                {
+                    overloads = t.Overloads.Where(o => methods.Exists(m => m.Name == o.Name))
+                        .ToDictionary(o => methods.First(m => m.Name == o.Name).GetOverloadId());
+                }
+                else
+                {
+                    overloads = new Dictionary<string, Member>();
+                }
                 foreach (var m in methods)
                 {
                     string id = m.GetOverloadId();
@@ -372,13 +381,16 @@ namespace ECMA2Yaml.Models
                         });
                     }
                     var displayName = m.DisplayName;
-                    if (displayName.Contains("("))
+                    if (displayName.Contains('('))
                     {
-                        displayName = displayName.Substring(0, displayName.IndexOf("("));
+                        displayName = displayName.Substring(0, displayName.LastIndexOf('('));
                     }
-                    if (displayName.Contains("<"))
+                    if (displayName.Contains('<'))
                     {
-                        displayName = displayName.Substring(0, displayName.IndexOf("<"));
+                        if (!displayName.Contains('.') || displayName.LastIndexOf('<') > displayName.LastIndexOf('.'))
+                        {
+                            displayName = displayName.Substring(0, displayName.LastIndexOf('<'));
+                        }
                     }
                     overloads[id].Id = id;
                     overloads[id].DisplayName = m.ItemType == ItemType.Constructor ? t.Name : displayName;
@@ -386,11 +398,12 @@ namespace ECMA2Yaml.Models
                     overloads[id].SourceFileLocalPath = m.SourceFileLocalPath;
                     m.Overload = overloads[id].Uid;
                 }
+                if (overloads.Count > 0)
+                {
+                    t.Overloads = overloads.Values.ToList();
+                }
             }
-            if (overloads.Count > 0)
-            {
-                t.Overloads = overloads.Values.ToList();
-            }
+            
         }
 
         private void BuildAttributes()

@@ -87,12 +87,23 @@ namespace ECMA2Yaml.Models
 
         public string GetOverloadId()
         {
-            var overloadId = Name.Replace('.', '#');
+            if (string.IsNullOrEmpty(Id))
+            {
+                return Id;
+            }
+            var overloadId = Id;
+            if (overloadId.Contains("("))
+            {
+                overloadId = overloadId.Substring(0, overloadId.IndexOf("("));
+            }
             if (TypeParameters?.Count > 0)
             {
-                overloadId = overloadId.Substring(0, Id.LastIndexOf('<'));
+                var suffix = "``" + TypeParameters.Count;
+                if (overloadId.EndsWith(suffix))
+                {
+                    overloadId = overloadId.Remove(overloadId.Length - suffix.Length);
+                }
             }
-            overloadId = overloadId.Replace('<', '{').Replace('>', '}');
 
             return overloadId + "*";
         }
