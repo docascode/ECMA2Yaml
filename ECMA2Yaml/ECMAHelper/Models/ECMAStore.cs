@@ -550,6 +550,13 @@ namespace ECMA2Yaml.Models
                     tp.Description = t.Docs.TypeParameters.ContainsKey(tp.Name) ? t.Docs.TypeParameters[tp.Name] : null;
                 }
             }
+            if (t.Parameters != null && t.Docs?.Parameters != null)
+            {
+                foreach (var tp in t.Parameters)
+                {
+                    tp.Description = t.Docs.Parameters.ContainsKey(tp.Name) ? t.Docs.Parameters[tp.Name] : null;
+                }
+            }
             if (t.Members != null)
             {
                 foreach (var m in t.Members)
