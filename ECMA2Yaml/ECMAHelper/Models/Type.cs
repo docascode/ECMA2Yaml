@@ -16,6 +16,8 @@ namespace ECMA2Yaml.Models
         public List<string> IsA { get; set; }
         public Dictionary<string, string> Signatures { get; set; }
         public List<Parameter> TypeParameters { get; set; }
+        public List<Parameter> Parameters { get; set; }
+        public Parameter ReturnValueType { get; set; }
         public List<string> Interfaces { get; set; }
         public List<ECMAAttribute> Attributes { get; set; }
         public List<Member> Members { get; set; }

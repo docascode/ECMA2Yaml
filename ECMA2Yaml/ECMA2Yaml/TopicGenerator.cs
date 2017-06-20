@@ -196,10 +196,13 @@ namespace ECMA2Yaml
             var syntax = new SyntaxDetailViewModel()
             {
                 Content = content,
-                //ContentForCSharp = content,
+                Parameters = t.Parameters?.Select(p => p.ToApiParameter(store))?.ToList(),
                 TypeParameters = t.TypeParameters?.Select(tp => tp.ToApiParameter(store)).ToList()
             };
-
+            if (t.ReturnValueType != null && !string.IsNullOrEmpty(t.ReturnValueType.Type) && t.ReturnValueType.Type != "System.Void")
+            {
+                syntax.Return = t.ReturnValueType.ToApiParameter(store);
+            }
             return syntax;
         }
 

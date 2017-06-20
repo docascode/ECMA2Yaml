@@ -186,6 +186,22 @@ namespace ECMA2Yaml
                 t.TypeParameters = tpElement.Elements("TypeParameter")?.Select(tp => new Parameter() { Name = tp.Attribute("Name").Value }).ToList();
             }
 
+            //Parameters
+            var pElement = tRoot.Element("Parameters");
+            if (pElement != null)
+            {
+                t.Parameters = pElement.Elements("Parameter").Select(p => Parameter.FromXElement(p)).ToList();
+            }
+
+            var rvalElement = tRoot.Element("ReturnValue");
+            if (rvalElement != null)
+            {
+                t.ReturnValueType = new Parameter()
+                {
+                    Type = rvalElement.Element("ReturnType")?.Value
+                };
+            }
+
             //BaseTypeName
             t.BaseType = LoadBaseType(tRoot.Element("Base"));
 
