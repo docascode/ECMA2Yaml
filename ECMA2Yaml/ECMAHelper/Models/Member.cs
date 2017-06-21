@@ -30,6 +30,10 @@ namespace ECMA2Yaml.Models
         public void BuildName(ECMAStore store)
         {
             DisplayName = ItemType == ItemType.Constructor ? Parent.Name : Name;
+            if (DisplayName.StartsWith("op_"))
+            {
+                DisplayName = DisplayName.Substring("op_".Length);
+            }
             if (DisplayName.Contains('.')) //EII
             {
                 var typeStr = DisplayName.Substring(0, DisplayName.LastIndexOf('.'));

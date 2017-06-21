@@ -175,6 +175,7 @@ namespace ECMA2Yaml
                 t.Signatures[sig.Attribute("Language").Value] = sig.Attribute("Value").Value;
             }
             t.DocId = t.Signatures.ContainsKey("DocId") ? t.Signatures["DocId"] : null;
+            t.Modifiers = ParseModifiersFromSignatures(t.Signatures);
 
             //AssemblyInfo
             t.AssemblyInfo = tRoot.Elements("AssemblyInfo")?.Select(a => ParseAssemblyInfo(a)).ToList();
@@ -326,6 +327,7 @@ namespace ECMA2Yaml
                 m.Signatures[sig.Attribute("Language").Value] = sig.Attribute("Value").Value;
             }
             m.DocId = m.Signatures.ContainsKey("DocId") ? m.Signatures["DocId"] : null;
+            m.Modifiers = ParseModifiersFromSignatures(m.Signatures);
             m.AssemblyInfo = mElement.Elements("AssemblyInfo")?.Select(a => ParseAssemblyInfo(a)).ToList();
 
             //TypeParameters
@@ -503,6 +505,30 @@ namespace ECMA2Yaml
             assembly.Name = ele.Element("AssemblyName")?.Value;
             assembly.Versions = ele.Elements("AssemblyVersion").Select(v => v.Value).ToList();
             return assembly;
+        }
+
+        private SortedList<string, List<string>> ParseModifiersFromSignatures(Dictionary<string, string> sigs)
+        {
+            if (sigs == null)
+            {
+                return null;
+            }
+
+            var modifiers = new SortedList<string, List<string>>();
+            if (sigs.ContainsKey("C#"))
+            {
+                var mods = new List<string>();
+                var startWithModifiers = new string[] { "public", "protected", "private"};
+                mods.AddRange(startWithModifiers.Where(m => sigs["C#"].StartsWith(m)));
+                var containsModifiers = new string[] { "static", "const", "readonly", "sealed", "get;", "set;" };
+                mods.AddRange(containsModifiers.Where(m => sigs["C#"].Contains(" " + m + " ")).Select(m => m.Trim(';')));
+
+                if (mods.Any())
+                {
+                    modifiers.Add("csharp", mods);
+                }
+            }
+            return modifiers;
         }
     }
 }

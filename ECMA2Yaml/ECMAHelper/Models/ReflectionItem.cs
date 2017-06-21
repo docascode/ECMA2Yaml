@@ -48,7 +48,7 @@ namespace ECMA2Yaml.Models
         public string SourceFileLocalPath { get; set; }
 
         public Dictionary<string, object> Metadata { get; set; }
-
+        public SortedList<string, List<string>> Modifiers { get; set; }
         public List<AssemblyInfo> AssemblyInfo { get; set; }
 
         public ReflectionItem()

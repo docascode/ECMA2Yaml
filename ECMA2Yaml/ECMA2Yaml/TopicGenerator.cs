@@ -168,7 +168,8 @@ namespace ECMA2Yaml
                 Remarks = t.Docs?.Remarks,
                 Examples = string.IsNullOrEmpty(t.Docs?.Examples) ? null : new List<string> { t.Docs?.Examples },
                 ExtensionMethods = t.ExtensionMethods,
-                Attributes = t.Attributes.GetAttributeInfo(store)
+                Attributes = t.Attributes.GetAttributeInfo(store),
+                Modifiers = t.Modifiers
             };
             item.Metadata.MergeMetadata(t.Metadata);
             //not top level class like System.Object, has children
@@ -229,7 +230,8 @@ namespace ECMA2Yaml
                 Remarks = m.Docs?.Remarks,
                 Examples = string.IsNullOrEmpty(m.Docs?.Examples) ? null : new List<string> { m.Docs?.Examples },
                 Exceptions = m.Docs.Exceptions?.Select(ex => new ExceptionInfo() { CommentId = ex.CommentId, Description = ex.Description, Type = ex.Uid }).ToList(),
-                Attributes = m.Attributes.GetAttributeInfo(store)
+                Attributes = m.Attributes.GetAttributeInfo(store),
+                Modifiers = m.Modifiers
             };
             item.Metadata.MergeMetadata(m.Metadata);
             return item;
