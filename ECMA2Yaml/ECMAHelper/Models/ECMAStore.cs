@@ -64,7 +64,7 @@ namespace ECMA2Yaml.Models
                 {
                     foreach (var member in group)
                     {
-                        OPSLogger.LogUserError(string.Format("Member {0}'s name and signature is not unique", member.Uid), member.SourceFileLocalPath);
+                        OPSLogger.LogUserError(string.Format("Member {0}'s name and signature is not unique", member.Name), member.SourceFileLocalPath);
                     }
                 }
             }

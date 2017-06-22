@@ -151,7 +151,7 @@ namespace ECMA2Yaml
             {
                 Id = t.Id,
                 Uid = t.Uid,
-                CommentId = t.DocId,
+                CommentId = t.CommentId,
                 Name = t.Name,
                 NameWithType = t.Name,
                 FullName = t.FullName,
@@ -214,7 +214,7 @@ namespace ECMA2Yaml
             {
                 Id = m.Id,
                 Uid = m.Uid,
-                CommentId = m.DocId,
+                CommentId = m.CommentId,
                 Name = m.DisplayName,
                 NameWithType = t.Name + '.' + m.DisplayName,
                 FullName = m.FullDisplayName,

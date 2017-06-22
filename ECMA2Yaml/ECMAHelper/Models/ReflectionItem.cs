@@ -43,6 +43,25 @@ namespace ECMA2Yaml.Models
             }
         }
         public string DocId { get; set; }
+        public string CommentId {
+            get
+            {
+                if (string.IsNullOrEmpty(Uid))
+                {
+                    return null;
+                }
+                var cid = Uid;
+                if (cid.EndsWith("*"))
+                {
+                    return "Overload:" + cid.Trim('*');
+                }
+                if (!string.IsNullOrEmpty(DocId) && DocId.Contains(':'))
+                {
+                    cid = DocId.Substring(0, DocId.IndexOf(':')) + ":" + cid;
+                }
+                return cid;
+            }
+        }
         public ReflectionItem Parent { get; set; }
 
         public string SourceFileLocalPath { get; set; }
