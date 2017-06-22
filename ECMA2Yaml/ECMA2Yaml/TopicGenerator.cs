@@ -125,10 +125,16 @@ namespace ECMA2Yaml
                 pv.References.AddRange(t.Members.SelectMany(m => m.ToReferenceViewModels(store)));
                 if (t.Overloads?.Count > 0)
                 {
-                    pv.References.AddRange(t.Overloads.Select(o => o.ToReferenceViewModel(withMetadata: true)));
+                    pv.References.AddRange(t.Overloads.Select(o =>
+                    {
+                        var r = o.ToReferenceViewModel(withMetadata: true);
+                        r.CommentId = o.CommentId;
+                        return r;
+                    }
+                    ));
                 }
             }
-            if(t.InheritedMembers?.Count > 0)
+            if (t.InheritedMembers?.Count > 0)
             {
                 pv.References.AddRange(t.InheritedMembers.Select(p => p.Value + '.' + p.Key).Select(ex => store.MembersByUid[ex].ToReferenceViewModel()));
             }
@@ -173,7 +179,7 @@ namespace ECMA2Yaml
             };
             item.Metadata.MergeMetadata(t.Metadata);
             //not top level class like System.Object, has children
-            if ((t.ItemType == ItemType.Interface 
+            if ((t.ItemType == ItemType.Interface
                 || (store.InheritanceParentsByUid.ContainsKey(t.Uid) && store.InheritanceParentsByUid[t.Uid]?.Count > 0))
                 && store.InheritanceChildrenByUid.ContainsKey(t.Uid))
             {
