@@ -115,6 +115,17 @@ namespace ECMA2Yaml
                     }
                 }
             }
+            //workaournd for https://github.com/mono/api-doc-tools/issues/89, bug #1022788
+            foreach (var ns in filteredNS)
+            {
+                foreach (var t in ns.Types)
+                {
+                    if (t.Signatures != null && t.Signatures.ContainsKey("C#") && t.Signatures["C#"].StartsWith("public sealed class"))
+                    {
+                        t.Members = t.Members.Where(m => !(m.Signatures.ContainsKey("C#") && m.Signatures["C#"].StartsWith("protected "))).ToList();
+                    }
+                }
+            }
             return filteredNS;
         }
 
