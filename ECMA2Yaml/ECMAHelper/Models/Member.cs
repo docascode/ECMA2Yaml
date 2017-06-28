@@ -44,7 +44,7 @@ namespace ECMA2Yaml.Models
             {
                 if (Name == "op_Explicit" || Name == "op_Implicit")
                 {
-                    DisplayName += string.Format("({0} to {1})", Parameters.First().Type.ToDisplayName(), ReturnValueType.Type.ToDisplayName());
+                    DisplayName += string.Format("({0})~{1}", Parameters.First().Type.ToDisplayName(), ReturnValueType.Type.ToDisplayName());
                 }
                 else
                 {
