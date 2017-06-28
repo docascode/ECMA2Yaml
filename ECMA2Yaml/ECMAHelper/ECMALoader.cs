@@ -359,7 +359,35 @@ namespace ECMA2Yaml
             //Docs
             m.Docs = LoadDocs(mElement.Element("Docs"));
 
+            //hard code this type to minimize workaround impact
+            if (t.FullName == "Microsoft.VisualBasic.Collection")
+            {
+                FixEIIProperty(m);
+            }
+            
             return m;
+        }
+
+        //workaround for https://github.com/mono/api-doc-tools/issues/92, bug #1025217
+        private void FixEIIProperty(Member m)
+        {
+            if (m.ItemType == ItemType.Property && m.Name.Contains('.'))
+            {
+                var parts = m.Name.Split('.');
+                if (parts.Length > 2 && parts.Last().StartsWith(parts[parts.Length - 2]))
+                {
+                    var name = m.Name.Replace(parts[parts.Length - 2] + "." + parts[parts.Length - 2], parts[parts.Length - 2] + ".");
+                    if (m.Signatures?.Count > 0)
+                    {
+                        var langs = m.Signatures.Keys.ToList();
+                        foreach (var lang in langs)
+                        {
+                            m.Signatures[lang] = m.Signatures[lang].Replace(m.Name, name);
+                        }
+                    }
+                    m.Name = name;
+                }
+            }
         }
 
         private ECMAAttribute LoadAttribute(XElement attrElement)
