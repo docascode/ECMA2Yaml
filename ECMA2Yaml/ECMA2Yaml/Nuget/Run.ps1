@@ -87,8 +87,11 @@ if (-not $publicGitUrl.EndsWith("/"))
 {
     $publicGitUrl += "/"
 }
-
-$jobs = $ParameterDictionary.environment.publishConfigContent.ECMA2Yaml
+$jobs = $ParameterDictionary.docset.docsetInfo.ECMA2Yaml
+if (!$jobs)
+{
+	$jobs = $ParameterDictionary.environment.publishConfigContent.ECMA2Yaml
+}
 if ($jobs -isnot [system.array])
 {
     $jobs = @($jobs)
