@@ -105,9 +105,9 @@
 
   <xsl:template match="paramref">
     <xsl:if test="normalize-space(@name)">
-      <span class="paramref">
+      <code>
         <xsl:value-of select="@name" />
-      </span>
+      </code>
     </xsl:if>
   </xsl:template>
 
