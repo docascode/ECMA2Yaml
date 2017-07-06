@@ -397,7 +397,7 @@ namespace ECMA2Yaml
                 }
                 else
                 {
-                    if (typeStr.EndsWith("@") || typeStr.Contains("<?>") || typeStr.Contains(" modreq"))
+                    if (typeStr.EndsWith("@") || typeStr.Contains("<?>") || typeStr.Contains(" modreq") || typeStr.Contains(" modopt"))
                     {
                         OPSLogger.LogUserInfo("Unable to parse type string " + typeStr);
                     }
