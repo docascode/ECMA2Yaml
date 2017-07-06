@@ -86,7 +86,10 @@ namespace ECMA2Yaml
                 NameWithType = t.Name,
                 FullName = t.FullName
             };
-            rval.Additional["type"] = t.ItemType.ToString().ToLower();
+            if (t.ItemType != ItemType.Default)
+            {
+                rval.Additional["type"] = t.ItemType.ToString().ToLower();
+            }
             return rval;
         }
 
@@ -302,7 +305,10 @@ namespace ECMA2Yaml
             {
                 r.Additional.MergeMetadata(m.Metadata);
             }
-            r.Additional["type"] = m.ItemType.ToString().ToLower();
+            if (m.ItemType != ItemType.Default)
+            {
+                r.Additional["type"] = m.ItemType.ToString().ToLower();
+            }
             return r;
         }
 
