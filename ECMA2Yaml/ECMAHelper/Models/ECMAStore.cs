@@ -127,6 +127,7 @@ namespace ECMA2Yaml.Models
             if (!string.IsNullOrEmpty(item.SourceFileLocalPath))
             {
                 item.Metadata[OPSMetadata.ContentUrl] = item.SourceFileLocalPath.Replace(sourcePathRoot, gitBaseUrl).Replace("\\", "/");
+                item.Metadata[OPSMetadata.RefSkeletionUrl] = item.Metadata[OPSMetadata.ContentUrl];
             }
         }
 
