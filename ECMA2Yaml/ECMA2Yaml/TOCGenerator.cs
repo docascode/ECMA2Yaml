@@ -30,9 +30,9 @@ namespace ECMA2Yaml
                 Name = ns.Name,
                 Items = new TocViewModel(ns.Types.Select(t => GenerateTocItemForType(t)).ToList())
             };
-            if (ns.Metadata!= null && ns.Metadata.ContainsKey(OPSMetadata.Version))
+            if (ns.Metadata!= null && ns.Metadata.ContainsKey(OPSMetadata.Monikers))
             {
-                nsToc.Metadata[OPSMetadata.Version] = ns.Metadata[OPSMetadata.Version];
+                nsToc.Metadata[OPSMetadata.Monikers] = ns.Metadata[OPSMetadata.Monikers];
             }
             return nsToc;
         }
@@ -44,9 +44,9 @@ namespace ECMA2Yaml
                 Uid = t.Uid,
                 Name = t.Name,
             };
-            if (t.Metadata != null && t.Metadata.ContainsKey(OPSMetadata.Version))
+            if (t.Metadata != null && t.Metadata.ContainsKey(OPSMetadata.Monikers))
             {
-                tToc.Metadata[OPSMetadata.Version] = t.Metadata[OPSMetadata.Version];
+                tToc.Metadata[OPSMetadata.Monikers] = t.Metadata[OPSMetadata.Monikers];
             }
             return tToc;
         }
