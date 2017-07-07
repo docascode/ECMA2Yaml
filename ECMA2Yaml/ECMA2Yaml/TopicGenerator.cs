@@ -77,7 +77,7 @@ namespace ECMA2Yaml
 
         public static ReferenceViewModel ToReferenceViewModel(this Models.Type t)
         {
-            return new ReferenceViewModel()
+            var rval = new ReferenceViewModel()
             {
                 Uid = t.Uid,
                 Parent = t.Parent.Uid,
@@ -86,6 +86,11 @@ namespace ECMA2Yaml
                 NameWithType = t.Name,
                 FullName = t.FullName
             };
+            if (t.ItemType != ItemType.Default)
+            {
+                rval.Additional["type"] = t.ItemType.ToString().ToLower();
+            }
+            return rval;
         }
 
         public static PageViewModel ToPageViewModel(this Models.Type t, ECMAStore store)
@@ -300,6 +305,10 @@ namespace ECMA2Yaml
             {
                 r.Additional.MergeMetadata(m.Metadata);
             }
+            if (m.ItemType != ItemType.Default)
+            {
+                r.Additional["type"] = m.ItemType.ToString().ToLower();
+            }
             return r;
         }
 
@@ -394,7 +403,15 @@ namespace ECMA2Yaml
                 }
                 else
                 {
-                    OPSLogger.LogUserWarning("Unable to parse type string " + typeStr);
+                    if (typeStr.EndsWith("@") || typeStr.Contains("<?>") || typeStr.Contains(" modreq") || typeStr.Contains(" modopt"))
+                    {
+                        OPSLogger.LogUserInfo("Unable to parse type string " + typeStr);
+                    }
+                    else
+                    {
+                        OPSLogger.LogUserWarning("Unable to parse type string " + typeStr);
+                    }
+                    
                 }
                 return refs;
             }

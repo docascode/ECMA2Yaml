@@ -127,6 +127,7 @@ namespace ECMA2Yaml.Models
             if (!string.IsNullOrEmpty(item.SourceFileLocalPath))
             {
                 item.Metadata[OPSMetadata.ContentUrl] = item.SourceFileLocalPath.Replace(sourcePathRoot, gitBaseUrl).Replace("\\", "/");
+                item.Metadata[OPSMetadata.RefSkeletionUrl] = item.Metadata[OPSMetadata.ContentUrl];
             }
         }
 
@@ -279,14 +280,12 @@ namespace ECMA2Yaml.Models
             {
                 if (_frameworks.ContainsKey(ns.Uid))
                 {
-                    ns.Metadata[OPSMetadata.Version] = _frameworks[ns.Uid];
                     ns.Metadata[OPSMetadata.Monikers] = _frameworks[ns.Uid];
                 }
                 foreach (var t in ns.Types)
                 {
                     if (!string.IsNullOrEmpty(t.DocId) && _frameworks.ContainsKey(t.DocId))
                     {
-                        t.Metadata[OPSMetadata.Version] = _frameworks[t.DocId];
                         t.Metadata[OPSMetadata.Monikers] = _frameworks[t.DocId];
                     }
                     if (t.Members != null)
@@ -295,7 +294,6 @@ namespace ECMA2Yaml.Models
                         {
                             if (_frameworks.ContainsKey(m.DocId))
                             {
-                                m.Metadata[OPSMetadata.Version] = _frameworks[m.DocId];
                                 m.Metadata[OPSMetadata.Monikers] = _frameworks[m.DocId];
                             }
                             else
