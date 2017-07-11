@@ -46,6 +46,10 @@ namespace ECMA2Yaml.Models
                 {
                     DisplayName += string.Format("({0})~{1}", Parameters.First().Type.ToDisplayName(), ReturnValueType.Type.ToDisplayName());
                 }
+                else if (ItemType == ItemType.Property && Signatures.ContainsKey("C#") && Signatures["C#"].Contains("[")) //indexer
+                {
+                    DisplayName += string.Format("[{0}]", string.Join(", ", Parameters.Select(p => p.Type.ToDisplayName())));
+                }
                 else
                 {
                     DisplayName += string.Format("({0})", string.Join(", ", Parameters.Select(p => p.Type.ToDisplayName())));
