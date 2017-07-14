@@ -51,7 +51,7 @@ namespace ECMA2Yaml.Models
                     return null;
                 }
                 var cid = Uid;
-                if (cid.EndsWith("*"))
+                if (cid.EndsWith("*") && string.IsNullOrEmpty(DocId))
                 {
                     return "Overload:" + cid.Trim('*');
                 }
