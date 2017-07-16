@@ -72,6 +72,7 @@ namespace ECMA2Yaml.Models
             }
             //handle eii prefix
             Id = Id.Replace('<', '{').Replace('>', '}');
+            Id = Id.Replace(',', '@');
             if (Parameters?.Count > 0)
             {
                 //Type conversion operator can be considered a special operator whose name is the UID of the target type,
