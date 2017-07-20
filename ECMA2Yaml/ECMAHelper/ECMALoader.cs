@@ -308,7 +308,7 @@ namespace ECMA2Yaml
                 return null;
             }
             BaseType bt = new BaseType();
-            bt.Name = bElement.Element("BaseTypeName")?.Value;
+            bt.Name = bElement.Elements("BaseTypeName")?.LastOrDefault()?.Value;
             var btaElements = bElement.Element("BaseTypeArguments")?.Elements("BaseTypeArgument");
             if (btaElements != null)
             {
