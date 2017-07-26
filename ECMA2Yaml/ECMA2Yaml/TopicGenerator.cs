@@ -170,7 +170,7 @@ namespace ECMA2Yaml
                 NamespaceName = t.Parent.Name,
                 Children = t.Members?.Select(m => m.Uid).ToList(),
                 Syntax = t.ToSyntaxDetailViewModel(store),
-                Implements = t.Interfaces?.Where(i => i != null).Select(i => i.ToSpecId()).ToList(),
+                Implements = t.Interfaces?.Where(i => i != null).Select(i => store.TypesByFullName.ContainsKey(i) ? store.TypesByFullName[i].Uid : i.ToSpecId()).ToList(),
                 Inheritance = t.InheritanceUids,
                 AssemblyNameList = t.AssemblyInfo.Select(a => a.Name).ToList(),
                 InheritedMembers = t.InheritedMembers?.Select(p => p.Value + '.' + p.Key).OrderBy(s => s).ToList(),
