@@ -509,7 +509,7 @@ namespace ECMA2Yaml
                 Parameters = dElement.Elements("param")?.Where(p => !string.IsNullOrEmpty(p.Attribute("name").Value)).ToDictionary(p => p.Attribute("name").Value, p => NormalizeDocsElement(GetInnerXml(p))),
                 TypeParameters = dElement.Elements("typeparam")?.Where(p => !string.IsNullOrEmpty(p.Attribute("name").Value)).ToDictionary(p => p.Attribute("name").Value, p => NormalizeDocsElement(GetInnerXml(p))),
                 AdditionalNotes = additionalNotes,
-                Returns = NormalizeDocsElement(GetInnerXml(dElement.Element("returns"))),
+                Returns = NormalizeDocsElement(GetInnerXml(dElement.Element("returns"))), //<value> will be transformed to <returns> by xslt in advance
                 ThreadSafety = NormalizeDocsElement(GetInnerXml(dElement.Element("threadsafe"))),
                 Since = NormalizeDocsElement(dElement.Element("since")?.Value),
                 AltCompliant = altCompliant,
@@ -525,7 +525,7 @@ namespace ECMA2Yaml
             }
             var reader = ele.CreateReader();
             reader.MoveToContent();
-            return System.Web.HttpUtility.HtmlDecode(reader.ReadInnerXml());
+            return reader.ReadInnerXml();
         }
 
         private static Regex xrefFix = new Regex("<xref:[\\w\\.\\d\\?=]+%[\\w\\.\\d\\?=%]+>", RegexOptions.Compiled);
