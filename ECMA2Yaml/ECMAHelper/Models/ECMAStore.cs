@@ -438,18 +438,14 @@ namespace ECMA2Yaml.Models
                 fqn = nameWithSuffix;
             }
             attr.TypeFullName = fqn;
-            if (TypesByFullName.ContainsKey(fqn))
+            if (FilterStore?.AttributeFilters?.Count > 0)
             {
-                var t = TypesByFullName[fqn];
-                if (FilterStore?.AttributeFilters?.Count > 0)
+                foreach (var f in FilterStore.AttributeFilters)
                 {
-                    foreach (var f in FilterStore.AttributeFilters)
+                    var result = TypesByFullName.ContainsKey(fqn) ? f.Filter(TypesByFullName[fqn]) : f.Filter(fqn);
+                    if (result.HasValue)
                     {
-                        var result = f.Filter(t);
-                        if (result.HasValue)
-                        {
-                            attr.Visible = result.Value;
-                        }
+                        attr.Visible = result.Value;
                     }
                 }
             }
