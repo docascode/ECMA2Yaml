@@ -266,7 +266,8 @@ namespace ECMA2Yaml
                 Parameters = m.Parameters?.Select(p => p.ToApiParameter(store))?.ToList(),
                 TypeParameters = m.TypeParameters?.Select(p => p.ToApiParameter(store))?.ToList()
             };
-            if (m.ReturnValueType != null && !string.IsNullOrEmpty(m.ReturnValueType.Type) && m.ReturnValueType.Type != "System.Void")
+            var returnType = m.ReturnValueType?.Type;
+            if (!string.IsNullOrEmpty(returnType) && returnType != "System.Void" && m.ItemType != ItemType.Event)
             {
                 syntax.Return = m.ReturnValueType.ToApiParameter(store);
             }

@@ -24,18 +24,7 @@ namespace ECMA2Yaml
                     {
                         OPSLogger.PathTrimPrefix = opt.RepoRootPath;
                     }
-                    if(opt.JoinTOC)
-                    {
-                        TOCMerger.Merge(opt);
-                    }
-                    else if (opt.FolderDiff)
-                    {
-                        FolderDiff.Run(opt);
-                    }
-                    else
-                    {
-                        LoadAndConvert(opt);
-                    }
+                    LoadAndConvert(opt);
                 }
             }
             catch (Exception ex)

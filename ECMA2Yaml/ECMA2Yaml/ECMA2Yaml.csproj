@@ -134,11 +134,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommandLineOptions.cs" />
-    <Compile Include="FolderDiff.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TOCGenerator.cs" />
-    <Compile Include="TOCMerger.cs" />
     <Compile Include="TopicGenerator.cs" />
     <Compile Include="YamlHeaderParser.cs" />
     <Compile Include="YamlHeaderWriter.cs" />
@@ -150,9 +148,7 @@
     <None Include="Nuget\ECMA2Yaml.nuspec">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Nuget\DiffFolder.ps1" />
     <None Include="Nuget\PostBuild.ps1" />
-    <None Include="Nuget\JoinTOC.ps1" />
     <None Include="packages.config" />
     <None Include="Nuget\Run.ps1" />
   </ItemGroup>
