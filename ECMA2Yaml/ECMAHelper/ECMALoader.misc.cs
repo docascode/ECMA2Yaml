@@ -186,7 +186,7 @@ namespace ECMA2Yaml
                     {
                         TargetDocId = em.Element("Targets").Element("Target").Attribute("Type").Value,
                         MemberDocId = em.Element("Member").Element("Link").Attribute("Member").Value,
-                        ParentType = em.Element("Member").Element("Link").Attribute("Type").Value
+                        ParentTypeString = em.Element("Member").Element("Link").Attribute("Type").Value
                     });
                 }
             }

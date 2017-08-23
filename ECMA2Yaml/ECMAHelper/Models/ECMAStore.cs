@@ -30,8 +30,8 @@ namespace ECMA2Yaml.Models
         private Dictionary<string, List<string>> _assemblyMonikerMapping;
 
         public ECMAStore(IEnumerable<Namespace> nsList,
-            Dictionary<string, List<string>> frameworks, 
-            List<ExtensionMethod> extensionMethods, 
+            Dictionary<string, List<string>> frameworks,
+            List<ExtensionMethod> extensionMethods,
             Dictionary<string, string> monikerNugetMapping = null,
             Dictionary<string, List<string>> monikerAssemblyMapping = null)
         {
@@ -79,9 +79,9 @@ namespace ECMA2Yaml.Models
 
             BuildAttributes();
 
-            BuildExtensionMethods();
-
             BuildFrameworks();
+
+            BuildExtensionMethods();
 
             BuildOtherMetadata();
 
@@ -140,7 +140,7 @@ namespace ECMA2Yaml.Models
             }
             foreach (var ns in _nsList)
             {
-                bool nsInternalOnly = ns.Docs?.InternalOnly ??  false;
+                bool nsInternalOnly = ns.Docs?.InternalOnly ?? false;
                 if (!string.IsNullOrEmpty(ns.Docs?.AltCompliant))
                 {
                     ns.Metadata[OPSMetadata.AltCompliant] = ns.Docs?.AltCompliant;
@@ -153,7 +153,7 @@ namespace ECMA2Yaml.Models
                 {
                     var monikers = (List<string>)ns.Metadata[OPSMetadata.Monikers];
                     List<string> packages = new List<string>();
-                    foreach(var moniker in monikers)
+                    foreach (var moniker in monikers)
                     {
                         if (_monikerNugetMapping.ContainsKey(moniker))
                         {
@@ -204,7 +204,7 @@ namespace ECMA2Yaml.Models
                 var assemblies = item.AssemblyInfo.Select(asm => asm.Name).Distinct();
                 var monikers = (List<string>)(item.Metadata[OPSMetadata.Monikers]);
                 var dict = new Dictionary<string, List<string>>();
-                foreach(var asm in assemblies)
+                foreach (var asm in assemblies)
                 {
                     if (_assemblyMonikerMapping.ContainsKey(asm))
                     {
@@ -230,27 +230,29 @@ namespace ECMA2Yaml.Models
             }
             ExtensionMethodsByMemberDocId = _extensionMethods.ToDictionary(ex => ex.MemberDocId);
 
-            foreach(var m in MembersByUid.Values)
+            foreach (var m in MembersByUid.Values)
             {
                 if (!string.IsNullOrEmpty(m.DocId) && ExtensionMethodsByMemberDocId.ContainsKey(m.DocId))
                 {
                     m.IsExtensionMethod = true;
                     ExtensionMethodsByMemberDocId[m.DocId].Uid = m.Uid;
+                    ExtensionMethodsByMemberDocId[m.DocId].ParentType = m.Parent;
                 }
             }
 
             ExtensionMethodUidsByTargetUid = _extensionMethods.ToLookup(ex => ex.TargetDocId.Replace("T:", ""));
-            foreach(var ex in _extensionMethods.Where(ex => ex.Uid == null))
+            foreach (var ex in _extensionMethods.Where(ex => ex.Uid == null))
             {
-                OPSLogger.LogUserWarning(string.Format("ExtensionMethod {0} not found in its type {1}", ex.MemberDocId, ex.ParentType), "index.xml");
+                OPSLogger.LogUserWarning(string.Format("ExtensionMethod {0} not found in its type {1}", ex.MemberDocId, ex.ParentTypeString), "index.xml");
             }
 
             foreach (var t in _tList)
             {
                 List<string> extensionMethods = new List<string>();
+                List<string> typeMonikers = t.Metadata[OPSMetadata.Monikers] as List<string>;
                 Stack<string> uidsToCheck = new Stack<string>();
                 uidsToCheck.Push(t.Uid);
-                while(uidsToCheck.Count > 0)
+                while (uidsToCheck.Count > 0)
                 {
                     var uid = uidsToCheck.Pop();
                     if (InheritanceParentsByUid.ContainsKey(uid))
@@ -259,7 +261,17 @@ namespace ECMA2Yaml.Models
                     }
                     if (ExtensionMethodUidsByTargetUid.Contains(uid))
                     {
-                        extensionMethods.AddRange(ExtensionMethodUidsByTargetUid[uid].Where(ex => !string.IsNullOrEmpty(ex.Uid)).Select(ex => ex.Uid));
+                        var exCandiates = ExtensionMethodUidsByTargetUid[uid].Where(ex =>
+                        {
+                            if (string.IsNullOrEmpty(ex.Uid))
+                            {
+                                return false;
+                            }
+                            var exMonikers = ex.ParentType?.Metadata[OPSMetadata.Monikers] as List<string>;
+                            return exMonikers != null && exMonikers.Intersect(typeMonikers).Any();
+                        });
+
+                        extensionMethods.AddRange(exCandiates.Select(ex => ex.Uid));
                     }
                 }
                 if (extensionMethods.Count > 0)
@@ -290,7 +302,7 @@ namespace ECMA2Yaml.Models
                     }
                     if (t.Members != null)
                     {
-                        foreach (var m in t.Members.Where(m=> !string.IsNullOrEmpty(m.DocId)))
+                        foreach (var m in t.Members.Where(m => !string.IsNullOrEmpty(m.DocId)))
                         {
                             if (_frameworks.ContainsKey(m.DocId))
                             {
@@ -305,7 +317,7 @@ namespace ECMA2Yaml.Models
                     //special handling for monikers metadata
                     if (t.Overloads != null)
                     {
-                        foreach(var ol in t.Overloads)
+                        foreach (var ol in t.Overloads)
                         {
                             var monikers = t.Members.Where(m => m.Overload == ol.Uid && !string.IsNullOrEmpty(m.DocId)).SelectMany(m => _frameworks[m.DocId]).Distinct().ToList();
                             if (monikers?.Count > 0)
@@ -401,12 +413,12 @@ namespace ECMA2Yaml.Models
                     t.Overloads = overloads.Values.ToList();
                 }
             }
-            
+
         }
 
         private void BuildAttributes()
         {
-            foreach(var t in _tList)
+            foreach (var t in _tList)
             {
                 if (t.Attributes?.Count > 0)
                 {
@@ -589,15 +601,15 @@ namespace ECMA2Yaml.Models
 
         private void FindMissingAssemblyNames()
         {
-            foreach(var t in _tList)
+            foreach (var t in _tList)
             {
-               if (t.AssemblyInfo?.Count > 0 && t.Members?.Count > 0)
+                if (t.AssemblyInfo?.Count > 0 && t.Members?.Count > 0)
                 {
-                    foreach(var m in t.Members)
+                    foreach (var m in t.Members)
                     {
                         if (m.AssemblyInfo?.Count > 0)
                         {
-                            foreach(var asm in m.AssemblyInfo)
+                            foreach (var asm in m.AssemblyInfo)
                             {
                                 if (string.IsNullOrEmpty(asm.Name) && asm.Versions?.Count > 0)
                                 {

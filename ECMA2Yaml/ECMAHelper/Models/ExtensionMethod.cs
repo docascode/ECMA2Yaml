@@ -11,6 +11,7 @@ namespace ECMA2Yaml.Models
         public string Uid { get; set; }
         public string MemberDocId { get; set; }
         public string TargetDocId { get; set; }
-        public string ParentType { get; set; }
+        public string ParentTypeString { get; set; }
+        public ReflectionItem ParentType { get; set; }
     }
 }
