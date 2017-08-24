@@ -425,6 +425,8 @@ namespace ECMA2Yaml.Models
             }
         }
 
+        string[] attributePrefix = { "get: ", "set: ", "add: ", "remove: " };
+
         private void ResolveAttribute(ECMAAttribute attr)
         {
             var fqn = attr.Declaration;
@@ -432,8 +434,15 @@ namespace ECMA2Yaml.Models
             {
                 fqn = fqn.Substring(0, fqn.IndexOf("("));
             }
+            foreach(var prefix in attributePrefix)
+            {
+                if (fqn.StartsWith(prefix))
+                {
+                    fqn = fqn.Substring(prefix.Length);
+                }
+            }
             var nameWithSuffix = fqn + "Attribute";
-            if (TypesByFullName.ContainsKey(nameWithSuffix))
+            if (TypesByFullName.ContainsKey(nameWithSuffix) || !TypesByFullName.ContainsKey(fqn))
             {
                 fqn = nameWithSuffix;
             }
