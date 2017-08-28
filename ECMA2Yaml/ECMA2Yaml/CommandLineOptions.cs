@@ -7,11 +7,13 @@ namespace ECMA2Yaml
     public class CommandLineOptions
     {
         public string SourceFolder = null;
+        public string FallbackSourceFolder = null;
         public string MetadataFolder = null;
         public string OutputFolder = null;
         public string RepoRootPath = null;
         public string GitBaseUrl = null;
         public string LogFilePath = "log.json";
+        public List<string> ChangeListFiles = new List<string>();
         public bool Flatten = false;
         public bool StrictMode = false;
 
@@ -21,13 +23,15 @@ namespace ECMA2Yaml
         public CommandLineOptions()
         {
             _options = new OptionSet {
-                { "s|source=", "[Required] the folder path containing the mdoc generated xml files.", s => SourceFolder = s },
+                { "s|source=", "[Required] the folder path containing the ECMAXML files.", s => SourceFolder = s },
+                { "fs|fallbackSource=", "the folder path containing the fallback ECMAXML files.", s => FallbackSourceFolder = s },
                 { "o|output=", "[Required] the output folder to put yml files.", o => OutputFolder = o },
                 { "m|metadata=", "the folder path containing the overwrite MD files for metadata.", s => MetadataFolder = s },
                 { "l|log=", "the log file path.", l => LogFilePath = l },
                 { "f|flatten", "to put all ymls in output root and not keep original folder structure.", f => Flatten = f != null },
                 { "p|pathUrlMapping={=>}", "map local xml path to the Github url.", (p, u) => { RepoRootPath = p;  GitBaseUrl = u; } },
                 { "strict", "strict mode, means that any unresolved type reference will cause a warning",  s => StrictMode = s != null },
+                { "changeList", "OPS change list file, ECMA2Yaml will translate xml path to yml path",  s => ChangeListFiles.Add(s)},
             };
         }
 

@@ -135,9 +135,28 @@ namespace ECMA2Yaml
                     }
                 }
             });
+
+            //Write TOC
             YamlUtility.Serialize(Path.Combine(opt.OutputFolder, "toc.yml"), TOCGenerator.Generate(store), YamlMime.TableOfContent);
-            var mappingFolder = string.IsNullOrEmpty(opt.LogFilePath) ? opt.OutputFolder : Path.GetDirectoryName(opt.LogFilePath);
-            JsonUtility.Serialize(Path.Combine(mappingFolder, "XmlYamlMapping.json"), fileMapping, Newtonsoft.Json.Formatting.Indented);
+
+            //Translate change list or save mapping file
+            if (opt.ChangeListFiles.Count > 0)
+            {
+                foreach(var changeList in opt.ChangeListFiles)
+                {
+                    if (File.Exists(changeList))
+                    {
+                        var count = ChangeListUpdater.TranslateChangeList(changeList, fileMapping);
+                        WriteLine("Translated {0} file entries in {1}.", count, changeList);
+                    }
+                }
+            }
+            else
+            {
+                var mappingFolder = string.IsNullOrEmpty(opt.LogFilePath) ? opt.OutputFolder : Path.GetDirectoryName(opt.LogFilePath);
+                JsonUtility.Serialize(Path.Combine(mappingFolder, "XmlYamlMapping.json"), fileMapping, Newtonsoft.Json.Formatting.Indented);
+            }
+            
             WriteLine("Done writing Yaml files.");
         }
 

@@ -3,47 +3,6 @@
     [hashtable]$ParameterDictionary
 )
 
-Function GetLargeJsonContent([string]$jsonFilePath)
-{
-    try {
-        [void][System.Reflection.Assembly]::LoadWithPartialName("System.Web.Extensions")
-        $jsonSerializer= New-Object -TypeName System.Web.Script.Serialization.JavaScriptSerializer
-        $jsonSerializer.MaxJsonLength  = [System.Int32]::MaxValue
-
-        $jsonContent = Get-Content $jsonFilePath -Raw -Encoding UTF8
-        return $jsonSerializer.DeserializeObject($jsonContent)
-    }
-    catch {
-        Write-Callstack
-        Write-Error "Invalid JSON file $jsonFilePath. JSON content detail: $jsonContent" -ErrorAction Continue
-        throw
-    }
-}
-
-Function TranslateChangeList([string]$changeListFile, $mapping)
-{
-    if (-not [string]::IsNullOrEmpty($changeListFile))
-    {
-        if (Test-Path $changeListFile)
-        {
-            $newChangeList = $changeListFile -replace "\.tsv$",".mapped.tsv"
-            New-Item $newChangeList -type file -force | Out-Null
-            $changeList = Import-Csv -Delimiter "`t" -Path $changeListFile -Header "Path", "Change"
-            Foreach($file in $changeList)
-            {
-                $path = $file.Path -replace "/","\"
-                if ($mapping.$path -ne $null)
-                {
-                    $path = $mapping.$path
-                }
-                Add-Content $newChangeList ($path + "`t" + $file.Change)
-            }
-            Write-Host "Saved new changelist to $newChangeList"
-            return $newChangeList
-        }
-    }
-}
-
 $currentDir = $($MyInvocation.MyCommand.Definition) | Split-Path
 $ecma2yamlExeName = "ECMA2Yaml.exe"
 
@@ -100,9 +59,16 @@ foreach($ecmaConfig in $jobs)
 {
     $ecmaXmlGitUrlBase = $publicGitUrl + "blob/" + $publicBranch
     echo "Using $ecmaXmlGitUrlBase as url base"
+	$fallbackRepo = Join-Path $repositoryRoot _repo.en-us
+	$ecmaFallbackSourceXmlFolder = Join-Path $fallbackRepo $ecmaConfig.SourceXmlFolder
     $ecmaSourceXmlFolder = Join-Path $repositoryRoot $ecmaConfig.SourceXmlFolder
     $ecmaOutputYamlFolder = Join-Path $repositoryRoot $ecmaConfig.OutputYamlFolder
     $allArgs = @("-s", "$ecmaSourceXmlFolder", "-o", "$ecmaOutputYamlFolder", "-l", "$logFilePath", "-p", """$repositoryRoot=>$ecmaXmlGitUrlBase""");
+	if (Test-Path $ecmaFallbackSourceXmlFolder)
+	{
+		$allArgs += "-fs";
+		$allArgs += "$ecmaFallbackSourceXmlFolder";
+	}
     if ($ecmaConfig.Flatten)
     {
         $allArgs += "-f";
@@ -120,6 +86,22 @@ foreach($ecmaConfig in $jobs)
             $allArgs += "$ecmaSourceMetadataFolder";
 		}
     }
+	$changeListFile = $ParameterDictionary.context.changeListTsvFilePath;
+	if (-not [string]::IsNullOrEmpty($changeListFile) -and (Test-Path $changeListFile))
+	{
+		$newChangeList = $changeListFile -replace "\.tsv$",".mapped.tsv";
+		$allArgs += "-changeList";
+        $allArgs += "$changeListFile";
+		$ParameterDictionary.context.changeListTsvFilePath = $newChangeList
+	}
+	$userChangeListFile = $ParameterDictionary.context.userSpecifiedChangeListTsvFilePath;
+	if (-not [string]::IsNullOrEmpty($userChangeListFile) -and (Test-Path $userChangeListFile))
+	{
+		$newUserChangeList = $userChangeListFile -replace "\.tsv$",".mapped.tsv";
+		$allArgs += "-changeList";
+        $allArgs += "$userChangeListFile";
+		$ParameterDictionary.context.userSpecifiedChangeListTsvFilePath = $newUserChangeList
+	}
     $printAllArgs = [System.String]::Join(' ', $allArgs)
     $ecma2yamlExeFilePath = Join-Path $currentDir $ecma2yamlExeName
     echo "Executing $ecma2yamlExeFilePath $printAllArgs" | timestamp
@@ -138,18 +120,5 @@ foreach($ecmaConfig in $jobs)
             New-Item -ItemType Directory -Force -Path $newTocPath
         }
         Move-Item $tocPath $newTocPath
-    }
-
-    $mappingFile = Join-Path $logOutputFolder "XmlYamlMapping.json"
-    $mapping = GetLargeJsonContent($mappingFile)
-    $newChangeList = TranslateChangeList ($ParameterDictionary.context.changeListTsvFilePath) ($mapping)
-    if (-not [string]::IsNullOrEmpty($newChangeList))
-    {
-        $ParameterDictionary.context.changeListTsvFilePath = $newChangeList
-    }
-    $newChangeList = TranslateChangeList ($ParameterDictionary.context.userSpecifiedChangeListTsvFilePath) ($mapping)
-    if (-not [string]::IsNullOrEmpty($newChangeList))
-    {
-        $ParameterDictionary.context.userSpecifiedChangeListTsvFilePath = $newChangeList
     }
 }
