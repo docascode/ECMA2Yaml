@@ -42,7 +42,7 @@ namespace ECMA2Yaml
         {
             ECMALoader loader = new ECMALoader();
             WriteLine("Loading ECMAXML files...");
-            var store = loader.LoadFolder(opt.SourceFolder);
+            var store = loader.LoadFolder(opt.SourceFolder, opt.FallbackSourceFolder);
             if (store == null)
             {
                 return;
@@ -51,6 +51,10 @@ namespace ECMA2Yaml
 
             WriteLine("Building loaded files...");
             store.Build();
+            if (!string.IsNullOrEmpty(opt.FallbackRepoRootPath) && !string.IsNullOrEmpty(opt.FallbackGitBaseUrl))
+            {
+                store.TranslateSourceLocation(opt.FallbackRepoRootPath, opt.FallbackGitBaseUrl);
+            }
             if (!string.IsNullOrEmpty(opt.RepoRootPath) && !string.IsNullOrEmpty(opt.GitBaseUrl))
             {
                 store.TranslateSourceLocation(opt.RepoRootPath, opt.GitBaseUrl);

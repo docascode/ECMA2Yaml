@@ -59,17 +59,30 @@ foreach($ecmaConfig in $jobs)
 {
     $ecmaXmlGitUrlBase = $publicGitUrl + "blob/" + $publicBranch
     echo "Using $ecmaXmlGitUrlBase as url base"
-	$fallbackRepo = Join-Path $repositoryRoot _repo.en-us
-	$ecmaFallbackSourceXmlFolder = Join-Path $fallbackRepo $ecmaConfig.SourceXmlFolder
     $ecmaSourceXmlFolder = Join-Path $repositoryRoot $ecmaConfig.SourceXmlFolder
     $ecmaOutputYamlFolder = Join-Path $repositoryRoot $ecmaConfig.OutputYamlFolder
     $allArgs = @("-s", "$ecmaSourceXmlFolder", "-o", "$ecmaOutputYamlFolder", "-l", "$logFilePath", "-p", """$repositoryRoot=>$ecmaXmlGitUrlBase""");
-	if (Test-Path $ecmaFallbackSourceXmlFolder)
+	
+	$fallbackRepoRoot = Join-Path $repositoryRoot _repo.en-us
+	$ecmaFallbackSourceXmlFolder = Join-Path $fallbackRepoRoot $ecmaConfig.SourceXmlFolder
+	$fallbackRepo = $null
+	foreach($repo in $ParameterDictionary.environment.publishConfigContent.dependent_repositories)
+	{
+		if ($repo.path_to_root -eq "_repo.en-us")
+		{
+			$fallbackRepo = $repo
+		}
+	}
+	if ($fallbackRepo -and (Test-Path $ecmaFallbackSourceXmlFolder))
 	{
 		$allArgs += "-fs";
 		$allArgs += "$ecmaFallbackSourceXmlFolder";
+		$fallbackGitUrlBase = $fallbackRepo.url + "blob/" + $fallbackRepo.branch;
+		$allArgs +=  "-fp"
+		$allArgs +=  """$fallbackRepoRoot=>$fallbackGitUrlBase"""
 	}
-    if ($ecmaConfig.Flatten)
+    
+	if ($ecmaConfig.Flatten)
     {
         $allArgs += "-f";
     }

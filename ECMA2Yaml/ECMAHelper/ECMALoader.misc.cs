@@ -16,7 +16,7 @@ namespace ECMA2Yaml
     {
         private FilterStore LoadFilters(string path)
         {
-            var filterFile = Path.Combine(path, "_filter.xml");
+            var filterFile = Resolve(Path.Combine(path, "_filter.xml"));
             if (File.Exists(filterFile))
             {
                 var filterStore = new FilterStore();
@@ -105,7 +105,7 @@ namespace ECMA2Yaml
             Dictionary<string, List<string>> frameworks = new Dictionary<string, List<string>>();
             foreach (var fxFile in Directory.EnumerateFiles(frameworkFolder, "*.xml"))
             {
-                XDocument fxDoc = XDocument.Load(fxFile);
+                XDocument fxDoc = XDocument.Load(Resolve(fxFile));
                 var fxName = fxDoc.Root.Attribute("Name").Value;
                 foreach (var nsElement in fxDoc.Root.Elements("Namespace"))
                 {
@@ -129,11 +129,7 @@ namespace ECMA2Yaml
 
         private Dictionary<string, string> LoadMonikerPackageMapping(string folder)
         {
-            var file = Path.Combine(folder, "moniker2nuget.json");
-            if (!File.Exists(file))
-            {
-                file = Path.Combine(folder, "_moniker2nuget.json");
-            }
+            var file = Resolve(Path.Combine(folder, "_moniker2nuget.json"));
             if (File.Exists(file))
             {
                 try
@@ -151,7 +147,7 @@ namespace ECMA2Yaml
 
         private Dictionary<string, List<string>> LoadMonikerAssemblyMapping(string folder)
         {
-            var file = Path.Combine(folder, "_moniker2Assembly.json");
+            var file = Resolve(Path.Combine(folder, "_moniker2Assembly.json"));
             if (File.Exists(file))
             {
                 try
@@ -169,7 +165,7 @@ namespace ECMA2Yaml
 
         private List<ExtensionMethod> LoadExtensionMethods(string path)
         {
-            var indexFile = Path.Combine(path, "index.xml");
+            var indexFile = Resolve(Path.Combine(path, "index.xml"));
             if (!File.Exists(indexFile))
             {
                 return null;
@@ -192,6 +188,32 @@ namespace ECMA2Yaml
             }
             
             return extensionMethods;
+        }
+
+        private Dictionary<string, string> GenerateFallbackFileMapping(string sourceFolder, string fallbackFolder)
+        {
+            Dictionary<string, string> mapping = new Dictionary<string, string>();
+            foreach(var file in Directory.EnumerateFiles(fallbackFolder, ".xml"))
+            {
+                var sourceFile = file.Replace(fallbackFolder, sourceFolder);
+                if (File.Exists(sourceFile))
+                {
+                    mapping.Add(file, sourceFile);
+                }
+            }
+            return mapping;
+        }
+
+        private string Resolve(string path)
+        {
+            if (_fallbackMapping != null && _fallbackMapping.ContainsKey(path))
+            {
+                return _fallbackMapping[path];
+            }
+            else
+            {
+                return path;
+            }
         }
     }
 }

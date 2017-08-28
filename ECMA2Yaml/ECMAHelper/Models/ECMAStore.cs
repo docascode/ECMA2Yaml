@@ -124,7 +124,9 @@ namespace ECMA2Yaml.Models
 
         private void TranslateSourceLocation(ReflectionItem item, string sourcePathRoot, string gitBaseUrl)
         {
-            if (!string.IsNullOrEmpty(item.SourceFileLocalPath))
+            if (!string.IsNullOrEmpty(item.SourceFileLocalPath)
+                && item.SourceFileLocalPath.StartsWith(sourcePathRoot)
+                && !item.Metadata.ContainsKey(OPSMetadata.ContentUrl))
             {
                 item.Metadata[OPSMetadata.ContentUrl] = item.SourceFileLocalPath.Replace(sourcePathRoot, gitBaseUrl).Replace("\\", "/");
                 item.Metadata[OPSMetadata.RefSkeletionUrl] = item.Metadata[OPSMetadata.ContentUrl];

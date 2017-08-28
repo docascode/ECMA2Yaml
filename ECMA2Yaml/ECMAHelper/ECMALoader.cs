@@ -16,31 +16,38 @@ namespace ECMA2Yaml
     {
         private List<string> _errorFiles = new List<string>();
         private ECMADocsTransform _docsTransform = new ECMADocsTransform();
+        private Dictionary<string, string> _fallbackMapping = new Dictionary<string, string>();
 
-        public ECMAStore LoadFolder(string path)
+        public ECMAStore LoadFolder(string sourcePath, string fallbackPath)
         {
-            if (!Directory.Exists(path))
+            if (!Directory.Exists(sourcePath))
             {
-                OPSLogger.LogUserWarning(string.Format("Source folder does not exist: {0}", path));
+                OPSLogger.LogUserWarning(string.Format("Source folder does not exist: {0}", sourcePath));
                 return null;
             }
 
-            var frameworks = LoadFrameworks(path);
-            var extensionMethods = LoadExtensionMethods(path);
-            var filterStore = LoadFilters(path);
-            var monikerNugetMapping = LoadMonikerPackageMapping(path);
-            var monikerAssemblyMapping = LoadMonikerAssemblyMapping(path);
+            if (!string.IsNullOrEmpty(fallbackPath) && Directory.Exists(fallbackPath))
+            {
+                _fallbackMapping = GenerateFallbackFileMapping(sourcePath, fallbackPath);
+                sourcePath = fallbackPath;
+            }
+
+            var frameworks = LoadFrameworks(sourcePath);
+            var extensionMethods = LoadExtensionMethods(sourcePath);
+            var filterStore = LoadFilters(sourcePath);
+            var monikerNugetMapping = LoadMonikerPackageMapping(sourcePath);
+            var monikerAssemblyMapping = LoadMonikerAssemblyMapping(sourcePath);
 
             ConcurrentBag<Namespace> namespaces = new ConcurrentBag<Namespace>();
             ParallelOptions opt = new ParallelOptions() { MaxDegreeOfParallelism = Environment.ProcessorCount };
             //foreach(var nsFile in Directory.EnumerateFiles(_baseFolder, "ns-*.xml"))
-            Parallel.ForEach(Directory.EnumerateFiles(path, "ns-*.xml"), opt, nsFile =>
+            Parallel.ForEach(Directory.EnumerateFiles(sourcePath, "ns-*.xml"), opt, nsFile =>
             {
                 var nsFileName = Path.GetFileName(nsFile);
                 var nsName = nsFileName.Substring("ns-".Length, nsFileName.Length - "ns-.xml".Length);
                 if (!string.IsNullOrEmpty(nsName))
                 {
-                    var ns = LoadNamespace(path, nsFile);
+                    var ns = LoadNamespace(sourcePath, nsFile);
 
                     if (ns == null)
                     {
@@ -131,12 +138,12 @@ namespace ECMA2Yaml
 
         private Namespace LoadNamespace(string basePath, string nsFile)
         {
-            XDocument nsDoc = XDocument.Load(nsFile);
+            XDocument nsDoc = XDocument.Load(Resolve(nsFile));
             Namespace ns = new Namespace();
             ns.Id = ns.Name = nsDoc.Root.Attribute("Name").Value;
             ns.Types = LoadTypes(basePath, ns);
             ns.Docs = LoadDocs(nsDoc.Root.Element("Docs"));
-            ns.SourceFileLocalPath = nsFile;
+            ns.SourceFileLocalPath = Resolve(nsFile);
             return ns;
         }
 
@@ -150,16 +157,17 @@ namespace ECMA2Yaml
             List<Models.Type> types = new List<Models.Type>();
             foreach (var typeFile in Directory.EnumerateFiles(nsFolder, "*.xml"))
             {
+                var realTypeFile = Resolve(typeFile);
                 try
                 {
-                    var t = LoadType(typeFile);
+                    var t = LoadType(realTypeFile);
                     t.Parent = ns;
                     types.Add(t);
                 }
                 catch (Exception ex)
                 {
-                    OPSLogger.LogUserError(ex.Message, typeFile);
-                    _errorFiles.Add(typeFile);
+                    OPSLogger.LogUserError(ex.Message, realTypeFile);
+                    _errorFiles.Add(realTypeFile);
                 }
             }
             return types;
