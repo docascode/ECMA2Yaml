@@ -34,7 +34,7 @@ namespace ECMA2Yaml
                 { "p|pathUrlMapping={=>}", "map local xml path to the Github url.", (p, u) => { RepoRootPath = p;  GitBaseUrl = u; } },
                 { "fp|fallbackPathUrlMapping={=>}", "map local xml path to the Github url for fallbacks.", (p, u) => { FallbackRepoRootPath = p;  FallbackGitBaseUrl = u; } },
                 { "strict", "strict mode, means that any unresolved type reference will cause a warning",  s => StrictMode = s != null },
-                { "changeList", "OPS change list file, ECMA2Yaml will translate xml path to yml path",  s => ChangeListFiles.Add(s)},
+                { "changeList=", "OPS change list file, ECMA2Yaml will translate xml path to yml path",  s => ChangeListFiles.Add(s)},
             };
         }
 

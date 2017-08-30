@@ -77,7 +77,12 @@ foreach($ecmaConfig in $jobs)
 	{
 		$allArgs += "-fs";
 		$allArgs += "$ecmaFallbackSourceXmlFolder";
-		$fallbackGitUrlBase = $fallbackRepo.url + "blob/" + $fallbackRepo.branch;
+		$fallbackGitUrlBase = $fallbackRepo.url
+		if (-not $fallbackGitUrlBase.EndsWith("/"))
+		{
+			$fallbackGitUrlBase += "/"
+		}
+		$fallbackGitUrlBase = $fallbackGitUrlBase + "blob/" + $fallbackRepo.branch;
 		$allArgs +=  "-fp"
 		$allArgs +=  """$fallbackRepoRoot=>$fallbackGitUrlBase"""
 	}
