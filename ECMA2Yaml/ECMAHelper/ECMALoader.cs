@@ -16,7 +16,7 @@ namespace ECMA2Yaml
     {
         private List<string> _errorFiles = new List<string>();
         private ECMADocsTransform _docsTransform = new ECMADocsTransform();
-        private Dictionary<string, string> _fallbackMapping = new Dictionary<string, string>();
+        public Dictionary<string, string> FallbackMapping { get; private set; }
 
         public ECMAStore LoadFolder(string sourcePath, string fallbackPath)
         {
@@ -28,7 +28,7 @@ namespace ECMA2Yaml
 
             if (!string.IsNullOrEmpty(fallbackPath) && Directory.Exists(fallbackPath))
             {
-                _fallbackMapping = GenerateFallbackFileMapping(sourcePath, fallbackPath);
+                FallbackMapping = GenerateFallbackFileMapping(sourcePath, fallbackPath);
                 sourcePath = fallbackPath;
             }
 

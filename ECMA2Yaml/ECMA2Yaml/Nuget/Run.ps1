@@ -85,6 +85,13 @@ foreach($ecmaConfig in $jobs)
 		$fallbackGitUrlBase = $fallbackGitUrlBase + "blob/" + $fallbackRepo.branch;
 		$allArgs +=  "-fp"
 		$allArgs +=  """$fallbackRepoRoot=>$fallbackGitUrlBase"""
+
+		if ([string]::IsNullOrEmpty($ParameterDictionary.environment.skipPublishFilePath)) {
+			$ParameterDictionary.environment.skipPublishFilePath = Join-Path $logOutputFolder "skip-publish-file-path.json"
+		}
+		$skipPublishFilePath = $ParameterDictionary.environment.skipPublishFilePath;
+		$allArgs +=  "-skipPublishFilePath"
+		$allArgs +=  "$skipPublishFilePath"
 	}
     
 	if ($ecmaConfig.Flatten)

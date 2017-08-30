@@ -161,6 +161,20 @@ namespace ECMA2Yaml
                 JsonUtility.Serialize(Path.Combine(mappingFolder, "XmlYamlMapping.json"), fileMapping, Newtonsoft.Json.Formatting.Indented);
             }
             
+            //Save fallback file list as skip publish
+            if (!string.IsNullOrEmpty(opt.SkipPublishFilePath) && loader.FallbackMapping?.Count > 0)
+            {
+                List<string> list = new List<string>();
+                if (File.Exists(opt.SkipPublishFilePath))
+                {
+                    list = JsonUtility.Deserialize<List<string>>(opt.SkipPublishFilePath);
+                    WriteLine("Read {0} entries in {1}.", list.Count, opt.SkipPublishFilePath);
+                }
+                list.AddRange(loader.FallbackMapping.Where(p => p.Key == p.Value && fileMapping.ContainsKey(p.Key)).Select(p => fileMapping[p.Key].Replace(opt.RepoRootPath, "").TrimStart('\\')));
+                JsonUtility.Serialize(opt.SkipPublishFilePath, list, Newtonsoft.Json.Formatting.Indented);
+                WriteLine("Write {0} entries to {1}.", list.Count, opt.SkipPublishFilePath);
+            }
+
             WriteLine("Done writing Yaml files.");
         }
 

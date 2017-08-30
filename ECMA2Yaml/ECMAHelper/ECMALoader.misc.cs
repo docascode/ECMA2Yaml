@@ -206,9 +206,9 @@ namespace ECMA2Yaml
 
         private string Resolve(string path)
         {
-            if (_fallbackMapping != null && _fallbackMapping.ContainsKey(path))
+            if (FallbackMapping != null && FallbackMapping.ContainsKey(path))
             {
-                return _fallbackMapping[path];
+                return FallbackMapping[path];
             }
             else
             {
