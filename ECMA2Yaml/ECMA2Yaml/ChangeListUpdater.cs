@@ -36,7 +36,7 @@ namespace ECMA2Yaml
                 }
 
                 var mappedFileName = changeListFile.Replace(".tsv", ".mapped.tsv");
-                File.WriteAllLines(changeListFile, mappedLines);
+                File.WriteAllLines(mappedFileName, mappedLines);
                 return count;
             }
             return 0;
