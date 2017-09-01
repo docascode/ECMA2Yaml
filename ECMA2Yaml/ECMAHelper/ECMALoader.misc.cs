@@ -193,12 +193,16 @@ namespace ECMA2Yaml
         private Dictionary<string, string> GenerateFallbackFileMapping(string sourceFolder, string fallbackFolder)
         {
             Dictionary<string, string> mapping = new Dictionary<string, string>();
-            foreach(var file in Directory.EnumerateFiles(fallbackFolder, ".xml"))
+            foreach(var file in Directory.EnumerateFiles(fallbackFolder, "*.xml", SearchOption.AllDirectories))
             {
                 var sourceFile = file.Replace(fallbackFolder, sourceFolder);
                 if (File.Exists(sourceFile))
                 {
                     mapping.Add(file, sourceFile);
+                }
+                else
+                {
+                    mapping.Add(file, file);
                 }
             }
             return mapping;
