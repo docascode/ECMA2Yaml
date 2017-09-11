@@ -608,6 +608,10 @@ namespace ECMA2Yaml.Models
                     }
                 }
             }
+            if (t.ReturnValueType != null && t.Docs?.Returns != null)
+            {
+                t.ReturnValueType.Description = t.Docs.Returns;
+            }
         }
 
         private void FindMissingAssemblyNames()
