@@ -578,6 +578,11 @@ namespace ECMA2Yaml.Models
             {
                 foreach (var m in t.Members)
                 {
+                    if (m.Docs?.AdditionalNotes != null && t.Docs?.AdditionalNotes != null)
+                    {
+                        m.Docs.AdditionalNotes = m.Docs.AdditionalNotes.Where(p => !(t.Docs.AdditionalNotes.ContainsKey(p.Key) && t.Docs.AdditionalNotes[p.Key] == p.Value))
+                            .ToDictionary(p => p.Key, p => p.Value);
+                    }
                     if (m.TypeParameters != null && m.Docs?.TypeParameters != null)
                     {
                         foreach (var mtp in m.TypeParameters)
