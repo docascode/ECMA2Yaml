@@ -245,7 +245,7 @@ namespace ECMA2Yaml.Models
             ExtensionMethodUidsByTargetUid = _extensionMethods.ToLookup(ex => ex.TargetDocId.Replace("T:", ""));
             foreach (var ex in _extensionMethods.Where(ex => ex.Uid == null))
             {
-                OPSLogger.LogUserWarning(string.Format("ExtensionMethod {0} not found in its type {1}", ex.MemberDocId, ex.ParentTypeString), "index.xml");
+                OPSLogger.LogUserInfo(string.Format("ExtensionMethod {0} not found in its type {1}", ex.MemberDocId, ex.ParentTypeString), "index.xml");
             }
 
             foreach (var t in _tList)
