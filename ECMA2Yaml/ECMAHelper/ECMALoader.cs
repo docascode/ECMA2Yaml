@@ -277,6 +277,15 @@ namespace ECMA2Yaml
 
             //MemberType
             t.ItemType = InferTypeOfType(t);
+
+            // Localization Metadata
+            t.LocMetadata = new Dictionary<string, object>();
+            var typeMetadata = tRoot.Elements("Metadata");
+            if (null != typeMetadata)
+            {
+                t.LocMetadata = typeMetadata.Elements("Meta").ToDictionary(x => x.Attribute("Name").Value, x => (object)x.Attribute("Value").Value);
+            }
+
             return t;
         }
 

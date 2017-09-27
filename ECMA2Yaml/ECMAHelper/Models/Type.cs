@@ -25,6 +25,7 @@ namespace ECMA2Yaml.Models
         public Docs Docs { get; set; }
         public List<string> ExtensionMethods { get; set; }
         private static Regex GenericRegex = new Regex("<[^<>]+>", RegexOptions.Compiled);
+        public Dictionary<string, object> LocMetadata { get; set; }
 
         public override void Build(ECMAStore store)
         {
