@@ -26,10 +26,5 @@ foreach($ecmaConfig in $jobs)
 	$mdOutputFolder = Join-Path $ymlOutputFolder "overwrites"
 	& robocopy $ecmaOutputYamlFolder $ymlOutputFolder *.yml /s
 	& robocopy $ecmaOutputMDFolder $mdOutputFolder *.md /s
-
-	if ($LASTEXITCODE -ne 1)
-	{
-		exit $LASTEXITCODE
-	}
 }
 exit 0
