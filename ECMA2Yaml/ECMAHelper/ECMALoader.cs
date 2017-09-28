@@ -278,13 +278,8 @@ namespace ECMA2Yaml
             //MemberType
             t.ItemType = InferTypeOfType(t);
 
-            // Localization Metadata
-            t.LocMetadata = new Dictionary<string, object>();
-            var typeMetadata = tRoot.Elements("Metadata");
-            if (null != typeMetadata)
-            {
-                t.LocMetadata = typeMetadata.Elements("Meta").ToDictionary(x => x.Attribute("Name").Value, x => (object)x.Attribute("Value").Value);
-            }
+            // Metadata
+            t.Metadata = LoadMetadata(tRoot.Element("Metadata"));
 
             return t;
         }
@@ -585,6 +580,13 @@ namespace ECMA2Yaml
                 }
             }
             return modifiers;
+        }
+
+        private Dictionary<string, object> LoadMetadata(XElement metadataElement)
+        {
+            if (null != metadataElement)
+                return metadataElement.Elements("Meta")?.ToDictionary(x => x.Attribute("Name").Value, x => (object)x.Attribute("Value").Value);
+            return new Dictionary<string, object>();
         }
     }
 }

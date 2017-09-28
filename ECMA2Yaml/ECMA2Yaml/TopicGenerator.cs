@@ -183,7 +183,6 @@ namespace ECMA2Yaml
                 Modifiers = t.Modifiers
             };
             item.Metadata.MergeMetadata(t.Metadata);
-            item.Metadata.MergeMetadata(t.LocMetadata);
             //not top level class like System.Object, has children
             if ((t.ItemType == ItemType.Interface
                 || (store.InheritanceParentsByUid.ContainsKey(t.Uid) && store.InheritanceParentsByUid[t.Uid]?.Count > 0))
