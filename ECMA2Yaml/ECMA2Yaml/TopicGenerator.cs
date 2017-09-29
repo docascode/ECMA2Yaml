@@ -183,6 +183,7 @@ namespace ECMA2Yaml
                 Modifiers = t.Modifiers
             };
             item.Metadata.MergeMetadata(t.Metadata);
+            item.Metadata.AddAdditionalNotes(t.Docs);
             //not top level class like System.Object, has children
             if ((t.ItemType == ItemType.Interface
                 || (store.InheritanceParentsByUid.ContainsKey(t.Uid) && store.InheritanceParentsByUid[t.Uid]?.Count > 0))
@@ -245,6 +246,7 @@ namespace ECMA2Yaml
                 Modifiers = m.Modifiers
             };
             item.Metadata.MergeMetadata(m.Metadata);
+            item.Metadata.AddAdditionalNotes(m.Docs);
             return item;
         }
 
@@ -498,6 +500,17 @@ namespace ECMA2Yaml
         public static MemberType ToMemberType(this ItemType itemType)
         {
             return (MemberType)Enum.Parse(typeof(MemberType), itemType.ToString());
+        }
+
+        public static void AddAdditionalNotes(this Dictionary<string, object> mta, Docs docs)
+        {
+            if (docs.AdditionalNotes != null)
+            {
+                foreach (var note in docs.AdditionalNotes)
+                {
+                    mta[string.Format(OPSMetadata.AdditionalNotes_Format, note.Key)] = note.Value.TrimEnd();
+                }
+            }
         }
 
         public static void MergeMetadata(this Dictionary<string, object> mta, Dictionary<string, object> mta1)

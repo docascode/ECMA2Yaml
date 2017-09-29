@@ -101,13 +101,6 @@ namespace ECMA2Yaml
             {
                 blocks.Add(GenerateOverwriteBlockForMarkup(uid, OPSMetadata.ThreadSafety, docs.ThreadSafety.TrimEnd()));
             }
-            if (docs.AdditionalNotes != null)
-            {
-                foreach(var note in docs.AdditionalNotes)
-                {
-                    blocks.Add(GenerateOverwriteBlockForMarkup(uid, string.Format(OPSMetadata.AdditionalNotes_Format, note.Key), note.Value.TrimEnd()));
-                }
-            }
 
             string fileName = null;
             if (blocks.Count > 0)
