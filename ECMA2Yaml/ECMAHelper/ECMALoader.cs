@@ -507,7 +507,7 @@ namespace ECMA2Yaml
                 Summary = NormalizeDocsElement(GetInnerXml(dElement.Element("summary"))),
                 Remarks = remarksText,
                 Examples = examplesText,
-                AltMembers = dElement.Elements("altmember")?.ToList(),
+                AltMemberCommentIds = dElement.Elements("altmember")?.Select(alt => alt.Attribute("cref").Value).ToList(),
                 Exceptions = dElement.Elements("exception")?.Select(el =>
                 {
                     var cref = el.Attribute("cref").Value;
