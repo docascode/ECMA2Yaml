@@ -508,16 +508,8 @@ namespace ECMA2Yaml
                 Remarks = remarksText,
                 Examples = examplesText,
                 AltMemberCommentIds = dElement.Elements("altmember")?.Select(alt => alt.Attribute("cref").Value).ToList(),
-                Exceptions = dElement.Elements("exception")?.Select(el =>
-                {
-                    var cref = el.Attribute("cref").Value;
-                    return new ExceptionDef
-                    {
-                        CommentId = cref,
-                        Description = NormalizeDocsElement(GetInnerXml(el)),
-                        Uid = cref.Substring(cref.IndexOf(':') + 1).Replace('+', '.')
-                    };
-                }).ToList(),
+                Exceptions = dElement.Elements("exception")?.Select(el => GetTypedContent(el)).ToList(),
+                Permissions = dElement.Elements("permission")?.Select(el => GetTypedContent(el)).ToList(),
                 Parameters = dElement.Elements("param")?.Where(p => !string.IsNullOrEmpty(p.Attribute("name").Value)).ToDictionary(p => p.Attribute("name").Value, p => NormalizeDocsElement(GetInnerXml(p))),
                 TypeParameters = dElement.Elements("typeparam")?.Where(p => !string.IsNullOrEmpty(p.Attribute("name").Value)).ToDictionary(p => p.Attribute("name").Value, p => NormalizeDocsElement(GetInnerXml(p))),
                 AdditionalNotes = additionalNotes,
@@ -526,6 +518,17 @@ namespace ECMA2Yaml
                 Since = NormalizeDocsElement(dElement.Element("since")?.Value),
                 AltCompliant = altCompliant,
                 InternalOnly = dElement.Element("forInternalUseOnly") != null
+            };
+        }
+
+        private TypedContent GetTypedContent(XElement ele)
+        {
+            var cref = ele.Attribute("cref").Value;
+            return new TypedContent
+            {
+                CommentId = cref,
+                Description = NormalizeDocsElement(GetInnerXml(ele)),
+                Uid = cref.Substring(cref.IndexOf(':') + 1).Replace('+', '.')
             };
         }
 

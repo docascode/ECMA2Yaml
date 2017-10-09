@@ -61,7 +61,7 @@
     <Compile Include="Models\Constants.cs" />
     <Compile Include="Models\Docs.cs" />
     <Compile Include="Models\ECMAStore.cs" />
-    <Compile Include="Models\ExceptionDef.cs" />
+    <Compile Include="Models\TypedContent.cs" />
     <Compile Include="Models\ExtensionMethod.cs" />
     <Compile Include="Models\Filters\MemberFilter.cs" />
     <Compile Include="Models\Filters\BasicFilter.cs" />

@@ -14,7 +14,8 @@ namespace ECMA2Yaml.Models
         public string Examples { get; set; }
         public string ThreadSafety { get; set; }
         public List<string> AltMemberCommentIds { get; set; }
-        public List<ExceptionDef> Exceptions { get; set; }
+        public List<TypedContent> Exceptions { get; set; }
+        public List<TypedContent> Permissions { get; set; }
         public Dictionary<string, string> Parameters { get; set; }
         public Dictionary<string, string> TypeParameters { get; set; }
         public Dictionary<string, string> AdditionalNotes { get; set; }

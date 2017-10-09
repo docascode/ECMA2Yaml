@@ -143,6 +143,7 @@ namespace ECMA2Yaml.Models
             foreach (var ns in _nsList)
             {
                 bool nsInternalOnly = ns.Docs?.InternalOnly ?? false;
+                AddAdditionalNotes(ns.Metadata, ns.Docs);
                 if (!string.IsNullOrEmpty(ns.Docs?.AltCompliant))
                 {
                     ns.Metadata[OPSMetadata.AltCompliant] = ns.Docs?.AltCompliant;
@@ -170,7 +171,7 @@ namespace ECMA2Yaml.Models
                 foreach (var t in ns.Types)
                 {
                     BuildAssemblyMonikerMapping(t);
-
+                    AddAdditionalNotes(t.Metadata, t.Docs);
                     bool tInternalOnly = t.Docs?.InternalOnly ?? nsInternalOnly;
                     if (!string.IsNullOrEmpty(t.Docs?.AltCompliant))
                     {
@@ -193,8 +194,20 @@ namespace ECMA2Yaml.Models
                             {
                                 m.Metadata[OPSMetadata.InternalOnly] = mInternalOnly;
                             }
+                            AddAdditionalNotes(m.Metadata, m.Docs);
                         }
                     }
+                }
+            }
+        }
+
+        private void AddAdditionalNotes(Dictionary<string, object> mta, Docs docs)
+        {
+            if (docs.AdditionalNotes != null)
+            {
+                foreach (var note in docs.AdditionalNotes)
+                {
+                    mta[string.Format(OPSMetadata.AdditionalNotes_Format, note.Key)] = note.Value.TrimEnd();
                 }
             }
         }

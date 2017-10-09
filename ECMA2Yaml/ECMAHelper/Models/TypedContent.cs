@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ECMA2Yaml.Models
 {
-    public class ExceptionDef
+    public class TypedContent
     {
         public string CommentId { get; set; }
         public string Description { get; set; }
