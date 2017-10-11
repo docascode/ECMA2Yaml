@@ -180,7 +180,8 @@ namespace ECMA2Yaml
                 Examples = string.IsNullOrEmpty(t.Docs?.Examples) ? null : new List<string> { t.Docs?.Examples },
                 ExtensionMethods = t.ExtensionMethods,
                 Attributes = t.Attributes.GetAttributeInfo(store),
-                Modifiers = t.Modifiers
+                Modifiers = t.Modifiers,
+                SeeAlsos = t.Docs.AltMemberCommentIds?.Select(a => a.ResolveCommentId(store)?.ToLinkInfo()).Where(r => r != null).NullIfEmpty()?.ToList()
             };
             item.Metadata.MergeMetadata(t.Metadata);
             item.Metadata.AddPermissions(t.Docs);
@@ -243,7 +244,8 @@ namespace ECMA2Yaml
                 Examples = string.IsNullOrEmpty(m.Docs?.Examples) ? null : new List<string> { m.Docs?.Examples },
                 Exceptions = m.Docs.Exceptions?.Select(ex => new ExceptionInfo() { CommentId = ex.CommentId, Description = ex.Description, Type = ex.Uid }).ToList(),
                 Attributes = m.Attributes.GetAttributeInfo(store),
-                Modifiers = m.Modifiers
+                Modifiers = m.Modifiers,
+                SeeAlsos = m.Docs.AltMemberCommentIds?.Select(a => a.ResolveCommentId(store)?.ToLinkInfo()).Where(r => r != null).NullIfEmpty()?.ToList()
             };
             item.Metadata.MergeMetadata(m.Metadata);
             item.Metadata.AddPermissions(m.Docs);
@@ -534,6 +536,30 @@ namespace ECMA2Yaml
                     Type = attr.TypeFullName
                 };
             }).ToList();
+        }
+
+        public static LinkInfo ToLinkInfo(this ReflectionItem item)
+        {
+            if (item == null)
+            {
+                return null;
+            }
+            var name = item.Name;
+            if (item is Member m)
+            {
+                name = m.DisplayName;
+            }
+            else if (item is Models.Type t)
+            {
+                name = t.FullName;
+            }
+            return new LinkInfo()
+            {
+                LinkType = LinkType.CRef,
+                LinkId = item.Uid,
+                CommentId = item.CommentId,
+                AltText = name
+            };
         }
     }
 }

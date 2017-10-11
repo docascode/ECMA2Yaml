@@ -121,6 +121,24 @@ namespace ECMA2Yaml
             return name;
         }
 
+        public static ReflectionItem ResolveCommentId(this string commentId, ECMAStore store)
+        {
+            if (string.IsNullOrEmpty(commentId))
+            {
+                return null;
+            }
+            var parts = commentId.Split(':');
+            switch (parts[0])
+            {
+                case "N":
+                    return store.Namespaces.ContainsKey(parts[1]) ? store.Namespaces[parts[1]] : null;
+                case "T":
+                    return store.TypesByUid.ContainsKey(parts[1]) ? store.TypesByUid[parts[1]] : null;
+                default:
+                    return store.MembersByUid.ContainsKey(parts[1]) ? store.MembersByUid[parts[1]] : null;
+            }
+        }
+
         public static void AddWithKey(this Dictionary<string, List<string>> dict, string key, string val)
         {
             if (!dict.ContainsKey(key))
@@ -137,6 +155,15 @@ namespace ECMA2Yaml
                 return dict[key];
             }
             return null;
+        }
+
+        public static IEnumerable<T> NullIfEmpty<T>(this IEnumerable<T> list)
+        {
+            if (list == null || !list.Any())
+            {
+                return null;
+            }
+            return list;
         }
     }
 
