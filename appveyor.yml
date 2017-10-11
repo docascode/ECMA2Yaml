@@ -3,7 +3,7 @@
     only:
       - master
   version: 1.0.{build}
-  image: Visual Studio 2015
+  image: Visual Studio 2017
   build_script:
     - nuget restore ./ECMA2Yaml/ECMA2Yaml.sln
     - msbuild ./ECMA2Yaml/ECMA2Yaml.sln /p:Configuration=Release
@@ -18,7 +18,7 @@
     only:
       - develop
   version: 1.0.{build}
-  image: Visual Studio 2015
+  image: Visual Studio 2017
   build_script:
     - nuget restore ./ECMA2Yaml/ECMA2Yaml.sln
     - msbuild ./ECMA2Yaml/ECMA2Yaml.sln /p:Configuration=Release
