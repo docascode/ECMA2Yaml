@@ -60,10 +60,6 @@ foreach($ecmaConfig in $jobs)
     $ecmaXmlGitUrlBase = $publicGitUrl + "blob/" + $publicBranch
     echo "Using $ecmaXmlGitUrlBase as url base"
     $ecmaSourceXmlFolder = Join-Path $repositoryRoot $ecmaConfig.SourceXmlFolder
-    if (-not (Test-Path $ecmaSourceXmlFolder))
-    {
-        continue;
-    }
     $ecmaOutputYamlFolder = Join-Path $repositoryRoot $ecmaConfig.OutputYamlFolder
     $allArgs = @("-s", "$ecmaSourceXmlFolder", "-o", "$ecmaOutputYamlFolder", "-l", "$logFilePath", "-p", """$repositoryRoot=>$ecmaXmlGitUrlBase""");
     
@@ -76,6 +72,10 @@ foreach($ecmaConfig in $jobs)
         {
             $fallbackRepo = $repo
         }
+    }
+	if (-not (Test-Path $ecmaSourceXmlFolder) -and -not $fallbackRepo)
+    {
+        continue;
     }
     if ($fallbackRepo -and (Test-Path $ecmaFallbackSourceXmlFolder))
     {
