@@ -20,16 +20,15 @@ namespace ECMA2Yaml
 
         public ECMAStore LoadFolder(string sourcePath, string fallbackPath)
         {
-            if (!Directory.Exists(sourcePath))
-            {
-                OPSLogger.LogUserWarning(string.Format("Source folder does not exist: {0}", sourcePath));
-                return null;
-            }
-
             if (!string.IsNullOrEmpty(fallbackPath) && Directory.Exists(fallbackPath))
             {
                 FallbackMapping = GenerateFallbackFileMapping(sourcePath, fallbackPath);
                 sourcePath = fallbackPath;
+            }
+            else if (!Directory.Exists(sourcePath))
+            {
+                OPSLogger.LogUserWarning(string.Format("Source folder does not exist: {0}", sourcePath));
+                return null;
             }
 
             var frameworks = LoadFrameworks(sourcePath);
@@ -90,7 +89,7 @@ namespace ECMA2Yaml
                         ns.Types = ns.Types.Where(t =>
                         {
                             bool expose = true;
-                            foreach(var filter in filterStore.TypeFilters.Where(tf => tf.Filter(t).HasValue))
+                            foreach (var filter in filterStore.TypeFilters.Where(tf => tf.Filter(t).HasValue))
                             {
                                 expose = expose && filter.Filter(t).Value;
                             }
@@ -387,7 +386,7 @@ namespace ECMA2Yaml
             {
                 FixEIIProperty(m);
             }
-            
+
             return m;
         }
 
@@ -572,7 +571,7 @@ namespace ECMA2Yaml
             if (sigs.ContainsKey("C#"))
             {
                 var mods = new List<string>();
-                var startWithModifiers = new string[] { "public", "protected", "private"};
+                var startWithModifiers = new string[] { "public", "protected", "private" };
                 mods.AddRange(startWithModifiers.Where(m => sigs["C#"].StartsWith(m)));
                 var containsModifiers = new string[] { "static", "const", "readonly", "sealed", "get;", "set;" };
                 mods.AddRange(containsModifiers.Where(m => sigs["C#"].Contains(" " + m + " ")).Select(m => m.Trim(';')));
