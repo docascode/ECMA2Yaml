@@ -508,7 +508,7 @@ namespace ECMA2Yaml
         {
             if (docs.Permissions?.Count > 0)
             {
-                mta[OPSMetadata.Permissions] = docs.Permissions.Select(ex => new ExceptionInfo() { CommentId = ex.CommentId, Description = ex.Description, Type = ex.Uid }).ToList();
+                //mta[OPSMetadata.Permissions] = docs.Permissions.Select(ex => new ExceptionInfo() { CommentId = ex.CommentId, Description = ex.Description, Type = ex.Uid }).ToList();
             }
         }
 
