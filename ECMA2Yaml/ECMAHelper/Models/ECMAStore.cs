@@ -64,11 +64,15 @@ namespace ECMA2Yaml.Models
                 {
                     foreach (var member in group)
                     {
-                        OPSLogger.LogUserError(string.Format("Member {0}'s name and signature is not unique", member.Name), member.SourceFileLocalPath);
+                        OPSLogger.LogUserWarning(string.Format("Member {0}'s name and signature is not unique", member.Name), member.SourceFileLocalPath);
                     }
                 }
             }
-            MembersByUid = allMembers.ToDictionary(m => m.Uid);
+            MembersByUid = new Dictionary<string, Member>();
+            foreach(var member in allMembers)
+            {
+                MembersByUid[member.Uid] = member;
+            }
 
             foreach (var t in _tList)
             {

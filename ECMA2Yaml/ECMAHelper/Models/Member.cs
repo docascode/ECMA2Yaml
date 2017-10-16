@@ -27,6 +27,7 @@ namespace ECMA2Yaml.Models
                 return ItemType != ItemType.Constructor && Name.Contains('.');
             }
         }
+
         public void BuildName(ECMAStore store)
         {
             DisplayName = ItemType == ItemType.Constructor ? Parent.Name : Name;
@@ -65,6 +66,19 @@ namespace ECMA2Yaml.Models
         //The ID of a generic method uses postfix ``n, n is the count of in method parameters, for example, System.Tuple.Create``1(``0)
         public override void Build(ECMAStore store)
         {
+            if (DocId != null && DocId.Contains('|'))
+            {
+                var parts = DocId.Split(':');
+                if (parts?.Length == 2)
+                {
+                    Id = parts[1];
+                    if (Id.StartsWith(Parent.Uid))
+                    {
+                        Id = Id.Substring(Parent.Uid.Length, Id.Length - Parent.Uid.Length).TrimStart('.');
+                        return;
+                    }
+                }
+            }
             Id = Name.Replace('.', '#');
             if (TypeParameters?.Count > 0)
             {
