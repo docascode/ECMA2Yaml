@@ -542,14 +542,15 @@ namespace ECMA2Yaml
             return reader.ReadInnerXml();
         }
 
-        private static Regex xrefFix = new Regex("<xref:[\\w\\.\\d\\?=]+%[\\w\\.\\d\\?=%]+>", RegexOptions.Compiled);
+        //private static Regex xrefFix = new Regex("<xref:[\\w\\.\\d\\?=]+%[\\w\\.\\d\\?=%]+>", RegexOptions.Compiled);
         private static string NormalizeDocsElement(string str)
         {
             if (string.IsNullOrEmpty(str) || str.Trim() == "To be added.")
             {
                 return null;
             }
-            return xrefFix.Replace(str.Trim(), m => System.Web.HttpUtility.UrlDecode(m.Value));
+            //return xrefFix.Replace(str.Trim(), m => System.Web.HttpUtility.UrlDecode(m.Value));
+            return System.Web.HttpUtility.HtmlDecode(str.Trim());
         }
 
         private AssemblyInfo ParseAssemblyInfo(XElement ele)
