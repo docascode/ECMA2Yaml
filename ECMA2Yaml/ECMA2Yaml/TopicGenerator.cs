@@ -164,7 +164,7 @@ namespace ECMA2Yaml
                 Uid = t.Uid,
                 CommentId = t.CommentId,
                 Name = t.Name,
-                NameWithType = t.Name,
+                NameWithType = t.FullName,
                 FullName = t.FullName,
                 Type = t.ItemType.ToMemberType(),
                 NamespaceName = t.Parent.Name,
