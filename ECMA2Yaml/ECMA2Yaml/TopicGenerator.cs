@@ -83,7 +83,7 @@ namespace ECMA2Yaml
                 Parent = t.Parent.Uid,
                 IsExternal = false,
                 Name = t.Name,
-                NameWithType = t.Name,
+                NameWithType = t.FullName,
                 FullName = t.FullName
             };
             if (t.ItemType != ItemType.Default)
