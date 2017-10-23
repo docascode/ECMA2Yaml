@@ -17,7 +17,6 @@ namespace ECMA2Yaml.Models
         public List<Parameter> Parameters { get; set; }
         public List<ECMAAttribute> Attributes { get; set; }
         public Parameter ReturnValueType { get; set; }
-        public Docs Docs { get; set; }
         public string Overload { get; set; }
         public bool IsExtensionMethod { get; set; }
         public bool IsEII

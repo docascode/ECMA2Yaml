@@ -22,7 +22,6 @@ namespace ECMA2Yaml.Models
         public List<ECMAAttribute> Attributes { get; set; }
         public List<Member> Members { get; set; }
         public List<Member> Overloads { get; set; }
-        public Docs Docs { get; set; }
         public List<string> ExtensionMethods { get; set; }
         private static Regex GenericRegex = new Regex("<[^<>]+>", RegexOptions.Compiled);
 

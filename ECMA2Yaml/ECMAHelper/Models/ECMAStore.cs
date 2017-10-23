@@ -1,4 +1,5 @@
-﻿using Monodoc.Ecma;
+﻿using ECMAHelper.Models;
+using Monodoc.Ecma;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -147,7 +148,7 @@ namespace ECMA2Yaml.Models
             foreach (var ns in _nsList)
             {
                 bool nsInternalOnly = ns.Docs?.InternalOnly ?? false;
-                AddAdditionalNotes(ns.Metadata, ns.Docs);
+                AddAdditionalNotes(ns);
                 if (!string.IsNullOrEmpty(ns.Docs?.AltCompliant))
                 {
                     ns.Metadata[OPSMetadata.AltCompliant] = ns.Docs?.AltCompliant;
@@ -175,7 +176,7 @@ namespace ECMA2Yaml.Models
                 foreach (var t in ns.Types)
                 {
                     BuildAssemblyMonikerMapping(t);
-                    AddAdditionalNotes(t.Metadata, t.Docs);
+                    AddAdditionalNotes(t);
                     bool tInternalOnly = t.Docs?.InternalOnly ?? nsInternalOnly;
                     if (!string.IsNullOrEmpty(t.Docs?.AltCompliant))
                     {
@@ -198,20 +199,41 @@ namespace ECMA2Yaml.Models
                             {
                                 m.Metadata[OPSMetadata.InternalOnly] = mInternalOnly;
                             }
-                            AddAdditionalNotes(m.Metadata, m.Docs);
+                            AddAdditionalNotes(m);
                         }
                     }
                 }
             }
         }
 
-        private void AddAdditionalNotes(Dictionary<string, object> mta, Docs docs)
+        private void AddAdditionalNotes(ReflectionItem item)
         {
-            if (docs.AdditionalNotes != null)
+            if (item?.Docs.AdditionalNotes != null)
             {
-                foreach (var note in docs.AdditionalNotes)
+                AdditionalNotes notes = new AdditionalNotes();
+                foreach (var note in item.Docs.AdditionalNotes)
                 {
-                    mta[string.Format(OPSMetadata.AdditionalNotes_Format, note.Key)] = note.Value.TrimEnd();
+                    var val = note.Value.TrimEnd();
+                    switch (note.Key)
+                    {
+                        case "usage":
+                            notes.Caller = val;
+                            break;
+                        case "overrides":
+                            if (item.ItemType == ItemType.Interface || item.Parent?.ItemType == ItemType.Interface)
+                            {
+                                notes.Implementer = val;
+                            }
+                            else if (item.ItemType == ItemType.Class || item.Parent?.ItemType == ItemType.Class)
+                            {
+                                notes.Inheritor = val;
+                            }
+                            break;
+                        default:
+                            OPSLogger.LogUserWarning("Can't recognize additional notes type: " + note.Key, item.SourceFileLocalPath);
+                            break;
+                    }
+                    item.Metadata[OPSMetadata.AdditionalNotes] = notes;
                 }
             }
         }

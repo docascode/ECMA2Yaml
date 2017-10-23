@@ -13,7 +13,7 @@ namespace ECMA2Yaml.Models
         public static readonly string ContentUrl = "content_git_url";
         public static readonly string RefSkeletionUrl = "original_ref_skeleton_git_url";
         public static readonly string ThreadSafety = "thread_safety";
-        public static readonly string AdditionalNotes_Format = "additional_notes.{0}";
+        public static readonly string AdditionalNotes = "additional_notes";
         public static readonly string Permissions = "permissions";
         public static readonly string XMLLocalPath = "original_ecmaxml_local_path";
         public static readonly string AltCompliant = "altCompliant";
