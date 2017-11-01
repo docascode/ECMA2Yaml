@@ -70,7 +70,7 @@ namespace ECMA2Yaml.Models
                 }
             }
             MembersByUid = new Dictionary<string, Member>();
-            foreach(var member in allMembers)
+            foreach (var member in allMembers)
             {
                 MembersByUid[member.Uid] = member;
             }
@@ -290,7 +290,11 @@ namespace ECMA2Yaml.Models
             foreach (var t in _tList)
             {
                 List<string> extensionMethods = new List<string>();
-                List<string> typeMonikers = t.Metadata[OPSMetadata.Monikers] as List<string>;
+                List<string> typeMonikers = null;
+                if (t.Metadata.TryGetValue(OPSMetadata.Monikers, out object tMonikers))
+                {
+                    typeMonikers = tMonikers as List<string>;
+                }
                 Stack<string> uidsToCheck = new Stack<string>();
                 uidsToCheck.Push(t.Uid);
                 while (uidsToCheck.Count > 0)
@@ -308,8 +312,13 @@ namespace ECMA2Yaml.Models
                             {
                                 return false;
                             }
-                            var exMonikers = ex.ParentType?.Metadata[OPSMetadata.Monikers] as List<string>;
-                            return exMonikers != null && exMonikers.Intersect(typeMonikers).Any();
+                            List<string> exMonikers = null;
+                            if (ex.ParentType != null && ex.ParentType.Metadata.TryGetValue(OPSMetadata.Monikers, out object monikers))
+                            {
+                                exMonikers = monikers as List<string>;
+                            }
+                            return (exMonikers == null && typeMonikers == null) ||
+                                   (exMonikers != null && typeMonikers != null && exMonikers.Intersect(typeMonikers).Any());
                         });
 
                         extensionMethods.AddRange(exCandiates.Select(ex => ex.Uid));
@@ -487,7 +496,7 @@ namespace ECMA2Yaml.Models
             {
                 fqn = fqn.Substring(0, fqn.IndexOf("("));
             }
-            foreach(var prefix in attributePrefix)
+            foreach (var prefix in attributePrefix)
             {
                 if (fqn.StartsWith(prefix))
                 {
