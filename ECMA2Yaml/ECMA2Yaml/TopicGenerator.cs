@@ -238,6 +238,7 @@ namespace ECMA2Yaml
                 Overload = m.Overload,
                 Syntax = m.ToSyntaxDetailViewModel(store),
                 IsExplicitInterfaceImplementation = m.IsEII,
+                IsExtensionMethod = m.IsExtensionMethod,
                 SupportedLanguages = languageList,
                 Summary = m.Docs?.Summary,
                 Remarks = m.Docs?.Remarks,
