@@ -58,6 +58,7 @@
     <Compile Include="ECMALoader.misc.cs" />
     <Compile Include="ECMALoader.cs" />
     <Compile Include="Logging\OPSLogger.cs" />
+    <Compile Include="Models\ThreadSafety.cs" />
     <Compile Include="Models\AdditionalNotes.cs" />
     <Compile Include="Models\AssemblyInfo.cs" />
     <Compile Include="Models\ECMAAttribute.cs" />

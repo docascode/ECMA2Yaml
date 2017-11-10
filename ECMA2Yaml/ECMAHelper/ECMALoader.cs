@@ -501,6 +501,28 @@ namespace ECMA2Yaml
                 altCompliant = altCompliant.Substring(altCompliant.IndexOf(':') + 1);
             }
 
+            string threadSafetyContent = null;
+            ThreadSafety threadSafety = null;
+            var threadSafeEle = dElement.Element("threadsafe");
+            if (threadSafeEle != null)
+            {
+                threadSafetyContent = NormalizeDocsElement(GetInnerXml(threadSafeEle));
+                if (string.IsNullOrEmpty(threadSafetyContent))
+                {
+                    var supported = threadSafeEle.Attribute("supported")?.Value?.ToLower() == "true";
+                    threadSafety = new ThreadSafety()
+                    {
+                        CustomContent = threadSafetyContent,
+                        Supported = supported
+                    };
+                    var memberScopeValue = threadSafeEle.Attribute("memberScope")?.Value;
+                    if (!string.IsNullOrEmpty(memberScopeValue) && Enum.TryParse(memberScopeValue, out ThreadSafetyMemberScope scope))
+                    {
+                        threadSafety.MemberScope = scope;
+                    }
+                }
+            }
+
             return new Docs()
             {
                 Summary = NormalizeDocsElement(GetInnerXml(dElement.Element("summary"))),
@@ -513,7 +535,8 @@ namespace ECMA2Yaml
                 TypeParameters = dElement.Elements("typeparam")?.Where(p => !string.IsNullOrEmpty(p.Attribute("name").Value)).ToDictionary(p => p.Attribute("name").Value, p => NormalizeDocsElement(GetInnerXml(p))),
                 AdditionalNotes = additionalNotes,
                 Returns = NormalizeDocsElement(GetInnerXml(dElement.Element("returns"))), //<value> will be transformed to <returns> by xslt in advance
-                ThreadSafety = NormalizeDocsElement(GetInnerXml(dElement.Element("threadsafe"))),
+                ThreadSafety = threadSafetyContent,
+                ThreadSafetyInfo = threadSafety,
                 Since = NormalizeDocsElement(dElement.Element("since")?.Value),
                 AltCompliant = altCompliant,
                 InternalOnly = dElement.Element("forInternalUseOnly") != null

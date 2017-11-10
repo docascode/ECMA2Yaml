@@ -13,6 +13,7 @@ namespace ECMA2Yaml.Models
         public string Remarks { get; set; }
         public string Examples { get; set; }
         public string ThreadSafety { get; set; }
+        public ThreadSafety ThreadSafetyInfo { get; set; }
         public List<string> AltMemberCommentIds { get; set; }
         public List<TypedContent> Exceptions { get; set; }
         public List<TypedContent> Permissions { get; set; }

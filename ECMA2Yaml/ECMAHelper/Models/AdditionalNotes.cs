@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using YamlDotNet.Serialization;
 
-namespace ECMAHelper.Models
+namespace ECMA2Yaml.Models
 {
     public class AdditionalNotes
     {

@@ -185,6 +185,7 @@ namespace ECMA2Yaml
             };
             item.Metadata.MergeMetadata(t.Metadata);
             item.Metadata.AddPermissions(t.Docs);
+            item.Metadata.AddThreadSafety(t.Docs);
             //not top level class like System.Object, has children
             if ((t.ItemType == ItemType.Interface
                 || (store.InheritanceParentsByUid.ContainsKey(t.Uid) && store.InheritanceParentsByUid[t.Uid]?.Count > 0))
@@ -250,6 +251,7 @@ namespace ECMA2Yaml
             };
             item.Metadata.MergeMetadata(m.Metadata);
             item.Metadata.AddPermissions(m.Docs);
+            item.Metadata.AddThreadSafety(m.Docs);
             return item;
         }
 
@@ -510,6 +512,14 @@ namespace ECMA2Yaml
             if (docs.Permissions?.Count > 0)
             {
                 mta[OPSMetadata.Permissions] = docs.Permissions.Select(ex => new ExceptionInfo() { CommentId = ex.CommentId, Description = ex.Description, Type = ex.Uid }).ToList();
+            }
+        }
+
+        public static void AddThreadSafety(this Dictionary<string, object> mta, Docs docs)
+        {
+            if (docs.ThreadSafetyInfo != null)
+            {
+                mta[OPSMetadata.ThreadSafetyInfo] = docs.ThreadSafetyInfo;
             }
         }
 
