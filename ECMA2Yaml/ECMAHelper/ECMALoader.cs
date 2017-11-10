@@ -507,19 +507,15 @@ namespace ECMA2Yaml
             if (threadSafeEle != null)
             {
                 threadSafetyContent = NormalizeDocsElement(GetInnerXml(threadSafeEle));
-                if (string.IsNullOrEmpty(threadSafetyContent))
+                var supportedAttr = threadSafeEle.Attribute("supported");
+                if (supportedAttr != null)
                 {
-                    var supported = threadSafeEle.Attribute("supported")?.Value?.ToLower() == "true";
                     threadSafety = new ThreadSafety()
                     {
                         CustomContent = threadSafetyContent,
-                        Supported = supported
+                        Supported = supportedAttr.Value?.ToLower() == "true",
+                        MemberScope = threadSafeEle.Attribute("memberScope")?.Value
                     };
-                    var memberScopeValue = threadSafeEle.Attribute("memberScope")?.Value;
-                    if (!string.IsNullOrEmpty(memberScopeValue) && Enum.TryParse(memberScopeValue, out ThreadSafetyMemberScope scope))
-                    {
-                        threadSafety.MemberScope = scope;
-                    }
                 }
             }
 

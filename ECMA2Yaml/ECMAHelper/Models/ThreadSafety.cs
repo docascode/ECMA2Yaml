@@ -8,13 +8,6 @@ using YamlDotNet.Serialization;
 
 namespace ECMA2Yaml.Models
 {
-    public enum ThreadSafetyMemberScope
-    {
-        All,
-        Static,
-        Instance
-    }
-
     public class ThreadSafety
     {
         [JsonProperty("customContent")]
@@ -25,6 +18,6 @@ namespace ECMA2Yaml.Models
         public bool? Supported { get; set; }
         [JsonProperty("memberScope")]
         [YamlMember(Alias = "memberScope")]
-        public ThreadSafetyMemberScope MemberScope { get; set; }
+        public string MemberScope { get; set; }
     }
 }
