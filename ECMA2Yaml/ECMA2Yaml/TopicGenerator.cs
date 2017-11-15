@@ -340,6 +340,14 @@ namespace ECMA2Yaml
                 refs.AddRange(m.Parameters.SelectMany(p => GenerateReferencesByTypeString(p.Type, store)).Where(r => r != null));
             }
 
+            var typeParameters = m.TypeParameters ?? new List<Parameter>();
+            var t = m.Parent as Models.Type;
+            if (t.TypeParameters != null)
+            {
+                typeParameters.AddRange(t.TypeParameters);
+            }
+            refs = refs.Where(r => !typeParameters.Any(tp => tp.Name == r.Uid)).ToList();
+
             return refs;
         }
 
