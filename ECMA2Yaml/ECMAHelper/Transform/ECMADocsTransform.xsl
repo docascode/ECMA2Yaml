@@ -61,6 +61,15 @@
     </returns>
   </xsl:template>
 
+  <xsl:template match="img[@href]">
+    <img>
+      <xsl:attribute name="src">
+        <xsl:value-of select="@href"/>
+      </xsl:attribute>
+    <xsl:apply-templates />
+    </img>
+  </xsl:template>
+
   <xsl:template match="see[@langword]">
     <xsl:value-of select="concat('`', @langword, '`')"/>
   </xsl:template>
