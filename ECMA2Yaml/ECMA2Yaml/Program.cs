@@ -82,7 +82,7 @@ namespace ECMA2Yaml
                 var typeCount = ApplyMetadata(typePages, metadataDict);
                 if (typeCount > 0)
                 {
-                    WriteLine("Applied metadata overwrite for {0} types", typeCount);
+                    WriteLine("Applied metadata overwrite for {0} items", typeCount);
                 }
             }
 
@@ -196,6 +196,17 @@ namespace ECMA2Yaml
                             foreach(var mtaPair in metadataDict[item.Uid])
                             {
                                 item.Metadata.Add(mtaPair.Key, mtaPair.Value);
+                            }
+                            count++;
+                        }
+                    }
+                    foreach (var item in page.Value.References)
+                    {
+                        if (item.Uid.EndsWith("*") && metadataDict.ContainsKey(item.Uid))
+                        {
+                            foreach (var mtaPair in metadataDict[item.Uid])
+                            {
+                                item.Additional.Add(mtaPair.Key, mtaPair.Value);
                             }
                             count++;
                         }
