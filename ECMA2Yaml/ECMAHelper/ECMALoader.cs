@@ -484,6 +484,13 @@ namespace ECMA2Yaml
                 }
             }
 
+            var examples = dElement.Elements("example");
+            if (examples != null && examples.Count() > 0)
+            {
+                examplesText = string.IsNullOrEmpty(examplesText) ? "" : examplesText + "\n\n";
+                examplesText += string.Join("\n\n", examples.Select(example => NormalizeDocsElement(example)));
+            }
+
             Dictionary<string, string> additionalNotes = null;
             var blocks = dElement.Elements("block")?.Where(p => !string.IsNullOrEmpty(p.Attribute("type").Value)).ToList();
             if (blocks != null && blocks.Count > 0)
