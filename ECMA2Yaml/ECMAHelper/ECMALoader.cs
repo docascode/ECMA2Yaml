@@ -471,7 +471,7 @@ namespace ECMA2Yaml
             }
             else
             {
-                remarksText = NormalizeDocsElement(GetInnerXml(remarks));
+                remarksText = NormalizeDocsElement(remarks);
             }
             if (remarksText != null)
             {
@@ -521,7 +521,7 @@ namespace ECMA2Yaml
 
             return new Docs()
             {
-                Summary = NormalizeDocsElement(GetInnerXml(dElement.Element("summary"))),
+                Summary = NormalizeDocsElement(dElement.Element("summary")),
                 Remarks = remarksText,
                 Examples = examplesText,
                 AltMemberCommentIds = dElement.Elements("altmember")?.Select(alt => alt.Attribute("cref").Value).ToList(),
@@ -550,7 +550,7 @@ namespace ECMA2Yaml
             };
         }
 
-        private string GetInnerXml(XElement ele)
+        private static string GetInnerXml(XElement ele)
         {
             if (ele == null)
             {
@@ -562,6 +562,24 @@ namespace ECMA2Yaml
         }
 
         //private static Regex xrefFix = new Regex("<xref:[\\w\\.\\d\\?=]+%[\\w\\.\\d\\?=%]+>", RegexOptions.Compiled);
+        private static string NormalizeDocsElement(XElement ele)
+        {
+            if (ele?.Element("format") != null)
+            {
+                return ele.Element("format").Value;
+            }
+            else
+            {
+                var innerXml = GetInnerXml(ele);
+                if (string.IsNullOrEmpty(innerXml) || innerXml.Trim() == "To be added.")
+                {
+                    return null;
+                }
+                innerXml = NormalizeIndent(innerXml);
+                return NormalizeDocsElement(innerXml);
+            }
+        }
+
         private static string NormalizeDocsElement(string str)
         {
             if (string.IsNullOrEmpty(str) || str.Trim() == "To be added.")
@@ -570,6 +588,21 @@ namespace ECMA2Yaml
             }
             //return xrefFix.Replace(str.Trim(), m => System.Web.HttpUtility.UrlDecode(m.Value));
             return System.Web.HttpUtility.HtmlDecode(str.Trim());
+        }
+
+        private static string NormalizeIndent(string str)
+        {
+            int minIndent = int.MaxValue;
+            var lines = str.Split('\r', '\n');
+            foreach (var line in lines)
+            {
+                var trimmed = line.TrimStart();
+                if (trimmed.Length > 0)
+                {
+                    minIndent = Math.Min(minIndent, line.Length - line.TrimStart().Length);
+                }
+            }
+            return string.Join("\n", lines.Select(l => l.Length >= minIndent ? l.Substring(minIndent) : l));
         }
 
         private AssemblyInfo ParseAssemblyInfo(XElement ele)
