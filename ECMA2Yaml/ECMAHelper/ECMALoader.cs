@@ -445,7 +445,7 @@ namespace ECMA2Yaml
                 remarks.Remove();
             }
 
-            var dElement2 = _docsTransform.Transform(dElement.ToString(), SyntaxLanguage.CSharp).Root;
+            var dElement2 = _docsTransform.Transform(dElement.ToString()).Root;
 
             if (remarks != null && skipRemarks)
             {

@@ -257,19 +257,37 @@ namespace ECMA2Yaml
 
         public static SyntaxDetailViewModel ToSyntaxDetailViewModel(this Member m, ECMAStore store)
         {
-            var contentBuilder = new StringBuilder();
-            if (m.Attributes?.Count > 0)
+            const string csharp = "C#";
+            var contents = new SortedList<string, string>();
+            foreach(var sigPair in m.Signatures)
             {
-                foreach (var att in m.Attributes.Where(attr => attr.Visible))
+                if (Models.Constants.DevLangMapping.ContainsKey(sigPair.Key))
                 {
-                    contentBuilder.AppendFormat("[{0}]\n", att.Declaration);
+                    var lang = Models.Constants.DevLangMapping[sigPair.Key];
+                    if (sigPair.Key == csharp)
+                    {
+                        var contentBuilder = new StringBuilder();
+                        if (m.Attributes?.Count > 0)
+                        {
+                            foreach (var att in m.Attributes.Where(attr => attr.Visible))
+                            {
+                                contentBuilder.AppendFormat("[{0}]\n", att.Declaration);
+                            }
+                        }
+                        contentBuilder.Append(sigPair.Value);
+                        contents[lang] = contentBuilder.ToString();
+                    }
+                    else
+                    {
+                        contents[lang] = sigPair.Value;
+                    }
                 }
             }
-            contentBuilder.Append(m.Signatures["C#"]);
-            var content = contentBuilder.ToString();
+            
             var syntax = new SyntaxDetailViewModel()
             {
-                Content = content,
+                Contents = contents,
+                Content = contents.ContainsKey(Models.Constants.DevLangMapping[csharp]) ? contents[Models.Constants.DevLangMapping[csharp]] : null,
                 Parameters = m.Parameters?.Select(p => p.ToApiParameter(store))?.ToList(),
                 TypeParameters = m.TypeParameters?.Select(p => p.ToApiParameter(store))?.ToList()
             };

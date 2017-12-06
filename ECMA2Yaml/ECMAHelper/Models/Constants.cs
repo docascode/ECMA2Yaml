@@ -24,13 +24,12 @@ namespace ECMA2Yaml.Models
         public static readonly string AssemblyMonikerMapping = "_op_AssemblyMonikerMapping";
     }
 
-    public enum SyntaxLanguage
+    public static class Constants
     {
-        Default = 0,
-        CSharp = 1,
-        CPlusPlus = 2,
-        FSharp = 3,
-        Javascript = 4,
-        VB = 5
+        public static IReadOnlyDictionary<string, string> DevLangMapping = new Dictionary<string, string>
+        {
+            {"C#", "csharp" },
+            {"VB.NET", "vb" }
+        };
     }
 }

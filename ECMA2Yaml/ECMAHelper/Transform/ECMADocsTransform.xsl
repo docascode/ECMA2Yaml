@@ -7,8 +7,6 @@
 
   <xsl:output method="xml" indent="yes" encoding="UTF-8" />
 
-  <xsl:param name="input:language"/>
-
   <xsl:variable name="smallcase" select="'abcdefghijklmnopqrstuvwxyz'" />
   <xsl:variable name="uppercase" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZ'" />
 

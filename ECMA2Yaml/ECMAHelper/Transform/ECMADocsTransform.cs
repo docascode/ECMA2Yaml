@@ -28,14 +28,13 @@
             }
         }
 
-        public XDocument Transform(string xml, SyntaxLanguage language)
+        public XDocument Transform(string xml)
         {
             using (var ms = new MemoryStream())
             using (var writer = new XHtmlWriter(new StreamWriter(ms)))
             {
                 XDocument doc = XDocument.Parse(xml, LoadOptions.PreserveWhitespace);
                 var args = new XsltArgumentList();
-                args.AddParam("language", "urn:input-variables", WebUtility.HtmlEncode(language.ToString().ToLower()));
                 _transform.Transform(doc.CreateNavigator(), args, writer);
                 ms.Seek(0, SeekOrigin.Begin);
                 return XDocument.Load(ms, LoadOptions.PreserveWhitespace | LoadOptions.SetLineInfo);
