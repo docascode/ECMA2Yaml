@@ -195,7 +195,14 @@ namespace ECMA2Yaml
                             }
                             foreach(var mtaPair in metadataDict[item.Uid])
                             {
-                                item.Metadata.Add(mtaPair.Key, mtaPair.Value);
+                                if (mtaPair.Key == "langs" || mtaPair.Key == "dev_langs")
+                                {
+                                    item.SupportedLanguages = mtaPair.Value as string[];
+                                }
+                                else
+                                {
+                                    item.Metadata.Add(mtaPair.Key, mtaPair.Value);
+                                }
                             }
                             count++;
                         }
