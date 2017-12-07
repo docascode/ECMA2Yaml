@@ -569,6 +569,7 @@ namespace ECMA2Yaml
         }
 
         //private static Regex xrefFix = new Regex("<xref:[\\w\\.\\d\\?=]+%[\\w\\.\\d\\?=%]+>", RegexOptions.Compiled);
+        private static Regex tagDetect = new Regex("<[^>]*>", RegexOptions.Compiled);
         private static string NormalizeDocsElement(XElement ele)
         {
             if (ele?.Element("format") != null)
@@ -583,6 +584,10 @@ namespace ECMA2Yaml
                     return null;
                 }
                 innerXml = NormalizeIndent(innerXml);
+                if (!tagDetect.IsMatch(innerXml))
+                {
+                    innerXml = string.Format("<pre>{0}</pre>", innerXml);
+                }
                 return NormalizeDocsElement(innerXml);
             }
         }
@@ -600,7 +605,11 @@ namespace ECMA2Yaml
         private static string NormalizeIndent(string str)
         {
             int minIndent = int.MaxValue;
-            var lines = str.Split('\r', '\n');
+            var lines = str.Trim('\r', '\n').Split('\r', '\n');
+            if (lines.Length == 1)
+            {
+                return lines[0].Trim();
+            }
             foreach (var line in lines)
             {
                 var trimmed = line.TrimStart();
