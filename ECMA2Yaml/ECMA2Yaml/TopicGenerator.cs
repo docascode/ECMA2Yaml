@@ -158,6 +158,7 @@ namespace ECMA2Yaml
 
         public static ItemViewModel ToItemViewModel(this Models.Type t, ECMAStore store)
         {
+            var syntax = t.ToSyntaxDetailViewModel(store);
             var item = new ItemViewModel()
             {
                 Id = t.Id,
@@ -169,12 +170,12 @@ namespace ECMA2Yaml
                 Type = t.ItemType.ToMemberType(),
                 NamespaceName = t.Parent.Name,
                 Children = t.Members?.Select(m => m.Uid).ToList(),
-                Syntax = t.ToSyntaxDetailViewModel(store),
+                Syntax = syntax,
                 Implements = t.Interfaces?.Where(i => i != null).Select(i => store.TypesByFullName.ContainsKey(i) ? store.TypesByFullName[i].Uid : i.ToSpecId()).ToList(),
                 Inheritance = t.InheritanceUids,
                 AssemblyNameList = t.AssemblyInfo.Select(a => a.Name).ToList(),
                 InheritedMembers = t.InheritedMembers?.Select(p => p.Value + '.' + p.Key).OrderBy(s => s).ToList(),
-                SupportedLanguages = languageList,
+                SupportedLanguages = syntax.Contents?.Keys?.ToArray(),
                 Summary = t.Docs?.Summary,
                 Remarks = t.Docs?.Remarks,
                 Examples = string.IsNullOrEmpty(t.Docs?.Examples) ? null : new List<string> { t.Docs?.Examples },
@@ -198,21 +199,39 @@ namespace ECMA2Yaml
 
         public static SyntaxDetailViewModel ToSyntaxDetailViewModel(this Models.Type t, ECMAStore store)
         {
-            var contentBuilder = new StringBuilder();
-            if (t.Attributes?.Count > 0)
+            const string csharp = "C#";
+            var contents = new SortedList<string, string>();
+            foreach (var sigPair in t.Signatures)
             {
-                foreach (var att in t.Attributes.Where(attr => attr.Visible))
+                if (Models.Constants.DevLangMapping.ContainsKey(sigPair.Key))
                 {
-                    contentBuilder.AppendFormat("[{0}]\n", att.Declaration);
+                    var lang = Models.Constants.DevLangMapping[sigPair.Key];
+                    if (sigPair.Key == csharp)
+                    {
+                        var contentBuilder = new StringBuilder();
+                        if (t.Attributes?.Count > 0)
+                        {
+                            foreach (var att in t.Attributes.Where(attr => attr.Visible))
+                            {
+                                contentBuilder.AppendFormat("[{0}]\n", att.Declaration);
+                            }
+                        }
+                        contentBuilder.Append(sigPair.Value);
+                        contents[lang] = contentBuilder.ToString();
+                    }
+                    else
+                    {
+                        contents[lang] = sigPair.Value;
+                    }
                 }
             }
-            contentBuilder.Append(t.Signatures["C#"]);
-            var content = contentBuilder.ToString();
+
             var syntax = new SyntaxDetailViewModel()
             {
-                Content = content,
+                Contents = contents,
+                Content = contents.ContainsKey(Models.Constants.DevLangMapping[csharp]) ? contents[Models.Constants.DevLangMapping[csharp]] : null,
                 Parameters = t.Parameters?.Select(p => p.ToApiParameter(store))?.ToList(),
-                TypeParameters = t.TypeParameters?.Select(tp => tp.ToApiParameter(store)).ToList()
+                TypeParameters = t.TypeParameters?.Select(tp => tp.ToApiParameter(store))?.ToList()
             };
             if (t.ReturnValueType != null && !string.IsNullOrEmpty(t.ReturnValueType.Type) && t.ReturnValueType.Type != "System.Void")
             {
@@ -224,6 +243,7 @@ namespace ECMA2Yaml
         public static ItemViewModel ToItemViewModel(this Member m, ECMAStore store)
         {
             var t = ((Models.Type)m.Parent);
+            var syntax = m.ToSyntaxDetailViewModel(store);
             var item = new ItemViewModel()
             {
                 Id = m.Id,
@@ -237,10 +257,10 @@ namespace ECMA2Yaml
                 AssemblyNameList = m.AssemblyInfo.Select(a => a.Name).ToList(),
                 NamespaceName = t.Parent.Name,
                 Overload = m.Overload,
-                Syntax = m.ToSyntaxDetailViewModel(store),
+                Syntax = syntax,
                 IsExplicitInterfaceImplementation = m.IsEII,
                 IsExtensionMethod = m.IsExtensionMethod,
-                SupportedLanguages = languageList,
+                SupportedLanguages = syntax.Contents?.Keys?.ToArray(),
                 Summary = m.Docs?.Summary,
                 Remarks = m.Docs?.Remarks,
                 Examples = string.IsNullOrEmpty(m.Docs?.Examples) ? null : new List<string> { m.Docs?.Examples },
