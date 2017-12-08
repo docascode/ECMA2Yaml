@@ -197,7 +197,7 @@ namespace ECMA2Yaml
                             {
                                 if (mtaPair.Key == "langs" || mtaPair.Key == "dev_langs")
                                 {
-                                    item.SupportedLanguages = mtaPair.Value as string[];
+                                    item.SupportedLanguages = JsonUtility.FromJsonString<string[]>(mtaPair.Value.ToJsonString());
                                 }
                                 else
                                 {
