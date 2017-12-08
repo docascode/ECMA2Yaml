@@ -498,7 +498,13 @@ namespace ECMA2Yaml
                 additionalNotes = new Dictionary<string, string>();
                 foreach (var block in blocks)
                 {
-                    additionalNotes[block.Attribute("type").Value] = NormalizeDocsElement(GetInnerXml(block));
+                    var valElement = block;
+                    var elements = block.Elements().ToArray();
+                    if (elements?.Length == 1 && elements[0].Name.LocalName == "p")
+                    {
+                        valElement = elements[0];
+                    }
+                    additionalNotes[block.Attribute("type").Value] = NormalizeDocsElement(GetInnerXml(valElement));
                 }
             }
 
@@ -583,8 +589,8 @@ namespace ECMA2Yaml
                 {
                     return null;
                 }
-                innerXml = NormalizeIndent(innerXml);
-                if (wrap && !tagDetect.IsMatch(innerXml))
+                innerXml = NormalizeIndent(innerXml, out bool formatDetected);
+                if (wrap && formatDetected && !tagDetect.IsMatch(innerXml))
                 {
                     innerXml = string.Format("<pre>{0}</pre>", innerXml);
                 }
@@ -602,22 +608,28 @@ namespace ECMA2Yaml
             return System.Web.HttpUtility.HtmlDecode(str.Trim());
         }
 
-        private static string NormalizeIndent(string str)
+        private static string NormalizeIndent(string str, out bool formatDetected)
         {
             int minIndent = int.MaxValue;
             var lines = str.TrimStart('\r', '\n').TrimEnd().Split('\r', '\n');
             if (lines.Length == 1)
             {
+                formatDetected = false;
                 return lines[0].Trim();
             }
             foreach (var line in lines)
             {
-                var trimmed = line.TrimStart();
-                if (trimmed.Length > 0)
+                var indent = 0;
+                while(indent < line.Length && char.IsWhiteSpace(line[indent]))
                 {
-                    minIndent = Math.Min(minIndent, line.Length - line.TrimStart().Length);
+                    indent++;
+                }
+                if (indent > 0)
+                {
+                    minIndent = Math.Min(minIndent, indent);
                 }
             }
+            formatDetected = true;
             return string.Join("\n", lines.Select(l => l.Length >= minIndent ? l.Substring(minIndent) : l));
         }
 
