@@ -29,7 +29,11 @@ namespace ECMA2Yaml.Models
         public static IReadOnlyDictionary<string, string> DevLangMapping = new Dictionary<string, string>
         {
             {"C#", "csharp" },
-            {"VB.NET", "vb" }
+            {"VB.NET", "vb" },
+            {"F#", "fsharp" },
+            {"C++ CLI", "cpp" },
+            {"C++ CX", "cppcx" },
+            {"C++ WINRT", "cppwinrt" }
         };
     }
 }
