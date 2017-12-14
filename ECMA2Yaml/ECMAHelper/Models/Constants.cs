@@ -21,6 +21,7 @@ namespace ECMA2Yaml.Models
         public static readonly string InternalOnly = "internal_use_only";
         public static readonly string NugetPackageNames = "nuget_package_names";
         public static readonly string OpenToPublic = "open_to_public_contributors";
+        public static readonly string LiteralValue = "literalValue";
         public static readonly string AssemblyMonikerMapping = "_op_AssemblyMonikerMapping";
     }
 

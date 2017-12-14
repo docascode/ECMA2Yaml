@@ -347,6 +347,11 @@ namespace ECMA2Yaml
             {
                 m.ItemType = ItemType.Operator;
             }
+            var memberValue = mElement.Element("MemberValue")?.Value;
+            if (!string.IsNullOrEmpty(memberValue))
+            {
+                m.Metadata[OPSMetadata.LiteralValue] = memberValue;
+            }
 
             m.Signatures = new Dictionary<string, string>();
             foreach (var sig in mElement.Elements("MemberSignature"))
