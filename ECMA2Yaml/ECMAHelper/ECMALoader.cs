@@ -186,6 +186,11 @@ namespace ECMA2Yaml
             t.FullName = tRoot.Attribute("FullName").Value.Replace('+', '.');
             t.SourceFileLocalPath = typeFile;
 
+            if (t.Name == "CatException<T>")
+            {
+                Console.WriteLine();
+            }
+
             //TypeSignature
             t.Signatures = new Dictionary<string, string>();
             foreach (var sig in tRoot.Elements("TypeSignature"))
@@ -624,10 +629,7 @@ namespace ECMA2Yaml
                 {
                     indent++;
                 }
-                if (indent > 0)
-                {
-                    minIndent = Math.Min(minIndent, indent);
-                }
+                minIndent = Math.Min(minIndent, indent);
             }
             formatDetected = true;
             return string.Join("\n", lines.Select(l => l.Length >= minIndent ? l.Substring(minIndent) : l));
