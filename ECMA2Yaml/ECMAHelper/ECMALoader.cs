@@ -616,12 +616,13 @@ namespace ECMA2Yaml
 
         private static string NormalizeDocsElement(string str)
         {
-            if (string.IsNullOrEmpty(str) || str.Trim() == "To be added.")
+            if (string.IsNullOrEmpty(str))
             {
                 return null;
             }
-            //return xrefFix.Replace(str.Trim(), m => System.Web.HttpUtility.UrlDecode(m.Value));
-            return System.Web.HttpUtility.HtmlDecode(str.Trim());
+            var trimmed = str.Trim();
+
+            return trimmed == "To be added." ? null : trimmed;
         }
 
         private static string NormalizeIndent(string str, out bool formatDetected)
