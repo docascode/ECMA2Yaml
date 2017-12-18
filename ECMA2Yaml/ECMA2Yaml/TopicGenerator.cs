@@ -269,6 +269,11 @@ namespace ECMA2Yaml
                 Modifiers = m.Modifiers,
                 SeeAlsos = m.Docs.AltMemberCommentIds?.Select(a => a.ResolveCommentId(store)?.ToLinkInfo()).Where(r => r != null).NullIfEmpty()?.ToList()
             };
+            var implements = m.Implements?.Select(commentId => commentId.ResolveCommentId(store)?.Uid)?.Where(uid => uid != null)?.ToList();
+            if (implements?.Count > 0)
+            {
+                item.Implements = implements;
+            }
             item.Metadata.MergeMetadata(m.Metadata);
             item.Metadata.AddPermissions(m.Docs);
             item.Metadata.AddThreadSafety(m.Docs);

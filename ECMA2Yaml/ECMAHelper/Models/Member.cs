@@ -19,6 +19,7 @@ namespace ECMA2Yaml.Models
         public Parameter ReturnValueType { get; set; }
         public string Overload { get; set; }
         public bool IsExtensionMethod { get; set; }
+        public List<string> Implements { get; set; }
         public bool IsEII
         {
             get
