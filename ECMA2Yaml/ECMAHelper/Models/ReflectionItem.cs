@@ -8,21 +8,24 @@ namespace ECMA2Yaml.Models
 {
     public enum ItemType
     {
-        Default = 0,
-        Toc = 1,
-        Assembly = 2,
-        Namespace = 3,
-        Class = 4,
-        Interface = 5,
-        Struct = 6,
-        Delegate = 7,
-        Enum = 8,
-        Field = 9,
-        Property = 10,
-        Event = 11,
-        Constructor = 12,
-        Method = 13,
-        Operator = 14
+        Default,
+        Toc,
+        Assembly,
+        Namespace,
+        Class,
+        Interface,
+        Struct,
+        Delegate,
+        Enum,
+        Field,
+        Property,
+        Event,
+        Constructor,
+        Method,
+        Operator,
+        Container,
+        AttachedEvent,
+        AttachedProperty
     }
 
     public abstract class ReflectionItem
