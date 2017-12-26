@@ -356,7 +356,11 @@ namespace ECMA2Yaml
             m.Signatures = new Dictionary<string, string>();
             foreach (var sig in mElement.Elements("MemberSignature"))
             {
-                m.Signatures[sig.Attribute("Language").Value] = sig.Attribute("Value").Value;
+                var val = sig.Attribute("Value");
+                if (val != null)
+                {
+                    m.Signatures[sig.Attribute("Language").Value] = val.Value;
+                }
             }
             m.DocId = m.Signatures.ContainsKey("DocId") ? m.Signatures["DocId"] : null;
             m.Modifiers = ParseModifiersFromSignatures(m.Signatures);
