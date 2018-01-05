@@ -16,7 +16,10 @@ namespace ECMA2Yaml
 
             foreach (var ns in store.Namespaces.Values)
             {
-                toc.Add(GenerateTocItemForNamespace(ns));
+                if (ns.Types?.Count > 0)
+                {
+                    toc.Add(GenerateTocItemForNamespace(ns));
+                }
             }
 
             return toc;
