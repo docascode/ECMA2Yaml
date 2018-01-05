@@ -129,7 +129,7 @@
   </xsl:template>
 
   <xsl:template match="see[@langword]">
-    <code data-dev-comment-type="languageKeyword">
+    <code data-dev-comment-type="langword">
       <xsl:value-of select="@langword"/>
     </code>
   </xsl:template>
