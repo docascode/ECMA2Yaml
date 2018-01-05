@@ -68,10 +68,6 @@
     </img>
   </xsl:template>
 
-  <xsl:template match="see[@langword]">
-    <xsl:value-of select="concat('`', @langword, '`')"/>
-  </xsl:template>
-
   <xsl:template match="see[@cref and not(parent::member)]">
     <xsl:choose>
       <xsl:when test="contains(normalize-space(@cref), 'Overload:')">
@@ -132,6 +128,12 @@
     </code>
   </xsl:template>
 
+  <xsl:template match="see[@langword]">
+    <code data-dev-comment-type="languageKeyword">
+      <xsl:value-of select="@langword"/>
+    </code>
+  </xsl:template>
+  
   <xsl:template match="list">
     <xsl:variable name="listtype">
       <xsl:value-of select="normalize-space(@type)"/>
