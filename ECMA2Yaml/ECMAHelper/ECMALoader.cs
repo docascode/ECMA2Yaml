@@ -42,24 +42,19 @@ namespace ECMA2Yaml
             //foreach(var nsFile in Directory.EnumerateFiles(sourcePath, "ns-*.xml"))
             Parallel.ForEach(Directory.EnumerateFiles(sourcePath, "ns-*.xml"), opt, nsFile =>
             {
-                var nsFileName = Path.GetFileName(nsFile);
-                var nsName = nsFileName.Substring("ns-".Length, nsFileName.Length - "ns-.xml".Length);
-                if (!string.IsNullOrEmpty(nsName))
-                {
-                    var ns = LoadNamespace(sourcePath, nsFile);
+                var ns = LoadNamespace(sourcePath, nsFile);
 
-                    if (ns == null)
-                    {
-                        OPSLogger.LogUserError("failed to load namespace", nsFile);
-                    }
-                    else if (ns.Types == null)
-                    {
-                        OPSLogger.LogUserWarning(string.Format("Namespace {0} has no types", ns.Name), nsFile);
-                    }
-                    else
-                    {
-                        namespaces.Add(ns);
-                    }
+                if (ns == null)
+                {
+                    OPSLogger.LogUserError("failed to load namespace", nsFile);
+                }
+                else if (ns.Types == null)
+                {
+                    OPSLogger.LogUserWarning(string.Format("Namespace {0} has no types", ns.Name), nsFile);
+                }
+                else
+                {
+                    namespaces.Add(ns);
                 }
             });
 
@@ -160,8 +155,11 @@ namespace ECMA2Yaml
                 try
                 {
                     var t = LoadType(realTypeFile);
-                    t.Parent = ns;
-                    types.Add(t);
+                    if (t != null)
+                    {
+                        t.Parent = ns;
+                        types.Add(t);
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -181,6 +179,10 @@ namespace ECMA2Yaml
 
             XDocument tDoc = XDocument.Parse(xmlContent);
             XElement tRoot = tDoc.Root;
+            if (tRoot.Name.LocalName != "Type")
+            {
+                return null;
+            }
             Models.Type t = new Models.Type();
             t.Name = tRoot.Attribute("Name").Value.Replace('+', '.');
             t.FullName = tRoot.Attribute("FullName").Value.Replace('+', '.');

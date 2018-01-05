@@ -16,7 +16,7 @@ namespace ECMA2Yaml
         {
             var rval = new Dictionary<string, PageViewModel>();
 
-            foreach (var ns in store.Namespaces)
+            foreach (var ns in store.Namespaces.Where(ns => !string.IsNullOrEmpty(ns.Key)))
             {
                 rval.Add(ns.Key, ns.Value.ToPageViewModel());
             }

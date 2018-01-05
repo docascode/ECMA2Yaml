@@ -26,8 +26,8 @@ namespace ECMA2Yaml
         {
             var nsToc = new TocItemViewModel()
             {
-                Uid = ns.Uid,
-                Name = ns.Name,
+                Uid = string.IsNullOrEmpty(ns.Uid) ? null : ns.Uid,
+                Name = string.IsNullOrEmpty(ns.Name) ? "global" : ns.Name,
                 Items = new TocViewModel(ns.Types.Select(t => GenerateTocItemForType(t)).ToList())
             };
             if (ns.Metadata!= null && ns.Metadata.ContainsKey(OPSMetadata.Monikers))

@@ -40,7 +40,7 @@ namespace ECMA2Yaml.Models
             {
                 if (string.IsNullOrEmpty(_uid))
                 {
-                    _uid = Parent == null ? Id : (Parent.Uid + "." + Id);
+                    _uid = (string.IsNullOrEmpty(Parent?.Uid)) ? Id : (Parent.Uid + "." + Id);
                 }
                 return _uid;
             }

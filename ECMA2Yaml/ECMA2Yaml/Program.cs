@@ -97,22 +97,22 @@ namespace ECMA2Yaml
             Parallel.ForEach(store.Namespaces, po, ns =>
             {
                 var nsFolder = Path.Combine(opt.OutputFolder, ns.Key);
-                var nsFileName = Path.Combine(opt.OutputFolder, ns.Key + ".yml");
-                if (!string.IsNullOrEmpty(ns.Value.SourceFileLocalPath))
+                if (!string.IsNullOrEmpty(ns.Key))
                 {
-                    fileMapping.TryAdd(ns.Value.SourceFileLocalPath, nsFileName);
-                }
-                YamlUtility.Serialize(nsFileName, nsPages[ns.Key], YamlMime.ManagedReference);
-                
-                if (!opt.Flatten)
-                {
-                    if (!Directory.Exists(nsFolder))
+                    var nsFileName = Path.Combine(opt.OutputFolder, ns.Key + ".yml");
+                    if (!string.IsNullOrEmpty(ns.Value.SourceFileLocalPath))
                     {
-                        Directory.CreateDirectory(nsFolder);
+                        fileMapping.TryAdd(ns.Value.SourceFileLocalPath, nsFileName);
                     }
+                    YamlUtility.Serialize(nsFileName, nsPages[ns.Key], YamlMime.ManagedReference);
+                }
+                
+                if (!opt.Flatten && !Directory.Exists(nsFolder))
+                {
+                    Directory.CreateDirectory(nsFolder);
                 }
 
-                foreach (var t in store.Namespaces[ns.Key].Types)
+                foreach (var t in ns.Value.Types)
                 {
                     var typePage = typePages[t.Uid];
                     var tFileName = Path.Combine(opt.Flatten ? opt.OutputFolder : nsFolder, t.Uid.Replace('`', '-') + ".yml");
