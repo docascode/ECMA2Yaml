@@ -71,6 +71,10 @@ namespace ECMA2Yaml.Models
             MembersByUid = new Dictionary<string, Member>();
             foreach (var member in allMembers)
             {
+                if (TypesByUid.Keys.Any(k => k.Equals(member.Uid, StringComparison.OrdinalIgnoreCase)))
+                {
+                    member.Id = member.Id + member.ItemType.ToString().Substring(0, 1).ToLower();
+                }
                 MembersByUid[member.Uid] = member;
             }
 
