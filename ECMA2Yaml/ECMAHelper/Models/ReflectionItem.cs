@@ -30,9 +30,21 @@ namespace ECMA2Yaml.Models
 
     public abstract class ReflectionItem
     {
+        private string _id;
         private string _uid;
         public string Name { get; set; }
-        public string Id { get; set; }
+        public string Id
+        {
+            get
+            {
+                return _id;
+            }
+            set
+            {
+                _id = value;
+                _uid = null;
+            }
+        }
         public ItemType ItemType { get; set; }
         public string Uid
         {
@@ -46,7 +58,8 @@ namespace ECMA2Yaml.Models
             }
         }
         public string DocId { get; set; }
-        public string CommentId {
+        public string CommentId
+        {
             get
             {
                 if (string.IsNullOrEmpty(Uid))

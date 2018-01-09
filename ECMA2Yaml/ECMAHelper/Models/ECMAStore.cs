@@ -73,7 +73,7 @@ namespace ECMA2Yaml.Models
             {
                 if (TypesByUid.Keys.Any(k => k.Equals(member.Uid, StringComparison.OrdinalIgnoreCase)))
                 {
-                    member.Id = member.Id + member.ItemType.ToString().Substring(0, 1).ToLower();
+                    member.Id = member.Id + "_" + member.ItemType.ToString().Substring(0, 1).ToLower();
                 }
                 MembersByUid[member.Uid] = member;
             }
