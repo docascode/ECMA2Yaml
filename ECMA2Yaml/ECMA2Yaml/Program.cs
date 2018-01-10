@@ -41,7 +41,7 @@ namespace ECMA2Yaml
         static void LoadAndConvert(CommandLineOptions opt)
         {
             var rootPath = Path.GetFullPath(opt.RepoRootPath ?? opt.SourceFolder);
-            var xmlFolder = Path.GetFullPath(opt.SourceFolder).Replace(rootPath, "").Trim(Path.PathSeparator);
+            var xmlFolder = Path.GetFullPath(opt.SourceFolder).Replace(rootPath, "").Trim(Path.DirectorySeparatorChar);
             var fileAccessor = new FileAccessor(opt.RepoRootPath);
             ECMALoader loader = new ECMALoader(fileAccessor);
             WriteLine("Loading ECMAXML files...");
@@ -161,7 +161,7 @@ namespace ECMA2Yaml
             }
             
             //Save fallback file list as skip publish
-            if (!string.IsNullOrEmpty(opt.SkipPublishFilePath) && loader.FallbackMapping?.Count > 0)
+            if (!string.IsNullOrEmpty(opt.SkipPublishFilePath) && loader.FallbackFiles?.Count > 0)
             {
                 List<string> list = new List<string>();
                 if (File.Exists(opt.SkipPublishFilePath))
@@ -169,7 +169,7 @@ namespace ECMA2Yaml
                     list = JsonUtility.Deserialize<List<string>>(opt.SkipPublishFilePath);
                     WriteLine("Read {0} entries in {1}.", list.Count, opt.SkipPublishFilePath);
                 }
-                list.AddRange(loader.FallbackMapping.Where(p => p.Key == p.Value && fileMapping.ContainsKey(p.Key)).Select(p => fileMapping[p.Key].Replace(opt.RepoRootPath, "").TrimStart('\\')));
+                list.AddRange(loader.FallbackFiles.Where(path => fileMapping.ContainsKey(path)).Select(path => fileMapping[path].Replace(opt.RepoRootPath, "").TrimStart('\\')));
                 JsonUtility.Serialize(opt.SkipPublishFilePath, list, Newtonsoft.Json.Formatting.Indented);
                 WriteLine("Write {0} entries to {1}.", list.Count, opt.SkipPublishFilePath);
             }

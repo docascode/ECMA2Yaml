@@ -16,11 +16,13 @@ namespace ECMA2Yaml
         private List<string> _errorFiles = new List<string>();
         private ECMADocsTransform _docsTransform = new ECMADocsTransform();
         private FileAccessor _fileAccessor = null;
-        public Dictionary<string, string> FallbackMapping { get; private set; }
+
+        public ConcurrentBag<string> FallbackFiles { get; private set; }
 
         public ECMALoader(FileAccessor fileAccessor)
         {
             _fileAccessor = fileAccessor;
+            FallbackFiles = new ConcurrentBag<string>();
         }
 
         public ECMAStore LoadFolder(string sourcePath)
@@ -43,7 +45,6 @@ namespace ECMA2Yaml
             Parallel.ForEach(ListFiles(Path.Combine(sourcePath, "ns-*.xml")), opt, nsFile =>
             {
                 var ns = LoadNamespace(sourcePath, nsFile);
-
                 if (ns == null)
                 {
                     OPSLogger.LogUserError("failed to load namespace", nsFile.AbsolutePath);
@@ -55,6 +56,10 @@ namespace ECMA2Yaml
                 else
                 {
                     namespaces.Add(ns);
+                    if (nsFile.IsVirtual)
+                    {
+                        FallbackFiles.Add(nsFile.AbsolutePath);
+                    }
                 }
             });
 
@@ -154,6 +159,10 @@ namespace ECMA2Yaml
                     {
                         t.Parent = ns;
                         types.Add(t);
+                        if (typeFile.IsVirtual)
+                        {
+                            FallbackFiles.Add(typeFile.AbsolutePath);
+                        }
                     }
                 }
                 catch (Exception ex)

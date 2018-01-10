@@ -187,18 +187,6 @@ namespace ECMA2Yaml
             return extensionMethods;
         }
 
-        private string Resolve(string path)
-        {
-            if (FallbackMapping != null && FallbackMapping.ContainsKey(path))
-            {
-                return FallbackMapping[path];
-            }
-            else
-            {
-                return path;
-            }
-        }
-
         private IEnumerable<FileItem> ListFiles(string glob)
         {
             return _fileAccessor.ListFiles(new string[] { glob });

@@ -79,17 +79,6 @@ foreach($ecmaConfig in $jobs)
     }
     if ($fallbackRepo -and (Test-Path $ecmaFallbackSourceXmlFolder))
     {
-        $allArgs += "-fs";
-        $allArgs += "$ecmaFallbackSourceXmlFolder";
-        $fallbackGitUrlBase = $fallbackRepo.url
-        if (-not $fallbackGitUrlBase.EndsWith("/"))
-        {
-            $fallbackGitUrlBase += "/"
-        }
-        $fallbackGitUrlBase = $fallbackGitUrlBase + "blob/" + $fallbackRepo.branch;
-        $allArgs +=  "-fp"
-        $allArgs +=  """$fallbackRepoRoot=>$fallbackGitUrlBase"""
-
         if ([string]::IsNullOrEmpty($ParameterDictionary.environment.skipPublishFilePath)) {
             $ParameterDictionary.environment.skipPublishFilePath = Join-Path $logOutputFolder "skip-publish-file-path.json"
         }
