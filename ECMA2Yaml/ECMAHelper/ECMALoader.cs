@@ -1,14 +1,13 @@
 ﻿using ECMA2Yaml.Models;
+using Microsoft.OpenPublishing.FileAbstractLayer;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO;
-using System.Xml.Linq;
-using System.Collections.Concurrent;
 using System.Text.RegularExpressions;
-using Newtonsoft.Json;
+using System.Threading.Tasks;
+using System.Xml.Linq;
+using Path = System.IO.Path;
 
 namespace ECMA2Yaml
 {
@@ -16,20 +15,21 @@ namespace ECMA2Yaml
     {
         private List<string> _errorFiles = new List<string>();
         private ECMADocsTransform _docsTransform = new ECMADocsTransform();
+        private FileAccessor _fileAccessor = null;
         public Dictionary<string, string> FallbackMapping { get; private set; }
 
-        public ECMAStore LoadFolder(string sourcePath, string fallbackPath)
+        public ECMALoader(FileAccessor fileAccessor)
         {
-            if (!string.IsNullOrEmpty(fallbackPath) && Directory.Exists(fallbackPath))
-            {
-                FallbackMapping = GenerateFallbackFileMapping(sourcePath, fallbackPath);
-                sourcePath = fallbackPath;
-            }
-            else if (!Directory.Exists(sourcePath))
-            {
-                OPSLogger.LogUserWarning(string.Format("Source folder does not exist: {0}", sourcePath));
-                return null;
-            }
+            _fileAccessor = fileAccessor;
+        }
+
+        public ECMAStore LoadFolder(string sourcePath)
+        {
+            //if (!System.IO.Directory.Exists(sourcePath))
+            //{
+            //    OPSLogger.LogUserWarning(string.Format("Source folder does not exist: {0}", sourcePath));
+            //    return null;
+            //}
 
             var frameworks = LoadFrameworks(sourcePath);
             var extensionMethods = LoadExtensionMethods(sourcePath);
@@ -40,17 +40,17 @@ namespace ECMA2Yaml
             ConcurrentBag<Namespace> namespaces = new ConcurrentBag<Namespace>();
             ParallelOptions opt = new ParallelOptions() { MaxDegreeOfParallelism = Environment.ProcessorCount };
             //foreach(var nsFile in Directory.EnumerateFiles(sourcePath, "ns-*.xml"))
-            Parallel.ForEach(Directory.EnumerateFiles(sourcePath, "ns-*.xml"), opt, nsFile =>
+            Parallel.ForEach(ListFiles(Path.Combine(sourcePath, "ns-*.xml")), opt, nsFile =>
             {
                 var ns = LoadNamespace(sourcePath, nsFile);
 
                 if (ns == null)
                 {
-                    OPSLogger.LogUserError("failed to load namespace", nsFile);
+                    OPSLogger.LogUserError("failed to load namespace", nsFile.AbsolutePath);
                 }
                 else if (ns.Types == null)
                 {
-                    OPSLogger.LogUserWarning(string.Format("Namespace {0} has no types", ns.Name), nsFile);
+                    OPSLogger.LogUserWarning(string.Format("Namespace {0} has no types", ns.Name), nsFile.AbsolutePath);
                 }
                 else
                 {
@@ -130,31 +130,26 @@ namespace ECMA2Yaml
             return filteredNS;
         }
 
-        private Namespace LoadNamespace(string basePath, string nsFile)
+        private Namespace LoadNamespace(string basePath, FileItem nsFile)
         {
-            XDocument nsDoc = XDocument.Load(Resolve(nsFile));
+            XDocument nsDoc = XDocument.Load(nsFile.AbsolutePath);
             Namespace ns = new Namespace();
             ns.Id = ns.Name = nsDoc.Root.Attribute("Name").Value;
             ns.Types = LoadTypes(basePath, ns);
             ns.Docs = LoadDocs(nsDoc.Root.Element("Docs"));
-            ns.SourceFileLocalPath = Resolve(nsFile);
+            ns.SourceFileLocalPath = nsFile.AbsolutePath;
             return ns;
         }
 
         private List<Models.Type> LoadTypes(string basePath, Namespace ns)
         {
             string nsFolder = Path.Combine(basePath, ns.Name);
-            if (!Directory.Exists(nsFolder))
-            {
-                return null;
-            }
             List<Models.Type> types = new List<Models.Type>();
-            foreach (var typeFile in Directory.EnumerateFiles(nsFolder, "*.xml"))
+            foreach (var typeFile in ListFiles(Path.Combine(nsFolder, "*.xml")))
             {
-                var realTypeFile = Resolve(typeFile);
                 try
                 {
-                    var t = LoadType(realTypeFile);
+                    var t = LoadType(typeFile);
                     if (t != null)
                     {
                         t.Parent = ns;
@@ -163,16 +158,16 @@ namespace ECMA2Yaml
                 }
                 catch (Exception ex)
                 {
-                    OPSLogger.LogUserError(ex.Message, realTypeFile);
-                    _errorFiles.Add(realTypeFile);
+                    OPSLogger.LogUserError(ex.Message, typeFile.AbsolutePath);
+                    _errorFiles.Add(typeFile.AbsolutePath);
                 }
             }
             return types;
         }
 
-        private Models.Type LoadType(string typeFile)
+        private Models.Type LoadType(FileItem typeFile)
         {
-            string xmlContent = File.ReadAllText(typeFile);
+            string xmlContent = _fileAccessor.ReadAllText(typeFile.RelativePath);
             xmlContent = xmlContent.Replace("TextAntiAliasingQuality&nbsp;property.</summary>", "TextAntiAliasingQuality property.</summary>");
             xmlContent = xmlContent.Replace("DefaultValue('&#x0;')</AttributeName>", "DefaultValue('\\0')</AttributeName>");
             xmlContent = xmlContent.Replace("\0", "\\0");
@@ -186,7 +181,7 @@ namespace ECMA2Yaml
             Models.Type t = new Models.Type();
             t.Name = tRoot.Attribute("Name").Value.Replace('+', '.');
             t.FullName = tRoot.Attribute("FullName").Value.Replace('+', '.');
-            t.SourceFileLocalPath = typeFile;
+            t.SourceFileLocalPath = typeFile.AbsolutePath;
 
             if (t.Name == "CatException<T>")
             {
@@ -265,7 +260,7 @@ namespace ECMA2Yaml
                 {
                     foreach (var m in t.Members)
                     {
-                        m.SourceFileLocalPath = typeFile;
+                        m.SourceFileLocalPath = typeFile.AbsolutePath;
                     }
                 }
                 t.Overloads = membersElement.Elements("MemberGroup")?.Select(m => LoadMemberGroup(t, m)).ToList();
@@ -278,7 +273,7 @@ namespace ECMA2Yaml
                         {
                             OPSLogger.LogUserWarning("Found duplicated <MemberGroup> " + og.Key, typeFile);
                         }
-                        og.First().SourceFileLocalPath = typeFile;
+                        og.First().SourceFileLocalPath = typeFile.AbsolutePath;
                         distinctList.Add(og.First());
                     }
                     t.Overloads = distinctList;

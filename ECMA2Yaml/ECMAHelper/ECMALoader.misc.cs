@@ -4,11 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.IO;
 using System.Xml.Linq;
 using System.Collections.Concurrent;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json;
+using Microsoft.OpenPublishing.FileAbstractLayer;
+using Path = System.IO.Path;
 
 namespace ECMA2Yaml
 {
@@ -16,11 +17,11 @@ namespace ECMA2Yaml
     {
         private FilterStore LoadFilters(string path)
         {
-            var filterFile = Resolve(Path.Combine(path, "_filter.xml"));
-            if (File.Exists(filterFile))
+            var filterFile = Path.Combine(path, "_filter.xml");
+            if (_fileAccessor.Exists(filterFile))
             {
                 var filterStore = new FilterStore();
-                XDocument filterDoc = XDocument.Load(filterFile);
+                XDocument filterDoc = XDocument.Parse(_fileAccessor.ReadAllText(filterFile));
                 var attrFilter = filterDoc.Root.Element("attributeFilter");
                 if (attrFilter != null && attrFilter.Attribute("apply").Value == "true")
                 {
@@ -97,15 +98,11 @@ namespace ECMA2Yaml
 
         private Dictionary<string, List<string>> LoadFrameworks(string folder)
         {
-            var frameworkFolder = Path.Combine(folder, "FrameworksIndex");
-            if (!Directory.Exists(frameworkFolder))
-            {
-                return null;
-            }
+            var frameworkFolderGlob = Path.Combine(folder, "FrameworksIndex/*.xml");
             Dictionary<string, List<string>> frameworks = new Dictionary<string, List<string>>();
-            foreach (var fxFile in Directory.EnumerateFiles(frameworkFolder, "*.xml"))
+            foreach (var fxFile in ListFiles(frameworkFolderGlob))
             {
-                XDocument fxDoc = XDocument.Load(Resolve(fxFile));
+                XDocument fxDoc = XDocument.Load(fxFile.AbsolutePath);
                 var fxName = fxDoc.Root.Attribute("Name").Value;
                 foreach (var nsElement in fxDoc.Root.Elements("Namespace"))
                 {
@@ -129,12 +126,12 @@ namespace ECMA2Yaml
 
         private Dictionary<string, string> LoadMonikerPackageMapping(string folder)
         {
-            var file = Resolve(Path.Combine(folder, "_moniker2nuget.json"));
-            if (File.Exists(file))
+            var file = Path.Combine(folder, "_moniker2nuget.json");
+            if (_fileAccessor.Exists(file))
             {
                 try
                 {
-                    return JsonConvert.DeserializeObject<Dictionary<string, string>>(File.ReadAllText(file));
+                    return JsonConvert.DeserializeObject<Dictionary<string, string>>(_fileAccessor.ReadAllText(file));
                 }
                 catch(Exception ex)
                 {
@@ -147,12 +144,12 @@ namespace ECMA2Yaml
 
         private Dictionary<string, List<string>> LoadMonikerAssemblyMapping(string folder)
         {
-            var file = Resolve(Path.Combine(folder, "_moniker2Assembly.json"));
-            if (File.Exists(file))
+            var file = Path.Combine(folder, "_moniker2Assembly.json");
+            if (_fileAccessor.Exists(file))
             {
                 try
                 {
-                    return JsonConvert.DeserializeObject<Dictionary<string, List<string>>>(File.ReadAllText(file));
+                    return JsonConvert.DeserializeObject<Dictionary<string, List<string>>>(_fileAccessor.ReadAllText(file));
                 }
                 catch (Exception ex)
                 {
@@ -165,14 +162,14 @@ namespace ECMA2Yaml
 
         private List<ExtensionMethod> LoadExtensionMethods(string path)
         {
-            var indexFile = Resolve(Path.Combine(path, "index.xml"));
-            if (!File.Exists(indexFile))
+            var indexFile = Path.Combine(path, "index.xml");
+            if (!_fileAccessor.Exists(indexFile))
             {
                 return null;
             }
 
             var extensionMethods = new List<ExtensionMethod>();
-            XDocument idxDoc = XDocument.Load(indexFile);
+            XDocument idxDoc = XDocument.Parse(_fileAccessor.ReadAllText(indexFile));
             var emElements = idxDoc?.Root?.Element("ExtensionMethods")?.Elements("ExtensionMethod");
             if (emElements != null)
             {
@@ -190,24 +187,6 @@ namespace ECMA2Yaml
             return extensionMethods;
         }
 
-        private Dictionary<string, string> GenerateFallbackFileMapping(string sourceFolder, string fallbackFolder)
-        {
-            Dictionary<string, string> mapping = new Dictionary<string, string>();
-            foreach(var file in Directory.EnumerateFiles(fallbackFolder, "*.*", SearchOption.AllDirectories))
-            {
-                var sourceFile = file.Replace(fallbackFolder, sourceFolder);
-                if (File.Exists(sourceFile))
-                {
-                    mapping.Add(file, sourceFile);
-                }
-                else
-                {
-                    mapping.Add(file, file);
-                }
-            }
-            return mapping;
-        }
-
         private string Resolve(string path)
         {
             if (FallbackMapping != null && FallbackMapping.ContainsKey(path))
@@ -218,6 +197,11 @@ namespace ECMA2Yaml
             {
                 return path;
             }
+        }
+
+        private IEnumerable<FileItem> ListFiles(string glob)
+        {
+            return _fileAccessor.ListFiles(new string[] { glob });
         }
     }
 }

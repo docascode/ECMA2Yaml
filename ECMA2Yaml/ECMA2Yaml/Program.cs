@@ -1,11 +1,11 @@
-﻿using ECMA2Yaml.Models;
-using Microsoft.DocAsCode.Common;
+﻿using Microsoft.DocAsCode.Common;
 using Microsoft.DocAsCode.DataContracts.ManagedReference;
+using Microsoft.OpenPublishing.FileAbstractLayer;
 using System;
-using System.Linq;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace ECMA2Yaml
@@ -40,9 +40,12 @@ namespace ECMA2Yaml
 
         static void LoadAndConvert(CommandLineOptions opt)
         {
-            ECMALoader loader = new ECMALoader();
+            var rootPath = Path.GetFullPath(opt.RepoRootPath ?? opt.SourceFolder);
+            var xmlFolder = Path.GetFullPath(opt.SourceFolder).Replace(rootPath, "").Trim(Path.PathSeparator);
+            var fileAccessor = new FileAccessor(opt.RepoRootPath);
+            ECMALoader loader = new ECMALoader(fileAccessor);
             WriteLine("Loading ECMAXML files...");
-            var store = loader.LoadFolder(opt.SourceFolder, opt.FallbackSourceFolder);
+            var store = loader.LoadFolder(xmlFolder);
             if (store == null)
             {
                 return;
@@ -51,10 +54,6 @@ namespace ECMA2Yaml
 
             WriteLine("Building loaded files...");
             store.Build();
-            if (!string.IsNullOrEmpty(opt.FallbackRepoRootPath) && !string.IsNullOrEmpty(opt.FallbackGitBaseUrl))
-            {
-                store.TranslateSourceLocation(opt.FallbackRepoRootPath, opt.FallbackGitBaseUrl);
-            }
             if (!string.IsNullOrEmpty(opt.RepoRootPath) && !string.IsNullOrEmpty(opt.GitBaseUrl))
             {
                 store.TranslateSourceLocation(opt.RepoRootPath, opt.GitBaseUrl);
