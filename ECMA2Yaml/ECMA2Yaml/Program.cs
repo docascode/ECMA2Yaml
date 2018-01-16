@@ -42,7 +42,7 @@ namespace ECMA2Yaml
         {
             var rootPath = Path.GetFullPath(opt.RepoRootPath ?? opt.SourceFolder);
             var xmlFolder = Path.GetFullPath(opt.SourceFolder).Replace(rootPath, "").Trim(Path.DirectorySeparatorChar);
-            var fileAccessor = new FileAccessor(opt.RepoRootPath);
+            var fileAccessor = new FileAccessor(rootPath);
             ECMALoader loader = new ECMALoader(fileAccessor);
             WriteLine("Loading ECMAXML files...");
             var store = loader.LoadFolder(xmlFolder);
