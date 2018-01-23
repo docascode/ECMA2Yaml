@@ -98,9 +98,9 @@ namespace ECMA2Yaml
 
         private Dictionary<string, List<string>> LoadFrameworks(string folder)
         {
-            var frameworkFolderGlob = Path.Combine(folder, "FrameworksIndex/*.xml");
+            var frameworkFolder = Path.Combine(folder, "FrameworksIndex");
             Dictionary<string, List<string>> frameworks = new Dictionary<string, List<string>>();
-            foreach (var fxFile in ListFiles(frameworkFolderGlob))
+            foreach (var fxFile in ListFiles(frameworkFolder, Path.Combine(frameworkFolder, "*.xml")))
             {
                 XDocument fxDoc = XDocument.Load(fxFile.AbsolutePath);
                 var fxName = fxDoc.Root.Attribute("Name").Value;
@@ -187,9 +187,9 @@ namespace ECMA2Yaml
             return extensionMethods;
         }
 
-        private IEnumerable<FileItem> ListFiles(string glob)
+        private IEnumerable<FileItem> ListFiles(string subFolder, string glob)
         {
-            return _fileAccessor.ListFiles(new string[] { glob });
+            return _fileAccessor.ListFiles(new string[] { glob }, subFolder: subFolder);
         }
     }
 }
