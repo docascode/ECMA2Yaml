@@ -56,27 +56,7 @@ namespace ECMA2Yaml.Models
             BuildIds(_nsList, _tList);
 
             TypesByUid = _tList.ToDictionary(t => t.Uid);
-            var allMembers = _tList.Where(t => t.Members != null).SelectMany(t => t.Members).ToList();
-            var groups = allMembers.GroupBy(m => m.Uid).Where(g => g.Count() > 1).ToList();
-            if (groups.Count > 0)
-            {
-                foreach (var group in groups)
-                {
-                    foreach (var member in group)
-                    {
-                        OPSLogger.LogUserWarning(string.Format("Member {0}'s name and signature is not unique", member.Name), member.SourceFileLocalPath);
-                    }
-                }
-            }
-            MembersByUid = new Dictionary<string, Member>();
-            foreach (var member in allMembers)
-            {
-                if (TypesByUid.Keys.Any(k => k.Equals(member.Uid, StringComparison.OrdinalIgnoreCase)))
-                {
-                    member.Id = member.Id + "_" + member.ItemType.ToString().Substring(0, 1).ToLower();
-                }
-                MembersByUid[member.Uid] = member;
-            }
+            BuildUniqueMembers();
 
             foreach (var t in _tList)
             {
@@ -94,6 +74,33 @@ namespace ECMA2Yaml.Models
             BuildOtherMetadata();
 
             FindMissingAssemblyNames();
+        }
+
+        public void BuildUniqueMembers()
+        {
+            var allMembers = _tList.Where(t => t.Members != null).SelectMany(t => t.Members).ToList();
+            var groups = allMembers.GroupBy(m => m.Uid).Where(g => g.Count() > 1).ToList();
+            if (groups.Count > 0)
+            {
+                foreach (var group in groups)
+                {
+                    foreach (var member in group)
+                    {
+                        OPSLogger.LogUserWarning(string.Format("Member {0}'s name and signature is not unique", member.Name), member.SourceFileLocalPath);
+                    }
+                }
+            }
+
+            MembersByUid = new Dictionary<string, Member>();
+            var typesToLower = TypesByUid.ToDictionary(p => p.Key.ToLower(), p => p.Value);
+            foreach (var member in allMembers)
+            {
+                if (typesToLower.ContainsKey(member.Uid.ToLower()))
+                {
+                    member.Id = member.Id + "_" + member.ItemType.ToString().Substring(0, 1).ToLower();
+                }
+                MembersByUid[member.Uid] = member;
+            }
         }
 
         public void TranslateSourceLocation(string sourcePathRoot, string gitBaseUrl)
