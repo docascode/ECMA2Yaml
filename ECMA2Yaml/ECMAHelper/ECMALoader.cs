@@ -271,10 +271,17 @@ namespace ECMA2Yaml
                 t.Overloads = membersElement.Elements("MemberGroup")?.Select(m => LoadMemberGroup(t, m)).ToList();
                 if (t.Overloads != null)
                 {
-                    foreach (var m in t.Overloads)
+                    var distinctList = new List<Member>();
+                    foreach(var og in t.Overloads.GroupBy(o => o.Name))
                     {
-                        m.SourceFileLocalPath = typeFile;
+                        if (og.Count() > 1)
+                        {
+                            OPSLogger.LogUserWarning("Found duplicated <MemberGroup> " + og.Key, typeFile);
+                        }
+                        og.First().SourceFileLocalPath = typeFile;
+                        distinctList.Add(og.First());
                     }
+                    t.Overloads = distinctList;
                 }
             }
 
