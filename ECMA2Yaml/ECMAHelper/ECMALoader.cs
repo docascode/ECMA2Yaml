@@ -280,7 +280,7 @@ namespace ECMA2Yaml
                     {
                         if (og.Count() > 1)
                         {
-                            OPSLogger.LogUserWarning("Found duplicated <MemberGroup> " + og.Key, typeFile);
+                            OPSLogger.LogUserWarning("Found duplicated <MemberGroup> " + og.Key, typeFile.AbsolutePath);
                         }
                         og.First().SourceFileLocalPath = typeFile.AbsolutePath;
                         distinctList.Add(og.First());
