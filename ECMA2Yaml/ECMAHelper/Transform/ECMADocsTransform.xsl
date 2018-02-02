@@ -204,6 +204,10 @@
     </xsl:choose>
   </xsl:template>
 
+  <xsl:template match="example[parent::remarks]">
+    <xsl:apply-templates />
+  </xsl:template>
+  
   <xsl:template match="description">
     <xsl:apply-templates />
   </xsl:template>
