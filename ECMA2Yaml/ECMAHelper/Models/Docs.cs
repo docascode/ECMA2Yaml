@@ -17,6 +17,7 @@ namespace ECMA2Yaml.Models
         public List<string> AltMemberCommentIds { get; set; }
         public List<TypedContent> Exceptions { get; set; }
         public List<TypedContent> Permissions { get; set; }
+        public List<RelatedTag> Related { get; set; }
         public Dictionary<string, string> Parameters { get; set; }
         public Dictionary<string, string> TypeParameters { get; set; }
         public Dictionary<string, string> AdditionalNotes { get; set; }

@@ -191,5 +191,53 @@ namespace ECMA2Yaml
         {
             return _fileAccessor.ListFiles(new string[] { glob }, subFolder: subFolder);
         }
+
+        private AssemblyInfo ParseAssemblyInfo(XElement ele)
+        {
+            var assembly = new AssemblyInfo();
+            assembly.Name = ele.Element("AssemblyName")?.Value;
+            assembly.Versions = ele.Elements("AssemblyVersion").Select(v => v.Value).ToList();
+            return assembly;
+        }
+
+        private SortedList<string, List<string>> ParseModifiersFromSignatures(Dictionary<string, string> sigs)
+        {
+            if (sigs == null)
+            {
+                return null;
+            }
+
+            var modifiers = new SortedList<string, List<string>>();
+            if (sigs.ContainsKey("C#"))
+            {
+                var mods = new List<string>();
+                var startWithModifiers = new string[] { "public", "protected", "private" };
+                mods.AddRange(startWithModifiers.Where(m => sigs["C#"].StartsWith(m)));
+                var containsModifiers = new string[] { "static", "const", "readonly", "sealed", "get;", "set;" };
+                mods.AddRange(containsModifiers.Where(m => sigs["C#"].Contains(" " + m + " ")).Select(m => m.Trim(';')));
+
+                if (mods.Any())
+                {
+                    modifiers.Add("csharp", mods);
+                }
+            }
+            return modifiers;
+        }
+
+        private Dictionary<string, object> LoadMetadata(XElement metadataElement)
+        {
+            if (null != metadataElement)
+                return metadataElement.Elements("Meta")?.ToDictionary(x => x.Attribute("Name").Value, x => (object)x.Attribute("Value").Value);
+            return new Dictionary<string, object>();
+        }
+
+        private ECMAAttribute LoadAttribute(XElement attrElement)
+        {
+            return new ECMAAttribute()
+            {
+                Declaration = attrElement.Element("AttributeName").Value,
+                Visible = true
+            };
+        }
     }
 }

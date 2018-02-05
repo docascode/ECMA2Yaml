@@ -48,6 +48,11 @@
             <xsl:value-of select="@language" />
           </xsl:attribute>
         </xsl:if>
+        <xsl:if test="normalize-space(@lang)">
+          <xsl:attribute name="class">
+            <xsl:value-of select="@lang" />
+          </xsl:attribute>
+        </xsl:if>
         <xsl:apply-templates />
       </code>
     </pre>
@@ -205,7 +210,9 @@
   </xsl:template>
 
   <xsl:template match="example[parent::remarks]">
-    <xsl:apply-templates />
+    <div>
+       <xsl:apply-templates />
+    </div>
   </xsl:template>
   
   <xsl:template match="description">

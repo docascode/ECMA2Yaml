@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ECMA2Yaml
 {
-    public static class EcmaDescExtensions
+    public static class IdExtensions
     {
         public static string ToDisplayName(this string typeStr)
         {
@@ -137,33 +137,6 @@ namespace ECMA2Yaml
                 default:
                     return store.MembersByUid.ContainsKey(parts[1]) ? store.MembersByUid[parts[1]] : null;
             }
-        }
-
-        public static void AddWithKey(this Dictionary<string, List<string>> dict, string key, string val)
-        {
-            if (!dict.ContainsKey(key))
-            {
-                dict[key] = new List<string>();
-            }
-            dict[key].Add(val);
-        }
-
-        public static List<string> GetOrDefault(this Dictionary<string, List<string>> dict, string key)
-        {
-            if (dict.ContainsKey(key))
-            {
-                return dict[key];
-            }
-            return null;
-        }
-
-        public static IEnumerable<T> NullIfEmpty<T>(this IEnumerable<T> list)
-        {
-            if (list == null || !list.Any())
-            {
-                return null;
-            }
-            return list;
         }
     }
 

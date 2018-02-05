@@ -182,7 +182,7 @@ namespace ECMA2Yaml
                 ExtensionMethods = t.ExtensionMethods,
                 Attributes = t.Attributes.GetAttributeInfo(store),
                 Modifiers = t.Modifiers,
-                SeeAlsos = t.Docs.AltMemberCommentIds?.Select(a => a.ResolveCommentId(store)?.ToLinkInfo()).Where(r => r != null).NullIfEmpty()?.ToList()
+                SeeAlsos = t.Docs.BuildSeeAlsoList(store)
             };
             item.Metadata.MergeMetadata(t.Metadata);
             item.Metadata.AddPermissions(t.Docs);
@@ -267,7 +267,7 @@ namespace ECMA2Yaml
                 Exceptions = m.Docs.Exceptions?.Select(ex => new ExceptionInfo() { CommentId = ex.CommentId, Description = ex.Description, Type = ex.Uid }).ToList(),
                 Attributes = m.Attributes.GetAttributeInfo(store),
                 Modifiers = m.Modifiers,
-                SeeAlsos = m.Docs.AltMemberCommentIds?.Select(a => a.ResolveCommentId(store)?.ToLinkInfo()).Where(r => r != null).NullIfEmpty()?.ToList()
+                SeeAlsos = m.Docs.BuildSeeAlsoList(store)
             };
             var implements = m.Implements?.Select(commentId => commentId.ResolveCommentId(store)?.Uid)?.Where(uid => uid != null)?.ToList();
             if (implements?.Count > 0)
@@ -600,6 +600,13 @@ namespace ECMA2Yaml
             }).ToList();
         }
 
+        public static List<LinkInfo> BuildSeeAlsoList(this Docs docs, ECMAStore store)
+        {
+            var altMembers = docs.AltMemberCommentIds?.Select(a => a.ResolveCommentId(store)?.ToLinkInfo()).Where(r => r != null).NullIfEmpty()?.ToList();
+            var related = docs.Related?.Select(r => r.ToLinkInfo())?.ToList();
+            return altMembers.Merge(related);
+        }
+
         public static LinkInfo ToLinkInfo(this ReflectionItem item)
         {
             if (item == null)
@@ -621,6 +628,20 @@ namespace ECMA2Yaml
                 LinkId = item.Uid,
                 CommentId = item.CommentId,
                 AltText = name
+            };
+        }
+
+        public static LinkInfo ToLinkInfo(this RelatedTag tag)
+        {
+            if (tag == null)
+            {
+                return null;
+            }
+            return new LinkInfo()
+            {
+                LinkType = LinkType.HRef, 
+                LinkId = tag.Uri,
+                AltText = tag.Text
             };
         }
     }

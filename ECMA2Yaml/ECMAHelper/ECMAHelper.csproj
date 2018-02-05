@@ -60,10 +60,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EcmaDescExtensions.cs" />
+    <Compile Include="Extensions\IdExtensions.cs" />
+    <Compile Include="ECMALoader.docs.cs" />
     <Compile Include="ECMALoader.misc.cs" />
     <Compile Include="ECMALoader.cs" />
+    <Compile Include="Extensions\LINQExtensions.cs" />
     <Compile Include="Logging\OPSLogger.cs" />
+    <Compile Include="Models\RelatedTag.cs" />
     <Compile Include="Models\ThreadSafety.cs" />
     <Compile Include="Models\AdditionalNotes.cs" />
     <Compile Include="Models\AssemblyInfo.cs" />
