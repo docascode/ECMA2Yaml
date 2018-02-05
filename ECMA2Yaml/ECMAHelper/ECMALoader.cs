@@ -41,7 +41,7 @@ namespace ECMA2Yaml
 
             ConcurrentBag<Namespace> namespaces = new ConcurrentBag<Namespace>();
             ParallelOptions opt = new ParallelOptions() { MaxDegreeOfParallelism = Environment.ProcessorCount };
-            //foreach(var nsFile in Directory.EnumerateFiles(sourcePath, "ns-*.xml"))
+            //foreach(var nsFile in ListFiles(sourcePath, Path.Combine(sourcePath, "ns-*.xml")))
             Parallel.ForEach(ListFiles(sourcePath, Path.Combine(sourcePath, "ns-*.xml")), opt, nsFile =>
             {
                 var ns = LoadNamespace(sourcePath, nsFile);
@@ -191,11 +191,6 @@ namespace ECMA2Yaml
             t.Name = tRoot.Attribute("Name").Value.Replace('+', '.');
             t.FullName = tRoot.Attribute("FullName").Value.Replace('+', '.');
             t.SourceFileLocalPath = typeFile.AbsolutePath;
-
-            if (t.Name == "CatException<T>")
-            {
-                Console.WriteLine();
-            }
 
             //TypeSignature
             t.Signatures = new Dictionary<string, string>();

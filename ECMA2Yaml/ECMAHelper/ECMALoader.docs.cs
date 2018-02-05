@@ -1,8 +1,10 @@
 ﻿using ECMA2Yaml.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Xml;
 using System.Xml.Linq;
 
 namespace ECMA2Yaml
@@ -188,27 +190,34 @@ namespace ECMA2Yaml
             return reader.ReadInnerXml();
         }
 
-        //private static Regex xrefFix = new Regex("<xref:[\\w\\.\\d\\?=]+%[\\w\\.\\d\\?=%]+>", RegexOptions.Compiled);
-        private static Regex tagDetect = new Regex("<[^>]*>", RegexOptions.Compiled);
         private static string NormalizeDocsElement(XElement ele, bool wrap = false)
         {
-            if (ele?.Element("format") != null)
+            if (ele == null)
+            {
+                return null;
+            }
+            else if (ele.Element("format") != null) // markdown
             {
                 return ele.Element("format").Value;
             }
-            else
+            else if (ele.HasElements) // comment xml
             {
-                var innerXml = GetInnerXml(ele);
-                if (string.IsNullOrEmpty(innerXml) || innerXml.Trim() == "To be added.")
+                ele = NormalizeXMLIndent(ele);
+                return GetInnerXml(ele).Trim();
+            }
+            else // plain text content
+            {
+                var val = ele.Value;
+                if (string.IsNullOrEmpty(val) || val.Trim() == "To be added.")
                 {
                     return null;
                 }
-                innerXml = NormalizeIndent(innerXml, out bool formatDetected);
-                if (wrap && formatDetected && !tagDetect.IsMatch(innerXml))
+                val = NormalizeTextIndent(val, out bool formatDetected);
+                if (wrap && formatDetected)
                 {
-                    innerXml = string.Format("<pre>{0}</pre>", innerXml);
+                    val = string.Format("<pre>{0}</pre>", val);
                 }
-                return NormalizeDocsElement(innerXml);
+                return val;
             }
         }
 
@@ -223,7 +232,7 @@ namespace ECMA2Yaml
             return trimmed == "To be added." ? null : trimmed;
         }
 
-        private static string NormalizeIndent(string str, out bool formatDetected)
+        private static string NormalizeTextIndent(string str, out bool formatDetected)
         {
             int minIndent = int.MaxValue;
             var lines = str.TrimStart('\r', '\n').TrimEnd().Split('\r', '\n');
@@ -243,6 +252,25 @@ namespace ECMA2Yaml
             }
             formatDetected = true;
             return string.Join("\n", lines.Select(l => l.Length >= minIndent ? l.Substring(minIndent) : l));
+        }
+
+        private static XElement NormalizeXMLIndent(XElement element)
+        {
+            XmlWriterSettings settings = new XmlWriterSettings()
+            {
+                Indent = true,
+                IndentChars = "",
+                OmitXmlDeclaration = false
+            };
+            element = XElement.Parse(element.ToString(SaveOptions.DisableFormatting));
+            using (var sw = new StringWriter())
+            {
+                using (var writer = XmlWriter.Create(sw, settings))
+                {
+                    element.Save(writer);
+                }
+                return XElement.Parse(sw.ToString(), LoadOptions.PreserveWhitespace);
+            }
         }
     }
 }
