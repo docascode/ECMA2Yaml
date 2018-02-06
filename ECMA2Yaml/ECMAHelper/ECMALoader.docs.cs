@@ -207,7 +207,7 @@ namespace ECMA2Yaml
             }
             else // plain text content
             {
-                var val = ele.Value;
+                var val = GetInnerXml(ele);
                 if (string.IsNullOrEmpty(val) || val.Trim() == "To be added.")
                 {
                     return null;
