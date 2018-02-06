@@ -31,8 +31,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.OpenPublishing.FileAbstractLayer, Version=1.45.970.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.OpenPublishing.FileAbstractLayer.1.45.0-alpha-970-g251dd04\lib\net461\Microsoft.OpenPublishing.FileAbstractLayer.dll</HintPath>
+    <Reference Include="Microsoft.OpenPublishing.FileAbstractLayer, Version=1.45.204.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.OpenPublishing.FileAbstractLayer.1.45.0\lib\net461\Microsoft.OpenPublishing.FileAbstractLayer.dll</HintPath>
     </Reference>
     <Reference Include="Minimatch, Version=1.1.0.0, Culture=neutral, PublicKeyToken=0cadeb0b849c27c0, processorArchitecture=MSIL">
       <HintPath>..\packages\Minimatch.1.1.0.0\lib\portable-net40+sl50+win+wp80\Minimatch.dll</HintPath>
