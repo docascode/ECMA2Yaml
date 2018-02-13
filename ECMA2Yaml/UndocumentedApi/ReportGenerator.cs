@@ -1,7 +1,9 @@
 ﻿using ECMA2Yaml.Models;
 using ECMA2Yaml.UndocumentedApi.Models;
+using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,7 +12,7 @@ namespace ECMA2Yaml.UndocumentedApi
 {
     public class ReportGenerator
     {
-        public static void GenerateReport(ECMAStore store)
+        public static void GenerateReport(string repo, string branch, ECMAStore store, string reportFilePath)
         {
             List<ReportItem> items = new List<ReportItem>();
             items.AddRange(store.Namespaces.Values.Where(ns => ns.Uid != null).Select(ns => ValidateItem(ns)));
@@ -18,7 +20,74 @@ namespace ECMA2Yaml.UndocumentedApi
             items.AddRange(store.MembersByUid.Values.Select(m => ValidateItem(m)));
             items.Sort(new ReportItemComparer());
 
+            var report = new Report()
+            {
+                Repository = repo,
+                Branch = branch,
+                ReportItems = items
+            };
 
+            SaveToExcel(report, reportFilePath);
+        }
+
+        private static void SaveToExcel(Report report, string reportFilePath)
+        {
+            var folder = Path.GetDirectoryName(reportFilePath);
+            if (!Directory.Exists(folder))
+            {
+                Directory.CreateDirectory(folder);
+            }
+            using (var p = new ExcelPackage())
+            {
+                GenerateSummarySheet(report, p);
+                GenerateDetailsSheet(report, p);
+                p.SaveAs(new FileInfo(reportFilePath));
+            }
+        }
+
+        private static void GenerateSummarySheet(Report report, ExcelPackage pack)
+        {
+            var ws = pack.Workbook.Worksheets.Add("Summary");
+            ws.Cells["A1"].Value = "Repository:";
+            ws.Cells["B1"].Value = report.Repository;
+            ws.Cells["A1"].AutoFitColumns();
+            ws.Cells["A2"].Value = "Branch:";
+            ws.Cells["B2"].Value = report.Branch;
+        }
+
+        private static void GenerateDetailsSheet(Report report, ExcelPackage pack)
+        {
+            var ws = pack.Workbook.Worksheets.Add("Details");
+            ws.Cells[1, 1].Value = "Type";
+            ws.Cells[1, 2].Value = "Namespace";
+            ws.Cells[1, 3].Value = "Class";
+            ws.Cells[1, 4].Value = "Name";
+            ws.Cells[1, 5].Value = "Summary ";
+            ws.Cells[1, 5].AutoFitColumns();
+            ws.Cells[1, 6].Value = "Parameters";
+            ws.Cells[1, 6].AutoFitColumns();
+            ws.Cells[1, 7].Value = "TypeParameters";
+            ws.Cells[1, 7].AutoFitColumns();
+            ws.Cells[1, 8].Value = "ReturnValue";
+            ws.Cells[1, 8].AutoFitColumns();
+            ws.Cells[1, 9].Value = "SourceFilePath";
+            ws.Cells[1, 9].AutoFitColumns();
+            var row = 2;
+            foreach(var item in report.ReportItems)
+            {
+                ws.Cells[row, 1].Value = item.ItemType;
+                ws.Cells[row, 2].Value = item.Namespace;
+                ws.Cells[row, 3].Value = item.Type;
+                ws.Cells[row, 4].Value = item.Name;
+                ws.Cells[row, 5].Value = item.Results.ContainsKey(FieldType.Summary) ? item.Results[FieldType.Summary].ToString() : "";
+                ws.Cells[row, 6].Value = item.Results.ContainsKey(FieldType.Parameters) ? item.Results[FieldType.Parameters].ToString() : "";
+                ws.Cells[row, 7].Value = item.Results.ContainsKey(FieldType.TypeParameters) ? item.Results[FieldType.TypeParameters].ToString() : "";
+                ws.Cells[row, 8].Value = item.Results.ContainsKey(FieldType.ReturnValue) ? item.Results[FieldType.ReturnValue].ToString() : "";
+                ws.Cells[row, 9].Value = item.SourceFilePath;
+                row++;
+            }
+            ws.Cells[1, 1, Math.Min(50, ws.Dimension.End.Row), 4].AutoFitColumns();
+            ws.Tables.Add(ws.Cells[1, 1, ws.Dimension.End.Row, ws.Dimension.End.Column], "Details");
         }
 
         private static ReportItem ValidateItem(ReflectionItem item)
@@ -27,7 +96,7 @@ namespace ECMA2Yaml.UndocumentedApi
             {
                 Uid = item.Uid,
                 CommentId = item.CommentId,
-                Type = item.ItemType.ToString(),
+                ItemType = item.ItemType.ToString(),
                 Name = item.Name,
                 Results = Validator.ValidateItem(item),
                 SourceFilePath = item.SourceFileLocalPath
@@ -36,15 +105,15 @@ namespace ECMA2Yaml.UndocumentedApi
             {
                 case ECMA2Yaml.Models.Namespace ns:
                     report.Namespace = ns.Name;
-                    report.Class = "";
+                    report.Type = "";
                     break;
                 case ECMA2Yaml.Models.Type t:
                     report.Namespace = t.Parent?.Name;
-                    report.Class = t.Name;
+                    report.Type = t.Name;
                     break;
                 case ECMA2Yaml.Models.Member m:
                     report.Namespace = m.Parent?.Parent?.Name;
-                    report.Class = m.Parent?.Name;
+                    report.Type = m.Parent?.Name;
                     break;
             }
 

@@ -161,6 +161,10 @@
       <Project>{b5d18314-613f-492a-9564-c9bcd1a183e6}</Project>
       <Name>ECMAHelper</Name>
     </ProjectReference>
+    <ProjectReference Include="..\UndocumentedApi\UndocumentedApi.csproj">
+      <Project>{54cb6baa-6c04-417d-8663-d79855954bc8}</Project>
+      <Name>UndocumentedApi</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">

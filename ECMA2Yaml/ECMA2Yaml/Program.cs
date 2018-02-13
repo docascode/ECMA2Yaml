@@ -65,6 +65,11 @@ namespace ECMA2Yaml
             WriteLine("Loaded {0} extension methods.", store.ExtensionMethodsByMemberDocId?.Values?.Count ?? 0);
             WriteLine("Loaded {0} attribute filters.", store.FilterStore?.AttributeFilters?.Count ?? 0);
 
+            if (!string.IsNullOrEmpty(opt.UndocumentedApiReport))
+            {
+                UndocumentedApi.ReportGenerator.GenerateReport(opt.GitBaseUrl ?? "DefaultRepo", "master", store, opt.UndocumentedApiReport);
+            }
+
             WriteLine("Generating Yaml models...");
             var nsPages = TopicGenerator.GenerateNamespacePages(store);
             var typePages = TopicGenerator.GenerateTypePages(store);
