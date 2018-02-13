@@ -12,11 +12,6 @@ namespace ECMA2Yaml.Models
     {
         public string DisplayName { get; set; }
         public string FullDisplayName { get; set; }
-        public Dictionary<string, string> Signatures { get; set; }
-        public List<Parameter> TypeParameters { get; set; }
-        public List<Parameter> Parameters { get; set; }
-        public List<ECMAAttribute> Attributes { get; set; }
-        public Parameter ReturnValueType { get; set; }
         public string Overload { get; set; }
         public bool IsExtensionMethod { get; set; }
         public List<string> Implements { get; set; }

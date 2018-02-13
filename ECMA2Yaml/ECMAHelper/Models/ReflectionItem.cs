@@ -78,6 +78,11 @@ namespace ECMA2Yaml.Models
                 return cid;
             }
         }
+        public List<Parameter> TypeParameters { get; set; }
+        public List<Parameter> Parameters { get; set; }
+        public Parameter ReturnValueType { get; set; }
+        public Dictionary<string, string> Signatures { get; set; }
+        public List<ECMAAttribute> Attributes { get; set; }
         public ReflectionItem Parent { get; set; }
         public Docs Docs { get; set; }
         public string SourceFileLocalPath { get; set; }
