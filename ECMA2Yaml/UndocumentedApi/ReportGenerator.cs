@@ -14,7 +14,7 @@ namespace ECMA2Yaml.UndocumentedApi
 {
     public class ReportGenerator
     {
-        public static void GenerateReport(string repo, string branch, ECMAStore store, string reportFilePath)
+        public static void GenerateReport(ECMAStore store, string reportFilePath)
         {
             List<ReportItem> items = new List<ReportItem>();
             items.AddRange(store.Namespaces.Values.Where(ns => ns.Uid != null).Select(ns => ValidateItem(ns)));
@@ -24,8 +24,6 @@ namespace ECMA2Yaml.UndocumentedApi
 
             var report = new Report()
             {
-                Repository = repo,
-                Branch = branch,
                 ReportItems = items
             };
 
@@ -50,11 +48,11 @@ namespace ECMA2Yaml.UndocumentedApi
         private static void GenerateSummarySheet(Report report, ExcelPackage pack)
         {
             var ws = pack.Workbook.Worksheets.Add("Summary");
-            ws.Cells["A1"].Value = "Repository:";
-            ws.Cells["B1"].Value = report.Repository;
-            ws.Cells["A1"].AutoFitColumns();
-            ws.Cells["A2"].Value = "Branch:";
-            ws.Cells["B2"].Value = report.Branch;
+            //ws.Cells["A1"].Value = "Repository:";
+            //ws.Cells["B1"].Value = report.Repository;
+            //ws.Cells["A1"].AutoFitColumns();
+            //ws.Cells["A2"].Value = "Branch:";
+            //ws.Cells["B2"].Value = report.Branch;
 
             ws.Cells[4, 1].Value = "Fields";
             ws.Cells[4, 2].Value = "Total Expected";

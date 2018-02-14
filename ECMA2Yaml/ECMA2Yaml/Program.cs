@@ -67,7 +67,7 @@ namespace ECMA2Yaml
 
             if (!string.IsNullOrEmpty(opt.UndocumentedApiReport))
             {
-                UndocumentedApi.ReportGenerator.GenerateReport(opt.GitBaseUrl ?? "DefaultRepo", "master", store, opt.UndocumentedApiReport);
+                UndocumentedApi.ReportGenerator.GenerateReport(store, opt.UndocumentedApiReport);
             }
 
             WriteLine("Generating Yaml models...");

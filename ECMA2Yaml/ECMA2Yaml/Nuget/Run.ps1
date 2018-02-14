@@ -63,6 +63,11 @@ foreach($ecmaConfig in $jobs)
     $ecmaOutputYamlFolder = Join-Path $repositoryRoot $ecmaConfig.OutputYamlFolder
     $allArgs = @("-s", "$ecmaSourceXmlFolder", "-o", "$ecmaOutputYamlFolder", "-l", "$logFilePath", "-p", """$repositoryRoot=>$ecmaXmlGitUrlBase""");
     
+	$processedGitUrl = $publicGitUrl -replace "https://","" -replace "/","_"
+	$undocumentedApiReport = Join-Path $outputFolder "$processedGitUrl_$publicBranch_UndocAPIReport.xslx"
+	$allArgs += "--undocumentedApiReport"
+	$allArgs += "$undocumentedApiReport"
+
     $fallbackRepoRoot = Join-Path $repositoryRoot _repo.en-us
     $ecmaFallbackSourceXmlFolder = Join-Path $fallbackRepoRoot $ecmaConfig.SourceXmlFolder
     $fallbackRepo = $null
