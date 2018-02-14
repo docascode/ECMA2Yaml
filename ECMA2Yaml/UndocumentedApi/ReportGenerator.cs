@@ -1,8 +1,10 @@
 ﻿using ECMA2Yaml.Models;
 using ECMA2Yaml.UndocumentedApi.Models;
 using OfficeOpenXml;
+using OfficeOpenXml.Style;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -53,6 +55,49 @@ namespace ECMA2Yaml.UndocumentedApi
             ws.Cells["A1"].AutoFitColumns();
             ws.Cells["A2"].Value = "Branch:";
             ws.Cells["B2"].Value = report.Branch;
+
+            ws.Cells[4, 1].Value = "Fields";
+            ws.Cells[4, 2].Value = "Total Expected";
+            ws.Cells[4, 3].Value = ValidationResult.Present.ToString();
+            ws.Cells[4, 4].Value = ValidationResult.Missing.ToString();
+            ws.Cells[4, 5].Value = ValidationResult.UnderDoc.ToString();
+
+            var row = 5;
+            foreach(FieldType fieldType in new[] { FieldType.Summary, FieldType.Parameters, FieldType.TypeParameters, FieldType.ReturnValue})
+            {
+                ws.Cells[row, 1].Value = fieldType.ToString();
+                int total = 0;
+                int totalPresent = 0;
+                int totalMissing = 0;
+                int totalUnderDoc = 0;
+                foreach(var item in report.ReportItems)
+                {
+                    if (item.Results.ContainsKey(fieldType) && item.Results[fieldType] != ValidationResult.NA)
+                    {
+                        total++;
+                        switch(item.Results[fieldType])
+                        {
+                            case ValidationResult.Present:
+                                totalPresent++;
+                                break;
+                            case ValidationResult.Missing:
+                                totalMissing++;
+                                break;
+                            case ValidationResult.UnderDoc:
+                                totalUnderDoc++;
+                                break;
+                        }
+                    }
+                }
+                ws.Cells[row, 2].Value = total;
+                ws.Cells[row, 3].Value = totalPresent;
+                ws.Cells[row, 4].Value = totalMissing;
+                ws.Cells[row, 5].Value = totalUnderDoc;
+                var rule = ws.ConditionalFormatting.AddDatabar(ws.Cells[row, 2, row, 5], Color.SteelBlue);
+                row++;
+            }
+            ws.Cells[4, 1, ws.Dimension.End.Row, ws.Dimension.End.Column].AutoFitColumns();
+            ws.Tables.Add(ws.Cells[4, 1, ws.Dimension.End.Row, ws.Dimension.End.Column], "SummaryTable");
         }
 
         private static void GenerateDetailsSheet(Report report, ExcelPackage pack)
