@@ -116,7 +116,7 @@ namespace ECMA2Yaml.UndocumentedApi
             ws.Cells[1, 9].Value = "SourceFilePath";
             ws.Cells[1, 9].AutoFitColumns();
             var row = 2;
-            foreach(var item in report.ReportItems)
+            foreach(var item in report.ReportItems.Where(r => !r.IsOK))
             {
                 ws.Cells[row, 1].Value = item.ItemType;
                 ws.Cells[row, 2].Value = item.Namespace;

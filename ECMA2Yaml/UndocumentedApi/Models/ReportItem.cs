@@ -19,6 +19,14 @@ namespace ECMA2Yaml.UndocumentedApi.Models
         public string Name { get; set; }
 
         public Dictionary<FieldType, ValidationResult> Results { get; set; }
+
+        public bool IsOK
+        {
+            get
+            {
+                return Results == null || Results.Values.All(r => r == ValidationResult.Present || r == ValidationResult.NA);
+            }
+        }
     }
 
     public class ReportItemComparer : IComparer<ReportItem>
