@@ -143,7 +143,9 @@ namespace ECMA2Yaml.Models
                 && item.SourceFileLocalPath.StartsWith(sourcePathRoot)
                 && !item.Metadata.ContainsKey(OPSMetadata.ContentUrl))
             {
-                item.Metadata[OPSMetadata.ContentUrl] = item.SourceFileLocalPath.Replace(sourcePathRoot, gitBaseUrl).Replace("\\", "/");
+                var contentGitUrl = item.SourceFileLocalPath.Replace(sourcePathRoot, gitBaseUrl).Replace("\\", "/");
+                item.Metadata[OPSMetadata.ContentUrl] = contentGitUrl;
+                item.Metadata[OPSMetadata.OriginalContentUrl] = contentGitUrl;
                 item.Metadata[OPSMetadata.RefSkeletionUrl] = item.Metadata[OPSMetadata.ContentUrl];
             }
         }
