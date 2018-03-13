@@ -415,6 +415,7 @@ namespace ECMA2Yaml
             {
                 Uid = spec.Uid,
                 Name = spec.Name,
+                IsExternal = true,
                 NameWithType = spec.NameWithType,
                 FullName = spec.FullName
             };
