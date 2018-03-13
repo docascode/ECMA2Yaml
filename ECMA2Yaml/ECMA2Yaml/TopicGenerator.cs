@@ -452,6 +452,7 @@ namespace ECMA2Yaml
                     };
                     if (desc.GenericTypeArgumentsCount > 0 || desc.ArrayDimensions?.Count > 0 || desc.DescModifier == Monodoc.Ecma.EcmaDesc.Mod.Pointer)
                     {
+                        refModel.IsExternal = null;
                         refModel.Specs.Add("csharp", desc.ToSpecItems());
                         foreach (var spec in refModel.Specs["csharp"].Where(s => !string.IsNullOrEmpty(s.Uid)))
                         {
