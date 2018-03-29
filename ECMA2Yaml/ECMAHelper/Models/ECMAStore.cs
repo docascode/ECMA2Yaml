@@ -584,7 +584,7 @@ namespace ECMA2Yaml.Models
 
                 t.InheritanceUids.Reverse();
 
-                if (t.ItemType == ItemType.Class)
+                if (t.ItemType == ItemType.Class && ! (t.IsStatic.HasValue && t.IsStatic.Value))
                 {
                     t.InheritedMembers = new Dictionary<string, string>();
                     foreach (var btUid in t.InheritanceUids)

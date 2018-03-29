@@ -89,6 +89,17 @@ namespace ECMA2Yaml.Models
 
         public Dictionary<string, object> Metadata { get; set; }
         public SortedList<string, List<string>> Modifiers { get; set; }
+        public bool? IsStatic
+        {
+            get
+            {
+                if (Modifiers != null && Modifiers.ContainsKey("csharp"))
+                {
+                    return Modifiers["csharp"].Contains("static");
+                }
+                return null;
+            }
+        }
         public List<AssemblyInfo> AssemblyInfo { get; set; }
 
         public ReflectionItem()

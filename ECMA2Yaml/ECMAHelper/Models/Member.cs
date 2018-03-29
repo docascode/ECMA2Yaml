@@ -15,17 +15,6 @@ namespace ECMA2Yaml.Models
         public string Overload { get; set; }
         public bool IsExtensionMethod { get; set; }
         public List<string> Implements { get; set; }
-        public bool? IsStatic
-        {
-            get
-            {
-                if (Modifiers != null && Modifiers.ContainsKey("csharp"))
-                {
-                    return Modifiers["csharp"].Contains("static");
-                }
-                return null;
-            }
-        }
         public bool IsEII
         {
             get
