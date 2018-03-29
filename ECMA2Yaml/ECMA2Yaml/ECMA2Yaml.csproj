@@ -78,8 +78,8 @@
     <Reference Include="Microsoft.DocAsCode.YamlSerialization, Version=2.29.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.DocAsCode.YamlSerialization.2.29.1\lib\netstandard2.0\Microsoft.DocAsCode.YamlSerialization.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.OpenPublishing.FileAbstractLayer, Version=1.46.1015.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.OpenPublishing.FileAbstractLayer.1.46.0-alpha-1015-g589b3df\lib\net461\Microsoft.OpenPublishing.FileAbstractLayer.dll</HintPath>
+    <Reference Include="Microsoft.OpenPublishing.FileAbstractLayer, Version=1.47.211.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.OpenPublishing.FileAbstractLayer.1.47.2\lib\net461\Microsoft.OpenPublishing.FileAbstractLayer.dll</HintPath>
     </Reference>
     <Reference Include="Minimatch, Version=1.1.0.0, Culture=neutral, PublicKeyToken=0cadeb0b849c27c0, processorArchitecture=MSIL">
       <HintPath>..\packages\Minimatch.1.1.0.0\lib\portable-net40+sl50+win+wp80\Minimatch.dll</HintPath>
