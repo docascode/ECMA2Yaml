@@ -427,7 +427,8 @@ namespace ECMA2Yaml.Models
                 m.ItemType == ItemType.Method
                 || m.ItemType == ItemType.Constructor
                 || m.ItemType == ItemType.Property
-                || m.ItemType == ItemType.Operator)
+                || m.ItemType == ItemType.Operator
+                || m.ItemType == ItemType.AttachedProperty)
                 .ToList();
             if (methods?.Count() > 0)
             {
