@@ -17,6 +17,7 @@ namespace ECMA2Yaml
         public List<string> ChangeListFiles = new List<string>();
         public bool Flatten = false;
         public bool StrictMode = false;
+        public bool MapMode = false;
 
         List<string> Extras = null;
         OptionSet _options = null;
@@ -31,6 +32,7 @@ namespace ECMA2Yaml
                 { "f|flatten", "to put all ymls in output root and not keep original folder structure.", f => Flatten = f != null },
                 { "p|pathUrlMapping={=>}", "map local xml path to the Github url.", (p, u) => { RepoRootPath = p;  GitBaseUrl = u; } },
                 { "strict", "strict mode, means that any unresolved type reference will cause a warning",  s => StrictMode = s != null },
+                { "mapFolder", "folder mapping mode, maps assemblies in folder to json, used in .NET CI",  s => MapMode = s != null },
                 { "changeList=", "OPS change list file, ECMA2Yaml will translate xml path to yml path",  s => ChangeListFiles.Add(s)},
                 { "skipPublishFilePath=", "Pass a file to OPS to let it know which files should skip publish",  s => SkipPublishFilePath = s},
                 { "undocumentedApiReport=", "Save the Undocumented API validation result to Excel file",  s => UndocumentedApiReport = s},

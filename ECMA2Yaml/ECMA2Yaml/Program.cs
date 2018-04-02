@@ -1,6 +1,7 @@
 ﻿using Microsoft.DocAsCode.Common;
 using Microsoft.DocAsCode.DataContracts.ManagedReference;
 using Microsoft.OpenPublishing.FileAbstractLayer;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -24,7 +25,14 @@ namespace ECMA2Yaml
                     {
                         OPSLogger.PathTrimPrefix = opt.RepoRootPath;
                     }
-                    LoadAndConvert(opt);
+                    if (opt.MapMode)
+                    {
+                        MapFolder(opt);
+                    }
+                    else
+                    {
+                        LoadAndConvert(opt);
+                    }
                 }
             }
             catch (Exception ex)
@@ -180,6 +188,16 @@ namespace ECMA2Yaml
             }
 
             WriteLine("Done writing Yaml files.");
+        }
+
+        static void MapFolder(CommandLineOptions opt)
+        {
+            var mapping = AssemblyFolderMapper.Map(opt.SourceFolder);
+            if (mapping != null)
+            {
+                var targetFile = Path.Combine(opt.OutputFolder, "_moniker2Assembly.json");
+                File.WriteAllText(targetFile, JsonConvert.SerializeObject(mapping, Formatting.Indented));
+            }
         }
 
         static int ApplyMetadata(Dictionary<string, PageViewModel> pages, Dictionary<string, Dictionary<string, object>> metadataDict)

@@ -134,6 +134,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssemblyFolderMapper.cs" />
     <Compile Include="ChangeListUpdater.cs" />
     <Compile Include="CommandLineOptions.cs" />
     <Compile Include="Program.cs" />
