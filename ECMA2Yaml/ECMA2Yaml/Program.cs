@@ -223,7 +223,7 @@ namespace ECMA2Yaml
                                 }
                                 else
                                 {
-                                    item.Metadata.Add(mtaPair.Key, mtaPair.Value);
+                                    item.Metadata[mtaPair.Key] = mtaPair.Value;
                                 }
                             }
                             count++;
