@@ -32,16 +32,8 @@ namespace ECMA2Yaml
             }
 
             var remarks = dElement.Element("remarks");
-            string remarksText = null;
+            string remarksText = NormalizeDocsElement(remarks, true);
             string examplesText = null;
-            if (remarks?.Element("format") != null && remarks.Elements().Count() == 1)
-            {
-                remarksText = remarks.Element("format").Value;
-            }
-            else
-            {
-                remarksText = NormalizeDocsElement(remarks, true);
-            }
             if (remarksText != null)
             {
                 remarksText = remarksText.Replace("## Remarks", "").Trim();
@@ -185,7 +177,7 @@ namespace ECMA2Yaml
             {
                 return null;
             }
-            else if (ele.Element("format") != null) // markdown
+            else if (ele.Element("format") != null && ele.Elements().Count() == 1) // markdown
             {
                 return ele.Element("format").Value;
             }
