@@ -395,10 +395,16 @@ namespace ECMA2Yaml
                 m.Attributes = attrs.Elements("Attribute").Select(a => LoadAttribute(a)).ToList();
             }
 
-            m.ReturnValueType = new Parameter()
+            var returnType = new Parameter()
             {
                 Type = mElement.Element("ReturnValue")?.Element("ReturnType")?.Value
             };
+            if (returnType != null && returnType.Type.EndsWith("&"))
+            {
+                returnType.Type = returnType.Type.TrimEnd('&');
+                returnType.RefType = "ref";
+            }
+            m.ReturnValueType = returnType;
 
             var implements = mElement.Element("Implements");
             if (implements != null)
