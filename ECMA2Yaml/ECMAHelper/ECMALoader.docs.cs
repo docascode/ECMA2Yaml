@@ -18,19 +18,8 @@ namespace ECMA2Yaml
                 return null;
             }
 
-            XElement remarks = dElement.Element("remarks");
-            bool skipRemarks = remarks?.Element("format") != null;
-            if (remarks != null && skipRemarks)
-            {
-                remarks.Remove();
-            }
-
             var dElement2 = _docsTransform.Transform(dElement.ToString()).Root;
 
-            if (remarks != null && skipRemarks)
-            {
-                dElement2.Add(remarks);
-            }
             return dElement2;
         }
 
@@ -45,7 +34,7 @@ namespace ECMA2Yaml
             var remarks = dElement.Element("remarks");
             string remarksText = null;
             string examplesText = null;
-            if (remarks?.Element("format") != null)
+            if (remarks?.Element("format") != null && remarks.Elements().Count() == 1)
             {
                 remarksText = remarks.Element("format").Value;
             }
