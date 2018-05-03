@@ -386,6 +386,10 @@ namespace ECMA2Yaml
             if (pElement != null)
             {
                 m.Parameters = pElement.Elements("Parameter").Select(p => Parameter.FromXElement(p)).ToList();
+                if (m.Parameters.All(p => !string.IsNullOrEmpty(p.Index)))
+                {
+                    m.Parameters = m.Parameters.GroupBy(p => p.Index).OrderBy(g => g.Key).Select(g => g.First()).ToList();
+                }
             }
 
             //Attributes
