@@ -451,7 +451,7 @@ namespace ECMA2Yaml
                         NameWithType = desc.ToDisplayName(),
                         FullName = typeStr
                     };
-                    if (desc.GenericTypeArgumentsCount > 0 || desc.ArrayDimensions?.Count > 0 || desc.DescModifier == Monodoc.Ecma.EcmaDesc.Mod.Pointer)
+                    if (desc.GenericTypeArgumentsCount > 0 || desc.ArrayDimensions?.Count > 0 || desc.DescModifier == Monodoc.Ecma.EcmaDesc.Mod.Pointer || desc.NestedType != null)
                     {
                         refModel.IsExternal = null;
                         refModel.Specs.Add("csharp", desc.ToSpecItems());
@@ -490,15 +490,16 @@ namespace ECMA2Yaml
             }
         }
 
-        public static List<SpecViewModel> ToSpecItems(this EcmaDesc desc)
+        public static List<SpecViewModel> ToSpecItems(this EcmaDesc desc, string parentTypeUid = null)
         {
-            List<SpecViewModel> list = new List<SpecViewModel>();
+            var uid = string.IsNullOrEmpty(parentTypeUid) ? desc.ToOuterTypeUid() : (parentTypeUid + "." + desc.ToOuterTypeUid());
+            List <SpecViewModel> list = new List<SpecViewModel>();
             list.Add(new SpecViewModel()
             {
                 Name = desc.TypeName,
                 NameWithType = desc.TypeName,
                 FullName = desc.ToSpecItemFullName(),
-                Uid = desc.ToOuterTypeUid()
+                Uid = uid
             });
 
             if (desc.GenericTypeArgumentsCount > 0)
@@ -528,6 +529,17 @@ namespace ECMA2Yaml
                     NameWithType = ">",
                     FullName = ">"
                 });
+            }
+
+            if (desc.NestedType != null)
+            {
+                list.Add(new SpecViewModel()
+                {
+                    Name = ".",
+                    NameWithType = ".",
+                    FullName = "."
+                });
+                list.AddRange(desc.NestedType.ToSpecItems(uid));
             }
 
             if (desc.ArrayDimensions != null && desc.ArrayDimensions.Count > 0)

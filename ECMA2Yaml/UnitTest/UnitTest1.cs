@@ -25,5 +25,13 @@ namespace UnitTest
             Console.WriteLine(desc.ToSpecId());
             Console.WriteLine(desc.ToSpecId(new List<string>() { "TKey", "TValue" }));
         }
+
+        [TestMethod]
+        public void TestEcmaDesc3()
+        {
+            EcmaUrlParser EcmaParser = new EcmaUrlParser();
+            EcmaDesc desc = EcmaParser.Parse("T:System.Collections.Generic.HashSet<T>+Enumerator[]");
+            Assert.AreEqual("System.Collections.Generic.HashSet`1.Enumerator[]", desc.ToSpecId(new List<string>() { "T" }));
+        }
     }
 }

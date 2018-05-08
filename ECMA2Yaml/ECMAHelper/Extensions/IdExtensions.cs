@@ -63,6 +63,10 @@ namespace ECMA2Yaml
             {
                 typeStr += "*";
             }
+            if (desc.NestedType != null)
+            {
+                typeStr += ("." + desc.NestedType.ToSpecId(knownTypeParams));
+            }
             return typeStr;
         }
 
