@@ -89,9 +89,18 @@ namespace ECMA2Yaml
                         ns.Types = ns.Types.Where(t =>
                         {
                             bool expose = true;
-                            foreach (var filter in filterStore.TypeFilters.Where(tf => tf.Filter(t).HasValue))
+                            var applicableFilters = filterStore.TypeFilters.Where(tf => tf.Filter(t).HasValue).ToList();
+                            if (applicableFilters.Count == 1)
                             {
-                                expose = expose && filter.Filter(t).Value;
+                                expose = applicableFilters.First().Filter(t).Value;
+                            }
+                            else if (applicableFilters.Count > 1)
+                            {
+                                var filtersPerNS = applicableFilters.GroupBy(tf => tf.Namespace).Select(tfg => tfg.FirstOrDefault(tf => tf.Name != "*") ?? tfg.First()).ToList();
+                                foreach (var filter in filtersPerNS)
+                                {
+                                    expose = expose && filter.Filter(t).Value;
+                                }
                             }
                             return expose;
                         }).ToList();
