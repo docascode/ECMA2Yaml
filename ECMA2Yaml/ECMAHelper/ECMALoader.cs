@@ -412,10 +412,14 @@ namespace ECMA2Yaml
             {
                 Type = mElement.Element("ReturnValue")?.Element("ReturnType")?.Value
             };
-            if (returnType != null && returnType.Type != null && returnType.Type.EndsWith("&"))
+            if (returnType != null && returnType.Type != null)
             {
-                returnType.Type = returnType.Type.TrimEnd('&');
-                returnType.RefType = "ref";
+                if (returnType.Type.EndsWith("&"))
+                {
+                    returnType.Type = returnType.Type.TrimEnd('&');
+                    returnType.RefType = "ref";
+                }
+                returnType.Type = returnType.Type.Replace('+', '.');
             }
             m.ReturnValueType = returnType;
 
