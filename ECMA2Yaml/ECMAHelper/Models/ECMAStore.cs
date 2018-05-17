@@ -381,7 +381,8 @@ namespace ECMA2Yaml.Models
                     {
                         foreach (var ol in t.Overloads)
                         {
-                            var monikers = t.Members.Where(m => m.Overload == ol.Uid && !string.IsNullOrEmpty(m.DocId)).SelectMany(m => _frameworks[m.DocId]).Distinct().ToList();
+                            var monikers = t.Members.Where(m => m.Overload == ol.Uid && !string.IsNullOrEmpty(m.DocId))
+                                .SelectMany(m => _frameworks.ContainsKey(m.DocId) ? _frameworks[m.DocId] : Enumerable.Empty<string>()).Distinct().ToList();
                             if (monikers?.Count > 0)
                             {
                                 ol.Metadata[OPSMetadata.Monikers] = monikers;

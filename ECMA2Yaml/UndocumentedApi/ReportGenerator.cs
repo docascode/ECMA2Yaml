@@ -17,7 +17,7 @@ namespace ECMA2Yaml.UndocumentedApi
         public static void GenerateReport(ECMAStore store, string reportFilePath)
         {
             List<ReportItem> items = new List<ReportItem>();
-            items.AddRange(store.Namespaces.Values.Where(ns => ns.Uid != null).Select(ns => ValidateItem(ns)));
+            items.AddRange(store.Namespaces.Values.Where(ns => !string.IsNullOrEmpty(ns.Uid)).Select(ns => ValidateItem(ns)));
             items.AddRange(store.TypesByUid.Values.Select(t => ValidateItem(t)));
             items.AddRange(store.MembersByUid.Values.Select(m => ValidateItem(m)));
             items.Sort(new ReportItemComparer());
@@ -102,31 +102,35 @@ namespace ECMA2Yaml.UndocumentedApi
         {
             var ws = pack.Workbook.Worksheets.Add("Details");
             ws.Cells[1, 1].Value = "Type";
-            ws.Cells[1, 2].Value = "Namespace";
-            ws.Cells[1, 3].Value = "Class";
-            ws.Cells[1, 4].Value = "Name";
-            ws.Cells[1, 5].Value = "Summary ";
-            ws.Cells[1, 5].AutoFitColumns();
-            ws.Cells[1, 6].Value = "Parameters";
-            ws.Cells[1, 6].AutoFitColumns();
-            ws.Cells[1, 7].Value = "TypeParameters";
+            ws.Cells[1, 2].Value = "DocId";
+            ws.Cells[1, 3].Value = "Namespace";
+            ws.Cells[1, 4].Value = "Class";
+            ws.Cells[1, 5].Value = "Name";
+            ws.Cells[1, 6].Value = "Moniker";
+            ws.Cells[1, 7].Value = "Summary ";
             ws.Cells[1, 7].AutoFitColumns();
-            ws.Cells[1, 8].Value = "ReturnValue";
+            ws.Cells[1, 8].Value = "Parameters";
             ws.Cells[1, 8].AutoFitColumns();
-            ws.Cells[1, 9].Value = "SourceFilePath";
+            ws.Cells[1, 9].Value = "TypeParameters";
             ws.Cells[1, 9].AutoFitColumns();
+            ws.Cells[1, 10].Value = "ReturnValue";
+            ws.Cells[1, 10].AutoFitColumns();
+            ws.Cells[1, 11].Value = "SourceFilePath";
+            ws.Cells[1, 11].AutoFitColumns();
             var row = 2;
             foreach(var item in report.ReportItems.Where(r => !r.IsOK))
             {
                 ws.Cells[row, 1].Value = item.ItemType;
-                ws.Cells[row, 2].Value = item.Namespace;
-                ws.Cells[row, 3].Value = item.Type;
-                ws.Cells[row, 4].Value = item.Name;
-                ws.Cells[row, 5].Value = item.Results.ContainsKey(FieldType.Summary) ? item.Results[FieldType.Summary].ToString() : "";
-                ws.Cells[row, 6].Value = item.Results.ContainsKey(FieldType.Parameters) ? item.Results[FieldType.Parameters].ToString() : "";
-                ws.Cells[row, 7].Value = item.Results.ContainsKey(FieldType.TypeParameters) ? item.Results[FieldType.TypeParameters].ToString() : "";
-                ws.Cells[row, 8].Value = item.Results.ContainsKey(FieldType.ReturnValue) ? item.Results[FieldType.ReturnValue].ToString() : "";
-                ws.Cells[row, 9].Value = item.SourceFilePath;
+                ws.Cells[row, 2].Value = item.DocId;
+                ws.Cells[row, 3].Value = item.Namespace;
+                ws.Cells[row, 4].Value = item.Type;
+                ws.Cells[row, 5].Value = item.Name;
+                ws.Cells[row, 6].Value = item.Monikers != null ? string.Join(",", item.Monikers) : "";
+                ws.Cells[row, 7].Value = item.Results.ContainsKey(FieldType.Summary) ? item.Results[FieldType.Summary].ToString() : "";
+                ws.Cells[row, 8].Value = item.Results.ContainsKey(FieldType.Parameters) ? item.Results[FieldType.Parameters].ToString() : "";
+                ws.Cells[row, 9].Value = item.Results.ContainsKey(FieldType.TypeParameters) ? item.Results[FieldType.TypeParameters].ToString() : "";
+                ws.Cells[row, 10].Value = item.Results.ContainsKey(FieldType.ReturnValue) ? item.Results[FieldType.ReturnValue].ToString() : "";
+                ws.Cells[row, 11].Value = item.SourceFilePath;
                 row++;
             }
             ws.Cells[1, 1, Math.Min(50, ws.Dimension.End.Row), 4].AutoFitColumns();
@@ -138,11 +142,12 @@ namespace ECMA2Yaml.UndocumentedApi
             ReportItem report = new ReportItem()
             {
                 Uid = item.Uid,
-                CommentId = item.CommentId,
+                DocId = item.DocId,
                 ItemType = item.ItemType.ToString(),
                 Name = item.Name,
                 Results = Validator.ValidateItem(item),
-                SourceFilePath = item.SourceFileLocalPath
+                SourceFilePath = item.SourceFileLocalPath,
+                Monikers = item.Metadata.ContainsKey(OPSMetadata.Monikers) ? item.Metadata[OPSMetadata.Monikers] as IEnumerable<string> : null
             };
             switch (item)
             {
