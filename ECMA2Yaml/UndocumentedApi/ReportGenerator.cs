@@ -133,7 +133,7 @@ namespace ECMA2Yaml.UndocumentedApi
                 ws.Cells[row, 11].Value = item.SourceFilePath;
                 row++;
             }
-            ws.Cells[1, 1, Math.Min(50, ws.Dimension.End.Row), 4].AutoFitColumns();
+            ws.Cells[1, 3, Math.Min(50, ws.Dimension.End.Row), 5].AutoFitColumns();
             ws.Tables.Add(ws.Cells[1, 1, ws.Dimension.End.Row, ws.Dimension.End.Column], "Details");
         }
 
