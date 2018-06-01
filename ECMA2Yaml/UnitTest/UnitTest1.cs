@@ -33,5 +33,12 @@ namespace UnitTest
             EcmaDesc desc = EcmaParser.Parse("T:System.Collections.Generic.HashSet<T>+Enumerator[]");
             Assert.AreEqual("System.Collections.Generic.HashSet`1.Enumerator[]", desc.ToSpecId(new List<string>() { "T" }));
         }
+
+        [TestMethod]
+        public void TestEcmaDesc_Complex()
+        {
+            EcmaUrlParser EcmaParser = new EcmaUrlParser();
+            EcmaDesc desc = EcmaParser.Parse("T:System.Threading.Tasks.Task<System.Collections.Generic.IReadOnlyList<Microsoft.Bot.Builder.Scorables.Internals.FoldScorable<Item,Score>.State>>");
+        }
     }
 }

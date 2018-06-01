@@ -84,7 +84,7 @@ namespace ECMA2Yaml
             string fileName = null;
             try
             {
-                fileName = Path.Combine(folder, overload.Uid.Replace("*", "_") + ".md");
+                fileName = Path.Combine(folder, TruncateUid(overload.Uid.Replace("*", "_")) + ".md");
                 File.WriteAllText(fileName, fileContent);
             }
             catch (Exception ex)
