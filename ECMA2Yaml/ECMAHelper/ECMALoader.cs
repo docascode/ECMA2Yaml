@@ -300,7 +300,7 @@ namespace ECMA2Yaml
             t.ItemType = InferTypeOfType(t);
 
             // Metadata
-            t.Metadata = LoadMetadata(tRoot.Element("Metadata"));
+            t.ExtendedMetadata = LoadMetadata(tRoot.Element("Metadata"));
 
             return t;
         }

@@ -98,6 +98,7 @@ namespace ECMA2Yaml
             var pv = new PageViewModel();
             pv.Items = new List<ItemViewModel>();
             pv.Items.Add(t.ToItemViewModel(store));
+            pv.Metadata = t.ExtendedMetadata;
             pv.References = new List<ReferenceViewModel>();
             if (t.BaseType != null)
             {
