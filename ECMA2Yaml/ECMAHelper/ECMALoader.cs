@@ -330,7 +330,7 @@ namespace ECMA2Yaml
             }
             else
             {
-                throw new Exception("Unable to identify the type of Type " + t.Uid);
+                throw new Exception("Unable to identify the type of Type " + t.Name);
             }
         }
 
@@ -341,7 +341,7 @@ namespace ECMA2Yaml
                 return null;
             }
             BaseType bt = new BaseType();
-            bt.Name = bElement.Elements("BaseTypeName")?.LastOrDefault()?.Value;
+            bt.Name = bElement.Elements("BaseTypeName")?.FirstOrDefault()?.Value;
             var btaElements = bElement.Element("BaseTypeArguments")?.Elements("BaseTypeArgument");
             if (btaElements != null)
             {
