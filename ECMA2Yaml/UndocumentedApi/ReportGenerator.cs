@@ -115,8 +115,10 @@ namespace ECMA2Yaml.UndocumentedApi
             ws.Cells[1, 9].AutoFitColumns();
             ws.Cells[1, 10].Value = "ReturnValue";
             ws.Cells[1, 10].AutoFitColumns();
-            ws.Cells[1, 11].Value = "SourceFilePath";
+            ws.Cells[1, 11].Value = "Source File Path";
             ws.Cells[1, 11].AutoFitColumns();
+            ws.Cells[1, 12].Value = "Docs URL";
+            ws.Cells[1, 12].AutoFitColumns();
             var row = 2;
             foreach(var item in report.ReportItems.Where(r => !r.IsOK))
             {
@@ -131,6 +133,7 @@ namespace ECMA2Yaml.UndocumentedApi
                 ws.Cells[row, 9].Value = item.Results.ContainsKey(FieldType.TypeParameters) ? item.Results[FieldType.TypeParameters].ToString() : "";
                 ws.Cells[row, 10].Value = item.Results.ContainsKey(FieldType.ReturnValue) ? item.Results[FieldType.ReturnValue].ToString() : "";
                 ws.Cells[row, 11].Value = item.SourceFilePath;
+                ws.Cells[row, 12].Value = item.Url;
                 row++;
             }
             ws.Cells[1, 3, Math.Min(50, ws.Dimension.End.Row), 5].AutoFitColumns();
@@ -139,14 +142,20 @@ namespace ECMA2Yaml.UndocumentedApi
 
         private static ReportItem ValidateItem(ReflectionItem item)
         {
+            var urlPath = item.Uid.Replace('`', '-').Replace('#', '-').Replace('{', '-').Replace('}', '-').Replace('[', '-').Replace(']', '-');
+            if (urlPath.Contains('('))
+            {
+                urlPath = urlPath.Substring(0, urlPath.IndexOf('('));
+            }
             ReportItem report = new ReportItem()
             {
                 Uid = item.Uid,
+                Url = $"http://docs.microsoft.com/en-us/dotnet/api/{urlPath}",
                 DocId = item.DocId,
                 ItemType = item.ItemType.ToString(),
                 Name = item.Name,
                 Results = Validator.ValidateItem(item),
-                SourceFilePath = item.SourceFileLocalPath,
+                SourceFilePath = item.Metadata.ContainsKey(OPSMetadata.RefSkeletionUrl) ? item.Metadata[OPSMetadata.RefSkeletionUrl] as string: item.SourceFileLocalPath,
                 Monikers = item.Metadata.ContainsKey(OPSMetadata.Monikers) ? item.Metadata[OPSMetadata.Monikers] as IEnumerable<string> : null
             };
             switch (item)
