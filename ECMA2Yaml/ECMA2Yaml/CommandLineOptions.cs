@@ -14,11 +14,12 @@ namespace ECMA2Yaml
         public string SkipPublishFilePath = null;
         public string UndocumentedApiReport = null;
         public string LogFilePath = "log.json";
+        public string CurrentBranch = null;
         public List<string> ChangeListFiles = new List<string>();
         public bool Flatten = false;
         public bool StrictMode = false;
         public bool MapMode = false;
-
+        
         List<string> Extras = null;
         OptionSet _options = null;
 
@@ -36,6 +37,7 @@ namespace ECMA2Yaml
                 { "changeList=", "OPS change list file, ECMA2Yaml will translate xml path to yml path",  s => ChangeListFiles.Add(s)},
                 { "skipPublishFilePath=", "Pass a file to OPS to let it know which files should skip publish",  s => SkipPublishFilePath = s},
                 { "undocumentedApiReport=", "Save the Undocumented API validation result to Excel file",  s => UndocumentedApiReport = s},
+                { "branch=", "current branch", s => CurrentBranch = s}
             };
         }
 

@@ -90,6 +90,7 @@
     <Compile Include="Models\Type.cs" />
     <Compile Include="Transform\ECMADocsTransform.cs" />
     <Compile Include="Transform\XHtmlWriter.cs" />
+    <Compile Include="VersionedProperty.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ECMAHelper.nuspec" />

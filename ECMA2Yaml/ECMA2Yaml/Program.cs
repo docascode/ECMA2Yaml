@@ -75,7 +75,7 @@ namespace ECMA2Yaml
 
             if (!string.IsNullOrEmpty(opt.UndocumentedApiReport))
             {
-                UndocumentedApi.ReportGenerator.GenerateReport(store, opt.UndocumentedApiReport);
+                UndocumentedApi.ReportGenerator.GenerateReport(store, opt.UndocumentedApiReport.BackSlashToForwardSlash(), opt.CurrentBranch);
             }
 
             WriteLine("Generating Yaml models...");

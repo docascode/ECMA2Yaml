@@ -14,17 +14,18 @@ namespace ECMA2Yaml.UndocumentedApi
 {
     public class ReportGenerator
     {
-        public static void GenerateReport(ECMAStore store, string reportFilePath)
+        public static void GenerateReport(ECMAStore store, string reportFilePath, string branch = null)
         {
             List<ReportItem> items = new List<ReportItem>();
-            items.AddRange(store.Namespaces.Values.Where(ns => !string.IsNullOrEmpty(ns.Uid)).Select(ns => ValidateItem(ns)));
-            items.AddRange(store.TypesByUid.Values.Select(t => ValidateItem(t)));
-            items.AddRange(store.MembersByUid.Values.Select(m => ValidateItem(m)));
+            items.AddRange(store.Namespaces.Values.Where(ns => !string.IsNullOrEmpty(ns.Uid)).Select(ns => ValidateItem(ns, branch)));
+            items.AddRange(store.TypesByUid.Values.Select(t => ValidateItem(t, branch)));
+            items.AddRange(store.MembersByUid.Values.Select(m => ValidateItem(m, branch)));
             items.Sort(new ReportItemComparer());
 
             var report = new Report()
             {
-                ReportItems = items
+                ReportItems = items,
+                Branch = branch
             };
 
             SaveToExcel(report, reportFilePath);
@@ -140,17 +141,26 @@ namespace ECMA2Yaml.UndocumentedApi
             ws.Tables.Add(ws.Cells[1, 1, ws.Dimension.End.Row, ws.Dimension.End.Column], "Details");
         }
 
-        private static ReportItem ValidateItem(ReflectionItem item)
+        private static ReportItem ValidateItem(ReflectionItem item, string branch = null)
         {
             var urlPath = item.Uid.Replace('`', '-').Replace('#', '-').Replace('{', '-').Replace('}', '-').Replace('[', '-').Replace(']', '-');
             if (urlPath.Contains('('))
             {
                 urlPath = urlPath.Substring(0, urlPath.IndexOf('('));
             }
+            var url = "";
+            if (branch == null || branch == "live")
+            {
+                url = $"https://docs.microsoft.com/en-us/dotnet/api/{urlPath}";
+            }
+            else
+            {
+                url = $"https://review.docs.microsoft.com/en-us/dotnet/api/{urlPath}?branch={branch}";
+            }
             ReportItem report = new ReportItem()
             {
                 Uid = item.Uid,
-                Url = $"http://docs.microsoft.com/en-us/dotnet/api/{urlPath}",
+                Url = url,
                 DocId = item.DocId,
                 ItemType = item.ItemType.ToString(),
                 Name = item.Name,

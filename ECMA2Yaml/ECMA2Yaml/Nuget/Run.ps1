@@ -20,7 +20,7 @@ $changeListTsvFilePath = $ParameterDictionary.context.changeListTsvFilePath
 $userSpecifiedChangeListTsvFilePath = $ParameterDictionary.context.userSpecifiedChangeListTsvFilePath
 
 pushd $repositoryRoot
-$publicBranch = 'master'
+$branch = 'master'
 
 $publicGitUrl = & git config --get remote.origin.url
 if ($publicGitUrl.EndsWith(".git"))
@@ -29,10 +29,11 @@ if ($publicGitUrl.EndsWith(".git"))
 }
 & git branch | foreach {
     if ($_ -match "^\* (.*)") {
-        $publicBranch = $matches[1]
+        $branch = $matches[1]
     }
 }
 popd
+$publicBranch = $branch
 
 if (-not [string]::IsNullOrEmpty($ParameterDictionary.environment.publishConfigContent.git_repository_url_open_to_public_contributors))
 {
@@ -61,10 +62,10 @@ foreach($ecmaConfig in $jobs)
     echo "Using $ecmaXmlGitUrlBase as url base"
     $ecmaSourceXmlFolder = Join-Path $repositoryRoot $ecmaConfig.SourceXmlFolder
     $ecmaOutputYamlFolder = Join-Path $repositoryRoot $ecmaConfig.OutputYamlFolder
-    $allArgs = @("-s", "$ecmaSourceXmlFolder", "-o", "$ecmaOutputYamlFolder", "-l", "$logFilePath", "-p", """$repositoryRoot=>$ecmaXmlGitUrlBase""");
+    $allArgs = @("-s", "$ecmaSourceXmlFolder", "-o", "$ecmaOutputYamlFolder", "-l", "$logFilePath", "-p", """$repositoryRoot=>$ecmaXmlGitUrlBase""", "--branch", "$branch");
     
     $processedGitUrl = $publicGitUrl -replace "https://","" -replace "/","_"
-    $undocumentedApiReport = Join-Path $outputFolder "UndocAPIReport_${processedGitUrl}_${publicBranch}.xlsx"
+    $undocumentedApiReport = Join-Path $outputFolder "UndocAPIReport_${processedGitUrl}_${branch}.xlsx"
     $allArgs += "--undocumentedApiReport"
     $allArgs += "$undocumentedApiReport"
 
