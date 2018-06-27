@@ -33,7 +33,7 @@ namespace ECMA2Yaml.UndocumentedApi
 
         public static ValidationResult ValidateReturnValue(ReflectionItem item)
         {
-            if (item.ReturnValueType == null)
+            if (item.ReturnValueType == null || string.IsNullOrEmpty(item.ReturnValueType.Type) || item.ReturnValueType.Type == "System.Void")
             {
                 return ValidationResult.NA;
             }
