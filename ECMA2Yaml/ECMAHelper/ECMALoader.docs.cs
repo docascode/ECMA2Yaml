@@ -128,7 +128,7 @@ namespace ECMA2Yaml
                 return null;
             }
             var tags = new List<RelatedTag>();
-            foreach(var element in relatedElements)
+            foreach (var element in relatedElements)
             {
                 var href = element.Attribute("href")?.Value;
                 if (!string.IsNullOrEmpty(href))
@@ -216,16 +216,21 @@ namespace ECMA2Yaml
         private static string NormalizeTextIndent(string str, out bool formatDetected)
         {
             int minIndent = int.MaxValue;
-            var lines = str.TrimStart('\r', '\n').TrimEnd().Split('\r', '\n');
-            if (lines.Length == 1)
+            var lines = str.TrimEnd().Split('\r', '\n');
+            var startIndex = 0;
+            while (string.IsNullOrWhiteSpace(lines[startIndex]))
+            {
+                startIndex++;
+            }
+            if (startIndex == lines.Length - 1)
             {
                 formatDetected = false;
-                return lines[0].Trim();
+                return lines[startIndex].Trim();
             }
-            foreach (var line in lines)
+            for (int i = startIndex; i < lines.Length; i++)
             {
                 var indent = 0;
-                while(indent < line.Length && char.IsWhiteSpace(line[indent]))
+                while (indent < lines[i].Length && char.IsWhiteSpace(lines[i][indent]))
                 {
                     indent++;
                 }
