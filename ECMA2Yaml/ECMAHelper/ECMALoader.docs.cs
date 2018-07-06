@@ -183,8 +183,9 @@ namespace ECMA2Yaml
             }
             else if (ele.HasElements) // comment xml
             {
-                ele = NormalizeXMLIndent(ele);
-                return GetInnerXml(ele).Trim();
+                var val = GetInnerXml(ele);
+                val = NormalizeTextIndent(val, out bool formatDetected);
+                return val;
             }
             else // plain text content
             {

@@ -3,6 +3,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Monodoc.Ecma;
 using ECMA2Yaml;
 using System.Collections.Generic;
+using System.Xml;
+using System.Xml.Linq;
 
 namespace UnitTest
 {
@@ -39,6 +41,14 @@ namespace UnitTest
         {
             EcmaUrlParser EcmaParser = new EcmaUrlParser();
             EcmaDesc desc = EcmaParser.Parse("T:System.Threading.Tasks.Task<System.Collections.Generic.IReadOnlyList<Microsoft.Bot.Builder.Scorables.Internals.FoldScorable<Item,Score>.State>>");
+        }
+
+        [TestMethod]
+        public void TestXmlIndent()
+        {
+            ECMALoader loader = new ECMALoader(null);
+            XElement element = XElement.Load(@"e:\mdoc\docs.xml");
+            var docs = loader.LoadDocs(element);
         }
     }
 }
