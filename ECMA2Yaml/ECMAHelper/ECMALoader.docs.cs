@@ -197,7 +197,8 @@ namespace ECMA2Yaml
                 val = NormalizeTextIndent(val, out bool formatDetected);
                 if (wrap && formatDetected)
                 {
-                    val = string.Format("<pre>{0}</pre>", val);
+                    //val = string.Format("<pre>{0}</pre>", val);
+                    val = val.Replace("\n", "\n\n");
                 }
                 return val;
             }

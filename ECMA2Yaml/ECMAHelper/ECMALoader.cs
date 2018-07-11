@@ -397,14 +397,14 @@ namespace ECMA2Yaml
                 m.Parameters = pElement.Elements("Parameter").Select(p => Parameter.FromXElement(p)).ToList();
                 if (m.Parameters.All(p => !string.IsNullOrEmpty(p.Index)))
                 {
-                    foreach(var group in m.Parameters.GroupBy(p => p.Index))
-                    {
-                        if (group.Select(p => p.Type).Distinct().Count() > 1)
-                        {
-                            Console.WriteLine(t.FullName);
-                            Console.WriteLine(m.DocId);
-                        }
-                    }
+                    //foreach(var group in m.Parameters.GroupBy(p => p.Index))
+                    //{
+                    //    if (group.Select(p => p.Type).Distinct().Count() > 1)
+                    //    {
+                    //        Console.WriteLine(t.FullName);
+                    //        Console.WriteLine(m.DocId);
+                    //    }
+                    //}
                     m.Parameters = m.Parameters.GroupBy(p => p.Index).OrderBy(g => g.Key).Select(g => g.First()).ToList();
                 }
             }
