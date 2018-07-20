@@ -54,7 +54,15 @@ namespace ECMA2Yaml
                 {
                     using (StringReader reader = new StringReader(match.Groups[1].Value))
                     {
-                        var result = YamlUtility.Deserialize<Dictionary<string, object>>(reader);
+                        Dictionary<string, object> result = null;
+                        try
+                        {
+                            result = YamlUtility.Deserialize<Dictionary<string, object>>(reader);
+                        }
+                        catch (Exception ex)
+                        {
+                            OPSLogger.LogUserError(string.Format("Parsing yaml header failed, exception: {0}", ex.ToString()), path);
+                        }
                         if (result == null)
                         {
                             OPSLogger.LogUserError(string.Format("Parsing yaml header failed: {0}", match.Value), path);
