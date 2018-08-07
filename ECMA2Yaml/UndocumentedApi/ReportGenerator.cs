@@ -148,6 +148,10 @@ namespace ECMA2Yaml.UndocumentedApi
             {
                 urlPath = urlPath.Substring(0, urlPath.IndexOf('('));
             }
+            if (item.ItemType == ItemType.Field && item.Parent?.ItemType == ItemType.Enum)
+            {
+                urlPath = urlPath.Substring(0, urlPath.LastIndexOf('.'));
+            }
             var url = "";
             if (branch == null || branch == "live")
             {
