@@ -30,32 +30,37 @@ namespace ECMA2Yaml.Models
             {
                 DisplayName = DisplayName.Substring("op_".Length);
             }
-            if (DisplayName.Contains('.')) //EII
+            var displayNameWithoutEII = DisplayName;
+
+            if (IsEII)
             {
                 var typeStr = DisplayName.Substring(0, DisplayName.LastIndexOf('.'));
                 var memberStr = DisplayName.Substring(DisplayName.LastIndexOf('.') + 1);
                 DisplayName = typeStr.ToDisplayName() + '.' + memberStr;
             }
+
+            string paramPart = null;
             if (Parameters?.Count > 0)
             {
                 if (Name == "op_Explicit" || Name == "op_Implicit")
                 {
-                    DisplayName += string.Format("({0} to {1})", Parameters.First().Type.ToDisplayName(), ReturnValueType.Type.ToDisplayName());
+                    paramPart = string.Format("({0} to {1})", Parameters.First().Type.ToDisplayName(), ReturnValueType.Type.ToDisplayName());
                 }
                 else if (ItemType == ItemType.Property && Signatures.ContainsKey("C#") && Signatures["C#"].Contains("[")) //indexer
                 {
-                    DisplayName += string.Format("[{0}]", string.Join(", ", Parameters.Select(p => p.Type.ToDisplayName())));
+                    paramPart = string.Format("[{0}]", string.Join(", ", Parameters.Select(p => p.Type.ToDisplayName())));
                 }
                 else
                 {
-                    DisplayName += string.Format("({0})", string.Join(", ", Parameters.Select(p => p.Type.ToDisplayName())));
+                    paramPart = string.Format("({0})", string.Join(", ", Parameters.Select(p => p.Type.ToDisplayName())));
                 }
             }
             else if (ItemType == ItemType.Method || ItemType == ItemType.Constructor)
             {
-                DisplayName += "()";
+                paramPart = "()";
             }
-            FullDisplayName = ((Type)Parent).FullName + "." + DisplayName;
+            DisplayName += paramPart;
+            FullDisplayName = ((Type)Parent).FullName + "." + displayNameWithoutEII + paramPart;
         }
 
         //The ID of a generic method uses postfix ``n, n is the count of in method parameters, for example, System.Tuple.Create``1(``0)
