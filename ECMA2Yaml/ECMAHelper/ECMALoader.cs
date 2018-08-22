@@ -416,20 +416,22 @@ namespace ECMA2Yaml
                 m.Attributes = attrs.Elements("Attribute").Select(a => LoadAttribute(a)).ToList();
             }
 
-            var returnType = new Parameter()
+            var returnTypeStr = mElement.Element("ReturnValue")?.Element("ReturnType")?.Value;
+            if (returnTypeStr != null)
             {
-                Type = mElement.Element("ReturnValue")?.Element("ReturnType")?.Value
-            };
-            if (returnType != null && returnType.Type != null)
-            {
+                var returnType = new Parameter()
+                {
+                    Type = returnTypeStr,
+                    OriginalTypeString = returnTypeStr
+                };
                 if (returnType.Type.EndsWith("&"))
                 {
                     returnType.Type = returnType.Type.TrimEnd('&');
                     returnType.RefType = "ref";
                 }
                 returnType.Type = returnType.Type.Replace('+', '.');
+                m.ReturnValueType = returnType;
             }
-            m.ReturnValueType = returnType;
 
             var implements = mElement.Element("Implements");
             if (implements != null)

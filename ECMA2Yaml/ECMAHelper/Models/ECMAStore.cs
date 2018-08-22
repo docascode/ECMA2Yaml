@@ -720,6 +720,14 @@ namespace ECMA2Yaml.Models
                     typeDescriptorCache.Add(typeString, desc);
                 }
             }
+            else if (typeString != null && typeString.EndsWith("&"))
+            {
+                if (EcmaParser.TryParse("T:" + typeString.TrimEnd('&'), out desc))
+                {
+                    desc.DescModifier = EcmaDesc.Mod.Ref;
+                    typeDescriptorCache.Add(typeString, desc);
+                }
+            }
             else if (EcmaParser.TryParse("T:" + typeString, out desc))
             {
                 typeDescriptorCache.Add(typeString, desc);

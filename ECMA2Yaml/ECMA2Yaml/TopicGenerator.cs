@@ -330,7 +330,7 @@ namespace ECMA2Yaml
             string str = null;
             if (!string.IsNullOrEmpty(p.Type))
             {
-                str = store.TypesByFullName.ContainsKey(p.Type) ? store.TypesByFullName[p.Type].Uid : p.Type.ToSpecId();
+                str = store.TypesByFullName.ContainsKey(p.Type) ? store.TypesByFullName[p.Type].Uid : (p.OriginalTypeString ?? p.Type).ToSpecId();
             }
             var ap = new ApiParameter()
             {
@@ -372,7 +372,7 @@ namespace ECMA2Yaml
 
             if (m.ReturnValueType != null && !string.IsNullOrEmpty(m.ReturnValueType.Type) && m.ReturnValueType.Type != "System.Void")
             {
-                var reference = GenerateReferencesByTypeString(m.ReturnValueType.Type, store);
+                var reference = GenerateReferencesByTypeString(m.ReturnValueType.Type, store, m.ReturnValueType.OriginalTypeString);
                 if (reference != null)
                 {
                     refs.AddRange(reference);
@@ -422,7 +422,7 @@ namespace ECMA2Yaml
             };
         }
 
-        private static List<ReferenceViewModel> GenerateReferencesByTypeString(string typeStr, ECMAStore store)
+        private static List<ReferenceViewModel> GenerateReferencesByTypeString(string typeStr, ECMAStore store, string originalTypeStr = null)
         {
             if (store.TypesByFullName.ContainsKey(typeStr))
             {
@@ -440,7 +440,7 @@ namespace ECMA2Yaml
             else
             {
                 var refs = new List<ReferenceViewModel>();
-                var desc = ECMAStore.GetOrAddTypeDescriptor(typeStr);
+                var desc = ECMAStore.GetOrAddTypeDescriptor(originalTypeStr ?? typeStr);
                 if (desc != null)
                 {
                     var refModel = new ReferenceViewModel()

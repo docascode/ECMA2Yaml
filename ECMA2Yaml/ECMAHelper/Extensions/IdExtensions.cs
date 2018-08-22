@@ -27,11 +27,11 @@ namespace ECMA2Yaml
 
         public static string ToSpecId(this string typeStr, List<string> knownTypeParams = null)
         {
-            if (string.IsNullOrEmpty(typeStr) || !typeStr.Contains('<'))
+            if (!NeedParseByECMADesc(typeStr))
             {
                 return typeStr;
             }
-            return ECMAStore.GetOrAddTypeDescriptor(typeStr).ToSpecId(knownTypeParams);
+            return ECMAStore.GetOrAddTypeDescriptor(typeStr).ToSpecId(knownTypeParams) ?? typeStr;
         }
 
         public static string ToSpecId(this EcmaDesc desc, List<string> knownTypeParams = null)
@@ -72,7 +72,7 @@ namespace ECMA2Yaml
 
         public static string ToOuterTypeUid(this string typeStr)
         {
-            if (string.IsNullOrEmpty(typeStr) || !typeStr.Contains('<'))
+            if (!NeedParseByECMADesc(typeStr))
             {
                 return typeStr;
             }
@@ -141,6 +141,11 @@ namespace ECMA2Yaml
                 default:
                     return store.MembersByUid.ContainsKey(parts[1]) ? store.MembersByUid[parts[1]] : null;
             }
+        }
+
+        private static bool NeedParseByECMADesc(string typeStr)
+        {
+            return (!string.IsNullOrEmpty(typeStr) && (typeStr.Contains('<') || typeStr.Contains('+')));
         }
     }
 
