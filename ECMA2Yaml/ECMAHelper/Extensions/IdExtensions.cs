@@ -132,6 +132,11 @@ namespace ECMA2Yaml
                 return null;
             }
             var parts = commentId.Split(':');
+            if (parts?.Length != 2)
+            {
+                OPSLogger.LogUserError("Unable to parse string as comment id: " + commentId);
+                return null;
+            }
             switch (parts[0])
             {
                 case "N":
@@ -151,7 +156,6 @@ namespace ECMA2Yaml
 
     public class TypeIdComparer : IComparer<string>
     {
-
         public int Compare(string stringA, string stringB)
         {
             String[] valueA = stringA.Split('`');
