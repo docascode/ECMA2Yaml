@@ -131,6 +131,10 @@ namespace ECMA2Yaml
             {
                 return null;
             }
+            if (store.ItemsByDocId.TryGetValue(commentId, out var item))
+            {
+                return item;
+            }
             var parts = commentId.Split(':');
             if (parts?.Length != 2)
             {

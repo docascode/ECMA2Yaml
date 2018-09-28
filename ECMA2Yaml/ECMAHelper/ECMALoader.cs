@@ -380,7 +380,7 @@ namespace ECMA2Yaml
                 }
             }
             m.DocId = m.Signatures.ContainsKey("DocId") ? m.Signatures["DocId"] : null;
-            m.Modifiers = ParseModifiersFromSignatures(m.Signatures);
+            m.Modifiers = ParseModifiersFromSignatures(m.Signatures, m);
             m.AssemblyInfo = mElement.Elements("AssemblyInfo")?.Select(a => ParseAssemblyInfo(a)).ToList();
 
             //TypeParameters

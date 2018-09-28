@@ -200,7 +200,7 @@ namespace ECMA2Yaml
             return assembly;
         }
 
-        private SortedList<string, List<string>> ParseModifiersFromSignatures(Dictionary<string, string> sigs)
+        private SortedList<string, List<string>> ParseModifiersFromSignatures(Dictionary<string, string> sigs, ReflectionItem item = null)
         {
             if (sigs == null)
             {
@@ -211,10 +211,25 @@ namespace ECMA2Yaml
             if (sigs.ContainsKey("C#"))
             {
                 var mods = new List<string>();
-                var startWithModifiers = new string[] { "public", "protected", "private" };
-                mods.AddRange(startWithModifiers.Where(m => sigs["C#"].StartsWith(m)));
-                var containsModifiers = new string[] { "static", "const", "readonly", "sealed", "get;", "set;" };
-                mods.AddRange(containsModifiers.Where(m => sigs["C#"].Contains(" " + m + " ")).Select(m => m.Trim(';')));
+
+                if (item != null && item.ItemType == ItemType.AttachedProperty)
+                {
+                    if (sigs["C#"].Contains(" Get" + item.Name))
+                    {
+                        mods.Add("get;");
+                    }
+                    if (sigs["C#"].Contains(" Set" + item.Name))
+                    {
+                        mods.Add("set;");
+                    }
+                }
+                else
+                {
+                    var startWithModifiers = new string[] { "public", "protected", "private" };
+                    mods.AddRange(startWithModifiers.Where(m => sigs["C#"].StartsWith(m)));
+                    var containsModifiers = new string[] { "static", "const", "readonly", "sealed", "get;", "set;" };
+                    mods.AddRange(containsModifiers.Where(m => sigs["C#"].Contains(" " + m + " ")).Select(m => m.Trim(';')));
+                }
 
                 if (mods.Any())
                 {

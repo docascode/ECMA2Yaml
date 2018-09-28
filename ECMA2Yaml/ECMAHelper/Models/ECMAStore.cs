@@ -12,6 +12,7 @@ namespace ECMA2Yaml.Models
         public Dictionary<string, Type> TypesByFullName { get; set; }
         public Dictionary<string, Type> TypesByUid { get; set; }
         public Dictionary<string, Member> MembersByUid { get; set; }
+        public Dictionary<string, ReflectionItem> ItemsByDocId { get; set; }
         public Dictionary<string, List<string>> InheritanceParentsByUid { get; set; }
         public Dictionary<string, List<string>> InheritanceChildrenByUid { get; set; }
         public Dictionary<string, ExtensionMethod> ExtensionMethodsByMemberDocId { get; set; }
@@ -57,6 +58,10 @@ namespace ECMA2Yaml.Models
 
             TypesByUid = _tList.ToDictionary(t => t.Uid);
             BuildUniqueMembers();
+
+            ItemsByDocId = TypesByUid.Values.Cast<ReflectionItem>()
+                .Concat(MembersByUid.Values.Cast<ReflectionItem>())
+                .ToDictionary(r => r.DocId, r => r);
 
             foreach (var t in _tList)
             {
@@ -640,6 +645,10 @@ namespace ECMA2Yaml.Models
             {
                 foreach (var m in t.Members)
                 {
+                    if (m.DocId == "M:System.Text.StringBuilder.#ctor(System.Int32,System.Int32)")
+                    {
+                        Console.WriteLine();
+                    }
                     if (m.Docs?.AdditionalNotes != null && t.Docs?.AdditionalNotes != null)
                     {
                         m.Docs.AdditionalNotes = m.Docs.AdditionalNotes.Where(p => !(t.Docs.AdditionalNotes.ContainsKey(p.Key) && t.Docs.AdditionalNotes[p.Key] == p.Value))

@@ -60,7 +60,7 @@ namespace ECMA2Yaml
             }
 
             Dictionary<string, string> additionalNotes = null;
-            var blocks = dElement.Elements("block")?.Where(p => !string.IsNullOrEmpty(p.Attribute("type").Value)).ToList();
+            var blocks = dElement.Elements("block")?.Where(p => !string.IsNullOrEmpty(p.Attribute("type")?.Value)).ToList();
             if (blocks != null && blocks.Count > 0)
             {
                 additionalNotes = new Dictionary<string, string>();
