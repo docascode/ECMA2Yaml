@@ -216,11 +216,11 @@ namespace ECMA2Yaml
                 {
                     if (sigs["C#"].Contains(" Get" + item.Name))
                     {
-                        mods.Add("get;");
+                        mods.Add("get");
                     }
                     if (sigs["C#"].Contains(" Set" + item.Name))
                     {
-                        mods.Add("set;");
+                        mods.Add("set");
                     }
                 }
                 else
