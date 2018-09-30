@@ -645,10 +645,6 @@ namespace ECMA2Yaml.Models
             {
                 foreach (var m in t.Members)
                 {
-                    if (m.DocId == "M:System.Text.StringBuilder.#ctor(System.Int32,System.Int32)")
-                    {
-                        Console.WriteLine();
-                    }
                     if (m.Docs?.AdditionalNotes != null && t.Docs?.AdditionalNotes != null)
                     {
                         m.Docs.AdditionalNotes = m.Docs.AdditionalNotes.Where(p => !(t.Docs.AdditionalNotes.ContainsKey(p.Key) && t.Docs.AdditionalNotes[p.Key] == p.Value))

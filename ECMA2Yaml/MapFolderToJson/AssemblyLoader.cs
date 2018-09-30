@@ -18,10 +18,6 @@ namespace MapFolderToJson
             var monikerName = Path.GetFileName(monikerFolder);
             foreach (var dll in Directory.GetFiles(monikerFolder, "*.dll"))
             {
-                if (dll.Contains("mscorlib"))
-                {
-                    Console.WriteLine();
-                }
                 bool isFacade = false;
                 try
                 {
