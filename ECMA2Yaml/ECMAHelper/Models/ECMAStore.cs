@@ -285,7 +285,7 @@ namespace ECMA2Yaml.Models
                     }
                     else
                     {
-                        OPSLogger.LogUserWarning(string.Format("Assembly name {0} of {1} cannot be found in moniker2assembly mapping", asm, item.Uid), item.SourceFileLocalPath);
+                        OPSLogger.LogUserInfo(string.Format("Assembly name {0} of {1} cannot be found in moniker2assembly mapping", asm, item.Uid), item.SourceFileLocalPath);
                     }
                 }
                 if (dict.Any())
