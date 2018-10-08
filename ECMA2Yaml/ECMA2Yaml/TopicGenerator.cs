@@ -104,6 +104,7 @@ namespace ECMA2Yaml
             {
                 pv.References.AddRange(t.BaseType.ToReferenceViewModel(store));
             }
+            pv.References.AddRange(t.GenerateReferencesFromParameters(store));
             if (t.Members != null)
             {
                 pv.Items.AddRange(t.Members.Select(m => m.ToItemViewModel(store)));
@@ -379,16 +380,28 @@ namespace ECMA2Yaml
                 }
             }
 
-            if (m.Parameters?.Count > 0)
+            refs.AddRange(m.GenerateReferencesFromParameters(store));
+
+            return refs;
+        }
+
+        public static List<ReferenceViewModel> GenerateReferencesFromParameters(this ReflectionItem item, ECMAStore store)
+        {
+            var refs = new List<ReferenceViewModel>();
+
+            if (item.Parameters?.Count > 0)
             {
-                refs.AddRange(m.Parameters.SelectMany(p => GenerateReferencesByTypeString(p.Type, store)).Where(r => r != null));
+                refs.AddRange(item.Parameters.SelectMany(p => GenerateReferencesByTypeString(p.Type, store)).Where(r => r != null));
             }
 
-            var typeParameters = m.TypeParameters ?? new List<Parameter>();
-            var t = m.Parent as Models.Type;
-            if (t.TypeParameters != null)
+            var typeParameters = item.TypeParameters ?? new List<Parameter>();
+            if (item.Parent != null && item.Parent is Models.Type)
             {
-                typeParameters.AddRange(t.TypeParameters);
+                var t = item.Parent as Models.Type;
+                if (t?.TypeParameters != null)
+                {
+                    typeParameters.AddRange(t.TypeParameters);
+                }
             }
             refs = refs.Where(r => !typeParameters.Any(tp => tp.Name == r.Uid)).ToList();
 
