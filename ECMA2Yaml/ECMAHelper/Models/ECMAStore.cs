@@ -58,10 +58,7 @@ namespace ECMA2Yaml.Models
 
             TypesByUid = _tList.ToDictionary(t => t.Uid);
             BuildUniqueMembers();
-
-            ItemsByDocId = TypesByUid.Values.Cast<ReflectionItem>()
-                .Concat(MembersByUid.Values.Cast<ReflectionItem>())
-                .ToDictionary(r => r.DocId, r => r);
+            BuildDocIdDictionary();
 
             foreach (var t in _tList)
             {
@@ -79,6 +76,24 @@ namespace ECMA2Yaml.Models
             BuildOtherMetadata();
 
             FindMissingAssemblyNames();
+        }
+
+        public void BuildDocIdDictionary()
+        {
+            ItemsByDocId = new Dictionary<string, ReflectionItem>();
+            foreach (var item in TypesByUid.Values.Cast<ReflectionItem>()
+                .Concat(MembersByUid.Values.Cast<ReflectionItem>()))
+            {
+                if (ItemsByDocId.ContainsKey(item.DocId))
+                {
+                    OPSLogger.LogUserError($"Duplicated DocId found: {item.DocId}.", item.SourceFileLocalPath);
+                    OPSLogger.LogUserError($"Duplicated DocId found: {item.DocId}.", ItemsByDocId[item.DocId].SourceFileLocalPath);
+                }
+                else
+                {
+                    ItemsByDocId.Add(item.DocId, item);
+                }
+            }
         }
 
         public void BuildUniqueMembers()
