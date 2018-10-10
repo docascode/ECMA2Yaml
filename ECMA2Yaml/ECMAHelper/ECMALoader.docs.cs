@@ -184,7 +184,7 @@ namespace ECMA2Yaml
             else if (ele.HasElements) // comment xml
             {
                 var val = GetInnerXml(ele);
-                val = NormalizeTextIndent(val, out bool formatDetected);
+                val = RemoveIndentFromXml(val);
                 return val;
             }
             else // plain text content
@@ -240,6 +240,12 @@ namespace ECMA2Yaml
             }
             formatDetected = true;
             return string.Join("\n", lines.Select(l => l.Length >= minIndent ? l.Substring(minIndent) : l));
+        }
+
+        private static readonly Regex XmlIndentRegex = new Regex("^\\s+<", RegexOptions.Multiline | RegexOptions.Compiled);
+        private static string RemoveIndentFromXml(string str)
+        {
+            return XmlIndentRegex.Replace(str, "<").Trim();
         }
 
         private static XElement NormalizeXMLIndent(XElement element)
