@@ -109,7 +109,7 @@ namespace ECMA2Yaml
                 Related = related,
                 Exceptions = dElement.Elements("exception")?.Select(el => GetTypedContent(el)).ToList(),
                 Permissions = dElement.Elements("permission")?.Select(el => GetTypedContent(el)).ToList(),
-                Parameters = dElement.Elements("param")?.Where(p => !string.IsNullOrEmpty(p.Attribute("name").Value)).ToDictionary(p => p.Attribute("name").Value, p => NormalizeDocsElement(GetInnerXml(p))),
+                Parameters = dElement.Elements("param")?.Where(p => !string.IsNullOrEmpty(p.Attribute("name").Value)).ToDictionary(p => p.Attribute("name").Value, p => NormalizeDocsElement(p)),
                 TypeParameters = dElement.Elements("typeparam")?.Where(p => !string.IsNullOrEmpty(p.Attribute("name").Value)).ToDictionary(p => p.Attribute("name").Value, p => NormalizeDocsElement(GetInnerXml(p))),
                 AdditionalNotes = additionalNotes,
                 Returns = NormalizeDocsElement(GetInnerXml(dElement.Element("returns"))), //<value> will be transformed to <returns> by xslt in advance
@@ -179,7 +179,7 @@ namespace ECMA2Yaml
             }
             else if (ele.Element("format") != null && ele.Elements().Count() == 1) // markdown
             {
-                return ele.Element("format").Value;
+                return NormalizeTextIndent(ele.Element("format").Value, out _);
             }
             else if (ele.HasElements) // comment xml
             {
@@ -217,6 +217,11 @@ namespace ECMA2Yaml
 
         private static string NormalizeTextIndent(string str, out bool formatDetected)
         {
+            if (string.IsNullOrWhiteSpace(str))
+            {
+                formatDetected = false;
+                return str;
+            }
             int minIndent = int.MaxValue;
             var lines = str.TrimEnd().Split('\r', '\n');
             var startIndex = 0;
@@ -239,13 +244,17 @@ namespace ECMA2Yaml
                 minIndent = Math.Min(minIndent, indent);
             }
             formatDetected = true;
-            return string.Join("\n", lines.Select(l => l.Length >= minIndent ? l.Substring(minIndent) : l));
+            return string.Join("\n", lines.Skip(startIndex).Select(l => l.Length >= minIndent ? l.Substring(minIndent) : l));
         }
 
         private static readonly Regex XmlIndentRegex = new Regex("^\\s+<", RegexOptions.Multiline | RegexOptions.Compiled);
         private static string RemoveIndentFromXml(string str)
         {
-            return XmlIndentRegex.Replace(str, "<").Trim();
+            if (str.StartsWith("<") || str.TrimStart().StartsWith("<"))
+            {
+                return XmlIndentRegex.Replace(str, "<").Trim();
+            }
+            return NormalizeTextIndent(str, out _);
         }
 
         private static XElement NormalizeXMLIndent(XElement element)
