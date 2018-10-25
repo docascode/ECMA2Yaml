@@ -5,8 +5,10 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace ECMA2Yaml
@@ -192,11 +194,37 @@ namespace ECMA2Yaml
 
         static void MapFolder(CommandLineOptions opt)
         {
-            var mapping = AssemblyFolderMapper.Map(opt.SourceFolder);
-            if (mapping != null)
+            AppDomain.CurrentDomain.ReflectionOnlyAssemblyResolve += new ResolveEventHandler(AssemblyLoader.CurrentDomain_ReflectionOnlyAssemblyResolve);
+            var settings = new AppDomainSetup
             {
-                var targetFile = Path.Combine(opt.OutputFolder, "_moniker2Assembly.json");
-                File.WriteAllText(targetFile, JsonConvert.SerializeObject(mapping, Formatting.Indented));
+                ApplicationBase = AppDomain.CurrentDomain.BaseDirectory,
+            };
+            if (Directory.Exists(opt.SourceFolder))
+            {
+                List<Tuple<string, string>> MonikerAssemblyPairs = new List<Tuple<string, string>>();
+                foreach (var monikerFolder in Directory.GetDirectories(opt.SourceFolder))
+                {
+                    var childDomain = AppDomain.CreateDomain(Guid.NewGuid().ToString(), null, settings);
+
+                    var handle = Activator.CreateInstance(childDomain,
+                               typeof(AssemblyLoader).Assembly.FullName,
+                               typeof(AssemblyLoader).FullName,
+                               false, BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance, null, null, CultureInfo.CurrentCulture, new object[0]);
+
+                    var loader = (AssemblyLoader)handle.Unwrap();
+
+                    //This operation is executed in the new AppDomain
+                    var paths = loader.LoadExceptFacade(monikerFolder);
+                    MonikerAssemblyPairs.AddRange(paths);
+
+                    AppDomain.Unload(childDomain);
+                }
+                var moniker2Assembly = MonikerAssemblyPairs.GroupBy(t => t.Item1).ToDictionary(g => g.Key, g => g.Select(t => t.Item2).ToArray());
+                if (moniker2Assembly != null)
+                {
+                    var targetFile = Path.Combine(opt.OutputFolder, "_moniker2Assembly.json");
+                    File.WriteAllText(targetFile, JsonConvert.SerializeObject(moniker2Assembly, Formatting.Indented));
+                }
             }
         }
 
