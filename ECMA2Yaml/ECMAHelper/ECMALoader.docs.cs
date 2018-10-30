@@ -206,6 +206,7 @@ namespace ECMA2Yaml
 
         private static string NormalizeDocsElement(string str)
         {
+            str = NormalizeTextIndent(str, out _);
             if (string.IsNullOrEmpty(str))
             {
                 return null;
@@ -250,11 +251,12 @@ namespace ECMA2Yaml
         private static readonly Regex XmlIndentRegex = new Regex("^\\s+<", RegexOptions.Multiline | RegexOptions.Compiled);
         private static string RemoveIndentFromXml(string str)
         {
+            var tmp = NormalizeTextIndent(str, out _);
             if (str.StartsWith("<") || str.TrimStart().StartsWith("<"))
             {
-                return XmlIndentRegex.Replace(str, "<").Trim();
+                return XmlIndentRegex.Replace(tmp, "<").Trim();
             }
-            return NormalizeTextIndent(str, out _);
+            return tmp;
         }
 
         private static XElement NormalizeXMLIndent(XElement element)
