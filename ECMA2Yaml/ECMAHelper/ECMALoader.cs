@@ -190,7 +190,7 @@ namespace ECMA2Yaml
             xmlContent = xmlContent.Replace("DefaultValue('&#x0;')</AttributeName>", "DefaultValue('\\0')</AttributeName>");
             xmlContent = xmlContent.Replace("\0", "\\0");
 
-            XDocument tDoc = XDocument.Parse(xmlContent);
+            XDocument tDoc = XDocument.Parse(xmlContent, LoadOptions.PreserveWhitespace);
             XElement tRoot = tDoc.Root;
             if (tRoot.Name.LocalName != "Type")
             {
