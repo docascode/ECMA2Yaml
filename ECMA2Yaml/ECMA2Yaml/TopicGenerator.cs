@@ -116,7 +116,10 @@ namespace ECMA2Yaml
             pv.Items.Add(t.ToItemViewModel(store));
             pv.Metadata = t.ExtendedMetadata;
             pv.References = new List<ReferenceViewModel>();
-            pv.References.Add((t.Parent as Namespace).ToReferenceViewModel());
+            if (!string.IsNullOrEmpty(t.Parent?.Uid))
+            {
+                pv.References.Add((t.Parent as Namespace).ToReferenceViewModel());
+            }
             if (t.BaseType != null)
             {
                 pv.References.AddRange(t.BaseType.ToReferenceViewModel(store));
