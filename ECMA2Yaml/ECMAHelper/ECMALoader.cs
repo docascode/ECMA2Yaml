@@ -152,6 +152,7 @@ namespace ECMA2Yaml
             ns.Types = LoadTypes(basePath, ns);
             ns.Docs = LoadDocs(nsDoc.Root.Element("Docs"));
             ns.SourceFileLocalPath = nsFile.AbsolutePath;
+            ns.ItemType = ItemType.Namespace;
             return ns;
         }
 

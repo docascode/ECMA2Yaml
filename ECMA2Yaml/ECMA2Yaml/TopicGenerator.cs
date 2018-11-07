@@ -105,10 +105,7 @@ namespace ECMA2Yaml
                 FullName = n.Name,
                 CommentId = n.CommentId
             };
-            if (n.ItemType != ItemType.Default)
-            {
-                rval.Additional["type"] = n.ItemType.ToString().ToLower();
-            }
+            rval.Additional["type"] = ItemType.Namespace.ToString().ToLower();
             return rval;
         }
 
