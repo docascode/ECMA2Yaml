@@ -84,11 +84,30 @@ namespace ECMA2Yaml
                 IsExternal = false,
                 Name = t.Name,
                 NameWithType = t.FullName,
-                FullName = t.FullName
+                FullName = t.FullName,
+                CommentId = t.CommentId
             };
             if (t.ItemType != ItemType.Default)
             {
                 rval.Additional["type"] = t.ItemType.ToString().ToLower();
+            }
+            return rval;
+        }
+
+        public static ReferenceViewModel ToReferenceViewModel(this Namespace n)
+        {
+            var rval = new ReferenceViewModel()
+            {
+                Uid = n.Uid,
+                IsExternal = false,
+                Name = n.Name,
+                NameWithType = n.Name,
+                FullName = n.Name,
+                CommentId = n.CommentId
+            };
+            if (n.ItemType != ItemType.Default)
+            {
+                rval.Additional["type"] = n.ItemType.ToString().ToLower();
             }
             return rval;
         }
@@ -100,6 +119,7 @@ namespace ECMA2Yaml
             pv.Items.Add(t.ToItemViewModel(store));
             pv.Metadata = t.ExtendedMetadata;
             pv.References = new List<ReferenceViewModel>();
+            pv.References.Add((t.Parent as Namespace).ToReferenceViewModel());
             if (t.BaseType != null)
             {
                 pv.References.AddRange(t.BaseType.ToReferenceViewModel(store));
