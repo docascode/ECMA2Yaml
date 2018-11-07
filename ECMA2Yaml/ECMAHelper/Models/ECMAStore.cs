@@ -84,7 +84,11 @@ namespace ECMA2Yaml.Models
             foreach (var item in TypesByUid.Values.Cast<ReflectionItem>()
                 .Concat(MembersByUid.Values.Cast<ReflectionItem>()))
             {
-                if (ItemsByDocId.ContainsKey(item.DocId))
+                if (string.IsNullOrEmpty(item.DocId))
+                {
+                    OPSLogger.LogUserError($"DocId is required for {item.Name}.", item.SourceFileLocalPath);
+                }
+                else if (ItemsByDocId.ContainsKey(item.DocId))
                 {
                     OPSLogger.LogUserError($"Duplicated DocId found: {item.DocId}.", item.SourceFileLocalPath);
                     OPSLogger.LogUserError($"Duplicated DocId found: {item.DocId}.", ItemsByDocId[item.DocId].SourceFileLocalPath);
