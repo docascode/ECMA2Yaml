@@ -62,20 +62,23 @@ namespace ECMA2Yaml.Models
         {
             get
             {
-                if (string.IsNullOrEmpty(Uid))
+                if (!string.IsNullOrEmpty(Uid))
                 {
-                    return null;
+
+                    if (Uid.EndsWith("*") && string.IsNullOrEmpty(DocId))
+                    {
+                        return "Overload:" + Uid.Trim('*');
+                    }
+                    if (!string.IsNullOrEmpty(DocId) && DocId.Contains(':'))
+                    {
+                        return DocId.Substring(0, DocId.IndexOf(':')) + ":" + Uid;
+                    }
+                    if (ItemType == ItemType.Namespace)
+                    {
+                        return "N:" + Uid;
+                    }
                 }
-                var cid = Uid;
-                if (cid.EndsWith("*") && string.IsNullOrEmpty(DocId))
-                {
-                    return "Overload:" + cid.Trim('*');
-                }
-                if (!string.IsNullOrEmpty(DocId) && DocId.Contains(':'))
-                {
-                    cid = DocId.Substring(0, DocId.IndexOf(':')) + ":" + cid;
-                }
-                return cid;
+                return null;
             }
         }
         public List<Parameter> TypeParameters { get; set; }
