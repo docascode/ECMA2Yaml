@@ -60,6 +60,7 @@ namespace ECMA2Yaml
             {
                 Id = ns.Id,
                 Uid = ns.Uid,
+                CommentId = ns.CommentId,
                 Name = ns.Name,
                 NameWithType = ns.Name,
                 FullName = ns.Name,
