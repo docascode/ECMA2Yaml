@@ -248,7 +248,7 @@ namespace ECMA2Yaml
             return string.Join("\n", lines.Skip(startIndex).Select(l => l.Length >= minIndent ? l.Substring(minIndent) : l));
         }
 
-        private static readonly Regex XmlIndentRegex = new Regex("^\\s+<", RegexOptions.Multiline | RegexOptions.Compiled);
+        private static readonly Regex XmlIndentRegex = new Regex("^[\\t ]+<", RegexOptions.Multiline | RegexOptions.Compiled);
         private static string RemoveIndentFromXml(string str)
         {
             var tmp = NormalizeTextIndent(str, out _);
