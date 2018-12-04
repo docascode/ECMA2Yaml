@@ -152,9 +152,11 @@
                 <th>
                   <xsl:apply-templates select="listheader/term" />
                 </th>
-                <th>
-                  <xsl:apply-templates select="listheader/description" />
-                </th>
+                <xsl:for-each select="listheader/description">
+                  <th>
+                    <xsl:apply-templates />
+                  </th>
+                </xsl:for-each>
               </tr>
             </thead>
           </xsl:if>
@@ -164,9 +166,11 @@
                 <td>
                   <xsl:apply-templates select="term"/>
                 </td>
-                <td>
-                  <xsl:apply-templates select="description"/>
-                </td>
+                <xsl:for-each select="description">
+                  <td>
+                    <xsl:apply-templates />
+                  </td>
+                </xsl:for-each>
               </tr>
             </xsl:for-each>
           </tbody>
