@@ -66,7 +66,7 @@ namespace ECMA2Yaml
                         foreach (var fElement in apiFilterElements)
                         {
                             var nsName = fElement.Attribute("name").Value?.Trim();
-                            foreach(var tElement in fElement.Elements("typeFilter"))
+                            foreach (var tElement in fElement.Elements("typeFilter"))
                             {
                                 var tFilter = new TypeFilter(tElement)
                                 {
@@ -77,7 +77,7 @@ namespace ECMA2Yaml
                                 var memberFilterElements = tElement.Elements("memberFilter");
                                 if (memberFilterElements != null)
                                 {
-                                    foreach(var mElement in memberFilterElements)
+                                    foreach (var mElement in memberFilterElements)
                                     {
                                         filterStore.MemberFilters.Add(new MemberFilter(mElement)
                                         {
@@ -86,42 +86,53 @@ namespace ECMA2Yaml
                                     }
                                 }
                             }
-                            
+
                         }
                     }
                 }
                 return filterStore;
             }
-            
+
             return null;
         }
 
-        private Dictionary<string, List<string>> LoadFrameworks(string folder)
+        private FrameworkIndex LoadFrameworks(string folder)
         {
             var frameworkFolder = Path.Combine(folder, "FrameworksIndex");
-            Dictionary<string, List<string>> frameworks = new Dictionary<string, List<string>>();
-            foreach (var fxFile in ListFiles(frameworkFolder, Path.Combine(frameworkFolder, "*.xml")))
+            FrameworkIndex frameworkIndex = new FrameworkIndex()
+            {
+                DocIdToFrameworkDict = new Dictionary<string, List<string>>(),
+                FrameworkAssemblies = new Dictionary<string, Dictionary<string, AssemblyInfo>>()
+            };
+
+            foreach (var fxFile in ListFiles(frameworkFolder, Path.Combine(frameworkFolder, "*.xml")).OrderBy(f => Path.GetFileNameWithoutExtension(f.AbsolutePath)))
             {
                 XDocument fxDoc = XDocument.Load(fxFile.AbsolutePath);
                 var fxName = fxDoc.Root.Attribute("Name").Value;
                 foreach (var nsElement in fxDoc.Root.Elements("Namespace"))
                 {
                     var ns = nsElement.Attribute("Name").Value;
-                    frameworks.AddWithKey(ns, fxName);
+                    frameworkIndex.DocIdToFrameworkDict.AddWithKey(ns, fxName);
                     foreach (var tElement in nsElement.Elements("Type"))
                     {
                         var t = tElement.Attribute("Id").Value;
-                        frameworks.AddWithKey(t, fxName);
+                        frameworkIndex.DocIdToFrameworkDict.AddWithKey(t, fxName);
                         foreach (var mElement in tElement.Elements("Member"))
                         {
                             var m = mElement.Attribute("Id").Value;
-                            frameworks.AddWithKey(m, fxName);
+                            frameworkIndex.DocIdToFrameworkDict.AddWithKey(m, fxName);
                         }
                     }
                 }
-            }
 
-            return frameworks;
+                var assemblyNodes = fxDoc.Root.Element("Assemblies")?.Elements("Assembly")?.Select(ele => new AssemblyInfo()
+                {
+                    Name = ele.Attribute("Name")?.Value,
+                    Version = ele.Attribute("Version")?.Value
+                }).ToList();
+                frameworkIndex.FrameworkAssemblies.Add(fxName, assemblyNodes.ToDictionary(a => a.Name, a => a));
+            }
+            return frameworkIndex;
         }
 
         private Dictionary<string, string> LoadMonikerPackageMapping(string folder)
@@ -133,7 +144,7 @@ namespace ECMA2Yaml
                 {
                     return JsonConvert.DeserializeObject<Dictionary<string, string>>(_fileAccessor.ReadAllText(file));
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     OPSLogger.LogUserError("Unable to load moniker to nuget mapping: " + ex.ToString(), file);
                     return null;
@@ -173,7 +184,7 @@ namespace ECMA2Yaml
             var emElements = idxDoc?.Root?.Element("ExtensionMethods")?.Elements("ExtensionMethod");
             if (emElements != null)
             {
-                foreach(var em in emElements)
+                foreach (var em in emElements)
                 {
                     extensionMethods.Add(new ExtensionMethod()
                     {
@@ -183,7 +194,7 @@ namespace ECMA2Yaml
                     });
                 }
             }
-            
+
             return extensionMethods;
         }
 
@@ -192,12 +203,27 @@ namespace ECMA2Yaml
             return _fileAccessor.ListFiles(new string[] { glob }, subFolder: subFolder);
         }
 
-        private AssemblyInfo ParseAssemblyInfo(XElement ele)
+        private List<AssemblyInfo> ParseAssemblyInfo(XElement ele)
         {
-            var assembly = new AssemblyInfo();
-            assembly.Name = ele.Element("AssemblyName")?.Value;
-            assembly.Versions = ele.Elements("AssemblyVersion").Select(v => v.Value).ToList();
-            return assembly;
+            var name = ele.Element("AssemblyName")?.Value;
+            var versions = ele.Elements("AssemblyVersion").Select(v => v.Value).ToList();
+            if (versions.Count > 0)
+            {
+                return versions.Select(v => new AssemblyInfo
+                {
+                    Name = name,
+                    Version = v
+                }).ToList();
+            }
+            // Hack here, because mdoc sometimes inserts empty version for member assemblies, https://github.com/mono/api-doc-tools/issues/399
+            // In ECMAStore we'll try to fallback to parent type assembly versions
+            return new List<AssemblyInfo>()
+            {
+                new AssemblyInfo
+                {
+                    Name = name
+                }
+            };
         }
 
         private SortedList<string, List<string>> ParseModifiersFromSignatures(Dictionary<string, string> sigs, ReflectionItem item = null)

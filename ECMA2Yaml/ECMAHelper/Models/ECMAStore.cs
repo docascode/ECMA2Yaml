@@ -24,14 +24,14 @@ namespace ECMA2Yaml.Models
 
         private IEnumerable<Namespace> _nsList;
         private IEnumerable<Type> _tList;
-        private Dictionary<string, List<string>> _frameworks;
+        private FrameworkIndex _frameworks;
         private List<ExtensionMethod> _extensionMethods;
         private Dictionary<string, string> _monikerNugetMapping;
         private Dictionary<string, List<string>> _monikerAssemblyMapping;
         private Dictionary<string, List<string>> _assemblyMonikerMapping;
 
         public ECMAStore(IEnumerable<Namespace> nsList,
-            Dictionary<string, List<string>> frameworks,
+            FrameworkIndex frameworks,
             List<ExtensionMethod> extensionMethods,
             Dictionary<string, string> monikerNugetMapping = null,
             Dictionary<string, List<string>> monikerAssemblyMapping = null)
@@ -67,6 +67,8 @@ namespace ECMA2Yaml.Models
                 BuildDocs(t);
             }
 
+            FindMissingAssemblyNamesAndVersions();
+
             BuildAttributes();
 
             BuildFrameworks();
@@ -74,8 +76,6 @@ namespace ECMA2Yaml.Models
             BuildExtensionMethods();
 
             BuildOtherMetadata();
-
-            FindMissingAssemblyNames();
         }
 
         public void BuildDocIdDictionary()
@@ -276,22 +276,18 @@ namespace ECMA2Yaml.Models
 
         private void BuildAssemblyMonikerMapping(ReflectionItem item)
         {
-            if (_assemblyMonikerMapping != null && item.AssemblyInfo?.Count > 0 && item.Metadata.ContainsKey(OPSMetadata.Monikers))
+            if (item.VersionedAssemblyInfo != null)
             {
-                var assemblies = item.AssemblyInfo.Select(asm => asm.Name).Distinct();
-                var monikers = (List<string>)(item.Metadata[OPSMetadata.Monikers]);
-                var dict = new Dictionary<string, List<string>>();
-                foreach (var asm in assemblies)
-                {
-                    if (_assemblyMonikerMapping.ContainsKey(asm))
-                    {
-                        dict[asm] = _assemblyMonikerMapping[asm].Intersect(monikers).ToList();
-                    }
-                    else
-                    {
-                        OPSLogger.LogUserInfo(string.Format("Assembly name {0} of {1} cannot be found in moniker2assembly mapping", asm, item.Uid), item.SourceFileLocalPath);
-                    }
-                }
+                var dict = item.VersionedAssemblyInfo.MonikersPerValue
+                    .GroupBy(p => p.Key.Name)
+                    .OrderBy(p => p.Key)
+                    .ToDictionary(
+                        g => g.Key,
+                        g => {
+                            var monikers = g.SelectMany(p => p.Value).ToList();
+                            monikers.Sort();
+                            return monikers;
+                        });                
                 if (dict.Any())
                 {
                     item.Metadata[OPSMetadata.AssemblyMonikerMapping] = dict;
@@ -370,29 +366,33 @@ namespace ECMA2Yaml.Models
 
         private void BuildFrameworks()
         {
-            if (_frameworks == null || _frameworks.Count == 0)
+            if (_frameworks == null || _frameworks.DocIdToFrameworkDict.Count == 0)
             {
                 return;
             }
+            _frameworks.FrameworkAssembliesPurged = _frameworks.FrameworkAssemblies.ToDictionary(
+                p => p.Key,
+                p => p.Value.Where(a => _monikerAssemblyMapping[p.Key].Contains(a.Key)).ToDictionary(purged => purged.Key, purged => purged.Value));
+
             foreach (var ns in _nsList)
             {
-                if (_frameworks.ContainsKey(ns.Uid))
+                if (_frameworks.DocIdToFrameworkDict.ContainsKey(ns.Uid))
                 {
-                    ns.Metadata[OPSMetadata.Monikers] = _frameworks[ns.Uid];
+                    MonikerizeItem(ns, _frameworks.DocIdToFrameworkDict[ns.Uid]);
                 }
                 foreach (var t in ns.Types)
                 {
-                    if (!string.IsNullOrEmpty(t.DocId) && _frameworks.ContainsKey(t.DocId))
+                    if (!string.IsNullOrEmpty(t.DocId) && _frameworks.DocIdToFrameworkDict.ContainsKey(t.DocId))
                     {
-                        t.Metadata[OPSMetadata.Monikers] = _frameworks[t.DocId];
+                        MonikerizeItem(t, _frameworks.DocIdToFrameworkDict[t.DocId]);
                     }
                     if (t.Members != null)
                     {
                         foreach (var m in t.Members.Where(m => !string.IsNullOrEmpty(m.DocId)))
                         {
-                            if (_frameworks.ContainsKey(m.DocId))
+                            if (_frameworks.DocIdToFrameworkDict.ContainsKey(m.DocId))
                             {
-                                m.Metadata[OPSMetadata.Monikers] = _frameworks[m.DocId];
+                                MonikerizeItem(m, _frameworks.DocIdToFrameworkDict[m.DocId]);
                             }
                             else
                             {
@@ -406,14 +406,50 @@ namespace ECMA2Yaml.Models
                         foreach (var ol in t.Overloads)
                         {
                             var monikers = t.Members.Where(m => m.Overload == ol.Uid && !string.IsNullOrEmpty(m.DocId))
-                                .SelectMany(m => _frameworks.ContainsKey(m.DocId) ? _frameworks[m.DocId] : Enumerable.Empty<string>()).Distinct().ToList();
+                                .SelectMany(m => _frameworks.DocIdToFrameworkDict.ContainsKey(m.DocId) ? _frameworks.DocIdToFrameworkDict[m.DocId] : Enumerable.Empty<string>()).Distinct().ToList();
                             if (monikers?.Count > 0)
                             {
-                                ol.Metadata[OPSMetadata.Monikers] = monikers;
+                                MonikerizeItem(ol, monikers);
                             }
                         }
                     }
                 }
+            }
+        }
+
+        private void MonikerizeItem(ReflectionItem item, List<string> monikers)
+        {
+            item.Metadata[OPSMetadata.Monikers] = monikers;
+            if (_frameworks.FrameworkAssemblies != null && item.AssemblyInfo != null)
+            {
+                var valuesPerMoniker = new Dictionary<string, AssemblyInfo>();
+                foreach (var moniker in monikers)
+                {
+                    var frameworkAssemblies = _frameworks.FrameworkAssembliesPurged[moniker];
+                    var asm = item.AssemblyInfo.FirstOrDefault(
+                        itemAsm => frameworkAssemblies.TryGetValue(itemAsm.Name, out var fxAsm) && fxAsm.Version == itemAsm.Version);
+                    if (asm != null)
+                    {
+                        // item should exist in only 1 assembly per version
+                        valuesPerMoniker[moniker] = asm;
+                    }
+                    else
+                    {
+                        // due to https://github.com/mono/api-doc-tools/issues/400, sometimes the versions don't match
+                        var fallbackAssembly = item.AssemblyInfo.FirstOrDefault(
+                            itemAsm => frameworkAssemblies.TryGetValue(itemAsm.Name, out var fxAsm));
+                        if (fallbackAssembly != null)
+                        {
+                            valuesPerMoniker[moniker] = fallbackAssembly;
+                            OPSLogger.LogUserWarning($"{item.Uid}'s moniker {moniker} can't match any assembly by version, fallback to name matching.");
+                        }
+                        else
+                        {
+                            OPSLogger.LogUserWarning($"{item.Uid}'s moniker {moniker} can't match any assembly.");
+                        }
+                    }
+                }
+                item.VersionedAssemblyInfo = new VersionedProperty<AssemblyInfo>(valuesPerMoniker);
             }
         }
 
@@ -494,10 +530,21 @@ namespace ECMA2Yaml.Models
                     overloads[id].DisplayName = m.ItemType == ItemType.Constructor ? t.Name : displayName;
                     overloads[id].FullDisplayName = t.FullName + "." + overloads[id].DisplayName;
                     overloads[id].SourceFileLocalPath = m.SourceFileLocalPath;
+
+                    if (overloads[id].AssemblyInfo == null)
+                    {
+                        overloads[id].AssemblyInfo = new List<AssemblyInfo>();
+                    }
+                    overloads[id].AssemblyInfo.AddRange(m.AssemblyInfo);
+
                     m.Overload = overloads[id].Uid;
                 }
                 if (overloads.Count > 0)
                 {
+                    foreach(var overload in overloads.Values)
+                    {
+                        overload.AssemblyInfo = overload.AssemblyInfo.Distinct().ToList();
+                    }
                     t.Overloads = overloads.Values.ToList();
                 }
             }
@@ -706,7 +753,7 @@ namespace ECMA2Yaml.Models
             }
         }
 
-        private void FindMissingAssemblyNames()
+        private void FindMissingAssemblyNamesAndVersions()
         {
             foreach (var t in _tList)
             {
@@ -718,10 +765,23 @@ namespace ECMA2Yaml.Models
                         {
                             foreach (var asm in m.AssemblyInfo)
                             {
-                                if (string.IsNullOrEmpty(asm.Name) && asm.Versions?.Count > 0)
+                                if (string.IsNullOrEmpty(asm.Name) && asm.Version != null)
                                 {
-                                    var fallback = t.AssemblyInfo.FirstOrDefault(ta => ta.Versions.Intersect(asm.Versions).Count() == asm.Versions.Count);
+                                    var fallback = t.AssemblyInfo.FirstOrDefault(ta => ta.Version == asm.Version);
                                     asm.Name = fallback?.Name;
+                                    OPSLogger.LogUserWarning($"AssemblyName fallback for {m.DocId} to {asm.Name}", m.SourceFileLocalPath);
+                                }
+                            }
+                            // hack for https://github.com/mono/api-doc-tools/issues/399
+                            var missingVersion = m.AssemblyInfo.Where(a => a.Version == null).ToList();
+                            foreach(var asm in missingVersion)
+                            {
+                                var parentFallback = t.AssemblyInfo.Where(a => a.Name == asm.Name).ToList();
+                                if (parentFallback.Count > 0)
+                                {
+                                    m.AssemblyInfo.Remove(asm);
+                                    m.AssemblyInfo.AddRange(parentFallback);
+                                    OPSLogger.LogUserWarning($"AssemblyVersion fallback for {m.DocId}, {asm.Name}", m.SourceFileLocalPath);
                                 }
                             }
                         }

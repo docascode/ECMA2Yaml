@@ -66,6 +66,7 @@
     <Compile Include="ECMALoader.cs" />
     <Compile Include="Extensions\LINQExtensions.cs" />
     <Compile Include="Logging\OPSLogger.cs" />
+    <Compile Include="Models\FrameworkIndex.cs" />
     <Compile Include="Models\RelatedTag.cs" />
     <Compile Include="Models\ThreadSafety.cs" />
     <Compile Include="Models\AdditionalNotes.cs" />
@@ -88,9 +89,9 @@
     <Compile Include="Models\Namespace.cs" />
     <Compile Include="Models\Parameter.cs" />
     <Compile Include="Models\Type.cs" />
+    <Compile Include="Models\VersionedProperty.cs" />
     <Compile Include="Transform\ECMADocsTransform.cs" />
     <Compile Include="Transform\XHtmlWriter.cs" />
-    <Compile Include="VersionedProperty.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ECMAHelper.nuspec" />

@@ -104,6 +104,7 @@ namespace ECMA2Yaml.Models
             }
         }
         public List<AssemblyInfo> AssemblyInfo { get; set; }
+        public VersionedProperty<AssemblyInfo> VersionedAssemblyInfo { get; set; }
 
         public ReflectionItem()
         {

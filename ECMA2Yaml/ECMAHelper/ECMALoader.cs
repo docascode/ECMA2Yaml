@@ -212,7 +212,7 @@ namespace ECMA2Yaml
             t.Modifiers = ParseModifiersFromSignatures(t.Signatures);
 
             //AssemblyInfo
-            t.AssemblyInfo = tRoot.Elements("AssemblyInfo")?.Select(a => ParseAssemblyInfo(a)).ToList();
+            t.AssemblyInfo = tRoot.Elements("AssemblyInfo")?.SelectMany(a => ParseAssemblyInfo(a)).ToList();
 
             //TypeParameters
             var tpElement = tRoot.Element("TypeParameters");
@@ -382,7 +382,7 @@ namespace ECMA2Yaml
             }
             m.DocId = m.Signatures.ContainsKey("DocId") ? m.Signatures["DocId"] : null;
             m.Modifiers = ParseModifiersFromSignatures(m.Signatures, m);
-            m.AssemblyInfo = mElement.Elements("AssemblyInfo")?.Select(a => ParseAssemblyInfo(a)).ToList();
+            m.AssemblyInfo = mElement.Elements("AssemblyInfo")?.SelectMany(a => ParseAssemblyInfo(a)).ToList();
 
             //TypeParameters
             var tpElement = mElement.Element("TypeParameters");
@@ -479,7 +479,7 @@ namespace ECMA2Yaml
             Member m = new Member();
             m.Parent = t;
             m.Name = mElement.Attribute("MemberName").Value;
-            m.AssemblyInfo = mElement.Elements("AssemblyInfo")?.Select(a => ParseAssemblyInfo(a)).ToList();
+            m.AssemblyInfo = mElement.Elements("AssemblyInfo")?.SelectMany(a => ParseAssemblyInfo(a)).ToList();
             m.Docs = LoadDocs(mElement.Element("Docs"));
             return m;
         }
