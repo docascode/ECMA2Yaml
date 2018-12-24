@@ -130,7 +130,10 @@ namespace ECMA2Yaml
                     Name = ele.Attribute("Name")?.Value,
                     Version = ele.Attribute("Version")?.Value
                 }).ToList();
-                frameworkIndex.FrameworkAssemblies.Add(fxName, assemblyNodes.ToDictionary(a => a.Name, a => a));
+                if (assemblyNodes != null)
+                {
+                    frameworkIndex.FrameworkAssemblies.Add(fxName, assemblyNodes.ToDictionary(a => a.Name, a => a));
+                }
             }
             return frameworkIndex;
         }

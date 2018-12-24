@@ -370,9 +370,12 @@ namespace ECMA2Yaml.Models
             {
                 return;
             }
-            _frameworks.FrameworkAssembliesPurged = _frameworks.FrameworkAssemblies.ToDictionary(
-                p => p.Key,
-                p => p.Value.Where(a => _monikerAssemblyMapping[p.Key].Contains(a.Key)).ToDictionary(purged => purged.Key, purged => purged.Value));
+            if (_monikerAssemblyMapping != null)
+            {
+                _frameworks.FrameworkAssembliesPurged = _frameworks.FrameworkAssemblies?.ToDictionary(
+                    p => p.Key,
+                    p => p.Value.Where(a => _monikerAssemblyMapping[p.Key].Contains(a.Key)).ToDictionary(purged => purged.Key, purged => purged.Value));
+            }
 
             foreach (var ns in _nsList)
             {
@@ -420,7 +423,7 @@ namespace ECMA2Yaml.Models
         private void MonikerizeItem(ReflectionItem item, List<string> monikers)
         {
             item.Metadata[OPSMetadata.Monikers] = monikers;
-            if (_frameworks.FrameworkAssemblies != null && item.AssemblyInfo != null)
+            if (_frameworks.FrameworkAssembliesPurged?.Count > 0 && item.AssemblyInfo != null)
             {
                 var valuesPerMoniker = new Dictionary<string, AssemblyInfo>();
                 foreach (var moniker in monikers)
