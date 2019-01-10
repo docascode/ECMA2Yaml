@@ -425,25 +425,20 @@ namespace ECMA2Yaml.Models
             item.Metadata[OPSMetadata.Monikers] = monikers;
             if (_frameworks.FrameworkAssembliesPurged?.Count > 0 && item.AssemblyInfo != null)
             {
-                var valuesPerMoniker = new Dictionary<string, AssemblyInfo>();
+                var valuesPerMoniker = new Dictionary<string, List<AssemblyInfo>>();
                 foreach (var moniker in monikers)
                 {
                     var frameworkAssemblies = _frameworks.FrameworkAssembliesPurged[moniker];
-                    var asm = item.AssemblyInfo.FirstOrDefault(
-                        itemAsm => frameworkAssemblies.TryGetValue(itemAsm.Name, out var fxAsm) && fxAsm.Version == itemAsm.Version);
-                    if (asm != null)
-                    {
-                        // item should exist in only 1 assembly per version
-                        valuesPerMoniker[moniker] = asm;
-                    }
-                    else
+                    var assemblies = item.AssemblyInfo.Where(
+                        itemAsm => frameworkAssemblies.TryGetValue(itemAsm.Name, out var fxAsm) && fxAsm.Version == itemAsm.Version).ToList();
+                    if (assemblies.Count == 0)
                     {
                         // due to https://github.com/mono/api-doc-tools/issues/400, sometimes the versions don't match
-                        var fallbackAssembly = item.AssemblyInfo.FirstOrDefault(
-                            itemAsm => frameworkAssemblies.TryGetValue(itemAsm.Name, out var fxAsm));
-                        if (fallbackAssembly != null)
+                        var fallbackAssemblies = item.AssemblyInfo.Where(
+                            itemAsm => frameworkAssemblies.TryGetValue(itemAsm.Name, out var fxAsm)).ToList();
+                        if (fallbackAssemblies != null)
                         {
-                            valuesPerMoniker[moniker] = fallbackAssembly;
+                            valuesPerMoniker[moniker] = fallbackAssemblies;
                             OPSLogger.LogUserWarning($"{item.Uid}'s moniker {moniker} can't match any assembly by version, fallback to name matching.");
                         }
                         else
@@ -451,6 +446,11 @@ namespace ECMA2Yaml.Models
                             OPSLogger.LogUserWarning($"{item.Uid}'s moniker {moniker} can't match any assembly.");
                         }
                     }
+                    else
+                    {
+                        
+                    }
+                    valuesPerMoniker[moniker] = assemblies;
                 }
                 item.VersionedAssemblyInfo = new VersionedProperty<AssemblyInfo>(valuesPerMoniker);
             }
