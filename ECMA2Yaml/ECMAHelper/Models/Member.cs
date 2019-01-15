@@ -94,7 +94,11 @@ namespace ECMA2Yaml.Models
                 //For example, an operator that converts from string to int should be Explicit(System.String to System.Int32).
                 if (Name == "op_Explicit" || Name == "op_Implicit")
                 {
-                    Id += string.Format("({0})~{1}", Parameters.First().Type.ToSpecId(), ReturnValueType.Type.ToSpecId());
+                    var typeParamsOnType = Parent.TypeParameters?.Select(tp => tp.Name).ToList();
+                    var typeParamsOnMember = TypeParameters?.Select(tp => tp.Name).ToList();
+                    Id += string.Format("({0})~{1}",
+                        Parameters.First().Type.ToSpecId(typeParamsOnType, typeParamsOnMember),
+                        ReturnValueType.Type.ToSpecId(typeParamsOnType, typeParamsOnMember));
                 }
                 //spec is wrong, no need to treat indexer specially, so comment this part out
                 //else if (MemberType == MemberType.Property && Signatures.ContainsKey("C#") && Signatures["C#"].Contains("["))

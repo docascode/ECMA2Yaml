@@ -25,16 +25,16 @@ namespace ECMA2Yaml
             return ECMAStore.GetOrAddTypeDescriptor(typeStr).ToDisplayName();
         }
 
-        public static string ToSpecId(this string typeStr, List<string> knownTypeParams = null)
+        public static string ToSpecId(this string typeStr, List<string> knownTypeParamsOnType = null, List<string> knownTypeParamsOnMember = null)
         {
             if (!NeedParseByECMADesc(typeStr))
             {
                 return typeStr;
             }
-            return ECMAStore.GetOrAddTypeDescriptor(typeStr).ToSpecId(knownTypeParams) ?? typeStr;
+            return ECMAStore.GetOrAddTypeDescriptor(typeStr).ToSpecId(knownTypeParamsOnType, knownTypeParamsOnMember) ?? typeStr;
         }
 
-        public static string ToSpecId(this EcmaDesc desc, List<string> knownTypeParams = null)
+        public static string ToSpecId(this EcmaDesc desc, List<string> knownTypeParamsOnType = null, List<string> knownTypeParamsOnMember = null)
         {
             if (desc == null)
             {
@@ -43,14 +43,21 @@ namespace ECMA2Yaml
             var typeStr = string.IsNullOrEmpty(desc.Namespace) ? desc.TypeName : desc.Namespace + "." + desc.TypeName;
             if (desc.GenericTypeArgumentsCount > 0)
             {
-                if (knownTypeParams != null && desc.GenericTypeArguments.All(ta => knownTypeParams.Contains(ta.TypeName)))
+                var typeparameterPart = string.Join(",", desc.GenericTypeArguments.Select(ta =>
                 {
-                    typeStr = string.Format("{0}`{1}", typeStr, desc.GenericTypeArgumentsCount);
-                }
-                else
-                {
-                    typeStr = string.Format("{0}{{{1}}}", typeStr, string.Join(",", desc.GenericTypeArguments.Select(d => d.ToSpecId(knownTypeParams))));
-                }
+                    var i = knownTypeParamsOnType?.IndexOf(ta.TypeName);
+                    if (i.HasValue && i.Value >= 0)
+                    {
+                        return $"`{i.Value}";
+                    }
+                    i = knownTypeParamsOnMember?.IndexOf(ta.TypeName);
+                    if (i.HasValue && i.Value >= 0)
+                    {
+                        return $"``{i.Value}";
+                    }
+                    return ta.ToSpecId(knownTypeParamsOnType, knownTypeParamsOnMember);
+                }));
+                typeStr = string.Format("{0}{{{1}}}", typeStr, typeparameterPart);
             }
             if (desc.ArrayDimensions?.Count > 0)
             {
@@ -65,7 +72,7 @@ namespace ECMA2Yaml
             }
             if (desc.NestedType != null)
             {
-                typeStr += ("." + desc.NestedType.ToSpecId(knownTypeParams));
+                typeStr += ("." + desc.NestedType.ToSpecId(knownTypeParamsOnType, knownTypeParamsOnMember));
             }
             return typeStr;
         }
