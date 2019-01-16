@@ -145,7 +145,7 @@ foreach($ecmaConfig in $jobs)
             {
                 New-Item -ItemType Directory -Force -Path $newTocPath
             }
-            Move-Item $tocPath $newTocPath
+            Move-Item $tocPath $newTocPath -Force
         }
     }
 }
