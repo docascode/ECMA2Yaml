@@ -35,7 +35,7 @@
   </xsl:template>
 
   <xsl:template match="c">
-    <code>
+    <code data-dev-comment-type="c">
       <xsl:apply-templates />
     </code>
   </xsl:template>
