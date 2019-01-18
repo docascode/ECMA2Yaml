@@ -7,14 +7,14 @@
   build_script:
     - nuget restore ./ECMA2Yaml/ECMA2Yaml.sln
     - msbuild ./ECMA2Yaml/ECMA2Yaml.sln /p:Configuration=Release
-  test: off
+  test: Auto
   on_success:
     - cd ECMA2Yaml
     - pack.bat %APPVEYOR_BUILD_VERSION%
-    - nuget push ./_nuget/Microsoft.DocAsCode.ECMA2Yaml.%APPVEYOR_BUILD_VERSION%.nupkg %opFeedKey% -Source %opFeedUrl%
-    - nuget push ./_nuget/Microsoft.DocAsCode.ECMAHelper.%APPVEYOR_BUILD_VERSION%.nupkg %opFeedKey% -Source %opFeedUrl%
-    - nuget push ./_nuget/Microsoft.DocAsCode.ECMA2Yaml.%APPVEYOR_BUILD_VERSION%.nupkg %nugetKey% -Source %nugetUrl%
-    - nuget push ./_nuget/Microsoft.DocAsCode.ECMAHelper.%APPVEYOR_BUILD_VERSION%.nupkg %nugetKey% -Source %nugetUrl%
+    - IF NOT DEFINED APPVEYOR_PULL_REQUEST_NUMBER nuget push ./_nuget/Microsoft.DocAsCode.ECMA2Yaml.%APPVEYOR_BUILD_VERSION%.nupkg %opFeedKey% -Source %opFeedUrl%
+    - IF NOT DEFINED APPVEYOR_PULL_REQUEST_NUMBER nuget push ./_nuget/Microsoft.DocAsCode.ECMAHelper.%APPVEYOR_BUILD_VERSION%.nupkg %opFeedKey% -Source %opFeedUrl%
+    - IF NOT DEFINED APPVEYOR_PULL_REQUEST_NUMBER nuget push ./_nuget/Microsoft.DocAsCode.ECMA2Yaml.%APPVEYOR_BUILD_VERSION%.nupkg %nugetKey% -Source %nugetUrl%
+    - IF NOT DEFINED APPVEYOR_PULL_REQUEST_NUMBER nuget push ./_nuget/Microsoft.DocAsCode.ECMAHelper.%APPVEYOR_BUILD_VERSION%.nupkg %nugetKey% -Source %nugetUrl%
 -
   branches:
     only:
@@ -24,11 +24,11 @@
   build_script:
     - nuget restore ./ECMA2Yaml/ECMA2Yaml.sln
     - msbuild ./ECMA2Yaml/ECMA2Yaml.sln /p:Configuration=Release
-  test: off
+  test: Auto
   on_success:
     - cd ECMA2Yaml
     - pack.bat %APPVEYOR_BUILD_VERSION%
-    - nuget push ./_nuget/Microsoft.DocAsCode.ECMA2Yaml.%APPVEYOR_BUILD_VERSION%.nupkg %opFeedKey% -Source %opDevFeedUrl%
-    - nuget push ./_nuget/Microsoft.DocAsCode.ECMAHelper.%APPVEYOR_BUILD_VERSION%.nupkg %opFeedKey% -Source %opDevFeedUrl%
-    - nuget push ./_nuget/Microsoft.DocAsCode.ECMA2Yaml.%APPVEYOR_BUILD_VERSION%.nupkg %nugetKey% -Source %nugetUrl%
-    - nuget push ./_nuget/Microsoft.DocAsCode.ECMAHelper.%APPVEYOR_BUILD_VERSION%.nupkg %nugetKey% -Source %nugetUrl%
+    - IF NOT DEFINED APPVEYOR_PULL_REQUEST_NUMBER nuget push ./_nuget/Microsoft.DocAsCode.ECMA2Yaml.%APPVEYOR_BUILD_VERSION%.nupkg %opFeedKey% -Source %opDevFeedUrl%
+    - IF NOT DEFINED APPVEYOR_PULL_REQUEST_NUMBER nuget push ./_nuget/Microsoft.DocAsCode.ECMAHelper.%APPVEYOR_BUILD_VERSION%.nupkg %opFeedKey% -Source %opDevFeedUrl%
+    - IF NOT DEFINED APPVEYOR_PULL_REQUEST_NUMBER nuget push ./_nuget/Microsoft.DocAsCode.ECMA2Yaml.%APPVEYOR_BUILD_VERSION%.nupkg %nugetKey% -Source %nugetUrl%
+    - IF NOT DEFINED APPVEYOR_PULL_REQUEST_NUMBER nuget push ./_nuget/Microsoft.DocAsCode.ECMAHelper.%APPVEYOR_BUILD_VERSION%.nupkg %nugetKey% -Source %nugetUrl%
