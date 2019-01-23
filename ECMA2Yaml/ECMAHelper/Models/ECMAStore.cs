@@ -627,6 +627,55 @@ namespace ECMA2Yaml.Models
 
         private void BuildInheritance(Type t)
         {
+            if (t.ItemType == ItemType.Interface)
+            {
+                BuildInheritanceForInterface(t);
+            }
+            else
+            {
+                BuildInheritanceDefault(t);
+            }
+        }
+
+        private void BuildInheritanceForInterface(Type t)
+        {
+            if (t.Interfaces?.Count > 0)
+            {
+                t.InheritedMembers = new Dictionary<string, string>();
+                foreach (var f in t.Interfaces)
+                {
+                    var interfaceUid = f.ToOuterTypeUid();
+                    AddInheritanceMapping(t.Uid, interfaceUid);
+
+                    if (TypesByUid.TryGetValue(interfaceUid, out Type inter))
+                    {
+                        if (inter.Members != null)
+                        {
+                            foreach (var m in inter.Members)
+                            {
+                                if (m.Name != "Finalize" && m.ItemType != ItemType.Constructor && !(m.IsStatic.HasValue && m.IsStatic.Value))
+                                {
+                                    t.InheritedMembers[m.Id] = inter.Uid;
+                                }
+                            }
+                        }
+                    }
+                }
+                if (t.Members != null)
+                {
+                    foreach (var m in t.Members)
+                    {
+                        if (t.InheritedMembers.ContainsKey(m.Id))
+                        {
+                            t.InheritedMembers.Remove(m.Id);
+                        }
+                    }
+                }
+            }
+        }
+
+        private void BuildInheritanceDefault(Type t)
+        {
             if (t.Interfaces?.Count > 0)
             {
                 foreach (var f in t.Interfaces)
