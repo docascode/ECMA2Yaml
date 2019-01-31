@@ -439,7 +439,7 @@ namespace ECMA2Yaml.Models
                         if (fallbackAssemblies != null)
                         {
                             valuesPerMoniker[moniker] = fallbackAssemblies;
-                            OPSLogger.LogUserWarning($"{item.Uid}'s moniker {moniker} can't match any assembly by version, fallback to name matching.");
+                            OPSLogger.LogUserInfo($"{item.Uid}'s moniker {moniker} can't match any assembly by version, fallback to name matching.");
                         }
                         else
                         {
