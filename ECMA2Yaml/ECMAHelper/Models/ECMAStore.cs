@@ -821,7 +821,7 @@ namespace ECMA2Yaml.Models
                                 {
                                     var fallback = t.AssemblyInfo.FirstOrDefault(ta => ta.Version == asm.Version);
                                     asm.Name = fallback?.Name;
-                                    OPSLogger.LogUserWarning($"AssemblyName fallback for {m.DocId} to {asm.Name}", m.SourceFileLocalPath);
+                                    OPSLogger.LogUserInfo($"AssemblyName fallback for {m.DocId} to {asm.Name}", m.SourceFileLocalPath);
                                 }
                             }
                             // hack for https://github.com/mono/api-doc-tools/issues/399
@@ -833,7 +833,7 @@ namespace ECMA2Yaml.Models
                                 {
                                     m.AssemblyInfo.Remove(asm);
                                     m.AssemblyInfo.AddRange(parentFallback);
-                                    OPSLogger.LogUserWarning($"AssemblyVersion fallback for {m.DocId}, {asm.Name}", m.SourceFileLocalPath);
+                                    OPSLogger.LogUserInfo($"AssemblyVersion fallback for {m.DocId}, {asm.Name}", m.SourceFileLocalPath);
                                 }
                             }
                         }
