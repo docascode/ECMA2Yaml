@@ -140,10 +140,20 @@ namespace ECMA2Yaml
             return replaceTriggered ? string.Join(Environment.NewLine, lines) : remarksText;
         }
 
+        private static readonly string[] markdownHeaders = new string []
+        {
+            "#",
+            "##",
+            "###",
+            "####",
+            "#####",
+            "######"
+        };
+
         /// <summary>Modifies the array if a header of the given size is found</summary>
         private static void ReplaceTriggered(string[] lines, int headerCount, ref bool replaceTriggered)
         {
-            string headerPrefix = new string('#', headerCount);
+            string headerPrefix = markdownHeaders[headerCount-1];
             string newHeaderPrefix = null;
             bool inCodeFence = false;
             for (int i = 0; i < lines.Length; i++)
@@ -164,7 +174,7 @@ namespace ECMA2Yaml
                         continue;
 
                     if (newHeaderPrefix == null)
-                        newHeaderPrefix = new String('#', headerCount + 1);
+                        newHeaderPrefix = markdownHeaders[headerCount];
                     lines[i] = line.Replace(headerPrefix, newHeaderPrefix);
                     replaceTriggered = true;
                 }
