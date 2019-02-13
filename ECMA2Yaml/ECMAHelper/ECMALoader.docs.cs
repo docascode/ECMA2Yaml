@@ -129,15 +129,20 @@ namespace ECMA2Yaml
         {
             if (string.IsNullOrWhiteSpace(remarksText)) return remarksText ?? string.Empty;
 
-            var lines = remarksText.Replace("\r\n", "\n").Split(new[] { '\n' }, StringSplitOptions.None); //handle both unix and windows line endings
-            
+            var nlNormalized = remarksText.Replace("\r\n", "\n");
+            var lines = nlNormalized.Split(new[] { '\n' }, StringSplitOptions.None); //handle both unix and windows line endings
+
+            // only trigger behavior if there's an H2 in the text
+            if (!lines.Any(l => IsHeader(l, 2)))
+                return nlNormalized.Replace("\n", Environment.NewLine);
+
             bool replaceTriggered = false;
 
             // walk through the content, first adjusting larger headers and moving in reverse
             for (int headerSize = 5; headerSize > 0; headerSize--)
                 ReplaceTriggered(lines, headerSize, ref replaceTriggered);
             
-            return replaceTriggered ? string.Join(Environment.NewLine, lines) : remarksText;
+            return replaceTriggered ? string.Join(Environment.NewLine, lines) : nlNormalized.Replace("\n", Environment.NewLine);
         }
 
         private static readonly string[] markdownHeaders = new string []
@@ -149,6 +154,45 @@ namespace ECMA2Yaml
             "#####",
             "######"
         };
+
+        /// <summary>Determines whether the string is a markdown header (or at least, starts with one ... it assumes this is a single line of text)</summary>
+        /// <param name="line">an individual line of a markdown document</param>
+        /// <param name="headerSize">the 'level' of header. So '2' is an 'H2'.</param>
+        /// <returns>True if this is a markdown header that matches the headerSize. It allows for up to 3 spaces in front of the pound signs</returns>
+        private static bool IsHeader(string line, int headerSize)
+        {
+            int whitespaceCount = 0;
+            int hashCount = 0;
+            bool breakLoop = false;
+            for (int i = 0; i < line.Length; i++)
+            {
+                switch(line[i])
+                {
+                    case ' ':
+                        if (hashCount > 0)
+                        {
+                            breakLoop = true;
+                            break;
+                        }
+                        whitespaceCount++;
+                        break;
+                    case '#':
+                        hashCount++;
+                        break;
+                    default:
+                        breakLoop = true;
+                        break;
+                }
+
+                if (breakLoop)
+                    break;
+            }
+
+            if (whitespaceCount < 4 && hashCount == headerSize)
+                return true;
+            else
+                return false;
+        }
 
         /// <summary>Modifies the array if a header of the given size is found</summary>
         private static void ReplaceTriggered(string[] lines, int headerCount, ref bool replaceTriggered)
@@ -167,12 +211,8 @@ namespace ECMA2Yaml
                 if (inCodeFence)
                     continue;
 
-                if (line.StartsWith(headerPrefix) && line.Length > headerCount)
+                if (IsHeader(line, headerCount))
                 {
-                    // ok, this starts with the prefix, but let's make sure the next character isn't a '#'
-                    if (line[headerCount] == '#')
-                        continue;
-
                     if (newHeaderPrefix == null)
                         newHeaderPrefix = markdownHeaders[headerCount];
                     lines[i] = line.Replace(headerPrefix, newHeaderPrefix);

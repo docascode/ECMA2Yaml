@@ -12,17 +12,25 @@ namespace UnitTest
     public class MarkdownTests
     {
         [TestMethod]
-        public void DowngradeMarkdownHeader_H1() => AssertChange("# Thing", "## Thing");
+        public void DowngradeMarkdownHeader_H1_Change() => AssertChange("# Thing\n## Thing", $"## Thing{Environment.NewLine}### Thing", assert: Assert.AreEqual);
+        [TestMethod]
+        public void DowngradeMarkdownHeader_H1_NoChange() => AssertChange("# Thing", "# Thing", assert: Assert.AreEqual);
         [TestMethod]
         public void DowngradeMarkdownHeader_H2() => AssertChange("## Thing", "### Thing");
         [TestMethod]
-        public void DowngradeMarkdownHeader_H3() => AssertChange("### Thing", "#### Thing");
+        public void DowngradeMarkdownHeader_H3() => AssertChange("### Thing", "### Thing", assert: Assert.AreEqual);
         [TestMethod]
-        public void DowngradeMarkdownHeader_H4() => AssertChange("#### Thing", "##### Thing");
+        public void DowngradeMarkdownHeader_H3_Change() => AssertChange("## Thing\n### Thing", $"### Thing{Environment.NewLine}#### Thing", assert: Assert.AreEqual);
         [TestMethod]
-        public void DowngradeMarkdownHeader_H5() => AssertChange("##### Thing", "###### Thing");
+        public void DowngradeMarkdownHeader_H4() => AssertChange("#### Thing", "#### Thing", assert: Assert.AreEqual);
         [TestMethod]
-        public void DowngradeMarkdownHeader_H6() => AssertChange("###### Thing", "###### Thing", shouldBeSame:true); // no change
+        public void DowngradeMarkdownHeader_H4_Change() => AssertChange("## Thing\n#### Thing", $"### Thing{Environment.NewLine}##### Thing", assert: Assert.AreEqual);
+        [TestMethod]
+        public void DowngradeMarkdownHeader_H5() => AssertChange("##### Thing", "##### Thing", assert: Assert.AreEqual);
+        [TestMethod]
+        public void DowngradeMarkdownHeader_H5_Change() => AssertChange("## Thing\n##### Thing", $"### Thing{Environment.NewLine}###### Thing", assert: Assert.AreEqual);
+        [TestMethod]
+        public void DowngradeMarkdownHeader_H6() => AssertChange("###### Thing", "###### Thing", assert: Assert.AreEqual); // no change
 
         // mixed headers
 
@@ -37,15 +45,24 @@ namespace UnitTest
 
         // code that contains hashes
         [TestMethod]
-        public void DowngradeMarkdownHeader_MixedHashContent() => AssertChange("# Thing\n```\nSome ##Code \n# A comment```\nafter code block", $"## Thing{Environment.NewLine}```{Environment.NewLine}Some ##Code {Environment.NewLine}# A comment```{Environment.NewLine}after code block");
+        public void DowngradeMarkdownHeader_MixedHashContent() => AssertChange("# Thing\n```\nSome ##Code \n# A comment\n```\nafter code block", $"# Thing{Environment.NewLine}```{Environment.NewLine}Some ##Code {Environment.NewLine}# A comment{Environment.NewLine}```{Environment.NewLine}after code block");
+        [TestMethod]
+        public void DowngradeMarkdownHeader_MixedHashContent_Withh2() => AssertChange("# Thing\n```\nSome ##Code \n# A comment\n```\n##after code block", $"## Thing{Environment.NewLine}```{Environment.NewLine}Some ##Code {Environment.NewLine}# A comment{Environment.NewLine}```{Environment.NewLine}###after code block");
 
-        private static void AssertChange(string startText, string expected, bool shouldBeSame = false)
+
+        // headers with 3 or fewer spaces in front
+        [TestMethod]
+        public void DowngradeMarkdownHeader_Whitespace() => AssertChange(" # Thing\n```\nSome ##Code \n# A comment\n```\n   ## after code block", $" ## Thing{Environment.NewLine}```{Environment.NewLine}Some ##Code {Environment.NewLine}# A comment{Environment.NewLine}```{Environment.NewLine}   ### after code block");
+
+
+        private static void AssertChange(string startText, string expected, Action<string,string> assert=null)
         {
             var actual = ECMALoader.DowngradeMarkdownHeaders(startText);
-
-            if (!shouldBeSame)
-                Assert.AreNotEqual(actual, startText);
-            Assert.AreEqual(expected, actual);
+            
+            if (assert == null)
+                Assert.AreEqual(expected, actual);
+            else
+                assert(expected, actual);
         }
     }
 }
