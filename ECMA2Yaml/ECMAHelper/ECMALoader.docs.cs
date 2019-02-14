@@ -127,14 +127,15 @@ namespace ECMA2Yaml
         /// <param name="remarksText">A string of markdown content</param>
         public static string DowngradeMarkdownHeaders(string remarksText)
         {
-            if (string.IsNullOrWhiteSpace(remarksText)) return remarksText ?? string.Empty;
-
-            var nlNormalized = remarksText.Replace("\r\n", "\n");
-            var lines = nlNormalized.Split(new[] { '\n' }, StringSplitOptions.None); //handle both unix and windows line endings
+            if (string.IsNullOrWhiteSpace(remarksText)) return remarksText;
 
             // only trigger behavior if there's an H2 in the text
-            if (!lines.Any(l => IsHeader(l, 2)))
-                return nlNormalized.Replace("\n", Environment.NewLine);
+            if (!markdownH2HeaderRegex.IsMatch(remarksText))
+            {
+                return remarksText;
+            }
+
+            var lines = remarksText.Split(new[] { '\n' }, StringSplitOptions.None);
 
             bool replaceTriggered = false;
 
@@ -142,7 +143,7 @@ namespace ECMA2Yaml
             for (int headerSize = 5; headerSize > 0; headerSize--)
                 ReplaceTriggered(lines, headerSize, ref replaceTriggered);
             
-            return replaceTriggered ? string.Join(Environment.NewLine, lines) : nlNormalized.Replace("\n", Environment.NewLine);
+            return replaceTriggered ? string.Join("\n", lines) : remarksText;
         }
 
         private static readonly string[] markdownHeaders = new string []
@@ -154,6 +155,7 @@ namespace ECMA2Yaml
             "#####",
             "######"
         };
+        private static readonly Regex markdownH2HeaderRegex = new Regex("^\\s{0,3}##[^#]", RegexOptions.Compiled | RegexOptions.Multiline);
 
         /// <summary>Determines whether the string is a markdown header (or at least, starts with one ... it assumes this is a single line of text)</summary>
         /// <param name="line">an individual line of a markdown document</param>
