@@ -45,6 +45,8 @@ namespace ECMA2Yaml
                 }
             }
 
+            remarksText = DowngradeMarkdownHeaders(remarksText);
+
             var examples = dElement.Elements("example");
             if (examples != null && examples.Count() > 0)
             {
@@ -119,6 +121,104 @@ namespace ECMA2Yaml
                 AltCompliant = altCompliant,
                 InternalOnly = dElement.Element("forInternalUseOnly") != null
             };
+        }
+
+        /// <summary>Downgrades markdown headers from 1 - 5. So a `#` becomes `##`, but `######` (ie. h6) remains the same.</summary>
+        /// <param name="remarksText">A string of markdown content</param>
+        public static string DowngradeMarkdownHeaders(string remarksText)
+        {
+            if (string.IsNullOrWhiteSpace(remarksText)) return remarksText ?? string.Empty;
+
+            var nlNormalized = remarksText.Replace("\r\n", "\n");
+            var lines = nlNormalized.Split(new[] { '\n' }, StringSplitOptions.None); //handle both unix and windows line endings
+
+            // only trigger behavior if there's an H2 in the text
+            if (!lines.Any(l => IsHeader(l, 2)))
+                return nlNormalized.Replace("\n", Environment.NewLine);
+
+            bool replaceTriggered = false;
+
+            // walk through the content, first adjusting larger headers and moving in reverse
+            for (int headerSize = 5; headerSize > 0; headerSize--)
+                ReplaceTriggered(lines, headerSize, ref replaceTriggered);
+            
+            return replaceTriggered ? string.Join(Environment.NewLine, lines) : nlNormalized.Replace("\n", Environment.NewLine);
+        }
+
+        private static readonly string[] markdownHeaders = new string []
+        {
+            "#",
+            "##",
+            "###",
+            "####",
+            "#####",
+            "######"
+        };
+
+        /// <summary>Determines whether the string is a markdown header (or at least, starts with one ... it assumes this is a single line of text)</summary>
+        /// <param name="line">an individual line of a markdown document</param>
+        /// <param name="headerSize">the 'level' of header. So '2' is an 'H2'.</param>
+        /// <returns>True if this is a markdown header that matches the headerSize. It allows for up to 3 spaces in front of the pound signs</returns>
+        private static bool IsHeader(string line, int headerSize)
+        {
+            int whitespaceCount = 0;
+            int hashCount = 0;
+            bool breakLoop = false;
+            for (int i = 0; i < line.Length; i++)
+            {
+                switch(line[i])
+                {
+                    case ' ':
+                        if (hashCount > 0)
+                        {
+                            breakLoop = true;
+                            break;
+                        }
+                        whitespaceCount++;
+                        break;
+                    case '#':
+                        hashCount++;
+                        break;
+                    default:
+                        breakLoop = true;
+                        break;
+                }
+
+                if (breakLoop)
+                    break;
+            }
+
+            if (whitespaceCount < 4 && hashCount == headerSize)
+                return true;
+            else
+                return false;
+        }
+
+        /// <summary>Modifies the array if a header of the given size is found</summary>
+        private static void ReplaceTriggered(string[] lines, int headerCount, ref bool replaceTriggered)
+        {
+            string headerPrefix = markdownHeaders[headerCount-1];
+            string newHeaderPrefix = null;
+            bool inCodeFence = false;
+            for (int i = 0; i < lines.Length; i++)
+            {
+                string line = lines[i];
+
+                if (line.StartsWith("```"))
+                    inCodeFence = !inCodeFence;// invert codefence flag
+
+                // this allows for documentation about markdown
+                if (inCodeFence)
+                    continue;
+
+                if (IsHeader(line, headerCount))
+                {
+                    if (newHeaderPrefix == null)
+                        newHeaderPrefix = markdownHeaders[headerCount];
+                    lines[i] = line.Replace(headerPrefix, newHeaderPrefix);
+                    replaceTriggered = true;
+                }
+            }
         }
 
         private List<RelatedTag> LoadRelated(List<XElement> relatedElements)
