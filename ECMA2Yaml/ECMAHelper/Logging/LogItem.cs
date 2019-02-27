@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,6 +13,7 @@ namespace ECMA2Yaml
     {
         Error,
         Warning,
+        Suggestion,
         Info,
         Verbose,
         Diagnostic
@@ -52,9 +54,23 @@ namespace ECMA2Yaml
 
         /// <summary>
         /// Message Severity
+        /// TODO: message_serverity will be retired in the future, please use the message_severity_string property instead
         /// </summary>
         [JsonProperty("message_severity")]
         public MessageSeverity MessageSeverity { get; set; }
+
+        /// <summary>
+        /// Message severity string, could be "Error", "Warning", "Suggestion", "Info", "Verbose" or "Diagnostic"
+        /// </summary>
+        [JsonProperty("message_severity_string")]
+        [JsonConverter(typeof(StringEnumConverter))]
+        public MessageSeverity MessageSeverityString { get; set; }
+
+        /// <summary>
+        /// Log code of the item
+        /// </summary>
+        [JsonProperty("code")]
+        public string Code { get; set; }
 
         /// <summary>
         /// Log time
@@ -64,11 +80,25 @@ namespace ECMA2Yaml
 
         /// <summary>
         /// The type of the log item, could be user or system
+        /// TODO: log_item_type will be retired in the future, please use the log_item_type_string property instead
         /// </summary>
         [JsonProperty("log_item_type")]
         public LogItemType LogItemType { get; set; }
 
-        public LogItem()
+        /// <summary>
+        /// The string of the log item type, could be "Unspecified", "System" or "User"
+        /// </summary>
+        [JsonProperty("log_item_type_string")]
+        [JsonConverter(typeof(StringEnumConverter))]
+        public LogItemType LogItemTypeString { get; set; }
+
+        /// <summary>
+        /// The category of the log item
+        /// </summary>
+        [JsonProperty("category")]
+        public string Category { get; set; }
+
+        private LogItem()
         {
         }
 
@@ -78,7 +108,7 @@ namespace ECMA2Yaml
             string file,
             MessageSeverity messageSeverity,
             LogItemType logItemType)
-            : this(message, source, file, null, DateTime.UtcNow, messageSeverity, logItemType)
+            : this(message, source, file, null, DateTime.UtcNow, messageSeverity, null, logItemType)
         {
         }
 
@@ -89,7 +119,30 @@ namespace ECMA2Yaml
             int line,
             MessageSeverity messageSeverity,
             LogItemType logItemType)
-            : this(message, source, file, line, DateTime.UtcNow, messageSeverity, logItemType)
+            : this(message, source, file, line, DateTime.UtcNow, messageSeverity, null, logItemType)
+        {
+        }
+
+        public LogItem(
+            string message,
+            string source,
+            string file,
+            MessageSeverity messageSeverity,
+            string code,
+            LogItemType logItemType)
+            : this(message, source, file, null, DateTime.UtcNow, messageSeverity, code, logItemType)
+        {
+        }
+
+        public LogItem(
+            string message,
+            string source,
+            string file,
+            int line,
+            MessageSeverity messageSeverity,
+            string errorCode,
+            LogItemType logItemType)
+            : this(message, source, file, line, DateTime.UtcNow, messageSeverity, errorCode, logItemType)
         {
         }
 
@@ -102,6 +155,7 @@ namespace ECMA2Yaml
             int? line,
             DateTime dateTime,
             MessageSeverity messageSeverity,
+            string code,
             LogItemType logItemType)
         {
             Message = message;
@@ -110,7 +164,11 @@ namespace ECMA2Yaml
             Line = line;
             DateTime = dateTime;
             MessageSeverity = messageSeverity;
+            MessageSeverityString = messageSeverity;
+            Code = code;
             LogItemType = logItemType;
+            LogItemTypeString = logItemType;
+            Category = "ECMA2Yaml";
         }
     }
 }
