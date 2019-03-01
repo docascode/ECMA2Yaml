@@ -13,10 +13,10 @@ namespace ECMA2Yaml
     {
         Error,
         Warning,
-        Suggestion,
         Info,
         Verbose,
-        Diagnostic
+        Diagnostic,
+        Suggestion
     }
 
     public enum LogItemType
