@@ -36,7 +36,7 @@ namespace ECMA2Yaml
                     {
                         fileMapping.TryAdd(ns.Value.SourceFileLocalPath, nsFileName);
                     }
-                    YamlUtility.Serialize(nsFileName, nsPage, YamlMime.ManagedReference);
+                    YamlUtility.Serialize(nsFileName, nsPage, nsPage.YamlMime);
                 }
 
                 if (!flatten && !Directory.Exists(nsFolder))

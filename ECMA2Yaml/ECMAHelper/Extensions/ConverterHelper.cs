@@ -13,27 +13,30 @@ namespace ECMA2Yaml
         {
             const string csharp = "C#";
             var contents = new SortedList<string, string>();
-            foreach (var sigPair in item.Signatures)
+            if (item.Signatures != null)
             {
-                if (Models.Constants.DevLangMapping.ContainsKey(sigPair.Key))
+                foreach (var sigPair in item.Signatures)
                 {
-                    var lang = Models.Constants.DevLangMapping[sigPair.Key];
-                    if (sigPair.Key == csharp)
+                    if (Models.Constants.DevLangMapping.ContainsKey(sigPair.Key))
                     {
-                        var contentBuilder = new StringBuilder();
-                        if (item.Attributes?.Count > 0)
+                        var lang = Models.Constants.DevLangMapping[sigPair.Key];
+                        if (sigPair.Key == csharp)
                         {
-                            foreach (var att in item.Attributes.Where(attr => attr.Visible))
+                            var contentBuilder = new StringBuilder();
+                            if (item.Attributes?.Count > 0)
                             {
-                                contentBuilder.AppendFormat("[{0}]\n", att.Declaration);
+                                foreach (var att in item.Attributes.Where(attr => attr.Visible))
+                                {
+                                    contentBuilder.AppendFormat("[{0}]\n", att.Declaration);
+                                }
                             }
+                            contentBuilder.Append(sigPair.Value);
+                            contents[lang] = contentBuilder.ToString();
                         }
-                        contentBuilder.Append(sigPair.Value);
-                        contents[lang] = contentBuilder.ToString();
-                    }
-                    else
-                    {
-                        contents[lang] = sigPair.Value;
+                        else
+                        {
+                            contents[lang] = sigPair.Value;
+                        }
                     }
                 }
             }

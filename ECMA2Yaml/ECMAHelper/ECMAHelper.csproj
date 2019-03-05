@@ -83,6 +83,8 @@
     <Compile Include="ECMALoader.misc.cs" />
     <Compile Include="ECMALoader.cs" />
     <Compile Include="Extensions\LINQExtensions.cs" />
+    <Compile Include="Models\SDP\NamespaceSDPModel.cs" />
+    <Compile Include="YamlConverters\SDPYamlConverter.Namespace.cs" />
     <Compile Include="YamlConverters\SDPYamlConverter.Enum.cs" />
     <Compile Include="YamlConverters\SDPYamlConverter.cs" />
     <Compile Include="Logging\OPSLogger.cs" />

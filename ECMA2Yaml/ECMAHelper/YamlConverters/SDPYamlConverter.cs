@@ -26,11 +26,9 @@ namespace ECMA2Yaml
         {
             HashSet<string> memberTouchCache = new HashSet<string>();
 
-
-
             foreach (var ns in _store.Namespaces)
             {
-                //NamespacePages.Add(ns.Key, FormatNamespace(ns.Value));
+                NamespacePages.Add(ns.Key, FormatNamespace(ns.Value));
             }
 
             foreach (var type in _store.TypesByUid.Values)
@@ -64,6 +62,9 @@ namespace ECMA2Yaml
 
         private T InitWithBasicProperties<T>(ReflectionItem item) where T : ItemSDPModelBase, new()
         {
+            var signatures = ConverterHelper.BuildSignatures(item)
+                ?.Select(sig => new SignatureModel() { Lang = sig.Key, Value = sig.Value })
+                .ToList();
             T rval = new T
             {
                 Uid = item.Uid,
@@ -72,7 +73,8 @@ namespace ECMA2Yaml
 
                 Assemblies = item.AssemblyInfo?.Select(asm => asm.Name).ToList(),
                 Attributes = item.Attributes?.Select(att => att.TypeFullName).ToList(),
-                Syntax = ConverterHelper.BuildSignatures(item)?.Select(sig => new SignatureModel() { Lang = sig.Key, Value = sig.Value }).ToList(),
+                Syntax = signatures,
+                DevLangs = signatures?.Select(sig => sig.Lang).ToList(),
 
                 Summary = item.Docs.Summary,
                 Remarks = item.Docs.Remarks,
