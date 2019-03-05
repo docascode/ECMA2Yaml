@@ -220,45 +220,24 @@ namespace ECMA2Yaml
             return item;
         }
 
-        public static SyntaxDetailViewModel ToSyntaxDetailViewModel(this Models.Type t, ECMAStore store)
+        public static SyntaxDetailViewModel ToSyntaxDetailViewModel(this ReflectionItem item, ECMAStore store)
         {
             const string csharp = "C#";
-            var contents = new SortedList<string, string>();
-            foreach (var sigPair in t.Signatures)
-            {
-                if (Models.Constants.DevLangMapping.ContainsKey(sigPair.Key))
-                {
-                    var lang = Models.Constants.DevLangMapping[sigPair.Key];
-                    if (sigPair.Key == csharp)
-                    {
-                        var contentBuilder = new StringBuilder();
-                        if (t.Attributes?.Count > 0)
-                        {
-                            foreach (var att in t.Attributes.Where(attr => attr.Visible))
-                            {
-                                contentBuilder.AppendFormat("[{0}]\n", att.Declaration);
-                            }
-                        }
-                        contentBuilder.Append(sigPair.Value);
-                        contents[lang] = contentBuilder.ToString();
-                    }
-                    else
-                    {
-                        contents[lang] = sigPair.Value;
-                    }
-                }
-            }
+            var contents = ConverterHelper.BuildSignatures(item);
 
             var syntax = new SyntaxDetailViewModel()
             {
                 Contents = contents,
                 Content = contents.ContainsKey(Models.Constants.DevLangMapping[csharp]) ? contents[Models.Constants.DevLangMapping[csharp]] : null,
-                Parameters = t.Parameters?.Select(p => p.ToApiParameter(store))?.ToList(),
-                TypeParameters = t.TypeParameters?.Select(tp => tp.ToApiParameter(store))?.ToList()
+                Parameters = item.Parameters?.Select(p => p.ToApiParameter(store))?.ToList(),
+                TypeParameters = item.TypeParameters?.Select(tp => tp.ToApiParameter(store))?.ToList()
             };
-            if (t.ReturnValueType != null && !string.IsNullOrEmpty(t.ReturnValueType.Type) && t.ReturnValueType.Type != "System.Void")
+            if (item.ReturnValueType != null
+                && !string.IsNullOrEmpty(item.ReturnValueType.Type)
+                && item.ReturnValueType.Type != "System.Void"
+                && item.ItemType != ItemType.Event)
             {
-                syntax.Return = t.ReturnValueType.ToApiParameter(store);
+                syntax.Return = item.ReturnValueType.ToApiParameter(store);
             }
             return syntax;
         }
@@ -301,50 +280,6 @@ namespace ECMA2Yaml
             item.Metadata.AddPermissions(m.Docs);
             item.Metadata.AddThreadSafety(m.Docs);
             return item;
-        }
-
-        public static SyntaxDetailViewModel ToSyntaxDetailViewModel(this Member m, ECMAStore store)
-        {
-            const string csharp = "C#";
-            var contents = new SortedList<string, string>();
-            foreach(var sigPair in m.Signatures)
-            {
-                if (Models.Constants.DevLangMapping.ContainsKey(sigPair.Key))
-                {
-                    var lang = Models.Constants.DevLangMapping[sigPair.Key];
-                    if (sigPair.Key == csharp)
-                    {
-                        var contentBuilder = new StringBuilder();
-                        if (m.Attributes?.Count > 0)
-                        {
-                            foreach (var att in m.Attributes.Where(attr => attr.Visible))
-                            {
-                                contentBuilder.AppendFormat("[{0}]\n", att.Declaration);
-                            }
-                        }
-                        contentBuilder.Append(sigPair.Value);
-                        contents[lang] = contentBuilder.ToString();
-                    }
-                    else
-                    {
-                        contents[lang] = sigPair.Value;
-                    }
-                }
-            }
-            
-            var syntax = new SyntaxDetailViewModel()
-            {
-                Contents = contents,
-                Content = contents.ContainsKey(Models.Constants.DevLangMapping[csharp]) ? contents[Models.Constants.DevLangMapping[csharp]] : null,
-                Parameters = m.Parameters?.Select(p => p.ToApiParameter(store))?.ToList(),
-                TypeParameters = m.TypeParameters?.Select(p => p.ToApiParameter(store))?.ToList()
-            };
-            var returnType = m.ReturnValueType?.Type;
-            if (!string.IsNullOrEmpty(returnType) && returnType != "System.Void" && m.ItemType != ItemType.Event)
-            {
-                syntax.Return = m.ReturnValueType.ToApiParameter(store);
-            }
-            return syntax;
         }
 
         public static ApiParameter ToApiParameter(this Parameter p, ECMAStore store)

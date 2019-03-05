@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace ECMA2Yaml
 {
-    class YamlHeaderParser
+    public class YamlHeaderParser
     {
         public static readonly Regex YamlHeaderRegex = new Regex(@"\-{3}(?:\s*?)\n([\s\S]+?)(?:\s*?)\n\-{3}(?:\s*?)(?:\n|$)", RegexOptions.Compiled | RegexOptions.Singleline, TimeSpan.FromSeconds(2));
 

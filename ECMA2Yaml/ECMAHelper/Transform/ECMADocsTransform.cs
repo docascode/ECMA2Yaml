@@ -18,7 +18,7 @@
         public ECMADocsTransform()
         {
             var assembly = this.GetType().Assembly;
-            var xsltFilePath = $"{assembly.GetName().Name}.Transform.ECMADocsTransform.xsl";
+            var xsltFilePath = $"ECMA2Yaml.Transform.ECMADocsTransform.xsl";
             using (var stream = assembly.GetManifestResourceStream(xsltFilePath))
             using (var reader = XmlReader.Create(stream))
             {

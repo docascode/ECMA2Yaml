@@ -80,6 +80,12 @@ namespace ECMA2Yaml
                 UndocumentedApi.ReportGenerator.GenerateReport(store, opt.UndocumentedApiReport.BackSlashToForwardSlash(), opt.CurrentBranch);
             }
 
+            if (opt.SDPMode)
+            {
+                SDPYamlGenerator.Generate(store, opt.OutputFolder, opt.Flatten);
+                return;
+            }
+
             WriteLine("Generating Yaml models...");
             var nsPages = TopicGenerator.GenerateNamespacePages(store);
             var typePages = TopicGenerator.GenerateTypePages(store);

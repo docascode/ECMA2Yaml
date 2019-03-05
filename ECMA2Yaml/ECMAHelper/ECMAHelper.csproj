@@ -7,7 +7,7 @@
     <ProjectGuid>{B5D18314-613F-492A-9564-C9BCD1A183E6}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ECMAHelper</RootNamespace>
+    <RootNamespace>ECMA2Yaml</RootNamespace>
     <AssemblyName>ECMAHelper</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -29,8 +29,21 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>default</LangVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.DocAsCode.Common, Version=2.29.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.DocAsCode.Common.2.29.1\lib\netstandard2.0\Microsoft.DocAsCode.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.DocAsCode.DataContracts.Common, Version=2.29.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.DocAsCode.DataContracts.Common.2.29.1\lib\net461\Microsoft.DocAsCode.DataContracts.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.DocAsCode.Plugins, Version=2.29.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.DocAsCode.Plugins.2.29.1\lib\netstandard2.0\Microsoft.DocAsCode.Plugins.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.DocAsCode.YamlSerialization, Version=2.29.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.DocAsCode.YamlSerialization.2.29.1\lib\netstandard2.0\Microsoft.DocAsCode.YamlSerialization.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.OpenPublishing.FileAbstractLayer, Version=1.52.230.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.OpenPublishing.FileAbstractLayer.1.60.0\lib\net461\Microsoft.OpenPublishing.FileAbstractLayer.dll</HintPath>
     </Reference>
@@ -45,6 +58,9 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Collections.Immutable, Version=1.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Collections.Immutable.1.3.1\lib\portable-net45+win8+wp8+wpa81\System.Collections.Immutable.dll</HintPath>
+    </Reference>
     <Reference Include="System.Core" />
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.IO.Compression.FileSystem" />
@@ -60,15 +76,22 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\ConverterHelper.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Extensions\IdExtensions.cs" />
     <Compile Include="ECMALoader.docs.cs" />
     <Compile Include="ECMALoader.misc.cs" />
     <Compile Include="ECMALoader.cs" />
     <Compile Include="Extensions\LINQExtensions.cs" />
+    <Compile Include="YamlConverters\SDPYamlConverter.Enum.cs" />
+    <Compile Include="YamlConverters\SDPYamlConverter.cs" />
     <Compile Include="Logging\OPSLogger.cs" />
     <Compile Include="Models\FrameworkIndex.cs" />
     <Compile Include="Models\RelatedTag.cs" />
+    <Compile Include="Models\SDP\EnumSDPModel.cs" />
+    <Compile Include="Models\SDP\ItemSDPModelBase.cs" />
+    <Compile Include="Models\SDP\Shared\EnumField.cs" />
+    <Compile Include="Models\SDP\Shared\SignatureModel.cs" />
     <Compile Include="Models\ThreadSafety.cs" />
     <Compile Include="Models\AdditionalNotes.cs" />
     <Compile Include="Models\AssemblyInfo.cs" />
@@ -93,6 +116,9 @@
     <Compile Include="Models\VersionedProperty.cs" />
     <Compile Include="Transform\ECMADocsTransform.cs" />
     <Compile Include="Transform\XHtmlWriter.cs" />
+    <Compile Include="YamlGenerators\SDPYamlGenerator.cs" />
+    <Compile Include="YamlHelpers\YamlHeaderParser.cs" />
+    <Compile Include="YamlHelpers\YamlHeaderWriter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ECMAHelper.nuspec" />

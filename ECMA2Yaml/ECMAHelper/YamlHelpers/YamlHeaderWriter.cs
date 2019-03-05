@@ -1,4 +1,5 @@
-﻿using ECMA2Yaml.Models;
+﻿using ECMA2Yaml;
+using ECMA2Yaml.Models;
 using Microsoft.DocAsCode.Common;
 using Microsoft.DocAsCode.Common.EntityMergers;
 using Microsoft.DocAsCode.DataContracts.Common;

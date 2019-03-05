@@ -101,6 +101,10 @@ foreach($ecmaConfig in $jobs)
     {
         $allArgs += "-strict";
     }
+	if ($ecmaConfig.SDPMode)
+    {
+        $allArgs += "-SDP";
+    }
     if (-not [string]::IsNullOrEmpty($ecmaConfig.SourceMetadataFolder))
     {
         $ecmaSourceMetadataFolder = Join-Path $repositoryRoot $ecmaConfig.SourceMetadataFolder
