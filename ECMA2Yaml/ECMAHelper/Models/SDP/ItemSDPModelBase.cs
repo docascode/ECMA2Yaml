@@ -50,6 +50,10 @@ namespace ECMA2Yaml.Models.SDP
         [YamlMember(Alias = "dev_langs")]
         public IEnumerable<string> DevLangs { get; set; }
 
+        [JsonProperty("seeAlso")]
+        [YamlMember(Alias = "seeAlso")]
+        public IEnumerable<string> SeeAlso { get; set; }
+
         [JsonProperty("isDeprecated")]
         [YamlMember(Alias = "isDeprecated")]
         public bool IsDeprecated { get; set; }

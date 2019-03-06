@@ -83,7 +83,12 @@
     <Compile Include="ECMALoader.misc.cs" />
     <Compile Include="ECMALoader.cs" />
     <Compile Include="Extensions\LINQExtensions.cs" />
+    <Compile Include="Models\SDP\Shared\MemberReference.cs" />
+    <Compile Include="Models\SDP\Shared\ThreadSafety.cs" />
+    <Compile Include="Models\SDP\Shared\TypeParameter.cs" />
+    <Compile Include="Models\SDP\TypeSDPModel.cs" />
     <Compile Include="Models\SDP\NamespaceSDPModel.cs" />
+    <Compile Include="YamlConverters\SDPYamlConverter.Type.cs" />
     <Compile Include="YamlConverters\SDPYamlConverter.Namespace.cs" />
     <Compile Include="YamlConverters\SDPYamlConverter.Enum.cs" />
     <Compile Include="YamlConverters\SDPYamlConverter.cs" />

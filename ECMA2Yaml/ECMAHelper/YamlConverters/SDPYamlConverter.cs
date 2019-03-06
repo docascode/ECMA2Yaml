@@ -39,6 +39,12 @@ namespace ECMA2Yaml
                         var enumPage = FormatEnum(type, memberTouchCache);
                         TypePages.Add(enumPage.Uid, enumPage);
                         break;
+                    case ItemType.Class:
+                    case ItemType.Interface:
+                    case ItemType.Struct:
+                        var tPage = FormatType(type);
+                        TypePages.Add(tPage.Uid, tPage);
+                        break;
                 }
             }
 
@@ -103,6 +109,34 @@ namespace ECMA2Yaml
             }
 
             return rval;
+        }
+
+        private IEnumerable<TypeParameter> ConvertTypeParameters(ReflectionItem item)
+        {
+            if (item.TypeParameters?.Count > 0)
+            {
+                return item.TypeParameters.Select(tp =>
+                    new TypeParameter()
+                    {
+                        Description = tp.Description,
+                        Name = tp.Name
+                    }).ToList();
+            }
+            return null;
+        }
+
+        private Models.SDP.ThreadSafety ConvertThreadSafety(ReflectionItem item)
+        {
+            if (item.Docs.ThreadSafetyInfo != null)
+            {
+                return new Models.SDP.ThreadSafety()
+                {
+                    CustomizedContent = item.Docs.ThreadSafetyInfo.CustomContent,
+                    IsSupported = item.Docs.ThreadSafetyInfo.Supported ?? false,
+                    MemberScope = item.Docs.ThreadSafetyInfo.MemberScope
+                };
+            }
+            return null;
         }
     }
 }

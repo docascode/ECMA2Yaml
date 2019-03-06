@@ -12,6 +12,14 @@ namespace ECMA2Yaml.Models.SDP
     {
         public override string YamlMime { get; } = "YamlMime:NetNamespace";
 
+        [JsonIgnore]
+        [YamlIgnore]
+        new public string Namespace { get; set; }
+
+        [JsonIgnore]
+        [YamlIgnore]
+        new public IEnumerable<SignatureModel> Syntax { get; set; }
+
         [JsonProperty("delegates")]
         [YamlMember(Alias = "delegates")]
         public IEnumerable<string> Delegates { get; set; }
