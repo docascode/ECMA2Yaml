@@ -62,6 +62,10 @@ namespace ECMA2Yaml.Models.SDP
         [YamlMember(Alias = "isInternalOnly")]
         public bool IsInternalOnly { get; set; }
 
+        [JsonProperty("additionalNotes")]
+        [YamlMember(Alias = "additionalNotes")]
+        public AdditionalNotes AdditionalNotes { get; set; }
+
         [JsonProperty("summary")]
         [YamlMember(Alias = "summary")]
         public string Summary { get; set; }

@@ -112,6 +112,11 @@ namespace ECMA2Yaml
                 rval.IsInternalOnly = (bool)val;
             }
 
+            if (item.Metadata.TryGetValue(OPSMetadata.AdditionalNotes, out object notes))
+            {
+                rval.AdditionalNotes = (AdditionalNotes)notes;
+            }
+
             return rval;
         }
 
