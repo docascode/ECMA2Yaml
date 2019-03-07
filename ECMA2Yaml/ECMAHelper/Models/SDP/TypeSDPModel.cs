@@ -24,6 +24,20 @@ namespace ECMA2Yaml.Models.SDP
         [YamlMember(Alias = "threadSafety")]
         public ThreadSafety ThreadSafety { get; set; }
 
+        [JsonProperty("permissions")]
+        [YamlMember(Alias = "permissions")]
+        public IEnumerable<TypeReference> Permissions { get; set; }
+
+        [JsonProperty("implements")]
+        [YamlMember(Alias = "implements")]
+        public IEnumerable<string> Implements { get; set; }
+
+        [JsonProperty("inheritances")]
+        [YamlMember(Alias = "inheritances")]
+        public IEnumerable<string> Inheritances { get; set; }
+
+        #region Children
+
         [JsonProperty("extensionMethods")]
         [YamlMember(Alias = "extensionMethods")]
         public IEnumerable<MemberReference> ExtensionMethods { get; set; }
@@ -63,5 +77,7 @@ namespace ECMA2Yaml.Models.SDP
         [JsonProperty("attachedProperties")]
         [YamlMember(Alias = "attachedProperties")]
         public IEnumerable<MemberReference> AttachedProperties { get; set; }
+
+        #endregion
     }
 }

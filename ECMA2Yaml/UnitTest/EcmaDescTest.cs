@@ -9,13 +9,13 @@ using System.Xml.Linq;
 namespace UnitTest
 {
     [TestClass]
-    public class UnitTest1
+    public class EcmaDescTest
     {
         [TestMethod]
         public void TestEcmaDesc1()
         {
             EcmaUrlParser EcmaParser = new EcmaUrlParser();
-            EcmaDesc desc = EcmaParser.Parse("T:System.Nullable<Microsoft.Azure.Batch.Protocol.Models.AllocationState>");
+            Monodoc.Ecma.EcmaDesc desc = EcmaParser.Parse("T:System.Nullable<Microsoft.Azure.Batch.Protocol.Models.AllocationState>");
             Console.WriteLine(desc.ToCompleteTypeName());
         }
 
@@ -23,7 +23,7 @@ namespace UnitTest
         public void TestEcmaDesc2()
         {
             EcmaUrlParser EcmaParser = new EcmaUrlParser();
-            EcmaDesc desc = EcmaParser.Parse("T:System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<TKey,TValue>>");
+            Monodoc.Ecma.EcmaDesc desc = EcmaParser.Parse("T:System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<TKey,TValue>>");
             Console.WriteLine(desc.ToSpecId());
             Console.WriteLine(desc.ToSpecId(new List<string>() { "TKey", "TValue" }));
         }
@@ -32,15 +32,24 @@ namespace UnitTest
         public void TestEcmaDesc3()
         {
             EcmaUrlParser EcmaParser = new EcmaUrlParser();
-            EcmaDesc desc = EcmaParser.Parse("T:System.Collections.Generic.HashSet<T>+Enumerator[]");
+            Monodoc.Ecma.EcmaDesc desc = EcmaParser.Parse("T:System.Collections.Generic.HashSet<T>+Enumerator[]");
             Assert.AreEqual("System.Collections.Generic.HashSet{`0}.Enumerator[]", desc.ToSpecId(new List<string>() { "T" }));
+        }
+
+        [TestMethod]
+        public void TestEcmaDescToMD()
+        {
+            EcmaUrlParser EcmaParser = new EcmaUrlParser();
+            Monodoc.Ecma.EcmaDesc desc = EcmaParser.Parse("T:System.Collections.Generic.HashSet<T>+Enumerator[]");
+            var md = SDPYamlConverter.DescToTypeMDString(desc);
+            Assert.AreEqual("[HashSet](xref:System.Collections.Generic.HashSet`1)<T>.[Enumerator](xref:Enumerator)[]", md);
         }
 
         [TestMethod, Ignore]
         public void TestEcmaDesc_Complex()
         {
             EcmaUrlParser EcmaParser = new EcmaUrlParser();
-            EcmaDesc desc = EcmaParser.Parse("T:System.Threading.Tasks.Task<System.Collections.Generic.IReadOnlyList<Microsoft.Bot.Builder.Scorables.Internals.FoldScorable<Item,Score>.State>>");
+            Monodoc.Ecma.EcmaDesc desc = EcmaParser.Parse("T:System.Threading.Tasks.Task<System.Collections.Generic.IReadOnlyList<Microsoft.Bot.Builder.Scorables.Internals.FoldScorable<Item,Score>.State>>");
         }
 
         [TestMethod, Ignore]

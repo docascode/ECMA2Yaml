@@ -65,7 +65,7 @@
   <ItemGroup>
     <Compile Include="ExtensionTests.cs" />
     <Compile Include="MarkdownTests.cs" />
-    <Compile Include="UnitTest1.cs" />
+    <Compile Include="EcmaDescTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

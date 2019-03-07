@@ -18,6 +18,17 @@ namespace ECMA2Yaml
             sdpType.TypeParameters = ConvertTypeParameters(t);
             sdpType.ThreadSafety = ConvertThreadSafety(t);
 
+            sdpType.Inheritances = t.InheritanceUids;
+            sdpType.Implements = t.Interfaces?.Where(i => i != null)
+                .Select(i => _store.TypesByFullName.ContainsKey(i) ? _store.TypesByFullName[i].Uid : i.ToSpecId())
+                .ToList();
+            sdpType.Permissions = t.Docs.Permissions?.Select(
+                p => new TypeReference()
+                {
+                    Description = p.Description,
+                    Type = DocIdToTypeMDString(p.CommentId, _store)
+                }).ToList();
+
             PopulateTypeChildren(t, sdpType);
 
             return sdpType;
