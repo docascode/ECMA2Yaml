@@ -45,6 +45,10 @@ namespace ECMA2Yaml
                         var tPage = FormatType(type);
                         TypePages.Add(tPage.Uid, tPage);
                         break;
+                    case ItemType.Delegate:
+                        var dPage = FormatDelegate(type);
+                        TypePages.Add(dPage.Uid, dPage);
+                        break;
                 }
             }
 
@@ -123,6 +127,15 @@ namespace ECMA2Yaml
                     }).ToList();
             }
             return null;
+        }
+
+        private T ConvertParameter<T>(Parameter p) where T: TypeReference, new()
+        {
+            return new T()
+            {
+                Description = p.Description,
+                Type = TypeStringToTypeMDString(p.OriginalTypeString ?? p.Type, _store)
+            };
         }
 
         private Models.SDP.ThreadSafety ConvertThreadSafety(ReflectionItem item)

@@ -12,6 +12,21 @@ namespace ECMA2Yaml
 {
     public partial class SDPYamlConverter
     {
+        public static string TypeStringToTypeMDString(string typeStr, ECMAStore store)
+        {
+            if (store.TypesByFullName.TryGetValue(typeStr, out var t))
+            {
+                return $"[{t.Name}](xref:{t.Uid})";
+            }
+
+            var desc = ECMAStore.GetOrAddTypeDescriptor(typeStr);
+            if (desc != null)
+            {
+                return DescToTypeMDString(desc);
+            }
+            return typeStr;
+        }
+
         public static string DocIdToTypeMDString(string docId, ECMAStore store)
         {
             var item = docId.ResolveCommentId(store);
