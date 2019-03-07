@@ -81,8 +81,8 @@ namespace ECMA2Yaml
                 CommentId = item.CommentId,
                 Name = item.Name,
 
-                Assemblies = item.AssemblyInfo?.Select(asm => asm.Name).ToList(),
-                Attributes = item.Attributes?.Select(att => att.TypeFullName).ToList(),
+                Assemblies = item.VersionedAssemblyInfo?.MonikersPerValue.Keys.Select(asm => asm.Name).Distinct().ToList(),
+                Attributes = item.Attributes?.Where(att => att.Visible).Select(att => att.TypeFullName).ToList(),
                 Syntax = signatures,
                 DevLangs = signatures?.Select(sig => sig.Lang).ToList(),
 
