@@ -46,8 +46,8 @@ namespace ECMA2Yaml.Models.SDP
         [YamlMember(Alias = "syntax")]
         public IEnumerable<SignatureModel> Syntax { get; set; }
 
-        [JsonProperty("dev_langs")]
-        [YamlMember(Alias = "dev_langs")]
+        [JsonProperty("devLangs")]
+        [YamlMember(Alias = "devLangs")]
         public IEnumerable<string> DevLangs { get; set; }
 
         [JsonProperty("seeAlso")]

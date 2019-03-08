@@ -86,6 +86,7 @@ namespace ECMA2Yaml
                 Syntax = signatures,
                 DevLangs = signatures?.Select(sig => sig.Lang).ToList(),
 
+                SeeAlso = BuildSeeAlsoList(item.Docs, _store),
                 Summary = item.Docs.Summary,
                 Remarks = item.Docs.Remarks,
                 Examples = item.Docs.Examples
@@ -158,6 +159,27 @@ namespace ECMA2Yaml
                 };
             }
             return null;
+        }
+
+        public static IEnumerable<string> BuildSeeAlsoList(Docs docs, ECMAStore store)
+        {
+            List<string> list = new List<string>();
+            if (docs.AltMemberCommentIds != null)
+            {
+                foreach(var altMemberId in docs.AltMemberCommentIds)
+                {
+                    var uid = altMemberId.ResolveCommentId(store)?.Uid ?? altMemberId.Substring(altMemberId.IndexOf(':') + 1);
+                    list.Add($"<xref:{uid}>");
+                }
+            }
+            if (docs.Related != null)
+            {
+                foreach (var rTag in docs.Related)
+                {
+                    list.Add($"[{rTag.Text}]({rTag.Uri})");
+                }
+            }
+            return list.NullIfEmpty();
         }
     }
 }
