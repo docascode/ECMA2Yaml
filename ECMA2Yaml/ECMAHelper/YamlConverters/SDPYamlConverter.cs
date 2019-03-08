@@ -134,12 +134,15 @@ namespace ECMA2Yaml
             return null;
         }
 
-        private T ConvertParameter<T>(Parameter p) where T: TypeReference, new()
+        private T ConvertParameter<T>(Parameter p, List<Parameter> knownTypeParams = null) where T: TypeReference, new()
         {
+            var isGeneric = knownTypeParams?.Any(tp => tp.Name == p.Type) ?? false;
             return new T()
             {
                 Description = p.Description,
-                Type = TypeStringToTypeMDString(p.OriginalTypeString ?? p.Type, _store)
+                Type = isGeneric 
+                    ? "" // should be `p.Type`, tracked in https://ceapex.visualstudio.com/Engineering/_workitems/edit/72695
+                    : TypeStringToTypeMDString(p.OriginalTypeString ?? p.Type, _store)
             };
         }
 
