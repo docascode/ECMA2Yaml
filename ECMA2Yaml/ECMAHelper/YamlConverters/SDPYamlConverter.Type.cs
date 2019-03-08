@@ -18,9 +18,9 @@ namespace ECMA2Yaml
             sdpType.TypeParameters = ConvertTypeParameters(t);
             sdpType.ThreadSafety = ConvertThreadSafety(t);
 
-            sdpType.Inheritances = t.InheritanceUids;
+            sdpType.Inheritances = t.InheritanceUids?.Select(uid => UidToTypeMDString(uid, _store)).ToList(); ;
             sdpType.Implements = t.Interfaces?.Where(i => i != null)
-                .Select(i => _store.TypesByFullName.ContainsKey(i) ? _store.TypesByFullName[i].Uid : i.ToSpecId())
+                .Select(i => TypeStringToTypeMDString(i, _store))
                 .ToList();
             sdpType.Permissions = t.Docs.Permissions?.Select(
                 p => new TypeReference()

@@ -37,6 +37,19 @@ namespace ECMA2Yaml
             return docId;
         }
 
+        public static string UidToTypeMDString(string uid, ECMAStore store)
+        {
+            if (store.TypesByUid.TryGetValue(uid, out var t))
+            {
+                return $"[{t.Name}](xref:{t.Uid})";
+            }
+            if (store.MembersByUid.TryGetValue(uid, out var m))
+            {
+                return $"[{m.Name}](xref:{m.Uid})";
+            }
+            return $"<xref:{uid}>";
+        }
+
         public static string DescToTypeMDString(EcmaDesc desc, string parentTypeUid = null)
         {
             var typeUid = string.IsNullOrEmpty(parentTypeUid) ? desc.ToOuterTypeUid() : (parentTypeUid + "." + desc.ToOuterTypeUid());
