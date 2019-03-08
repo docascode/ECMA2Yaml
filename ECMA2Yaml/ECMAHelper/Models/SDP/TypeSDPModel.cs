@@ -36,6 +36,10 @@ namespace ECMA2Yaml.Models.SDP
         [YamlMember(Alias = "inheritances")]
         public IEnumerable<string> Inheritances { get; set; }
 
+        [JsonProperty("derivedClasses")]
+        [YamlMember(Alias = "derivedClasses")]
+        public IEnumerable<string> DerivedClasses { get; set; }
+
         #region Children
 
         [JsonProperty("extensionMethods")]

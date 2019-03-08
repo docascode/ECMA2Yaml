@@ -28,6 +28,13 @@ namespace ECMA2Yaml
                     Description = p.Description,
                     Type = DocIdToTypeMDString(p.CommentId, _store)
                 }).ToList();
+            //not top level class like System.Object, has children
+            if ((t.ItemType == ItemType.Interface
+                || (_store.InheritanceParentsByUid.ContainsKey(t.Uid) && _store.InheritanceParentsByUid[t.Uid]?.Count > 0))
+                && _store.InheritanceChildrenByUid.ContainsKey(t.Uid))
+            {
+                sdpType.DerivedClasses = _store.InheritanceChildrenByUid[t.Uid];
+            }
 
             PopulateTypeChildren(t, sdpType);
 
