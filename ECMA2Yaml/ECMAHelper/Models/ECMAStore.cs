@@ -269,6 +269,11 @@ namespace ECMA2Yaml.Models
                             OPSLogger.LogUserWarning("Can't recognize additional notes type: " + note.Key, item.SourceFileLocalPath);
                             break;
                     }
+                }
+                if (!string.IsNullOrEmpty(notes.Caller)
+                    || !string.IsNullOrEmpty(notes.Implementer)
+                    || !string.IsNullOrEmpty(notes.Inheritor))
+                {
                     item.Metadata[OPSMetadata.AdditionalNotes] = notes;
                 }
             }
