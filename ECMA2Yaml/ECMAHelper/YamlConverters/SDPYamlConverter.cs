@@ -99,7 +99,7 @@ namespace ECMA2Yaml
                     rval.FullName = m.FullDisplayName;
                     break;
                 case ECMA2Yaml.Models.Type t:
-                    rval.Namespace = t.Parent.Name;
+                    rval.Namespace = t.Parent.Name == "" ? null : t.Parent.Name;
                     rval.FullName = t.FullName;
                     break;
                 case Namespace n:
