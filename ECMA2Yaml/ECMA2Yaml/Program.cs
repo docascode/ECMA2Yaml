@@ -83,6 +83,7 @@ namespace ECMA2Yaml
             if (opt.SDPMode)
             {
                 SDPYamlGenerator.Generate(store, opt.OutputFolder, opt.Flatten);
+                YamlUtility.Serialize(Path.Combine(opt.OutputFolder, "toc.yml"), SDPTOCGenerator.Generate(store), YamlMime.TableOfContent);
                 return;
             }
 
