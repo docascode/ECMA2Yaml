@@ -23,5 +23,9 @@ namespace ECMA2Yaml.Models.SDP
         [JsonProperty("parameters")]
         [YamlMember(Alias = "parameters")]
         public IEnumerable<ParameterReference> Parameters { get; set; }
+
+        [JsonProperty("inheritances")]
+        [YamlMember(Alias = "inheritances")]
+        public IEnumerable<string> Inheritances { get; set; }
     }
 }

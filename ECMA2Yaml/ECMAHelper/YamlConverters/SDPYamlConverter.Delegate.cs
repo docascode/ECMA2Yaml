@@ -15,6 +15,7 @@ namespace ECMA2Yaml
             var sdpDelegate = InitWithBasicProperties<DelegateSDPModel>(t);
 
             sdpDelegate.TypeParameters = ConvertTypeParameters(t);
+            sdpDelegate.Inheritances = t.InheritanceUids?.Select(uid => UidToTypeMDString(uid, _store)).ToList(); ;
 
             if (t.ReturnValueType != null
                 && !string.IsNullOrEmpty(t.ReturnValueType.Type)
