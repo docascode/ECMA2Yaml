@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ECMA2Yaml</RootNamespace>
     <AssemblyName>ECMA2Yaml</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <TargetFrameworkProfile />
@@ -78,8 +78,8 @@
     <Reference Include="Microsoft.DocAsCode.YamlSerialization, Version=2.29.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.DocAsCode.YamlSerialization.2.29.1\lib\netstandard2.0\Microsoft.DocAsCode.YamlSerialization.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.OpenPublishing.FileAbstractLayer, Version=1.52.230.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.OpenPublishing.FileAbstractLayer.1.60.0\lib\net461\Microsoft.OpenPublishing.FileAbstractLayer.dll</HintPath>
+    <Reference Include="Microsoft.OpenPublishing.FileAbstractLayer, Version=1.71.270.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.OpenPublishing.FileAbstractLayer.1.71.0\lib\net462\Microsoft.OpenPublishing.FileAbstractLayer.dll</HintPath>
     </Reference>
     <Reference Include="Minimatch, Version=1.1.0.0, Culture=neutral, PublicKeyToken=0cadeb0b849c27c0, processorArchitecture=MSIL">
       <HintPath>..\packages\Minimatch.1.1.0.0\lib\portable-net40+sl50+win+wp80\Minimatch.dll</HintPath>
