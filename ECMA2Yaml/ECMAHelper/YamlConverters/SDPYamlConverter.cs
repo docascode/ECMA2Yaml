@@ -84,7 +84,7 @@ namespace ECMA2Yaml
                 Assemblies = item.VersionedAssemblyInfo?.MonikersPerValue.Keys.Select(asm => asm.Name).Distinct().ToList(),
                 Attributes = item.Attributes?.Where(att => att.Visible).Select(att => att.TypeFullName).ToList(),
                 Syntax = signatures,
-                DevLangs = signatures?.Select(sig => sig.Lang).ToList(),
+                DevLangs = signatures?.Select(sig => sig.Lang).ToList().NullIfEmpty(),
 
                 SeeAlso = BuildSeeAlsoList(item.Docs, _store),
                 Summary = item.Docs.Summary,
