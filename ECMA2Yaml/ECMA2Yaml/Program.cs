@@ -80,89 +80,92 @@ namespace ECMA2Yaml
                 UndocumentedApi.ReportGenerator.GenerateReport(store, opt.UndocumentedApiReport.BackSlashToForwardSlash(), opt.CurrentBranch);
             }
 
+            IDictionary<string, List<string>> fileMapping = null;
             if (opt.SDPMode)
             {
-                SDPYamlGenerator.Generate(store, opt.OutputFolder, opt.Flatten);
+                fileMapping = SDPYamlGenerator.Generate(store, opt.OutputFolder, opt.Flatten);
                 YamlUtility.Serialize(Path.Combine(opt.OutputFolder, "toc.yml"), SDPTOCGenerator.Generate(store), YamlMime.TableOfContent);
-                return;
             }
-
-            WriteLine("Generating Yaml models...");
-            var nsPages = TopicGenerator.GenerateNamespacePages(store);
-            var typePages = TopicGenerator.GenerateTypePages(store);
-
-            if (!string.IsNullOrEmpty(opt.MetadataFolder))
+            else
             {
-                WriteLine("Loading metadata overwrite files...");
-                var metadataDict = YamlHeaderParser.LoadOverwriteMetadata(opt.MetadataFolder);
-                var nsCount = ApplyMetadata(nsPages, metadataDict);
-                if (nsCount > 0)
-                {
-                    WriteLine("Applied metadata overwrite for {0} namespaces", nsCount);
-                }
-                var typeCount = ApplyMetadata(typePages, metadataDict);
-                if (typeCount > 0)
-                {
-                    WriteLine("Applied metadata overwrite for {0} items", typeCount);
-                }
-            }
+                WriteLine("Generating Yaml models...");
+                var nsPages = TopicGenerator.GenerateNamespacePages(store);
+                var typePages = TopicGenerator.GenerateTypePages(store);
 
-            WriteLine("Writing Yaml files...");
-            string overwriteFolder = Path.Combine(opt.OutputFolder, "overwrites");
-            if (!Directory.Exists(overwriteFolder))
-            {
-                Directory.CreateDirectory(overwriteFolder);
-            }
-            ConcurrentDictionary<string, string> fileMapping = new ConcurrentDictionary<string, string>();
-            ParallelOptions po = new ParallelOptions() { MaxDegreeOfParallelism = Environment.ProcessorCount };
-            Parallel.ForEach(store.Namespaces, po, ns =>
-            {
-                var nsFolder = Path.Combine(opt.OutputFolder, ns.Key);
-                if (!string.IsNullOrEmpty(ns.Key))
+                if (!string.IsNullOrEmpty(opt.MetadataFolder))
                 {
-                    var nsFileName = Path.Combine(opt.OutputFolder, ns.Key + ".yml");
-                    if (!string.IsNullOrEmpty(ns.Value.SourceFileLocalPath))
+                    WriteLine("Loading metadata overwrite files...");
+                    var metadataDict = YamlHeaderParser.LoadOverwriteMetadata(opt.MetadataFolder);
+                    var nsCount = ApplyMetadata(nsPages, metadataDict);
+                    if (nsCount > 0)
                     {
-                        fileMapping.TryAdd(ns.Value.SourceFileLocalPath, nsFileName);
+                        WriteLine("Applied metadata overwrite for {0} namespaces", nsCount);
                     }
-                    YamlUtility.Serialize(nsFileName, nsPages[ns.Key], YamlMime.ManagedReference);
-                }
-                
-                if (!opt.Flatten && !Directory.Exists(nsFolder))
-                {
-                    Directory.CreateDirectory(nsFolder);
+                    var typeCount = ApplyMetadata(typePages, metadataDict);
+                    if (typeCount > 0)
+                    {
+                        WriteLine("Applied metadata overwrite for {0} items", typeCount);
+                    }
                 }
 
-                foreach (var t in ns.Value.Types)
+                WriteLine("Writing Yaml files...");
+                string overwriteFolder = Path.Combine(opt.OutputFolder, "overwrites");
+                if (!Directory.Exists(overwriteFolder))
                 {
-                    var typePage = typePages[t.Uid];
-                    var tFileName = Path.Combine(opt.Flatten ? opt.OutputFolder : nsFolder, t.Uid.Replace('`', '-') + ".yml");
-                    if (!string.IsNullOrEmpty(t.SourceFileLocalPath))
+                    Directory.CreateDirectory(overwriteFolder);
+                }
+
+                fileMapping = new ConcurrentDictionary<string, List<string>>();
+                ParallelOptions po = new ParallelOptions() { MaxDegreeOfParallelism = Environment.ProcessorCount };
+                Parallel.ForEach(store.Namespaces, po, ns =>
+                {
+                    var nsFolder = Path.Combine(opt.OutputFolder, ns.Key);
+                    if (!string.IsNullOrEmpty(ns.Key))
                     {
-                        fileMapping.TryAdd(t.SourceFileLocalPath, tFileName);
-                    }
-                    YamlUtility.Serialize(tFileName, typePage, YamlMime.ManagedReference);
-                    if (t.Overloads != null && t.Overloads.Any(o => o.Docs != null))
-                    {
-                        foreach(var overload in t.Overloads.Where(o => o.Docs != null))
+                        var nsFileName = Path.Combine(opt.OutputFolder, ns.Key + ".yml");
+                        if (!string.IsNullOrEmpty(ns.Value.SourceFileLocalPath))
                         {
-                            YamlHeaderWriter.WriteOverload(overload, overwriteFolder);
+                            fileMapping.Add(ns.Value.SourceFileLocalPath, new List<string> { nsFileName });
+                        }
+                        YamlUtility.Serialize(nsFileName, nsPages[ns.Key], YamlMime.ManagedReference);
+                    }
+
+                    if (!opt.Flatten && !Directory.Exists(nsFolder))
+                    {
+                        Directory.CreateDirectory(nsFolder);
+                    }
+
+                    foreach (var t in ns.Value.Types)
+                    {
+                        var typePage = typePages[t.Uid];
+                        var tFileName = Path.Combine(opt.Flatten ? opt.OutputFolder : nsFolder, t.Uid.Replace('`', '-') + ".yml");
+                        if (!string.IsNullOrEmpty(t.SourceFileLocalPath))
+                        {
+                            fileMapping.Add(t.SourceFileLocalPath, new List<string> { tFileName });
+                        }
+                        YamlUtility.Serialize(tFileName, typePage, YamlMime.ManagedReference);
+                        if (t.Overloads != null && t.Overloads.Any(o => o.Docs != null))
+                        {
+                            foreach (var overload in t.Overloads.Where(o => o.Docs != null))
+                            {
+                                YamlHeaderWriter.WriteOverload(overload, overwriteFolder);
+                            }
+                        }
+
+                        YamlHeaderWriter.WriteCustomContentIfAny(t.Uid, t.Docs, overwriteFolder);
+                        if (t.Members != null)
+                        {
+                            foreach (var m in t.Members)
+                            {
+                                YamlHeaderWriter.WriteCustomContentIfAny(m.Uid, m.Docs, overwriteFolder);
+                            }
                         }
                     }
+                });
 
-                    YamlHeaderWriter.WriteCustomContentIfAny(t.Uid, t.Docs, overwriteFolder);
-                    if (t.Members != null)
-                    {
-                        foreach(var m in t.Members)
-                        {
-                            YamlHeaderWriter.WriteCustomContentIfAny(m.Uid, m.Docs, overwriteFolder);
-                        }
-                    }
-                }
-            });
-
-            //Write TOC
-            YamlUtility.Serialize(Path.Combine(opt.OutputFolder, "toc.yml"), TOCGenerator.Generate(store), YamlMime.TableOfContent);
+                //Write TOC
+                YamlUtility.Serialize(Path.Combine(opt.OutputFolder, "toc.yml"), TOCGenerator.Generate(store), YamlMime.TableOfContent);
+            }
 
             //Translate change list or save mapping file
             if (opt.ChangeListFiles.Count > 0)
@@ -191,7 +194,10 @@ namespace ECMA2Yaml
                     list = JsonUtility.Deserialize<List<string>>(opt.SkipPublishFilePath);
                     WriteLine("Read {0} entries in {1}.", list.Count, opt.SkipPublishFilePath);
                 }
-                list.AddRange(loader.FallbackFiles.Where(path => fileMapping.ContainsKey(path)).Select(path => fileMapping[path].Replace(opt.RepoRootPath, "").TrimStart('\\')));
+                list.AddRange(loader.FallbackFiles
+                    .Where(path => fileMapping.ContainsKey(path))
+                    .SelectMany(path => fileMapping[path].Select(p => p.Replace(opt.RepoRootPath, "").TrimStart('\\')))
+                    );
                 JsonUtility.Serialize(opt.SkipPublishFilePath, list, Newtonsoft.Json.Formatting.Indented);
                 WriteLine("Write {0} entries to {1}.", list.Count, opt.SkipPublishFilePath);
             }

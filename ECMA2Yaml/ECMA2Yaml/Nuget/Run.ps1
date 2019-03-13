@@ -114,8 +114,7 @@ foreach($ecmaConfig in $jobs)
             $allArgs += "$ecmaSourceMetadataFolder";
         }
     }
-	if (-not $ecmaConfig.SDPMode)
-	{
+
     $changeListFile = $ParameterDictionary.context.changeListTsvFilePath;
     if (-not [string]::IsNullOrEmpty($changeListFile) -and (Test-Path $changeListFile))
     {
@@ -132,7 +131,7 @@ foreach($ecmaConfig in $jobs)
         $allArgs += "$userChangeListFile";
         $ParameterDictionary.context.userSpecifiedChangeListTsvFilePath = $newUserChangeList
     }
-	}
+
     $printAllArgs = [System.String]::Join(' ', $allArgs)
     $ecma2yamlExeFilePath = Join-Path $currentDir $ecma2yamlExeName
     echo "Executing $ecma2yamlExeFilePath $printAllArgs" | timestamp

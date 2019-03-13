@@ -9,32 +9,36 @@ namespace ECMA2Yaml
 {
     class ChangeListUpdater
     {
-        public static int TranslateChangeList(string changeListFile, IDictionary<string, string> fileMapping)
+        public static int TranslateChangeList(string changeListFile, IDictionary<string, List<string>> fileMapping)
         {
             int count = 0;
             var lines = File.ReadAllLines(changeListFile);
-            var mappedLines = new List<string>();
+            var changeList = new Dictionary<string, string>();
             foreach (var l in lines)
             {
                 if (!string.IsNullOrWhiteSpace(l))
                 {
                     var parts = l.Split('\t');
                     var file = parts[0].Replace("/", "\\");
+                    var change = parts[1].Trim();
+                   
                     if (fileMapping != null && fileMapping.ContainsKey(file))
                     {
-                        parts[0] = fileMapping[file];
-                        mappedLines.Add(string.Join("\t", parts));
                         count++;
+                        foreach (var yamlFile in fileMapping[file])
+                        {
+                            changeList[yamlFile] = change;
+                        }
                     }
                     else
                     {
-                        mappedLines.Add(l);
+                        changeList[file] = change;
                     }
                 }
             }
 
             var mappedFileName = changeListFile.Replace(".tsv", ".mapped.tsv");
-            File.WriteAllLines(mappedFileName, mappedLines);
+            File.WriteAllLines(mappedFileName, changeList.Select(p => $"{p.Key}\t{p.Value}"));
             return count;
         }
     }

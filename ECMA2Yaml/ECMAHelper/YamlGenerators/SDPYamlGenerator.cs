@@ -13,18 +13,18 @@ namespace ECMA2Yaml
 {
     public static class SDPYamlGenerator
     {
-        public static void Generate(
+        public static IDictionary<string, List<string>> Generate(
             ECMAStore store,
             string outputFolder,
             bool flatten)
         {
-            WriteLine("Generating Yaml models...");
+            WriteLine("Generating SDP Yaml models...");
 
             var sdpConverter = new SDPYamlConverter(store);
             sdpConverter.Convert();
 
-            WriteLine("Writing Yaml files...");
-            ConcurrentDictionary<string, string> fileMapping = new ConcurrentDictionary<string, string>();
+            WriteLine("Writing SDP Yaml files...");
+            ConcurrentDictionary<string, List<string>> fileMapping = new ConcurrentDictionary<string, List<string>>();
             ParallelOptions po = new ParallelOptions() { MaxDegreeOfParallelism = Environment.ProcessorCount };
             Parallel.ForEach(store.Namespaces, po, ns =>
             {
@@ -34,7 +34,7 @@ namespace ECMA2Yaml
                     var nsFileName = Path.Combine(outputFolder, ns.Key + ".yml");
                     if (!string.IsNullOrEmpty(ns.Value.SourceFileLocalPath))
                     {
-                        fileMapping.TryAdd(ns.Value.SourceFileLocalPath, nsFileName);
+                        fileMapping.TryAdd(ns.Value.SourceFileLocalPath, new List<string> { nsFileName });
                     }
                     YamlUtility.Serialize(nsFileName, nsPage, nsPage.YamlMime);
                 }
@@ -51,17 +51,15 @@ namespace ECMA2Yaml
                         var tFileName = Path.Combine(flatten ? outputFolder : nsFolder, t.Uid.Replace('`', '-') + ".yml");
                         if (!string.IsNullOrEmpty(t.SourceFileLocalPath))
                         {
-                            fileMapping.TryAdd(t.SourceFileLocalPath, tFileName);
+                            fileMapping.TryAdd(t.SourceFileLocalPath, new List<string> { tFileName });
                         }
                         YamlUtility.Serialize(tFileName, typePage, typePage.YamlMime);
                     }
                 }
             });
 
-            //Write TOC
-            //YamlUtility.Serialize(Path.Combine(outputFolder, "toc.yml"), TOCGenerator.Generate(store), YamlMime.TableOfContent);
-
-            WriteLine("Done writing Yaml files.");
+            WriteLine("Done writing SDP Yaml files.");
+            return fileMapping;
         }
 
         static void WriteLine(string format, params object[] args)
