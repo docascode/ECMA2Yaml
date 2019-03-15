@@ -161,25 +161,26 @@ namespace ECMA2Yaml
             return null;
         }
 
-        public static IEnumerable<string> BuildSeeAlsoList(Docs docs, ECMAStore store)
+        public static string BuildSeeAlsoList(Docs docs, ECMAStore store)
         {
-            List<string> list = new List<string>();
+            StringBuilder sb = new StringBuilder();
             if (docs.AltMemberCommentIds != null)
             {
                 foreach(var altMemberId in docs.AltMemberCommentIds)
                 {
                     var uid = altMemberId.ResolveCommentId(store)?.Uid ?? altMemberId.Substring(altMemberId.IndexOf(':') + 1);
-                    list.Add($"<xref:{uid}>");
+                    sb.AppendLine($"- <xref:{uid}>");
                 }
             }
             if (docs.Related != null)
             {
                 foreach (var rTag in docs.Related)
                 {
-                    list.Add($"[{rTag.Text}]({rTag.Uri})");
+                    sb.AppendLine($"- [{rTag.Text}]({rTag.Uri})");
                 }
             }
-            return list.NullIfEmpty();
+
+            return sb.Length == 0 ? null : sb.ToString();
         }
     }
 }

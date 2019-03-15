@@ -52,7 +52,7 @@ namespace ECMA2Yaml.Models.SDP
 
         [JsonProperty("seeAlso")]
         [YamlMember(Alias = "seeAlso")]
-        public IEnumerable<string> SeeAlso { get; set; }
+        public string SeeAlso { get; set; }
 
         [JsonProperty("isDeprecated")]
         [YamlMember(Alias = "isDeprecated")]
