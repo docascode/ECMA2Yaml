@@ -49,12 +49,49 @@ namespace ECMA2Yaml
             {
                 Uid = t.Uid,
                 Name = t.Name,
+                Items = GenerateTocItemsForMembers(t)
             };
             if (t.Metadata != null && t.Metadata.ContainsKey(OPSMetadata.Monikers))
             {
                 tToc.Metadata[OPSMetadata.Monikers] = t.Metadata[OPSMetadata.Monikers];
             }
             return tToc;
+        }
+
+        private static TocViewModel GenerateTocItemsForMembers(Models.Type t)
+        {
+            if (t.Members == null || t.Members.Count == 0)
+            {
+                return null;
+            }
+
+            TocViewModel items = new TocViewModel();
+            foreach(var olGroup in t.Members.Where(m => m.Overload != null).GroupBy(m => m.Overload))
+            {
+                var ol = t.Overloads.FirstOrDefault(o => o.Uid == olGroup.Key);
+                var tocEntry = new TocItemViewModel()
+                {
+                    Uid = ol.Uid,
+                    Name = ol.Name
+                };
+                tocEntry.Metadata["type"] = ol.ItemType.ToString();
+                if (ol.ItemType == ItemType.Method && olGroup.First().IsEII)
+                {
+                    tocEntry.Metadata["isEii"] = true;
+                }
+                items.Add(tocEntry);
+            }
+            foreach (var m in t.Members.Where(m => m.Overload == null))
+            {
+                var tocEntry = new TocItemViewModel()
+                {
+                    Uid = m.Uid,
+                    Name = m.DisplayName
+                };
+                tocEntry.Metadata["type"] = m.ItemType.ToString();
+                items.Add(tocEntry);
+            }
+            return items;
         }
     }
 }

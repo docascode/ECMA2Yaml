@@ -310,6 +310,10 @@ namespace ECMA2Yaml.Models
 
             foreach (var m in MembersByUid.Values)
             {
+                if (m.Uid == "Microsoft.ML.TreeExtensions.FastTree(Microsoft.ML.BinaryClassificationCatalog.BinaryClassificationTrainers,Microsoft.ML.Trainers.FastTree.FastTreeBinaryClassificationTrainer.Options)")
+                {
+                    Console.WriteLine();
+                }
                 if (!string.IsNullOrEmpty(m.DocId) && ExtensionMethodsByMemberDocId.ContainsKey(m.DocId))
                 {
                     m.IsExtensionMethod = true;
@@ -519,7 +523,8 @@ namespace ECMA2Yaml.Models
                         overloads.Add(id, new Member()
                         {
                             Name = m.Name,
-                            Parent = t
+                            Parent = t,
+                            ItemType = m.ItemType
                         });
                     }
                     var displayName = m.DisplayName;
