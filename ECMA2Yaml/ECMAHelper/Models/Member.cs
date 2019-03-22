@@ -14,6 +14,13 @@ namespace ECMA2Yaml.Models
         public string FullDisplayName { get; set; }
         public string Overload { get; set; }
         public bool IsExtensionMethod { get; set; }
+        public bool IsIndexer
+        {
+            get
+            {
+                return ItemType == ItemType.Property && Signatures.ContainsKey("C#") && Signatures["C#"].Contains("[");
+            }
+        }
         public List<string> Implements { get; set; }
         public bool IsEII
         {
@@ -46,7 +53,7 @@ namespace ECMA2Yaml.Models
                 {
                     paramPart = string.Format("({0} to {1})", Parameters.First().Type.ToDisplayName(), ReturnValueType.Type.ToDisplayName());
                 }
-                else if (ItemType == ItemType.Property && Signatures.ContainsKey("C#") && Signatures["C#"].Contains("[")) //indexer
+                else if (IsIndexer)
                 {
                     paramPart = string.Format("[{0}]", string.Join(", ", Parameters.Select(p => p.Type.ToDisplayName())));
                 }

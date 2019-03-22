@@ -83,6 +83,8 @@
     <Compile Include="ECMALoader.misc.cs" />
     <Compile Include="ECMALoader.cs" />
     <Compile Include="Extensions\LINQExtensions.cs" />
+    <Compile Include="Models\SDP\MemberSDPModel.cs" />
+    <Compile Include="Models\SDP\OverloadSDPModel.cs" />
     <Compile Include="Models\SDP\Shared\MemberReference.cs" />
     <Compile Include="Models\SDP\Shared\ParameterReference.cs" />
     <Compile Include="Models\SDP\Shared\ThreadSafety.cs" />
@@ -91,6 +93,8 @@
     <Compile Include="Models\SDP\DelegateSDPModel.cs" />
     <Compile Include="Models\SDP\TypeSDPModel.cs" />
     <Compile Include="Models\SDP\NamespaceSDPModel.cs" />
+    <Compile Include="YamlConverters\SDPYamlConverter.Overload.cs" />
+    <Compile Include="YamlConverters\SDPYamlConverter.Member.cs" />
     <Compile Include="YamlConverters\SDPYamlConverter.helpers.cs" />
     <Compile Include="YamlConverters\SDPYamlConverter.Delegate.cs" />
     <Compile Include="YamlConverters\SDPYamlConverter.Type.cs" />

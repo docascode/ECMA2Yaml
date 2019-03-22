@@ -13,6 +13,7 @@ namespace ECMA2Yaml
 {
     public static class SDPYamlGenerator
     {
+        const int MaximumFileNameLength = 180;
         public static IDictionary<string, List<string>> Generate(
             ECMAStore store,
             string outputFolder,
@@ -49,11 +50,41 @@ namespace ECMA2Yaml
                     if (!string.IsNullOrEmpty(t.Uid) && sdpConverter.TypePages.TryGetValue(t.Uid, out var typePage))
                     {
                         var tFileName = Path.Combine(flatten ? outputFolder : nsFolder, t.Uid.Replace('`', '-') + ".yml");
+                        var ymlFiles = new List<string>() { tFileName };
+                        YamlUtility.Serialize(tFileName, typePage, typePage.YamlMime);
+
+                        if (t.Members != null)
+                        {
+                            foreach (var m in t.Members)
+                            {
+                                if (!string.IsNullOrEmpty(m.Uid) && sdpConverter.MemberPages.TryGetValue(m.Uid, out var mPage))
+                                {
+                                    var fileName = PathUtility.ToCleanUrlFileName(m.Uid) + ".yml";
+                                    var path = Path.Combine(flatten ? outputFolder : nsFolder, fileName);
+                                    ymlFiles.Add(path);
+                                    YamlUtility.Serialize(path, mPage, mPage.YamlMime);
+                                }
+                            }
+
+                            if (t.Overloads != null)
+                            {
+                                foreach (var ol in t.Overloads)
+                                {
+                                    if (!string.IsNullOrEmpty(ol.Uid) && sdpConverter.OverloadPages.TryGetValue(ol.Uid, out var mPage))
+                                    {
+                                        var fileName = PathUtility.ToCleanUrlFileName(GetNewFileName(t.Uid, ol)) + ".yml";
+                                        var path = Path.Combine(flatten ? outputFolder : nsFolder, fileName);
+                                        ymlFiles.Add(path);
+                                        YamlUtility.Serialize(path, mPage, mPage.YamlMime);
+                                    }
+                                }
+                            }
+                        }
+
                         if (!string.IsNullOrEmpty(t.SourceFileLocalPath))
                         {
-                            fileMapping.TryAdd(t.SourceFileLocalPath, new List<string> { tFileName });
+                            fileMapping.TryAdd(t.SourceFileLocalPath, ymlFiles);
                         }
-                        YamlUtility.Serialize(tFileName, typePage, typePage.YamlMime);
                     }
                 }
             });
@@ -66,6 +97,32 @@ namespace ECMA2Yaml
         {
             string timestamp = string.Format("[{0}]", DateTime.Now.ToString());
             Console.WriteLine(timestamp + string.Format(format, args));
+        }
+
+        private static string GetNewFileName(string parentUid, Member item)
+        {
+            // For constructor, if the class is generic class e.g. ExpandedWrapper`11, class name can be pretty long
+            // Use -ctor as file name
+            var name = item.DisplayName ?? item.Name;
+            return GetValidFileName(
+                item.Uid.TrimEnd('*'),
+                $"{parentUid}.{name}",
+                $"{parentUid}.{name.Split('.').Last()}",
+                $"{parentUid}.{Path.GetRandomFileName()}"
+                );
+        }
+
+        private static string GetValidFileName(params string[] fileNames)
+        {
+            foreach (var fileName in fileNames)
+            {
+                if (!string.IsNullOrEmpty(fileName) && fileName.Length <= MaximumFileNameLength)
+                {
+                    return fileName;
+                }
+            }
+
+            throw new Exception($"All the file name candidates {fileNames.ToDelimitedString()} exceed the maximum allowed file name length {MaximumFileNameLength}");
         }
     }
 }

@@ -72,7 +72,7 @@ namespace ECMA2Yaml
                 var tocEntry = new TocItemViewModel()
                 {
                     Uid = ol.Uid,
-                    Name = ol.Name
+                    Name = ol.DisplayName
                 };
                 tocEntry.Metadata["type"] = ol.ItemType.ToString();
                 if (ol.ItemType == ItemType.Method && olGroup.First().IsEII)

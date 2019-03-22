@@ -119,7 +119,7 @@ namespace ECMA2Yaml.Models
             var typesToLower = TypesByUid.ToDictionary(p => p.Key.ToLower(), p => p.Value);
             foreach (var member in allMembers)
             {
-                if (typesToLower.ContainsKey(member.Uid.ToLower()))
+                if (typesToLower.ContainsKey(member.Uid.ToLower()) || MembersByUid.ContainsKey(member.Uid))
                 {
                     member.Id = member.Id + "_" + member.ItemType.ToString().Substring(0, 1).ToLower();
                 }
