@@ -60,7 +60,9 @@ namespace ECMA2Yaml
 
         private static TocViewModel GenerateTocItemsForMembers(Models.Type t)
         {
-            if (t.Members == null || t.Members.Count == 0)
+            if (t.Members == null
+                || t.Members.Count == 0
+                || t.ItemType == ItemType.Enum)
             {
                 return null;
             }

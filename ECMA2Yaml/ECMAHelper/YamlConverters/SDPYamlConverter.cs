@@ -104,6 +104,7 @@ namespace ECMA2Yaml
                 case Member m:
                     rval.Namespace = m.Parent.Parent.Name;
                     rval.FullName = m.FullDisplayName;
+                    rval.Name = m.DisplayName;
                     break;
                 case ECMA2Yaml.Models.Type t:
                     rval.Namespace = t.Parent.Name == "" ? null : t.Parent.Name;
