@@ -57,7 +57,7 @@ namespace ECMA2Yaml
                         {
                             foreach (var m in t.Members)
                             {
-                                if (!string.IsNullOrEmpty(m.Uid) && sdpConverter.MemberPages.TryGetValue(m.Uid, out var mPage))
+                                if (!string.IsNullOrEmpty(m.Uid) && sdpConverter.OverloadPages.TryGetValue(m.Uid, out var mPage))
                                 {
                                     var fileName = PathUtility.ToCleanUrlFileName(m.Uid) + ".yml";
                                     var path = Path.Combine(flatten ? outputFolder : nsFolder, fileName);
