@@ -36,6 +36,10 @@ namespace ECMA2Yaml.Models.SDP
         [YamlMember(Alias = "permissions")]
         public IEnumerable<TypeReference> Permissions { get; set; }
 
+        [JsonProperty("exceptions")]
+        [YamlMember(Alias = "exceptions")]
+        public IEnumerable<TypeReference> Exceptions { get; set; }
+
         [JsonProperty("implements")]
         [YamlMember(Alias = "implements")]
         public IEnumerable<string> Implements { get; set; }

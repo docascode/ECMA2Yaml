@@ -35,6 +35,13 @@ namespace ECMA2Yaml
                 return r;
             });
 
+            sdpMember.Exceptions = m.Docs.Exceptions?.Select(
+                p => new TypeReference()
+                {
+                    Description = p.Description,
+                    Type = DocIdToTypeMDString(p.CommentId, _store)
+                }).ToList();
+
             sdpMember.Permissions = m.Docs.Permissions?.Select(
                 p => new TypeReference()
                 {
