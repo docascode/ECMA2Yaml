@@ -145,7 +145,7 @@ namespace ECMA2Yaml
             var parts = commentId.Split(':');
             if (parts?.Length != 2)
             {
-                OPSLogger.LogUserError("Unable to parse string as comment id: " + commentId);
+                OPSLogger.LogUserWarning("Unable to parse string as comment id: " + commentId);
                 return null;
             }
             switch (parts[0])
