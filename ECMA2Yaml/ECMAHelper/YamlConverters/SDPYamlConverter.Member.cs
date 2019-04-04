@@ -39,15 +39,15 @@ namespace ECMA2Yaml
                 p => new TypeReference()
                 {
                     Description = p.Description,
-                    Type = DocIdToTypeMDString(p.CommentId, _store)
-                }).ToList();
+                    Type = UidToTypeMDString(p.Uid, _store)
+                }).ToList().NullIfEmpty();
 
             sdpMember.Permissions = m.Docs.Permissions?.Select(
                 p => new TypeReference()
                 {
                     Description = p.Description,
                     Type = DocIdToTypeMDString(p.CommentId, _store)
-                }).ToList();
+                }).ToList().NullIfEmpty();
 
             return sdpMember;
         }
