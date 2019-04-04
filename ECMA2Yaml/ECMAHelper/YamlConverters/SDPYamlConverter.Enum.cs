@@ -14,6 +14,8 @@ namespace ECMA2Yaml
         {
             var sdpEnum = InitWithBasicProperties<EnumSDPModel>(enumTypeItem);
 
+            sdpEnum.Inheritances = enumTypeItem.InheritanceUids?.Select(uid => UidToTypeMDString(uid, _store)).ToList();
+
             sdpEnum.IsFlags = enumTypeItem.Attributes != null 
                 && enumTypeItem.Attributes.Any(attr => attr.Declaration == "System.Flags");
 

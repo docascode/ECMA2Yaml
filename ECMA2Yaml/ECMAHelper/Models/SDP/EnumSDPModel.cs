@@ -12,6 +12,10 @@ namespace ECMA2Yaml.Models.SDP
     {
         public override string YamlMime { get; } = "YamlMime:NetEnum";
 
+        [JsonProperty("inheritances")]
+        [YamlMember(Alias = "inheritances")]
+        public IEnumerable<string> Inheritances { get; set; }
+
         [JsonProperty("isFlags")]
         [YamlMember(Alias = "isFlags")]
         public bool IsFlags { get; set; }
