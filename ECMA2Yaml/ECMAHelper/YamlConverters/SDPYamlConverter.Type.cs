@@ -18,16 +18,22 @@ namespace ECMA2Yaml
             sdpType.TypeParameters = ConvertTypeParameters(t);
             sdpType.ThreadSafety = ConvertThreadSafety(t);
 
-            sdpType.Inheritances = t.InheritanceUids?.Select(uid => UidToTypeMDString(uid, _store)).ToList();
+            sdpType.Inheritances = t.InheritanceUids?.Select(uid => UidToTypeMDString(uid, _store))
+                .ToList()
+                .NullIfEmpty();
             sdpType.Implements = t.Interfaces?.Where(i => i != null)
                 .Select(i => TypeStringToTypeMDString(i, _store))
-                .ToList();
+                .ToList()
+                .NullIfEmpty();
             sdpType.Permissions = t.Docs.Permissions?.Select(
                 p => new TypeReference()
                 {
                     Description = p.Description,
                     Type = DocIdToTypeMDString(p.CommentId, _store)
-                }).ToList();
+                })
+                .ToList()
+                .NullIfEmpty();
+
             //not top level class like System.Object, has children
             if ((t.ItemType == ItemType.Interface
                 || (_store.InheritanceParentsByUid.ContainsKey(t.Uid) && _store.InheritanceParentsByUid[t.Uid]?.Count > 0))
