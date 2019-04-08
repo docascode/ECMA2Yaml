@@ -499,7 +499,6 @@ namespace ECMA2Yaml.Models
             var methods = t.Members?.Where(m =>
                 m.ItemType == ItemType.Method
                 || m.ItemType == ItemType.Constructor
-                || m.ItemType == ItemType.Property
                 || m.ItemType == ItemType.Operator
                 || m.ItemType == ItemType.AttachedProperty)
                 .ToList();
