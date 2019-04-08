@@ -558,6 +558,7 @@ namespace ECMA2Yaml.Models
                     foreach(var overload in overloads.Values)
                     {
                         overload.AssemblyInfo = overload.AssemblyInfo.Distinct().ToList();
+                        ItemsByDocId[overload.CommentId] = overload;
                     }
                     t.Overloads = overloads.Values.ToList();
                 }
