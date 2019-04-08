@@ -47,5 +47,18 @@ namespace ECMA2Yaml
             }
             return left;
         }
+
+        public static List<T> ConcatList<T>(this List<T> left, List<T> right)
+        {
+            if (left == null)
+            {
+                return right;
+            }
+            if (right != null)
+            {
+                return left.Concat(right).ToList();
+            }
+            return left;
+        }
     }
 }

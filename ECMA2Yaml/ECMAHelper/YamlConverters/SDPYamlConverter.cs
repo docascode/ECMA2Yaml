@@ -143,14 +143,14 @@ namespace ECMA2Yaml
             return null;
         }
 
-        private T ConvertParameter<T>(Parameter p, List<Parameter> knownTypeParams = null) where T: TypeReference, new()
+        private T ConvertParameter<T>(Parameter p, List<Parameter> knownTypeParams = null, bool showGenericType = true) where T: TypeReference, new()
         {
             var isGeneric = knownTypeParams?.Any(tp => tp.Name == p.Type) ?? false;
             return new T()
             {
                 Description = p.Description,
                 Type = isGeneric 
-                    ? "" // should be `p.Type`, tracked in https://ceapex.visualstudio.com/Engineering/_workitems/edit/72695
+                    ? (showGenericType ? p.Type : "") // should be `p.Type`, tracked in https://ceapex.visualstudio.com/Engineering/_workitems/edit/72695
                     : TypeStringToTypeMDString(p.OriginalTypeString ?? p.Type, _store)
             };
         }

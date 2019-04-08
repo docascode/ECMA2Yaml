@@ -20,17 +20,18 @@ namespace ECMA2Yaml
                 .Where(str => str != null)
                 .ToList();
 
+            var knowTypeParams = m.Parent.TypeParameters.ConcatList(m.TypeParameters);
             if (m.ReturnValueType != null
                 && !string.IsNullOrEmpty(m.ReturnValueType.Type)
                 && m.ReturnValueType.Type != "System.Void"
                 && m.ItemType != ItemType.Event)
             {
-                sdpMember.Returns = ConvertParameter<TypeReference>(m.ReturnValueType);
+                sdpMember.Returns = ConvertParameter<TypeReference>(m.ReturnValueType, knowTypeParams);
             }
 
             sdpMember.Parameters = m.Parameters?.Select(p =>
             {
-                var r = ConvertParameter<ParameterReference>(p, m.TypeParameters);
+                var r = ConvertParameter<ParameterReference>(p, knowTypeParams);
                 r.Name = p.Name;
                 return r;
             });

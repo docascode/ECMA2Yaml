@@ -27,7 +27,7 @@ namespace ECMA2Yaml
 
             sdpDelegate.Parameters = t.Parameters?.Select(p =>
             {
-                var r = ConvertParameter<ParameterReference>(p, t.TypeParameters);
+                var r = ConvertParameter<ParameterReference>(p, t.TypeParameters, showGenericType:false);
                 r.Name = p.Name;
                 return r;
             });
