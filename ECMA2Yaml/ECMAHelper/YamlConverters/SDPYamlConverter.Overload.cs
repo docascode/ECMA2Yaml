@@ -16,16 +16,18 @@ namespace ECMA2Yaml
             {
                 Uid = overload?.Uid,
                 CommentId = overload?.CommentId,
-                Name = overload?.DisplayName ?? members.First().DisplayName,
-                FullName = overload?.FullDisplayName ?? members.First().FullDisplayName,
+                Name = overload?.DisplayName,
+                FullName = overload?.FullDisplayName,
                 Summary = overload?.Docs?.Summary,
                 Remarks = overload?.Docs?.Remarks,
                 Examples = overload?.Docs?.Examples,
                 Type = members.First().ItemType.ToString().ToLower(),
                 Members = members.Select(m => FormatSingleMember(m)).ToList()
             };
-
-            sdpOverload.NameWithType = members.First().Parent.Name + "." +  sdpOverload.Name;
+            if (overload != null)
+            {
+                sdpOverload.NameWithType = members.First().Parent.Name + "." + sdpOverload.Name;
+            }
             sdpOverload.Assemblies = sdpOverload.Members.SelectMany(m => m.Assemblies).Distinct().ToList();
             sdpOverload.Namespace = sdpOverload.Members.First().Namespace;
             sdpOverload.DevLangs = sdpOverload.Members.SelectMany(m => m.DevLangs).Distinct().ToList();
