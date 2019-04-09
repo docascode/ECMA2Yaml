@@ -379,7 +379,7 @@ namespace ECMA2Yaml.Models
             {
                 return;
             }
-            if (_monikerAssemblyMapping != null)
+            if (_monikerAssemblyMapping != null && _monikerAssemblyMapping.Count > 0)
             {
                 _frameworks.FrameworkAssembliesPurged = _frameworks.FrameworkAssemblies?.ToDictionary(
                     p => p.Key,
