@@ -42,7 +42,7 @@ namespace UnitTest
             EcmaUrlParser EcmaParser = new EcmaUrlParser();
             Monodoc.Ecma.EcmaDesc desc = EcmaParser.Parse("T:System.Collections.Generic.HashSet<T>+Enumerator[]");
             var md = SDPYamlConverter.DescToTypeMDString(desc);
-            Assert.AreEqual("[HashSet](xref:System.Collections.Generic.HashSet`1)<T>.[Enumerator](xref:Enumerator)[]", md);
+            Assert.AreEqual("[HashSet](xref:System.Collections.Generic.HashSet`1)<T>.[Enumerator](xref:System.Collections.Generic.HashSet`1.Enumerator)[]", md);
         }
 
         [TestMethod, Ignore]

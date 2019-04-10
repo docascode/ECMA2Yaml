@@ -55,7 +55,7 @@ namespace ECMA2Yaml
             var typeUid = string.IsNullOrEmpty(parentTypeUid) ? desc.ToOuterTypeUid() : (parentTypeUid + "." + desc.ToOuterTypeUid());
             StringBuilder sb = new StringBuilder();
 
-            if (IsTypeArgument(desc))
+            if (string.IsNullOrEmpty(parentTypeUid) && IsTypeArgument(desc))
             {
                 sb.Append(desc.TypeName);
             }
