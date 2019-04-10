@@ -55,7 +55,14 @@ namespace ECMA2Yaml
             var typeUid = string.IsNullOrEmpty(parentTypeUid) ? desc.ToOuterTypeUid() : (parentTypeUid + "." + desc.ToOuterTypeUid());
             StringBuilder sb = new StringBuilder();
 
-            sb.Append($"[{desc.TypeName}](xref:{typeUid})");
+            if (IsTypeArgument(desc))
+            {
+                sb.Append(desc.TypeName);
+            }
+            else
+            {
+                sb.Append($"[{desc.TypeName}](xref:{typeUid})");
+            }
 
             if (desc.GenericTypeArgumentsCount > 0)
             {
@@ -69,7 +76,7 @@ namespace ECMA2Yaml
 
             if (desc.NestedType != null)
             {
-                sb.Append($".{DescToTypeMDString(desc.NestedType, parentTypeUid)}");
+                sb.Append($".{DescToTypeMDString(desc.NestedType, typeUid)}");
             }
 
             if (desc.ArrayDimensions != null && desc.ArrayDimensions.Count > 0)
@@ -88,11 +95,16 @@ namespace ECMA2Yaml
 
             string HandleTypeArgument(EcmaDesc d)
             {
-                if (string.IsNullOrEmpty(d.Namespace) && d.DescKind == EcmaDesc.Kind.Type)
+                if (IsTypeArgument(d))
                 {
                     return d.TypeName;
                 }
                 return DescToTypeMDString(d);
+            }
+
+            bool IsTypeArgument(EcmaDesc d)
+            {
+                return (string.IsNullOrEmpty(d.Namespace) && d.DescKind == EcmaDesc.Kind.Type);
             }
         }
     }

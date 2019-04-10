@@ -35,7 +35,7 @@ namespace ECMA2Yaml
                 var r = ConvertParameter<ParameterReference>(p, knowTypeParams);
                 r.Name = p.Name;
                 return r;
-            });
+            }).ToList();
 
             sdpMember.Exceptions = m.Docs.Exceptions?.Select(
                 p => new TypeReference()
