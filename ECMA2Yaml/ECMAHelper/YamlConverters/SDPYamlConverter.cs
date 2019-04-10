@@ -177,6 +177,7 @@ namespace ECMA2Yaml
                 foreach(var altMemberId in docs.AltMemberCommentIds)
                 {
                     var uid = altMemberId.ResolveCommentId(store)?.Uid ?? altMemberId.Substring(altMemberId.IndexOf(':') + 1);
+                    uid = System.Web.HttpUtility.UrlEncode(uid);
                     sb.AppendLine($"- <xref:{uid}>");
                 }
             }
