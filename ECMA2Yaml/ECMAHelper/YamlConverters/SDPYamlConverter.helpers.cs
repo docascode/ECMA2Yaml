@@ -32,7 +32,14 @@ namespace ECMA2Yaml
             var item = docId.ResolveCommentId(store);
             if (item != null)
             {
-                return $"[{item.Name}](xref:{item.Uid})";
+                if (item is Member m)
+                {
+                    return $"[{m.DisplayName}](xref:{item.Uid})";
+                }
+                else
+                {
+                    return $"[{item.Name}](xref:{item.Uid})";
+                }
             }
             return docId;
         }
