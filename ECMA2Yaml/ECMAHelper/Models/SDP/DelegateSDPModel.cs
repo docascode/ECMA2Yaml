@@ -27,5 +27,9 @@ namespace ECMA2Yaml.Models.SDP
         [JsonProperty("inheritances")]
         [YamlMember(Alias = "inheritances")]
         public IEnumerable<string> Inheritances { get; set; }
+
+        [JsonProperty("extensionMethods")]
+        [YamlMember(Alias = "extensionMethods")]
+        public IEnumerable<MemberReference> ExtensionMethods { get; set; }
     }
 }

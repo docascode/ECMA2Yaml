@@ -64,13 +64,13 @@ namespace ECMA2Yaml
                 var eiis = members.Where(m => m.IsEII).ToList();
                 if (eiis.Count > 0)
                 {
-                    sdpType.EIIs = eiis.Select(m => ConvertMemberReference(m)).ToList();
+                    sdpType.EIIs = eiis.Select(m => ConvertMemberReference(t, m)).ToList();
                 }
                 foreach (var mGroup in members
                     .Where(m => !m.IsEII)
                     .GroupBy(m => m.ItemType))
                 {
-                    var list = mGroup.Select(m => ConvertMemberReference(m)).ToList();
+                    var list = mGroup.Select(m => ConvertMemberReference(t, m)).ToList();
                     switch (mGroup.Key)
                     {
                         case ItemType.Property:
@@ -102,20 +102,7 @@ namespace ECMA2Yaml
             }
             if (t.ExtensionMethods?.Count > 0)
             {
-                sdpType.ExtensionMethods = t.ExtensionMethods.Select(im => ConvertMemberReference(_store.MembersByUid[im])).ToList();
-            }
-
-            MemberReference ConvertMemberReference(Member m)
-            {
-                if (m == null)
-                {
-                    return null;
-                }
-                return new MemberReference()
-                {
-                    Uid = m.Uid,
-                    InheritedFrom = m.Parent.Uid != t.Uid ? m.Parent.Uid : null
-                };
+                sdpType.ExtensionMethods = t.ExtensionMethods.Select(im => ConvertMemberReference(null, _store.MembersByUid[im])).ToList();
             }
         }
     }

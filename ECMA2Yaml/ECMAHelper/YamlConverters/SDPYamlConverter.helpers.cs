@@ -114,5 +114,18 @@ namespace ECMA2Yaml
                 return (string.IsNullOrEmpty(d.Namespace) && d.DescKind == EcmaDesc.Kind.Type);
             }
         }
+
+        public static MemberReference ConvertMemberReference(Models.Type t, Member m)
+        {
+            if (m == null)
+            {
+                return null;
+            }
+            return new MemberReference()
+            {
+                Uid = m.Uid,
+                InheritedFrom = (t != null && m.Parent.Uid != t.Uid) ? m.Parent.Uid : null
+            };
+        }
     }
 }
