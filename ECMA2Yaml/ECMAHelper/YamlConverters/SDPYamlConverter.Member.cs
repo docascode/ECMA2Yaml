@@ -17,7 +17,16 @@ namespace ECMA2Yaml
             sdpMember.NameWithType = m.Parent.Name + '.' + m.DisplayName;
             sdpMember.TypeParameters = ConvertTypeParameters(m);
             sdpMember.ThreadSafety = ConvertThreadSafety(m);
-            sdpMember.Implements = m.Implements?.Select(commentId => DocIdToTypeMDString(commentId, _store))
+            sdpMember.Implements = m.Implements?.Select(commentId =>
+                {
+                    var uid = DocIdToTypeMDString(commentId, _store);
+                    if (uid == commentId)
+                    {
+                        OPSLogger.LogUserWarning($"<InterfaceMember>{commentId}</InterfaceMember>", m.SourceFileLocalPath);
+                        return null;
+                    }
+                    return uid;
+                })
                 .Where(str => str != null)
                 .ToList();
 
