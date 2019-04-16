@@ -58,6 +58,7 @@ namespace ECMA2Yaml
             {
                 members.AddRange(t.InheritedMembers.Select(p => p.Value + '.' + p.Key).Select(im => _store.MembersByUid[im]));
             }
+            members = members.OrderBy(m => m.DisplayName).ToList();
             if (members.Count > 0)
             {
                 var eiis = members.Where(m => m.IsEII).ToList();
