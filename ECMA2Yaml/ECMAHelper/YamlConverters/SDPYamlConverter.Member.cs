@@ -28,7 +28,7 @@ namespace ECMA2Yaml
                     return uid;
                 })
                 .Where(str => str != null)
-                .ToList();
+                .ToList().NullIfEmpty();
 
             var knowTypeParams = m.Parent.TypeParameters.ConcatList(m.TypeParameters);
             if (m.ReturnValueType != null
@@ -44,7 +44,7 @@ namespace ECMA2Yaml
                 var r = ConvertParameter<ParameterReference>(p, knowTypeParams);
                 r.Name = p.Name;
                 return r;
-            }).ToList();
+            }).ToList().NullIfEmpty();
 
             sdpMember.Exceptions = m.Docs.Exceptions?.Select(
                 p => new TypeReference()
