@@ -73,12 +73,12 @@ namespace ECMA2Yaml
 
             if (desc.GenericTypeArgumentsCount > 0)
             {
-                sb.Append($"<{HandleTypeArgument(desc.GenericTypeArguments.First())}");
+                sb.Append($"&lt;{HandleTypeArgument(desc.GenericTypeArguments.First())}");
                 for (int i = 1; i < desc.GenericTypeArgumentsCount; i++)
                 {
                     sb.Append($",{HandleTypeArgument(desc.GenericTypeArguments[i])}");
                 }
-                sb.Append(">");
+                sb.Append("&gt;");
             }
 
             if (desc.NestedType != null)
