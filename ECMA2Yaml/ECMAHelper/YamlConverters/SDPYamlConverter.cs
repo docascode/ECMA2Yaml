@@ -89,7 +89,7 @@ namespace ECMA2Yaml
                 Name = item.Name,
 
                 Assemblies = item.VersionedAssemblyInfo?.MonikersPerValue.Keys.Select(asm => asm.Name).Distinct().ToList(),
-                Attributes = item.Attributes?.Where(att => att.Visible).Select(att => att.TypeFullName).ToList(),
+                Attributes = item.Attributes?.Where(att => att.Visible).Select(att => att.TypeFullName).ToList().NullIfEmpty(),
                 Syntax = signatures,
                 DevLangs = signatures?.Select(sig => sig.Lang).ToList().NullIfEmpty(),
 
