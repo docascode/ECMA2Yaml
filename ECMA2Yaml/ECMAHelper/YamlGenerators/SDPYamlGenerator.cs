@@ -29,6 +29,7 @@ namespace ECMA2Yaml
             ParallelOptions po = new ParallelOptions() { MaxDegreeOfParallelism = Environment.ProcessorCount };
             Parallel.ForEach(store.Namespaces, po, ns =>
             {
+                Dictionary<string, int> existingFileNames = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
                 var nsFolder = Path.Combine(outputFolder, ns.Key);
                 if (!string.IsNullOrEmpty(ns.Key) && sdpConverter.NamespacePages.TryGetValue(ns.Key, out var nsPage))
                 {
@@ -59,7 +60,8 @@ namespace ECMA2Yaml
                             {
                                 if (!string.IsNullOrEmpty(m.Uid) && sdpConverter.OverloadPages.TryGetValue(m.Uid, out var mPage))
                                 {
-                                    var fileName = PathUtility.ToCleanUrlFileName(m.Uid) + ".yml";
+                                    var fileName = PathUtility.ToCleanUrlFileName(m.Uid);
+                                    fileName = GetUniqueFileNameWithSuffix(fileName, existingFileNames) +".yml";
                                     var path = Path.Combine(flatten ? outputFolder : nsFolder, fileName);
                                     ymlFiles.Add(path);
                                     YamlUtility.Serialize(path, mPage, mPage.YamlMime);
@@ -72,7 +74,8 @@ namespace ECMA2Yaml
                                 {
                                     if (!string.IsNullOrEmpty(ol.Uid) && sdpConverter.OverloadPages.TryGetValue(ol.Uid, out var mPage))
                                     {
-                                        var fileName = PathUtility.ToCleanUrlFileName(GetNewFileName(t.Uid, ol)) + ".yml";
+                                        var fileName = PathUtility.ToCleanUrlFileName(GetNewFileName(t.Uid, ol));
+                                        fileName = GetUniqueFileNameWithSuffix(fileName, existingFileNames) + ".yml";
                                         var path = Path.Combine(flatten ? outputFolder : nsFolder, fileName);
                                         ymlFiles.Add(path);
                                         YamlUtility.Serialize(path, mPage, mPage.YamlMime);
@@ -97,6 +100,20 @@ namespace ECMA2Yaml
         {
             string timestamp = string.Format("[{0}]", DateTime.Now.ToString());
             Console.WriteLine(timestamp + string.Format(format, args));
+        }
+
+        static string GetUniqueFileNameWithSuffix(string fileName, Dictionary<string, int> existingFileNames)
+        {
+            if (existingFileNames.TryGetValue(fileName, out int suffix))
+            {
+                existingFileNames[fileName] = suffix + 1;
+                return GetUniqueFileNameWithSuffix($"{fileName}_{suffix}", existingFileNames);
+            }
+            else
+            {
+                existingFileNames[fileName] = 1;
+                return fileName;
+            }
         }
 
         private static string GetNewFileName(string parentUid, Member item)
