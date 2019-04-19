@@ -65,7 +65,12 @@ foreach($ecmaConfig in $jobs)
     $allArgs = @("-s", "$ecmaSourceXmlFolder", "-o", "$ecmaOutputYamlFolder", "-l", "$logFilePath", "-p", """$repositoryRoot=>$ecmaXmlGitUrlBase""", "--branch", "$branch");
     
     $processedGitUrl = $publicGitUrl -replace "https://","" -replace "/","_"
-    $undocumentedApiReport = Join-Path $outputFolder "UndocAPIReport_${processedGitUrl}_${branch}.xlsx"
+	$reportId = $ecmaConfig.id
+	if (-not $reportId)
+	{
+	    $reportId = $ParameterDictionary.docset.docsetInfo.docset_name
+	}
+    $undocumentedApiReport = Join-Path $outputFolder "UndocAPIReport_${processedGitUrl}_${branch}_${reportId}.xlsx"
     $allArgs += "--undocumentedApiReport"
     $allArgs += "$undocumentedApiReport"
 
