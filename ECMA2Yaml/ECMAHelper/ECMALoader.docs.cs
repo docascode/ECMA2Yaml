@@ -91,15 +91,12 @@ namespace ECMA2Yaml
             {
                 threadSafetyContent = NormalizeDocsElement(GetInnerXml(threadSafeEle));
                 var supportedAttr = threadSafeEle.Attribute("supported");
-                if (supportedAttr != null)
+                threadSafety = new ThreadSafety()
                 {
-                    threadSafety = new ThreadSafety()
-                    {
-                        CustomContent = threadSafetyContent,
-                        Supported = supportedAttr.Value?.ToLower() == "true",
-                        MemberScope = threadSafeEle.Attribute("memberScope")?.Value
-                    };
-                }
+                    CustomContent = threadSafetyContent,
+                    Supported = supportedAttr?.Value?.Equals("true", StringComparison.OrdinalIgnoreCase),
+                    MemberScope = threadSafeEle.Attribute("memberScope")?.Value
+                };
             }
 
             return new Docs()

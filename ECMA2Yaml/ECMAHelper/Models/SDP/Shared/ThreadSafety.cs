@@ -16,7 +16,7 @@ namespace ECMA2Yaml.Models.SDP
 
         [JsonProperty("isSupported")]
         [YamlMember(Alias = "isSupported")]
-        public bool IsSupported { get; set; }
+        public bool? IsSupported { get; set; }
 
         [JsonProperty("memberScope")]
         [YamlMember(Alias = "memberScope")]

@@ -166,7 +166,7 @@ namespace ECMA2Yaml
                 return new Models.SDP.ThreadSafety()
                 {
                     CustomizedContent = item.Docs.ThreadSafetyInfo.CustomContent,
-                    IsSupported = item.Docs.ThreadSafetyInfo.Supported ?? false,
+                    IsSupported = item.Docs.ThreadSafetyInfo.Supported,
                     MemberScope = item.Docs.ThreadSafetyInfo.MemberScope
                 };
             }
