@@ -88,7 +88,7 @@ namespace ECMA2Yaml
                 CommentId = item.CommentId,
                 Name = item.Name,
 
-                Assemblies = item.VersionedAssemblyInfo?.MonikersPerValue.Keys.Select(asm => asm.Name).Distinct().ToList(),
+                Assemblies = item.AssemblyInfo?.Select(asm => asm.Name).Distinct().ToList(),
                 Attributes = item.Attributes?.Where(att => att.Visible).Select(att => att.TypeFullName).ToList().NullIfEmpty(),
                 Syntax = signatures,
                 DevLangs = signatures?.Select(sig => sig.Lang).ToList().NullIfEmpty(),
@@ -126,6 +126,10 @@ namespace ECMA2Yaml
                 rval.AdditionalNotes = (AdditionalNotes)notes;
             }
 
+            if (item.Attributes != null && item.Attributes.Any(attr => attr.TypeFullName == "System.ObsoleteAttribute"))
+            {
+                rval.IsDeprecated = true;
+            }
             return rval;
         }
 
