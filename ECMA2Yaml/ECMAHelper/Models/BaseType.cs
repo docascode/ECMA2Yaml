@@ -28,6 +28,7 @@ namespace ECMA2Yaml.Models
             {
                 Id = Name;
             }
+            Id = Id.Replace('+', '.');
         }
     }
 }
