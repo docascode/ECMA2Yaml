@@ -32,6 +32,13 @@ namespace ECMA2Yaml
                 return r;
             });
 
+            if (t.Attributes != null
+                && t.Attributes.Any(attr => attr.Declaration == "System.CLSCompliant(false)"))
+            {
+                sdpDelegate.IsNotClsCompliant = true;
+            }
+            sdpDelegate.AltCompliant = t.Docs.AltCompliant.ResolveCommentId(_store)?.Uid;
+
             if (t.ExtensionMethods?.Count > 0)
             {
                 sdpDelegate.ExtensionMethods = t.ExtensionMethods.Select(im => ConvertMemberReference(null, _store.MembersByUid[im])).ToList();

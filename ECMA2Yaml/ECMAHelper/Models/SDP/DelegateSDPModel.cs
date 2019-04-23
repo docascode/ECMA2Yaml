@@ -31,5 +31,13 @@ namespace ECMA2Yaml.Models.SDP
         [JsonProperty("extensionMethods")]
         [YamlMember(Alias = "extensionMethods")]
         public IEnumerable<MemberReference> ExtensionMethods { get; set; }
+
+        [JsonProperty("isNotClsCompliant")]
+        [YamlMember(Alias = "isNotClsCompliant")]
+        public bool? IsNotClsCompliant { get; set; }
+
+        [JsonProperty("altCompliant")]
+        [YamlMember(Alias = "altCompliant")]
+        public string AltCompliant { get; set; }
     }
 }

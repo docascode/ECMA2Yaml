@@ -42,6 +42,13 @@ namespace ECMA2Yaml
                 sdpType.DerivedClasses = _store.InheritanceChildrenByUid[t.Uid];
             }
 
+            if (t.Attributes != null
+                && t.Attributes.Any(attr => attr.Declaration == "System.CLSCompliant(false)"))
+            {
+                sdpType.IsNotClsCompliant = true;
+            }
+            sdpType.AltCompliant = t.Docs.AltCompliant.ResolveCommentId(_store)?.Uid;
+
             PopulateTypeChildren(t, sdpType);
 
             return sdpType;

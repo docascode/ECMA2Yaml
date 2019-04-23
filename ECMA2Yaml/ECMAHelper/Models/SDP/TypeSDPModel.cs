@@ -40,6 +40,14 @@ namespace ECMA2Yaml.Models.SDP
         [YamlMember(Alias = "derivedClasses")]
         public IEnumerable<string> DerivedClasses { get; set; }
 
+        [JsonProperty("isNotClsCompliant")]
+        [YamlMember(Alias = "isNotClsCompliant")]
+        public bool? IsNotClsCompliant { get; set; }
+
+        [JsonProperty("altCompliant")]
+        [YamlMember(Alias = "altCompliant")]
+        public string AltCompliant { get; set; }
+
         #region Children
 
         [JsonProperty("extensionMethods")]

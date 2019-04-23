@@ -60,6 +60,13 @@ namespace ECMA2Yaml
                     Type = DocIdToTypeMDString(p.CommentId, _store)
                 }).ToList().NullIfEmpty();
 
+            if (m.Attributes != null
+                && m.Attributes.Any(attr => attr.Declaration == "System.CLSCompliant(false)"))
+            {
+                sdpMember.IsNotClsCompliant = true;
+            }
+            sdpMember.AltCompliant = m.Docs.AltCompliant.ResolveCommentId(_store)?.Uid;
+
             return sdpMember;
         }
     }

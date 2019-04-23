@@ -78,12 +78,6 @@ namespace ECMA2Yaml
                 }
             }
 
-            string altCompliant = dElement.Element("altCompliant")?.Attribute("cref")?.Value;
-            if (!string.IsNullOrEmpty(altCompliant) && altCompliant.Contains(":"))
-            {
-                altCompliant = altCompliant.Substring(altCompliant.IndexOf(':') + 1);
-            }
-
             string threadSafetyContent = null;
             ThreadSafety threadSafety = null;
             var threadSafeEle = dElement.Element("threadsafe");
@@ -115,7 +109,7 @@ namespace ECMA2Yaml
                 ThreadSafety = threadSafetyContent,
                 ThreadSafetyInfo = threadSafety,
                 Since = NormalizeDocsElement(dElement.Element("since")?.Value),
-                AltCompliant = altCompliant,
+                AltCompliant = dElement.Element("altCompliant")?.Attribute("cref")?.Value,
                 InternalOnly = dElement.Element("forInternalUseOnly") != null
             };
         }

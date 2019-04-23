@@ -187,7 +187,7 @@ namespace ECMA2Yaml.Models
                 AddAdditionalNotes(ns);
                 if (!string.IsNullOrEmpty(ns.Docs?.AltCompliant))
                 {
-                    ns.Metadata[OPSMetadata.AltCompliant] = ns.Docs?.AltCompliant;
+                    ns.Metadata[OPSMetadata.AltCompliant] = ns.Docs?.AltCompliant.ResolveCommentId(this)?.Uid;
                 }
                 if (nsInternalOnly)
                 {
@@ -216,7 +216,7 @@ namespace ECMA2Yaml.Models
                     bool tInternalOnly = t.Docs?.InternalOnly ?? nsInternalOnly;
                     if (!string.IsNullOrEmpty(t.Docs?.AltCompliant))
                     {
-                        t.Metadata[OPSMetadata.AltCompliant] = t.Docs?.AltCompliant;
+                        t.Metadata[OPSMetadata.AltCompliant] = t.Docs?.AltCompliant.ResolveCommentId(this)?.Uid;
                     }
                     if (tInternalOnly)
                     {
@@ -229,7 +229,7 @@ namespace ECMA2Yaml.Models
                             bool mInternalOnly = m.Docs?.InternalOnly ?? tInternalOnly;
                             if (!string.IsNullOrEmpty(m.Docs?.AltCompliant))
                             {
-                                m.Metadata[OPSMetadata.AltCompliant] = m.Docs?.AltCompliant;
+                                m.Metadata[OPSMetadata.AltCompliant] = m.Docs?.AltCompliant.ResolveCommentId(this)?.Uid;
                             }
                             if (mInternalOnly)
                             {

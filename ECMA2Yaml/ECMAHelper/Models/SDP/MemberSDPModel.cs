@@ -43,5 +43,13 @@ namespace ECMA2Yaml.Models.SDP
         [JsonProperty("implements")]
         [YamlMember(Alias = "implements")]
         public IEnumerable<string> Implements { get; set; }
+
+        [JsonProperty("isNotClsCompliant")]
+        [YamlMember(Alias = "isNotClsCompliant")]
+        public bool? IsNotClsCompliant { get; set; }
+
+        [JsonProperty("altCompliant")]
+        [YamlMember(Alias = "altCompliant")]
+        public string AltCompliant { get; set; }
     }
 }
