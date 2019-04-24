@@ -12,7 +12,8 @@ namespace ECMA2Yaml
     {
         private Dictionary<string, string> MetadataMapping = new Dictionary<string, string>() {
             { OPSMetadata.OriginalContentUrl, OPSMetadata.SDP_op_overwriteFileGitUrl },
-            { OPSMetadata.RefSkeletionUrl, OPSMetadata.SDP_op_articleFileGitUrl }
+            { OPSMetadata.RefSkeletionUrl, OPSMetadata.SDP_op_articleFileGitUrl },
+            { OPSMetadata.ContentUrl, OPSMetadata.ContentUrl }
         };
 
         private void MergeWhiteListedMetadata(ItemSDPModelBase model, ReflectionItem item)
