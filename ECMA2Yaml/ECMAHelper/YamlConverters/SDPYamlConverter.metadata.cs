@@ -10,10 +10,9 @@ namespace ECMA2Yaml
 {
     public partial class SDPYamlConverter
     {
-        private HashSet<string> MetadataWhiteList = new HashSet<string>() {
-            OPSMetadata.OriginalContentUrl,
-            OPSMetadata.RefSkeletionUrl,
-            OPSMetadata.ContentUrl
+        private Dictionary<string, string> MetadataMapping = new Dictionary<string, string>() {
+            { OPSMetadata.OriginalContentUrl, OPSMetadata.SDP_op_overwriteFileGitUrl },
+            { OPSMetadata.RefSkeletionUrl, OPSMetadata.SDP_op_articleFileGitUrl }
         };
 
         private void MergeWhiteListedMetadata(ItemSDPModelBase model, ReflectionItem item)
@@ -26,9 +25,9 @@ namespace ECMA2Yaml
                 }
                 foreach(var pair in item.Metadata)
                 {
-                    if (MetadataWhiteList.Contains(pair.Key))
+                    if (MetadataMapping.TryGetValue(pair.Key, out string newKey))
                     {
-                        model.Metadata[pair.Key] = pair.Value;
+                        model.Metadata[newKey] = pair.Value;
                     }
                 }
             }
