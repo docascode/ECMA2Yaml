@@ -130,6 +130,8 @@ namespace ECMA2Yaml
             {
                 rval.IsDeprecated = true;
             }
+
+            MergeWhiteListedMetadata(rval, item);
             return rval;
         }
 

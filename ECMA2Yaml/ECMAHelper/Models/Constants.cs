@@ -16,7 +16,6 @@ namespace ECMA2Yaml.Models
         public static readonly string ThreadSafetyInfo = "thread_safety_info";
         public static readonly string AdditionalNotes = "additionalNotes";
         public static readonly string Permissions = "permissions";
-        public static readonly string XMLLocalPath = "original_ecmaxml_local_path";
         public static readonly string AltCompliant = "altCompliant";
         public static readonly string InternalOnly = "internal_use_only";
         public static readonly string NugetPackageNames = "nuget_package_names";

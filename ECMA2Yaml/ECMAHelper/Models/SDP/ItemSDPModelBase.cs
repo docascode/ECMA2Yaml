@@ -77,5 +77,9 @@ namespace ECMA2Yaml.Models.SDP
         [JsonProperty("examples")]
         [YamlMember(Alias = "examples")]
         public string Examples { get; set; }
+
+        [JsonProperty("metadata")]
+        [YamlMember(Alias = "metadata")]
+        public Dictionary<string, object> Metadata { get; set; }
     }
 }

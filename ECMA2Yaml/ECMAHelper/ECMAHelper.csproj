@@ -93,6 +93,7 @@
     <Compile Include="Models\SDP\DelegateSDPModel.cs" />
     <Compile Include="Models\SDP\TypeSDPModel.cs" />
     <Compile Include="Models\SDP\NamespaceSDPModel.cs" />
+    <Compile Include="YamlConverters\SDPYamlConverter.metadata.cs" />
     <Compile Include="YamlConverters\SDPYamlConverter.Overload.cs" />
     <Compile Include="YamlConverters\SDPYamlConverter.Member.cs" />
     <Compile Include="YamlConverters\SDPYamlConverter.helpers.cs" />
