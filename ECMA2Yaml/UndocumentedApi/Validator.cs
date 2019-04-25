@@ -40,7 +40,18 @@ namespace ECMA2Yaml.UndocumentedApi
             {
                 return ValidationResult.NA;
             }
-            return ValidateSimpleString(item.Docs.Returns, ReturnsLengthRequirement);
+
+            var result = ValidateSimpleString(item.Docs.Returns, ReturnsLengthRequirement);
+
+            // fix bug 84378(https://ceapex.visualstudio.com/web/wi.aspx?pcguid=7d644393-99ad-41c8-ac53-7fa79294c720&id=84378)
+            if ((result == ValidationResult.Missing) && (item.ItemType == ItemType.Field || item.ItemType == ItemType.Property))
+            {
+                return ValidationResult.NA;
+            }
+            else
+            {
+                return result;
+            }
         }
 
         public static ValidationResult ValidateParameters(ReflectionItem item)

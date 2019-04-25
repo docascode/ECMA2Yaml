@@ -152,6 +152,12 @@ namespace ECMA2Yaml.UndocumentedApi
             {
                 urlPath = urlPath.Substring(0, urlPath.LastIndexOf('.'));
             }
+            // fix bug 84377(https://ceapex.visualstudio.com/web/wi.aspx?pcguid=7d644393-99ad-41c8-ac53-7fa79294c720&id=84377)
+            if (item.ItemType == ItemType.Method)
+            {
+                urlPath = System.Text.RegularExpressions.Regex.Replace(urlPath, @"--\d{1,}", "");
+            }
+
             var url = "";
             if (branch == null || branch == "live")
             {
