@@ -39,6 +39,8 @@ namespace ECMA2Yaml
                 m.DevLangs = null;
             }
 
+            MergeWhiteListedMetadata(sdpOverload, overload);
+
             ApiScanGenerator.Generate(sdpOverload, overload ?? members.First());
 
             return sdpOverload;
