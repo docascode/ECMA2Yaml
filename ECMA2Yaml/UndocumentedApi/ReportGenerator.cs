@@ -103,7 +103,7 @@ namespace ECMA2Yaml.UndocumentedApi
             ws.Tables.Add(ws.Cells[4, 1, ws.Dimension.End.Row, ws.Dimension.End.Column], "SummaryTable");
         }
 
-        private static void GenerateDetailsSheet(Report report, ExcelPackage pack,string sheetName)
+        private static void GenerateDetailsSheet(Report report, ExcelPackage pack, string sheetName)
         {
             var ws = pack.Workbook.Worksheets.Add(sheetName);
             ws.Cells[1, 1].Value = "Type";
