@@ -54,29 +54,29 @@
       <HintPath>..\packages\HtmlAgilityPack.1.4.9\lib\Net45\HtmlAgilityPack.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.DocAsCode.Build.Common, Version=2.29.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.DocAsCode.Build.Common.2.29.1\lib\net461\Microsoft.DocAsCode.Build.Common.dll</HintPath>
+    <Reference Include="Microsoft.DocAsCode.Build.Common, Version=2.42.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.DocAsCode.Build.Common.2.42.0\lib\net462\Microsoft.DocAsCode.Build.Common.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.DocAsCode.Build.ManagedReference, Version=2.29.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.DocAsCode.Build.ManagedReference.2.29.1\lib\net461\Microsoft.DocAsCode.Build.ManagedReference.dll</HintPath>
+    <Reference Include="Microsoft.DocAsCode.Build.ManagedReference, Version=2.42.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.DocAsCode.Build.ManagedReference.2.42.0\lib\net462\Microsoft.DocAsCode.Build.ManagedReference.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.DocAsCode.Common, Version=2.29.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.DocAsCode.Common.2.29.1\lib\netstandard2.0\Microsoft.DocAsCode.Common.dll</HintPath>
+    <Reference Include="Microsoft.DocAsCode.Common, Version=2.42.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.DocAsCode.Common.2.42.0\lib\net462\Microsoft.DocAsCode.Common.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.DocAsCode.DataContracts.Common, Version=2.29.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.DocAsCode.DataContracts.Common.2.29.1\lib\net461\Microsoft.DocAsCode.DataContracts.Common.dll</HintPath>
+    <Reference Include="Microsoft.DocAsCode.DataContracts.Common, Version=2.42.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.DocAsCode.DataContracts.Common.2.42.0\lib\net462\Microsoft.DocAsCode.DataContracts.Common.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.DocAsCode.DataContracts.ManagedReference, Version=2.29.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.DocAsCode.DataContracts.ManagedReference.2.29.1\lib\net461\Microsoft.DocAsCode.DataContracts.ManagedReference.dll</HintPath>
+    <Reference Include="Microsoft.DocAsCode.DataContracts.ManagedReference, Version=2.42.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.DocAsCode.DataContracts.ManagedReference.2.42.0\lib\net462\Microsoft.DocAsCode.DataContracts.ManagedReference.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.DocAsCode.MarkdownLite, Version=2.29.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.DocAsCode.MarkdownLite.2.29.1\lib\net461\Microsoft.DocAsCode.MarkdownLite.dll</HintPath>
+    <Reference Include="Microsoft.DocAsCode.MarkdownLite, Version=2.42.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.DocAsCode.MarkdownLite.2.42.0\lib\net462\Microsoft.DocAsCode.MarkdownLite.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.DocAsCode.Plugins, Version=2.29.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.DocAsCode.Plugins.2.29.1\lib\netstandard2.0\Microsoft.DocAsCode.Plugins.dll</HintPath>
+    <Reference Include="Microsoft.DocAsCode.Plugins, Version=2.42.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.DocAsCode.Plugins.2.42.0\lib\net462\Microsoft.DocAsCode.Plugins.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.DocAsCode.YamlSerialization, Version=2.29.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.DocAsCode.YamlSerialization.2.29.1\lib\netstandard2.0\Microsoft.DocAsCode.YamlSerialization.dll</HintPath>
+    <Reference Include="Microsoft.DocAsCode.YamlSerialization, Version=2.42.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.DocAsCode.YamlSerialization.2.42.0\lib\net462\Microsoft.DocAsCode.YamlSerialization.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.OpenPublishing.FileAbstractLayer, Version=1.71.270.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.OpenPublishing.FileAbstractLayer.1.71.0\lib\net462\Microsoft.OpenPublishing.FileAbstractLayer.dll</HintPath>
@@ -91,18 +91,16 @@
     <Reference Include="monodoc">
       <HintPath>..\dependencies\monodoc.dll</HintPath>
     </Reference>
-    <Reference Include="MoreLinq, Version=2.0.20029.0, Culture=neutral, PublicKeyToken=384d532d7e88985d, processorArchitecture=MSIL">
-      <HintPath>..\packages\morelinq.2.1.0\lib\net35\MoreLinq.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="MoreLinq, Version=3.1.1.0, Culture=neutral, PublicKeyToken=384d532d7e88985d, processorArchitecture=MSIL">
+      <HintPath>..\packages\morelinq.3.1.1\lib\net451\MoreLinq.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Collections.Immutable, Version=1.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Collections.Immutable.1.3.1\lib\portable-net45+win8+wp8+wpa81\System.Collections.Immutable.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="System.Collections.Immutable, Version=1.2.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Collections.Immutable.1.5.0\lib\netstandard2.0\System.Collections.Immutable.dll</HintPath>
     </Reference>
     <Reference Include="System.Composition.AttributedModel, Version=1.0.31.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Composition.AttributedModel.1.0.31\lib\portable-net45+win8+wp8+wpa81\System.Composition.AttributedModel.dll</HintPath>
@@ -122,6 +120,11 @@
     <Reference Include="System.Core" />
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.4.0\lib\net461\System.ValueTuple.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
