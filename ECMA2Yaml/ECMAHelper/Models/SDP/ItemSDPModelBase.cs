@@ -10,6 +10,11 @@ namespace ECMA2Yaml.Models.SDP
 {
     public abstract class ItemSDPModelBase
     {
+        public ItemSDPModelBase()
+        {
+            Metadata = new Dictionary<string, object>();
+        }
+
         [JsonIgnore]
         [YamlIgnore]
         abstract public string YamlMime { get; }

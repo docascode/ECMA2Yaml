@@ -39,6 +39,8 @@ namespace ECMA2Yaml
                 m.DevLangs = null;
             }
 
+            ApiScanGenerator.Generate(sdpOverload, overload ?? members.First());
+
             return sdpOverload;
         }
     }

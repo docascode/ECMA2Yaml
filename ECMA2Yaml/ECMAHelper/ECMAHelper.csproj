@@ -83,6 +83,7 @@
     <Compile Include="ECMALoader.misc.cs" />
     <Compile Include="ECMALoader.cs" />
     <Compile Include="Extensions\LINQExtensions.cs" />
+    <Compile Include="Metadata\APIScanGenerator.cs" />
     <Compile Include="Models\SDP\MemberSDPModel.cs" />
     <Compile Include="Models\SDP\OverloadSDPModel.cs" />
     <Compile Include="Models\SDP\Shared\MemberReference.cs" />

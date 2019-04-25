@@ -39,6 +39,8 @@ namespace ECMA2Yaml
                 return f;
             }).ToList();
 
+            ApiScanGenerator.Generate(sdpEnum, enumTypeItem);
+
             return sdpEnum;
         }
     }

@@ -20,10 +20,6 @@ namespace ECMA2Yaml
         {
             if (item?.Metadata != null)
             {
-                if (model.Metadata == null)
-                {
-                    model.Metadata = new Dictionary<string, object>();
-                }
                 foreach(var pair in item.Metadata)
                 {
                     if (MetadataMapping.TryGetValue(pair.Key, out string newKey))

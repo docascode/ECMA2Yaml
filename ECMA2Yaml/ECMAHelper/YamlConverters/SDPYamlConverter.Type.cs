@@ -51,6 +51,8 @@ namespace ECMA2Yaml
 
             PopulateTypeChildren(t, sdpType);
 
+            ApiScanGenerator.Generate(sdpType, t);
+
             return sdpType;
         }
 
