@@ -14,6 +14,9 @@ namespace ECMA2Yaml.UndocumentedApi
 {
     public class ReportGenerator
     {
+        const string _complianceSheetName = "Compliance";
+        const string _underDocSheetName = "UnderDoc";
+
         public static void GenerateReport(ECMAStore store, string reportFilePath, string branch = null)
         {
             List<ReportItem> items = new List<ReportItem>();
@@ -41,7 +44,8 @@ namespace ECMA2Yaml.UndocumentedApi
             using (var p = new ExcelPackage())
             {
                 GenerateSummarySheet(report, p);
-                GenerateDetailsSheet(report, p);
+                GenerateDetailsSheet(report, p, _complianceSheetName);
+                GenerateDetailsSheet(report, p, _underDocSheetName);
                 p.SaveAs(new FileInfo(reportFilePath));
             }
         }
@@ -99,9 +103,9 @@ namespace ECMA2Yaml.UndocumentedApi
             ws.Tables.Add(ws.Cells[4, 1, ws.Dimension.End.Row, ws.Dimension.End.Column], "SummaryTable");
         }
 
-        private static void GenerateDetailsSheet(Report report, ExcelPackage pack)
+        private static void GenerateDetailsSheet(Report report, ExcelPackage pack, string sheetName)
         {
-            var ws = pack.Workbook.Worksheets.Add("Details");
+            var ws = pack.Workbook.Worksheets.Add(sheetName);
             ws.Cells[1, 1].Value = "Type";
             ws.Cells[1, 2].Value = "DocId";
             ws.Cells[1, 3].Value = "Namespace";
@@ -121,7 +125,19 @@ namespace ECMA2Yaml.UndocumentedApi
             ws.Cells[1, 12].Value = "Docs URL";
             ws.Cells[1, 12].AutoFitColumns();
             var row = 2;
-            foreach(var item in report.ReportItems.Where(r => !r.IsOK))
+
+            // fix bug 84379 (https://ceapex.visualstudio.com/web/wi.aspx?pcguid=7d644393-99ad-41c8-ac53-7fa79294c720&id=84379)
+            IEnumerable<ReportItem> selectedItems = null;
+            if (sheetName == _complianceSheetName)
+            {
+                selectedItems = report.ReportItems.Where(r => !r.IsOK && r.Results.Values.Contains(ValidationResult.Missing));
+            }
+            else
+            {
+                selectedItems = report.ReportItems.Where(r => !r.IsOK && !r.Results.Values.Contains(ValidationResult.Missing) && r.Results.Values.Contains(ValidationResult.UnderDoc));
+            }
+
+            foreach(var item in selectedItems)
             {
                 ws.Cells[row, 1].Value = item.ItemType;
                 ws.Cells[row, 2].Value = item.DocId;
@@ -138,7 +154,7 @@ namespace ECMA2Yaml.UndocumentedApi
                 row++;
             }
             ws.Cells[1, 3, Math.Min(50, ws.Dimension.End.Row), 5].AutoFitColumns();
-            ws.Tables.Add(ws.Cells[1, 1, ws.Dimension.End.Row, ws.Dimension.End.Column], "Details");
+            ws.Tables.Add(ws.Cells[1, 1, ws.Dimension.End.Row, ws.Dimension.End.Column], sheetName);
         }
 
         private static ReportItem ValidateItem(ReflectionItem item, string branch = null)
