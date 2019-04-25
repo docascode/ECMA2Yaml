@@ -5,6 +5,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,7 +17,7 @@ namespace ECMA2Yaml
         {
             if (store.TypesByFullName.TryGetValue(typeStr, out var t))
             {
-                return $"[{t.Name}](xref:{t.Uid})";
+                return $"[{EncodeLinkText(t.Name)}](xref:{t.Uid})";
             }
 
             var desc = ECMAStore.GetOrAddTypeDescriptor(typeStr);
@@ -34,11 +35,11 @@ namespace ECMA2Yaml
             {
                 if (item is Member m)
                 {
-                    return $"[{m.DisplayName}](xref:{item.Uid})";
+                    return $"[{EncodeLinkText(m.DisplayName)}](xref:{item.Uid})";
                 }
                 else
                 {
-                    return $"[{item.Name}](xref:{item.Uid})";
+                    return $"[{EncodeLinkText(item.Name)}](xref:{item.Uid})";
                 }
             }
             return docId;
@@ -48,11 +49,11 @@ namespace ECMA2Yaml
         {
             if (store.TypesByUid.TryGetValue(uid, out var t))
             {
-                return $"[{t.Name}](xref:{t.Uid})";
+                return $"[{EncodeLinkText(t.Name)}](xref:{t.Uid})";
             }
             if (store.MembersByUid.TryGetValue(uid, out var m))
             {
-                return $"[{m.Name}](xref:{m.Uid})";
+                return $"[{EncodeLinkText(m.Name)}](xref:{m.Uid})";
             }
             return $"<xref:{uid}>";
         }
@@ -68,7 +69,7 @@ namespace ECMA2Yaml
             }
             else
             {
-                sb.Append($"[{desc.TypeName}](xref:{typeUid})");
+                sb.Append($"[{EncodeLinkText(desc.TypeName)}](xref:{typeUid})");
             }
 
             if (desc.GenericTypeArgumentsCount > 0)
@@ -126,6 +127,11 @@ namespace ECMA2Yaml
                 Uid = m.Uid,
                 InheritedFrom = (t != null && m.Parent.Uid != t.Uid) ? m.Parent.Uid : null
             };
+        }
+
+        private static string EncodeLinkText(string text)
+        {
+            return WebUtility.HtmlEncode(text);
         }
     }
 }
