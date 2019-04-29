@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using ECMA2Yaml.Models;
 using ECMA2Yaml.Models.SDP;
-using Microsoft.DocAsCode.Plugins;
 
 namespace ECMA2Yaml
 {
@@ -26,8 +25,6 @@ namespace ECMA2Yaml
             { ItemType.Event, item => GenerateMemberApiNames(item, ".", ".add_", ".remove_") },
             { ItemType.AttachedEvent, item => GenerateMemberApiNames(item, ".", ".add_", ".remove_") },
         };
-
-        private static readonly Regex TypeFormatter = new Regex("<[^<>]+>", RegexOptions.Compiled);
 
         private const string APISCAN_APINAME = "api_name";
         private const string APISCAN_APILOCATION = "api_location";

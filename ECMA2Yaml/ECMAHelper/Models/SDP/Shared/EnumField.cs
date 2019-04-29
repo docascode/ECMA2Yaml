@@ -20,7 +20,7 @@ namespace ECMA2Yaml.Models.SDP
 
         [JsonProperty("literalValue")]
         [YamlMember(Alias = "literalValue")]
-        public Int64 LiteralValue { get; set; }
+        public long LiteralValue { get; set; }
 
         [JsonProperty("name")]
         [YamlMember(Alias = "name")]

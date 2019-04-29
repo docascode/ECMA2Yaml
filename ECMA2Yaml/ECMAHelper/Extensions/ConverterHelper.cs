@@ -9,6 +9,28 @@ namespace ECMA2Yaml
 {
     public static class ConverterHelper
     {
+        public static readonly IReadOnlyDictionary<ItemType, string> ItemTypeNameMapping = new Dictionary<ItemType, string>()
+        {
+            {ItemType.Default, "default"},
+            {ItemType.Toc, "toc"},
+            {ItemType.Assembly, "assembly"},
+            {ItemType.Namespace, "namespace"},
+            {ItemType.Class, "class"},
+            {ItemType.Interface, "interface"},
+            {ItemType.Struct, "struct"},
+            {ItemType.Delegate, "delegate"},
+            {ItemType.Enum, "enum"},
+            {ItemType.Field, "field"},
+            {ItemType.Property, "property"},
+            {ItemType.Event, "event"},
+            {ItemType.Constructor, "constructor"},
+            {ItemType.Method, "method"},
+            {ItemType.Operator, "operator"},
+            {ItemType.Container, "container"},
+            {ItemType.AttachedEvent, "attachedevent"},
+            {ItemType.AttachedProperty, "attachedproperty"}
+        };
+
         public static SortedList<string, string> BuildSignatures(ReflectionItem item)
         {
             const string csharp = "C#";

@@ -1,10 +1,12 @@
 ﻿using ECMA2Yaml.Models;
 using ECMA2Yaml.Models.SDP;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Type = ECMA2Yaml.Models.Type;
 
 namespace ECMA2Yaml
 {
@@ -29,7 +31,7 @@ namespace ECMA2Yaml
                     Summary = fItem.Docs.Summary
                 };
                 if (fItem.Metadata.TryGetValue(OPSMetadata.LiteralValue, out object val)
-                && int.TryParse(val.ToString(), out int valInt))
+                && long.TryParse(val.ToString(), out long valInt))
                 {
                     f.LiteralValue = valInt;
                 }
@@ -38,8 +40,6 @@ namespace ECMA2Yaml
 
                 return f;
             }).ToList();
-
-            ApiScanGenerator.Generate(sdpEnum, enumTypeItem);
 
             return sdpEnum;
         }

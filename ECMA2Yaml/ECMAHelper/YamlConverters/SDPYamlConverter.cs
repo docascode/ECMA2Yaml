@@ -109,10 +109,12 @@ namespace ECMA2Yaml
                 case ECMA2Yaml.Models.Type t:
                     rval.Namespace = t.Parent.Name == "" ? null : t.Parent.Name;
                     rval.FullName = t.FullName;
+                    GenerateRequiredMetadata(rval, item);
                     break;
                 case Namespace n:
                     rval.Namespace = n.Name;
                     rval.FullName = n.Name;
+                    GenerateRequiredMetadata(rval, item);
                     break;
             }
 
@@ -131,8 +133,18 @@ namespace ECMA2Yaml
                 rval.IsDeprecated = true;
             }
 
-            MergeWhiteListedMetadata(rval, item);
             return rval;
+        }
+
+        private void GenerateRequiredMetadata(ItemSDPModelBase model, ReflectionItem item)
+        {
+            MergeWhiteListedMetadata(model, item);
+            if (item.ItemType != ItemType.Namespace)
+            {
+                ApiScanGenerator.Generate(model, item);
+            }
+            F1KeywordsGenerator.Generate(model);
+            HelpViewerKeywordsGenerator.Generate(model, item);
         }
 
         private IEnumerable<TypeParameter> ConvertTypeParameters(ReflectionItem item)

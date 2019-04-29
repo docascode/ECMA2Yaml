@@ -44,8 +44,6 @@ namespace ECMA2Yaml
                 sdpDelegate.ExtensionMethods = t.ExtensionMethods.Select(im => ConvertMemberReference(null, _store.MembersByUid[im])).ToList();
             }
 
-            ApiScanGenerator.Generate(sdpDelegate, t);
-
             return sdpDelegate;
         }
     }
