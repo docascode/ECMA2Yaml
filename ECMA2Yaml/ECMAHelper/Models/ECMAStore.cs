@@ -310,10 +310,6 @@ namespace ECMA2Yaml.Models
 
             foreach (var m in MembersByUid.Values)
             {
-                if (m.Uid == "Microsoft.ML.TreeExtensions.FastTree(Microsoft.ML.BinaryClassificationCatalog.BinaryClassificationTrainers,Microsoft.ML.Trainers.FastTree.FastTreeBinaryClassificationTrainer.Options)")
-                {
-                    Console.WriteLine();
-                }
                 if (!string.IsNullOrEmpty(m.DocId) && ExtensionMethodsByMemberDocId.ContainsKey(m.DocId))
                 {
                     m.IsExtensionMethod = true;
