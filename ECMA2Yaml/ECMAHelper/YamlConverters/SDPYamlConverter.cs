@@ -118,6 +118,11 @@ namespace ECMA2Yaml
                     break;
             }
 
+            if (item.Metadata.TryGetValue(OPSMetadata.Monikers, out var monikers))
+            {
+                rval.Monikers = (IEnumerable<string>)monikers;
+            }
+
             if (item.Metadata.TryGetValue(OPSMetadata.InternalOnly, out object val))
             {
                 rval.IsInternalOnly = (bool)val;

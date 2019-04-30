@@ -55,6 +55,10 @@ namespace ECMA2Yaml.Models.SDP
         [YamlMember(Alias = "devLangs")]
         public IEnumerable<string> DevLangs { get; set; }
 
+        [JsonProperty("monikers")]
+        [YamlMember(Alias = "monikers")]
+        public IEnumerable<string> Monikers { get; set; }
+
         [JsonProperty("seeAlso")]
         [YamlMember(Alias = "seeAlso")]
         public string SeeAlso { get; set; }
