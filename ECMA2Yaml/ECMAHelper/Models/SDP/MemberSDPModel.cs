@@ -12,10 +12,6 @@ namespace ECMA2Yaml.Models.SDP
     {
         public override string YamlMime { get; } = "YamlMime:NetMember";
 
-        [JsonProperty("nameWithType")]
-        [YamlMember(Alias = "nameWithType")]
-        public string NameWithType { get; set; }
-
         [JsonProperty("typeParameters")]
         [YamlMember(Alias = "typeParameters")]
         public IEnumerable<TypeParameter> TypeParameters { get; set; }

@@ -14,7 +14,6 @@ namespace ECMA2Yaml
         {
             var sdpMember = InitWithBasicProperties<MemberSDPModel>(m);
 
-            sdpMember.NameWithType = m.Parent.Name + '.' + m.DisplayName;
             sdpMember.TypeParameters = ConvertTypeParameters(m);
             sdpMember.ThreadSafety = ConvertThreadSafety(m);
             sdpMember.Implements = m.Implements?.Select(commentId =>

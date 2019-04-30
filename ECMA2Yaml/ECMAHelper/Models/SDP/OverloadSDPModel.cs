@@ -16,10 +16,6 @@ namespace ECMA2Yaml.Models.SDP
         [YamlMember(Alias = "type")]
         public string Type { get; set; }
 
-        [JsonProperty("nameWithType")]
-        [YamlMember(Alias = "nameWithType")]
-        public string NameWithType { get; set; }
-
         [JsonProperty("members")]
         [YamlMember(Alias = "members")]
         public IEnumerable<MemberSDPModel> Members { get; set; }
