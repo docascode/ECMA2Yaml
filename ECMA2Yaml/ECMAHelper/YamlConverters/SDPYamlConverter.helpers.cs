@@ -122,11 +122,16 @@ namespace ECMA2Yaml
             {
                 return null;
             }
-            return new MemberReference()
+            var rval = new MemberReference()
             {
                 Uid = m.Uid,
                 InheritedFrom = (t != null && m.Parent.Uid != t.Uid) ? m.Parent.Uid : null
             };
+            if (m.Metadata.TryGetValue(OPSMetadata.Monikers, out var monikers))
+            {
+                rval.Monikers = (IEnumerable<string>)monikers;
+            }
+            return rval;
         }
 
         private static string EncodeLinkText(string text)

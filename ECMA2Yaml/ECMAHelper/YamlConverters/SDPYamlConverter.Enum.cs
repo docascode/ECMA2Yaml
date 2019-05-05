@@ -27,15 +27,19 @@ namespace ECMA2Yaml
                 {
                     Uid = fItem.Uid,
                     CommentId = fItem.CommentId,
-                    Name = fItem.Name,
+                    Name = fItem.DisplayName,
+                    FullName = fItem.FullDisplayName,
                     Summary = fItem.Docs.Summary
                 };
                 if (fItem.Metadata.TryGetValue(OPSMetadata.LiteralValue, out object val)
-                && long.TryParse(val.ToString(), out long valInt))
+                    && long.TryParse(val.ToString(), out long valInt))
                 {
                     f.LiteralValue = valInt;
                 }
-
+                if (fItem.Metadata.TryGetValue(OPSMetadata.Monikers, out var monikers))
+                {
+                    f.Monikers = (IEnumerable<string>)monikers;
+                }
                 memberTouchCache.Add(f.Uid);
 
                 return f;

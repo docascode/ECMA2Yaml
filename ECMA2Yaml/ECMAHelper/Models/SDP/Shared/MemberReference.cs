@@ -17,5 +17,9 @@ namespace ECMA2Yaml.Models.SDP
         [JsonProperty("inheritedFrom")]
         [YamlMember(Alias = "inheritedFrom")]
         public string InheritedFrom { get; set; }
+
+        [JsonProperty("monikers")]
+        [YamlMember(Alias = "monikers")]
+        public IEnumerable<string> Monikers { get; set; }
     }
 }

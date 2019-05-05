@@ -33,5 +33,9 @@ namespace ECMA2Yaml.Models.SDP
         [JsonProperty("summary")]
         [YamlMember(Alias = "summary")]
         public string Summary { get; set; }
+
+        [JsonProperty("monikers")]
+        [YamlMember(Alias = "monikers")]
+        public IEnumerable<string> Monikers { get; set; }
     }
 }
