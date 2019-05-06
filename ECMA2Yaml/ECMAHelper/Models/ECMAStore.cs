@@ -78,7 +78,7 @@ namespace ECMA2Yaml.Models
             BuildOtherMetadata();
         }
 
-        public void BuildDocIdDictionary()
+        private void BuildDocIdDictionary()
         {
             ItemsByDocId = new Dictionary<string, ReflectionItem>();
             foreach (var item in TypesByUid.Values.Cast<ReflectionItem>()
@@ -100,7 +100,7 @@ namespace ECMA2Yaml.Models
             }
         }
 
-        public void BuildUniqueMembers()
+        private void BuildUniqueMembers()
         {
             var allMembers = _tList.Where(t => t.Members != null).SelectMany(t => t.Members).ToList();
             var groups = allMembers.GroupBy(m => m.Uid).Where(g => g.Count() > 1).ToList();
@@ -124,6 +124,18 @@ namespace ECMA2Yaml.Models
                     member.Id = member.Id + "_" + member.ItemType.ToString().Substring(0, 1).ToLower();
                 }
                 MembersByUid[member.Uid] = member;
+            }
+        }
+
+        public bool TryGetTypeByFullName(string fullName, out Type type)
+        {
+            if (fullName.IndexOf('+') > 0)
+            {
+                return TypesByFullName.TryGetValue(fullName.Replace('+', '.'), out type);
+            }
+            else
+            {
+                return TypesByFullName.TryGetValue(fullName, out type);
             }
         }
 

@@ -15,7 +15,7 @@ namespace ECMA2Yaml
     {
         public static string TypeStringToTypeMDString(string typeStr, ECMAStore store)
         {
-            if (store.TypesByFullName.TryGetValue(typeStr, out var t))
+            if (store.TryGetTypeByFullName(typeStr, out var t))
             {
                 return $"[{EncodeLinkText(t.Name)}](xref:{t.Uid})";
             }
