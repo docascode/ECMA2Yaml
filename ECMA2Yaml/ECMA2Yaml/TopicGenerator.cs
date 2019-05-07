@@ -113,8 +113,9 @@ namespace ECMA2Yaml
         public static PageViewModel ToPageViewModel(this Models.Type t, ECMAStore store)
         {
             var pv = new PageViewModel();
+            var tItem = t.ToItemViewModel(store);
             pv.Items = new List<ItemViewModel>();
-            pv.Items.Add(t.ToItemViewModel(store));
+            pv.Items.Add(tItem);
             pv.Metadata = t.ExtendedMetadata;
             pv.References = new List<ReferenceViewModel>();
             if (!string.IsNullOrEmpty(t.Parent?.Uid))
@@ -173,6 +174,10 @@ namespace ECMA2Yaml
             if (t.Interfaces?.Count > 0)
             {
                 pv.References.AddRange(t.Interfaces.SelectMany(i => GenerateReferencesByTypeString(i, store)));
+            }
+            if (tItem.DerivedClasses?.Count > 0)
+            {
+                pv.References.AddRange(tItem.DerivedClasses.Select(c => store.TypesByUid[c].ToReferenceViewModel()));
             }
             pv.References = pv.References.DistinctBy(r => r.Uid).ToList();
 
