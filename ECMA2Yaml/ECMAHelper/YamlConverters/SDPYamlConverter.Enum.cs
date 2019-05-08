@@ -28,6 +28,7 @@ namespace ECMA2Yaml
                     Uid = fItem.Uid,
                     CommentId = fItem.CommentId,
                     Name = fItem.DisplayName,
+                    NameWithType = enumTypeItem.Name + '.' + fItem.Name,
                     FullName = fItem.FullDisplayName,
                     Summary = fItem.Docs.Summary
                 };
