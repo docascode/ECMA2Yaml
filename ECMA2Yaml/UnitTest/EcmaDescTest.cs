@@ -37,12 +37,21 @@ namespace UnitTest
         }
 
         [TestMethod]
-        public void TestEcmaDescToMD()
+        public void TestEcmaDescToMD_Complex()
         {
             EcmaUrlParser EcmaParser = new EcmaUrlParser();
             Monodoc.Ecma.EcmaDesc desc = EcmaParser.Parse("T:System.Collections.Generic.HashSet<T>+Enumerator[]");
             var md = SDPYamlConverter.DescToTypeMDString(desc);
             Assert.AreEqual("[HashSet](xref:System.Collections.Generic.HashSet`1)&lt;T&gt;.[Enumerator](xref:System.Collections.Generic.HashSet`1.Enumerator)[]", md);
+        }
+
+        [TestMethod]
+        public void TestEcmaDescToMD_GenericArray()
+        {
+            EcmaUrlParser EcmaParser = new EcmaUrlParser();
+            Monodoc.Ecma.EcmaDesc desc = EcmaParser.Parse("T:System.Predicate<T[]>");
+            var md = SDPYamlConverter.DescToTypeMDString(desc);
+            Assert.AreEqual("[Predicate](xref:System.Predicate`1)&lt;T[]&gt;", md);
         }
 
         [TestMethod, Ignore]

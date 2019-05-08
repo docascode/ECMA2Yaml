@@ -103,7 +103,7 @@ namespace ECMA2Yaml
 
             string HandleTypeArgument(EcmaDesc d)
             {
-                if (IsTypeArgument(d))
+                if (IsTypeArgument(d) && d.ArrayDimensions == null)
                 {
                     return d.TypeName;
                 }
