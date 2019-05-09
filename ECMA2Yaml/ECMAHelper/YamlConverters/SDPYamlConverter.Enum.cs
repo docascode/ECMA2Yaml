@@ -32,10 +32,9 @@ namespace ECMA2Yaml
                     FullName = fItem.FullDisplayName,
                     Summary = fItem.Docs.Summary
                 };
-                if (fItem.Metadata.TryGetValue(OPSMetadata.LiteralValue, out object val)
-                    && long.TryParse(val.ToString(), out long valInt))
+                if (fItem.Metadata.TryGetValue(OPSMetadata.LiteralValue, out object val))
                 {
-                    f.LiteralValue = valInt;
+                    f.LiteralValue = val?.ToString();
                 }
                 if (fItem.Metadata.TryGetValue(OPSMetadata.Monikers, out var monikers))
                 {
