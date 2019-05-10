@@ -319,12 +319,12 @@ namespace ECMA2Yaml.Models
             {
                 if (!string.IsNullOrEmpty(m.DocId))
                 {
-                    var thisParam = m.Parameters.Where(p => { return p.RefType == "this"; });
-                    if (m.Parameters != null && thisParam.Count() > 0)
+                    var thisParam = m.Parameters?.FirstOrDefault(p =>  p.RefType == "this");
+                    if (m.Parameters != null && thisParam != null)
                     {
                         if (m.Parent != null && m.Parent.IsStatic.HasValue && m.Parent.IsStatic.Value == true)
                         {
-                            var targetDocId = thisParam.First()?.Type;
+                            var targetDocId = thisParam.Type;
                             m.IsExtensionMethod = true;
                             if (TypesByFullName.TryGetValue(targetDocId, out Type type))
                             {
