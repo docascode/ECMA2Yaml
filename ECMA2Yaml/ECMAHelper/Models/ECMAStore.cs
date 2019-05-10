@@ -15,8 +15,8 @@ namespace ECMA2Yaml.Models
         public Dictionary<string, ReflectionItem> ItemsByDocId { get; set; }
         public Dictionary<string, List<string>> InheritanceParentsByUid { get; set; }
         public Dictionary<string, List<string>> InheritanceChildrenByUid { get; set; }
-        public Dictionary<string, ExtensionMethod> ExtensionMethodsByMemberDocId { get; set; }
-        public ILookup<string, ExtensionMethod> ExtensionMethodUidsByTargetUid { get; set; }
+        public Dictionary<string, Member> ExtensionMethodsByMemberDocId { get; set; }
+        public ILookup<string, Member> ExtensionMethodUidsByTargetUid { get; set; }
         public FilterStore FilterStore { get; set; }
         public bool StrictMode { get; set; }
 
@@ -25,14 +25,14 @@ namespace ECMA2Yaml.Models
         private IEnumerable<Namespace> _nsList;
         private IEnumerable<Type> _tList;
         private FrameworkIndex _frameworks;
-        private List<ExtensionMethod> _extensionMethods;
+        private List<Member> _extensionMethods;
         private Dictionary<string, string> _monikerNugetMapping;
         private Dictionary<string, List<string>> _monikerAssemblyMapping;
         private Dictionary<string, List<string>> _assemblyMonikerMapping;
 
         public ECMAStore(IEnumerable<Namespace> nsList,
             FrameworkIndex frameworks,
-            List<ExtensionMethod> extensionMethods,
+            //List<ExtensionMethod> extensionMethods,
             Dictionary<string, string> monikerNugetMapping = null,
             Dictionary<string, List<string>> monikerAssemblyMapping = null)
         {
@@ -41,7 +41,7 @@ namespace ECMA2Yaml.Models
             _nsList = nsList;
             _tList = nsList.SelectMany(ns => ns.Types).ToList();
             _frameworks = frameworks;
-            _extensionMethods = extensionMethods;
+            //_extensionMethods = extensionMethods;
             _monikerNugetMapping = monikerNugetMapping;
             _monikerAssemblyMapping = monikerAssemblyMapping;
 
@@ -314,26 +314,38 @@ namespace ECMA2Yaml.Models
 
         private void BuildExtensionMethods()
         {
-            if (_extensionMethods == null || _extensionMethods.Count == 0)
-            {
-                return;
-            }
-            ExtensionMethodsByMemberDocId = _extensionMethods.ToDictionary(ex => ex.MemberDocId);
-
+            _extensionMethods = new List<Member>();
             foreach (var m in MembersByUid.Values)
             {
-                if (!string.IsNullOrEmpty(m.DocId) && ExtensionMethodsByMemberDocId.ContainsKey(m.DocId))
+                if (!string.IsNullOrEmpty(m.DocId))
                 {
-                    m.IsExtensionMethod = true;
-                    ExtensionMethodsByMemberDocId[m.DocId].Uid = m.Uid;
-                    ExtensionMethodsByMemberDocId[m.DocId].ParentType = m.Parent;
+                    var thisParam = m.Parameters?.FirstOrDefault(p =>  p.RefType == "this");
+                    if (m.Parameters != null && thisParam != null)
+                    {
+                        if (m.Parent != null && m.Parent.IsStatic.HasValue && m.Parent.IsStatic.Value == true)
+                        {
+                            var targetDocId = thisParam.Type;
+                            m.IsExtensionMethod = true;
+                            if (TypesByFullName.TryGetValue(targetDocId, out Type type))
+                            {
+                                m.TargetDocId = type.DocId;
+                                _extensionMethods.Add(m);
+                            }
+                        }
+                    }
                 }
             }
 
+            if (_extensionMethods.Count == 0)
+            {
+                return;
+            }
+
+            ExtensionMethodsByMemberDocId = _extensionMethods.ToDictionary(ex => ex.DocId);
             ExtensionMethodUidsByTargetUid = _extensionMethods.ToLookup(ex => ex.TargetDocId.Replace("T:", ""));
             foreach (var ex in _extensionMethods.Where(ex => ex.Uid == null))
             {
-                OPSLogger.LogUserInfo(string.Format("ExtensionMethod {0} not found in its type {1}", ex.MemberDocId, ex.ParentTypeString), "index.xml");
+                OPSLogger.LogUserInfo(string.Format("ExtensionMethod {0} not found in its type {1}", ex.DocId, ex.Parent.Name), "index.xml");
             }
 
             foreach (var t in _tList)
@@ -362,7 +374,7 @@ namespace ECMA2Yaml.Models
                                 return false;
                             }
                             List<string> exMonikers = null;
-                            if (ex.ParentType != null && ex.ParentType.Metadata.TryGetValue(OPSMetadata.Monikers, out object monikers))
+                            if (ex.Parent != null && ex.Parent.Metadata.TryGetValue(OPSMetadata.Monikers, out object monikers))
                             {
                                 exMonikers = monikers as List<string>;
                             }

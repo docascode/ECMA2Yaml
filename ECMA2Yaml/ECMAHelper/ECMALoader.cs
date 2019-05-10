@@ -34,7 +34,7 @@ namespace ECMA2Yaml
             //}
 
             var frameworks = LoadFrameworks(sourcePath);
-            var extensionMethods = LoadExtensionMethods(sourcePath);
+            //var extensionMethods = LoadExtensionMethods(sourcePath);
             var filterStore = LoadFilters(sourcePath);
             var monikerNugetMapping = LoadMonikerPackageMapping(sourcePath);
             var monikerAssemblyMapping = LoadMonikerAssemblyMapping(sourcePath);
@@ -70,7 +70,7 @@ namespace ECMA2Yaml
             }
 
             var filteredNS = Filter(namespaces, filterStore);
-            var store = new ECMAStore(filteredNS.OrderBy(ns => ns.Name).ToArray(), frameworks, extensionMethods, monikerNugetMapping, monikerAssemblyMapping)
+            var store = new ECMAStore(filteredNS.OrderBy(ns => ns.Name).ToArray(), frameworks, /*extensionMethods,*/ monikerNugetMapping, monikerAssemblyMapping)
             {
                 FilterStore = filterStore
             };
