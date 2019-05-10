@@ -319,11 +319,12 @@ namespace ECMA2Yaml.Models
             {
                 if (!string.IsNullOrEmpty(m.DocId))
                 {
-                    if (m.Parameters != null && m.Parameters.Where(p => { return p.RefType == "this"; }).Count() > 0)
+                    var thisParam = m.Parameters.Where(p => { return p.RefType == "this"; });
+                    if (m.Parameters != null && thisParam.Count() > 0)
                     {
                         if (m.Parent != null && m.Parent.IsStatic.HasValue && m.Parent.IsStatic.Value == true)
                         {
-                            var targetDocId = m.Parameters.Where(p => { return p.RefType == "this"; }).First()?.Type;
+                            var targetDocId = thisParam.First()?.Type;
                             m.IsExtensionMethod = true;
                             if (TypesByFullName.TryGetValue(targetDocId, out Type type))
                             {
@@ -335,7 +336,7 @@ namespace ECMA2Yaml.Models
                 }
             }
 
-            if (_extensionMethods == null || _extensionMethods.Count == 0)
+            if (_extensionMethods.Count == 0)
             {
                 return;
             }
