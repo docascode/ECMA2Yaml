@@ -11,26 +11,29 @@ $errorActionPreference = 'Stop'
 
 $repositoryRoot = $ParameterDictionary.environment.repositoryRoot
 $logFilePath = $ParameterDictionary.environment.logFile
-$logOutputFolder = $currentDictionary.environment.logOutputFolder
-$cacheFolder = $currentDictionary.environment.cacheFolder
-$outputFolder = $currentDictionary.environment.outputFolder
+$logOutputFolder = $ParameterDictionary.environment.logOutputFolder
+$cacheFolder = $ParameterDictionary.environment.cacheFolder
+$outputFolder = $ParameterDictionary.environment.outputFolder
 
 $dependentFileListFilePath = $ParameterDictionary.context.dependentFileListFilePath
 $changeListTsvFilePath = $ParameterDictionary.context.changeListTsvFilePath
 $userSpecifiedChangeListTsvFilePath = $ParameterDictionary.context.userSpecifiedChangeListTsvFilePath
 
 pushd $repositoryRoot
-$branch = 'master'
+$branch = $ParameterDictionary.environment.repositoryBranch
 
 $publicGitUrl = & git config --get remote.origin.url
 if ($publicGitUrl.EndsWith(".git"))
 {
-    $publicGitUrl = $publicGitUrl.Substring(0, $publicGitUrl.Length - 4)
+	$publicGitUrl = $publicGitUrl.Substring(0, $publicGitUrl.Length - 4)
 }
-& git branch | foreach {
-    if ($_ -match "^\* (.*)") {
-        $branch = $matches[1]
-    }
+if ([string]::IsNullOrEmpty($branch))
+{
+	& git branch | foreach {
+		if ($_ -match "^\* (.*)") {
+			$branch = $matches[1]
+		}
+	}
 }
 popd
 $publicBranch = $branch
