@@ -210,7 +210,7 @@ namespace ECMA2Yaml
             {
                 foreach (var rTag in docs.Related)
                 {
-                    sb.AppendLine($"- [{rTag.Text}]({rTag.Uri})");
+                    sb.AppendLine($"- [{EncodeLinkText(rTag.Text)}]({rTag.Uri})");
                 }
             }
 
