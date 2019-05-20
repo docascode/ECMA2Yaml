@@ -102,13 +102,13 @@ namespace ECMA2Yaml
             switch (item)
             {
                 case Member m:
-                    rval.Namespace = m.Parent.Parent.Name;
+                    rval.Namespace = string.IsNullOrEmpty(m.Parent.Parent.Name) ? null : m.Parent.Parent.Name;
                     rval.FullName = m.FullDisplayName;
                     rval.Name = m.DisplayName;
                     rval.NameWithType = m.Parent.Name + '.' + m.DisplayName;
                     break;
                 case ECMA2Yaml.Models.Type t:
-                    rval.Namespace = t.Parent.Name == "" ? null : t.Parent.Name;
+                    rval.Namespace = string.IsNullOrEmpty(t.Parent.Name) ? null : t.Parent.Name;
                     rval.FullName = t.FullName;
                     rval.NameWithType = t.FullName;
                     GenerateRequiredMetadata(rval, item);
