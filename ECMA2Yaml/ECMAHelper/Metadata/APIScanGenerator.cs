@@ -92,6 +92,13 @@ namespace ECMA2Yaml
         private static IEnumerable<string> GenerateMemberApiNames(ReflectionItem item, params Separator[] separators)
         {
             var name = item.Name;
+            var prefix = "";
+            var dotIndex = name.LastIndexOf('.');
+            if (dotIndex > 0)
+            {
+                prefix = name.Substring(0, dotIndex);
+                name = name.Substring(dotIndex + 1);
+            }
             if (name.StartsWith("op_"))
             {
                 name = name.Substring("op_".Length);
@@ -100,7 +107,7 @@ namespace ECMA2Yaml
             {
                 if (separator.Condition(item))
                 {
-                    yield return $"{item.Parent.Uid}{separator}{name}";
+                    yield return $"{item.Parent.Uid}{prefix}{separator}{name}";
                 }
             }
         }
