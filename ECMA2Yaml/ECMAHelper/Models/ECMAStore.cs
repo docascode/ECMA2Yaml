@@ -564,6 +564,7 @@ namespace ECMA2Yaml.Models
                     overloads[id].DisplayName = m.ItemType == ItemType.Constructor ? t.Name : displayName;
                     overloads[id].FullDisplayName = t.FullName + "." + overloads[id].DisplayName;
                     overloads[id].SourceFileLocalPath = m.SourceFileLocalPath;
+                    overloads[id].Modifiers = m.Modifiers;
 
                     if (overloads[id].AssemblyInfo == null)
                     {

@@ -14,7 +14,7 @@ namespace ECMA2Yaml
             { ItemType.Class, item => GetTypeApiNamesCore(item, string.Empty) },
             { ItemType.Struct, item => GetTypeApiNamesCore(item, string.Empty) },
             { ItemType.Interface, item => GetTypeApiNamesCore(item, string.Empty) },
-            { ItemType.Enum, item => GetTypeApiNamesCore(item, string.Empty) },
+            { ItemType.Enum, item => GetEnumApiNames(item) },
             { ItemType.Delegate, item => GetTypeApiNamesCore(item, string.Empty, "..ctor", ".Invoke", ".BeginInvoke", ".EndInvoke") },
             { ItemType.Constructor, item => GenerateMemberApiNames(item, ".") },
             { ItemType.Method, item => GenerateMemberApiNames(item, ".") },
@@ -77,13 +77,30 @@ namespace ECMA2Yaml
             }
         }
 
+        private static IEnumerable<string> GetEnumApiNames(ReflectionItem item)
+        {
+            List<string> names = new List<string>();
+            names.Add(item.Uid);
+            var t = item as Models.Type;
+            foreach(var f in t.Members)
+            {
+                names.Add(f.Uid);
+            }
+            return names;
+        }
+
         private static IEnumerable<string> GenerateMemberApiNames(ReflectionItem item, params Separator[] separators)
         {
+            var name = item.Name;
+            if (name.StartsWith("op_"))
+            {
+                name = name.Substring("op_".Length);
+            }
             foreach (var separator in separators)
             {
                 if (separator.Condition(item))
                 {
-                    yield return $"{item.Parent.Uid}{separator}{item.Name}";
+                    yield return $"{item.Parent.Uid}{separator}{name}";
                 }
             }
         }
