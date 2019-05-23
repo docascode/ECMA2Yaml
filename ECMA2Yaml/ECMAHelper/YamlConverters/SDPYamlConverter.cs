@@ -143,15 +143,15 @@ namespace ECMA2Yaml
             return rval;
         }
 
-        private void GenerateRequiredMetadata(ItemSDPModelBase model, ReflectionItem item)
+        private void GenerateRequiredMetadata(ItemSDPModelBase model, ReflectionItem item, List<ReflectionItem> childrenItems = null)
         {
             MergeWhiteListedMetadata(model, item);
             if (item.ItemType != ItemType.Namespace)
             {
                 ApiScanGenerator.Generate(model, item);
             }
-            F1KeywordsGenerator.Generate(model);
-            HelpViewerKeywordsGenerator.Generate(model, item);
+            F1KeywordsGenerator.Generate(model, item, childrenItems);
+            HelpViewerKeywordsGenerator.Generate(model, item, childrenItems);
         }
 
         private IEnumerable<TypeParameter> ConvertTypeParameters(ReflectionItem item)

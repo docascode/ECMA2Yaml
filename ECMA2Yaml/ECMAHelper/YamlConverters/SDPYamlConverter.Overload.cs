@@ -41,7 +41,7 @@ namespace ECMA2Yaml
                 m.DevLangs = null;
             }
 
-            GenerateRequiredMetadata(sdpOverload, overload ?? members.First());
+            GenerateRequiredMetadata(sdpOverload, overload ?? members.First(), members.Cast<ReflectionItem>().ToList());
 
             return sdpOverload;
         }

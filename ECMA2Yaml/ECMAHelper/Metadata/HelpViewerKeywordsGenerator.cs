@@ -12,29 +12,42 @@ namespace ECMA2Yaml
     {
         internal const string DotNetProductSuffix = "[.NET]";
 
-        public static void Generate(ItemSDPModelBase model, ReflectionItem item)
+        public static void Generate(
+            ItemSDPModelBase model,
+            ReflectionItem item,
+            List<ReflectionItem> childrenItems)
         {
             if (model != null && !model.Metadata.ContainsKey(OPSMetadata.HelpViewerKeywords))
             {
-                var keywords = GetHelpViewerKeywordsCore(model, item).ToList();
+                var keywords = GetHelpViewerKeywordsCore(item).ToList();
+                if (childrenItems != null)
+                {
+                    foreach (var child in childrenItems)
+                    {
+                        keywords.AddRange(GetHelpViewerKeywordsCore(child));
+                    }
+                }
                 if (keywords.Count > 0)
                 {
-                    model.Metadata[OPSMetadata.HelpViewerKeywords] = keywords;
+                    model.Metadata[OPSMetadata.HelpViewerKeywords] = keywords.Distinct().ToList();
                 }
             }
         }
 
-        private static IEnumerable<string> GetHelpViewerKeywordsCore(ItemSDPModelBase model, ReflectionItem item)
+        private static IEnumerable<string> GetHelpViewerKeywordsCore(ReflectionItem item)
         {
             switch (item.ItemType)
             {
                 case ItemType.Namespace:
+                    yield return $"{item.Name} {ConverterHelper.ItemTypeNameMapping[item.ItemType]} {DotNetProductSuffix}";
+                    break;
                 case ItemType.Class:
                 case ItemType.Struct:
                 case ItemType.Enum:
                 case ItemType.Interface:
                 case ItemType.Delegate:
-                    yield return $"{model.FullName} {ConverterHelper.ItemTypeNameMapping[item.ItemType]} {DotNetProductSuffix}";
+                    var t = item as Models.Type;
+                    yield return $"{t.FullName} {ConverterHelper.ItemTypeNameMapping[item.ItemType]} {DotNetProductSuffix}";
                     break;
                 case ItemType.Constructor:
                     var c = item as Member;

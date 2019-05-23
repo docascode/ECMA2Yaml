@@ -10,16 +10,23 @@ namespace ECMA2Yaml
 {
     public static class F1KeywordsGenerator
     {
-        public static void Generate(ItemSDPModelBase model)
+        public static void Generate(ItemSDPModelBase model, ReflectionItem item, List<ReflectionItem> childrenItems)
         {
-            var keywords = GetF1Keywords(model).ToList();
             if (!model.Metadata.ContainsKey(OPSMetadata.F1Keywords))
             {
-                model.Metadata[OPSMetadata.F1Keywords] = keywords;
+                var keywords = GetF1Keywords(item).ToList();
+                if (childrenItems != null)
+                {
+                    foreach (var child in childrenItems)
+                    {
+                        keywords.AddRange(GetF1Keywords(child));
+                    }
+                }
+                model.Metadata[OPSMetadata.F1Keywords] = keywords.Distinct().ToList();
             }
         }
 
-        private static IEnumerable<string> GetF1Keywords(ItemSDPModelBase item)
+        private static IEnumerable<string> GetF1Keywords(ReflectionItem item)
         {
             var uid = item.Uid;
             if (uid == null)
