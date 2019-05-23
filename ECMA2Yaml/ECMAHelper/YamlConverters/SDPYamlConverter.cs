@@ -13,6 +13,8 @@ namespace ECMA2Yaml
     {
         private readonly ECMAStore _store;
 
+        private static string[] defaultLangList = new string[] { "csharp" };
+
         public Dictionary<string, ItemSDPModelBase> NamespacePages { get; } = new Dictionary<string, ItemSDPModelBase>();
         public Dictionary<string, ItemSDPModelBase> TypePages { get; } = new Dictionary<string, ItemSDPModelBase>();
         public Dictionary<string, ItemSDPModelBase> MemberPages { get; } = new Dictionary<string, ItemSDPModelBase>();
@@ -91,7 +93,7 @@ namespace ECMA2Yaml
                 Assemblies = item.AssemblyInfo?.Select(asm => asm.Name).Distinct().ToList(),
                 Attributes = item.Attributes?.Where(att => att.Visible).Select(att => att.TypeFullName).ToList().NullIfEmpty(),
                 Syntax = signatures,
-                DevLangs = signatures?.Select(sig => sig.Lang).ToList().NullIfEmpty(),
+                DevLangs = signatures?.Select(sig => sig.Lang).ToList().NullIfEmpty() ?? defaultLangList,
 
                 SeeAlso = BuildSeeAlsoList(item.Docs, _store),
                 Summary = item.Docs.Summary,
