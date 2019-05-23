@@ -19,7 +19,9 @@ namespace ECMA2Yaml
         {
             if (model != null && !model.Metadata.ContainsKey(OPSMetadata.HelpViewerKeywords))
             {
-                var keywords = GetHelpViewerKeywordsCore(item).ToList();
+                var keywords = item.ItemType == ItemType.Property // skip property overload
+                    ? new List<string>()
+                    : GetHelpViewerKeywordsCore(item).ToList();
                 if (childrenItems != null)
                 {
                     foreach (var child in childrenItems)

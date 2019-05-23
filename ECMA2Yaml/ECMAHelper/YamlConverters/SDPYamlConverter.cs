@@ -111,7 +111,10 @@ namespace ECMA2Yaml
                     rval.Namespace = string.IsNullOrEmpty(t.Parent.Name) ? null : t.Parent.Name;
                     rval.FullName = t.FullName;
                     rval.NameWithType = t.FullName;
-                    GenerateRequiredMetadata(rval, item);
+                    var children = t.ItemType == ItemType.Enum
+                        ? t.Members.Cast<ReflectionItem>().ToList()
+                        : null;
+                    GenerateRequiredMetadata(rval, item, children);
                     break;
                 case Namespace n:
                     rval.Namespace = n.Name;
