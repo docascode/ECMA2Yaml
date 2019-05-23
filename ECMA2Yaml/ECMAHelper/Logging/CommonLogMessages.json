@@ -10,7 +10,7 @@
         },
         {
           "log_code": "ECMA2Yaml_DocId_Duplicated",
-          "message": "Duplicated DocId found: {item.DocId}",
+          "message": "Duplicated DocId found: {0}",
           "document_url": ""
         },
         {
@@ -20,7 +20,7 @@
         },
         {
           "log_code": "ECMA2Yaml_DocId_IsNull",
-          "message": "DocId is required for {item.Name}.",
+          "message": "DocId is required for {0}.",
           "document_url": ""
         },
         {
@@ -44,8 +44,13 @@
           "document_url": ""
         },
         {
-          "log_code": "ECMA2Yaml_MDFile_SaveFailed",
+          "log_code": "ECMA2Yaml_OverloadMDFile_SaveFailed",
           "message": "Unable to save overload md file for {0}",
+          "document_url": ""
+        },
+        {
+          "log_code": "ECMA2Yaml_OverwriteMDFile_SaveFailed",
+          "message": "Unable to save content overwrite md file for {0}",
           "document_url": ""
         },
         {
@@ -65,12 +70,12 @@
         },
         {
           "log_code": "ECMA2Yaml_CommentId_ResolveFailed",
-          "message": "Unable to resolve: <InterfaceMember>{commentId}</InterfaceMember>",
+          "message": "Unable to resolve: <InterfaceMember>{0}</InterfaceMember>",
           "document_url": ""
         },
         {
           "log_code": "ECMA2Yaml_Namespace_LoadFailed",
-          "message": "failed to load namespace",
+          "message": "Failed to load namespace",
           "document_url": ""
         },
         {
@@ -79,8 +84,13 @@
           "document_url": ""
         },
         {
-          "log_code": "ECMA2Yaml_YamlHeader_ParseFailed",
+          "log_code": "ECMA2Yaml_YamlHeader_ParseFailed_WithException",
           "message": "Parsing yaml header failed, exception: {0}",
+          "document_url": ""
+        },
+        {
+          "log_code": "ECMA2Yaml_YamlHeader_ParseFailed",
+          "message": "Parsing yaml header failed: {0}",
           "document_url": ""
         },
         {
@@ -95,7 +105,7 @@
         },
         {
           "log_code": "ECMA2Yaml_UidAssembly_NotMatched",
-          "message": "{item.Uid}'s moniker {moniker} can't match any assembly.",
+          "message": "{0}'s moniker {1} can't match any assembly.",
           "document_url": ""
         },
 
@@ -105,7 +115,7 @@
           "document_url": ""
         },
         {
-          "log_code": "ECMA2Yaml_InternalServalError",
+          "log_code": "ECMA2Yaml_InternalError",
           "message": "Intenal Several Error",
           "document_url": ""
         },
@@ -115,12 +125,12 @@
           "document_url": ""
         },
         {
-          "log_code": "ECMA2Yaml_Type_ExistExternalBaseType",
+          "log_code": "ECMA2Yaml_Type_ExternalBaseType",
           "message": "Type {0} has an external base type {1}",
           "document_url": ""
         },
         {
-          "log_code": "ECMA2Yaml_ReferencedExceptionType_NotFound",
+          "log_code": "ECMA2Yaml_ExceptionTypeNotFound",
           "message": "Referenced exception type not found: {0}",
           "document_url": ""
         }

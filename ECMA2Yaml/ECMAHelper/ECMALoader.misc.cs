@@ -149,7 +149,7 @@ namespace ECMA2Yaml
                 }
                 catch (Exception ex)
                 {
-                    OPSLogger.LogUserError("Unable to load moniker to nuget mapping: " + ex.ToString(), file);
+                    OPSLogger.LogUserError(LogCode.ECMA2Yaml_MonikerToNuget_Failed, LogMessageUtility.FormatMessage(LogCode.ECMA2Yaml_MonikerToNuget_Failed, ex.ToString()), file);
                     return null;
                 }
             }
@@ -167,7 +167,7 @@ namespace ECMA2Yaml
                 }
                 catch (Exception ex)
                 {
-                    OPSLogger.LogUserError("Unable to load moniker to assembly mapping: " + ex.ToString(), file);
+                    OPSLogger.LogUserError(LogCode.ECMA2Yaml_MonikerToAssembly_Failed, LogMessageUtility.FormatMessage(LogCode.ECMA2Yaml_MonikerToAssembly_Failed, ex.ToString()), file);
                     return null;
                 }
             }
