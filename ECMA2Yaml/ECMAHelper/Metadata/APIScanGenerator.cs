@@ -96,7 +96,7 @@ namespace ECMA2Yaml
             var dotIndex = name.LastIndexOf('.');
             if (dotIndex > 0)
             {
-                prefix = name.Substring(0, dotIndex);
+                prefix = "." + name.Substring(0, dotIndex);
                 name = name.Substring(dotIndex + 1);
             }
             if (name.StartsWith("op_"))
