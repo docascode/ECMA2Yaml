@@ -47,6 +47,15 @@
     <Reference Include="Microsoft.OpenPublishing.FileAbstractLayer, Version=1.71.270.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.OpenPublishing.FileAbstractLayer.1.71.0\lib\net462\Microsoft.OpenPublishing.FileAbstractLayer.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.OpenPublishing.LogCodeService.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.OpenPublishing.LogCodeService.Common.1.0.1-CI-20181106-060254\lib\net462\Microsoft.OpenPublishing.LogCodeService.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.OpenPublishing.LogCodeService.DataContracts, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.OpenPublishing.LogCodeService.DataContracts.1.0.1-CI-20181106-060254\lib\net462\Microsoft.OpenPublishing.LogCodeService.DataContracts.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.OpenPublishing.LogCodeService.Manager, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.OpenPublishing.LogCodeService.Manager.1.0.1-CI-20181106-060254\lib\net462\Microsoft.OpenPublishing.LogCodeService.Manager.dll</HintPath>
+    </Reference>
     <Reference Include="Minimatch, Version=1.1.0.0, Culture=neutral, PublicKeyToken=0cadeb0b849c27c0, processorArchitecture=MSIL">
       <HintPath>..\packages\Minimatch.1.1.0.0\lib\portable-net40+sl50+win+wp80\Minimatch.dll</HintPath>
     </Reference>
@@ -88,6 +97,12 @@
     <Compile Include="ECMALoader.misc.cs" />
     <Compile Include="ECMALoader.cs" />
     <Compile Include="Extensions\LINQExtensions.cs" />
+    <Compile Include="Logging\LogCode.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LogCode.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Logging\LogMessageUtility.cs" />
     <Compile Include="Metadata\APIScanGenerator.cs" />
     <Compile Include="Metadata\F1KeywordsGenerator.cs" />
     <Compile Include="Metadata\HelpViewerKeywordsGenerator.cs" />
@@ -148,6 +163,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ECMAHelper.nuspec" />
+    <None Include="Logging\CommonLogMessages.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
@@ -157,6 +175,15 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Logging\LogCode.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>LogCode.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

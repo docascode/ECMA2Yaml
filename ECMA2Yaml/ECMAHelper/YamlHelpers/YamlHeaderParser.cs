@@ -61,15 +61,15 @@ namespace ECMA2Yaml
                         }
                         catch (Exception ex)
                         {
-                            OPSLogger.LogUserError(string.Format("Parsing yaml header failed, exception: {0}", ex.ToString()), path);
+                            OPSLogger.LogUserError(LogCode.ECMA2Yaml_YamlHeader_ParseFailed_WithException, LogMessageUtility.FormatMessage(LogCode.ECMA2Yaml_YamlHeader_ParseFailed_WithException, ex.ToString()), path);
                         }
                         if (result == null)
                         {
-                            OPSLogger.LogUserError(string.Format("Parsing yaml header failed: {0}", match.Value), path);
+                            OPSLogger.LogUserError(LogCode.ECMA2Yaml_CommentId_ResolveFailed, LogMessageUtility.FormatMessage(LogCode.ECMA2Yaml_CommentId_ResolveFailed, match.Value), path);
                         }
                         else if (!result.ContainsKey("uid"))
                         {
-                            OPSLogger.LogUserError(string.Format("Can't find uid in yaml header: {0}", match.Value), path);
+                            OPSLogger.LogUserError(LogCode.ECMA2Yaml_CommentId_ResolveFailed, LogMessageUtility.FormatMessage(LogCode.ECMA2Yaml_CommentId_ResolveFailed, match.Value), path);
                         }
                         else
                         {
@@ -77,7 +77,7 @@ namespace ECMA2Yaml
                             result.Remove("uid");
                             if (rval.ContainsKey(uid))
                             {
-                                OPSLogger.LogUserWarning(string.Format("Duplicate uid found: {0}", uid), path);
+                                OPSLogger.LogUserWarning(LogCode.ECMA2Yaml_Uid_Duplicated, LogMessageUtility.FormatMessage(LogCode.ECMA2Yaml_Uid_Duplicated, uid), path);
                             }
                             else
                             {

@@ -21,7 +21,7 @@ namespace ECMA2Yaml
                     var uid = DocIdToTypeMDString(commentId, _store);
                     if (uid == commentId)
                     {
-                        OPSLogger.LogUserWarning($"Unable to resolve: <InterfaceMember>{commentId}</InterfaceMember>", m.SourceFileLocalPath);
+                        OPSLogger.LogUserWarning(LogCode.ECMA2Yaml_CommentId_ResolveFailed,LogMessageUtility.FormatMessage(LogCode.ECMA2Yaml_CommentId_ResolveFailed, commentId), m.SourceFileLocalPath);
                         return null;
                     }
                     return uid;

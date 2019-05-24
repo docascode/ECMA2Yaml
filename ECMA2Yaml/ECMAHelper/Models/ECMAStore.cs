@@ -86,12 +86,12 @@ namespace ECMA2Yaml.Models
             {
                 if (string.IsNullOrEmpty(item.DocId))
                 {
-                    OPSLogger.LogUserError($"DocId is required for {item.Name}.", item.SourceFileLocalPath);
+                    OPSLogger.LogUserError(LogCode.ECMA2Yaml_DocId_IsNull, LogMessageUtility.FormatMessage(LogCode.ECMA2Yaml_DocId_IsNull, item.Name), item.SourceFileLocalPath);
                 }
                 else if (ItemsByDocId.ContainsKey(item.DocId))
                 {
-                    OPSLogger.LogUserError($"Duplicated DocId found: {item.DocId}.", item.SourceFileLocalPath);
-                    OPSLogger.LogUserError($"Duplicated DocId found: {item.DocId}.", ItemsByDocId[item.DocId].SourceFileLocalPath);
+                    OPSLogger.LogUserError(LogCode.ECMA2Yaml_DocId_Duplicated, LogMessageUtility.FormatMessage(LogCode.ECMA2Yaml_DocId_Duplicated, item.DocId), item.SourceFileLocalPath);
+                    OPSLogger.LogUserError(LogCode.ECMA2Yaml_DocId_Duplicated, LogMessageUtility.FormatMessage(LogCode.ECMA2Yaml_DocId_Duplicated, item.DocId), ItemsByDocId[item.DocId].SourceFileLocalPath);
                 }
                 else
                 {
@@ -110,7 +110,7 @@ namespace ECMA2Yaml.Models
                 {
                     foreach (var member in group)
                     {
-                        OPSLogger.LogUserWarning(string.Format("Member {0}'s name and signature is not unique", member.Name), member.SourceFileLocalPath);
+                        OPSLogger.LogUserWarning(LogCode.ECMA2Yaml_MemberNameAndSignature_NotUnique, LogMessageUtility.FormatMessage(LogCode.ECMA2Yaml_MemberNameAndSignature_NotUnique, member.Name), member.SourceFileLocalPath);
                     }
                 }
             }
@@ -278,7 +278,7 @@ namespace ECMA2Yaml.Models
                             }
                             break;
                         default:
-                            OPSLogger.LogUserWarning("Can't recognize additional notes type: " + note.Key, item.SourceFileLocalPath);
+                            OPSLogger.LogUserWarning(LogCode.ECMA2Yaml_NotesType_UnKnown, LogMessageUtility.FormatMessage(LogCode.ECMA2Yaml_NotesType_UnKnown, note.Key), item.SourceFileLocalPath);
                             break;
                     }
                 }
@@ -428,7 +428,7 @@ namespace ECMA2Yaml.Models
                             }
                             else
                             {
-                                OPSLogger.LogUserError(string.Format("Unable to find framework info for {0}", m.DocId), m.SourceFileLocalPath);
+                                OPSLogger.LogUserError(LogCode.ECMA2Yaml_Framework_NotFound, LogMessageUtility.FormatMessage(LogCode.ECMA2Yaml_Framework_NotFound, m.DocId), m.SourceFileLocalPath);
                             }
                         }
                     }
@@ -472,7 +472,7 @@ namespace ECMA2Yaml.Models
                         }
                         else
                         {
-                            OPSLogger.LogUserWarning($"{item.Uid}'s moniker {moniker} can't match any assembly.");
+                            OPSLogger.LogUserWarning(LogCode.ECMA2Yaml_UidAssembly_NotMatched, LogMessageUtility.FormatMessage(LogCode.ECMA2Yaml_UidAssembly_NotMatched, item.Uid, moniker));
                         }
                     }
                     else
@@ -746,7 +746,7 @@ namespace ECMA2Yaml.Models
                     {
                         if (StrictMode)
                         {
-                            OPSLogger.LogUserWarning(string.Format("Type {0} has an external base type {1}", t.FullName, baseUid), t.SourceFileLocalPath);
+                            OPSLogger.LogUserWarning(LogCode.ECMA2Yaml_Type_ExternalBaseType, LogMessageUtility.FormatMessage(LogCode.ECMA2Yaml_Type_ExternalBaseType, t.FullName, baseUid), t.SourceFileLocalPath);
                         }
                         baseUid = null;
                         break;
@@ -839,7 +839,7 @@ namespace ECMA2Yaml.Models
                         {
                             if (!TypesByUid.ContainsKey(ex.Uid) && !MembersByUid.ContainsKey(ex.Uid))
                             {
-                                OPSLogger.LogUserWarning("Referenced exception type not found: " + ex.Uid, m.SourceFileLocalPath);
+                                OPSLogger.LogUserWarning(LogCode.ECMA2Yaml_ExceptionTypeNotFound, LogMessageUtility.FormatMessage(LogCode.ECMA2Yaml_ExceptionTypeNotFound, ex.Uid), m.SourceFileLocalPath);
                             }
                         }
                     }
