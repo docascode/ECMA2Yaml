@@ -64,7 +64,7 @@ namespace ECMA2Yaml
                     var itemTypeStr = ConverterHelper.ItemTypeNameMapping[item.ItemType];
                     if (m.IsEII)
                     {
-                        yield return $"{item.Name} explicitly implemented {itemTypeStr} {DotNetProductSuffix}";
+                        yield return $"{m.DisplayName} explicitly implemented {itemTypeStr} {DotNetProductSuffix}";
                     }
                     else if (!(item.Parent.ItemType == ItemType.Enum))
                     {
