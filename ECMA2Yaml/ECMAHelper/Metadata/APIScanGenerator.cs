@@ -103,6 +103,17 @@ namespace ECMA2Yaml
             {
                 name = name.Substring("op_".Length);
             }
+            // methods with generics do not add any generics information
+            // (neither type parameters in angled brackets nor `[type parameter count])
+            if (name[name.Length - 1] == '>')
+            {
+                var index = name.LastIndexOf('<');
+                if (index != -1)
+                {
+                    name = name.Remove(index);
+                }
+            }
+
             foreach (var separator in separators)
             {
                 if (separator.Condition(item))
