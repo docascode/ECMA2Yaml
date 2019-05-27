@@ -580,10 +580,10 @@ namespace ECMA2Yaml.Models
                 {
                     displayName = displayName.Substring(0, displayName.LastIndexOf('('));
                 }
-                if (displayName.Contains('['))
-                {
-                    displayName = displayName.Substring(0, displayName.LastIndexOf('['));
-                }
+                //if (displayName.Contains('['))
+                //{
+                //    displayName = displayName.Substring(0, displayName.LastIndexOf('['));
+                //}
                 if (displayName.Contains('<'))
                 {
                     if (!displayName.Contains('.') || displayName.LastIndexOf('<') > displayName.LastIndexOf('.'))
