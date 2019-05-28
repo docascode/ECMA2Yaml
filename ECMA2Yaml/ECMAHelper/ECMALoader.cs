@@ -47,11 +47,11 @@ namespace ECMA2Yaml
                 var ns = LoadNamespace(sourcePath, nsFile);
                 if (ns == null)
                 {
-                    OPSLogger.LogUserError("failed to load namespace", nsFile.AbsolutePath);
+                    OPSLogger.LogUserError(LogCode.ECMA2Yaml_Namespace_LoadFailed, LogMessageUtility.FormatMessage(LogCode.ECMA2Yaml_Namespace_LoadFailed), nsFile.AbsolutePath);
                 }
                 else if (ns.Types == null)
                 {
-                    OPSLogger.LogUserWarning(string.Format("Namespace {0} has no types", ns.Name), nsFile.AbsolutePath);
+                    OPSLogger.LogUserWarning(LogCode.ECMA2Yaml_Namespace_NoTypes, LogMessageUtility.FormatMessage(LogCode.ECMA2Yaml_Namespace_NoTypes, ns.Name), nsFile.AbsolutePath);
                 }
                 else
                 {
@@ -65,7 +65,7 @@ namespace ECMA2Yaml
 
             if (_errorFiles.Count > 0)
             {
-                OPSLogger.LogUserError(string.Format("Failed to load {0} files, aborting...", _errorFiles.Count));
+                OPSLogger.LogUserError(LogCode.ECMA2Yaml_File_LoadFailed, LogMessageUtility.FormatMessage(LogCode.ECMA2Yaml_File_LoadFailed, _errorFiles.Count));
                 return null;
             }
 
@@ -177,7 +177,7 @@ namespace ECMA2Yaml
                 }
                 catch (Exception ex)
                 {
-                    OPSLogger.LogUserError(ex.Message, typeFile.AbsolutePath);
+                    OPSLogger.LogUserError(LogCode.ECMA2Yaml_InternalError, ex.Message, typeFile.AbsolutePath);
                     _errorFiles.Add(typeFile.AbsolutePath);
                 }
             }
@@ -281,11 +281,11 @@ namespace ECMA2Yaml
                 if (t.Overloads != null)
                 {
                     var distinctList = new List<Member>();
-                    foreach(var og in t.Overloads.GroupBy(o => o.Name))
+                    foreach (var og in t.Overloads.GroupBy(o => o.Name))
                     {
                         if (og.Count() > 1)
                         {
-                            OPSLogger.LogUserWarning("Found duplicated <MemberGroup> " + og.Key, typeFile.AbsolutePath);
+                            OPSLogger.LogUserWarning(LogCode.ECMA2Yaml_MemberGroup_Duplicated, LogMessageUtility.FormatMessage(LogCode.ECMA2Yaml_MemberGroup_Duplicated, og.Key), typeFile.AbsolutePath);
                         }
                         og.First().SourceFileLocalPath = typeFile.AbsolutePath;
                         distinctList.Add(og.First());

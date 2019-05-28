@@ -90,7 +90,7 @@ namespace ECMA2Yaml
             }
             catch (Exception ex)
             {
-                OPSLogger.LogUserError("Unable to save overload md file for " + overload.Uid);
+                OPSLogger.LogUserError(LogCode.ECMA2Yaml_OverloadMDFile_SaveFailed, LogMessageUtility.FormatMessage(LogCode.ECMA2Yaml_OverloadMDFile_SaveFailed, overload.Uid));
                 return;
             }
         }
@@ -113,7 +113,7 @@ namespace ECMA2Yaml
                 }
                 catch (Exception ex)
                 {
-                    OPSLogger.LogUserError("Unable to save content overwrite md file for " + uid);
+                    OPSLogger.LogUserError(LogCode.ECMA2Yaml_OverwriteMDFile_SaveFailed, LogMessageUtility.FormatMessage(LogCode.ECMA2Yaml_OverwriteMDFile_SaveFailed, uid));
                     return;
                 }
             }

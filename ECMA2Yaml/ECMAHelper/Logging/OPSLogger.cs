@@ -15,14 +15,14 @@ namespace ECMA2Yaml
 
         private static ConcurrentBag<LogItem> logBag = new ConcurrentBag<LogItem>();
 
-        public static void LogUserError(string message, string file = null)
+        public static void LogUserError(LogCode code, string message, string file = null)
         {
-            logBag.Add(new LogItem(message, "ECMA2Yaml", file, MessageSeverity.Error, LogItemType.User));
+            logBag.Add(new LogItem(message, "ECMA2Yaml", file, MessageSeverity.Error, code.ToString(), LogItemType.User));
         }
 
-        public static void LogUserWarning(string message, string file = null)
+        public static void LogUserWarning(LogCode code, string message, string file = null)
         {
-            logBag.Add(new LogItem(message, "ECMA2Yaml", file, MessageSeverity.Warning, LogItemType.User));
+            logBag.Add(new LogItem(message, "ECMA2Yaml", file, MessageSeverity.Warning, code.ToString(), LogItemType.User));
         }
 
         public static void LogUserInfo(string message, string file = null)
@@ -30,9 +30,9 @@ namespace ECMA2Yaml
             logBag.Add(new LogItem(message, "ECMA2Yaml", file, MessageSeverity.Info, LogItemType.User));
         }
 
-        public static void LogSystemError(string message, string file = null)
+        public static void LogSystemError(LogCode code, string message, string file = null)
         {
-            logBag.Add(new LogItem(message, "ECMA2Yaml", file, MessageSeverity.Error, LogItemType.System));
+            logBag.Add(new LogItem(message, "ECMA2Yaml", file, MessageSeverity.Error, code.ToString(), LogItemType.System));
         }
 
         public static void Flush(string filePath)

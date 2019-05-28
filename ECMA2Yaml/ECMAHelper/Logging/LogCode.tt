@@ -1,0 +1,50 @@
+﻿<#@ template debug="false" hostspecific="true" language="C#" #>
+<#@ assembly name="$(SolutionDir)packages\Microsoft.OpenPublishing.LogCodeService.Manager.1.0.1-CI-20181106-060254\lib\net462\Microsoft.OpenPublishing.LogCodeService.Manager.dll" #>
+<#@ assembly name="$(SolutionDir)packages\Microsoft.OpenPublishing.LogCodeService.DataContracts.1.0.1-CI-20181106-060254\lib\net462\Microsoft.OpenPublishing.LogCodeService.DataContracts.dll" #>
+<#@ assembly name="$(SolutionDir)packages\Microsoft.OpenPublishing.LogCodeService.Common.1.0.1-CI-20181106-060254\lib\net462\Microsoft.OpenPublishing.LogCodeService.Common.dll" #>
+<#@ import namespace="System.Collections.Generic"#>
+<#@ import namespace="Microsoft.OpenPublishing.LogCodeService.Manager"#>
+<#@ import namespace="Microsoft.OpenPublishing.LogCodeService.DataContracts"#>
+<#@ output extension=".cs" #>
+// **********************************************************************************************************
+// This is an auto generated file and any changes directly applied to this file will be lost in next generation.
+// Please DO NOT modify this file but instead, update .+LogMessage\.json files and/or LogCode.tt.
+// **********************************************************************************************************
+<#@ output extension=".cs" #>
+namespace ECMA2Yaml
+{
+    public enum LogCode
+    {
+        <#
+	var manager = new LogCodeManager(Host.ResolvePath(@"."), @".+LogMessages\.json$");
+	var categories = new Dictionary<string, List<LogCodeEntity>>();
+    foreach (var logCodeEntity in manager)
+	{
+		if (logCodeEntity.LogCode.Contains("-"))
+		{
+			continue;
+		}
+
+		if (categories.TryGetValue(logCodeEntity.Category, out List<LogCodeEntity> entities))
+		{
+			entities.Add(logCodeEntity);
+		}
+		else
+		{
+			categories.Add(logCodeEntity.Category, new List<LogCodeEntity>(){logCodeEntity});
+		}
+	}
+
+	foreach (var category in categories)
+	{
+		Write($"#region {category.Key}\n");
+		category.Value.Sort( (x, y) => x.LogCode.CompareTo(y.LogCode));
+		foreach (var logCodeEntity in category.Value)
+		{
+			Write($"\t\t{logCodeEntity.LogCode},\n");
+		}
+		Write($"\t\t#endregion\n");
+	}
+#>
+    }
+}
