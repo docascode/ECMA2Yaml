@@ -116,18 +116,35 @@ namespace ECMA2Yaml
             }
         }
 
-        public static MemberReference ConvertMemberReference(Models.Type t, Member m)
+        public static TypeMemberLink ConvertTypeMemberLink(Models.Type t, Member m)
         {
             if (m == null)
             {
                 return null;
             }
-            var rval = new MemberReference()
+            var rval = new TypeMemberLink()
             {
                 Uid = m.Uid,
                 InheritedFrom = (t != null && m.Parent.Uid != t.Uid) ? m.Parent.Uid : null
             };
             if (m.Metadata.TryGetValue(OPSMetadata.Monikers, out var monikers))
+            {
+                rval.Monikers = (IEnumerable<string>)monikers;
+            }
+            return rval;
+        }
+
+        public static NamespaceTypeLink ConvertNamespaceTypeLink(Namespace ns, Models.Type t)
+        {
+            if (t == null)
+            {
+                return null;
+            }
+            var rval = new NamespaceTypeLink()
+            {
+                Uid = t.Uid
+            };
+            if (t.Metadata.TryGetValue(OPSMetadata.Monikers, out var monikers))
             {
                 rval.Monikers = (IEnumerable<string>)monikers;
             }

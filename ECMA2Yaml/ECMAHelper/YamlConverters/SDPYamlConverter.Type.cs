@@ -71,13 +71,13 @@ namespace ECMA2Yaml
                 var eiis = members.Where(m => m.IsEII).ToList();
                 if (eiis.Count > 0)
                 {
-                    sdpType.EIIs = eiis.Select(m => ConvertMemberReference(t, m)).ToList();
+                    sdpType.EIIs = eiis.Select(m => ConvertTypeMemberLink(t, m)).ToList();
                 }
                 foreach (var mGroup in members
                     .Where(m => !m.IsEII)
                     .GroupBy(m => m.ItemType))
                 {
-                    var list = mGroup.Select(m => ConvertMemberReference(t, m)).ToList();
+                    var list = mGroup.Select(m => ConvertTypeMemberLink(t, m)).ToList();
                     switch (mGroup.Key)
                     {
                         case ItemType.Property:
@@ -109,7 +109,7 @@ namespace ECMA2Yaml
             }
             if (t.ExtensionMethods?.Count > 0)
             {
-                sdpType.ExtensionMethods = t.ExtensionMethods.Select(im => ConvertMemberReference(null, _store.MembersByUid[im])).ToList();
+                sdpType.ExtensionMethods = t.ExtensionMethods.Select(im => ConvertTypeMemberLink(null, _store.MembersByUid[im])).ToList();
             }
         }
     }

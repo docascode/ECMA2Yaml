@@ -22,22 +22,22 @@ namespace ECMA2Yaml.Models.SDP
 
         [JsonProperty("delegates")]
         [YamlMember(Alias = "delegates")]
-        public IEnumerable<string> Delegates { get; set; }
+        public IEnumerable<NamespaceTypeLink> Delegates { get; set; }
 
         [JsonProperty("classes")]
         [YamlMember(Alias = "classes")]
-        public IEnumerable<string> Classes { get; set; }
+        public IEnumerable<NamespaceTypeLink> Classes { get; set; }
 
         [JsonProperty("enums")]
         [YamlMember(Alias = "enums")]
-        public IEnumerable<string> Enums { get; set; }
+        public IEnumerable<NamespaceTypeLink> Enums { get; set; }
 
         [JsonProperty("interfaces")]
         [YamlMember(Alias = "interfaces")]
-        public IEnumerable<string> Interfaces { get; set; }
+        public IEnumerable<NamespaceTypeLink> Interfaces { get; set; }
 
         [JsonProperty("structs")]
         [YamlMember(Alias = "structs")]
-        public IEnumerable<string> Structs { get; set; }
+        public IEnumerable<NamespaceTypeLink> Structs { get; set; }
     }
 }

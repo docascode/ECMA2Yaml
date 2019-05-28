@@ -52,43 +52,43 @@ namespace ECMA2Yaml.Models.SDP
 
         [JsonProperty("extensionMethods")]
         [YamlMember(Alias = "extensionMethods")]
-        public IEnumerable<MemberReference> ExtensionMethods { get; set; }
+        public IEnumerable<TypeMemberLink> ExtensionMethods { get; set; }
 
         [JsonProperty("constructors")]
         [YamlMember(Alias = "constructors")]
-        public IEnumerable<MemberReference> Constructors { get; set; }
+        public IEnumerable<TypeMemberLink> Constructors { get; set; }
 
         [JsonProperty("operators")]
         [YamlMember(Alias = "operators")]
-        public IEnumerable<MemberReference> Operators { get; set; }
+        public IEnumerable<TypeMemberLink> Operators { get; set; }
 
         [JsonProperty("methods")]
         [YamlMember(Alias = "methods")]
-        public IEnumerable<MemberReference> Methods { get; set; }
+        public IEnumerable<TypeMemberLink> Methods { get; set; }
 
         [JsonProperty("eiis")]
         [YamlMember(Alias = "eiis")]
-        public IEnumerable<MemberReference> EIIs { get; set; }
+        public IEnumerable<TypeMemberLink> EIIs { get; set; }
 
         [JsonProperty("properties")]
         [YamlMember(Alias = "properties")]
-        public IEnumerable<MemberReference> Properties { get; set; }
+        public IEnumerable<TypeMemberLink> Properties { get; set; }
 
         [JsonProperty("events")]
         [YamlMember(Alias = "events")]
-        public IEnumerable<MemberReference> Events { get; set; }
+        public IEnumerable<TypeMemberLink> Events { get; set; }
 
         [JsonProperty("fields")]
         [YamlMember(Alias = "fields")]
-        public IEnumerable<MemberReference> Fields { get; set; }
+        public IEnumerable<TypeMemberLink> Fields { get; set; }
 
         [JsonProperty("attachedEvents")]
         [YamlMember(Alias = "attachedEvents")]
-        public IEnumerable<MemberReference> AttachedEvents { get; set; }
+        public IEnumerable<TypeMemberLink> AttachedEvents { get; set; }
 
         [JsonProperty("attachedProperties")]
         [YamlMember(Alias = "attachedProperties")]
-        public IEnumerable<MemberReference> AttachedProperties { get; set; }
+        public IEnumerable<TypeMemberLink> AttachedProperties { get; set; }
 
         #endregion
     }

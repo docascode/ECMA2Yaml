@@ -21,19 +21,19 @@ namespace ECMA2Yaml
                     switch (tGroup.Key)
                     {
                         case ItemType.Class:
-                            sdpNS.Classes = tGroup.Select(t => t.Uid).ToList();
+                            sdpNS.Classes = tGroup.Select(t => ConvertNamespaceTypeLink(nsItem, t)).ToList();
                             break;
                         case ItemType.Delegate:
-                            sdpNS.Delegates = tGroup.Select(t => t.Uid).ToList();
+                            sdpNS.Delegates = tGroup.Select(t => ConvertNamespaceTypeLink(nsItem, t)).ToList();
                             break;
                         case ItemType.Interface:
-                            sdpNS.Interfaces = tGroup.Select(t => t.Uid).ToList();
+                            sdpNS.Interfaces = tGroup.Select(t => ConvertNamespaceTypeLink(nsItem, t)).ToList();
                             break;
                         case ItemType.Struct:
-                            sdpNS.Structs = tGroup.Select(t => t.Uid).ToList();
+                            sdpNS.Structs = tGroup.Select(t => ConvertNamespaceTypeLink(nsItem, t)).ToList();
                             break;
                         case ItemType.Enum:
-                            sdpNS.Enums = tGroup.Select(t => t.Uid).ToList();
+                            sdpNS.Enums = tGroup.Select(t => ConvertNamespaceTypeLink(nsItem, t)).ToList();
                             break;
                     }
                 }

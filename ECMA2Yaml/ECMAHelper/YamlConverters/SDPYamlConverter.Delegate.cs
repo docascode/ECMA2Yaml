@@ -41,7 +41,7 @@ namespace ECMA2Yaml
 
             if (t.ExtensionMethods?.Count > 0)
             {
-                sdpDelegate.ExtensionMethods = t.ExtensionMethods.Select(im => ConvertMemberReference(null, _store.MembersByUid[im])).ToList();
+                sdpDelegate.ExtensionMethods = t.ExtensionMethods.Select(im => ConvertTypeMemberLink(null, _store.MembersByUid[im])).ToList();
             }
 
             return sdpDelegate;
