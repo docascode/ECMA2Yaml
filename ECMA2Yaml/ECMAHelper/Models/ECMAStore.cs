@@ -547,13 +547,28 @@ namespace ECMA2Yaml.Models
                             ItemType = m.ItemType
                         });
                     }
-                    var displayName = TrimDisplayName(m.DisplayName);
                     overloads[id].Id = id;
                     overloads[id].ItemType = m.ItemType;
-                    overloads[id].DisplayName = m.ItemType == ItemType.Constructor ? t.Name : displayName;
+                    overloads[id].DisplayName = overloads[id].DisplayName ?? 
+                        (m.ItemType == ItemType.Constructor ? t.Name : TrimDisplayName(m.DisplayName));
                     overloads[id].FullDisplayName = overloads[id].FullDisplayName ?? TrimDisplayName(m.FullDisplayName);
                     overloads[id].SourceFileLocalPath = m.SourceFileLocalPath;
-                    overloads[id].Modifiers = m.Modifiers;
+
+                    if (overloads[id].Modifiers == null)
+                    {
+                        overloads[id].Modifiers = new SortedList<string, List<string>>();
+                    }
+                    foreach(var pair in m.Modifiers)
+                    {
+                        if (overloads[id].Modifiers.ContainsKey(pair.Key))
+                        {
+                            overloads[id].Modifiers[pair.Key].AddRange(pair.Value);
+                        }
+                        else
+                        {
+                            overloads[id].Modifiers[pair.Key] = pair.Value;
+                        }
+                    }
 
                     if (overloads[id].AssemblyInfo == null)
                     {
@@ -567,6 +582,10 @@ namespace ECMA2Yaml.Models
                 {
                     foreach(var overload in overloads.Values)
                     {
+                        foreach (var lang in overload.Modifiers.Keys.ToList())
+                        {
+                            overload.Modifiers[lang] = overload.Modifiers[lang].Distinct().ToList();
+                        }
                         overload.AssemblyInfo = overload.AssemblyInfo.Distinct().ToList();
                         ItemsByDocId[overload.CommentId] = overload;
                     }
