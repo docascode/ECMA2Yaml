@@ -566,7 +566,7 @@ namespace ECMA2Yaml.Models
                         }
                         else
                         {
-                            overloads[id].Modifiers[pair.Key] = pair.Value;
+                            overloads[id].Modifiers[pair.Key] = new List<string>(pair.Value);
                         }
                     }
 
