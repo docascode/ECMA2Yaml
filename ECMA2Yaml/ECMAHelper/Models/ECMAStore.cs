@@ -549,8 +549,7 @@ namespace ECMA2Yaml.Models
                     }
                     overloads[id].Id = id;
                     overloads[id].ItemType = m.ItemType;
-                    overloads[id].DisplayName = overloads[id].DisplayName ?? 
-                        (m.ItemType == ItemType.Constructor ? t.Name : TrimDisplayName(m.DisplayName));
+                    overloads[id].DisplayName = m.ItemType == ItemType.Constructor ? t.Name : TrimDisplayName(m.DisplayName);
                     overloads[id].FullDisplayName = overloads[id].FullDisplayName ?? TrimDisplayName(m.FullDisplayName);
                     overloads[id].SourceFileLocalPath = m.SourceFileLocalPath;
 
