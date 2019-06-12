@@ -20,11 +20,14 @@ if ($jobs -isnot [system.array])
 foreach($ecmaConfig in $jobs)
 {
 	$ecmaOutputYamlFolder = Join-Path $repositoryRoot $ecmaConfig.OutputYamlFolder
-	$ecmaOutputMDFolder = Join-Path $ecmaOutputYamlFolder "overwrites"
-
 	$ymlOutputFolder = Join-Path $outputFolder "_yml"
-	$mdOutputFolder = Join-Path $ymlOutputFolder "overwrites"
 	& robocopy $ecmaOutputYamlFolder $ymlOutputFolder *.yml /s
-	& robocopy $ecmaOutputMDFolder $mdOutputFolder *.md /s
+
+	$ecmaOutputMDFolder = Join-Path $ecmaOutputYamlFolder "overwrites"
+	if (Test-Path $ecmaOutputMDFolder) 
+	{
+	    $mdOutputFolder = Join-Path $ymlOutputFolder "overwrites"
+	    & robocopy $ecmaOutputMDFolder $mdOutputFolder *.md /s
+	}
 }
 exit 0
