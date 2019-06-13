@@ -17,7 +17,7 @@ namespace ECMA2Yaml
         {
             if (store.TryGetTypeByFullName(typeStr, out var t))
             {
-                return $"[{EncodeLinkText(t.Name)}](xref:{t.Uid})";
+                return EncodeXrefLink(t.Name, t.Uid);
             }
 
             var desc = ECMAStore.GetOrAddTypeDescriptor(typeStr);
@@ -35,11 +35,11 @@ namespace ECMA2Yaml
             {
                 if (item is Member m)
                 {
-                    return $"[{EncodeLinkText(m.DisplayName)}](xref:{item.Uid})";
+                    return EncodeXrefLink(m.DisplayName, item.Uid);
                 }
                 else
                 {
-                    return $"[{EncodeLinkText(item.Name)}](xref:{item.Uid})";
+                    return EncodeXrefLink(item.Name, item.Uid);
                 }
             }
             return docId;
@@ -49,11 +49,11 @@ namespace ECMA2Yaml
         {
             if (store.TypesByUid.TryGetValue(uid, out var t))
             {
-                return $"[{EncodeLinkText(t.Name)}](xref:{t.Uid})";
+                return EncodeXrefLink(t.Name, t.Uid);
             }
             if (store.MembersByUid.TryGetValue(uid, out var m))
             {
-                return $"[{EncodeLinkText(m.Name)}](xref:{m.Uid})";
+                return EncodeXrefLink(m.Name, m.Uid);
             }
             return $"<xref:{uid}>";
         }
@@ -69,7 +69,7 @@ namespace ECMA2Yaml
             }
             else
             {
-                sb.Append($"[{EncodeLinkText(desc.TypeName)}](xref:{typeUid})");
+                sb.Append(EncodeXrefLink(desc.TypeName, typeUid));
             }
 
             if (desc.GenericTypeArgumentsCount > 0)
@@ -114,6 +114,11 @@ namespace ECMA2Yaml
             {
                 return (string.IsNullOrEmpty(d.Namespace) && d.DescKind == EcmaDesc.Kind.Type);
             }
+        }
+
+        public static string EncodeXrefLink(string text, string uid, string altText = null)
+        {
+            return $"<xref:{uid}?alt={altText ?? uid}&text={EncodeLinkText(text)}>";
         }
 
         public static TypeMemberLink ConvertTypeMemberLink(Models.Type t, Member m)
