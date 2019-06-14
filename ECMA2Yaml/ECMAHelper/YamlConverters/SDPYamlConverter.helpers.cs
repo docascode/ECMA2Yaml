@@ -118,7 +118,7 @@ namespace ECMA2Yaml
 
         public static string EncodeXrefLink(string text, string uid, string altText = null)
         {
-            return $"<xref:{uid}?alt={altText ?? uid}&text={EncodeLinkText(text)}>";
+            return $"<xref href=\"{uid}?alt={altText ?? uid}&text={EncodeLinkText(text)}\" data-throw-if-not-resolved=\"True\"/>";
         }
 
         public static TypeMemberLink ConvertTypeMemberLink(Models.Type t, Member m)
