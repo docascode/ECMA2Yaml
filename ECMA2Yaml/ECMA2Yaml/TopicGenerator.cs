@@ -214,7 +214,7 @@ namespace ECMA2Yaml
             };
             item.Metadata.MergeMetadata(t.Metadata);
             item.Metadata.AddPermissions(t.Docs);
-            item.Metadata.AddThreadSafety(t.Docs);
+            //item.Metadata.AddThreadSafety(t.Docs);
             //not top level class like System.Object, has children
             if ((t.ItemType == ItemType.Interface
                 || (store.InheritanceParentsByUid.ContainsKey(t.Uid) && store.InheritanceParentsByUid[t.Uid]?.Count > 0))
@@ -283,7 +283,7 @@ namespace ECMA2Yaml
             }
             item.Metadata.MergeMetadata(m.Metadata);
             item.Metadata.AddPermissions(m.Docs);
-            item.Metadata.AddThreadSafety(m.Docs);
+            //item.Metadata.AddThreadSafety(m.Docs);
             return item;
         }
 
