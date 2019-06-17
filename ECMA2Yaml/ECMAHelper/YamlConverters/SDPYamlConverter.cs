@@ -215,7 +215,7 @@ namespace ECMA2Yaml
             {
                 foreach (var rTag in docs.Related)
                 {
-                    sb.AppendLine($"- [{EncodeLinkText(rTag.Text)}]({rTag.Uri})");
+                    sb.AppendLine($"- [{HtmlEncodeLinkText(rTag.Text)}]({rTag.Uri})");
                 }
             }
 
