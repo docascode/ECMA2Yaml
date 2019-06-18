@@ -67,6 +67,12 @@ namespace ECMA2Yaml
             {
                 sb.Append(desc.TypeName);
             }
+            else if (desc.GenericTypeArgumentsCount > 0)
+            {
+                var altText = string.IsNullOrEmpty(desc.Namespace)
+                 ? desc.TypeName : $"{desc.Namespace}.{desc.TypeName}";
+                sb.Append(EncodeXrefLink(desc.TypeName, typeUid, altText));
+            }
             else
             {
                 sb.Append(EncodeXrefLink(desc.TypeName, typeUid));

@@ -42,7 +42,7 @@ namespace UnitTest
             EcmaUrlParser EcmaParser = new EcmaUrlParser();
             Monodoc.Ecma.EcmaDesc desc = EcmaParser.Parse("T:System.Collections.Generic.HashSet<T>+Enumerator[]");
             var md = SDPYamlConverter.DescToTypeMDString(desc);
-            var expected = "<xref href=\"System.Collections.Generic.HashSet`1?alt=System.Collections.Generic.HashSet`1&text=HashSet\" data-throw-if-not-resolved=\"True\"/>&lt;T&gt;.<xref href=\"System.Collections.Generic.HashSet`1.Enumerator?alt=System.Collections.Generic.HashSet`1.Enumerator&text=Enumerator\" data-throw-if-not-resolved=\"True\"/>[]";
+            var expected = "<xref href=\"System.Collections.Generic.HashSet`1?alt=System.Collections.Generic.HashSet&text=HashSet\" data-throw-if-not-resolved=\"True\"/>&lt;T&gt;.<xref href=\"System.Collections.Generic.HashSet`1.Enumerator?alt=System.Collections.Generic.HashSet`1.Enumerator&text=Enumerator\" data-throw-if-not-resolved=\"True\"/>[]";
             Assert.AreEqual(expected, md);
         }
 
@@ -52,7 +52,7 @@ namespace UnitTest
             EcmaUrlParser EcmaParser = new EcmaUrlParser();
             Monodoc.Ecma.EcmaDesc desc = EcmaParser.Parse("T:System.Predicate<T[]>");
             var md = SDPYamlConverter.DescToTypeMDString(desc);
-            var expected = "<xref href=\"System.Predicate`1?alt=System.Predicate`1&text=Predicate\" data-throw-if-not-resolved=\"True\"/>&lt;T[]&gt;";
+            var expected = "<xref href=\"System.Predicate`1?alt=System.Predicate&text=Predicate\" data-throw-if-not-resolved=\"True\"/>&lt;T[]&gt;";
             Assert.AreEqual(expected, md);
         }
 
