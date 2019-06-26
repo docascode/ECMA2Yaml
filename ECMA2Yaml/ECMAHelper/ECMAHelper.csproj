@@ -48,13 +48,13 @@
       <HintPath>..\packages\Microsoft.OpenPublishing.FileAbstractLayer.1.71.0\lib\net462\Microsoft.OpenPublishing.FileAbstractLayer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.OpenPublishing.LogCodeService.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.OpenPublishing.LogCodeService.Common.1.0.1-CI-20181106-060254\lib\net462\Microsoft.OpenPublishing.LogCodeService.Common.dll</HintPath>
+      <HintPath>..\packages\Microsoft.OpenPublishing.LogCodeService.Common.1.0.3\lib\net462\Microsoft.OpenPublishing.LogCodeService.Common.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.OpenPublishing.LogCodeService.DataContracts, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.OpenPublishing.LogCodeService.DataContracts.1.0.1-CI-20181106-060254\lib\net462\Microsoft.OpenPublishing.LogCodeService.DataContracts.dll</HintPath>
+      <HintPath>..\packages\Microsoft.OpenPublishing.LogCodeService.DataContracts.1.0.3\lib\net462\Microsoft.OpenPublishing.LogCodeService.DataContracts.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.OpenPublishing.LogCodeService.Manager, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.OpenPublishing.LogCodeService.Manager.1.0.1-CI-20181106-060254\lib\net462\Microsoft.OpenPublishing.LogCodeService.Manager.dll</HintPath>
+      <HintPath>..\packages\Microsoft.OpenPublishing.LogCodeService.Manager.1.0.3\lib\net462\Microsoft.OpenPublishing.LogCodeService.Manager.dll</HintPath>
     </Reference>
     <Reference Include="Minimatch, Version=1.1.0.0, Culture=neutral, PublicKeyToken=0cadeb0b849c27c0, processorArchitecture=MSIL">
       <HintPath>..\packages\Minimatch.1.1.0.0\lib\portable-net40+sl50+win+wp80\Minimatch.dll</HintPath>
