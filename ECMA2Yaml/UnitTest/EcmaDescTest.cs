@@ -37,12 +37,22 @@ namespace UnitTest
         }
 
         [TestMethod]
+        public void TestEcmaDescToMD_Generic()
+        {
+            EcmaUrlParser EcmaParser = new EcmaUrlParser();
+            Monodoc.Ecma.EcmaDesc desc = EcmaParser.Parse("T:System.Collections.Generic.Dictionary<Systen.String, Syste.IO.File>");
+            var md = SDPYamlConverter.DescToTypeMDString(desc);
+            var expected = "<xref href=\"System.Collections.Generic.Dictionary`2?alt=System.Collections.Generic.Dictionary&text=Dictionary\" data-throw-if-not-resolved=\"True\"/>&lt;<xref href=\"Systen.String?alt=Systen.String&text=String\" data-throw-if-not-resolved=\"True\"/>,<xref href=\"Syste.IO.File?alt=Syste.IO.File&text=File\" data-throw-if-not-resolved=\"True\"/>&gt;";
+            Assert.AreEqual(expected, md);
+        }
+
+        [TestMethod]
         public void TestEcmaDescToMD_Complex()
         {
             EcmaUrlParser EcmaParser = new EcmaUrlParser();
             Monodoc.Ecma.EcmaDesc desc = EcmaParser.Parse("T:System.Collections.Generic.HashSet<T>+Enumerator[]");
             var md = SDPYamlConverter.DescToTypeMDString(desc);
-            var expected = "<xref href=\"System.Collections.Generic.HashSet`1?alt=System.Collections.Generic.HashSet&text=HashSet\" data-throw-if-not-resolved=\"True\"/>&lt;T&gt;.<xref href=\"System.Collections.Generic.HashSet`1.Enumerator?alt=System.Collections.Generic.HashSet`1.Enumerator&text=Enumerator\" data-throw-if-not-resolved=\"True\"/>[]";
+            var expected = "<xref href=\"System.Collections.Generic.HashSet`1.Enumerator?alt=System.Collections.Generic.HashSet`1.Enumerator&text=Enumerator\" data-throw-if-not-resolved=\"True\"/>[]";
             Assert.AreEqual(expected, md);
         }
 
