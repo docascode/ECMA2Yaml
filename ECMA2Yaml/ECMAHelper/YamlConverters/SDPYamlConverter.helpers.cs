@@ -55,7 +55,7 @@ namespace ECMA2Yaml
             {
                 return EncodeXrefLink(m.Name, m.Uid);
             }
-            return $"<xref:{uid}>";
+            return $"<xref href=\"{uid}\" data-throw-if-not-resolved=\"True\"/>";
         }
 
         public static string DescToTypeMDString(EcmaDesc desc, string parentTypeUid = null)
