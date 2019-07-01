@@ -47,6 +47,16 @@ namespace UnitTest
         }
 
         [TestMethod]
+        public void TestEcmaDescToMD_NestedGeneric()
+        {
+            EcmaUrlParser EcmaParser = new EcmaUrlParser();
+            Monodoc.Ecma.EcmaDesc desc = EcmaParser.Parse("T:Namespace.Class+NestedClass<Systen.String, Syste.IO.File>");
+            var md = SDPYamlConverter.DescToTypeMDString(desc);
+            var expected = "<xref href=\"Namespace.Class.NestedClass`2?alt=NestedClass&text=NestedClass\" data-throw-if-not-resolved=\"True\"/>&lt;<xref href=\"Systen.String?alt=Systen.String&text=String\" data-throw-if-not-resolved=\"True\"/>,<xref href=\"Syste.IO.File?alt=Syste.IO.File&text=File\" data-throw-if-not-resolved=\"True\"/>&gt;";
+            Assert.AreEqual(expected, md);
+        }
+
+        [TestMethod]
         public void TestEcmaDescToMD_Complex()
         {
             EcmaUrlParser EcmaParser = new EcmaUrlParser();
