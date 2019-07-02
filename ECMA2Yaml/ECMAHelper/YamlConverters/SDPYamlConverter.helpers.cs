@@ -65,7 +65,7 @@ namespace ECMA2Yaml
 
             if (desc.NestedType != null && desc.GenericTypeArgumentsCount == 0)
             {
-                return DescToTypeMDString(desc.NestedType, typeUid, desc.TypeName);
+                return DescToTypeMDString(desc.NestedType, typeUid, typeName);
             }
 
             StringBuilder sb = new StringBuilder();
