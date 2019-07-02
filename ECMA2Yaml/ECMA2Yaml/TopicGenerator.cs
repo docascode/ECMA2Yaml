@@ -179,6 +179,12 @@ namespace ECMA2Yaml
             {
                 pv.References.AddRange(tItem.DerivedClasses.Select(c => store.TypesByUid[c].ToReferenceViewModel()));
             }
+            if (t.ReturnValueType != null
+                && !string.IsNullOrEmpty(t.ReturnValueType.Type)
+                && t.ReturnValueType.Type != "System.Void")
+            {
+                pv.References.AddRange(GenerateReferencesByTypeString(t.ReturnValueType.Type, store));
+            }
             pv.References = pv.References.DistinctBy(r => r.Uid).ToList();
 
             return pv;
