@@ -52,17 +52,27 @@ namespace UnitTest
             EcmaUrlParser EcmaParser = new EcmaUrlParser();
             Monodoc.Ecma.EcmaDesc desc = EcmaParser.Parse("T:Namespace.Class+NestedClass<Systen.String, Syste.IO.File>");
             var md = SDPYamlConverter.DescToTypeMDString(desc);
-            var expected = "<xref href=\"Namespace.Class.NestedClass`2?alt=NestedClass&text=NestedClass\" data-throw-if-not-resolved=\"True\"/>&lt;<xref href=\"Systen.String?alt=Systen.String&text=String\" data-throw-if-not-resolved=\"True\"/>,<xref href=\"Syste.IO.File?alt=Syste.IO.File&text=File\" data-throw-if-not-resolved=\"True\"/>&gt;";
+            var expected = "<xref href=\"Namespace.Class.NestedClass`2?alt=Class.NestedClass&text=Class.NestedClass\" data-throw-if-not-resolved=\"True\"/>&lt;<xref href=\"Systen.String?alt=Systen.String&text=String\" data-throw-if-not-resolved=\"True\"/>,<xref href=\"Syste.IO.File?alt=Syste.IO.File&text=File\" data-throw-if-not-resolved=\"True\"/>&gt;";
             Assert.AreEqual(expected, md);
         }
 
         [TestMethod]
-        public void TestEcmaDescToMD_Complex()
+        public void TestEcmaDescToMD_NestedGenericNested()
+        {
+            EcmaUrlParser EcmaParser = new EcmaUrlParser();
+            Monodoc.Ecma.EcmaDesc desc = EcmaParser.Parse("T:Microsoft.ML.StaticPipe.TermStaticExtensions+ToKeyFitResult<System.Boolean>+OnFit");
+            var md = SDPYamlConverter.DescToTypeMDString(desc);
+            var expected = "<xref href=\"Microsoft.ML.StaticPipe.TermStaticExtensions.ToKeyFitResult`1?alt=TermStaticExtensions.ToKeyFitResult&text=TermStaticExtensions.ToKeyFitResult\" data-throw-if-not-resolved=\"True\"/>&lt;<xref href=\"System.Boolean?alt=System.Boolean&text=Boolean\" data-throw-if-not-resolved=\"True\"/>&gt;.<xref href=\"Microsoft.ML.StaticPipe.TermStaticExtensions.ToKeyFitResult`1.OnFit?alt=Microsoft.ML.StaticPipe.TermStaticExtensions.ToKeyFitResult`1.OnFit&text=OnFit\" data-throw-if-not-resolved=\"True\"/>";
+            Assert.AreEqual(expected, md);
+        }
+
+        [TestMethod]
+        public void TestEcmaDescToMD_GenericNestedArray()
         {
             EcmaUrlParser EcmaParser = new EcmaUrlParser();
             Monodoc.Ecma.EcmaDesc desc = EcmaParser.Parse("T:System.Collections.Generic.HashSet<T>+Enumerator[]");
             var md = SDPYamlConverter.DescToTypeMDString(desc);
-            var expected = "<xref href=\"System.Collections.Generic.HashSet`1.Enumerator?alt=System.Collections.Generic.HashSet`1.Enumerator&text=Enumerator\" data-throw-if-not-resolved=\"True\"/>[]";
+            var expected = "<xref href=\"System.Collections.Generic.HashSet`1?alt=System.Collections.Generic.HashSet&text=HashSet\" data-throw-if-not-resolved=\"True\"/>&lt;T&gt;.<xref href=\"System.Collections.Generic.HashSet`1.Enumerator?alt=System.Collections.Generic.HashSet`1.Enumerator&text=Enumerator\" data-throw-if-not-resolved=\"True\"/>[]";
             Assert.AreEqual(expected, md);
         }
 

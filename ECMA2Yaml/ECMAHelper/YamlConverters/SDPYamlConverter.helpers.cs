@@ -58,30 +58,31 @@ namespace ECMA2Yaml
             return $"<xref href=\"{uid}\" data-throw-if-not-resolved=\"True\"/>";
         }
 
-        public static string DescToTypeMDString(EcmaDesc desc, string parentTypeUid = null)
+        public static string DescToTypeMDString(EcmaDesc desc, string parentTypeUid = null, string parentName = null)
         {
             var typeUid = string.IsNullOrEmpty(parentTypeUid) ? desc.ToOuterTypeUid() : (parentTypeUid + "." + desc.ToOuterTypeUid());
+            var typeName = string.IsNullOrEmpty(parentName) ? desc.TypeName : (parentName + "." + desc.TypeName);
 
-            if (desc.NestedType != null)
+            if (desc.NestedType != null && desc.GenericTypeArgumentsCount == 0)
             {
-                return DescToTypeMDString(desc.NestedType, typeUid);
+                return DescToTypeMDString(desc.NestedType, typeUid, desc.TypeName);
             }
 
             StringBuilder sb = new StringBuilder();
 
             if (string.IsNullOrEmpty(parentTypeUid) && IsTypeArgument(desc))
             {
-                sb.Append(desc.TypeName);
+                sb.Append(typeName);
             }
             else if (desc.GenericTypeArgumentsCount > 0)
             {
                 var altText = string.IsNullOrEmpty(desc.Namespace)
-                 ? desc.TypeName : $"{desc.Namespace}.{desc.TypeName}";
-                sb.Append(EncodeXrefLink(desc.TypeName, typeUid, altText));
+                 ? typeName : $"{desc.Namespace}.{typeName}";
+                sb.Append(EncodeXrefLink(typeName, typeUid, altText));
             }
             else
             {
-                sb.Append(EncodeXrefLink(desc.TypeName, typeUid));
+                sb.Append(EncodeXrefLink(typeName, typeUid));
             }
 
             if (desc.GenericTypeArgumentsCount > 0)
@@ -92,6 +93,11 @@ namespace ECMA2Yaml
                     sb.Append($",{HandleTypeArgument(desc.GenericTypeArguments[i])}");
                 }
                 sb.Append("&gt;");
+            }
+
+            if (desc.NestedType != null)
+            {
+                sb.Append($".{DescToTypeMDString(desc.NestedType, typeUid)}");
             }
 
             if (desc.ArrayDimensions != null && desc.ArrayDimensions.Count > 0)
