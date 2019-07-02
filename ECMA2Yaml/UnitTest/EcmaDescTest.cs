@@ -67,6 +67,16 @@ namespace UnitTest
         }
 
         [TestMethod]
+        public void TestEcmaDescToMD_NestedGenericGenericNested()
+        {
+            EcmaUrlParser EcmaParser = new EcmaUrlParser();
+            Monodoc.Ecma.EcmaDesc desc = EcmaParser.Parse("T:Microsoft.ML.StaticPipe.TermStaticExtensions+ToKeyFitResult<System.ReadOnlyMemory<System.Char>>+OnFit");
+            var md = SDPYamlConverter.DescToTypeMDString(desc);
+            var expected = "<xref href=\"Microsoft.ML.StaticPipe.TermStaticExtensions.ToKeyFitResult`1?alt=TermStaticExtensions.ToKeyFitResult&text=TermStaticExtensions.ToKeyFitResult\" data-throw-if-not-resolved=\"True\"/>&lt;<xref href=\"System.ReadOnlyMemory`1?alt=System.ReadOnlyMemory&text=ReadOnlyMemory\" data-throw-if-not-resolved=\"True\"/>&lt;<xref href=\"System.Char?alt=System.Char&text=Char\" data-throw-if-not-resolved=\"True\"/>&gt;&gt;.<xref href=\"Microsoft.ML.StaticPipe.TermStaticExtensions.ToKeyFitResult`1.OnFit?alt=Microsoft.ML.StaticPipe.TermStaticExtensions.ToKeyFitResult`1.OnFit&text=OnFit\" data-throw-if-not-resolved=\"True\"/>";
+            Assert.AreEqual(expected, md);
+        }
+
+        [TestMethod]
         public void TestEcmaDescToMD_GenericNestedArray()
         {
             EcmaUrlParser EcmaParser = new EcmaUrlParser();
