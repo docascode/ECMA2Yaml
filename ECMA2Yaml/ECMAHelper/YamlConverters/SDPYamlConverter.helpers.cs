@@ -125,7 +125,7 @@ namespace ECMA2Yaml
 
             bool IsTypeArgument(EcmaDesc d)
             {
-                return (string.IsNullOrEmpty(d.Namespace) && d.DescKind == EcmaDesc.Kind.Type);
+                return (string.IsNullOrEmpty(d.Namespace) && d.DescKind == EcmaDesc.Kind.Type && d.NestedType == null);
             }
         }
 
