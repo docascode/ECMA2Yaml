@@ -785,7 +785,11 @@ namespace ECMA2Yaml.Models
                             {
                                 foreach (var m in bt.Members)
                                 {
-                                    if (m.Name != "Finalize" && m.ItemType != ItemType.Constructor && ! (m.IsStatic.HasValue && m.IsStatic.Value))
+                                    if (m.Name != "Finalize" 
+                                        && m.ItemType != ItemType.Constructor
+                                        && m.ItemType != ItemType.AttachedProperty
+                                        && m.ItemType != ItemType.AttachedEvent
+                                        && ! (m.IsStatic.HasValue && m.IsStatic.Value))
                                     {
                                         t.InheritedMembers[m.Id] = bt.Uid;
                                     }
