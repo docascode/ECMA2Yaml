@@ -116,19 +116,18 @@ namespace UnitTest
             Assert.AreEqual(expected, md);
         }
 
-        [TestMethod, Ignore]
-        // prepare test case for bug 102828
+        [TestMethod]
         public void TestEcmaDesc_Matrix()
         {
             EcmaUrlParser EcmaParser = new EcmaUrlParser();
-            Monodoc.Ecma.EcmaDesc desc = EcmaParser.Parse("T:System.Management.Automation.Host.BufferCell[,]");
+            Monodoc.Ecma.EcmaDesc desc = EcmaParser.Parse("T:System.Predicate<T[,]>");
             var md = SDPYamlConverter.DescToTypeMDString(desc);
             var expected = "<xref href=\"System.Predicate`1?alt=System.Predicate&text=Predicate\" data-throw-if-not-resolved=\"True\"/>&lt;T[,]&gt;";
             Assert.AreEqual(expected, md);
 
             desc = EcmaParser.Parse("T:System.Management.Automation.Host.BufferCell[,,]");
             md = SDPYamlConverter.DescToTypeMDString(desc);
-            expected = "<xref href=\"System.Predicate`1?alt=System.Predicate&text=Predicate\" data-throw-if-not-resolved=\"True\"/>&lt;T[,,]&gt;";
+            expected = "<xref href=\"System.Management.Automation.Host.BufferCell?alt=System.Management.Automation.Host.BufferCell&text=BufferCell\" data-throw-if-not-resolved=\"True\"/>[,,]";
             Assert.AreEqual(expected, md);
         }
 

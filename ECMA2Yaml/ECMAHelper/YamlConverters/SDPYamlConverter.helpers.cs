@@ -58,6 +58,7 @@ namespace ECMA2Yaml
             return $"<xref href=\"{uid}\" data-throw-if-not-resolved=\"True\"/>";
         }
 
+        private static readonly string[] ArrayDimensionSuffix = new string[] {"", "[]", "[,]", "[,,]", "[,,,]" , "[,,,,]", "[,,,,,]" };
         public static string DescToTypeMDString(EcmaDesc desc, string parentTypeUid = null, string parentName = null)
         {
             var typeUid = string.IsNullOrEmpty(parentTypeUid) ? desc.ToOuterTypeUid() : (parentTypeUid + "." + desc.ToOuterTypeUid());
@@ -99,12 +100,12 @@ namespace ECMA2Yaml
             {
                 sb.Append($".{DescToTypeMDString(desc.NestedType, typeUid)}");
             }
-
+            
             if (desc.ArrayDimensions != null && desc.ArrayDimensions.Count > 0)
             {
                 foreach (var arr in desc.ArrayDimensions)
                 {
-                    sb.Append("[]");
+                    sb.Append(ArrayDimensionSuffix[arr]);
                 }
             }
             if (desc.DescModifier == EcmaDesc.Mod.Pointer)
