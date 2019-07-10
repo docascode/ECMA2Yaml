@@ -12,7 +12,7 @@ namespace ECMA2Yaml
 {
     public static class LogMessageUtility
     {
-        private const string LogFolderRelativePath = @"Logging\";
+        private const string LogFolderRelativePath = @"Logging";
         private const string LogFileRegex = @".+LogMessages\.json$";
         private static readonly LogCodeManager manager;
 
