@@ -16,16 +16,7 @@ namespace ECMA2Yaml
 
             sdpMember.TypeParameters = ConvertTypeParameters(m);
             sdpMember.ThreadSafety = ConvertThreadSafety(m);
-            sdpMember.Implements = m.Implements?.Select(commentId =>
-                {
-                    var uid = DocIdToTypeMDString(commentId, _store);
-                    if (uid == commentId)
-                    {
-                        OPSLogger.LogUserWarning(LogCode.ECMA2Yaml_CommentId_ResolveFailed,LogMessageUtility.FormatMessage(LogCode.ECMA2Yaml_CommentId_ResolveFailed, commentId), m.SourceFileLocalPath);
-                        return null;
-                    }
-                    return uid;
-                })
+            sdpMember.Implements = m.Implements?.Select(commentId => DocIdToTypeMDString(commentId, _store))
                 .Where(str => str != null)
                 .ToList().NullIfEmpty();
 

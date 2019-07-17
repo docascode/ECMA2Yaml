@@ -65,11 +65,11 @@ namespace ECMA2Yaml
                         }
                         if (result == null)
                         {
-                            OPSLogger.LogUserError(LogCode.ECMA2Yaml_CommentId_ResolveFailed, LogMessageUtility.FormatMessage(LogCode.ECMA2Yaml_CommentId_ResolveFailed, match.Value), path);
+                            OPSLogger.LogUserError(LogCode.ECMA2Yaml_YamlHeader_ParseFailed, LogMessageUtility.FormatMessage(LogCode.ECMA2Yaml_YamlHeader_ParseFailed, match.Value), path);
                         }
                         else if (!result.ContainsKey("uid"))
                         {
-                            OPSLogger.LogUserError(LogCode.ECMA2Yaml_CommentId_ResolveFailed, LogMessageUtility.FormatMessage(LogCode.ECMA2Yaml_CommentId_ResolveFailed, match.Value), path);
+                            OPSLogger.LogUserError(LogCode.ECMA2Yaml_YamlHeader_ParseFailed, LogMessageUtility.FormatMessage(LogCode.ECMA2Yaml_YamlHeader_ParseFailed, match.Value), path);
                         }
                         else
                         {

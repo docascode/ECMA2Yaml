@@ -142,21 +142,32 @@ namespace ECMA2Yaml
             {
                 return item;
             }
+            var (prefix, uid) = commentId.ParseCommentId();
+            if (string.IsNullOrEmpty(prefix) || string.IsNullOrEmpty(uid))
+            {
+                return null;
+            }
+            switch (prefix)
+            {
+                case "N":
+                    return store.Namespaces.ContainsKey(uid) ? store.Namespaces[uid] : null;
+                case "T":
+                    return store.TypesByUid.ContainsKey(uid) ? store.TypesByUid[uid] : null;
+                default:
+                    return store.MembersByUid.ContainsKey(uid) ? store.MembersByUid[uid] : null;
+            }
+        }
+
+        public static (string, string) ParseCommentId(this string commentId)
+        {
             var parts = commentId.Split(':');
             if (parts?.Length != 2)
             {
                 OPSLogger.LogUserWarning(LogCode.ECMA2Yaml_CommentID_ParseFailed, LogMessageUtility.FormatMessage(LogCode.ECMA2Yaml_CommentID_ParseFailed, commentId));
-                return null;
+                return (null, null);
             }
-            switch (parts[0])
-            {
-                case "N":
-                    return store.Namespaces.ContainsKey(parts[1]) ? store.Namespaces[parts[1]] : null;
-                case "T":
-                    return store.TypesByUid.ContainsKey(parts[1]) ? store.TypesByUid[parts[1]] : null;
-                default:
-                    return store.MembersByUid.ContainsKey(parts[1]) ? store.MembersByUid[parts[1]] : null;
-            }
+
+            return (parts[0], parts[1]);
         }
 
         private static bool NeedParseByECMADesc(string typeStr)

@@ -42,7 +42,8 @@ namespace ECMA2Yaml
                     return EncodeXrefLink(item.Name, item.Uid);
                 }
             }
-            return docId;
+            var (_, uid) = docId.ParseCommentId();
+            return UidToTypeMDString(uid, store);
         }
 
         public static string UidToTypeMDString(string uid, ECMAStore store)
