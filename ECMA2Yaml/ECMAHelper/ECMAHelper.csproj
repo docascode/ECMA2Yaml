@@ -44,8 +44,8 @@
     <Reference Include="Microsoft.DocAsCode.YamlSerialization, Version=2.42.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.DocAsCode.YamlSerialization.2.42.0\lib\net462\Microsoft.DocAsCode.YamlSerialization.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.OpenPublishing.FileAbstractLayer, Version=1.71.270.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.OpenPublishing.FileAbstractLayer.1.71.0\lib\net462\Microsoft.OpenPublishing.FileAbstractLayer.dll</HintPath>
+    <Reference Include="Microsoft.OpenPublishing.FileAbstractLayer, Version=1.78.101.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.OpenPublishing.FileAbstractLayer.1.78.0-alpha-20190722105635-g318672c\lib\net472\Microsoft.OpenPublishing.FileAbstractLayer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.OpenPublishing.LogCodeService.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.OpenPublishing.LogCodeService.Common.1.0.3\lib\net462\Microsoft.OpenPublishing.LogCodeService.Common.dll</HintPath>
