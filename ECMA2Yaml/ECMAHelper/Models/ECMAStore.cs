@@ -325,6 +325,14 @@ namespace ECMA2Yaml.Models
                         if (m.Parent != null && m.Parent.IsStatic.HasValue && m.Parent.IsStatic.Value == true)
                         {
                             var targetDocId = thisParam.Type;
+
+                            // Temp fix bug: 106581- C# extension methods not showing up in class reference docs
+                            // Next step, transfer special char like "+" when loading xml data, need add more case to cover this change.
+                            if (targetDocId.Contains("+"))
+                            {
+                                targetDocId = targetDocId.Replace("+",".");
+                            }
+
                             m.IsExtensionMethod = true;
                             if (TypesByFullName.TryGetValue(targetDocId, out Type type))
                             {
