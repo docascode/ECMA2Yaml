@@ -1,7 +1,7 @@
 ﻿<#@ template debug="false" hostspecific="true" language="C#" #>
-<#@ assembly name="$(SolutionDir)packages\Microsoft.OpenPublishing.LogCodeService.Manager.1.0.1-CI-20181106-060254\lib\net462\Microsoft.OpenPublishing.LogCodeService.Manager.dll" #>
-<#@ assembly name="$(SolutionDir)packages\Microsoft.OpenPublishing.LogCodeService.DataContracts.1.0.1-CI-20181106-060254\lib\net462\Microsoft.OpenPublishing.LogCodeService.DataContracts.dll" #>
-<#@ assembly name="$(SolutionDir)packages\Microsoft.OpenPublishing.LogCodeService.Common.1.0.1-CI-20181106-060254\lib\net462\Microsoft.OpenPublishing.LogCodeService.Common.dll" #>
+<#@ assembly name="$(SolutionDir)packages\Microsoft.OpenPublishing.LogCodeService.Manager.1.0.3\lib\net462\Microsoft.OpenPublishing.LogCodeService.Manager.dll" #>
+<#@ assembly name="$(SolutionDir)packages\Microsoft.OpenPublishing.LogCodeService.DataContracts.1.0.3\lib\net462\Microsoft.OpenPublishing.LogCodeService.DataContracts.dll" #>
+<#@ assembly name="$(SolutionDir)packages\Microsoft.OpenPublishing.LogCodeService.Common.1.0.3\lib\net462\Microsoft.OpenPublishing.LogCodeService.Common.dll" #>
 <#@ import namespace="System.Collections.Generic"#>
 <#@ import namespace="Microsoft.OpenPublishing.LogCodeService.Manager"#>
 <#@ import namespace="Microsoft.OpenPublishing.LogCodeService.DataContracts"#>
