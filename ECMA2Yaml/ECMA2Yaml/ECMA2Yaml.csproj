@@ -54,29 +54,29 @@
       <HintPath>..\packages\HtmlAgilityPack.1.4.9\lib\Net45\HtmlAgilityPack.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.DocAsCode.Build.Common, Version=2.42.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.DocAsCode.Build.Common.2.42.0\lib\net462\Microsoft.DocAsCode.Build.Common.dll</HintPath>
+    <Reference Include="Microsoft.DocAsCode.Build.Common, Version=2.43.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.DocAsCode.Build.Common.2.43.2\lib\net472\Microsoft.DocAsCode.Build.Common.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.DocAsCode.Build.ManagedReference, Version=2.42.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.DocAsCode.Build.ManagedReference.2.42.0\lib\net462\Microsoft.DocAsCode.Build.ManagedReference.dll</HintPath>
+    <Reference Include="Microsoft.DocAsCode.Build.ManagedReference, Version=2.43.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.DocAsCode.Build.ManagedReference.2.43.2\lib\net472\Microsoft.DocAsCode.Build.ManagedReference.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.DocAsCode.Common, Version=2.42.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.DocAsCode.Common.2.42.0\lib\net462\Microsoft.DocAsCode.Common.dll</HintPath>
+    <Reference Include="Microsoft.DocAsCode.Common, Version=2.43.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.DocAsCode.Common.2.43.2\lib\net472\Microsoft.DocAsCode.Common.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.DocAsCode.DataContracts.Common, Version=2.42.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.DocAsCode.DataContracts.Common.2.42.0\lib\net462\Microsoft.DocAsCode.DataContracts.Common.dll</HintPath>
+    <Reference Include="Microsoft.DocAsCode.DataContracts.Common, Version=2.43.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.DocAsCode.DataContracts.Common.2.43.2\lib\net472\Microsoft.DocAsCode.DataContracts.Common.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.DocAsCode.DataContracts.ManagedReference, Version=2.42.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.DocAsCode.DataContracts.ManagedReference.2.42.0\lib\net462\Microsoft.DocAsCode.DataContracts.ManagedReference.dll</HintPath>
+    <Reference Include="Microsoft.DocAsCode.DataContracts.ManagedReference, Version=2.43.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.DocAsCode.DataContracts.ManagedReference.2.43.2\lib\net472\Microsoft.DocAsCode.DataContracts.ManagedReference.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.DocAsCode.MarkdownLite, Version=2.42.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.DocAsCode.MarkdownLite.2.42.0\lib\net462\Microsoft.DocAsCode.MarkdownLite.dll</HintPath>
+    <Reference Include="Microsoft.DocAsCode.MarkdownLite, Version=2.43.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.DocAsCode.MarkdownLite.2.43.2\lib\net472\Microsoft.DocAsCode.MarkdownLite.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.DocAsCode.Plugins, Version=2.42.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.DocAsCode.Plugins.2.42.0\lib\net462\Microsoft.DocAsCode.Plugins.dll</HintPath>
+    <Reference Include="Microsoft.DocAsCode.Plugins, Version=2.43.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.DocAsCode.Plugins.2.43.2\lib\net472\Microsoft.DocAsCode.Plugins.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.DocAsCode.YamlSerialization, Version=2.42.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.DocAsCode.YamlSerialization.2.42.0\lib\net462\Microsoft.DocAsCode.YamlSerialization.dll</HintPath>
+    <Reference Include="Microsoft.DocAsCode.YamlSerialization, Version=2.43.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.DocAsCode.YamlSerialization.2.43.2\lib\net472\Microsoft.DocAsCode.YamlSerialization.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.OpenPublishing.FileAbstractLayer, Version=1.78.101.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.OpenPublishing.FileAbstractLayer.1.78.0-alpha-20190722105635-g318672c\lib\net472\Microsoft.OpenPublishing.FileAbstractLayer.dll</HintPath>
@@ -90,9 +90,6 @@
     </Reference>
     <Reference Include="monodoc">
       <HintPath>..\dependencies\monodoc.dll</HintPath>
-    </Reference>
-    <Reference Include="MoreLinq, Version=3.1.1.0, Culture=neutral, PublicKeyToken=384d532d7e88985d, processorArchitecture=MSIL">
-      <HintPath>..\packages\morelinq.3.1.1\lib\net451\MoreLinq.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -120,9 +117,6 @@
     <Reference Include="System.Core" />
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.IO.Compression.FileSystem" />
-    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
-    </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -138,6 +132,7 @@
     <Compile Include="AssemblyLoader.cs" />
     <Compile Include="ChangeListUpdater.cs" />
     <Compile Include="CommandLineOptions.cs" />
+    <Compile Include="MoreLinq\MoreEnumerable.DistinctBy.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TOCGenerator.cs" />
