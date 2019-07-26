@@ -15,34 +15,9 @@ namespace IntellisenseFileGen
     class Program
     {
         static string _xmlDataFolder = @"G:\SourceCode\DevCode\dotnet-api-docs\xml";
-        static string _includeDataFolder = @"G:\SourceCode\DevCode\dotnet-api-docs";
+        static string _rootFolder = @"G:\SourceCode\DevCode\dotnet-api-docs";
         static string _outFolder = @"G:\ECMA2Yaml-output\GenerateIntellisense\_intellisense";
         static Dictionary<string, string> _replaceStringDic = new Dictionary<string, string>() {
-            /*{ "[!INCLUDEvstecmsbuild]", "MSBuild" },
-            { "[!INCLUDEdnprdnshort]", ".NET Framework" },
-            { "[!INCLUDECompact]", ".NET Compact Framework" },
-            { "[!INCLUDEvs_dev11_long]", "Visual Studio 2012" },
-            { "[!INCLUDEvsprvslong]","Visual Studio 2005"},
-            { "[!INCLUDEtsql]","Transact-SQL"},
-            { "[!INCLUDEwrt]","Windows Runtime"},
-            { "[!INCLUDETLA2#tla_titlexaml]","XAML"},
-            { "[!INCLUDETLA#tla_winclient]","Windows Presentation Foundation (WPF)" },
-            { "[!INCLUDETLA#tla_mswin]","Windows" },
-            { "[!INCLUDETLA#tla_xaml]","Extensible Application Markup Language (XAML)" },
-            { "[!INCLUDETLA2#tla_win32]","Win32" },
-            { "[!INCLUDETLA#tla_ui]","user interface (UI)"},
-            { "[!INCLUDETLA#tla_uri]","uniform resource identifier (URI)"},
-            { "[!INCLUDEwfd1]","Windows Workflow Designer"},
-            { "[!INCLUDEwfd2]","Workflow Designer"},
-            { "[!INCLUDEvbtecdlinq]","LINQ to SQL"},
-            { "[!INCLUDEssODataShort]","OData"},
-            { "[!INCLUDEssAstoria]","WCF Data Services"},
-            { "[!INCLUDEWin2kFamily]","Windows 2000"},
-            { "[!INCLUDETLA2#tla_uiautomation]","UI Automation"},
-            { "[!INCLUDETLA2#tla_xaml]","XAML"},*/
-
-            { "__", "" },
-            { "**", "" },
             { "\\\"","\"" },
             { "\\*","*" },
             { "\\\\","\\" },
@@ -55,15 +30,14 @@ namespace IntellisenseFileGen
         {
             Parser.Default.ParseArguments<Options>(args).WithParsed<Options>(option =>
             {
-                _xmlDataFolder = option.XmlRootPath;
-                _includeDataFolder = option.IncludeFilePath;
+                _xmlDataFolder = Path.Combine(option.DataRootPath, "xml");
                 _outFolder = option.OutFolder;
             });
 
             if (string.IsNullOrEmpty(_xmlDataFolder))
             {
                 // TODO: log error
-                
+
                 return;
             }
             if (!Directory.Exists(_xmlDataFolder))
@@ -92,66 +66,67 @@ namespace IntellisenseFileGen
 
             frameworkInfo.FrameworkAssemblies.Keys.ToList().ForEach(fw =>
             {
-                if (fw == "netframework-4.6")
+                //if (fw == "netframework-4.6")
+                //{
+                string outPutFolder = Path.Combine(_outFolder, fw);
+
+                var currentMonikerAssemblyNameList = monikerAssemblyList[fw];
+                var fwAssemblyList = frameworkInfo.FrameworkAssemblies[fw].Where(p => { return currentMonikerAssemblyNameList.Contains(p.Name); }).ToList();
+                var fwDocIdList = frameworkInfo.NamespaceDocIdsDict[fw];
+                var fwTypeDocIdList = frameworkInfo.NamespaceDocIdsDict[fw].Where(p => { return string.IsNullOrEmpty(p.ParentDocId); }).Select(p => p.DocId);
+                var fwMemberDocIdList = frameworkInfo.NamespaceDocIdsDict[fw].Where(p => { return !string.IsNullOrEmpty(p.ParentDocId); }).Select(p => p.DocId);
+
+                Parallel.ForEach(fwAssemblyList, opt, assembly =>
                 {
-                    string outPutFolder = Path.Combine(_outFolder, fw);
-
-                    var currentMonikerAssemblyNameList = monikerAssemblyList[fw];
-                    var fwAssemblyList = frameworkInfo.FrameworkAssemblies[fw].Where(p => { return currentMonikerAssemblyNameList.Contains(p.Name); }).ToList();
-                    var fwDocIdList = frameworkInfo.NamespaceDocIdsDict[fw];
-                    var fwTypeDocIdList = frameworkInfo.NamespaceDocIdsDict[fw].Where(p => { return string.IsNullOrEmpty(p.ParentDocId); }).Select(p => p.DocId);
-                    var fwMemberDocIdList = frameworkInfo.NamespaceDocIdsDict[fw].Where(p => { return !string.IsNullOrEmpty(p.ParentDocId); }).Select(p => p.DocId);
-
-                    Parallel.ForEach(fwAssemblyList, opt, assembly=> {
-                        string assemblyInfoStr = string.Format("{0}-{1}", assembly.Name, assembly.Version);
-                        var assemblyTypes = typeList.Where(t =>
-                        {
-                            return t.AssemblyInfos.Exists(p => { return p == assemblyInfoStr; });
-                        }).ToList();
+                    string assemblyInfoStr = string.Format("{0}-{1}", assembly.Name, assembly.Version);
+                    var assemblyTypes = typeList.Where(t =>
+                    {
+                        return t.AssemblyInfos.Exists(p => { return p == assemblyInfoStr; });
+                    }).ToList();
 
                         // 1. Order by xml
                         var selectedAssemblyTypes = assemblyTypes.Where(p => { return fwTypeDocIdList.Contains(p.DocId); });
-                        if (selectedAssemblyTypes != null && selectedAssemblyTypes.Count() > 0)
+                    if (selectedAssemblyTypes != null && selectedAssemblyTypes.Count() > 0)
+                    {
+                        XDocument intelligenceDoc = new XDocument(new XDeclaration("1.0", "utf-8", null));
+                        var docEle = new XElement("doc");
+                        var assemblyEle = new XElement("assembly");
+                        var membersEle = new XElement("members");
+                        docEle.Add(assemblyEle);
+                        docEle.Add(membersEle);
+                        intelligenceDoc.Add(docEle);
+                        assemblyEle.SetElementValue("name", assembly.Name);
+
+                        selectedAssemblyTypes.OrderBy(p => p.DocId).ToList().ForEach(tt =>
                         {
-                            XDocument intelligenceDoc = new XDocument(new XDeclaration("1.0", "utf-8", null));
-                            var docEle = new XElement("doc");
-                            var assemblyEle = new XElement("assembly");
-                            var membersEle = new XElement("members");
-                            docEle.Add(assemblyEle);
-                            docEle.Add(membersEle);
-                            intelligenceDoc.Add(docEle);
-                            assemblyEle.SetElementValue("name", assembly.Name);
+                            membersEle.Add(tt.Docs);
 
-                            selectedAssemblyTypes.OrderBy(p => p.DocId).ToList().ForEach(tt =>
+                            if (tt.Members != null && tt.Members.Count() > 0)
                             {
-                                membersEle.Add(tt.Docs);
-
                                 if (tt.Members != null && tt.Members.Count() > 0)
                                 {
-                                    if (tt.Members != null && tt.Members.Count() > 0)
+                                    tt.Members.OrderBy(p => p.DocId).ToList().ForEach(m =>
                                     {
-                                        tt.Members.OrderBy(p => p.DocId).ToList().ForEach(m =>
+                                        if (fwMemberDocIdList.Contains(m.DocId) /*&& m.AssemblyInfos.Exists(p => { return p == assemblyInfoStr; })*/)
                                         {
-                                            if (fwMemberDocIdList.Contains(m.DocId) /*&& m.AssemblyInfos.Exists(p => { return p == assemblyInfoStr; })*/)
-                                            {
-                                                membersEle.Add(m.Docs);
-                                            }
-                                        });
-                                    }
+                                            membersEle.Add(m.Docs);
+                                        }
+                                    });
                                 }
-                            });
-                            if (membersEle.HasElements)
-                            {
-                                if (!Directory.Exists(outPutFolder))
-                                {
-                                    Directory.CreateDirectory(outPutFolder);
-                                }
-                                intelligenceDoc.Save(Path.Combine(outPutFolder, assembly.Name + ".xml"));
-                                WriteLine($"Done generate {assembly.Name} intellisense files.");
                             }
+                        });
+                        if (membersEle.HasElements)
+                        {
+                            if (!Directory.Exists(outPutFolder))
+                            {
+                                Directory.CreateDirectory(outPutFolder);
+                            }
+                            intelligenceDoc.Save(Path.Combine(outPutFolder, assembly.Name + ".xml"));
+                            WriteLine($"Done generate {assembly.Name} intellisense files.");
                         }
-                    });
-                }
+                    }
+                });
+                //}
             });
 
             WriteLine($"All intellisense files done.");
@@ -227,7 +202,8 @@ namespace IntellisenseFileGen
             var typeFileList = GetFiles(_xmlDataFolder, "*.xml");
             List<Models.Type> typeList = new List<Models.Type>();
             ParallelOptions opt = new ParallelOptions() { MaxDegreeOfParallelism = Environment.ProcessorCount };
-            Parallel.ForEach(typeFileList, opt, typeFile => {
+            Parallel.ForEach(typeFileList, opt, typeFile =>
+            {
                 XDocument xmlDoc = XDocument.Load(typeFile.FullName);
 
                 if (xmlDoc.Root.Name.LocalName == "Type")
@@ -258,8 +234,8 @@ namespace IntellisenseFileGen
                 t.DocId = SpecialProcessDocId(typeDocIdEle.Attribute("Value").Value);
             }
 
-            //for debug
-            //if (t.DocId != "T:System.Globalization.CultureAndRegionInfoBuilder")
+            // for debug
+            //if (!IsMeetDebugCondition(t.DocId))
             //{
             //    return null;
             //}
@@ -337,7 +313,7 @@ namespace IntellisenseFileGen
             }
 
             // for debug
-            //if (m.DocId != "M:System.Globalization.CultureAndRegionInfoBuilder.#ctor(System.String,System.Globalization.CultureAndRegionModifiers)")
+            //if (!IsMeetDebugCondition(m.DocId))
             //{
             //    return null;
             //}
@@ -523,7 +499,7 @@ namespace IntellisenseFileGen
                 {
                     for (int i = 0; i < matches.Length; i += 2)
                     {
-                        string includeFileFullName = matches[i + 1].Replace("~", _includeDataFolder);
+                        string includeFileFullName = matches[i + 1].Replace("~", _rootFolder);
                         if (File.Exists(includeFileFullName))
                         {
                             string includeFileContent = File.ReadAllText(includeFileFullName);
@@ -550,15 +526,31 @@ namespace IntellisenseFileGen
                     }
                 }
 
-                // *Unix* => Unix
-                // `Unix` => Unix
-                // _Unix_ => Unix
-                pattern = ".[^\"]*([\\*|\\`|_]([\\w|\\.|\\s|-]+)[\\*|\\`|_]).[^\"]*";
+                // **Unix** => Unix
+                // __Unix__ => Unix
+                pattern = "([_*]{2}([\\w|\\.|\\#|\\+|\\s|/|-]+?)[_*]{2})";
                 matches = RegexHelper.GetMatches_All_JustWantedOne(pattern, content);
                 if (matches != null && matches.Length >= 2)
                 {
-                    content = content.Replace(matches[0], matches[1]);
-                    contentChange = true;
+                    for (int i = 0; i < matches.Length; i += 2)
+                    {
+                        content = content.Replace(matches[i], matches[i + 1]);
+                        contentChange = true;
+                    }
+                }
+
+                // *Unix* => Unix
+                // `Unix` => Unix
+                // TODO: _Unix_ => Unix, need to identify this case HKEY_CLASSES_ROOT
+                pattern = "([\\*|\\`]([\\w|\\.|\\#|\\+|\\s|/|-]+?)[\\*|\\`])";
+                matches = RegexHelper.GetMatches_All_JustWantedOne(pattern, content);
+                if (matches != null && matches.Length >= 2)
+                {
+                    for (int i = 0; i < matches.Length; i += 2)
+                    {
+                        content = content.Replace(matches[i], matches[i + 1]);
+                        contentChange = true;
+                    }
                 }
 
                 if (contentChange)
@@ -598,15 +590,25 @@ namespace IntellisenseFileGen
             string timestamp = string.Format("[{0}]", DateTime.Now.ToString());
             Console.WriteLine(timestamp + string.Format(format, args));
         }
+
+        static bool IsMeetDebugCondition(string condition)
+        {
+            string[] conditions = new[] { "T:System.Globalization.NumberStyles", "F:System.Globalization.NumberStyles.AllowExponent" };
+            if (conditions != null && conditions.Contains(condition))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 
     class Options
     {
-        [Option('x', "xmlRootPath", Required = true, HelpText = "xml file root path.")]
-        public string XmlRootPath { get; set; }
-
-        [Option('i', "includeFilePath", Required = true, HelpText = "include file path.")]
-        public string IncludeFilePath { get; set; }
+        [Option('r', "rootPath", Required = true, HelpText = "data root path.")]
+        public string DataRootPath { get; set; }
 
         [Option('o', "out", Required = false, Default = "", HelpText = "The output folder.")]
         public string OutFolder { get; set; }

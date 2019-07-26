@@ -23,11 +23,11 @@ namespace DiffXML
         static void OrderXML(string inFolder, string outPutFolder)
         {
             var needOrderFiles = GetFiles(inFolder, "*.xml");
+            ParallelOptions opt = new ParallelOptions() { MaxDegreeOfParallelism = Environment.ProcessorCount };
 
             if (needOrderFiles != null)
             {
-                foreach (var xfile in needOrderFiles)
-                {
+                Parallel.ForEach(needOrderFiles, opt, xfile => {
                     XDocument fxDoc = XDocument.Load(xfile.FullName);
                     var membersEle = fxDoc.Root.Element("members");
                     var memberEles = membersEle?.Elements("member");
@@ -46,10 +46,10 @@ namespace DiffXML
                         membersEle.RemoveAll();
                         membersEle.Add(orderedList);
 
-                        orderedList.ToList().ForEach(p=> {
+                        orderedList.ToList().ForEach(p => {
                             //if (p.Attribute("name").Value == "M:System.Globalization.CultureAndRegionInfoBuilder.#ctor(System.String,System.Globalization.CultureAndRegionModifiers)")
                             //{
-                                SpecialProcessElement(p);
+                            SpecialProcessElement(p);
                             //}
                         });
 
@@ -60,7 +60,7 @@ namespace DiffXML
                         }
                         fxDoc.Save(xfile.FullName.Replace(inFolder, outPutFolder));
                     }
-                }
+                });
             }
             WriteLine(outPutFolder);
             WriteLine("done.");
