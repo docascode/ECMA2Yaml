@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Frameworks>
+  <Framework Name="cat-1.0" Source="cat-1.0">
+    <assemblySearchPath>dependencies\cat-1.0</assemblySearchPath>
+    <import>cat-1.0\CatLibrary.xml</import>
+  </Framework>
+  <Framework Name="cat-2.0" Source="cat-2.0">
+    <assemblySearchPath>dependencies\cat-2.0</assemblySearchPath>
+    <import>cat-2.0\CatLibrary.xml</import>
+  </Framework>
+</Frameworks>
