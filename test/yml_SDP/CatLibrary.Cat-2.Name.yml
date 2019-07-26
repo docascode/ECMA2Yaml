@@ -1,0 +1,49 @@
+### YamlMime:NetMember
+type: property
+members:
+- returns:
+    type: <xref href="System.String?alt=System.String&text=String" data-throw-if-not-resolved="True"/>
+  implements:
+  - <xref href="CatLibrary.IAnimal.Name?alt=CatLibrary.IAnimal.Name&text=Name" data-throw-if-not-resolved="True"/>
+  uid: CatLibrary.Cat`2.Name
+  commentId: P:CatLibrary.Cat`2.Name
+  name: Name
+  fullName: CatLibrary.Cat<T,K>.Name
+  nameWithType: Cat<T,K>.Name
+  syntax:
+  - lang: csharp
+    value: public string Name { get; }
+  monikers:
+  - cat-1.0
+  - cat-2.0
+  summary: EII property.
+  metadata: {}
+uid: CatLibrary.Cat`2.Name*
+commentId: Overload:CatLibrary.Cat`2.Name
+namespace: CatLibrary
+name: Name
+fullName: CatLibrary.Cat<T,K>.Name
+nameWithType: Cat<T,K>.Name
+assemblies:
+- CatLibrary
+devLangs:
+- csharp
+monikers:
+- cat-1.0
+- cat-2.0
+metadata:
+  api_name:
+  - CatLibrary.Cat`2.Name
+  - CatLibrary.Cat`2.get_Name
+  api_location:
+  - CatLibrary.dll
+  topic_type:
+  - apiref
+  api_type:
+  - Assembly
+  f1_keywords:
+  - CatLibrary.Cat`2.Name
+  - CatLibrary::Cat`2::Name
+  helpviewer_keywords:
+  - Cat<T,K>.Name property [.NET]
+  - Name property [.NET], class Cat<T,K>

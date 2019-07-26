@@ -1,0 +1,41 @@
+### YamlMime:NetType
+typeParameters:
+- name: T
+type: class
+inheritances:
+- <xref href="System.Exception" data-throw-if-not-resolved="True"/>
+constructors:
+- uid: CatLibrary.CatException`1.#ctor
+  monikers:
+  - cat-1.0
+  - cat-2.0
+uid: CatLibrary.CatException`1
+commentId: T:CatLibrary.CatException`1
+namespace: CatLibrary
+name: CatException<T>
+fullName: CatLibrary.CatException<T>
+nameWithType: CatLibrary.CatException<T>
+assemblies:
+- CatLibrary
+syntax:
+- lang: csharp
+  value: 'public class CatException<T> : Exception'
+devLangs:
+- csharp
+monikers:
+- cat-1.0
+- cat-2.0
+metadata:
+  api_name:
+  - CatLibrary.CatException`1
+  api_location:
+  - CatLibrary.dll
+  topic_type:
+  - apiref
+  api_type:
+  - Assembly
+  f1_keywords:
+  - CatLibrary.CatException`1
+  - CatLibrary::CatException`1
+  helpviewer_keywords:
+  - CatLibrary.CatException<T> class [.NET]

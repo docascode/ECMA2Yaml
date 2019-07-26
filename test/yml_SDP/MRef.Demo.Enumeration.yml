@@ -1,0 +1,21 @@
+### YamlMime:NetNamespace
+enums:
+- uid: MRef.Demo.Enumeration.ColorType
+  monikers:
+  - cat-1.0
+  - cat-2.0
+uid: MRef.Demo.Enumeration
+commentId: N:MRef.Demo.Enumeration
+name: MRef.Demo.Enumeration
+fullName: MRef.Demo.Enumeration
+devLangs:
+- csharp
+monikers:
+- cat-1.0
+- cat-2.0
+metadata:
+  f1_keywords:
+  - MRef.Demo.Enumeration
+  - MRef::Demo::Enumeration
+  helpviewer_keywords:
+  - MRef.Demo.Enumeration namespace [.NET]

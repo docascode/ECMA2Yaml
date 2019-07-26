@@ -1,0 +1,151 @@
+### YamlMime:ManagedReference
+items:
+- uid: MRef.Demo.Enumeration.ColorType
+  commentId: T:MRef.Demo.Enumeration.ColorType
+  id: ColorType
+  children:
+  - MRef.Demo.Enumeration.ColorType.Blue
+  - MRef.Demo.Enumeration.ColorType.Red
+  - MRef.Demo.Enumeration.ColorType.Yellow
+  langs:
+  - csharp
+  name: ColorType
+  nameWithType: MRef.Demo.Enumeration.ColorType
+  fullName: MRef.Demo.Enumeration.ColorType
+  type: Enum
+  assemblies:
+  - CatLibrary
+  namespace: MRef.Demo.Enumeration
+  summary: Enumeration ColorType
+  remarks: >-
+    <p>
+          Red/Blue/Yellow can become all color you want.
+    </p>
+
+    <ul></ul>
+  syntax:
+    content: public enum ColorType
+    content.csharp: public enum ColorType
+  inheritance:
+  - System.Enum
+  modifiers.csharp:
+  - public
+  monikers:
+  - cat-1.0
+  - cat-2.0
+- uid: MRef.Demo.Enumeration.ColorType.Blue
+  commentId: F:MRef.Demo.Enumeration.ColorType.Blue
+  id: Blue
+  parent: MRef.Demo.Enumeration.ColorType
+  langs:
+  - csharp
+  name: Blue
+  nameWithType: ColorType.Blue
+  fullName: MRef.Demo.Enumeration.ColorType.Blue
+  type: Field
+  assemblies:
+  - CatLibrary
+  namespace: MRef.Demo.Enumeration
+  summary: blue like river
+  syntax:
+    content: Blue
+    return:
+      type: MRef.Demo.Enumeration.ColorType
+      description: ''
+    content.csharp: Blue
+  exceptions: []
+  literalValue: "1"
+  monikers:
+  - cat-1.0
+  - cat-2.0
+- uid: MRef.Demo.Enumeration.ColorType.Red
+  commentId: F:MRef.Demo.Enumeration.ColorType.Red
+  id: Red
+  parent: MRef.Demo.Enumeration.ColorType
+  langs:
+  - csharp
+  name: Red
+  nameWithType: ColorType.Red
+  fullName: MRef.Demo.Enumeration.ColorType.Red
+  type: Field
+  assemblies:
+  - CatLibrary
+  namespace: MRef.Demo.Enumeration
+  summary: this color is red
+  syntax:
+    content: Red
+    return:
+      type: MRef.Demo.Enumeration.ColorType
+      description: ''
+    content.csharp: Red
+  exceptions: []
+  literalValue: "0"
+  monikers:
+  - cat-1.0
+  - cat-2.0
+- uid: MRef.Demo.Enumeration.ColorType.Yellow
+  commentId: F:MRef.Demo.Enumeration.ColorType.Yellow
+  id: Yellow
+  parent: MRef.Demo.Enumeration.ColorType
+  langs:
+  - csharp
+  name: Yellow
+  nameWithType: ColorType.Yellow
+  fullName: MRef.Demo.Enumeration.ColorType.Yellow
+  type: Field
+  assemblies:
+  - CatLibrary
+  namespace: MRef.Demo.Enumeration
+  summary: yellow comes from desert
+  syntax:
+    content: Yellow
+    return:
+      type: MRef.Demo.Enumeration.ColorType
+      description: ''
+    content.csharp: Yellow
+  exceptions: []
+  literalValue: "2"
+  monikers:
+  - cat-1.0
+  - cat-2.0
+references:
+- uid: MRef.Demo.Enumeration
+  commentId: N:MRef.Demo.Enumeration
+  isExternal: false
+  name: MRef.Demo.Enumeration
+  nameWithType: MRef.Demo.Enumeration
+  fullName: MRef.Demo.Enumeration
+  type: namespace
+- uid: System.Enum
+  parent: System
+  isExternal: true
+  name: Enum
+  nameWithType: Enum
+  fullName: System.Enum
+- uid: MRef.Demo.Enumeration.ColorType.Blue
+  parent: MRef.Demo.Enumeration.ColorType
+  isExternal: false
+  name: Blue
+  nameWithType: ColorType.Blue
+  fullName: MRef.Demo.Enumeration.ColorType.Blue
+  type: field
+- uid: MRef.Demo.Enumeration.ColorType
+  parent: MRef.Demo.Enumeration
+  isExternal: false
+  name: ColorType
+  nameWithType: ColorType
+  fullName: MRef.Demo.Enumeration.ColorType
+- uid: MRef.Demo.Enumeration.ColorType.Red
+  parent: MRef.Demo.Enumeration.ColorType
+  isExternal: false
+  name: Red
+  nameWithType: ColorType.Red
+  fullName: MRef.Demo.Enumeration.ColorType.Red
+  type: field
+- uid: MRef.Demo.Enumeration.ColorType.Yellow
+  parent: MRef.Demo.Enumeration.ColorType
+  isExternal: false
+  name: Yellow
+  nameWithType: ColorType.Yellow
+  fullName: MRef.Demo.Enumeration.ColorType.Yellow
+  type: field

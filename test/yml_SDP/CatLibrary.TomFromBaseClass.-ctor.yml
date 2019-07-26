@@ -1,0 +1,48 @@
+### YamlMime:NetMember
+type: constructor
+members:
+- parameters:
+  - name: k
+    description: "\n        "
+    type: <xref href="System.Int32?alt=System.Int32&text=Int32" data-throw-if-not-resolved="True"/>
+  uid: CatLibrary.TomFromBaseClass.#ctor(System.Int32)
+  commentId: M:CatLibrary.TomFromBaseClass.#ctor(System.Int32)
+  name: TomFromBaseClass(Int32)
+  fullName: CatLibrary.TomFromBaseClass.TomFromBaseClass(Int32)
+  nameWithType: TomFromBaseClass.TomFromBaseClass(Int32)
+  syntax:
+  - lang: csharp
+    value: public TomFromBaseClass (int k);
+  monikers:
+  - cat-1.0
+  - cat-2.0
+  summary: 'This is a #ctor with parameter'
+  metadata: {}
+uid: CatLibrary.TomFromBaseClass.#ctor*
+commentId: Overload:CatLibrary.TomFromBaseClass.#ctor
+namespace: CatLibrary
+name: TomFromBaseClass
+fullName: CatLibrary.TomFromBaseClass.TomFromBaseClass
+nameWithType: TomFromBaseClass.TomFromBaseClass
+assemblies:
+- CatLibrary
+devLangs:
+- csharp
+monikers:
+- cat-1.0
+- cat-2.0
+metadata:
+  api_name:
+  - CatLibrary.TomFromBaseClass..ctor
+  api_location:
+  - CatLibrary.dll
+  topic_type:
+  - apiref
+  api_type:
+  - Assembly
+  f1_keywords:
+  - CatLibrary.TomFromBaseClass.#ctor
+  - CatLibrary::TomFromBaseClass::#ctor
+  helpviewer_keywords:
+  - TomFromBaseClass class [.NET], constructors
+  - TomFromBaseClass(Int32) class [.NET], constructors

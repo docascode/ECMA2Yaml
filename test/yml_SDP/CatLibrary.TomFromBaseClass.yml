@@ -1,0 +1,47 @@
+### YamlMime:NetType
+type: class
+inheritances:
+- <xref href="System.Object" data-throw-if-not-resolved="True"/>
+- <xref href="CatLibrary.Tom?alt=CatLibrary.Tom&text=Tom" data-throw-if-not-resolved="True"/>
+constructors:
+- uid: CatLibrary.TomFromBaseClass.#ctor(System.Int32)
+  monikers:
+  - cat-1.0
+  - cat-2.0
+methods:
+- uid: CatLibrary.Tom.TomMethod(CatLibrary.Complex{CatLibrary.TomFromBaseClass,CatLibrary.TomFromBaseClass},System.Tuple{System.String,CatLibrary.Tom})
+  inheritedFrom: CatLibrary.Tom
+  monikers:
+  - cat-1.0
+  - cat-2.0
+uid: CatLibrary.TomFromBaseClass
+commentId: T:CatLibrary.TomFromBaseClass
+namespace: CatLibrary
+name: TomFromBaseClass
+fullName: CatLibrary.TomFromBaseClass
+nameWithType: CatLibrary.TomFromBaseClass
+assemblies:
+- CatLibrary
+syntax:
+- lang: csharp
+  value: 'public class TomFromBaseClass : CatLibrary.Tom'
+devLangs:
+- csharp
+monikers:
+- cat-1.0
+- cat-2.0
+summary: '*TomFromBaseClass* inherits from @CatLibrary.Tom'
+metadata:
+  api_name:
+  - CatLibrary.TomFromBaseClass
+  api_location:
+  - CatLibrary.dll
+  topic_type:
+  - apiref
+  api_type:
+  - Assembly
+  f1_keywords:
+  - CatLibrary.TomFromBaseClass
+  - CatLibrary::TomFromBaseClass
+  helpviewer_keywords:
+  - CatLibrary.TomFromBaseClass class [.NET]

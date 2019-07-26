@@ -1,0 +1,43 @@
+### YamlMime:NetMember
+type: constructor
+members:
+- uid: CatLibrary.CatException`1.#ctor
+  commentId: M:CatLibrary.CatException`1.#ctor
+  name: CatException<T>()
+  fullName: CatLibrary.CatException<T>.CatException<T>()
+  nameWithType: CatException<T>.CatException<T>()
+  syntax:
+  - lang: csharp
+    value: public CatException ();
+  monikers:
+  - cat-1.0
+  - cat-2.0
+  metadata: {}
+uid: CatLibrary.CatException`1.#ctor*
+commentId: Overload:CatLibrary.CatException`1.#ctor
+namespace: CatLibrary
+name: CatException<T>
+fullName: CatLibrary.CatException<T>.CatException
+nameWithType: CatException<T>.CatException<T>
+assemblies:
+- CatLibrary
+devLangs:
+- csharp
+monikers:
+- cat-1.0
+- cat-2.0
+metadata:
+  api_name:
+  - CatLibrary.CatException`1..ctor
+  api_location:
+  - CatLibrary.dll
+  topic_type:
+  - apiref
+  api_type:
+  - Assembly
+  f1_keywords:
+  - CatLibrary.CatException`1.#ctor
+  - CatLibrary::CatException`1::#ctor
+  helpviewer_keywords:
+  - CatException<T> class [.NET], constructors
+  - CatException<T>() class [.NET], constructors

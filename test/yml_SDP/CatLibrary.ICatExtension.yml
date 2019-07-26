@@ -1,0 +1,47 @@
+### YamlMime:NetType
+type: class
+inheritances:
+- <xref href="System.Object" data-throw-if-not-resolved="True"/>
+methods:
+- uid: CatLibrary.ICatExtension.Play(CatLibrary.ICat,System.String)
+  monikers:
+  - cat-1.0
+  - cat-2.0
+- uid: CatLibrary.ICatExtension.Sleep(CatLibrary.ICat,System.Int64)
+  monikers:
+  - cat-1.0
+  - cat-2.0
+uid: CatLibrary.ICatExtension
+commentId: T:CatLibrary.ICatExtension
+namespace: CatLibrary
+name: ICatExtension
+fullName: CatLibrary.ICatExtension
+nameWithType: CatLibrary.ICatExtension
+assemblies:
+- CatLibrary
+syntax:
+- lang: csharp
+  value: public static class ICatExtension
+devLangs:
+- csharp
+monikers:
+- cat-1.0
+- cat-2.0
+summary: >-
+  It's the class that contains ICat interface's extension method.
+
+  <p>This class must be <strong>public</strong> and <strong>static</strong>.</p><p>Also it shouldn't be a geneic class</p>
+metadata:
+  api_name:
+  - CatLibrary.ICatExtension
+  api_location:
+  - CatLibrary.dll
+  topic_type:
+  - apiref
+  api_type:
+  - Assembly
+  f1_keywords:
+  - CatLibrary.ICatExtension
+  - CatLibrary::ICatExtension
+  helpviewer_keywords:
+  - CatLibrary.ICatExtension class [.NET]

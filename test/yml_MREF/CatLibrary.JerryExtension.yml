@@ -1,0 +1,105 @@
+### YamlMime:ManagedReference
+items:
+- uid: CatLibrary.JerryExtension
+  commentId: T:CatLibrary.JerryExtension
+  id: JerryExtension
+  children:
+  - CatLibrary.JerryExtension.PlayWith(CatLibrary.TomFromBaseClass.Jerry,CatLibrary.Tom)
+  langs:
+  - csharp
+  name: JerryExtension
+  nameWithType: CatLibrary.JerryExtension
+  fullName: CatLibrary.JerryExtension
+  type: Class
+  assemblies:
+  - CatLibrary
+  namespace: CatLibrary
+  summary: This class extends <xref data-throw-if-not-resolved="true" uid="CatLibrary.TomFromBaseClass.Jerry"></xref>.
+  syntax:
+    content: public static class JerryExtension
+    content.csharp: public static class JerryExtension
+  inheritance:
+  - System.Object
+  implements: []
+  modifiers.csharp:
+  - public
+  - static
+  monikers:
+  - cat-2.0
+- uid: CatLibrary.JerryExtension.PlayWith(CatLibrary.TomFromBaseClass.Jerry,CatLibrary.Tom)
+  commentId: M:CatLibrary.JerryExtension.PlayWith(CatLibrary.TomFromBaseClass.Jerry,CatLibrary.Tom)
+  id: PlayWith(CatLibrary.TomFromBaseClass.Jerry,CatLibrary.Tom)
+  isExtensionMethod: true
+  parent: CatLibrary.JerryExtension
+  langs:
+  - csharp
+  name: PlayWith(TomFromBaseClass+Jerry, Tom)
+  nameWithType: JerryExtension.PlayWith(TomFromBaseClass+Jerry, Tom)
+  fullName: CatLibrary.JerryExtension.PlayWith(TomFromBaseClass+Jerry, Tom)
+  type: Method
+  assemblies:
+  - CatLibrary
+  namespace: CatLibrary
+  summary: Jerry can play with a Tom.
+  syntax:
+    content: public static void PlayWith (this CatLibrary.TomFromBaseClass.Jerry jerry, CatLibrary.Tom tom);
+    parameters:
+    - id: jerry
+      type: CatLibrary.TomFromBaseClass.Jerry
+      description: "\n        "
+    - id: tom
+      type: CatLibrary.Tom
+      description: "\n        "
+    content.csharp: public static void PlayWith (this CatLibrary.TomFromBaseClass.Jerry jerry, CatLibrary.Tom tom);
+  overload: CatLibrary.JerryExtension.PlayWith*
+  exceptions: []
+  modifiers.csharp:
+  - public
+  - static
+  monikers:
+  - cat-2.0
+references:
+- uid: CatLibrary
+  commentId: N:CatLibrary
+  isExternal: false
+  name: CatLibrary
+  nameWithType: CatLibrary
+  fullName: CatLibrary
+  type: namespace
+- uid: System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: CatLibrary.JerryExtension.PlayWith(CatLibrary.TomFromBaseClass.Jerry,CatLibrary.Tom)
+  parent: CatLibrary.JerryExtension
+  isExternal: false
+  name: PlayWith(TomFromBaseClass+Jerry, Tom)
+  nameWithType: JerryExtension.PlayWith(TomFromBaseClass+Jerry, Tom)
+  fullName: CatLibrary.JerryExtension.PlayWith(TomFromBaseClass+Jerry, Tom)
+  type: method
+- uid: CatLibrary.TomFromBaseClass
+  name: TomFromBaseClass
+  nameWithType: TomFromBaseClass
+  fullName: CatLibrary.TomFromBaseClass
+- uid: CatLibrary.TomFromBaseClass.Jerry
+  name: TomFromBaseClass.Jerry
+  nameWithType: TomFromBaseClass.Jerry
+  fullName: CatLibrary.TomFromBaseClass.Jerry
+- uid: CatLibrary.Tom
+  parent: CatLibrary
+  isExternal: false
+  name: Tom
+  nameWithType: Tom
+  fullName: CatLibrary.Tom
+- uid: CatLibrary.JerryExtension.PlayWith*
+  commentId: Overload:CatLibrary.JerryExtension.PlayWith
+  parent: CatLibrary.JerryExtension
+  isExternal: false
+  name: PlayWith
+  nameWithType: JerryExtension.PlayWith
+  fullName: CatLibrary.JerryExtension.PlayWith
+  monikers:
+  - cat-2.0
+  type: method

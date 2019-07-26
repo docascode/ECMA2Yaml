@@ -1,0 +1,56 @@
+### YamlMime:ManagedReference
+items:
+- uid: CatLibrary.MRefDelegate`3
+  commentId: T:CatLibrary.MRefDelegate`3
+  id: MRefDelegate`3
+  langs:
+  - csharp
+  name: MRefDelegate<K,T,L>
+  nameWithType: CatLibrary.MRefDelegate<K,T,L>
+  fullName: CatLibrary.MRefDelegate<K,T,L>
+  type: Delegate
+  assemblies:
+  - CatLibrary
+  namespace: CatLibrary
+  summary: Generic delegate with many constrains.
+  syntax:
+    content: 'public delegate void MRefDelegate<K,T,L>(K k, T t, L l) where K : class, IComparable where T : struct where L : Tom, IEnumerable<long>;'
+    parameters:
+    - id: k
+      type: K
+      description: Type K.
+    - id: t
+      type: T
+      description: Type T.
+    - id: l
+      type: L
+      description: Type L.
+    typeParameters:
+    - id: K
+      description: Generic K.
+    - id: T
+      description: Generic T.
+    - id: L
+      description: Generic L.
+    content.csharp: 'public delegate void MRefDelegate<K,T,L>(K k, T t, L l) where K : class, IComparable where T : struct where L : Tom, IEnumerable<long>;'
+  inheritance:
+  - System.Delegate
+  modifiers.csharp:
+  - public
+  monikers:
+  - cat-1.0
+  - cat-2.0
+references:
+- uid: CatLibrary
+  commentId: N:CatLibrary
+  isExternal: false
+  name: CatLibrary
+  nameWithType: CatLibrary
+  fullName: CatLibrary
+  type: namespace
+- uid: System.Delegate
+  parent: System
+  isExternal: true
+  name: Delegate
+  nameWithType: Delegate
+  fullName: System.Delegate

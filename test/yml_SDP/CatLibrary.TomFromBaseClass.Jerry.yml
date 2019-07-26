@@ -1,0 +1,42 @@
+### YamlMime:NetType
+type: class
+inheritances:
+- <xref href="System.Object" data-throw-if-not-resolved="True"/>
+extensionMethods:
+- uid: CatLibrary.JerryExtension.PlayWith(CatLibrary.TomFromBaseClass.Jerry,CatLibrary.Tom)
+  monikers:
+  - cat-2.0
+constructors:
+- uid: CatLibrary.TomFromBaseClass.Jerry.#ctor(MRef.Demo.Enumeration.ColorType)
+  monikers:
+  - cat-2.0
+uid: CatLibrary.TomFromBaseClass.Jerry
+commentId: T:CatLibrary.TomFromBaseClass.Jerry
+namespace: CatLibrary
+name: TomFromBaseClass.Jerry
+fullName: CatLibrary.TomFromBaseClass.Jerry
+nameWithType: CatLibrary.TomFromBaseClass.Jerry
+assemblies:
+- CatLibrary
+syntax:
+- lang: csharp
+  value: public class TomFromBaseClass.Jerry
+devLangs:
+- csharp
+monikers:
+- cat-2.0
+summary: This is a <strong>nested</strong> class inside <xref data-throw-if-not-resolved="true" uid="CatLibrary.TomFromBaseClass"></xref>
+metadata:
+  api_name:
+  - CatLibrary.TomFromBaseClass.Jerry
+  api_location:
+  - CatLibrary.dll
+  topic_type:
+  - apiref
+  api_type:
+  - Assembly
+  f1_keywords:
+  - CatLibrary.TomFromBaseClass.Jerry
+  - CatLibrary::TomFromBaseClass::Jerry
+  helpviewer_keywords:
+  - CatLibrary.TomFromBaseClass.Jerry class [.NET]

@@ -1,0 +1,186 @@
+### YamlMime:TableOfContent
+items:
+- uid: CatLibrary
+  name: CatLibrary
+  items:
+  - uid: CatLibrary.Cat`2
+    name: Cat<T,K>
+    items:
+    - uid: CatLibrary.Cat`2.#ctor*
+      name: Cat<T,K>
+      type: Constructor
+    - uid: CatLibrary.Cat`2.Age*
+      name: Age
+      type: Property
+    - uid: CatLibrary.Cat`2.CalculateFood*
+      name: CalculateFood
+      type: Method
+    - uid: CatLibrary.Cat`2.CatchJerry*
+      name: CatchJerry
+      type: Method
+    - uid: CatLibrary.Cat`2.Equals*
+      name: Equals
+      type: Method
+    - uid: CatLibrary.Cat`2.GetTailLength*
+      name: GetTailLength
+      type: Method
+    - uid: CatLibrary.Cat`2.Item*
+      name: Item[String]
+      type: Property
+    - uid: CatLibrary.Cat`2.Jump*
+      name: Jump
+      type: Method
+    - uid: CatLibrary.Cat`2.Name*
+      name: Name
+      type: Property
+    - uid: CatLibrary.Cat`2.op_Addition*
+      name: Addition
+      type: Operator
+    - uid: CatLibrary.Cat`2.op_Explicit*
+      name: Explicit
+      type: Operator
+    - uid: CatLibrary.Cat`2.op_Subtraction*
+      name: Subtraction
+      type: Operator
+    - uid: CatLibrary.Cat`2.CatLibrary#IAnimal#Eat*
+      name: IAnimal.Eat
+      type: Method
+      isEii: true
+    - uid: CatLibrary.Cat`2.CatLibrary#IAnimal#Item*
+      name: IAnimal.Item[Int32]
+      type: Property
+    - uid: CatLibrary.Cat`2.isHealthy
+      name: isHealthy
+      type: Field
+    - uid: CatLibrary.Cat`2.ownEat
+      name: ownEat
+      type: Event
+    - uid: CatLibrary.Cat`2.CatLibrary#ICat#eat
+      name: ICat.eat
+      type: Event
+    monikers:
+    - cat-1.0
+    - cat-2.0
+  - uid: CatLibrary.CatException`1
+    name: CatException<T>
+    items:
+    - uid: CatLibrary.CatException`1.#ctor*
+      name: CatException<T>
+      type: Constructor
+    monikers:
+    - cat-1.0
+    - cat-2.0
+  - uid: CatLibrary.Complex`2
+    name: Complex<T,J>
+    items:
+    - uid: CatLibrary.Complex`2.#ctor*
+      name: Complex<T,J>
+      type: Constructor
+    monikers:
+    - cat-1.0
+    - cat-2.0
+  - uid: CatLibrary.FakeDelegate`1
+    name: FakeDelegate<T>
+    monikers:
+    - cat-1.0
+    - cat-2.0
+  - uid: CatLibrary.IAnimal
+    name: IAnimal
+    items:
+    - uid: CatLibrary.IAnimal.Eat*
+      name: Eat
+      type: Method
+    - uid: CatLibrary.IAnimal.Item*
+      name: Item[Int32]
+      type: Property
+    - uid: CatLibrary.IAnimal.Name*
+      name: Name
+      type: Property
+    monikers:
+    - cat-1.0
+    - cat-2.0
+  - uid: CatLibrary.ICat
+    name: ICat
+    items:
+    - uid: CatLibrary.ICat.CatchJerry*
+      name: CatchJerry
+      type: Method
+    - uid: CatLibrary.ICat.eat
+      name: eat
+      type: Event
+    monikers:
+    - cat-1.0
+    - cat-2.0
+  - uid: CatLibrary.ICatExtension
+    name: ICatExtension
+    items:
+    - uid: CatLibrary.ICatExtension.Play*
+      name: Play
+      type: Method
+    - uid: CatLibrary.ICatExtension.Sleep*
+      name: Sleep
+      type: Method
+    monikers:
+    - cat-1.0
+    - cat-2.0
+  - uid: CatLibrary.JerryExtension
+    name: JerryExtension
+    items:
+    - uid: CatLibrary.JerryExtension.PlayWith*
+      name: PlayWith
+      type: Method
+    monikers:
+    - cat-2.0
+  - uid: CatLibrary.MRefDelegate`3
+    name: MRefDelegate<K,T,L>
+    monikers:
+    - cat-1.0
+    - cat-2.0
+  - uid: CatLibrary.MRefNormalDelegate
+    name: MRefNormalDelegate
+    monikers:
+    - cat-1.0
+    - cat-2.0
+  - uid: CatLibrary.Tom
+    name: Tom
+    items:
+    - uid: CatLibrary.Tom.#ctor*
+      name: Tom
+      type: Constructor
+    - uid: CatLibrary.Tom.TomMethod*
+      name: TomMethod
+      type: Method
+    monikers:
+    - cat-1.0
+    - cat-2.0
+  - uid: CatLibrary.TomFromBaseClass
+    name: TomFromBaseClass
+    items:
+    - uid: CatLibrary.TomFromBaseClass.#ctor*
+      name: TomFromBaseClass
+      type: Constructor
+    monikers:
+    - cat-1.0
+    - cat-2.0
+  - uid: CatLibrary.TomFromBaseClass.Jerry
+    name: TomFromBaseClass.Jerry
+    items:
+    - uid: CatLibrary.TomFromBaseClass.Jerry.#ctor*
+      name: TomFromBaseClass.Jerry
+      type: Constructor
+    monikers:
+    - cat-2.0
+  monikers:
+  - cat-1.0
+  - cat-2.0
+- uid: MRef.Demo.Enumeration
+  name: MRef.Demo.Enumeration
+  items:
+  - uid: MRef.Demo.Enumeration.ColorType
+    name: ColorType
+    monikers:
+    - cat-1.0
+    - cat-2.0
+  monikers:
+  - cat-1.0
+  - cat-2.0

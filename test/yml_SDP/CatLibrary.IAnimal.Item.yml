@@ -1,0 +1,52 @@
+### YamlMime:NetMember
+type: property
+members:
+- returns:
+    description: Animal name.
+    type: <xref href="System.String?alt=System.String&text=String" data-throw-if-not-resolved="True"/>
+  parameters:
+  - name: index
+    description: Animal number.
+    type: <xref href="System.Int32?alt=System.Int32&text=Int32" data-throw-if-not-resolved="True"/>
+  uid: CatLibrary.IAnimal.Item(System.Int32)
+  commentId: P:CatLibrary.IAnimal.Item(System.Int32)
+  name: Item[Int32]
+  fullName: CatLibrary.IAnimal.Item[Int32]
+  nameWithType: IAnimal.Item[Int32]
+  syntax:
+  - lang: csharp
+    value: public string this[int index] { get; }
+  monikers:
+  - cat-1.0
+  - cat-2.0
+  summary: Return specific number animal's name.
+  metadata: {}
+uid: CatLibrary.IAnimal.Item*
+commentId: Overload:CatLibrary.IAnimal.Item
+namespace: CatLibrary
+name: Item[Int32]
+fullName: CatLibrary.IAnimal.Item[Int32]
+nameWithType: IAnimal.Item[Int32]
+assemblies:
+- CatLibrary
+devLangs:
+- csharp
+monikers:
+- cat-1.0
+- cat-2.0
+metadata:
+  api_name:
+  - CatLibrary.IAnimal.Item
+  - CatLibrary.IAnimal.get_Item
+  api_location:
+  - CatLibrary.dll
+  topic_type:
+  - apiref
+  api_type:
+  - Assembly
+  f1_keywords:
+  - CatLibrary.IAnimal.Item
+  - CatLibrary::IAnimal::Item
+  helpviewer_keywords:
+  - IAnimal.Item[Int32] property [.NET]
+  - Item[Int32] property [.NET], interface IAnimal

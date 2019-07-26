@@ -1,0 +1,47 @@
+### YamlMime:NetType
+type: class
+inheritances:
+- <xref href="System.Object" data-throw-if-not-resolved="True"/>
+derivedClasses:
+- CatLibrary.TomFromBaseClass
+constructors:
+- uid: CatLibrary.Tom.#ctor
+  monikers:
+  - cat-1.0
+  - cat-2.0
+methods:
+- uid: CatLibrary.Tom.TomMethod(CatLibrary.Complex{CatLibrary.TomFromBaseClass,CatLibrary.TomFromBaseClass},System.Tuple{System.String,CatLibrary.Tom})
+  monikers:
+  - cat-1.0
+  - cat-2.0
+uid: CatLibrary.Tom
+commentId: T:CatLibrary.Tom
+namespace: CatLibrary
+name: Tom
+fullName: CatLibrary.Tom
+nameWithType: CatLibrary.Tom
+assemblies:
+- CatLibrary
+syntax:
+- lang: csharp
+  value: public class Tom
+devLangs:
+- csharp
+monikers:
+- cat-1.0
+- cat-2.0
+summary: Tom class is only inherit from Object. Not any member inside itself.
+metadata:
+  api_name:
+  - CatLibrary.Tom
+  api_location:
+  - CatLibrary.dll
+  topic_type:
+  - apiref
+  api_type:
+  - Assembly
+  f1_keywords:
+  - CatLibrary.Tom
+  - CatLibrary::Tom
+  helpviewer_keywords:
+  - CatLibrary.Tom class [.NET]

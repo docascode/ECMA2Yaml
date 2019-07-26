@@ -1,0 +1,64 @@
+### YamlMime:NetMember
+type: method
+members:
+- parameters:
+  - name: ownType
+    description: Type come from class define.
+    type: T
+  - name: anotherOwnType
+    description: Type come from class define.
+    type: K
+  - name: cheat
+    description: Hint whether this cat has cheat mode.
+    type: <xref href="System.Boolean?alt=System.Boolean&text=Boolean" data-throw-if-not-resolved="True"/>
+  exceptions:
+  - description: This is an argument exception
+    type: <xref href="System.ArgumentException" data-throw-if-not-resolved="True"/>
+  uid: CatLibrary.Cat`2.Jump(`0,`1,System.Boolean@)
+  commentId: M:CatLibrary.Cat`2.Jump(`0,`1,System.Boolean@)
+  name: Jump(T, K, Boolean)
+  fullName: CatLibrary.Cat<T,K>.Jump(T, K, Boolean)
+  nameWithType: Cat<T,K>.Jump(T, K, Boolean)
+  attributes:
+  - System.Diagnostics.ConditionalAttribute
+  syntax:
+  - lang: csharp
+    value: >-
+      [System.Diagnostics.Conditional("Debug")]
+
+      public void Jump (T ownType, K anotherOwnType, ref bool cheat);
+  monikers:
+  - cat-1.0
+  - cat-2.0
+  summary: This method have attribute above it.
+  metadata: {}
+uid: CatLibrary.Cat`2.Jump*
+commentId: Overload:CatLibrary.Cat`2.Jump
+namespace: CatLibrary
+name: Jump
+fullName: CatLibrary.Cat<T,K>.Jump
+nameWithType: Cat<T,K>.Jump
+assemblies:
+- CatLibrary
+devLangs:
+- csharp
+monikers:
+- cat-1.0
+- cat-2.0
+metadata:
+  api_name:
+  - CatLibrary.Cat`2.Jump
+  api_location:
+  - CatLibrary.dll
+  topic_type:
+  - apiref
+  api_type:
+  - Assembly
+  f1_keywords:
+  - CatLibrary.Cat`2.Jump
+  - CatLibrary::Cat`2::Jump
+  helpviewer_keywords:
+  - Cat<T,K>.Jump method [.NET]
+  - Jump method [.NET], class Cat<T,K>
+  - Cat<T,K>.Jump(T, K, Boolean) method [.NET]
+  - Jump(T, K, Boolean) method [.NET], class Cat<T,K>

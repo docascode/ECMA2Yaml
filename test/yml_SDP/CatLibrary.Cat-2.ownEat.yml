@@ -1,0 +1,41 @@
+### YamlMime:NetMember
+type: event
+members:
+- uid: CatLibrary.Cat`2.ownEat
+  commentId: E:CatLibrary.Cat`2.ownEat
+  name: ownEat
+  fullName: CatLibrary.Cat<T,K>.ownEat
+  nameWithType: Cat<T,K>.ownEat
+  syntax:
+  - lang: csharp
+    value: public event EventHandler ownEat;
+  monikers:
+  - cat-1.0
+  - cat-2.0
+  summary: Eat event of this cat
+  metadata: {}
+namespace: CatLibrary
+assemblies:
+- CatLibrary
+devLangs:
+- csharp
+monikers:
+- cat-1.0
+- cat-2.0
+metadata:
+  api_name:
+  - CatLibrary.Cat`2.ownEat
+  - CatLibrary.Cat`2.add_ownEat
+  - CatLibrary.Cat`2.remove_ownEat
+  api_location:
+  - CatLibrary.dll
+  topic_type:
+  - apiref
+  api_type:
+  - Assembly
+  f1_keywords:
+  - CatLibrary.Cat`2.ownEat
+  - CatLibrary::Cat`2::ownEat
+  helpviewer_keywords:
+  - Cat<T,K>.ownEat event [.NET]
+  - ownEat event [.NET], class Cat<T,K>

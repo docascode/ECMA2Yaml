@@ -1,0 +1,53 @@
+### YamlMime:NetMember
+type: property
+members:
+- returns:
+    description: Cat's name.
+    type: <xref href="System.String?alt=System.String&text=String" data-throw-if-not-resolved="True"/>
+  parameters:
+  - name: a
+    description: Cat's number.
+    type: <xref href="System.Int32?alt=System.Int32&text=Int32" data-throw-if-not-resolved="True"/>
+  implements:
+  - <xref href="CatLibrary.IAnimal.Item(System.Int32)?alt=CatLibrary.IAnimal.Item(System.Int32)&text=Item%5BInt32%5D" data-throw-if-not-resolved="True"/>
+  uid: CatLibrary.Cat`2.CatLibrary#IAnimal#Item(System.Int32)
+  commentId: P:CatLibrary.Cat`2.CatLibrary#IAnimal#Item(System.Int32)
+  name: IAnimal.Item[Int32]
+  fullName: CatLibrary.Cat<T,K>.CatLibrary.IAnimal.Item[Int32]
+  nameWithType: Cat<T,K>.IAnimal.Item[Int32]
+  syntax:
+  - lang: csharp
+    value: string CatLibrary.IAnimal.Item[int a] { get; }
+  monikers:
+  - cat-1.0
+  - cat-2.0
+  summary: EII index.
+  metadata: {}
+uid: CatLibrary.Cat`2.CatLibrary#IAnimal#Item*
+commentId: Overload:CatLibrary.Cat`2.CatLibrary#IAnimal#Item
+namespace: CatLibrary
+name: IAnimal.Item[Int32]
+fullName: CatLibrary.Cat<T,K>.CatLibrary.IAnimal.Item[Int32]
+nameWithType: Cat<T,K>.IAnimal.Item[Int32]
+assemblies:
+- CatLibrary
+devLangs:
+- csharp
+monikers:
+- cat-1.0
+- cat-2.0
+metadata:
+  api_name:
+  - CatLibrary.Cat`2.CatLibrary.IAnimal.Item
+  - CatLibrary.Cat`2.CatLibrary.IAnimal.get_Item
+  api_location:
+  - CatLibrary.dll
+  topic_type:
+  - apiref
+  api_type:
+  - Assembly
+  f1_keywords:
+  - CatLibrary.Cat`2.CatLibrary#IAnimal#Item
+  - CatLibrary::Cat`2::CatLibrary#IAnimal#Item
+  helpviewer_keywords:
+  - IAnimal.Item[Int32] explicitly implemented property [.NET]

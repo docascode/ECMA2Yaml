@@ -1,0 +1,41 @@
+### YamlMime:NetMember
+type: event
+members:
+- uid: CatLibrary.ICat.eat
+  commentId: E:CatLibrary.ICat.eat
+  name: eat
+  fullName: CatLibrary.ICat.eat
+  nameWithType: ICat.eat
+  syntax:
+  - lang: csharp
+    value: event EventHandler eat;
+  monikers:
+  - cat-1.0
+  - cat-2.0
+  summary: eat event of cat. Every cat must implement this event.
+  metadata: {}
+namespace: CatLibrary
+assemblies:
+- CatLibrary
+devLangs:
+- csharp
+monikers:
+- cat-1.0
+- cat-2.0
+metadata:
+  api_name:
+  - CatLibrary.ICat.eat
+  - CatLibrary.ICat.add_eat
+  - CatLibrary.ICat.remove_eat
+  api_location:
+  - CatLibrary.dll
+  topic_type:
+  - apiref
+  api_type:
+  - Assembly
+  f1_keywords:
+  - CatLibrary.ICat.eat
+  - CatLibrary::ICat::eat
+  helpviewer_keywords:
+  - ICat.eat event [.NET]
+  - eat event [.NET], interface ICat

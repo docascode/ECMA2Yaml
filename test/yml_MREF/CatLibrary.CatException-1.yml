@@ -1,0 +1,87 @@
+### YamlMime:ManagedReference
+items:
+- uid: CatLibrary.CatException`1
+  commentId: T:CatLibrary.CatException`1
+  id: CatException`1
+  children:
+  - CatLibrary.CatException`1.#ctor
+  langs:
+  - csharp
+  name: CatException<T>
+  nameWithType: CatLibrary.CatException<T>
+  fullName: CatLibrary.CatException<T>
+  type: Class
+  assemblies:
+  - CatLibrary
+  namespace: CatLibrary
+  syntax:
+    content: 'public class CatException<T> : Exception'
+    typeParameters:
+    - id: T
+      description: ''
+    content.csharp: 'public class CatException<T> : Exception'
+  inheritance:
+  - System.Exception
+  implements: []
+  inheritedMembers: []
+  modifiers.csharp:
+  - public
+  monikers:
+  - cat-1.0
+  - cat-2.0
+- uid: CatLibrary.CatException`1.#ctor
+  commentId: M:CatLibrary.CatException`1.#ctor
+  id: '#ctor'
+  parent: CatLibrary.CatException`1
+  langs:
+  - csharp
+  name: CatException<T>()
+  nameWithType: CatException<T>.CatException<T>()
+  fullName: CatLibrary.CatException<T>.CatException<T>()
+  type: Constructor
+  assemblies:
+  - CatLibrary
+  namespace: CatLibrary
+  syntax:
+    content: public CatException ();
+    parameters: []
+    content.csharp: public CatException ();
+  overload: CatLibrary.CatException`1.#ctor*
+  exceptions: []
+  modifiers.csharp:
+  - public
+  monikers:
+  - cat-1.0
+  - cat-2.0
+references:
+- uid: CatLibrary
+  commentId: N:CatLibrary
+  isExternal: false
+  name: CatLibrary
+  nameWithType: CatLibrary
+  fullName: CatLibrary
+  type: namespace
+- uid: System.Exception
+  parent: System
+  isExternal: true
+  name: Exception
+  nameWithType: Exception
+  fullName: System.Exception
+- uid: CatLibrary.CatException`1.#ctor
+  parent: CatLibrary.CatException`1
+  isExternal: false
+  name: CatException<T>()
+  nameWithType: CatException<T>.CatException<T>()
+  fullName: CatLibrary.CatException<T>.CatException<T>()
+  type: constructor
+- uid: CatLibrary.CatException`1.#ctor*
+  commentId: Overload:CatLibrary.CatException`1.#ctor
+  parent: CatLibrary.CatException`1
+  isExternal: false
+  name: CatException<T>
+  nameWithType: CatException<T>.CatException<T>
+  fullName: CatLibrary.CatException<T>.CatException
+  monikers:
+  - cat-1.0
+  - cat-2.0
+  type: constructor

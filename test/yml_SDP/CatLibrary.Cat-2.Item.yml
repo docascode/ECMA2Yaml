@@ -1,0 +1,53 @@
+### YamlMime:NetMember
+type: property
+members:
+- returns:
+    description: Cat's number.
+    type: <xref href="System.Int32?alt=System.Int32&text=Int32" data-throw-if-not-resolved="True"/>
+  parameters:
+  - name: a
+    description: Cat's name.
+    type: <xref href="System.String?alt=System.String&text=String" data-throw-if-not-resolved="True"/>
+  uid: CatLibrary.Cat`2.Item(System.String)
+  commentId: P:CatLibrary.Cat`2.Item(System.String)
+  name: Item[String]
+  fullName: CatLibrary.Cat<T,K>.Item[String]
+  nameWithType: Cat<T,K>.Item[String]
+  syntax:
+  - lang: csharp
+    value: public int this[string a] { protected get; set; }
+  monikers:
+  - cat-1.0
+  - cat-2.0
+  summary: This is index property of Cat. You can see that the visibility is different between <code data-dev-comment-type="c">get</code> and <code data-dev-comment-type="c">set</code> method.
+  metadata: {}
+uid: CatLibrary.Cat`2.Item*
+commentId: Overload:CatLibrary.Cat`2.Item
+namespace: CatLibrary
+name: Item[String]
+fullName: CatLibrary.Cat<T,K>.Item[String]
+nameWithType: Cat<T,K>.Item[String]
+assemblies:
+- CatLibrary
+devLangs:
+- csharp
+monikers:
+- cat-1.0
+- cat-2.0
+metadata:
+  api_name:
+  - CatLibrary.Cat`2.Item
+  - CatLibrary.Cat`2.get_Item
+  - CatLibrary.Cat`2.set_Item
+  api_location:
+  - CatLibrary.dll
+  topic_type:
+  - apiref
+  api_type:
+  - Assembly
+  f1_keywords:
+  - CatLibrary.Cat`2.Item
+  - CatLibrary::Cat`2::Item
+  helpviewer_keywords:
+  - Cat<T,K>.Item[String] property [.NET]
+  - Item[String] property [.NET], class Cat<T,K>

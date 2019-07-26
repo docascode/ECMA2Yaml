@@ -1,0 +1,58 @@
+### YamlMime:NetType
+type: interface
+derivedClasses:
+- CatLibrary.Cat`2
+- CatLibrary.ICat
+methods:
+- uid: CatLibrary.IAnimal.Eat
+  monikers:
+  - cat-1.0
+  - cat-2.0
+- uid: CatLibrary.IAnimal.Eat(System.String)
+  monikers:
+  - cat-1.0
+  - cat-2.0
+- uid: CatLibrary.IAnimal.Eat``1(``0)
+  monikers:
+  - cat-1.0
+  - cat-2.0
+properties:
+- uid: CatLibrary.IAnimal.Item(System.Int32)
+  monikers:
+  - cat-1.0
+  - cat-2.0
+- uid: CatLibrary.IAnimal.Name
+  monikers:
+  - cat-1.0
+  - cat-2.0
+uid: CatLibrary.IAnimal
+commentId: T:CatLibrary.IAnimal
+namespace: CatLibrary
+name: IAnimal
+fullName: CatLibrary.IAnimal
+nameWithType: CatLibrary.IAnimal
+assemblies:
+- CatLibrary
+syntax:
+- lang: csharp
+  value: public interface IAnimal
+devLangs:
+- csharp
+monikers:
+- cat-1.0
+- cat-2.0
+summary: This is <strong>basic</strong> interface of all animal.
+metadata:
+  api_name:
+  - CatLibrary.IAnimal
+  api_location:
+  - CatLibrary.dll
+  topic_type:
+  - apiref
+  api_type:
+  - Assembly
+  f1_keywords:
+  - CatLibrary.IAnimal
+  - CatLibrary::IAnimal
+  helpviewer_keywords:
+  - CatLibrary.IAnimal interface [.NET]

@@ -1,0 +1,25 @@
+### YamlMime:ManagedReference
+items:
+- uid: MRef.Demo.Enumeration
+  commentId: N:MRef.Demo.Enumeration
+  id: MRef.Demo.Enumeration
+  children:
+  - MRef.Demo.Enumeration.ColorType
+  langs:
+  - csharp
+  name: MRef.Demo.Enumeration
+  nameWithType: MRef.Demo.Enumeration
+  fullName: MRef.Demo.Enumeration
+  type: Namespace
+  monikers:
+  - cat-1.0
+  - cat-2.0
+references:
+- uid: MRef.Demo.Enumeration.ColorType
+  commentId: T:MRef.Demo.Enumeration.ColorType
+  parent: MRef.Demo.Enumeration
+  isExternal: false
+  name: ColorType
+  nameWithType: MRef.Demo.Enumeration.ColorType
+  fullName: MRef.Demo.Enumeration.ColorType
+  type: enum

@@ -1,0 +1,54 @@
+### YamlMime:NetDelegate
+typeParameters:
+- description: Fake para
+  name: T
+returns:
+  description: Return a fake number to confuse you.
+  type: <xref href="System.Int32?alt=System.Int32&text=Int32" data-throw-if-not-resolved="True"/>
+parameters:
+- name: num
+  description: Fake para
+  type: <xref href="System.Int64?alt=System.Int64&text=Int64" data-throw-if-not-resolved="True"/>
+- name: name
+  description: Fake para
+  type: <xref href="System.String?alt=System.String&text=String" data-throw-if-not-resolved="True"/>
+- name: scores
+  description: Optional Parameter.
+  type: <xref href="System.Object?alt=System.Object&text=Object" data-throw-if-not-resolved="True"/>[]
+inheritances:
+- <xref href="System.Delegate" data-throw-if-not-resolved="True"/>
+uid: CatLibrary.FakeDelegate`1
+commentId: T:CatLibrary.FakeDelegate`1
+namespace: CatLibrary
+name: FakeDelegate<T>
+fullName: CatLibrary.FakeDelegate<T>
+nameWithType: CatLibrary.FakeDelegate<T>
+assemblies:
+- CatLibrary
+syntax:
+- lang: csharp
+  value: public delegate int FakeDelegate<T>(long num, string name, params object[] scores);
+devLangs:
+- csharp
+monikers:
+- cat-1.0
+- cat-2.0
+summary: Fake delegate
+metadata:
+  api_name:
+  - CatLibrary.FakeDelegate`1
+  - CatLibrary.FakeDelegate`1..ctor
+  - CatLibrary.FakeDelegate`1.Invoke
+  - CatLibrary.FakeDelegate`1.BeginInvoke
+  - CatLibrary.FakeDelegate`1.EndInvoke
+  api_location:
+  - CatLibrary.dll
+  topic_type:
+  - apiref
+  api_type:
+  - Assembly
+  f1_keywords:
+  - CatLibrary.FakeDelegate`1
+  - CatLibrary::FakeDelegate`1
+  helpviewer_keywords:
+  - CatLibrary.FakeDelegate<T> delegate [.NET]

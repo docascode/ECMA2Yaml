@@ -1,0 +1,89 @@
+### YamlMime:NetMember
+type: constructor
+members:
+- uid: CatLibrary.Cat`2.#ctor
+  commentId: M:CatLibrary.Cat`2.#ctor
+  name: Cat<T,K>()
+  fullName: CatLibrary.Cat<T,K>.Cat<T,K>()
+  nameWithType: Cat<T,K>.Cat<T,K>()
+  syntax:
+  - lang: csharp
+    value: public Cat ();
+  monikers:
+  - cat-1.0
+  - cat-2.0
+  summary: Default constructor.
+  metadata: {}
+- parameters:
+  - name: ownType
+    description: This parameter type defined by class.
+    type: T
+  uid: CatLibrary.Cat`2.#ctor(`0)
+  commentId: M:CatLibrary.Cat`2.#ctor(`0)
+  name: Cat<T,K>(T)
+  fullName: CatLibrary.Cat<T,K>.Cat<T,K>(T)
+  nameWithType: Cat<T,K>.Cat<T,K>(T)
+  syntax:
+  - lang: csharp
+    value: public Cat (T ownType);
+  monikers:
+  - cat-1.0
+  - cat-2.0
+  summary: Constructor with one generic parameter.
+  metadata: {}
+- parameters:
+  - name: nickName
+    description: it's string type.
+    type: <xref href="System.String?alt=System.String&text=String" data-throw-if-not-resolved="True"/>
+  - name: age
+    description: It's an out and ref parameter.
+    type: <xref href="System.Int32?alt=System.Int32&text=Int32" data-throw-if-not-resolved="True"/>
+  - name: realName
+    description: It's an out paramter.
+    type: <xref href="System.String?alt=System.String&text=String" data-throw-if-not-resolved="True"/>
+  - name: isHealthy
+    description: It's an in parameter.
+    type: <xref href="System.Boolean?alt=System.Boolean&text=Boolean" data-throw-if-not-resolved="True"/>
+  uid: CatLibrary.Cat`2.#ctor(System.String,System.Int32@,System.String,System.Boolean)
+  commentId: M:CatLibrary.Cat`2.#ctor(System.String,System.Int32@,System.String,System.Boolean)
+  name: Cat<T,K>(String, Int32, String, Boolean)
+  fullName: CatLibrary.Cat<T,K>.Cat<T,K>(String, Int32, String, Boolean)
+  nameWithType: Cat<T,K>.Cat<T,K>(String, Int32, String, Boolean)
+  syntax:
+  - lang: csharp
+    value: public Cat (string nickName, out int age, string realName, bool isHealthy);
+  monikers:
+  - cat-1.0
+  - cat-2.0
+  summary: It's a complex constructor. The parameter will have some attributes.
+  metadata: {}
+uid: CatLibrary.Cat`2.#ctor*
+commentId: Overload:CatLibrary.Cat`2.#ctor
+namespace: CatLibrary
+name: Cat<T,K>
+fullName: CatLibrary.Cat<T,K>.Cat
+nameWithType: Cat<T,K>.Cat<T,K>
+assemblies:
+- CatLibrary
+devLangs:
+- csharp
+monikers:
+- cat-1.0
+- cat-2.0
+metadata:
+  api_name:
+  - CatLibrary.Cat`2..ctor
+  api_location:
+  - CatLibrary.dll
+  topic_type:
+  - apiref
+  api_type:
+  - Assembly
+  f1_keywords:
+  - CatLibrary.Cat`2.#ctor
+  - CatLibrary::Cat`2::#ctor
+  helpviewer_keywords:
+  - Cat<T,K> class [.NET], constructors
+  - Cat<T,K>() class [.NET], constructors
+  - Cat<T,K>(T) class [.NET], constructors
+  - Cat<T,K>(String, Int32, String, Boolean) class [.NET], constructors

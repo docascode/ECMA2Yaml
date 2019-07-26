@@ -1,0 +1,41 @@
+### YamlMime:NetMember
+type: event
+members:
+- implements:
+  - <xref href="CatLibrary.ICat.eat?alt=CatLibrary.ICat.eat&text=eat" data-throw-if-not-resolved="True"/>
+  uid: CatLibrary.Cat`2.CatLibrary#ICat#eat
+  commentId: E:CatLibrary.Cat`2.CatLibrary#ICat#eat
+  name: ICat.eat
+  fullName: CatLibrary.Cat<T,K>.CatLibrary.ICat.eat
+  nameWithType: Cat<T,K>.ICat.eat
+  syntax:
+  - lang: csharp
+    value: event EventHandler CatLibrary.ICat.eat;
+  monikers:
+  - cat-1.0
+  - cat-2.0
+  metadata: {}
+namespace: CatLibrary
+assemblies:
+- CatLibrary
+devLangs:
+- csharp
+monikers:
+- cat-1.0
+- cat-2.0
+metadata:
+  api_name:
+  - CatLibrary.Cat`2.CatLibrary.ICat.eat
+  - CatLibrary.Cat`2.CatLibrary.ICat.add_eat
+  - CatLibrary.Cat`2.CatLibrary.ICat.remove_eat
+  api_location:
+  - CatLibrary.dll
+  topic_type:
+  - apiref
+  api_type:
+  - Assembly
+  f1_keywords:
+  - CatLibrary.Cat`2.CatLibrary#ICat#eat
+  - CatLibrary::Cat`2::CatLibrary#ICat#eat
+  helpviewer_keywords:
+  - ICat.eat explicitly implemented event [.NET]
