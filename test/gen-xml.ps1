@@ -15,6 +15,7 @@ function DownloadAndUnzip
 }
 
 $scriptPath = split-path -parent $MyInvocation.MyCommand.Definition
+$msbuildPath = & "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere" -latest -requires Microsoft.Component.MSBuild -find MSBuild\**\Bin\MSBuild.exe
 
 # Download URLs
 $mdocUrl = "https://github.com/mono/api-doc-tools/releases/download/mdoc-5.7.4.9/mdoc-5.7.4.9.zip"
@@ -41,10 +42,10 @@ if (-not (Test-Path $nugetOutput)) {
 
 # Test Library Building
 pushd CatLibraryV1
-msbuild CatLibrary.sln /p:Configuration=Release
+& $msbuildPath CatLibrary.sln /p:Configuration=Release
 popd
 pushd CatLibraryV2
-msbuild CatLibrary.sln /p:Configuration=Release
+& $msbuildPath CatLibrary.sln /p:Configuration=Release
 popd
 
 New-Item frameworks\CatLibrary\cat-1.0 -Type Directory -Force

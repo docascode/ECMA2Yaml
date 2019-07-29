@@ -2,6 +2,9 @@
   <TypeSignature Language="C#" Value="public enum ColorType" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi sealed ColorType extends System.Enum" />
   <TypeSignature Language="DocId" Value="T:MRef.Demo.Enumeration.ColorType" />
+  <TypeSignature Language="VB.NET" Value="Public Enum ColorType" />
+  <TypeSignature Language="C++ CLI" Value="public enum class ColorType" />
+  <TypeSignature Language="F#" Value="type ColorType = " />
   <AssemblyInfo>
     <AssemblyName>CatLibrary</AssemblyName>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
@@ -36,6 +39,9 @@
       <MemberSignature Language="C#" Value="Blue" />
       <MemberSignature Language="ILAsm" Value=".field public static literal valuetype MRef.Demo.Enumeration.ColorType Blue = int32(1)" />
       <MemberSignature Language="DocId" Value="F:MRef.Demo.Enumeration.ColorType.Blue" />
+      <MemberSignature Language="VB.NET" Value="Blue" />
+      <MemberSignature Language="C++ CLI" Value="Blue" />
+      <MemberSignature Language="F#" Value="Blue = 1" Usage="MRef.Demo.Enumeration.ColorType.Blue" />
       <MemberType>Field</MemberType>
       <AssemblyInfo>
         <AssemblyName>CatLibrary</AssemblyName>
@@ -55,6 +61,9 @@
       <MemberSignature Language="C#" Value="Red" />
       <MemberSignature Language="ILAsm" Value=".field public static literal valuetype MRef.Demo.Enumeration.ColorType Red = int32(0)" />
       <MemberSignature Language="DocId" Value="F:MRef.Demo.Enumeration.ColorType.Red" />
+      <MemberSignature Language="VB.NET" Value="Red" />
+      <MemberSignature Language="C++ CLI" Value="Red" />
+      <MemberSignature Language="F#" Value="Red = 0" Usage="MRef.Demo.Enumeration.ColorType.Red" />
       <MemberType>Field</MemberType>
       <AssemblyInfo>
         <AssemblyName>CatLibrary</AssemblyName>
@@ -74,6 +83,9 @@
       <MemberSignature Language="C#" Value="Yellow" />
       <MemberSignature Language="ILAsm" Value=".field public static literal valuetype MRef.Demo.Enumeration.ColorType Yellow = int32(2)" />
       <MemberSignature Language="DocId" Value="F:MRef.Demo.Enumeration.ColorType.Yellow" />
+      <MemberSignature Language="VB.NET" Value="Yellow" />
+      <MemberSignature Language="C++ CLI" Value="Yellow" />
+      <MemberSignature Language="F#" Value="Yellow = 2" Usage="MRef.Demo.Enumeration.ColorType.Yellow" />
       <MemberType>Field</MemberType>
       <AssemblyInfo>
         <AssemblyName>CatLibrary</AssemblyName>

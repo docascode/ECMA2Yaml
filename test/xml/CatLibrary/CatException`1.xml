@@ -2,6 +2,9 @@
   <TypeSignature Language="C#" Value="public class CatException&lt;T&gt; : Exception" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit CatException`1&lt;T&gt; extends System.Exception" />
   <TypeSignature Language="DocId" Value="T:CatLibrary.CatException`1" />
+  <TypeSignature Language="VB.NET" Value="Public Class CatException(Of T)&#xA;Inherits Exception" />
+  <TypeSignature Language="C++ CLI" Value="generic &lt;typename T&gt;&#xA;public ref class CatException : Exception" />
+  <TypeSignature Language="F#" Value="type CatException&lt;'T&gt; = class&#xA;    inherit Exception" />
   <AssemblyInfo>
     <AssemblyName>CatLibrary</AssemblyName>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
@@ -23,6 +26,8 @@
       <MemberSignature Language="C#" Value="public CatException ();" />
       <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor() cil managed" />
       <MemberSignature Language="DocId" Value="M:CatLibrary.CatException`1.#ctor" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New ()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; CatException();" />
       <MemberType>Constructor</MemberType>
       <AssemblyInfo>
         <AssemblyName>CatLibrary</AssemblyName>
