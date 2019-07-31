@@ -14,8 +14,18 @@ members:
   fullName: CatLibrary.Cat<T,K>.Item[String]
   nameWithType: Cat<T,K>.Item[String]
   syntax:
+  - lang: cpp
+    value: >-
+      public:  property int default[System::String ^] {  protected:
+
+      int get(System::String ^ a); public:
+       void set(System::String ^ a, int value); };
   - lang: csharp
     value: public int this[string a] { protected get; set; }
+  - lang: fsharp
+    value: 'member this.Item(string) : int with get, set'
+  - lang: vb
+    value: Default Public Property Item(a As String) As Integer
   monikers:
   - cat-1.0
   - cat-2.0
@@ -30,7 +40,10 @@ nameWithType: Cat<T,K>.Item[String]
 assemblies:
 - CatLibrary
 devLangs:
+- cpp
 - csharp
+- fsharp
+- vb
 monikers:
 - cat-1.0
 - cat-2.0

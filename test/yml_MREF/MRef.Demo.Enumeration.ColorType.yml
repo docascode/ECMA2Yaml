@@ -8,7 +8,10 @@ items:
   - MRef.Demo.Enumeration.ColorType.Red
   - MRef.Demo.Enumeration.ColorType.Yellow
   langs:
+  - cpp
   - csharp
+  - fsharp
+  - vb
   name: ColorType
   nameWithType: MRef.Demo.Enumeration.ColorType
   fullName: MRef.Demo.Enumeration.ColorType
@@ -25,7 +28,10 @@ items:
     <ul></ul>
   syntax:
     content: public enum ColorType
+    content.cpp: public enum class ColorType
     content.csharp: public enum ColorType
+    content.fsharp: 'type ColorType = '
+    content.vb: Public Enum ColorType
   inheritance:
   - System.Enum
   modifiers.csharp:
@@ -38,7 +44,10 @@ items:
   id: Blue
   parent: MRef.Demo.Enumeration.ColorType
   langs:
+  - cpp
   - csharp
+  - fsharp
+  - vb
   name: Blue
   nameWithType: ColorType.Blue
   fullName: MRef.Demo.Enumeration.ColorType.Blue
@@ -52,7 +61,10 @@ items:
     return:
       type: MRef.Demo.Enumeration.ColorType
       description: ''
+    content.cpp: Blue
     content.csharp: Blue
+    content.fsharp: Blue = 1
+    content.vb: Blue
   exceptions: []
   literalValue: "1"
   monikers:
@@ -63,7 +75,10 @@ items:
   id: Red
   parent: MRef.Demo.Enumeration.ColorType
   langs:
+  - cpp
   - csharp
+  - fsharp
+  - vb
   name: Red
   nameWithType: ColorType.Red
   fullName: MRef.Demo.Enumeration.ColorType.Red
@@ -77,7 +92,10 @@ items:
     return:
       type: MRef.Demo.Enumeration.ColorType
       description: ''
+    content.cpp: Red
     content.csharp: Red
+    content.fsharp: Red = 0
+    content.vb: Red
   exceptions: []
   literalValue: "0"
   monikers:
@@ -88,7 +106,10 @@ items:
   id: Yellow
   parent: MRef.Demo.Enumeration.ColorType
   langs:
+  - cpp
   - csharp
+  - fsharp
+  - vb
   name: Yellow
   nameWithType: ColorType.Yellow
   fullName: MRef.Demo.Enumeration.ColorType.Yellow
@@ -102,7 +123,10 @@ items:
     return:
       type: MRef.Demo.Enumeration.ColorType
       description: ''
+    content.cpp: Yellow
     content.csharp: Yellow
+    content.fsharp: Yellow = 2
+    content.vb: Yellow
   exceptions: []
   literalValue: "2"
   monikers:

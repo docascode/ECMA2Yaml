@@ -17,8 +17,14 @@ members:
   fullName: CatLibrary.Cat<T,K>.GetTailLength(Int32*, Object[])
   nameWithType: Cat<T,K>.GetTailLength(Int32*, Object[])
   syntax:
+  - lang: cpp
+    value: >-
+      public:
+       long GetTailLength(int* catName, ... cli::array <System::Object ^> ^ parameters);
   - lang: csharp
     value: public long GetTailLength (int* catName, params object[] parameters);
+  - lang: fsharp
+    value: 'member this.GetTailLength : nativeptr<int> * obj[] -> int64'
   monikers:
   - cat-1.0
   - cat-2.0
@@ -36,7 +42,9 @@ nameWithType: Cat<T,K>.GetTailLength
 assemblies:
 - CatLibrary
 devLangs:
+- cpp
 - csharp
+- fsharp
 monikers:
 - cat-1.0
 - cat-2.0

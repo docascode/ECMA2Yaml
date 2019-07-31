@@ -11,8 +11,16 @@ members:
   fullName: CatLibrary.TomFromBaseClass.Jerry.TomFromBaseClass.Jerry(ColorType)
   nameWithType: TomFromBaseClass.Jerry.TomFromBaseClass.Jerry(ColorType)
   syntax:
+  - lang: cpp
+    value: >-
+      public:
+       Jerry(MRef::Demo::Enumeration::ColorType color);
   - lang: csharp
     value: public Jerry (MRef.Demo.Enumeration.ColorType color);
+  - lang: fsharp
+    value: 'new CatLibrary.TomFromBaseClass.Jerry : MRef.Demo.Enumeration.ColorType -> CatLibrary.TomFromBaseClass.Jerry'
+  - lang: vb
+    value: Public Sub New (color As ColorType)
   monikers:
   - cat-2.0
   summary: Jerry has different <xref data-throw-if-not-resolved="true" uid="MRef.Demo.Enumeration.ColorType"></xref>.
@@ -26,7 +34,10 @@ nameWithType: TomFromBaseClass.Jerry.TomFromBaseClass.Jerry
 assemblies:
 - CatLibrary
 devLangs:
+- cpp
 - csharp
+- fsharp
+- vb
 monikers:
 - cat-2.0
 metadata:

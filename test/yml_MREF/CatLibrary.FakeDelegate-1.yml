@@ -4,7 +4,10 @@ items:
   commentId: T:CatLibrary.FakeDelegate`1
   id: FakeDelegate`1
   langs:
+  - cpp
   - csharp
+  - fsharp
+  - vb
   name: FakeDelegate<T>
   nameWithType: CatLibrary.FakeDelegate<T>
   fullName: CatLibrary.FakeDelegate<T>
@@ -31,7 +34,13 @@ items:
     return:
       type: System.Int32
       description: Return a fake number to confuse you.
+    content.cpp: >-
+      generic <typename T>
+
+      public delegate int FakeDelegate(long num, System::String ^ name, ... cli::array <System::Object ^> ^ scores);
     content.csharp: public delegate int FakeDelegate<T>(long num, string name, params object[] scores);
+    content.fsharp: type FakeDelegate<'T> = delegate of int64 * string * obj[] -> int
+    content.vb: 'Public Delegate Function FakeDelegate(Of T)(num As Long, name As String, ParamArray scores As Object()) As Integer '
   inheritance:
   - System.Delegate
   modifiers.csharp:

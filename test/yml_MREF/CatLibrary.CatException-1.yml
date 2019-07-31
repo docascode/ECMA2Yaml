@@ -6,7 +6,10 @@ items:
   children:
   - CatLibrary.CatException`1.#ctor
   langs:
+  - cpp
   - csharp
+  - fsharp
+  - vb
   name: CatException<T>
   nameWithType: CatLibrary.CatException<T>
   fullName: CatLibrary.CatException<T>
@@ -19,7 +22,18 @@ items:
     typeParameters:
     - id: T
       description: ''
+    content.cpp: >-
+      generic <typename T>
+
+      public ref class CatException : Exception
     content.csharp: 'public class CatException<T> : Exception'
+    content.fsharp: >-
+      type CatException<'T> = class
+          inherit Exception
+    content.vb: >-
+      Public Class CatException(Of T)
+
+      Inherits Exception
   inheritance:
   - System.Exception
   implements: []
@@ -34,7 +48,9 @@ items:
   id: '#ctor'
   parent: CatLibrary.CatException`1
   langs:
+  - cpp
   - csharp
+  - vb
   name: CatException<T>()
   nameWithType: CatException<T>.CatException<T>()
   fullName: CatLibrary.CatException<T>.CatException<T>()
@@ -45,7 +61,11 @@ items:
   syntax:
     content: public CatException ();
     parameters: []
+    content.cpp: >-
+      public:
+       CatException();
     content.csharp: public CatException ();
+    content.vb: Public Sub New ()
   overload: CatLibrary.CatException`1.#ctor*
   exceptions: []
   modifiers.csharp:

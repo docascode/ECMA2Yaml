@@ -14,8 +14,16 @@ members:
   fullName: CatLibrary.Cat<T,K>.Explicit(Cat<T,K> to Tom)
   nameWithType: Cat<T,K>.Explicit(Cat<T,K> to Tom)
   syntax:
+  - lang: cpp
+    value: >-
+      public:
+       static explicit operator CatLibrary::Tom ^(CatLibrary::Cat<T, K> ^ src);
   - lang: csharp
     value: public static explicit operator CatLibrary.Tom (CatLibrary.Cat<T,K> src);
+  - lang: fsharp
+    value: "static member op_Explicit : CatLibrary.Cat<'T, 'K (requires 'T : null and 'T : (new : unit -> 'T) and 'K : struct)> -> CatLibrary.Tom"
+  - lang: vb
+    value: Public Shared Narrowing Operator CType (src As Cat(Of T, K)) As Tom
   monikers:
   - cat-1.0
   - cat-2.0
@@ -33,7 +41,10 @@ nameWithType: Cat<T,K>.Explicit
 assemblies:
 - CatLibrary
 devLangs:
+- cpp
 - csharp
+- fsharp
+- vb
 monikers:
 - cat-1.0
 - cat-2.0

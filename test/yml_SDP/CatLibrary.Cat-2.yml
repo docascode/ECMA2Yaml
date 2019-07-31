@@ -123,13 +123,30 @@ assemblies:
 attributes:
 - System.SerializableAttribute
 syntax:
+- lang: cpp
+  value: >-
+    generic <typename T, typename K>
+     where T : class, gcnew() where K : value classpublic ref class Cat : CatLibrary::ICat
 - lang: csharp
   value: >-
     [System.Serializable]
 
     public class Cat<T,K> : CatLibrary.ICat where T : class, new() where K : struct
+- lang: fsharp
+  value: >-
+    type Cat<'T, 'K (requires 'T : null and 'T : (new : unit -> 'T) and 'K : struct)> = class
+        interface ICat
+        interface IAnimal
+- lang: vb
+  value: >-
+    Public Class Cat(Of T, K)
+
+    Implements ICat
 devLangs:
+- cpp
 - csharp
+- fsharp
+- vb
 monikers:
 - cat-1.0
 - cat-2.0

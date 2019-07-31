@@ -23,10 +23,19 @@ nameWithType: CatLibrary.Tom
 assemblies:
 - CatLibrary
 syntax:
+- lang: cpp
+  value: public ref class Tom
 - lang: csharp
   value: public class Tom
+- lang: fsharp
+  value: type Tom = class
+- lang: vb
+  value: Public Class Tom
 devLangs:
+- cpp
 - csharp
+- fsharp
+- vb
 monikers:
 - cat-1.0
 - cat-2.0

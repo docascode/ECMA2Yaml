@@ -14,8 +14,16 @@ members:
   fullName: CatLibrary.Cat<T,K>.Equals(Object)
   nameWithType: Cat<T,K>.Equals(Object)
   syntax:
+  - lang: cpp
+    value: >-
+      public:
+       override bool Equals(System::Object ^ obj);
   - lang: csharp
     value: public override bool Equals (object obj);
+  - lang: fsharp
+    value: 'override this.Equals : obj -> bool'
+  - lang: vb
+    value: Public Overrides Function Equals (obj As Object) As Boolean
   monikers:
   - cat-1.0
   - cat-2.0
@@ -30,7 +38,10 @@ nameWithType: Cat<T,K>.Equals
 assemblies:
 - CatLibrary
 devLangs:
+- cpp
 - csharp
+- fsharp
+- vb
 monikers:
 - cat-1.0
 - cat-2.0

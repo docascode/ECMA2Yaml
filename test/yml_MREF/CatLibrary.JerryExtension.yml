@@ -6,7 +6,10 @@ items:
   children:
   - CatLibrary.JerryExtension.PlayWith(CatLibrary.TomFromBaseClass.Jerry,CatLibrary.Tom)
   langs:
+  - cpp
   - csharp
+  - fsharp
+  - vb
   name: JerryExtension
   nameWithType: CatLibrary.JerryExtension
   fullName: CatLibrary.JerryExtension
@@ -17,7 +20,10 @@ items:
   summary: This class extends <xref data-throw-if-not-resolved="true" uid="CatLibrary.TomFromBaseClass.Jerry"></xref>.
   syntax:
     content: public static class JerryExtension
+    content.cpp: public ref class JerryExtension abstract sealed
     content.csharp: public static class JerryExtension
+    content.fsharp: type JerryExtension = class
+    content.vb: Public Module JerryExtension
   inheritance:
   - System.Object
   implements: []
@@ -32,7 +38,9 @@ items:
   isExtensionMethod: true
   parent: CatLibrary.JerryExtension
   langs:
+  - cpp
   - csharp
+  - fsharp
   name: PlayWith(TomFromBaseClass+Jerry, Tom)
   nameWithType: JerryExtension.PlayWith(TomFromBaseClass+Jerry, Tom)
   fullName: CatLibrary.JerryExtension.PlayWith(TomFromBaseClass+Jerry, Tom)
@@ -50,7 +58,13 @@ items:
     - id: tom
       type: CatLibrary.Tom
       description: "\n        "
+    content.cpp: >-
+      public:
+
+      [System::Runtime::CompilerServices::Extension]
+       static void PlayWith(CatLibrary::TomFromBaseClass::Jerry ^ jerry, CatLibrary::Tom ^ tom);
     content.csharp: public static void PlayWith (this CatLibrary.TomFromBaseClass.Jerry jerry, CatLibrary.Tom tom);
+    content.fsharp: 'static member PlayWith : CatLibrary.TomFromBaseClass.Jerry * CatLibrary.Tom -> unit'
   overload: CatLibrary.JerryExtension.PlayWith*
   exceptions: []
   modifiers.csharp:

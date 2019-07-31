@@ -7,8 +7,14 @@ members:
   fullName: CatLibrary.CatException<T>.CatException<T>()
   nameWithType: CatException<T>.CatException<T>()
   syntax:
+  - lang: cpp
+    value: >-
+      public:
+       CatException();
   - lang: csharp
     value: public CatException ();
+  - lang: vb
+    value: Public Sub New ()
   monikers:
   - cat-1.0
   - cat-2.0
@@ -22,7 +28,9 @@ nameWithType: CatException<T>.CatException<T>
 assemblies:
 - CatLibrary
 devLangs:
+- cpp
 - csharp
+- vb
 monikers:
 - cat-1.0
 - cat-2.0

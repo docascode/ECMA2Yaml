@@ -7,8 +7,14 @@ members:
   fullName: CatLibrary.Cat<T,K>.Cat<T,K>()
   nameWithType: Cat<T,K>.Cat<T,K>()
   syntax:
+  - lang: cpp
+    value: >-
+      public:
+       Cat();
   - lang: csharp
     value: public Cat ();
+  - lang: vb
+    value: Public Sub New ()
   monikers:
   - cat-1.0
   - cat-2.0
@@ -24,8 +30,16 @@ members:
   fullName: CatLibrary.Cat<T,K>.Cat<T,K>(T)
   nameWithType: Cat<T,K>.Cat<T,K>(T)
   syntax:
+  - lang: cpp
+    value: >-
+      public:
+       Cat(T ownType);
   - lang: csharp
     value: public Cat (T ownType);
+  - lang: fsharp
+    value: "new CatLibrary.Cat<'T, 'K (requires 'T : null and 'T : (new : unit -> 'T) and 'K : struct)> : 'T -> CatLibrary.Cat<'T, 'K (requires 'T : null and 'T : (new : unit -> 'T) and 'K : struct)>"
+  - lang: vb
+    value: Public Sub New (ownType As T)
   monikers:
   - cat-1.0
   - cat-2.0
@@ -50,8 +64,16 @@ members:
   fullName: CatLibrary.Cat<T,K>.Cat<T,K>(String, Int32, String, Boolean)
   nameWithType: Cat<T,K>.Cat<T,K>(String, Int32, String, Boolean)
   syntax:
+  - lang: cpp
+    value: >-
+      public:
+       Cat(System::String ^ nickName, [Runtime::InteropServices::Out] int % age, System::String ^ realName, bool isHealthy);
   - lang: csharp
     value: public Cat (string nickName, out int age, string realName, bool isHealthy);
+  - lang: fsharp
+    value: "new CatLibrary.Cat<'T, 'K (requires 'T : null and 'T : (new : unit -> 'T) and 'K : struct)> : string *  * string * bool -> CatLibrary.Cat<'T, 'K (requires 'T : null and 'T : (new : unit -> 'T) and 'K : struct)>"
+  - lang: vb
+    value: Public Sub New (nickName As String, ByRef age As Integer, realName As String, isHealthy As Boolean)
   monikers:
   - cat-1.0
   - cat-2.0
@@ -66,7 +88,10 @@ nameWithType: Cat<T,K>.Cat<T,K>
 assemblies:
 - CatLibrary
 devLangs:
+- cpp
 - csharp
+- vb
+- fsharp
 monikers:
 - cat-1.0
 - cat-2.0

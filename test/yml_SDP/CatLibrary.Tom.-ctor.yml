@@ -7,8 +7,14 @@ members:
   fullName: CatLibrary.Tom.Tom()
   nameWithType: Tom.Tom()
   syntax:
+  - lang: cpp
+    value: >-
+      public:
+       Tom();
   - lang: csharp
     value: public Tom ();
+  - lang: vb
+    value: Public Sub New ()
   monikers:
   - cat-1.0
   - cat-2.0
@@ -22,7 +28,9 @@ nameWithType: Tom.Tom
 assemblies:
 - CatLibrary
 devLangs:
+- cpp
 - csharp
+- vb
 monikers:
 - cat-1.0
 - cat-2.0

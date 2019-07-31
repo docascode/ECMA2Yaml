@@ -16,8 +16,12 @@ members:
   fullName: CatLibrary.Cat<T,K>.CatLibrary.IAnimal.Item[Int32]
   nameWithType: Cat<T,K>.IAnimal.Item[Int32]
   syntax:
+  - lang: cpp
+    value: property System::String ^ CatLibrary::IAnimal::Item[int] { System::String ^ get(int a); };
   - lang: csharp
     value: string CatLibrary.IAnimal.Item[int a] { get; }
+  - lang: vb
+    value: " ReadOnly Property Item(a As Integer) As String Implements IAnimal.Item"
   monikers:
   - cat-1.0
   - cat-2.0
@@ -32,7 +36,9 @@ nameWithType: Cat<T,K>.IAnimal.Item[Int32]
 assemblies:
 - CatLibrary
 devLangs:
+- cpp
 - csharp
+- vb
 monikers:
 - cat-1.0
 - cat-2.0

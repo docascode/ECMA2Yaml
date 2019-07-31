@@ -19,10 +19,22 @@ nameWithType: CatLibrary.Complex<T,J>
 assemblies:
 - CatLibrary
 syntax:
+- lang: cpp
+  value: >-
+    generic <typename T, typename J>
+
+    public ref class Complex
 - lang: csharp
   value: public class Complex<T,J>
+- lang: fsharp
+  value: type Complex<'T, 'J> = class
+- lang: vb
+  value: Public Class Complex(Of T, J)
 devLangs:
+- cpp
 - csharp
+- fsharp
+- vb
 monikers:
 - cat-1.0
 - cat-2.0

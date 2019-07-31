@@ -17,10 +17,19 @@ nameWithType: CatLibrary.MRefNormalDelegate
 assemblies:
 - CatLibrary
 syntax:
+- lang: cpp
+  value: public delegate void MRefNormalDelegate(List<System::String ^> ^ pics, [Runtime::InteropServices::Out] System::String ^ % name);
 - lang: csharp
   value: public delegate void MRefNormalDelegate(List<string> pics, out string name);
+- lang: fsharp
+  value: type MRefNormalDelegate = delegate of List<string> *  -> unit
+- lang: vb
+  value: Public Delegate Sub MRefNormalDelegate(pics As List(Of String), ByRef name As String)
 devLangs:
+- cpp
 - csharp
+- fsharp
+- vb
 monikers:
 - cat-1.0
 - cat-2.0

@@ -7,8 +7,14 @@ members:
   fullName: CatLibrary.Complex<T,J>.Complex<T,J>()
   nameWithType: Complex<T,J>.Complex<T,J>()
   syntax:
+  - lang: cpp
+    value: >-
+      public:
+       Complex();
   - lang: csharp
     value: public Complex ();
+  - lang: vb
+    value: Public Sub New ()
   monikers:
   - cat-1.0
   - cat-2.0
@@ -22,7 +28,9 @@ nameWithType: Complex<T,J>.Complex<T,J>
 assemblies:
 - CatLibrary
 devLangs:
+- cpp
 - csharp
+- vb
 monikers:
 - cat-1.0
 - cat-2.0

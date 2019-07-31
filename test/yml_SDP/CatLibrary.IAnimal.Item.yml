@@ -14,8 +14,16 @@ members:
   fullName: CatLibrary.IAnimal.Item[Int32]
   nameWithType: IAnimal.Item[Int32]
   syntax:
+  - lang: cpp
+    value: >-
+      public:
+       property System::String ^ default[int] { System::String ^ get(int index); };
   - lang: csharp
     value: public string this[int index] { get; }
+  - lang: fsharp
+    value: 'member this.Item(int) : string'
+  - lang: vb
+    value: Default Public ReadOnly Property Item(index As Integer) As String
   monikers:
   - cat-1.0
   - cat-2.0
@@ -30,7 +38,10 @@ nameWithType: IAnimal.Item[Int32]
 assemblies:
 - CatLibrary
 devLangs:
+- cpp
 - csharp
+- fsharp
+- vb
 monikers:
 - cat-1.0
 - cat-2.0

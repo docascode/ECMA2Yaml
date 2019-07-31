@@ -7,8 +7,16 @@ members:
   fullName: CatLibrary.ICat.eat
   nameWithType: ICat.eat
   syntax:
+  - lang: cpp
+    value: >-
+      public:
+       event EventHandler ^ eat;
   - lang: csharp
     value: event EventHandler eat;
+  - lang: fsharp
+    value: 'member this.eat : EventHandler '
+  - lang: vb
+    value: 'Event eat As EventHandler '
   monikers:
   - cat-1.0
   - cat-2.0
@@ -18,7 +26,10 @@ namespace: CatLibrary
 assemblies:
 - CatLibrary
 devLangs:
+- cpp
 - csharp
+- fsharp
+- vb
 monikers:
 - cat-1.0
 - cat-2.0
