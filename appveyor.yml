@@ -9,9 +9,9 @@
     - msbuild ./ECMA2Yaml/ECMA2Yaml.sln /p:Configuration=Release
     - %~dp0ECMA2Yaml/ECMA2Yaml/bin/Release/ECMA2Yaml.exe -s %~dp0test/xml -o %~dp0test/xml/yml_MREF_After -f
     - %~dp0ECMA2Yaml/ECMA2Yaml/bin/Release/ECMA2Yaml.exe -s %~dp0test/xml -o %~dp0test/xml/yml_SDP_After --SDP -f
-    - %~dp0ECMA2Yaml/DiffFiles/bin/Release/DiffFiles.exe -o %~dp0test/xml/yml_MREF -n %~dp0test/xml/yml_MREF_After -l %~dp0test --Path
+    - %~dp0ECMA2Yaml/DiffFiles/bin/Release/DiffFiles.exe -o %~dp0test/yml_MREF -n %~dp0test/yml_MREF_After -l %~dp0test --Path
     - IF NOT %ErrorLevel% == 0 ECHO Exist different places for MREF yml
-    - %~dp0ECMA2Yaml/DiffFiles/bin/Release/DiffFiles.exe -o %~dp0test/xml/yml_SDP -n %~dp0test/xml/yml_SDP_After -l %~dp0test --Path
+    - %~dp0ECMA2Yaml/DiffFiles/bin/Release/DiffFiles.exe -o %~dp0test/yml_SDP -n %~dp0test/yml_SDP_After -l %~dp0test --Path
     - IF NOT %ErrorLevel% == 0 ECHO Exist different places for SDP yml
   test: Auto
   on_success:
