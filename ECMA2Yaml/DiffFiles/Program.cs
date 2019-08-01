@@ -27,17 +27,23 @@ namespace DiffFiles
                 logFilePath = command.LogPath;
                 isDiffPath = command.IsDiffPath;
             });
-
+            
             _logFileFullName = Path.Combine(logFilePath, string.Format("compare_result_{0:yyyyMMddHHmm}.log", DateTime.Now));
+
+            ConsoleLog(string.Format("Path1: '{0}'", oldFilePath));
+            ConsoleLog(string.Format("Path2: '{0}'", newFilePath));
+            ConsoleLog(string.Format("Log: '{0}'", _logFileFullName));
 
             // Diff paths
             if (isDiffPath)
             {
+                ConsoleLog("Start diff paths...");
                 ComparePaths(oldFilePath, newFilePath);
             }
             // Diff files
             else
             {
+                ConsoleLog("Start diff files...");
                 string diffMessage = string.Empty;
                 if (!CompareFiles(oldFilePath, newFilePath, out diffMessage))
                 {
@@ -51,7 +57,11 @@ namespace DiffFiles
                 Environment.Exit(-1);
                 //throw new Exception(string.Format("Compared and met diff, please get diff details from log file: '{0}'", _logFileFullName));
             }
-            Environment.Exit(0);
+            else
+            {
+                ConsoleLog("No different.");
+                Environment.Exit(0);
+            }
         }
 
         #region Private
@@ -107,6 +117,9 @@ namespace DiffFiles
             // newFileCount = oldFileCount != 0
             else
             {
+                ConsoleLog(string.Format("Path1 have {0} files", oldFileList.Count()));
+                ConsoleLog(string.Format("Path2 have {0} files", newFileList.Count()));
+                
                 //List<string> shortYaml1FileNameList = oldFileList.Select(f => f.FullName.Replace(oldPath, "")).ToList();
                 //List<string> shortYaml2FileNameList = newFileList.Select(f => f.FullName.Replace(newPath, "")).ToList();
                 List<string> shortYaml1FileNameList = oldFileList.Select(f => f.Name).ToList();
@@ -146,12 +159,12 @@ namespace DiffFiles
                 oldFileList.ToList().ForEach(file =>
                 {
                     string file1FullPath = file.FullName;
-                    string file2FullPath = file.FullName.Replace(oldPath, newPath);
-                    string shortName = file.FullName.Replace(oldPath, "");
+                    string file2FullPath = newFileList.Where(p=>p.Name==file.Name).FirstOrDefault()?.FullName;
+                    
                     string diffMessage = string.Empty;
                     if (!CompareFiles(file1FullPath, file2FullPath, out diffMessage))
                     {
-                        LogMessage(2, string.Format("================{0} have diff as following===========\r\n", shortName));
+                        LogMessage(2, string.Format("================{0} have diff as following===========\r\n", file.Name));
                         LogMessage(2, diffMessage);
                     }
                 });
@@ -230,11 +243,16 @@ namespace DiffFiles
         private static void LogMessage(int errorType, string message)
         {
             File.AppendAllText(_logFileFullName, message);
-
+            //ConsoleLog(message);
             if (errorType == 1)
             {
-                throw new Exception(message);
+                Environment.Exit(-1);
             }
+        }
+
+        private static void ConsoleLog(string message)
+        {
+            Console.WriteLine(string.Format("[{0}]{1}",DateTime.Now,message));
         }
 
         private static string GetTestDataDir()
