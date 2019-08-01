@@ -14,8 +14,16 @@ members:
   fullName: CatLibrary.JerryExtension.PlayWith(TomFromBaseClass+Jerry, Tom)
   nameWithType: JerryExtension.PlayWith(TomFromBaseClass+Jerry, Tom)
   syntax:
+  - lang: cpp
+    value: >-
+      public:
+
+      [System::Runtime::CompilerServices::Extension]
+       static void PlayWith(CatLibrary::TomFromBaseClass::Jerry ^ jerry, CatLibrary::Tom ^ tom);
   - lang: csharp
     value: public static void PlayWith (this CatLibrary.TomFromBaseClass.Jerry jerry, CatLibrary.Tom tom);
+  - lang: fsharp
+    value: 'static member PlayWith : CatLibrary.TomFromBaseClass.Jerry * CatLibrary.Tom -> unit'
   monikers:
   - cat-2.0
   summary: Jerry can play with a Tom.
@@ -29,7 +37,9 @@ nameWithType: JerryExtension.PlayWith
 assemblies:
 - CatLibrary
 devLangs:
+- cpp
 - csharp
+- fsharp
 monikers:
 - cat-2.0
 metadata:

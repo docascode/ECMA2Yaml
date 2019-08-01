@@ -19,10 +19,19 @@ nameWithType: CatLibrary.TomFromBaseClass.Jerry
 assemblies:
 - CatLibrary
 syntax:
+- lang: cpp
+  value: 'public: ref class TomFromBaseClass::Jerry'
 - lang: csharp
   value: public class TomFromBaseClass.Jerry
+- lang: fsharp
+  value: type TomFromBaseClass.Jerry = class
+- lang: vb
+  value: Public Class TomFromBaseClass.Jerry
 devLangs:
+- cpp
 - csharp
+- fsharp
+- vb
 monikers:
 - cat-2.0
 summary: This is a <strong>nested</strong> class inside <xref data-throw-if-not-resolved="true" uid="CatLibrary.TomFromBaseClass"></xref>

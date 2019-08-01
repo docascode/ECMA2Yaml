@@ -7,7 +7,10 @@ items:
   - CatLibrary.ICatExtension.Play(CatLibrary.ICat,System.String)
   - CatLibrary.ICatExtension.Sleep(CatLibrary.ICat,System.Int64)
   langs:
+  - cpp
   - csharp
+  - fsharp
+  - vb
   name: ICatExtension
   nameWithType: CatLibrary.ICatExtension
   fullName: CatLibrary.ICatExtension
@@ -21,7 +24,10 @@ items:
     <p>This class must be <strong>public</strong> and <strong>static</strong>.</p><p>Also it shouldn't be a geneic class</p>
   syntax:
     content: public static class ICatExtension
+    content.cpp: public ref class ICatExtension abstract sealed
     content.csharp: public static class ICatExtension
+    content.fsharp: type ICatExtension = class
+    content.vb: Public Module ICatExtension
   inheritance:
   - System.Object
   implements: []
@@ -37,7 +43,9 @@ items:
   isExtensionMethod: true
   parent: CatLibrary.ICatExtension
   langs:
+  - cpp
   - csharp
+  - fsharp
   name: Play(ICat, String)
   nameWithType: ICatExtension.Play(ICat, String)
   fullName: CatLibrary.ICatExtension.Play(ICat, String)
@@ -55,7 +63,13 @@ items:
     - id: toy
       type: System.String
       description: Something to play
+    content.cpp: >-
+      public:
+
+      [System::Runtime::CompilerServices::Extension]
+       static void Play(CatLibrary::ICat ^ icat, System::String ^ toy);
     content.csharp: public static void Play (this CatLibrary.ICat icat, string toy);
+    content.fsharp: 'static member Play : CatLibrary.ICat * string -> unit'
   overload: CatLibrary.ICatExtension.Play*
   exceptions: []
   modifiers.csharp:
@@ -70,7 +84,9 @@ items:
   isExtensionMethod: true
   parent: CatLibrary.ICatExtension
   langs:
+  - cpp
   - csharp
+  - fsharp
   name: Sleep(ICat, Int64)
   nameWithType: ICatExtension.Sleep(ICat, Int64)
   fullName: CatLibrary.ICatExtension.Sleep(ICat, Int64)
@@ -88,7 +104,13 @@ items:
     - id: hours
       type: System.Int64
       description: The length of sleep.
+    content.cpp: >-
+      public:
+
+      [System::Runtime::CompilerServices::Extension]
+       static void Sleep(CatLibrary::ICat ^ icat, long hours);
     content.csharp: public static void Sleep (this CatLibrary.ICat icat, long hours);
+    content.fsharp: 'static member Sleep : CatLibrary.ICat * int64 -> unit'
   overload: CatLibrary.ICatExtension.Sleep*
   exceptions: []
   modifiers.csharp:

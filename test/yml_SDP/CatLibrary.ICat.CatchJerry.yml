@@ -7,8 +7,16 @@ members:
   fullName: CatLibrary.ICat.CatchJerry()
   nameWithType: ICat.CatchJerry()
   syntax:
+  - lang: cpp
+    value: >-
+      public:
+       void CatchJerry();
   - lang: csharp
     value: public void CatchJerry ();
+  - lang: fsharp
+    value: 'abstract member CatchJerry : unit -> unit'
+  - lang: vb
+    value: Public Sub CatchJerry ()
   monikers:
   - cat-2.0
   summary: All cat can catch a Jerry.
@@ -22,7 +30,10 @@ nameWithType: ICat.CatchJerry
 assemblies:
 - CatLibrary
 devLangs:
+- cpp
 - csharp
+- fsharp
+- vb
 monikers:
 - cat-2.0
 metadata:

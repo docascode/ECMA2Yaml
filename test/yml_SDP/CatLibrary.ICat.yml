@@ -57,10 +57,24 @@ nameWithType: CatLibrary.ICat
 assemblies:
 - CatLibrary
 syntax:
+- lang: cpp
+  value: 'public interface class ICat : CatLibrary::IAnimal'
 - lang: csharp
   value: 'public interface ICat : CatLibrary.IAnimal'
+- lang: fsharp
+  value: >-
+    type ICat = interface
+        interface IAnimal
+- lang: vb
+  value: >-
+    Public Interface ICat
+
+    Implements IAnimal
 devLangs:
+- cpp
 - csharp
+- fsharp
+- vb
 monikers:
 - cat-1.0
 - cat-2.0

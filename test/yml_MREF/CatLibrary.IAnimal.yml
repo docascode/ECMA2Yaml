@@ -10,7 +10,10 @@ items:
   - CatLibrary.IAnimal.Item(System.Int32)
   - CatLibrary.IAnimal.Name
   langs:
+  - cpp
   - csharp
+  - fsharp
+  - vb
   name: IAnimal
   nameWithType: CatLibrary.IAnimal
   fullName: CatLibrary.IAnimal
@@ -21,7 +24,10 @@ items:
   summary: This is <strong>basic</strong> interface of all animal.
   syntax:
     content: public interface IAnimal
+    content.cpp: public interface class IAnimal
     content.csharp: public interface IAnimal
+    content.fsharp: type IAnimal = interface
+    content.vb: Public Interface IAnimal
   derivedClasses:
   - CatLibrary.Cat`2
   - CatLibrary.ICat
@@ -36,7 +42,10 @@ items:
   id: Eat
   parent: CatLibrary.IAnimal
   langs:
+  - cpp
   - csharp
+  - fsharp
+  - vb
   name: Eat()
   nameWithType: IAnimal.Eat()
   fullName: CatLibrary.IAnimal.Eat()
@@ -48,7 +57,12 @@ items:
   syntax:
     content: public void Eat ();
     parameters: []
+    content.cpp: >-
+      public:
+       void Eat();
     content.csharp: public void Eat ();
+    content.fsharp: 'abstract member Eat : unit -> unit'
+    content.vb: Public Sub Eat ()
   overload: CatLibrary.IAnimal.Eat*
   exceptions: []
   modifiers.csharp:
@@ -61,7 +75,10 @@ items:
   id: Eat(System.String)
   parent: CatLibrary.IAnimal
   langs:
+  - cpp
   - csharp
+  - fsharp
+  - vb
   name: Eat(String)
   nameWithType: IAnimal.Eat(String)
   fullName: CatLibrary.IAnimal.Eat(String)
@@ -76,7 +93,12 @@ items:
     - id: food
       type: System.String
       description: Food to eat
+    content.cpp: >-
+      public:
+       void Eat(System::String ^ food);
     content.csharp: public void Eat (string food);
+    content.fsharp: 'abstract member Eat : string -> unit'
+    content.vb: Public Sub Eat (food As String)
   overload: CatLibrary.IAnimal.Eat*
   exceptions: []
   modifiers.csharp:
@@ -89,7 +111,9 @@ items:
   id: Eat``1(``0)
   parent: CatLibrary.IAnimal
   langs:
+  - cpp
   - csharp
+  - fsharp
   name: Eat<Tool>(Tool)
   nameWithType: IAnimal.Eat<Tool>(Tool)
   fullName: CatLibrary.IAnimal.Eat<Tool>(Tool)
@@ -107,7 +131,13 @@ items:
     typeParameters:
     - id: Tool
       description: It's a class type.
+    content.cpp: >-
+      public:
+
+      generic <typename Tool>
+       where Tool : class void Eat(Tool tool);
     content.csharp: 'public void Eat<Tool> (Tool tool) where Tool : class;'
+    content.fsharp: "abstract member Eat : 'ool -> unit (requires 'ool : null)"
   overload: CatLibrary.IAnimal.Eat*
   exceptions: []
   modifiers.csharp:
@@ -120,7 +150,10 @@ items:
   id: Item(System.Int32)
   parent: CatLibrary.IAnimal
   langs:
+  - cpp
   - csharp
+  - fsharp
+  - vb
   name: Item[Int32]
   nameWithType: IAnimal.Item[Int32]
   fullName: CatLibrary.IAnimal.Item[Int32]
@@ -138,7 +171,12 @@ items:
     return:
       type: System.String
       description: Animal name.
+    content.cpp: >-
+      public:
+       property System::String ^ default[int] { System::String ^ get(int index); };
     content.csharp: public string this[int index] { get; }
+    content.fsharp: 'member this.Item(int) : string'
+    content.vb: Default Public ReadOnly Property Item(index As Integer) As String
   overload: CatLibrary.IAnimal.Item*
   exceptions: []
   modifiers.csharp:
@@ -152,7 +190,10 @@ items:
   id: Name
   parent: CatLibrary.IAnimal
   langs:
+  - cpp
   - csharp
+  - fsharp
+  - vb
   name: Name
   nameWithType: IAnimal.Name
   fullName: CatLibrary.IAnimal.Name
@@ -166,7 +207,12 @@ items:
     return:
       type: System.String
       description: ''
+    content.cpp: >-
+      public:
+       property System::String ^ Name { System::String ^ get(); };
     content.csharp: public string Name { get; }
+    content.fsharp: 'member this.Name : string'
+    content.vb: Public ReadOnly Property Name As String
   overload: CatLibrary.IAnimal.Name*
   exceptions: []
   modifiers.csharp:

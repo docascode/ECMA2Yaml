@@ -13,8 +13,12 @@ members:
   fullName: CatLibrary.Cat<T,K>.CatLibrary.IAnimal.Eat(String)
   nameWithType: Cat<T,K>.IAnimal.Eat(String)
   syntax:
+  - lang: cpp
+    value: " virtual void CatLibrary.IAnimal.Eat(System::String ^ food) = CatLibrary::IAnimal::Eat;"
   - lang: csharp
     value: void IAnimal.Eat (string food);
+  - lang: vb
+    value: Sub Eat (food As String) Implements IAnimal.Eat
   monikers:
   - cat-1.0
   - cat-2.0
@@ -28,8 +32,12 @@ members:
   fullName: CatLibrary.Cat<T,K>.CatLibrary.IAnimal.Eat()
   nameWithType: Cat<T,K>.IAnimal.Eat()
   syntax:
+  - lang: cpp
+    value: " virtual void CatLibrary.IAnimal.Eat() = CatLibrary::IAnimal::Eat;"
   - lang: csharp
     value: void IAnimal.Eat ();
+  - lang: vb
+    value: Sub Eat () Implements IAnimal.Eat
   monikers:
   - cat-1.0
   - cat-2.0
@@ -50,8 +58,14 @@ members:
   fullName: CatLibrary.Cat<T,K>.CatLibrary.IAnimal.Eat<Tool>(Tool)
   nameWithType: Cat<T,K>.IAnimal.Eat<Tool>(Tool)
   syntax:
+  - lang: cpp
+    value: >-
+      generic <typename Tool>
+       where Tool : class virtual void CatLibrary.IAnimal.Eat(Tool a) = CatLibrary::IAnimal::Eat;
   - lang: csharp
     value: 'void IAnimal.Eat<Tool> (Tool a) where Tool : class;'
+  - lang: vb
+    value: Sub Eat(Of Tool As Class) (a As Tool) Implements IAnimal.Eat
   monikers:
   - cat-1.0
   - cat-2.0
@@ -66,7 +80,9 @@ nameWithType: Cat<T,K>.IAnimal.Eat
 assemblies:
 - CatLibrary
 devLangs:
+- cpp
 - csharp
+- vb
 monikers:
 - cat-1.0
 - cat-2.0

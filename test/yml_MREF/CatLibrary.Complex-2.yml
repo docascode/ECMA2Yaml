@@ -6,7 +6,10 @@ items:
   children:
   - CatLibrary.Complex`2.#ctor
   langs:
+  - cpp
   - csharp
+  - fsharp
+  - vb
   name: Complex<T,J>
   nameWithType: CatLibrary.Complex<T,J>
   fullName: CatLibrary.Complex<T,J>
@@ -21,7 +24,13 @@ items:
       description: ''
     - id: J
       description: ''
+    content.cpp: >-
+      generic <typename T, typename J>
+
+      public ref class Complex
     content.csharp: public class Complex<T,J>
+    content.fsharp: type Complex<'T, 'J> = class
+    content.vb: Public Class Complex(Of T, J)
   inheritance:
   - System.Object
   implements: []
@@ -36,7 +45,9 @@ items:
   id: '#ctor'
   parent: CatLibrary.Complex`2
   langs:
+  - cpp
   - csharp
+  - vb
   name: Complex<T,J>()
   nameWithType: Complex<T,J>.Complex<T,J>()
   fullName: CatLibrary.Complex<T,J>.Complex<T,J>()
@@ -47,7 +58,11 @@ items:
   syntax:
     content: public Complex ();
     parameters: []
+    content.cpp: >-
+      public:
+       Complex();
     content.csharp: public Complex ();
+    content.vb: Public Sub New ()
   overload: CatLibrary.Complex`2.#ctor*
   exceptions: []
   modifiers.csharp:

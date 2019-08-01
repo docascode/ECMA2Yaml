@@ -6,7 +6,10 @@ items:
   children:
   - CatLibrary.TomFromBaseClass.#ctor(System.Int32)
   langs:
+  - cpp
   - csharp
+  - fsharp
+  - vb
   name: TomFromBaseClass
   nameWithType: CatLibrary.TomFromBaseClass
   fullName: CatLibrary.TomFromBaseClass
@@ -17,7 +20,15 @@ items:
   summary: '*TomFromBaseClass* inherits from @CatLibrary.Tom'
   syntax:
     content: 'public class TomFromBaseClass : CatLibrary.Tom'
+    content.cpp: 'public ref class TomFromBaseClass : CatLibrary::Tom'
     content.csharp: 'public class TomFromBaseClass : CatLibrary.Tom'
+    content.fsharp: >-
+      type TomFromBaseClass = class
+          inherit Tom
+    content.vb: >-
+      Public Class TomFromBaseClass
+
+      Inherits Tom
   inheritance:
   - System.Object
   - CatLibrary.Tom
@@ -34,7 +45,10 @@ items:
   id: '#ctor(System.Int32)'
   parent: CatLibrary.TomFromBaseClass
   langs:
+  - cpp
   - csharp
+  - fsharp
+  - vb
   name: TomFromBaseClass(Int32)
   nameWithType: TomFromBaseClass.TomFromBaseClass(Int32)
   fullName: CatLibrary.TomFromBaseClass.TomFromBaseClass(Int32)
@@ -49,7 +63,12 @@ items:
     - id: k
       type: System.Int32
       description: "\n        "
+    content.cpp: >-
+      public:
+       TomFromBaseClass(int k);
     content.csharp: public TomFromBaseClass (int k);
+    content.fsharp: 'new CatLibrary.TomFromBaseClass : int -> CatLibrary.TomFromBaseClass'
+    content.vb: Public Sub New (k As Integer)
   overload: CatLibrary.TomFromBaseClass.#ctor*
   exceptions: []
   modifiers.csharp:

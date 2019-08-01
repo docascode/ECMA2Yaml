@@ -22,11 +22,19 @@ members:
   attributes:
   - System.Diagnostics.ConditionalAttribute
   syntax:
+  - lang: cpp
+    value: >-
+      public:
+       void Jump(T ownType, K anotherOwnType, bool % cheat);
   - lang: csharp
     value: >-
       [System.Diagnostics.Conditional("Debug")]
 
       public void Jump (T ownType, K anotherOwnType, ref bool cheat);
+  - lang: fsharp
+    value: "member this.Jump : 'T * 'K *  -> unit"
+  - lang: vb
+    value: Public Sub Jump (ownType As T, anotherOwnType As K, ByRef cheat As Boolean)
   monikers:
   - cat-1.0
   - cat-2.0
@@ -41,7 +49,10 @@ nameWithType: Cat<T,K>.Jump
 assemblies:
 - CatLibrary
 devLangs:
+- cpp
 - csharp
+- fsharp
+- vb
 monikers:
 - cat-1.0
 - cat-2.0

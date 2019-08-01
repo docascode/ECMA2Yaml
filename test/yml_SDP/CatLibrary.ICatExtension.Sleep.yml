@@ -14,8 +14,16 @@ members:
   fullName: CatLibrary.ICatExtension.Sleep(ICat, Int64)
   nameWithType: ICatExtension.Sleep(ICat, Int64)
   syntax:
+  - lang: cpp
+    value: >-
+      public:
+
+      [System::Runtime::CompilerServices::Extension]
+       static void Sleep(CatLibrary::ICat ^ icat, long hours);
   - lang: csharp
     value: public static void Sleep (this CatLibrary.ICat icat, long hours);
+  - lang: fsharp
+    value: 'static member Sleep : CatLibrary.ICat * int64 -> unit'
   monikers:
   - cat-1.0
   - cat-2.0
@@ -30,7 +38,9 @@ nameWithType: ICatExtension.Sleep
 assemblies:
 - CatLibrary
 devLangs:
+- cpp
 - csharp
+- fsharp
 monikers:
 - cat-1.0
 - cat-2.0

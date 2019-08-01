@@ -27,7 +27,10 @@ items:
   - CatLibrary.Cat`2.CatLibrary#IAnimal#Item(System.Int32)
   - CatLibrary.Cat`2.CatLibrary#ICat#eat
   langs:
+  - cpp
   - csharp
+  - fsharp
+  - vb
   name: Cat<T,K>
   nameWithType: CatLibrary.Cat<T,K>
   fullName: CatLibrary.Cat<T,K>
@@ -70,10 +73,21 @@ items:
       description: This type should be class and can new instance.
     - id: K
       description: This type is a struct type, class type can't be used for this parameter.
+    content.cpp: >-
+      generic <typename T, typename K>
+       where T : class, gcnew() where K : value classpublic ref class Cat : CatLibrary::ICat
     content.csharp: >-
       [System.Serializable]
 
       public class Cat<T,K> : CatLibrary.ICat where T : class, new() where K : struct
+    content.fsharp: >-
+      type Cat<'T, 'K (requires 'T : null and 'T : (new : unit -> 'T) and 'K : struct)> = class
+          interface ICat
+          interface IAnimal
+    content.vb: >-
+      Public Class Cat(Of T, K)
+
+      Implements ICat
   inheritance:
   - System.Object
   implements:
@@ -95,7 +109,9 @@ items:
   id: '#ctor'
   parent: CatLibrary.Cat`2
   langs:
+  - cpp
   - csharp
+  - vb
   name: Cat<T,K>()
   nameWithType: Cat<T,K>.Cat<T,K>()
   fullName: CatLibrary.Cat<T,K>.Cat<T,K>()
@@ -107,7 +123,11 @@ items:
   syntax:
     content: public Cat ();
     parameters: []
+    content.cpp: >-
+      public:
+       Cat();
     content.csharp: public Cat ();
+    content.vb: Public Sub New ()
   overload: CatLibrary.Cat`2.#ctor*
   exceptions: []
   modifiers.csharp:
@@ -120,7 +140,10 @@ items:
   id: '#ctor(`0)'
   parent: CatLibrary.Cat`2
   langs:
+  - cpp
   - csharp
+  - fsharp
+  - vb
   name: Cat<T,K>(T)
   nameWithType: Cat<T,K>.Cat<T,K>(T)
   fullName: CatLibrary.Cat<T,K>.Cat<T,K>(T)
@@ -135,7 +158,12 @@ items:
     - id: ownType
       type: T
       description: This parameter type defined by class.
+    content.cpp: >-
+      public:
+       Cat(T ownType);
     content.csharp: public Cat (T ownType);
+    content.fsharp: "new CatLibrary.Cat<'T, 'K (requires 'T : null and 'T : (new : unit -> 'T) and 'K : struct)> : 'T -> CatLibrary.Cat<'T, 'K (requires 'T : null and 'T : (new : unit -> 'T) and 'K : struct)>"
+    content.vb: Public Sub New (ownType As T)
   overload: CatLibrary.Cat`2.#ctor*
   exceptions: []
   modifiers.csharp:
@@ -148,7 +176,10 @@ items:
   id: '#ctor(System.String,System.Int32@,System.String,System.Boolean)'
   parent: CatLibrary.Cat`2
   langs:
+  - cpp
   - csharp
+  - fsharp
+  - vb
   name: Cat<T,K>(String, Int32, String, Boolean)
   nameWithType: Cat<T,K>.Cat<T,K>(String, Int32, String, Boolean)
   fullName: CatLibrary.Cat<T,K>.Cat<T,K>(String, Int32, String, Boolean)
@@ -172,7 +203,12 @@ items:
     - id: isHealthy
       type: System.Boolean
       description: It's an in parameter.
+    content.cpp: >-
+      public:
+       Cat(System::String ^ nickName, [Runtime::InteropServices::Out] int % age, System::String ^ realName, bool isHealthy);
     content.csharp: public Cat (string nickName, out int age, string realName, bool isHealthy);
+    content.fsharp: "new CatLibrary.Cat<'T, 'K (requires 'T : null and 'T : (new : unit -> 'T) and 'K : struct)> : string *  * string * bool -> CatLibrary.Cat<'T, 'K (requires 'T : null and 'T : (new : unit -> 'T) and 'K : struct)>"
+    content.vb: Public Sub New (nickName As String, ByRef age As Integer, realName As String, isHealthy As Boolean)
   overload: CatLibrary.Cat`2.#ctor*
   exceptions: []
   modifiers.csharp:
@@ -185,7 +221,10 @@ items:
   id: Age
   parent: CatLibrary.Cat`2
   langs:
+  - cpp
   - csharp
+  - fsharp
+  - vb
   name: Age
   nameWithType: Cat<T,K>.Age
   fullName: CatLibrary.Cat<T,K>.Age
@@ -199,7 +238,12 @@ items:
     return:
       type: System.Int32
       description: ''
+    content.cpp: >-
+      protected:
+       property int Age { int get(); void set(int value); };
     content.csharp: protected int Age { get; set; }
+    content.fsharp: 'member this.Age : int with get, set'
+    content.vb: Protected Property Age As Integer
   overload: CatLibrary.Cat`2.Age*
   exceptions: []
   modifiers.csharp:
@@ -214,7 +258,10 @@ items:
   id: CalculateFood(System.DateTime)
   parent: CatLibrary.Cat`2
   langs:
+  - cpp
   - csharp
+  - fsharp
+  - vb
   name: CalculateFood(DateTime)
   nameWithType: Cat<T,K>.CalculateFood(DateTime)
   fullName: CatLibrary.Cat<T,K>.CalculateFood(DateTime)
@@ -232,7 +279,12 @@ items:
     return:
       type: System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.Int32}}
       description: It's a relationship map of different kind food.
+    content.cpp: >-
+      public:
+       System::Collections::Generic::Dictionary<System::String ^, System::Collections::Generic::List<int> ^> ^ CalculateFood(DateTime date);
     content.csharp: public System.Collections.Generic.Dictionary<string,System.Collections.Generic.List<int>> CalculateFood (DateTime date);
+    content.fsharp: 'member this.CalculateFood : DateTime -> System.Collections.Generic.Dictionary<string, System.Collections.Generic.List<int>>'
+    content.vb: Public Function CalculateFood (date As DateTime) As Dictionary(Of String, List(Of Integer))
   overload: CatLibrary.Cat`2.CalculateFood*
   exceptions: []
   modifiers.csharp:
@@ -245,7 +297,10 @@ items:
   id: CatchJerry
   parent: CatLibrary.Cat`2
   langs:
+  - cpp
   - csharp
+  - fsharp
+  - vb
   name: CatchJerry()
   nameWithType: Cat<T,K>.CatchJerry()
   fullName: CatLibrary.Cat<T,K>.CatchJerry()
@@ -257,7 +312,15 @@ items:
   syntax:
     content: public void CatchJerry ();
     parameters: []
+    content.cpp: >-
+      public:
+       virtual void CatchJerry();
     content.csharp: public void CatchJerry ();
+    content.fsharp: >-
+      abstract member CatchJerry : unit -> unit
+
+      override this.CatchJerry : unit -> unit
+    content.vb: Public Sub CatchJerry ()
   overload: CatLibrary.Cat`2.CatchJerry*
   exceptions: []
   implements:
@@ -271,7 +334,10 @@ items:
   id: CatchJerry(System.Boolean)
   parent: CatLibrary.Cat`2
   langs:
+  - cpp
   - csharp
+  - fsharp
+  - vb
   name: CatchJerry(Boolean)
   nameWithType: Cat<T,K>.CatchJerry(Boolean)
   fullName: CatLibrary.Cat<T,K>.CatchJerry(Boolean)
@@ -286,7 +352,12 @@ items:
     - id: force
       type: System.Boolean
       description: ''
+    content.cpp: >-
+      public:
+       void CatchJerry(bool force);
     content.csharp: public void CatchJerry (bool force);
+    content.fsharp: 'member this.CatchJerry : bool -> unit'
+    content.vb: Public Sub CatchJerry (force As Boolean)
   overload: CatLibrary.Cat`2.CatchJerry*
   exceptions: []
   modifiers.csharp:
@@ -298,7 +369,10 @@ items:
   id: Equals(System.Object)
   parent: CatLibrary.Cat`2
   langs:
+  - cpp
   - csharp
+  - fsharp
+  - vb
   name: Equals(Object)
   nameWithType: Cat<T,K>.Equals(Object)
   fullName: CatLibrary.Cat<T,K>.Equals(Object)
@@ -316,7 +390,12 @@ items:
     return:
       type: System.Boolean
       description: The return value tell you whehter the compare operation is successful.
+    content.cpp: >-
+      public:
+       override bool Equals(System::Object ^ obj);
     content.csharp: public override bool Equals (object obj);
+    content.fsharp: 'override this.Equals : obj -> bool'
+    content.vb: Public Overrides Function Equals (obj As Object) As Boolean
   overload: CatLibrary.Cat`2.Equals*
   exceptions: []
   modifiers.csharp:
@@ -329,7 +408,9 @@ items:
   id: GetTailLength(System.Int32*,System.Object[])
   parent: CatLibrary.Cat`2
   langs:
+  - cpp
   - csharp
+  - fsharp
   name: GetTailLength(Int32*, Object[])
   nameWithType: Cat<T,K>.GetTailLength(Int32*, Object[])
   fullName: CatLibrary.Cat<T,K>.GetTailLength(Int32*, Object[])
@@ -353,7 +434,11 @@ items:
     return:
       type: System.Int64
       description: Return cat tail's length.
+    content.cpp: >-
+      public:
+       long GetTailLength(int* catName, ... cli::array <System::Object ^> ^ parameters);
     content.csharp: public long GetTailLength (int* catName, params object[] parameters);
+    content.fsharp: 'member this.GetTailLength : nativeptr<int> * obj[] -> int64'
   overload: CatLibrary.Cat`2.GetTailLength*
   exceptions: []
   modifiers.csharp:
@@ -366,7 +451,10 @@ items:
   id: isHealthy
   parent: CatLibrary.Cat`2
   langs:
+  - cpp
   - csharp
+  - fsharp
+  - vb
   name: isHealthy
   nameWithType: Cat<T,K>.isHealthy
   fullName: CatLibrary.Cat<T,K>.isHealthy
@@ -383,10 +471,13 @@ items:
     return:
       type: System.Boolean
       description: ''
+    content.cpp: 'public: bool isHealthy;'
     content.csharp: >-
       [System.ContextStatic]
 
       public bool isHealthy;
+    content.fsharp: 'val mutable isHealthy : bool'
+    content.vb: 'Public isHealthy As Boolean '
   exceptions: []
   attributes:
   - type: System.ContextStaticAttribute
@@ -400,7 +491,10 @@ items:
   id: Item(System.String)
   parent: CatLibrary.Cat`2
   langs:
+  - cpp
   - csharp
+  - fsharp
+  - vb
   name: Item[String]
   nameWithType: Cat<T,K>.Item[String]
   fullName: CatLibrary.Cat<T,K>.Item[String]
@@ -418,7 +512,14 @@ items:
     return:
       type: System.Int32
       description: Cat's number.
+    content.cpp: >-
+      public:  property int default[System::String ^] {  protected:
+
+      int get(System::String ^ a); public:
+       void set(System::String ^ a, int value); };
     content.csharp: public int this[string a] { protected get; set; }
+    content.fsharp: 'member this.Item(string) : int with get, set'
+    content.vb: Default Public Property Item(a As String) As Integer
   overload: CatLibrary.Cat`2.Item*
   exceptions: []
   modifiers.csharp:
@@ -433,7 +534,10 @@ items:
   id: Jump(`0,`1,System.Boolean@)
   parent: CatLibrary.Cat`2
   langs:
+  - cpp
   - csharp
+  - fsharp
+  - vb
   name: Jump(T, K, Boolean)
   nameWithType: Cat<T,K>.Jump(T, K, Boolean)
   fullName: CatLibrary.Cat<T,K>.Jump(T, K, Boolean)
@@ -457,10 +561,15 @@ items:
     - id: cheat
       type: System.Boolean
       description: Hint whether this cat has cheat mode.
+    content.cpp: >-
+      public:
+       void Jump(T ownType, K anotherOwnType, bool % cheat);
     content.csharp: >-
       [System.Diagnostics.Conditional("Debug")]
 
       public void Jump (T ownType, K anotherOwnType, ref bool cheat);
+    content.fsharp: "member this.Jump : 'T * 'K *  -> unit"
+    content.vb: Public Sub Jump (ownType As T, anotherOwnType As K, ByRef cheat As Boolean)
   overload: CatLibrary.Cat`2.Jump*
   exceptions:
   - type: System.ArgumentException
@@ -478,7 +587,10 @@ items:
   id: Name
   parent: CatLibrary.Cat`2
   langs:
+  - cpp
   - csharp
+  - fsharp
+  - vb
   name: Name
   nameWithType: Cat<T,K>.Name
   fullName: CatLibrary.Cat<T,K>.Name
@@ -492,7 +604,12 @@ items:
     return:
       type: System.String
       description: ''
+    content.cpp: >-
+      public:
+       property System::String ^ Name { System::String ^ get(); };
     content.csharp: public string Name { get; }
+    content.fsharp: 'member this.Name : string'
+    content.vb: Public ReadOnly Property Name As String
   overload: CatLibrary.Cat`2.Name*
   exceptions: []
   implements:
@@ -508,7 +625,10 @@ items:
   id: op_Addition(CatLibrary.Cat{`0,`1},System.Int32)
   parent: CatLibrary.Cat`2
   langs:
+  - cpp
   - csharp
+  - fsharp
+  - vb
   name: Addition(Cat<T,K>, Int32)
   nameWithType: Cat<T,K>.Addition(Cat<T,K>, Int32)
   fullName: CatLibrary.Cat<T,K>.Addition(Cat<T,K>, Int32)
@@ -529,7 +649,12 @@ items:
     return:
       type: System.Int32
       description: Result with <em>int</em> type.
+    content.cpp: >-
+      public:
+       static int operator +(CatLibrary::Cat<T, K> ^ lsr, int rsr);
     content.csharp: public static int operator + (CatLibrary.Cat<T,K> lsr, int rsr);
+    content.fsharp: "static member ( + ) : CatLibrary.Cat<'T, 'K (requires 'T : null and 'T : (new : unit -> 'T) and 'K : struct)> * int -> int"
+    content.vb: Public Shared Operator + (lsr As Cat(Of T, K), rsr As Integer) As Integer
   overload: CatLibrary.Cat`2.op_Addition*
   exceptions: []
   modifiers.csharp:
@@ -543,7 +668,10 @@ items:
   id: op_Explicit(CatLibrary.Cat{`0,`1})~CatLibrary.Tom
   parent: CatLibrary.Cat`2
   langs:
+  - cpp
   - csharp
+  - fsharp
+  - vb
   name: Explicit(Cat<T,K> to Tom)
   nameWithType: Cat<T,K>.Explicit(Cat<T,K> to Tom)
   fullName: CatLibrary.Cat<T,K>.Explicit(Cat<T,K> to Tom)
@@ -564,7 +692,12 @@ items:
     return:
       type: CatLibrary.Tom
       description: Advanced class type of cat.
+    content.cpp: >-
+      public:
+       static explicit operator CatLibrary::Tom ^(CatLibrary::Cat<T, K> ^ src);
     content.csharp: public static explicit operator CatLibrary.Tom (CatLibrary.Cat<T,K> src);
+    content.fsharp: "static member op_Explicit : CatLibrary.Cat<'T, 'K (requires 'T : null and 'T : (new : unit -> 'T) and 'K : struct)> -> CatLibrary.Tom"
+    content.vb: Public Shared Narrowing Operator CType (src As Cat(Of T, K)) As Tom
   overload: CatLibrary.Cat`2.op_Explicit*
   exceptions: []
   modifiers.csharp:
@@ -578,7 +711,10 @@ items:
   id: op_Subtraction(CatLibrary.Cat{`0,`1},System.Int32)
   parent: CatLibrary.Cat`2
   langs:
+  - cpp
   - csharp
+  - fsharp
+  - vb
   name: Subtraction(Cat<T,K>, Int32)
   nameWithType: Cat<T,K>.Subtraction(Cat<T,K>, Int32)
   fullName: CatLibrary.Cat<T,K>.Subtraction(Cat<T,K>, Int32)
@@ -599,7 +735,12 @@ items:
     return:
       type: System.Int32
       description: ''
+    content.cpp: >-
+      public:
+       static int operator -(CatLibrary::Cat<T, K> ^ lsr, int rsr);
     content.csharp: public static int operator - (CatLibrary.Cat<T,K> lsr, int rsr);
+    content.fsharp: "static member ( - ) : CatLibrary.Cat<'T, 'K (requires 'T : null and 'T : (new : unit -> 'T) and 'K : struct)> * int -> int"
+    content.vb: Public Shared Operator - (lsr As Cat(Of T, K), rsr As Integer) As Integer
   overload: CatLibrary.Cat`2.op_Subtraction*
   exceptions: []
   modifiers.csharp:
@@ -613,7 +754,10 @@ items:
   id: ownEat
   parent: CatLibrary.Cat`2
   langs:
+  - cpp
   - csharp
+  - fsharp
+  - vb
   name: ownEat
   nameWithType: Cat<T,K>.ownEat
   fullName: CatLibrary.Cat<T,K>.ownEat
@@ -624,7 +768,12 @@ items:
   summary: Eat event of this cat
   syntax:
     content: public event EventHandler ownEat;
+    content.cpp: >-
+      public:
+       event EventHandler ^ ownEat;
     content.csharp: public event EventHandler ownEat;
+    content.fsharp: 'member this.ownEat : EventHandler '
+    content.vb: 'Public Event ownEat As EventHandler '
   exceptions: []
   modifiers.csharp:
   - public
@@ -637,7 +786,9 @@ items:
   isEii: true
   parent: CatLibrary.Cat`2
   langs:
+  - cpp
   - csharp
+  - vb
   name: IAnimal.Eat(String)
   nameWithType: Cat<T,K>.IAnimal.Eat(String)
   fullName: CatLibrary.Cat<T,K>.CatLibrary.IAnimal.Eat(String)
@@ -652,7 +803,9 @@ items:
     - id: food
       type: System.String
       description: Food to eat
+    content.cpp: " virtual void CatLibrary.IAnimal.Eat(System::String ^ food) = CatLibrary::IAnimal::Eat;"
     content.csharp: void IAnimal.Eat (string food);
+    content.vb: Sub Eat (food As String) Implements IAnimal.Eat
   overload: CatLibrary.Cat`2.CatLibrary#IAnimal#Eat*
   exceptions: []
   implements:
@@ -666,7 +819,9 @@ items:
   isEii: true
   parent: CatLibrary.Cat`2
   langs:
+  - cpp
   - csharp
+  - vb
   name: IAnimal.Eat()
   nameWithType: Cat<T,K>.IAnimal.Eat()
   fullName: CatLibrary.Cat<T,K>.CatLibrary.IAnimal.Eat()
@@ -678,7 +833,9 @@ items:
   syntax:
     content: void IAnimal.Eat ();
     parameters: []
+    content.cpp: " virtual void CatLibrary.IAnimal.Eat() = CatLibrary::IAnimal::Eat;"
     content.csharp: void IAnimal.Eat ();
+    content.vb: Sub Eat () Implements IAnimal.Eat
   overload: CatLibrary.Cat`2.CatLibrary#IAnimal#Eat*
   exceptions: []
   implements:
@@ -692,7 +849,9 @@ items:
   isEii: true
   parent: CatLibrary.Cat`2
   langs:
+  - cpp
   - csharp
+  - vb
   name: IAnimal.Eat<Tool>(Tool)
   nameWithType: Cat<T,K>.IAnimal.Eat<Tool>(Tool)
   fullName: CatLibrary.Cat<T,K>.CatLibrary.IAnimal.Eat<Tool>(Tool)
@@ -710,7 +869,11 @@ items:
     typeParameters:
     - id: Tool
       description: Tool for eat.
+    content.cpp: >-
+      generic <typename Tool>
+       where Tool : class virtual void CatLibrary.IAnimal.Eat(Tool a) = CatLibrary::IAnimal::Eat;
     content.csharp: 'void IAnimal.Eat<Tool> (Tool a) where Tool : class;'
+    content.vb: Sub Eat(Of Tool As Class) (a As Tool) Implements IAnimal.Eat
   overload: CatLibrary.Cat`2.CatLibrary#IAnimal#Eat*
   exceptions: []
   implements:
@@ -724,7 +887,9 @@ items:
   isEii: true
   parent: CatLibrary.Cat`2
   langs:
+  - cpp
   - csharp
+  - vb
   name: IAnimal.Item[Int32]
   nameWithType: Cat<T,K>.IAnimal.Item[Int32]
   fullName: CatLibrary.Cat<T,K>.CatLibrary.IAnimal.Item[Int32]
@@ -742,7 +907,9 @@ items:
     return:
       type: System.String
       description: Cat's name.
+    content.cpp: property System::String ^ CatLibrary::IAnimal::Item[int] { System::String ^ get(int a); };
     content.csharp: string CatLibrary.IAnimal.Item[int a] { get; }
+    content.vb: " ReadOnly Property Item(a As Integer) As String Implements IAnimal.Item"
   overload: CatLibrary.Cat`2.CatLibrary#IAnimal#Item*
   exceptions: []
   implements:
@@ -759,6 +926,7 @@ items:
   parent: CatLibrary.Cat`2
   langs:
   - csharp
+  - vb
   name: ICat.eat
   nameWithType: Cat<T,K>.ICat.eat
   fullName: CatLibrary.Cat<T,K>.CatLibrary.ICat.eat
@@ -769,6 +937,7 @@ items:
   syntax:
     content: event EventHandler CatLibrary.ICat.eat;
     content.csharp: event EventHandler CatLibrary.ICat.eat;
+    content.vb: Custom Event eat As EventHandler Implements CatLibrary.ICat
   exceptions: []
   implements:
   - CatLibrary.ICat.eat

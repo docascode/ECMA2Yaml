@@ -7,7 +7,10 @@ items:
   - CatLibrary.ICat.CatchJerry
   - CatLibrary.ICat.eat
   langs:
+  - cpp
   - csharp
+  - fsharp
+  - vb
   name: ICat
   nameWithType: CatLibrary.ICat
   fullName: CatLibrary.ICat
@@ -18,7 +21,15 @@ items:
   summary: Cat's interface
   syntax:
     content: 'public interface ICat : CatLibrary.IAnimal'
+    content.cpp: 'public interface class ICat : CatLibrary::IAnimal'
     content.csharp: 'public interface ICat : CatLibrary.IAnimal'
+    content.fsharp: >-
+      type ICat = interface
+          interface IAnimal
+    content.vb: >-
+      Public Interface ICat
+
+      Implements IAnimal
   derivedClasses:
   - CatLibrary.Cat`2
   implements:
@@ -42,7 +53,10 @@ items:
   id: CatchJerry
   parent: CatLibrary.ICat
   langs:
+  - cpp
   - csharp
+  - fsharp
+  - vb
   name: CatchJerry()
   nameWithType: ICat.CatchJerry()
   fullName: CatLibrary.ICat.CatchJerry()
@@ -54,7 +68,12 @@ items:
   syntax:
     content: public void CatchJerry ();
     parameters: []
+    content.cpp: >-
+      public:
+       void CatchJerry();
     content.csharp: public void CatchJerry ();
+    content.fsharp: 'abstract member CatchJerry : unit -> unit'
+    content.vb: Public Sub CatchJerry ()
   overload: CatLibrary.ICat.CatchJerry*
   exceptions: []
   modifiers.csharp:
@@ -66,7 +85,10 @@ items:
   id: eat
   parent: CatLibrary.ICat
   langs:
+  - cpp
   - csharp
+  - fsharp
+  - vb
   name: eat
   nameWithType: ICat.eat
   fullName: CatLibrary.ICat.eat
@@ -77,7 +99,12 @@ items:
   summary: eat event of cat. Every cat must implement this event.
   syntax:
     content: event EventHandler eat;
+    content.cpp: >-
+      public:
+       event EventHandler ^ eat;
     content.csharp: event EventHandler eat;
+    content.fsharp: 'member this.eat : EventHandler '
+    content.vb: 'Event eat As EventHandler '
   exceptions: []
   monikers:
   - cat-1.0

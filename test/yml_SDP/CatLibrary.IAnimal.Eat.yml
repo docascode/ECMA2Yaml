@@ -7,8 +7,16 @@ members:
   fullName: CatLibrary.IAnimal.Eat()
   nameWithType: IAnimal.Eat()
   syntax:
+  - lang: cpp
+    value: >-
+      public:
+       void Eat();
   - lang: csharp
     value: public void Eat ();
+  - lang: fsharp
+    value: 'abstract member Eat : unit -> unit'
+  - lang: vb
+    value: Public Sub Eat ()
   monikers:
   - cat-1.0
   - cat-2.0
@@ -24,8 +32,16 @@ members:
   fullName: CatLibrary.IAnimal.Eat(String)
   nameWithType: IAnimal.Eat(String)
   syntax:
+  - lang: cpp
+    value: >-
+      public:
+       void Eat(System::String ^ food);
   - lang: csharp
     value: public void Eat (string food);
+  - lang: fsharp
+    value: 'abstract member Eat : string -> unit'
+  - lang: vb
+    value: Public Sub Eat (food As String)
   monikers:
   - cat-1.0
   - cat-2.0
@@ -44,8 +60,16 @@ members:
   fullName: CatLibrary.IAnimal.Eat<Tool>(Tool)
   nameWithType: IAnimal.Eat<Tool>(Tool)
   syntax:
+  - lang: cpp
+    value: >-
+      public:
+
+      generic <typename Tool>
+       where Tool : class void Eat(Tool tool);
   - lang: csharp
     value: 'public void Eat<Tool> (Tool tool) where Tool : class;'
+  - lang: fsharp
+    value: "abstract member Eat : 'ool -> unit (requires 'ool : null)"
   monikers:
   - cat-1.0
   - cat-2.0
@@ -60,7 +84,10 @@ nameWithType: IAnimal.Eat
 assemblies:
 - CatLibrary
 devLangs:
+- cpp
 - csharp
+- fsharp
+- vb
 monikers:
 - cat-1.0
 - cat-2.0

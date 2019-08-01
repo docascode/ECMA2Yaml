@@ -7,7 +7,10 @@ items:
   - CatLibrary.Tom.#ctor
   - CatLibrary.Tom.TomMethod(CatLibrary.Complex{CatLibrary.TomFromBaseClass,CatLibrary.TomFromBaseClass},System.Tuple{System.String,CatLibrary.Tom})
   langs:
+  - cpp
   - csharp
+  - fsharp
+  - vb
   name: Tom
   nameWithType: CatLibrary.Tom
   fullName: CatLibrary.Tom
@@ -18,7 +21,10 @@ items:
   summary: Tom class is only inherit from Object. Not any member inside itself.
   syntax:
     content: public class Tom
+    content.cpp: public ref class Tom
     content.csharp: public class Tom
+    content.fsharp: type Tom = class
+    content.vb: Public Class Tom
   inheritance:
   - System.Object
   derivedClasses:
@@ -35,7 +41,9 @@ items:
   id: '#ctor'
   parent: CatLibrary.Tom
   langs:
+  - cpp
   - csharp
+  - vb
   name: Tom()
   nameWithType: Tom.Tom()
   fullName: CatLibrary.Tom.Tom()
@@ -46,7 +54,11 @@ items:
   syntax:
     content: public Tom ();
     parameters: []
+    content.cpp: >-
+      public:
+       Tom();
     content.csharp: public Tom ();
+    content.vb: Public Sub New ()
   overload: CatLibrary.Tom.#ctor*
   exceptions: []
   modifiers.csharp:
@@ -59,7 +71,10 @@ items:
   id: TomMethod(CatLibrary.Complex{CatLibrary.TomFromBaseClass,CatLibrary.TomFromBaseClass},System.Tuple{System.String,CatLibrary.Tom})
   parent: CatLibrary.Tom
   langs:
+  - cpp
   - csharp
+  - fsharp
+  - vb
   name: TomMethod(Complex<TomFromBaseClass,TomFromBaseClass>, Tuple<String,Tom>)
   nameWithType: Tom.TomMethod(Complex<TomFromBaseClass,TomFromBaseClass>, Tuple<String,Tom>)
   fullName: CatLibrary.Tom.TomMethod(Complex<TomFromBaseClass,TomFromBaseClass>, Tuple<String,Tom>)
@@ -80,7 +95,12 @@ items:
     return:
       type: CatLibrary.Complex{System.String,CatLibrary.TomFromBaseClass}
       description: Complex @CatLibrary.TomFromBaseClass
+    content.cpp: >-
+      public:
+       CatLibrary::Complex<System::String ^, CatLibrary::TomFromBaseClass ^> ^ TomMethod(CatLibrary::Complex<CatLibrary::TomFromBaseClass ^, CatLibrary::TomFromBaseClass ^> ^ a, Tuple<System::String ^, CatLibrary::Tom ^> ^ b);
     content.csharp: public CatLibrary.Complex<string,CatLibrary.TomFromBaseClass> TomMethod (CatLibrary.Complex<CatLibrary.TomFromBaseClass,CatLibrary.TomFromBaseClass> a, Tuple<string,CatLibrary.Tom> b);
+    content.fsharp: 'member this.TomMethod : CatLibrary.Complex<CatLibrary.TomFromBaseClass, CatLibrary.TomFromBaseClass> * string * CatLibrary.Tom -> CatLibrary.Complex<string, CatLibrary.TomFromBaseClass>'
+    content.vb: Public Function TomMethod (a As Complex(Of TomFromBaseClass, TomFromBaseClass), b As Tuple(Of String, Tom)) As Complex(Of String, TomFromBaseClass)
   overload: CatLibrary.Tom.TomMethod*
   exceptions:
   - type: System.NotImplementedException

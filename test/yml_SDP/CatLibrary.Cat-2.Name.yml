@@ -11,8 +11,16 @@ members:
   fullName: CatLibrary.Cat<T,K>.Name
   nameWithType: Cat<T,K>.Name
   syntax:
+  - lang: cpp
+    value: >-
+      public:
+       property System::String ^ Name { System::String ^ get(); };
   - lang: csharp
     value: public string Name { get; }
+  - lang: fsharp
+    value: 'member this.Name : string'
+  - lang: vb
+    value: Public ReadOnly Property Name As String
   monikers:
   - cat-1.0
   - cat-2.0
@@ -27,7 +35,10 @@ nameWithType: Cat<T,K>.Name
 assemblies:
 - CatLibrary
 devLangs:
+- cpp
 - csharp
+- fsharp
+- vb
 monikers:
 - cat-1.0
 - cat-2.0

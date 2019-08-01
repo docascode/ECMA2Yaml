@@ -14,8 +14,16 @@ members:
   fullName: CatLibrary.Cat<T,K>.CalculateFood(DateTime)
   nameWithType: Cat<T,K>.CalculateFood(DateTime)
   syntax:
+  - lang: cpp
+    value: >-
+      public:
+       System::Collections::Generic::Dictionary<System::String ^, System::Collections::Generic::List<int> ^> ^ CalculateFood(DateTime date);
   - lang: csharp
     value: public System.Collections.Generic.Dictionary<string,System.Collections.Generic.List<int>> CalculateFood (DateTime date);
+  - lang: fsharp
+    value: 'member this.CalculateFood : DateTime -> System.Collections.Generic.Dictionary<string, System.Collections.Generic.List<int>>'
+  - lang: vb
+    value: Public Function CalculateFood (date As DateTime) As Dictionary(Of String, List(Of Integer))
   monikers:
   - cat-1.0
   - cat-2.0
@@ -30,7 +38,10 @@ nameWithType: Cat<T,K>.CalculateFood
 assemblies:
 - CatLibrary
 devLangs:
+- cpp
 - csharp
+- fsharp
+- vb
 monikers:
 - cat-1.0
 - cat-2.0

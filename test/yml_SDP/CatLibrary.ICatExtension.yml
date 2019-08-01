@@ -20,10 +20,19 @@ nameWithType: CatLibrary.ICatExtension
 assemblies:
 - CatLibrary
 syntax:
+- lang: cpp
+  value: public ref class ICatExtension abstract sealed
 - lang: csharp
   value: public static class ICatExtension
+- lang: fsharp
+  value: type ICatExtension = class
+- lang: vb
+  value: Public Module ICatExtension
 devLangs:
+- cpp
 - csharp
+- fsharp
+- vb
 monikers:
 - cat-1.0
 - cat-2.0

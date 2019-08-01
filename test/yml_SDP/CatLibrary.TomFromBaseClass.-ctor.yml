@@ -11,8 +11,16 @@ members:
   fullName: CatLibrary.TomFromBaseClass.TomFromBaseClass(Int32)
   nameWithType: TomFromBaseClass.TomFromBaseClass(Int32)
   syntax:
+  - lang: cpp
+    value: >-
+      public:
+       TomFromBaseClass(int k);
   - lang: csharp
     value: public TomFromBaseClass (int k);
+  - lang: fsharp
+    value: 'new CatLibrary.TomFromBaseClass : int -> CatLibrary.TomFromBaseClass'
+  - lang: vb
+    value: Public Sub New (k As Integer)
   monikers:
   - cat-1.0
   - cat-2.0
@@ -27,7 +35,10 @@ nameWithType: TomFromBaseClass.TomFromBaseClass
 assemblies:
 - CatLibrary
 devLangs:
+- cpp
 - csharp
+- fsharp
+- vb
 monikers:
 - cat-1.0
 - cat-2.0

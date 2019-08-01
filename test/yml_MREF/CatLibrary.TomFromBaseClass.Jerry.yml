@@ -6,7 +6,10 @@ items:
   children:
   - CatLibrary.TomFromBaseClass.Jerry.#ctor(MRef.Demo.Enumeration.ColorType)
   langs:
+  - cpp
   - csharp
+  - fsharp
+  - vb
   name: TomFromBaseClass.Jerry
   nameWithType: CatLibrary.TomFromBaseClass.Jerry
   fullName: CatLibrary.TomFromBaseClass.Jerry
@@ -17,7 +20,10 @@ items:
   summary: This is a <strong>nested</strong> class inside <xref data-throw-if-not-resolved="true" uid="CatLibrary.TomFromBaseClass"></xref>
   syntax:
     content: public class TomFromBaseClass.Jerry
+    content.cpp: 'public: ref class TomFromBaseClass::Jerry'
     content.csharp: public class TomFromBaseClass.Jerry
+    content.fsharp: type TomFromBaseClass.Jerry = class
+    content.vb: Public Class TomFromBaseClass.Jerry
   inheritance:
   - System.Object
   implements: []
@@ -33,7 +39,10 @@ items:
   id: '#ctor(MRef.Demo.Enumeration.ColorType)'
   parent: CatLibrary.TomFromBaseClass.Jerry
   langs:
+  - cpp
   - csharp
+  - fsharp
+  - vb
   name: TomFromBaseClass.Jerry(ColorType)
   nameWithType: TomFromBaseClass.Jerry.TomFromBaseClass.Jerry(ColorType)
   fullName: CatLibrary.TomFromBaseClass.Jerry.TomFromBaseClass.Jerry(ColorType)
@@ -48,7 +57,12 @@ items:
     - id: color
       type: MRef.Demo.Enumeration.ColorType
       description: Color of Jerry.
+    content.cpp: >-
+      public:
+       Jerry(MRef::Demo::Enumeration::ColorType color);
     content.csharp: public Jerry (MRef.Demo.Enumeration.ColorType color);
+    content.fsharp: 'new CatLibrary.TomFromBaseClass.Jerry : MRef.Demo.Enumeration.ColorType -> CatLibrary.TomFromBaseClass.Jerry'
+    content.vb: Public Sub New (color As ColorType)
   overload: CatLibrary.TomFromBaseClass.Jerry.#ctor*
   exceptions: []
   modifiers.csharp:

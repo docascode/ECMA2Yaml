@@ -41,10 +41,19 @@ nameWithType: MRef.Demo.Enumeration.ColorType
 assemblies:
 - CatLibrary
 syntax:
+- lang: cpp
+  value: public enum class ColorType
 - lang: csharp
   value: public enum ColorType
+- lang: fsharp
+  value: 'type ColorType = '
+- lang: vb
+  value: Public Enum ColorType
 devLangs:
+- cpp
 - csharp
+- fsharp
+- vb
 monikers:
 - cat-1.0
 - cat-2.0

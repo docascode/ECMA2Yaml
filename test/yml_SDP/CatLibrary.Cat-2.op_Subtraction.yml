@@ -14,8 +14,16 @@ members:
   fullName: CatLibrary.Cat<T,K>.Subtraction(Cat<T,K>, Int32)
   nameWithType: Cat<T,K>.Subtraction(Cat<T,K>, Int32)
   syntax:
+  - lang: cpp
+    value: >-
+      public:
+       static int operator -(CatLibrary::Cat<T, K> ^ lsr, int rsr);
   - lang: csharp
     value: public static int operator - (CatLibrary.Cat<T,K> lsr, int rsr);
+  - lang: fsharp
+    value: "static member ( - ) : CatLibrary.Cat<'T, 'K (requires 'T : null and 'T : (new : unit -> 'T) and 'K : struct)> * int -> int"
+  - lang: vb
+    value: Public Shared Operator - (lsr As Cat(Of T, K), rsr As Integer) As Integer
   monikers:
   - cat-1.0
   - cat-2.0
@@ -30,7 +38,10 @@ nameWithType: Cat<T,K>.Subtraction
 assemblies:
 - CatLibrary
 devLangs:
+- cpp
 - csharp
+- fsharp
+- vb
 monikers:
 - cat-1.0
 - cat-2.0

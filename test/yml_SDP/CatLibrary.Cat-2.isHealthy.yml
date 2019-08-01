@@ -11,11 +11,17 @@ members:
   attributes:
   - System.ContextStaticAttribute
   syntax:
+  - lang: cpp
+    value: 'public: bool isHealthy;'
   - lang: csharp
     value: >-
       [System.ContextStatic]
 
       public bool isHealthy;
+  - lang: fsharp
+    value: 'val mutable isHealthy : bool'
+  - lang: vb
+    value: 'Public isHealthy As Boolean '
   monikers:
   - cat-1.0
   - cat-2.0
@@ -25,7 +31,10 @@ namespace: CatLibrary
 assemblies:
 - CatLibrary
 devLangs:
+- cpp
 - csharp
+- fsharp
+- vb
 monikers:
 - cat-1.0
 - cat-2.0

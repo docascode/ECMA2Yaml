@@ -9,8 +9,19 @@ members:
   fullName: CatLibrary.Cat<T,K>.CatchJerry()
   nameWithType: Cat<T,K>.CatchJerry()
   syntax:
+  - lang: cpp
+    value: >-
+      public:
+       virtual void CatchJerry();
   - lang: csharp
     value: public void CatchJerry ();
+  - lang: fsharp
+    value: >-
+      abstract member CatchJerry : unit -> unit
+
+      override this.CatchJerry : unit -> unit
+  - lang: vb
+    value: Public Sub CatchJerry ()
   monikers:
   - cat-2.0
   summary: This one can't.
@@ -24,8 +35,16 @@ members:
   fullName: CatLibrary.Cat<T,K>.CatchJerry(Boolean)
   nameWithType: Cat<T,K>.CatchJerry(Boolean)
   syntax:
+  - lang: cpp
+    value: >-
+      public:
+       void CatchJerry(bool force);
   - lang: csharp
     value: public void CatchJerry (bool force);
+  - lang: fsharp
+    value: 'member this.CatchJerry : bool -> unit'
+  - lang: vb
+    value: Public Sub CatchJerry (force As Boolean)
   monikers:
   - cat-2.0
   summary: If you force it, maybe it can.
@@ -39,7 +58,10 @@ nameWithType: Cat<T,K>.CatchJerry
 assemblies:
 - CatLibrary
 devLangs:
+- cpp
 - csharp
+- fsharp
+- vb
 monikers:
 - cat-2.0
 metadata:

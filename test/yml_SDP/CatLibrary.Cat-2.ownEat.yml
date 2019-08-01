@@ -7,8 +7,16 @@ members:
   fullName: CatLibrary.Cat<T,K>.ownEat
   nameWithType: Cat<T,K>.ownEat
   syntax:
+  - lang: cpp
+    value: >-
+      public:
+       event EventHandler ^ ownEat;
   - lang: csharp
     value: public event EventHandler ownEat;
+  - lang: fsharp
+    value: 'member this.ownEat : EventHandler '
+  - lang: vb
+    value: 'Public Event ownEat As EventHandler '
   monikers:
   - cat-1.0
   - cat-2.0
@@ -18,7 +26,10 @@ namespace: CatLibrary
 assemblies:
 - CatLibrary
 devLangs:
+- cpp
 - csharp
+- fsharp
+- vb
 monikers:
 - cat-1.0
 - cat-2.0

@@ -15,10 +15,19 @@ nameWithType: CatLibrary.JerryExtension
 assemblies:
 - CatLibrary
 syntax:
+- lang: cpp
+  value: public ref class JerryExtension abstract sealed
 - lang: csharp
   value: public static class JerryExtension
+- lang: fsharp
+  value: type JerryExtension = class
+- lang: vb
+  value: Public Module JerryExtension
 devLangs:
+- cpp
 - csharp
+- fsharp
+- vb
 monikers:
 - cat-2.0
 summary: This class extends <xref data-throw-if-not-resolved="true" uid="CatLibrary.TomFromBaseClass.Jerry"></xref>.

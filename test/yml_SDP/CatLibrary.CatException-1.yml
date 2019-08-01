@@ -18,10 +18,27 @@ nameWithType: CatLibrary.CatException<T>
 assemblies:
 - CatLibrary
 syntax:
+- lang: cpp
+  value: >-
+    generic <typename T>
+
+    public ref class CatException : Exception
 - lang: csharp
   value: 'public class CatException<T> : Exception'
+- lang: fsharp
+  value: >-
+    type CatException<'T> = class
+        inherit Exception
+- lang: vb
+  value: >-
+    Public Class CatException(Of T)
+
+    Inherits Exception
 devLangs:
+- cpp
 - csharp
+- fsharp
+- vb
 monikers:
 - cat-1.0
 - cat-2.0
