@@ -107,8 +107,10 @@ namespace DiffFiles
             // newFileCount = oldFileCount != 0
             else
             {
-                List<string> shortYaml1FileNameList = oldFileList.Select(f => f.FullName.Replace(oldPath, "")).ToList();
-                List<string> shortYaml2FileNameList = newFileList.Select(f => f.FullName.Replace(newPath, "")).ToList();
+                //List<string> shortYaml1FileNameList = oldFileList.Select(f => f.FullName.Replace(oldPath, "")).ToList();
+                //List<string> shortYaml2FileNameList = newFileList.Select(f => f.FullName.Replace(newPath, "")).ToList();
+                List<string> shortYaml1FileNameList = oldFileList.Select(f => f.Name).ToList();
+                List<string> shortYaml2FileNameList = newFileList.Select(f => f.Name).ToList();
 
                 var except = shortYaml2FileNameList.Except(shortYaml1FileNameList);
                 var except1 = shortYaml1FileNameList.Except(shortYaml2FileNameList);
