@@ -1,36 +1,31 @@
--
-  branches:
-    only:
-      - master
-  version: 1.0.{build}
-  image: Visual Studio 2017
-  build_script:
-    - nuget restore ./ECMA2Yaml/ECMA2Yaml.sln
-    - msbuild ./ECMA2Yaml/ECMA2Yaml.sln /p:Configuration=Release
-    - diffYaml.bat
-  test: Auto
-  on_success:
-    - cd ECMA2Yaml
-    - pack.bat %APPVEYOR_BUILD_VERSION%
-    - IF NOT DEFINED APPVEYOR_PULL_REQUEST_NUMBER nuget push ./_nuget/Microsoft.DocAsCode.ECMA2Yaml.%APPVEYOR_BUILD_VERSION%.nupkg %opFeedKey% -Source %opFeedUrl%
-    - IF NOT DEFINED APPVEYOR_PULL_REQUEST_NUMBER nuget push ./_nuget/Microsoft.DocAsCode.ECMAHelper.%APPVEYOR_BUILD_VERSION%.nupkg %opFeedKey% -Source %opFeedUrl%
-    - IF NOT DEFINED APPVEYOR_PULL_REQUEST_NUMBER nuget push ./_nuget/Microsoft.DocAsCode.ECMA2Yaml.%APPVEYOR_BUILD_VERSION%.nupkg %nugetKey% -Source %nugetUrl%
-    - IF NOT DEFINED APPVEYOR_PULL_REQUEST_NUMBER nuget push ./_nuget/Microsoft.DocAsCode.ECMAHelper.%APPVEYOR_BUILD_VERSION%.nupkg %nugetKey% -Source %nugetUrl%
+version: 1.0.{build}
+branches:
+  only:
+    - master
+    - develop
+environment:
+  MYGETFEED: $(opFeedUrl)
+image: Visual Studio 2017
+build_script:
+- echo %APPVEYOR_BUILD_VERSION%
+- echo %MYGETFEED%
+- nuget restore ./ECMA2Yaml/ECMA2Yaml.sln
+- msbuild ./ECMA2Yaml/ECMA2Yaml.sln /p:Configuration=Release
+- diffYaml.bat
+test: Auto
+on_success:
+- cd ECMA2Yaml
+- pack.bat %APPVEYOR_BUILD_VERSION%
+- IF NOT DEFINED APPVEYOR_PULL_REQUEST_NUMBER nuget push ./_nuget/Microsoft.DocAsCode.ECMA2Yaml.%APPVEYOR_BUILD_VERSION%.nupkg %opFeedKey% -Source %opFeedUrl%
+- IF NOT DEFINED APPVEYOR_PULL_REQUEST_NUMBER nuget push ./_nuget/Microsoft.DocAsCode.ECMAHelper.%APPVEYOR_BUILD_VERSION%.nupkg %opFeedKey% -Source %opFeedUrl%
+- IF NOT DEFINED APPVEYOR_PULL_REQUEST_NUMBER nuget push ./_nuget/Microsoft.DocAsCode.ECMA2Yaml.%APPVEYOR_BUILD_VERSION%.nupkg %nugetKey% -Source %nugetUrl%
+- IF NOT DEFINED APPVEYOR_PULL_REQUEST_NUMBER nuget push ./_nuget/Microsoft.DocAsCode.ECMAHelper.%APPVEYOR_BUILD_VERSION%.nupkg %nugetKey% -Source %nugetUrl%
+
+for:
 -
   branches:
     only:
       - develop
   version: 1.0.{build}-alpha
-  image: Visual Studio 2017
-  build_script:
-    - nuget restore ./ECMA2Yaml/ECMA2Yaml.sln
-    - msbuild ./ECMA2Yaml/ECMA2Yaml.sln /p:Configuration=Release
-    - diffYaml.bat
-  test: Auto
-  on_success:
-    - cd ECMA2Yaml
-    - pack.bat %APPVEYOR_BUILD_VERSION%
-    - IF NOT DEFINED APPVEYOR_PULL_REQUEST_NUMBER nuget push ./_nuget/Microsoft.DocAsCode.ECMA2Yaml.%APPVEYOR_BUILD_VERSION%.nupkg %opFeedKey% -Source %opDevFeedUrl%
-    - IF NOT DEFINED APPVEYOR_PULL_REQUEST_NUMBER nuget push ./_nuget/Microsoft.DocAsCode.ECMAHelper.%APPVEYOR_BUILD_VERSION%.nupkg %opFeedKey% -Source %opDevFeedUrl%
-    - IF NOT DEFINED APPVEYOR_PULL_REQUEST_NUMBER nuget push ./_nuget/Microsoft.DocAsCode.ECMA2Yaml.%APPVEYOR_BUILD_VERSION%.nupkg %nugetKey% -Source %nugetUrl%
-    - IF NOT DEFINED APPVEYOR_PULL_REQUEST_NUMBER nuget push ./_nuget/Microsoft.DocAsCode.ECMAHelper.%APPVEYOR_BUILD_VERSION%.nupkg %nugetKey% -Source %nugetUrl%
+  environment:
+    MYGETFEED: $(opDevFeedUrl)
