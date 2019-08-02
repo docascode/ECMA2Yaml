@@ -15,8 +15,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapFolderToJson", "MapFolde
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{166E6A37-1ACD-4B17-81F8-77A82C53C61D}"
 	ProjectSection(SolutionItems) = preProject
+		..\appveyor.yml = ..\appveyor.yml
+		..\diffYaml.bat = ..\diffYaml.bat
 		..\test\gen-xml.ps1 = ..\test\gen-xml.ps1
 		nuget.config = nuget.config
+		pack.bat = pack.bat
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UndocumentedApi", "UndocumentedApi\UndocumentedApi.csproj", "{54CB6BAA-6C04-417D-8663-D79855954BC8}"
