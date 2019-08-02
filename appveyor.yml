@@ -5,32 +5,8 @@ branches:
     - develop
 environment:
   MYGETFEED: $(opFeedUrl)
-image: Visual Studio 2017
-build_script:
-- echo %APPVEYOR_BUILD_VERSION%
-- echo %MYGETFEED%
-- nuget restore ./ECMA2Yaml/ECMA2Yaml.sln
-- msbuild ./ECMA2Yaml/ECMA2Yaml.sln /p:Configuration=Release
-- diffYaml.bat
-test: Auto
-on_success:
-- cd ECMA2Yaml
-- pack.bat %APPVEYOR_BUILD_VERSION%
-- IF NOT DEFINED APPVEYOR_PULL_REQUEST_NUMBER nuget push ./_nuget/Microsoft.DocAsCode.ECMA2Yaml.%APPVEYOR_BUILD_VERSION%.nupkg %opFeedKey% -Source %MYGETFEED%
-- IF NOT DEFINED APPVEYOR_PULL_REQUEST_NUMBER nuget push ./_nuget/Microsoft.DocAsCode.ECMAHelper.%APPVEYOR_BUILD_VERSION%.nupkg %opFeedKey% -Source %MYGETFEED%
-- IF NOT DEFINED APPVEYOR_PULL_REQUEST_NUMBER nuget push ./_nuget/Microsoft.DocAsCode.ECMA2Yaml.%APPVEYOR_BUILD_VERSION%.nupkg %nugetKey% -Source %nugetUrl%
-- IF NOT DEFINED APPVEYOR_PULL_REQUEST_NUMBER nuget push ./_nuget/Microsoft.DocAsCode.ECMAHelper.%APPVEYOR_BUILD_VERSION%.nupkg %nugetKey% -Source %nugetUrl%
-
-notifications:
-- provider: Email
-  to:
-  - '{{commitAuthorEmail}}'
-  - $(NotificationEmail1)
-  - $(NotificationEmail2)
-  - $(NotificationEmail3)
-  - $(NotificationEmailOps)
-  subject: '{{^isPullRequest}} ECMA2Yaml CI Build {{status}}: {{buildVersion}} {{/isPullRequest}} {{#isPullRequest}} ECMA2Yaml PR # {{pullRequestId}} Build {{status}} {{/isPullRequest}}'
-  message: >-
+  EmailSubjectTemplate: '{{^isPullRequest}} ECMA2Yaml CI Build {{status}}: {{buildVersion}} {{/isPullRequest}} {{#isPullRequest}} ECMA2Yaml PR # {{pullRequestId}} Build {{status}} {{/isPullRequest}}'
+  EmailMessageTemplate: >-
     <div style="font-family:'Segoe UI',Arial,Sans-Serif;font-size:10pt;">
         {{#passed}}
         <h1 style="font-size: 150%;font-weight:normal; color:#078DC7;"><a href="{{buildUrl}}" style="color:#078DC7;">Build {{projectName}} {{buildVersion}} completed</a></h1>
@@ -56,6 +32,32 @@ notifications:
         {{/isPullRequest}}
         <p><a href="{{notificationSettingsUrl}}" style="font-size:85%;color:#999;">Configure your notification preferences</a></p>
     </div>
+image: Visual Studio 2017
+build_script:
+- echo %APPVEYOR_BUILD_VERSION%
+- echo %MYGETFEED%
+- nuget restore ./ECMA2Yaml/ECMA2Yaml.sln
+- msbuild ./ECMA2Yaml/ECMA2Yaml.sln /p:Configuration=Release
+- diffYaml.bat
+test: Auto
+on_success:
+- cd ECMA2Yaml
+- pack.bat %APPVEYOR_BUILD_VERSION%
+- IF NOT DEFINED APPVEYOR_PULL_REQUEST_NUMBER nuget push ./_nuget/Microsoft.DocAsCode.ECMA2Yaml.%APPVEYOR_BUILD_VERSION%.nupkg %opFeedKey% -Source %MYGETFEED%
+- IF NOT DEFINED APPVEYOR_PULL_REQUEST_NUMBER nuget push ./_nuget/Microsoft.DocAsCode.ECMAHelper.%APPVEYOR_BUILD_VERSION%.nupkg %opFeedKey% -Source %MYGETFEED%
+- IF NOT DEFINED APPVEYOR_PULL_REQUEST_NUMBER nuget push ./_nuget/Microsoft.DocAsCode.ECMA2Yaml.%APPVEYOR_BUILD_VERSION%.nupkg %nugetKey% -Source %nugetUrl%
+- IF NOT DEFINED APPVEYOR_PULL_REQUEST_NUMBER nuget push ./_nuget/Microsoft.DocAsCode.ECMAHelper.%APPVEYOR_BUILD_VERSION%.nupkg %nugetKey% -Source %nugetUrl%
+
+notifications:
+  provider: Email
+  to:
+  - '{{commitAuthorEmail}}'
+  - $(NotificationEmail1)
+  - $(NotificationEmail2)
+  - $(NotificationEmail3)
+  - $(NotificationEmailOps)
+  subject: $(EmailSubjectTemplate)
+  message: $(EmailMessageTemplate)
   on_build_success: true
   on_build_failure: true
   on_build_status_changed: false
@@ -68,4 +70,15 @@ for:
   version: 1.0.{build}-alpha
   environment:
     MYGETFEED: $(opDevFeedUrl)
-    NotificationEmailOps: ""
+  notifications:
+    provider: Email
+    to:
+    - '{{commitAuthorEmail}}'
+    - $(NotificationEmail1)
+    - $(NotificationEmail2)
+    - $(NotificationEmail3)
+    subject: $(EmailSubjectTemplate)
+    message: $(EmailMessageTemplate)
+    on_build_success: true
+    on_build_failure: true
+    on_build_status_changed: false
