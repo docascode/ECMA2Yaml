@@ -16,8 +16,8 @@ test: Auto
 on_success:
 - cd ECMA2Yaml
 - pack.bat %APPVEYOR_BUILD_VERSION%
-- IF NOT DEFINED APPVEYOR_PULL_REQUEST_NUMBER nuget push ./_nuget/Microsoft.DocAsCode.ECMA2Yaml.%APPVEYOR_BUILD_VERSION%.nupkg %opFeedKey% -Source %opFeedUrl%
-- IF NOT DEFINED APPVEYOR_PULL_REQUEST_NUMBER nuget push ./_nuget/Microsoft.DocAsCode.ECMAHelper.%APPVEYOR_BUILD_VERSION%.nupkg %opFeedKey% -Source %opFeedUrl%
+- IF NOT DEFINED APPVEYOR_PULL_REQUEST_NUMBER nuget push ./_nuget/Microsoft.DocAsCode.ECMA2Yaml.%APPVEYOR_BUILD_VERSION%.nupkg %opFeedKey% -Source %MYGETFEED%
+- IF NOT DEFINED APPVEYOR_PULL_REQUEST_NUMBER nuget push ./_nuget/Microsoft.DocAsCode.ECMAHelper.%APPVEYOR_BUILD_VERSION%.nupkg %opFeedKey% -Source %MYGETFEED%
 - IF NOT DEFINED APPVEYOR_PULL_REQUEST_NUMBER nuget push ./_nuget/Microsoft.DocAsCode.ECMA2Yaml.%APPVEYOR_BUILD_VERSION%.nupkg %nugetKey% -Source %nugetUrl%
 - IF NOT DEFINED APPVEYOR_PULL_REQUEST_NUMBER nuget push ./_nuget/Microsoft.DocAsCode.ECMAHelper.%APPVEYOR_BUILD_VERSION%.nupkg %nugetKey% -Source %nugetUrl%
 
