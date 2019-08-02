@@ -21,6 +21,45 @@ on_success:
 - IF NOT DEFINED APPVEYOR_PULL_REQUEST_NUMBER nuget push ./_nuget/Microsoft.DocAsCode.ECMA2Yaml.%APPVEYOR_BUILD_VERSION%.nupkg %nugetKey% -Source %nugetUrl%
 - IF NOT DEFINED APPVEYOR_PULL_REQUEST_NUMBER nuget push ./_nuget/Microsoft.DocAsCode.ECMAHelper.%APPVEYOR_BUILD_VERSION%.nupkg %nugetKey% -Source %nugetUrl%
 
+notifications:
+- provider: Email
+  to:
+  - '{{commitAuthorEmail}}'
+  - $(NotificationEmail1)
+  - $(NotificationEmail2)
+  - $(NotificationEmail3)
+  - $(NotificationEmailOps)
+  subject: '{{^isPullRequest}} ECMA2Yaml CI Build {{status}}: {{buildVersion}} {{/isPullRequest}} {{#isPullRequest}} ECMA2Yaml PR # {{pullRequestId}} Build {{status}} {{/isPullRequest}}'
+  message: >-
+    <div style="font-family:'Segoe UI',Arial,Sans-Serif;font-size:10pt;">
+        {{#passed}}
+        <h1 style="font-size: 150%;font-weight:normal; color:#078DC7;"><a href="{{buildUrl}}" style="color:#078DC7;">Build {{projectName}} {{buildVersion}} completed</a></h1>
+        {{/passed}}
+        {{#failed}}
+        <h1 style="font-size: 150%;font-weight:normal; color:#ff3228;"><a href="{{buildUrl}}" style="color:#ff3228;">Build {{projectName}} {{buildVersion}} failed</a></h1>
+        {{/failed}}
+        {{#isPullRequest}}
+        <p style="color: #888;">
+            <a href="https://github.com/docascode/ECMA2Yaml/pull/{{pullRequestId}}">Pull Request #{{pullRequestId}}</a>:
+            <br />
+            Latest commit <a href="{{commitUrl}}">{{commitId}}</a> by <a href="mailto:{{commitAuthorEmail}}">{{commitAuthor}}</a> on {{commitDate}}:
+            <br />
+            <span style="font-size: 110%;color:#222;">{{commitMessage}}</span>
+        </p>
+        {{/isPullRequest}}
+        {{^isPullRequest}}
+        <p style="color: #888;">
+            Commit <a href="{{commitUrl}}">{{commitId}}</a> by <a href="mailto:{{commitAuthorEmail}}">{{commitAuthor}}</a> on {{commitDate}}:
+            <br />
+            <span style="font-size: 110%;color:#222;">{{commitMessage}}</span>
+        </p>
+        {{/isPullRequest}}
+        <p><a href="{{notificationSettingsUrl}}" style="font-size:85%;color:#999;">Configure your notification preferences</a></p>
+    </div>
+  on_build_success: true
+  on_build_failure: true
+  on_build_status_changed: false
+
 for:
 -
   branches:
@@ -29,3 +68,4 @@ for:
   version: 1.0.{build}-alpha
   environment:
     MYGETFEED: $(opDevFeedUrl)
+    NotificationEmailOps: ""
