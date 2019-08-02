@@ -1,5 +1,4 @@
-﻿using CommandLine;
-using DiffPlex;
+﻿using DiffPlex;
 using DiffPlex.DiffBuilder;
 using DiffPlex.DiffBuilder.Model;
 using System;
@@ -7,7 +6,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace DiffFiles
 {
@@ -16,51 +14,47 @@ namespace DiffFiles
         static string _logFileFullName = "";
         static void Main(string[] args)
         {
-            string logFilePath = "";
-            string oldFilePath = "";
-            string newFilePath = "";
-            bool isDiffPath = true;
-            var option = Parser.Default.ParseArguments<CommandLine>(args).WithParsed<CommandLine>(command =>
-            {
-                oldFilePath = command.OldPath;
-                newFilePath = command.NewPath;
-                logFilePath = command.LogPath;
-                isDiffPath = command.IsDiffPath;
-            });
-            
-            _logFileFullName = Path.Combine(logFilePath, string.Format("compare_result_{0:yyyyMMddHHmm}.log", DateTime.Now));
+            var opt = new CommandLineOptions();
 
-            ConsoleLog(string.Format("Path1: '{0}'", oldFilePath));
-            ConsoleLog(string.Format("Path2: '{0}'", newFilePath));
-            ConsoleLog(string.Format("Log: '{0}'", _logFileFullName));
+            if (opt.Parse(args))
+            {
+                _logFileFullName = Path.Combine(opt.LogPath, string.Format("compare_result_{0:yyyyMMddHHmm}.log", DateTime.Now));
 
-            // Diff paths
-            if (isDiffPath)
-            {
-                ConsoleLog("Start diff paths...");
-                ComparePaths(oldFilePath, newFilePath);
-            }
-            // Diff files
-            else
-            {
-                ConsoleLog("Start diff files...");
-                string diffMessage = string.Empty;
-                if (!CompareFiles(oldFilePath, newFilePath, out diffMessage))
+                ConsoleLog(string.Format("Path1: '{0}'", opt.OldPath));
+                ConsoleLog(string.Format("Path2: '{0}'", opt.NewPath));
+                ConsoleLog(string.Format("Log: '{0}'", opt.LogPath));
+
+                // Diff paths
+                if (opt.IsDiffPath)
                 {
-                    LogMessage(2, string.Format("================{0} have diff as following===========\r\n", oldFilePath));
-                    LogMessage(2, diffMessage);
+                    ConsoleLog("Start diff paths...");
+                    ComparePaths(opt.OldPath, opt.NewPath);
+                }
+                // Diff files
+                else
+                {
+                    ConsoleLog("Start diff files...");
+                    string diffMessage = string.Empty;
+                    if (!CompareFiles(opt.OldPath, opt.NewPath, out diffMessage))
+                    {
+                        LogMessage(2, string.Format("================{0} have diff as following===========\r\n", opt.OldPath));
+                        LogMessage(2, diffMessage);
+                    }
+                }
+
+                if (File.Exists(_logFileFullName) && !string.IsNullOrEmpty(File.ReadAllText(_logFileFullName)))
+                {
+                    Environment.Exit(-1);
+                }
+                else
+                {
+                    ConsoleLog("No different.");
+                    Environment.Exit(0);
                 }
             }
-
-            if (File.Exists(_logFileFullName) && !string.IsNullOrEmpty(File.ReadAllText(_logFileFullName)))
-            {
-                Environment.Exit(-1);
-                //throw new Exception(string.Format("Compared and met diff, please get diff details from log file: '{0}'", _logFileFullName));
-            }
             else
             {
-                ConsoleLog("No different.");
-                Environment.Exit(0);
+                Environment.Exit(-1);
             }
         }
 

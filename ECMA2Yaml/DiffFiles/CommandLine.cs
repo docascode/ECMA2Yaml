@@ -1,4 +1,4 @@
-﻿using CommandLine;
+﻿using Mono.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,18 +7,41 @@ using System.Threading.Tasks;
 
 namespace DiffFiles
 {
-    public class CommandLine
+    public class CommandLineOptions
     {
-        [Option('o', "OldPath", Required = true, HelpText = "old file path")]
         public string OldPath { get; set; }
-
-        [Option('n', "NewPath", Required = true, HelpText = "new file path")]
         public string NewPath { get; set; }
-
-        [Option('l', "LogPath", Required = true, HelpText = "Compare result log path")]
         public string LogPath { get; set; }
-
-        [Option("Path", Required = true, Default = true,  HelpText = "Compare two path")]
         public bool IsDiffPath { get; set; }
+
+        List<string> Extras = null;
+        OptionSet _options = null;
+
+        public CommandLineOptions()
+        {
+            _options = new OptionSet {
+                { "o|oldpath=", "[Required] the old file path.", s => OldPath = s },
+                { "n|newpath=", "[Required] the new file path.", s => NewPath = s },
+                { "l|logpath=", "[Required] the log file path.", s => LogPath = s },
+                { "Path", "is diff path ",  s => IsDiffPath = s != null },
+            };
+        }
+
+        public bool Parse(string[] args)
+        {
+            Extras = _options.Parse(args);
+            if (string.IsNullOrEmpty(OldPath) || string.IsNullOrEmpty(NewPath) || string.IsNullOrEmpty(LogPath))
+            {
+                PrintUsage();
+                return false;
+            }
+            return true;
+        }
+
+        private void PrintUsage()
+        {
+            Console.WriteLine("Usage: DiffFiles.exe <Options>");
+            _options.WriteOptionDescriptions(Console.Out);
+        }
     }
 }
