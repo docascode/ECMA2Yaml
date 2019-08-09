@@ -12,6 +12,10 @@
     monikers:
     - cat-1.0
     - cat-2.0
+  - uid: CatLibrary.Complex`2.ComplexFlags
+    name: Complex<T,J>.ComplexFlags
+    monikers:
+    - cat-2.0
   - uid: CatLibrary.Complex`2
     name: Complex<T,J>
     monikers:

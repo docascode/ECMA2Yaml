@@ -1,0 +1,81 @@
+### YamlMime:NetEnum
+inheritances:
+- <xref href="System.Enum" data-throw-if-not-resolved="True"/>
+isFlags: true
+fields:
+- uid: CatLibrary.Complex`2.ComplexFlags.None
+  commentId: F:CatLibrary.Complex`2.ComplexFlags.None
+  literalValue: ''
+  name: None
+  nameWithType: Complex<T,J>.ComplexFlags.None
+  fullName: CatLibrary.Complex<T,J>.ComplexFlags.None
+  monikers:
+  - cat-2.0
+- uid: CatLibrary.Complex`2.ComplexFlags.SkipInitialPreparation
+  commentId: F:CatLibrary.Complex`2.ComplexFlags.SkipInitialPreparation
+  literalValue: ''
+  name: SkipInitialPreparation
+  nameWithType: Complex<T,J>.ComplexFlags.SkipInitialPreparation
+  fullName: CatLibrary.Complex<T,J>.ComplexFlags.SkipInitialPreparation
+  monikers:
+  - cat-2.0
+- uid: CatLibrary.Complex`2.ComplexFlags.StickyWrite
+  commentId: F:CatLibrary.Complex`2.ComplexFlags.StickyWrite
+  literalValue: ''
+  name: StickyWrite
+  nameWithType: Complex<T,J>.ComplexFlags.StickyWrite
+  fullName: CatLibrary.Complex<T,J>.ComplexFlags.StickyWrite
+  monikers:
+  - cat-2.0
+uid: CatLibrary.Complex`2.ComplexFlags
+commentId: T:CatLibrary.Complex`2.ComplexFlags
+namespace: CatLibrary
+name: Complex<T,J>.ComplexFlags
+fullName: CatLibrary.Complex<T,J>.ComplexFlags
+nameWithType: CatLibrary.Complex<T,J>.ComplexFlags
+assemblies:
+- CatLibrary
+attributes:
+- System.FlagsAttribute
+syntax:
+- lang: cpp
+  value: 'public: enum class Complex<T, J>::ComplexFlags'
+- lang: csharp
+  value: >-
+    [System.Flags]
+
+    public enum Complex<T,J>.ComplexFlags
+- lang: fsharp
+  value: "type Complex<'T, 'J>.ComplexFlags = "
+- lang: vb
+  value: Public Enum Complex(Of T, J).ComplexFlags
+devLangs:
+- cpp
+- csharp
+- fsharp
+- vb
+monikers:
+- cat-2.0
+metadata:
+  api_name:
+  - CatLibrary.Complex`2.ComplexFlags
+  - CatLibrary.Complex`2.ComplexFlags.None
+  - CatLibrary.Complex`2.ComplexFlags.SkipInitialPreparation
+  - CatLibrary.Complex`2.ComplexFlags.StickyWrite
+  api_location:
+  - CatLibrary.dll
+  topic_type:
+  - apiref
+  api_type:
+  - Assembly
+  f1_keywords:
+  - CatLibrary.Complex`2.ComplexFlags
+  - CatLibrary::Complex`2::ComplexFlags
+  - CatLibrary.Complex`2.ComplexFlags.None
+  - CatLibrary::Complex`2::ComplexFlags::None
+  - CatLibrary.Complex`2.ComplexFlags.SkipInitialPreparation
+  - CatLibrary::Complex`2::ComplexFlags::SkipInitialPreparation
+  - CatLibrary.Complex`2.ComplexFlags.StickyWrite
+  - CatLibrary::Complex`2::ComplexFlags::StickyWrite
+  helpviewer_keywords:
+  - CatLibrary.Complex<T,J>.ComplexFlags enum [.NET]

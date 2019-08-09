@@ -54,6 +54,7 @@
       <Type Name="Cat`2" DisplayName="Cat&lt;T,K&gt;" Kind="Class" />
       <Type Name="CatException`1" DisplayName="CatException&lt;T&gt;" Kind="Class" />
       <Type Name="Complex`2" DisplayName="Complex&lt;T,J&gt;" Kind="Class" />
+      <Type Name="Complex`2+ComplexFlags" DisplayName="Complex&lt;T,J&gt;+ComplexFlags" Kind="Enumeration" />
       <Type Name="FakeDelegate`1" DisplayName="FakeDelegate&lt;T&gt;" Kind="Delegate" />
       <Type Name="IAnimal" Kind="Interface" />
       <Type Name="ICat" Kind="Interface" />

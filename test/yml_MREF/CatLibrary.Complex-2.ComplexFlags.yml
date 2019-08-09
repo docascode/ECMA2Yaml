@@ -1,0 +1,171 @@
+### YamlMime:ManagedReference
+items:
+- uid: CatLibrary.Complex`2.ComplexFlags
+  commentId: T:CatLibrary.Complex`2.ComplexFlags
+  id: Complex`2.ComplexFlags
+  children:
+  - CatLibrary.Complex`2.ComplexFlags.None
+  - CatLibrary.Complex`2.ComplexFlags.SkipInitialPreparation
+  - CatLibrary.Complex`2.ComplexFlags.StickyWrite
+  langs:
+  - cpp
+  - csharp
+  - fsharp
+  - vb
+  name: Complex<T,J>.ComplexFlags
+  nameWithType: CatLibrary.Complex<T,J>.ComplexFlags
+  fullName: CatLibrary.Complex<T,J>.ComplexFlags
+  type: Enum
+  assemblies:
+  - CatLibrary
+  namespace: CatLibrary
+  syntax:
+    content: >-
+      [System.Flags]
+
+      public enum Complex<T,J>.ComplexFlags
+    typeParameters:
+    - id: T
+      description: ''
+    - id: J
+      description: ''
+    content.cpp: 'public: enum class Complex<T, J>::ComplexFlags'
+    content.csharp: >-
+      [System.Flags]
+
+      public enum Complex<T,J>.ComplexFlags
+    content.fsharp: "type Complex<'T, 'J>.ComplexFlags = "
+    content.vb: Public Enum Complex(Of T, J).ComplexFlags
+  inheritance:
+  - System.Enum
+  attributes:
+  - type: System.FlagsAttribute
+  modifiers.csharp:
+  - public
+  monikers:
+  - cat-2.0
+- uid: CatLibrary.Complex`2.ComplexFlags.None
+  commentId: F:CatLibrary.Complex`2.ComplexFlags.None
+  id: None
+  parent: CatLibrary.Complex`2.ComplexFlags
+  langs:
+  - cpp
+  - csharp
+  - fsharp
+  - vb
+  name: None
+  nameWithType: Complex<T,J>.ComplexFlags.None
+  fullName: CatLibrary.Complex<T,J>.ComplexFlags.None
+  type: Field
+  assemblies:
+  - CatLibrary
+  namespace: CatLibrary
+  syntax:
+    content: None
+    return:
+      type: CatLibrary.Complex`2.ComplexFlags
+      description: ''
+    content.cpp: None
+    content.csharp: None
+    content.fsharp: None = 0
+    content.vb: None
+  exceptions: []
+  monikers:
+  - cat-2.0
+- uid: CatLibrary.Complex`2.ComplexFlags.SkipInitialPreparation
+  commentId: F:CatLibrary.Complex`2.ComplexFlags.SkipInitialPreparation
+  id: SkipInitialPreparation
+  parent: CatLibrary.Complex`2.ComplexFlags
+  langs:
+  - cpp
+  - csharp
+  - fsharp
+  - vb
+  name: SkipInitialPreparation
+  nameWithType: Complex<T,J>.ComplexFlags.SkipInitialPreparation
+  fullName: CatLibrary.Complex<T,J>.ComplexFlags.SkipInitialPreparation
+  type: Field
+  assemblies:
+  - CatLibrary
+  namespace: CatLibrary
+  syntax:
+    content: SkipInitialPreparation
+    return:
+      type: CatLibrary.Complex`2.ComplexFlags
+      description: ''
+    content.cpp: SkipInitialPreparation
+    content.csharp: SkipInitialPreparation
+    content.fsharp: SkipInitialPreparation = 4096
+    content.vb: SkipInitialPreparation
+  exceptions: []
+  monikers:
+  - cat-2.0
+- uid: CatLibrary.Complex`2.ComplexFlags.StickyWrite
+  commentId: F:CatLibrary.Complex`2.ComplexFlags.StickyWrite
+  id: StickyWrite
+  parent: CatLibrary.Complex`2.ComplexFlags
+  langs:
+  - cpp
+  - csharp
+  - fsharp
+  - vb
+  name: StickyWrite
+  nameWithType: Complex<T,J>.ComplexFlags.StickyWrite
+  fullName: CatLibrary.Complex<T,J>.ComplexFlags.StickyWrite
+  type: Field
+  assemblies:
+  - CatLibrary
+  namespace: CatLibrary
+  syntax:
+    content: StickyWrite
+    return:
+      type: CatLibrary.Complex`2.ComplexFlags
+      description: ''
+    content.cpp: StickyWrite
+    content.csharp: StickyWrite
+    content.fsharp: StickyWrite = 1
+    content.vb: StickyWrite
+  exceptions: []
+  monikers:
+  - cat-2.0
+references:
+- uid: CatLibrary
+  commentId: N:CatLibrary
+  isExternal: false
+  name: CatLibrary
+  nameWithType: CatLibrary
+  fullName: CatLibrary
+  type: namespace
+- uid: System.Enum
+  parent: System
+  isExternal: true
+  name: Enum
+  nameWithType: Enum
+  fullName: System.Enum
+- uid: CatLibrary.Complex`2.ComplexFlags.None
+  parent: CatLibrary.Complex`2.ComplexFlags
+  isExternal: false
+  name: None
+  nameWithType: Complex<T,J>.ComplexFlags.None
+  fullName: CatLibrary.Complex<T,J>.ComplexFlags.None
+  type: field
+- uid: CatLibrary.Complex`2.ComplexFlags
+  parent: CatLibrary
+  isExternal: false
+  name: Complex<T,J>.ComplexFlags
+  nameWithType: Complex<T,J>.ComplexFlags
+  fullName: CatLibrary.Complex<T,J>.ComplexFlags
+- uid: CatLibrary.Complex`2.ComplexFlags.SkipInitialPreparation
+  parent: CatLibrary.Complex`2.ComplexFlags
+  isExternal: false
+  name: SkipInitialPreparation
+  nameWithType: Complex<T,J>.ComplexFlags.SkipInitialPreparation
+  fullName: CatLibrary.Complex<T,J>.ComplexFlags.SkipInitialPreparation
+  type: field
+- uid: CatLibrary.Complex`2.ComplexFlags.StickyWrite
+  parent: CatLibrary.Complex`2.ComplexFlags
+  isExternal: false
+  name: StickyWrite
+  nameWithType: Complex<T,J>.ComplexFlags.StickyWrite
+  fullName: CatLibrary.Complex<T,J>.ComplexFlags.StickyWrite
+  type: field

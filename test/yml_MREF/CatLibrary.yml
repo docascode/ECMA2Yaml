@@ -6,6 +6,7 @@ items:
   children:
   - CatLibrary.Cat`2
   - CatLibrary.CatException`1
+  - CatLibrary.Complex`2.ComplexFlags
   - CatLibrary.Complex`2
   - CatLibrary.FakeDelegate`1
   - CatLibrary.IAnimal
@@ -43,6 +44,14 @@ references:
   nameWithType: CatLibrary.CatException<T>
   fullName: CatLibrary.CatException<T>
   type: class
+- uid: CatLibrary.Complex`2.ComplexFlags
+  commentId: T:CatLibrary.Complex`2.ComplexFlags
+  parent: CatLibrary
+  isExternal: false
+  name: Complex<T,J>.ComplexFlags
+  nameWithType: CatLibrary.Complex<T,J>.ComplexFlags
+  fullName: CatLibrary.Complex<T,J>.ComplexFlags
+  type: enum
 - uid: CatLibrary.Complex`2
   commentId: T:CatLibrary.Complex`2
   parent: CatLibrary

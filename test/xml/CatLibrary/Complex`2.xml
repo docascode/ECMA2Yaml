@@ -18,9 +18,11 @@
   </Base>
   <Interfaces />
   <Docs>
-    <typeparam name="T">To be added.</typeparam>
-    <typeparam name="J">To be added.</typeparam>
-    <summary>To be added.</summary>
+    <typeparam name="T">
+    </typeparam>
+    <typeparam name="J">
+    </typeparam>
+    <summary />
     <remarks>To be added.</remarks>
   </Docs>
   <Members>

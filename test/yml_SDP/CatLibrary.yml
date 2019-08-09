@@ -43,6 +43,10 @@ classes:
 - uid: CatLibrary.TomFromBaseClass.Jerry
   monikers:
   - cat-2.0
+enums:
+- uid: CatLibrary.Complex`2.ComplexFlags
+  monikers:
+  - cat-2.0
 interfaces:
 - uid: CatLibrary.IAnimal
   monikers:
