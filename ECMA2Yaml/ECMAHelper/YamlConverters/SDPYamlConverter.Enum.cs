@@ -44,7 +44,7 @@ namespace ECMA2Yaml
                 memberTouchCache.Add(f.Uid);
 
                 return f;
-            }).ToList();
+            }).ToList().NullIfEmpty();
 
             return sdpEnum;
         }
