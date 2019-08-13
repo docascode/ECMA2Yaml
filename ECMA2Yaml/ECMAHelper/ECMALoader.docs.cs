@@ -229,7 +229,8 @@ namespace ECMA2Yaml
                     var tag = new RelatedTag()
                     {
                         Uri = href,
-                        Text = element.Value
+                        Text = element.Value,
+                        OriginalText = GetInnerXml(element)
                     };
                     var type = element.Attribute("type")?.Value;
                     if (!string.IsNullOrEmpty(type))

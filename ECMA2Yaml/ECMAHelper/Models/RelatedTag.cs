@@ -22,5 +22,7 @@ namespace ECMA2Yaml.Models
         public string Uri { get; set; }
 
         public string Text { get; set; }
+
+        public string OriginalText { get; set; }
     }
 }

@@ -216,7 +216,7 @@ namespace ECMA2Yaml
                 foreach (var rTag in docs.Related)
                 {
                     var uri = rTag.Uri.Contains(' ') ? rTag.Uri.Replace(" ", "%20") : rTag.Uri;
-                    sb.AppendLine($"- [{HtmlEncodeLinkText(rTag.Text)}]({uri})");
+                    sb.AppendLine($"- [{rTag.OriginalText}]({uri})");
                 }
             }
 
