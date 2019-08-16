@@ -80,9 +80,9 @@ namespace IntellisenseFileGen
                 string outPutFolder = Path.Combine(_outFolder, fw);
 
                 var fwAssemblyList = frameworks.FrameworkAssembliesPurged[fw];
-                var ass_Type_Mem_OfFw = frameworks.DocIdToFrameworkDict.Where(p => p.Value != null && p.Value.Contains(fw)).Select(p => p.Key);
-                var fwTypeDocIdList = ass_Type_Mem_OfFw.Where(p => p.Contains("T:"));
-                var fwMemberDocIdList = ass_Type_Mem_OfFw.Where(p => p.Contains("M:") || p.Contains("P:") || p.Contains("F:") || p.Contains("E:"));
+                var ass_Type_Mem_OfFw = frameworks.DocIdToFrameworkDict.Where(p => p.Value != null && p.Value.Contains(fw)).Select(p => p.Key).ToList();
+                var fwTypeDocIdList = ass_Type_Mem_OfFw.Where(p => p.Contains("T:")).ToHashSet();
+                var fwMemberDocIdList = ass_Type_Mem_OfFw.Where(p => p.Contains("M:") || p.Contains("P:") || p.Contains("F:") || p.Contains("E:")).ToHashSet();
 
                 Parallel.ForEach(fwAssemblyList, opt, assembly =>
                 {
@@ -92,8 +92,8 @@ namespace IntellisenseFileGen
                         return t.AssemblyInfos.Exists(p => { return p == assemblyInfoStr; });
                     }).ToList();
 
-                        // Order by xml
-                        var selectedAssemblyTypes = assemblyTypes.Where(p => { return fwTypeDocIdList.Contains(p.DocId); });
+                    // Order by xml
+                    var selectedAssemblyTypes = assemblyTypes.Where(p => { return fwTypeDocIdList.Contains(p.DocId); });
                     if (selectedAssemblyTypes != null && selectedAssemblyTypes.Count() > 0)
                     {
                         XDocument intelligenceDoc = new XDocument(new XDeclaration("1.0", "utf-8", null));
@@ -208,7 +208,7 @@ namespace IntellisenseFileGen
         {
             var typeFileList = GetFiles(_xmlDataFolder, "*.xml");
             List<Models.Type> typeList = new List<Models.Type>();
-            ParallelOptions opt = new ParallelOptions() { MaxDegreeOfParallelism = Environment.CurrentManagedThreadId };
+            ParallelOptions opt = new ParallelOptions() { MaxDegreeOfParallelism = Environment.ProcessorCount };
             Parallel.ForEach(typeFileList, opt, typeFile =>
             {
                 XDocument xmlDoc = XDocument.Load(typeFile.FullName);
