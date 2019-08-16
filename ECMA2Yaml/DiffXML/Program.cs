@@ -1,9 +1,8 @@
-﻿using CommandLine;
+﻿using IntellisenseFileGen;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -14,10 +13,11 @@ namespace DiffXML
     {
         static void Main(string[] args)
         {
-            Parser.Default.ParseArguments<OrderToolOptions>(args).WithParsed<OrderToolOptions>(option =>
+            var opt = new CommandLineOptions();
+            if (opt.Parse(args))
             {
-                OrderXML(option.InFolder, option.OutFolder);
-            });
+                OrderXML(opt.InFolder, opt.OutFolder);
+            }
         }
 
         static void OrderXML(string inFolder, string outPutFolder)
@@ -111,14 +111,5 @@ namespace DiffXML
             string timestamp = string.Format("[{0}]", DateTime.Now.ToString());
             Console.WriteLine(timestamp + string.Format(format, args));
         }
-    }
-
-    class OrderToolOptions
-    {
-        [Option('i', "inFolder", Required = true, HelpText = "the in file folder.")]
-        public string InFolder { get; set; }
-
-        [Option('o', "outFolder", Required = false, Default = "", HelpText = "The output file folder.")]
-        public string OutFolder { get; set; }
     }
 }

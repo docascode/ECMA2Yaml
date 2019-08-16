@@ -947,5 +947,10 @@ namespace ECMA2Yaml.Models
             }
             return desc;
         }
+
+        public FrameworkIndex GetFrameworkIndex()
+        {
+            return _frameworks;
+        }
     }
 }

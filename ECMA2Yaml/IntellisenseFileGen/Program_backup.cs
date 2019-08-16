@@ -1,6 +1,4 @@
-﻿using ECMA2Yaml;
-using IntellisenseFileGen.Models;
-using Microsoft.OpenPublishing.FileAbstractLayer;
+﻿using IntellisenseFileGen.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -13,7 +11,7 @@ using System.Xml.Linq;
 
 namespace IntellisenseFileGen
 {
-    class Program
+    class Program1
     {
         static string _xmlDataFolder = @"G:\SourceCode\DevCode\dotnet-api-docs\xml";
         static string _rootFolder = @"G:\SourceCode\DevCode\dotnet-api-docs";
@@ -27,7 +25,7 @@ namespace IntellisenseFileGen
         };
         private static string[] _ignoreTags = new string[] { "sup", "b", "csee", "br" };
 
-        static void Main(string[] args)
+        static void Main1(string[] args)
         {
             var opt = new CommandLineOptions();
             if (opt.Parse(args))
@@ -61,39 +59,33 @@ namespace IntellisenseFileGen
 
         public static void Start()
         {
-            var fileAccessor = new FileAccessor(_xmlDataFolder);
-            ECMALoader loader = new ECMALoader(fileAccessor);
-            var store = loader.LoadFolder("");
-            if (store == null)
-            {
-                return;
-            }
-            store.Build();
-
+            var frameworkInfo = LoadFrameworks();
             var typeList = LoadTypes();
+            var monikerAssemblyList = LoadMonikerAssemblyList();
             ParallelOptions opt = new ParallelOptions() { MaxDegreeOfParallelism = Environment.ProcessorCount };
-            var frameworks = store.GetFrameworkIndex();
-            frameworks.FrameworkAssembliesPurged.Keys.ToList().ForEach(fw =>
+
+            frameworkInfo.FrameworkAssemblies.Keys.ToList().ForEach(fw =>
             {
                 //if (fw == "netframework-4.6")
                 //{
                 string outPutFolder = Path.Combine(_outFolder, fw);
 
-                var fwAssemblyList = frameworks.FrameworkAssembliesPurged[fw];
-                var ass_Type_Mem_OfFw = frameworks.DocIdToFrameworkDict.Where(p => p.Value != null && p.Value.Contains(fw)).Select(p => p.Key);
-                var fwTypeDocIdList = ass_Type_Mem_OfFw.Where(p => p.Contains("T:"));
-                var fwMemberDocIdList = ass_Type_Mem_OfFw.Where(p => p.Contains("M:") || p.Contains("P:") || p.Contains("F:") || p.Contains("E:"));
+                var currentMonikerAssemblyNameList = monikerAssemblyList[fw];
+                var fwAssemblyList = frameworkInfo.FrameworkAssemblies[fw].Where(p => { return currentMonikerAssemblyNameList.Contains(p.Name); }).ToList();
+                var fwDocIdList = frameworkInfo.NamespaceDocIdsDict[fw];
+                var fwTypeDocIdList = frameworkInfo.NamespaceDocIdsDict[fw].Where(p => { return string.IsNullOrEmpty(p.ParentDocId); }).Select(p => p.DocId);
+                var fwMemberDocIdList = frameworkInfo.NamespaceDocIdsDict[fw].Where(p => { return !string.IsNullOrEmpty(p.ParentDocId); }).Select(p => p.DocId);
 
                 Parallel.ForEach(fwAssemblyList, opt, assembly =>
                 {
-                    string assemblyInfoStr = string.Format("{0}-{1}", assembly.Value.Name, assembly.Value.Version);
+                    string assemblyInfoStr = string.Format("{0}-{1}", assembly.Name, assembly.Version);
                     var assemblyTypes = typeList.Where(t =>
                     {
                         return t.AssemblyInfos.Exists(p => { return p == assemblyInfoStr; });
                     }).ToList();
 
-                        // Order by xml
-                        var selectedAssemblyTypes = assemblyTypes.Where(p => { return fwTypeDocIdList.Contains(p.DocId); });
+                    // 1. Order by xml
+                    var selectedAssemblyTypes = assemblyTypes.Where(p => { return fwTypeDocIdList.Contains(p.DocId); });
                     if (selectedAssemblyTypes != null && selectedAssemblyTypes.Count() > 0)
                     {
                         XDocument intelligenceDoc = new XDocument(new XDeclaration("1.0", "utf-8", null));
@@ -103,11 +95,12 @@ namespace IntellisenseFileGen
                         docEle.Add(assemblyEle);
                         docEle.Add(membersEle);
                         intelligenceDoc.Add(docEle);
-                        assemblyEle.SetElementValue("name", assembly.Value.Name);
+                        assemblyEle.SetElementValue("name", assembly.Name);
 
                         selectedAssemblyTypes.OrderBy(p => p.DocId).ToList().ForEach(tt =>
                         {
                             membersEle.Add(tt.Docs);
+
                             if (tt.Members != null && tt.Members.Count() > 0)
                             {
                                 if (tt.Members != null && tt.Members.Count() > 0)
@@ -128,8 +121,8 @@ namespace IntellisenseFileGen
                             {
                                 Directory.CreateDirectory(outPutFolder);
                             }
-                            intelligenceDoc.Save(Path.Combine(outPutFolder, assembly.Value.Name + ".xml"));
-                            WriteLine($"Done generate {fw}.{assembly.Value.Name} intellisense files.");
+                            intelligenceDoc.Save(Path.Combine(outPutFolder, assembly.Name + ".xml"));
+                            WriteLine($"Done generate {assembly.Name} intellisense files.");
                         }
                     }
                 });
@@ -176,11 +169,11 @@ namespace IntellisenseFileGen
                     var ns = nsElement.Attribute("Name").Value;
                     foreach (var tElement in nsElement.Elements("Type"))
                     {
-                        var t = tElement.Attribute("Id").Value;
+                        var t = SpecialProcessDocId(tElement.Attribute("Id").Value);
                         frameworkIndex.NamespaceDocIdsDict[fxName].Add(new FrameworkDocIdInfo() { DocId = t, Namespace = ns });
                         foreach (var mElement in tElement.Elements("Member"))
                         {
-                            var m = mElement.Attribute("Id").Value;
+                            var m = SpecialProcessDocId(mElement.Attribute("Id").Value);
                             frameworkIndex.NamespaceDocIdsDict[fxName].Add(new FrameworkDocIdInfo() { DocId = m, Namespace = ns, ParentDocId = t });
                         }
                     }
@@ -208,7 +201,7 @@ namespace IntellisenseFileGen
         {
             var typeFileList = GetFiles(_xmlDataFolder, "*.xml");
             List<Models.Type> typeList = new List<Models.Type>();
-            ParallelOptions opt = new ParallelOptions() { MaxDegreeOfParallelism = Environment.CurrentManagedThreadId };
+            ParallelOptions opt = new ParallelOptions() { MaxDegreeOfParallelism = Environment.ProcessorCount };
             Parallel.ForEach(typeFileList, opt, typeFile =>
             {
                 XDocument xmlDoc = XDocument.Load(typeFile.FullName);
@@ -238,7 +231,7 @@ namespace IntellisenseFileGen
             var typeDocIdEle = xmlDoc.Root.Elements("TypeSignature")?.Where(p => p.Attribute("Language").Value == "DocId")?.FirstOrDefault();
             if (typeDocIdEle != null)
             {
-                t.DocId = typeDocIdEle.Attribute("Value").Value;
+                t.DocId = SpecialProcessDocId(typeDocIdEle.Attribute("Value").Value);
             }
 
             // for debug
@@ -316,7 +309,7 @@ namespace IntellisenseFileGen
             var memberDocIdEle = member.Elements("MemberSignature")?.Where(p => p.Attribute("Language").Value == "DocId").First();
             if (memberDocIdEle != null)
             {
-                m.DocId = memberDocIdEle.Attribute("Value").Value;
+                m.DocId = SpecialProcessDocId(memberDocIdEle.Attribute("Value").Value);
             }
 
             // for debug
@@ -331,7 +324,7 @@ namespace IntellisenseFileGen
             var exceptionEles = member.Element("Docs")?.Elements("exception");
 
             var docsEle = new XElement("member");
-            docsEle.SetAttributeValue("name", SpecialProcessDocId(m.DocId));
+            docsEle.SetAttributeValue("name", m.DocId);
             SpecialProcessElement(memberSummaryEle);
             if (string.IsNullOrEmpty(memberSummaryEle?.Value))
             {
@@ -402,7 +395,7 @@ namespace IntellisenseFileGen
             {
                 eles.ToList().ForEach((Action<XElement>)(p =>
                 {
-                    Program.SpecialProcessElement((XElement)p);
+                    SpecialProcessElement((XElement)p);
                 }));
             }
         }
@@ -507,28 +500,6 @@ namespace IntellisenseFileGen
                     for (int i = 0; i < matches.Length; i += 2)
                     {
                         string includeFileFullName = matches[i + 1].Replace("~", _rootFolder);
-                        if (File.Exists(includeFileFullName))
-                        {
-                            string includeFileContent = File.ReadAllText(includeFileFullName);
-
-                            if (!string.IsNullOrEmpty(includeFileContent))
-                            {
-                                includeFileContent = Regex.Replace(includeFileContent, @"\>\w+", string.Empty, RegexOptions.Multiline);
-                                content = content.Replace(matches[i], includeFileContent);
-                                contentChange = true;
-                            }
-                        }
-                    }
-                }
-
-                // !INCLUDE[linq_dataset]
-                pattern = "(!INCLUDE\\[(.*?)\\])";
-                matches = RegexHelper.GetMatches_All_JustWantedOne(pattern, content);
-                if (matches != null && matches.Length >= 2)
-                {
-                    for (int i = 0; i < matches.Length; i += 2)
-                    {
-                        string includeFileFullName = Path.Combine(_rootFolder, "includes", matches[i + 1]);
                         if (File.Exists(includeFileFullName))
                         {
                             string includeFileContent = File.ReadAllText(includeFileFullName);
