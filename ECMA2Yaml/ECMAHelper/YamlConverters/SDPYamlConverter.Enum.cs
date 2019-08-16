@@ -36,6 +36,7 @@ namespace ECMA2Yaml
                 {
                     f.LiteralValue = val?.ToString();
                 }
+                f.LiteralValue = f.LiteralValue ?? "";
                 if (fItem.Metadata.TryGetValue(OPSMetadata.Monikers, out var monikers))
                 {
                     f.Monikers = (IEnumerable<string>)monikers;
@@ -43,7 +44,7 @@ namespace ECMA2Yaml
                 memberTouchCache.Add(f.Uid);
 
                 return f;
-            }).ToList();
+            }).ToList().NullIfEmpty();
 
             return sdpEnum;
         }

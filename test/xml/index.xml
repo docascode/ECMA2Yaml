@@ -1,0 +1,160 @@
+<Overview>
+  <Assemblies>
+    <Assembly Name="CatLibrary" Version="1.0.0.0">
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.Diagnostics.Debuggable(System.Diagnostics.DebuggableAttribute+DebuggingModes.IgnoreSymbolStoreSequencePoints)</AttributeName>
+        </Attribute>
+        <Attribute>
+          <AttributeName>System.Reflection.AssemblyCompany("Hewlett-Packard Company")</AttributeName>
+        </Attribute>
+        <Attribute>
+          <AttributeName>System.Reflection.AssemblyConfiguration("")</AttributeName>
+        </Attribute>
+        <Attribute>
+          <AttributeName>System.Reflection.AssemblyCopyright("Copyright © Hewlett-Packard Company 2015")</AttributeName>
+        </Attribute>
+        <Attribute>
+          <AttributeName>System.Reflection.AssemblyDescription("")</AttributeName>
+        </Attribute>
+        <Attribute>
+          <AttributeName>System.Reflection.AssemblyFileVersion("1.0.0.0")</AttributeName>
+        </Attribute>
+        <Attribute>
+          <AttributeName>System.Reflection.AssemblyProduct("CatLibrary")</AttributeName>
+        </Attribute>
+        <Attribute>
+          <AttributeName>System.Reflection.AssemblyTitle("CatLibrary")</AttributeName>
+        </Attribute>
+        <Attribute>
+          <AttributeName>System.Reflection.AssemblyTrademark("")</AttributeName>
+        </Attribute>
+        <Attribute>
+          <AttributeName>System.Runtime.CompilerServices.CompilationRelaxations(8)</AttributeName>
+        </Attribute>
+        <Attribute>
+          <AttributeName>System.Runtime.CompilerServices.RuntimeCompatibility(WrapNonExceptionThrows=true)</AttributeName>
+        </Attribute>
+        <Attribute>
+          <AttributeName>System.Runtime.InteropServices.ComVisible(false)</AttributeName>
+        </Attribute>
+        <Attribute>
+          <AttributeName>System.Runtime.InteropServices.Guid("ebf2ea46-ea00-4350-be1d-d86afd699db3")</AttributeName>
+        </Attribute>
+        <Attribute>
+          <AttributeName>System.Runtime.Versioning.TargetFramework(".NETFramework,Version=v4.7.2", FrameworkDisplayName=".NET Framework 4.7.2")</AttributeName>
+        </Attribute>
+      </Attributes>
+    </Assembly>
+  </Assemblies>
+  <Remarks>To be added.</Remarks>
+  <Copyright>To be added.</Copyright>
+  <Types>
+    <Namespace Name="CatLibrary">
+      <Type Name="Cat`2" DisplayName="Cat&lt;T,K&gt;" Kind="Class" />
+      <Type Name="CatException`1" DisplayName="CatException&lt;T&gt;" Kind="Class" />
+      <Type Name="Complex`2" DisplayName="Complex&lt;T,J&gt;" Kind="Class" />
+      <Type Name="Complex`2+ComplexFlags" DisplayName="Complex&lt;T,J&gt;+ComplexFlags" Kind="Enumeration" />
+      <Type Name="FakeDelegate`1" DisplayName="FakeDelegate&lt;T&gt;" Kind="Delegate" />
+      <Type Name="IAnimal" Kind="Interface" />
+      <Type Name="ICat" Kind="Interface" />
+      <Type Name="ICatExtension" Kind="Class" />
+      <Type Name="JerryExtension" Kind="Class" />
+      <Type Name="MRefDelegate`3" DisplayName="MRefDelegate&lt;K,T,L&gt;" Kind="Delegate" />
+      <Type Name="MRefNormalDelegate" Kind="Delegate" />
+      <Type Name="Tom" Kind="Class" />
+      <Type Name="TomFromBaseClass" Kind="Class" />
+      <Type Name="TomFromBaseClass+Jerry" Kind="Class" />
+    </Namespace>
+    <Namespace Name="MRef.Demo.Enumeration">
+      <Type Name="ColorType" Kind="Enumeration" />
+    </Namespace>
+  </Types>
+  <Title>Untitled</Title>
+  <ExtensionMethods>
+    <ExtensionMethod>
+      <Targets>
+        <Target Type="T:CatLibrary.ICat" />
+      </Targets>
+      <Member MemberName="Play">
+        <MemberSignature Language="C#" Value="public static void Play (this CatLibrary.ICat icat, string toy);" />
+        <MemberSignature Language="ILAsm" Value=".method public static hidebysig void Play(class CatLibrary.ICat icat, string toy) cil managed" />
+        <MemberSignature Language="DocId" Value="M:CatLibrary.ICatExtension.Play(CatLibrary.ICat,System.String)" />
+        <MemberSignature Language="C++ CLI" Value="public:&#xA;[System::Runtime::CompilerServices::Extension]&#xA; static void Play(CatLibrary::ICat ^ icat, System::String ^ toy);" />
+        <MemberSignature Language="F#" Value="static member Play : CatLibrary.ICat * string -&gt; unit" Usage="CatLibrary.ICatExtension.Play (icat, toy)" />
+        <MemberType>ExtensionMethod</MemberType>
+        <ReturnValue>
+          <ReturnType>System.Void</ReturnType>
+        </ReturnValue>
+        <Parameters>
+          <Parameter Name="icat" Type="CatLibrary.ICat" Index="0" FrameworkAlternate="cat-1.0" RefType="this" />
+          <Parameter Name="toy" Type="System.String" Index="1" FrameworkAlternate="cat-1.0" />
+        </Parameters>
+        <Docs>
+          <param name="icat">Cat</param>
+          <param name="toy">Something to play</param>
+          <summary>
+            Extension method to let cat play
+            </summary>
+        </Docs>
+        <Link Type="CatLibrary.ICatExtension" Member="M:CatLibrary.ICatExtension.Play(CatLibrary.ICat,System.String)" />
+      </Member>
+    </ExtensionMethod>
+    <ExtensionMethod>
+      <Targets>
+        <Target Type="T:CatLibrary.ICat" />
+      </Targets>
+      <Member MemberName="Sleep">
+        <MemberSignature Language="C#" Value="public static void Sleep (this CatLibrary.ICat icat, long hours);" />
+        <MemberSignature Language="ILAsm" Value=".method public static hidebysig void Sleep(class CatLibrary.ICat icat, int64 hours) cil managed" />
+        <MemberSignature Language="DocId" Value="M:CatLibrary.ICatExtension.Sleep(CatLibrary.ICat,System.Int64)" />
+        <MemberSignature Language="C++ CLI" Value="public:&#xA;[System::Runtime::CompilerServices::Extension]&#xA; static void Sleep(CatLibrary::ICat ^ icat, long hours);" />
+        <MemberSignature Language="F#" Value="static member Sleep : CatLibrary.ICat * int64 -&gt; unit" Usage="CatLibrary.ICatExtension.Sleep (icat, hours)" />
+        <MemberType>ExtensionMethod</MemberType>
+        <ReturnValue>
+          <ReturnType>System.Void</ReturnType>
+        </ReturnValue>
+        <Parameters>
+          <Parameter Name="icat" Type="CatLibrary.ICat" Index="0" FrameworkAlternate="cat-1.0" RefType="this" />
+          <Parameter Name="hours" Type="System.Int64" Index="1" FrameworkAlternate="cat-1.0" />
+        </Parameters>
+        <Docs>
+          <param name="icat">The type will be extended.</param>
+          <param name="hours">The length of sleep.</param>
+          <summary>
+            Extension method hint that how long the cat can sleep.
+            </summary>
+        </Docs>
+        <Link Type="CatLibrary.ICatExtension" Member="M:CatLibrary.ICatExtension.Sleep(CatLibrary.ICat,System.Int64)" />
+      </Member>
+    </ExtensionMethod>
+    <ExtensionMethod>
+      <Targets>
+        <Target Type="T:CatLibrary.TomFromBaseClass.Jerry" />
+      </Targets>
+      <Member MemberName="PlayWith">
+        <MemberSignature Language="C#" Value="public static void PlayWith (this CatLibrary.TomFromBaseClass.Jerry jerry, CatLibrary.Tom tom);" />
+        <MemberSignature Language="ILAsm" Value=".method public static hidebysig void PlayWith(class CatLibrary.TomFromBaseClass/Jerry jerry, class CatLibrary.Tom tom) cil managed" />
+        <MemberSignature Language="DocId" Value="M:CatLibrary.JerryExtension.PlayWith(CatLibrary.TomFromBaseClass.Jerry,CatLibrary.Tom)" />
+        <MemberSignature Language="C++ CLI" Value="public:&#xA;[System::Runtime::CompilerServices::Extension]&#xA; static void PlayWith(CatLibrary::TomFromBaseClass::Jerry ^ jerry, CatLibrary::Tom ^ tom);" />
+        <MemberSignature Language="F#" Value="static member PlayWith : CatLibrary.TomFromBaseClass.Jerry * CatLibrary.Tom -&gt; unit" Usage="CatLibrary.JerryExtension.PlayWith (jerry, tom)" />
+        <MemberType>ExtensionMethod</MemberType>
+        <ReturnValue>
+          <ReturnType>System.Void</ReturnType>
+        </ReturnValue>
+        <Parameters>
+          <Parameter Name="jerry" Type="CatLibrary.TomFromBaseClass+Jerry" RefType="this" />
+          <Parameter Name="tom" Type="CatLibrary.Tom" />
+        </Parameters>
+        <Docs>
+          <param name="jerry" />
+          <param name="tom" />
+          <summary>
+            Jerry can play with a Tom.
+            </summary>
+        </Docs>
+        <Link Type="CatLibrary.JerryExtension" Member="M:CatLibrary.JerryExtension.PlayWith(CatLibrary.TomFromBaseClass.Jerry,CatLibrary.Tom)" />
+      </Member>
+    </ExtensionMethod>
+  </ExtensionMethods>
+</Overview>

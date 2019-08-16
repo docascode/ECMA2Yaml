@@ -1,0 +1,55 @@
+### YamlMime:NetMember
+type: method
+members:
+- uid: CatLibrary.ICat.CatchJerry
+  commentId: M:CatLibrary.ICat.CatchJerry
+  name: CatchJerry()
+  fullName: CatLibrary.ICat.CatchJerry()
+  nameWithType: ICat.CatchJerry()
+  syntax:
+  - lang: cpp
+    value: >-
+      public:
+       void CatchJerry();
+  - lang: csharp
+    value: public void CatchJerry ();
+  - lang: fsharp
+    value: 'abstract member CatchJerry : unit -> unit'
+  - lang: vb
+    value: Public Sub CatchJerry ()
+  monikers:
+  - cat-2.0
+  summary: All cat can catch a Jerry.
+  metadata: {}
+uid: CatLibrary.ICat.CatchJerry*
+commentId: Overload:CatLibrary.ICat.CatchJerry
+namespace: CatLibrary
+name: CatchJerry
+fullName: CatLibrary.ICat.CatchJerry
+nameWithType: ICat.CatchJerry
+assemblies:
+- CatLibrary
+devLangs:
+- cpp
+- csharp
+- fsharp
+- vb
+monikers:
+- cat-2.0
+metadata:
+  api_name:
+  - CatLibrary.ICat.CatchJerry
+  api_location:
+  - CatLibrary.dll
+  topic_type:
+  - apiref
+  api_type:
+  - Assembly
+  f1_keywords:
+  - CatLibrary.ICat.CatchJerry
+  - CatLibrary::ICat::CatchJerry
+  helpviewer_keywords:
+  - ICat.CatchJerry method [.NET]
+  - CatchJerry method [.NET], interface ICat
+  - ICat.CatchJerry() method [.NET]
+  - CatchJerry() method [.NET], interface ICat

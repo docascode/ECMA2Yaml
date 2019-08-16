@@ -1,0 +1,87 @@
+<Type Name="Complex&lt;T,J&gt;+ComplexFlags" FullName="CatLibrary.Complex&lt;T,J&gt;+ComplexFlags">
+  <TypeSignature Language="C#" Value="public enum Complex&lt;T,J&gt;.ComplexFlags" />
+  <TypeSignature Language="ILAsm" Value=".class nested public auto ansi sealed Complex`2/ComplexFlags&lt;T, J&gt; extends System.Enum" />
+  <TypeSignature Language="DocId" Value="T:CatLibrary.Complex`2.ComplexFlags" />
+  <TypeSignature Language="VB.NET" Value="Public Enum Complex(Of T, J).ComplexFlags" />
+  <TypeSignature Language="C++ CLI" Value="public: enum class Complex&lt;T, J&gt;::ComplexFlags" />
+  <TypeSignature Language="F#" Value="type Complex&lt;'T, 'J&gt;.ComplexFlags = " />
+  <AssemblyInfo>
+    <AssemblyName>CatLibrary</AssemblyName>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <TypeParameters>
+    <TypeParameter Name="T" />
+    <TypeParameter Name="J" />
+  </TypeParameters>
+  <Base>
+    <BaseTypeName>System.Enum</BaseTypeName>
+  </Base>
+  <Attributes>
+    <Attribute>
+      <AttributeName>System.Flags</AttributeName>
+    </Attribute>
+  </Attributes>
+  <Docs>
+    <summary />
+    <remarks>To be added.</remarks>
+  </Docs>
+  <Members>
+    <Member MemberName="None">
+      <MemberSignature Language="C#" Value="None" />
+      <MemberSignature Language="ILAsm" Value=".field public static literal valuetype CatLibrary.Complex`2/ComplexFlags&lt;!T, !J&gt; None" />
+      <MemberSignature Language="DocId" Value="F:CatLibrary.Complex`2.ComplexFlags.None" />
+      <MemberSignature Language="VB.NET" Value="None" />
+      <MemberSignature Language="C++ CLI" Value="None" />
+      <MemberSignature Language="F#" Value="None = 0" Usage="CatLibrary.Complex&lt;'T, 'J&gt;.ComplexFlags.None" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>CatLibrary</AssemblyName>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>CatLibrary.Complex&lt;T,J&gt;+ComplexFlags</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary />
+      </Docs>
+    </Member>
+    <Member MemberName="SkipInitialPreparation">
+      <MemberSignature Language="C#" Value="SkipInitialPreparation" />
+      <MemberSignature Language="ILAsm" Value=".field public static literal valuetype CatLibrary.Complex`2/ComplexFlags&lt;!T, !J&gt; SkipInitialPreparation" />
+      <MemberSignature Language="DocId" Value="F:CatLibrary.Complex`2.ComplexFlags.SkipInitialPreparation" />
+      <MemberSignature Language="VB.NET" Value="SkipInitialPreparation" />
+      <MemberSignature Language="C++ CLI" Value="SkipInitialPreparation" />
+      <MemberSignature Language="F#" Value="SkipInitialPreparation = 4096" Usage="CatLibrary.Complex&lt;'T, 'J&gt;.ComplexFlags.SkipInitialPreparation" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>CatLibrary</AssemblyName>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>CatLibrary.Complex&lt;T,J&gt;+ComplexFlags</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary />
+      </Docs>
+    </Member>
+    <Member MemberName="StickyWrite">
+      <MemberSignature Language="C#" Value="StickyWrite" />
+      <MemberSignature Language="ILAsm" Value=".field public static literal valuetype CatLibrary.Complex`2/ComplexFlags&lt;!T, !J&gt; StickyWrite" />
+      <MemberSignature Language="DocId" Value="F:CatLibrary.Complex`2.ComplexFlags.StickyWrite" />
+      <MemberSignature Language="VB.NET" Value="StickyWrite" />
+      <MemberSignature Language="C++ CLI" Value="StickyWrite" />
+      <MemberSignature Language="F#" Value="StickyWrite = 1" Usage="CatLibrary.Complex&lt;'T, 'J&gt;.ComplexFlags.StickyWrite" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>CatLibrary</AssemblyName>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>CatLibrary.Complex&lt;T,J&gt;+ComplexFlags</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary />
+      </Docs>
+    </Member>
+  </Members>
+</Type>

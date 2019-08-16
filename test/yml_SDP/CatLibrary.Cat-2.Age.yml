@@ -1,0 +1,59 @@
+### YamlMime:NetMember
+type: property
+members:
+- returns:
+    type: <xref href="System.Int32?alt=System.Int32&text=Int32" data-throw-if-not-resolved="True"/>
+  uid: CatLibrary.Cat`2.Age
+  commentId: P:CatLibrary.Cat`2.Age
+  name: Age
+  fullName: CatLibrary.Cat<T,K>.Age
+  nameWithType: Cat<T,K>.Age
+  syntax:
+  - lang: cpp
+    value: >-
+      protected:
+       property int Age { int get(); void set(int value); };
+  - lang: csharp
+    value: protected int Age { get; set; }
+  - lang: fsharp
+    value: 'member this.Age : int with get, set'
+  - lang: vb
+    value: Protected Property Age As Integer
+  monikers:
+  - cat-1.0
+  - cat-2.0
+  summary: Hint cat's age.
+  metadata: {}
+uid: CatLibrary.Cat`2.Age*
+commentId: Overload:CatLibrary.Cat`2.Age
+namespace: CatLibrary
+name: Age
+fullName: CatLibrary.Cat<T,K>.Age
+nameWithType: Cat<T,K>.Age
+assemblies:
+- CatLibrary
+devLangs:
+- cpp
+- csharp
+- fsharp
+- vb
+monikers:
+- cat-1.0
+- cat-2.0
+metadata:
+  api_name:
+  - CatLibrary.Cat`2.Age
+  - CatLibrary.Cat`2.get_Age
+  - CatLibrary.Cat`2.set_Age
+  api_location:
+  - CatLibrary.dll
+  topic_type:
+  - apiref
+  api_type:
+  - Assembly
+  f1_keywords:
+  - CatLibrary.Cat`2.Age
+  - CatLibrary::Cat`2::Age
+  helpviewer_keywords:
+  - Cat<T,K>.Age property [.NET]
+  - Age property [.NET], class Cat<T,K>

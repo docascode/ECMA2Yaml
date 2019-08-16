@@ -1,0 +1,63 @@
+### YamlMime:NetMember
+type: method
+members:
+- parameters:
+  - name: icat
+    description: The type will be extended.
+    type: <xref href="CatLibrary.ICat?alt=CatLibrary.ICat&text=ICat" data-throw-if-not-resolved="True"/>
+  - name: hours
+    description: The length of sleep.
+    type: <xref href="System.Int64?alt=System.Int64&text=Int64" data-throw-if-not-resolved="True"/>
+  uid: CatLibrary.ICatExtension.Sleep(CatLibrary.ICat,System.Int64)
+  commentId: M:CatLibrary.ICatExtension.Sleep(CatLibrary.ICat,System.Int64)
+  name: Sleep(ICat, Int64)
+  fullName: CatLibrary.ICatExtension.Sleep(ICat, Int64)
+  nameWithType: ICatExtension.Sleep(ICat, Int64)
+  syntax:
+  - lang: cpp
+    value: >-
+      public:
+
+      [System::Runtime::CompilerServices::Extension]
+       static void Sleep(CatLibrary::ICat ^ icat, long hours);
+  - lang: csharp
+    value: public static void Sleep (this CatLibrary.ICat icat, long hours);
+  - lang: fsharp
+    value: 'static member Sleep : CatLibrary.ICat * int64 -> unit'
+  monikers:
+  - cat-1.0
+  - cat-2.0
+  summary: Extension method hint that how long the cat can sleep.
+  metadata: {}
+uid: CatLibrary.ICatExtension.Sleep*
+commentId: Overload:CatLibrary.ICatExtension.Sleep
+namespace: CatLibrary
+name: Sleep
+fullName: CatLibrary.ICatExtension.Sleep
+nameWithType: ICatExtension.Sleep
+assemblies:
+- CatLibrary
+devLangs:
+- cpp
+- csharp
+- fsharp
+monikers:
+- cat-1.0
+- cat-2.0
+metadata:
+  api_name:
+  - CatLibrary.ICatExtension.Sleep
+  api_location:
+  - CatLibrary.dll
+  topic_type:
+  - apiref
+  api_type:
+  - Assembly
+  f1_keywords:
+  - CatLibrary.ICatExtension.Sleep
+  - CatLibrary::ICatExtension::Sleep
+  helpviewer_keywords:
+  - ICatExtension.Sleep method [.NET]
+  - Sleep method [.NET], class ICatExtension
+  - ICatExtension.Sleep(ICat, Int64) extension method [.NET]
+  - Sleep(ICat, Int64) extension method [.NET], class ICatExtension

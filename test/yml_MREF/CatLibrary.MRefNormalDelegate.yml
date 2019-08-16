@@ -1,0 +1,82 @@
+### YamlMime:ManagedReference
+items:
+- uid: CatLibrary.MRefNormalDelegate
+  commentId: T:CatLibrary.MRefNormalDelegate
+  id: MRefNormalDelegate
+  langs:
+  - cpp
+  - csharp
+  - fsharp
+  - vb
+  name: MRefNormalDelegate
+  nameWithType: CatLibrary.MRefNormalDelegate
+  fullName: CatLibrary.MRefNormalDelegate
+  type: Delegate
+  assemblies:
+  - CatLibrary
+  namespace: CatLibrary
+  summary: Delegate in the namespace
+  syntax:
+    content: public delegate void MRefNormalDelegate(List<string> pics, out string name);
+    parameters:
+    - id: pics
+      type: System.Collections.Generic.List{System.String}
+      description: a name list of pictures.
+    - id: name
+      type: System.String
+      description: give out the needed name.
+    content.cpp: public delegate void MRefNormalDelegate(List<System::String ^> ^ pics, [Runtime::InteropServices::Out] System::String ^ % name);
+    content.csharp: public delegate void MRefNormalDelegate(List<string> pics, out string name);
+    content.fsharp: type MRefNormalDelegate = delegate of List<string> *  -> unit
+    content.vb: Public Delegate Sub MRefNormalDelegate(pics As List(Of String), ByRef name As String)
+  inheritance:
+  - System.Delegate
+  modifiers.csharp:
+  - public
+  monikers:
+  - cat-1.0
+  - cat-2.0
+references:
+- uid: CatLibrary
+  commentId: N:CatLibrary
+  isExternal: false
+  name: CatLibrary
+  nameWithType: CatLibrary
+  fullName: CatLibrary
+  type: namespace
+- uid: System.Delegate
+  parent: System
+  isExternal: true
+  name: Delegate
+  nameWithType: Delegate
+  fullName: System.Delegate
+- uid: System.Collections.Generic.List`1
+  isExternal: true
+  name: List
+  nameWithType: List
+  fullName: System.Collections.Generic.List
+- uid: System.String
+  isExternal: true
+  name: String
+  nameWithType: String
+  fullName: System.String
+- uid: System.Collections.Generic.List{System.String}
+  parent: System.Collections.Generic
+  name: List<String>
+  nameWithType: List<String>
+  fullName: System.Collections.Generic.List<System.String>
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    nameWithType: List
+    fullName: System.Collections.Generic.List
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'

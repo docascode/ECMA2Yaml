@@ -1,0 +1,85 @@
+### YamlMime:NetMember
+type: method
+members:
+- implements:
+  - <xref href="CatLibrary.ICat.CatchJerry?alt=CatLibrary.ICat.CatchJerry&text=CatchJerry()" data-throw-if-not-resolved="True"/>
+  uid: CatLibrary.Cat`2.CatchJerry
+  commentId: M:CatLibrary.Cat`2.CatchJerry
+  name: CatchJerry()
+  fullName: CatLibrary.Cat<T,K>.CatchJerry()
+  nameWithType: Cat<T,K>.CatchJerry()
+  syntax:
+  - lang: cpp
+    value: >-
+      public:
+       virtual void CatchJerry();
+  - lang: csharp
+    value: public void CatchJerry ();
+  - lang: fsharp
+    value: >-
+      abstract member CatchJerry : unit -> unit
+
+      override this.CatchJerry : unit -> unit
+  - lang: vb
+    value: Public Sub CatchJerry ()
+  monikers:
+  - cat-2.0
+  summary: This one can't.
+  metadata: {}
+- parameters:
+  - name: force
+    type: <xref href="System.Boolean?alt=System.Boolean&text=Boolean" data-throw-if-not-resolved="True"/>
+  uid: CatLibrary.Cat`2.CatchJerry(System.Boolean)
+  commentId: M:CatLibrary.Cat`2.CatchJerry(System.Boolean)
+  name: CatchJerry(Boolean)
+  fullName: CatLibrary.Cat<T,K>.CatchJerry(Boolean)
+  nameWithType: Cat<T,K>.CatchJerry(Boolean)
+  syntax:
+  - lang: cpp
+    value: >-
+      public:
+       void CatchJerry(bool force);
+  - lang: csharp
+    value: public void CatchJerry (bool force);
+  - lang: fsharp
+    value: 'member this.CatchJerry : bool -> unit'
+  - lang: vb
+    value: Public Sub CatchJerry (force As Boolean)
+  monikers:
+  - cat-2.0
+  summary: If you force it, maybe it can.
+  metadata: {}
+uid: CatLibrary.Cat`2.CatchJerry*
+commentId: Overload:CatLibrary.Cat`2.CatchJerry
+namespace: CatLibrary
+name: CatchJerry
+fullName: CatLibrary.Cat<T,K>.CatchJerry
+nameWithType: Cat<T,K>.CatchJerry
+assemblies:
+- CatLibrary
+devLangs:
+- cpp
+- csharp
+- fsharp
+- vb
+monikers:
+- cat-2.0
+metadata:
+  api_name:
+  - CatLibrary.Cat`2.CatchJerry
+  api_location:
+  - CatLibrary.dll
+  topic_type:
+  - apiref
+  api_type:
+  - Assembly
+  f1_keywords:
+  - CatLibrary.Cat`2.CatchJerry
+  - CatLibrary::Cat`2::CatchJerry
+  helpviewer_keywords:
+  - Cat<T,K>.CatchJerry method [.NET]
+  - CatchJerry method [.NET], class Cat<T,K>
+  - Cat<T,K>.CatchJerry() method [.NET]
+  - CatchJerry() method [.NET], class Cat<T,K>
+  - Cat<T,K>.CatchJerry(Boolean) method [.NET]
+  - CatchJerry(Boolean) method [.NET], class Cat<T,K>

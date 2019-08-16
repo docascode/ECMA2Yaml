@@ -1,0 +1,116 @@
+### YamlMime:NetMember
+type: method
+members:
+- uid: CatLibrary.IAnimal.Eat
+  commentId: M:CatLibrary.IAnimal.Eat
+  name: Eat()
+  fullName: CatLibrary.IAnimal.Eat()
+  nameWithType: IAnimal.Eat()
+  syntax:
+  - lang: cpp
+    value: >-
+      public:
+       void Eat();
+  - lang: csharp
+    value: public void Eat ();
+  - lang: fsharp
+    value: 'abstract member Eat : unit -> unit'
+  - lang: vb
+    value: Public Sub Eat ()
+  monikers:
+  - cat-1.0
+  - cat-2.0
+  summary: Animal's eat method.
+  metadata: {}
+- parameters:
+  - name: food
+    description: Food to eat
+    type: <xref href="System.String?alt=System.String&text=String" data-throw-if-not-resolved="True"/>
+  uid: CatLibrary.IAnimal.Eat(System.String)
+  commentId: M:CatLibrary.IAnimal.Eat(System.String)
+  name: Eat(String)
+  fullName: CatLibrary.IAnimal.Eat(String)
+  nameWithType: IAnimal.Eat(String)
+  syntax:
+  - lang: cpp
+    value: >-
+      public:
+       void Eat(System::String ^ food);
+  - lang: csharp
+    value: public void Eat (string food);
+  - lang: fsharp
+    value: 'abstract member Eat : string -> unit'
+  - lang: vb
+    value: Public Sub Eat (food As String)
+  monikers:
+  - cat-1.0
+  - cat-2.0
+  summary: Feed the animal with some food
+  metadata: {}
+- typeParameters:
+  - description: It's a class type.
+    name: Tool
+  parameters:
+  - name: tool
+    description: Tool name.
+    type: Tool
+  uid: CatLibrary.IAnimal.Eat``1(``0)
+  commentId: M:CatLibrary.IAnimal.Eat``1(``0)
+  name: Eat<Tool>(Tool)
+  fullName: CatLibrary.IAnimal.Eat<Tool>(Tool)
+  nameWithType: IAnimal.Eat<Tool>(Tool)
+  syntax:
+  - lang: cpp
+    value: >-
+      public:
+
+      generic <typename Tool>
+       where Tool : class void Eat(Tool tool);
+  - lang: csharp
+    value: 'public void Eat<Tool> (Tool tool) where Tool : class;'
+  - lang: fsharp
+    value: "abstract member Eat : 'ool -> unit (requires 'ool : null)"
+  monikers:
+  - cat-1.0
+  - cat-2.0
+  summary: Overload method of eat. This define the animal eat by which tool.
+  metadata: {}
+uid: CatLibrary.IAnimal.Eat*
+commentId: Overload:CatLibrary.IAnimal.Eat
+namespace: CatLibrary
+name: Eat
+fullName: CatLibrary.IAnimal.Eat
+nameWithType: IAnimal.Eat
+assemblies:
+- CatLibrary
+devLangs:
+- cpp
+- csharp
+- fsharp
+- vb
+monikers:
+- cat-1.0
+- cat-2.0
+metadata:
+  api_name:
+  - CatLibrary.IAnimal.Eat
+  api_location:
+  - CatLibrary.dll
+  topic_type:
+  - apiref
+  api_type:
+  - Assembly
+  f1_keywords:
+  - CatLibrary.IAnimal.Eat
+  - CatLibrary::IAnimal::Eat
+  - CatLibrary.IAnimal.Eat``1
+  - CatLibrary::IAnimal::Eat``1
+  helpviewer_keywords:
+  - IAnimal.Eat method [.NET]
+  - Eat method [.NET], interface IAnimal
+  - IAnimal.Eat() method [.NET]
+  - Eat() method [.NET], interface IAnimal
+  - IAnimal.Eat(String) method [.NET]
+  - Eat(String) method [.NET], interface IAnimal
+  - IAnimal.Eat<Tool>(Tool) method [.NET]
+  - Eat<Tool>(Tool) method [.NET], interface IAnimal

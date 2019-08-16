@@ -1,0 +1,72 @@
+### YamlMime:NetNamespace
+delegates:
+- uid: CatLibrary.FakeDelegate`1
+  monikers:
+  - cat-1.0
+  - cat-2.0
+- uid: CatLibrary.MRefDelegate`3
+  monikers:
+  - cat-1.0
+  - cat-2.0
+- uid: CatLibrary.MRefNormalDelegate
+  monikers:
+  - cat-1.0
+  - cat-2.0
+classes:
+- uid: CatLibrary.Cat`2
+  monikers:
+  - cat-1.0
+  - cat-2.0
+- uid: CatLibrary.CatException`1
+  monikers:
+  - cat-1.0
+  - cat-2.0
+- uid: CatLibrary.Complex`2
+  monikers:
+  - cat-1.0
+  - cat-2.0
+- uid: CatLibrary.ICatExtension
+  monikers:
+  - cat-1.0
+  - cat-2.0
+- uid: CatLibrary.JerryExtension
+  monikers:
+  - cat-2.0
+- uid: CatLibrary.Tom
+  monikers:
+  - cat-1.0
+  - cat-2.0
+- uid: CatLibrary.TomFromBaseClass
+  monikers:
+  - cat-1.0
+  - cat-2.0
+- uid: CatLibrary.TomFromBaseClass.Jerry
+  monikers:
+  - cat-2.0
+enums:
+- uid: CatLibrary.Complex`2.ComplexFlags
+  monikers:
+  - cat-2.0
+interfaces:
+- uid: CatLibrary.IAnimal
+  monikers:
+  - cat-1.0
+  - cat-2.0
+- uid: CatLibrary.ICat
+  monikers:
+  - cat-1.0
+  - cat-2.0
+uid: CatLibrary
+commentId: N:CatLibrary
+name: CatLibrary
+fullName: CatLibrary
+devLangs:
+- csharp
+monikers:
+- cat-1.0
+- cat-2.0
+metadata:
+  f1_keywords:
+  - CatLibrary
+  helpviewer_keywords:
+  - CatLibrary namespace [.NET]

@@ -1,0 +1,189 @@
+### YamlMime:ManagedReference
+items:
+- uid: CatLibrary.ICatExtension
+  commentId: T:CatLibrary.ICatExtension
+  id: ICatExtension
+  children:
+  - CatLibrary.ICatExtension.Play(CatLibrary.ICat,System.String)
+  - CatLibrary.ICatExtension.Sleep(CatLibrary.ICat,System.Int64)
+  langs:
+  - cpp
+  - csharp
+  - fsharp
+  - vb
+  name: ICatExtension
+  nameWithType: CatLibrary.ICatExtension
+  fullName: CatLibrary.ICatExtension
+  type: Class
+  assemblies:
+  - CatLibrary
+  namespace: CatLibrary
+  summary: >-
+    It's the class that contains ICat interface's extension method.
+
+    <p>This class must be <strong>public</strong> and <strong>static</strong>.</p><p>Also it shouldn't be a geneic class</p>
+  syntax:
+    content: public static class ICatExtension
+    content.cpp: public ref class ICatExtension abstract sealed
+    content.csharp: public static class ICatExtension
+    content.fsharp: type ICatExtension = class
+    content.vb: Public Module ICatExtension
+  inheritance:
+  - System.Object
+  implements: []
+  modifiers.csharp:
+  - public
+  - static
+  monikers:
+  - cat-1.0
+  - cat-2.0
+- uid: CatLibrary.ICatExtension.Play(CatLibrary.ICat,System.String)
+  commentId: M:CatLibrary.ICatExtension.Play(CatLibrary.ICat,System.String)
+  id: Play(CatLibrary.ICat,System.String)
+  isExtensionMethod: true
+  parent: CatLibrary.ICatExtension
+  langs:
+  - cpp
+  - csharp
+  - fsharp
+  name: Play(ICat, String)
+  nameWithType: ICatExtension.Play(ICat, String)
+  fullName: CatLibrary.ICatExtension.Play(ICat, String)
+  type: Method
+  assemblies:
+  - CatLibrary
+  namespace: CatLibrary
+  summary: Extension method to let cat play
+  syntax:
+    content: public static void Play (this CatLibrary.ICat icat, string toy);
+    parameters:
+    - id: icat
+      type: CatLibrary.ICat
+      description: Cat
+    - id: toy
+      type: System.String
+      description: Something to play
+    content.cpp: >-
+      public:
+
+      [System::Runtime::CompilerServices::Extension]
+       static void Play(CatLibrary::ICat ^ icat, System::String ^ toy);
+    content.csharp: public static void Play (this CatLibrary.ICat icat, string toy);
+    content.fsharp: 'static member Play : CatLibrary.ICat * string -> unit'
+  overload: CatLibrary.ICatExtension.Play*
+  exceptions: []
+  modifiers.csharp:
+  - public
+  - static
+  monikers:
+  - cat-1.0
+  - cat-2.0
+- uid: CatLibrary.ICatExtension.Sleep(CatLibrary.ICat,System.Int64)
+  commentId: M:CatLibrary.ICatExtension.Sleep(CatLibrary.ICat,System.Int64)
+  id: Sleep(CatLibrary.ICat,System.Int64)
+  isExtensionMethod: true
+  parent: CatLibrary.ICatExtension
+  langs:
+  - cpp
+  - csharp
+  - fsharp
+  name: Sleep(ICat, Int64)
+  nameWithType: ICatExtension.Sleep(ICat, Int64)
+  fullName: CatLibrary.ICatExtension.Sleep(ICat, Int64)
+  type: Method
+  assemblies:
+  - CatLibrary
+  namespace: CatLibrary
+  summary: Extension method hint that how long the cat can sleep.
+  syntax:
+    content: public static void Sleep (this CatLibrary.ICat icat, long hours);
+    parameters:
+    - id: icat
+      type: CatLibrary.ICat
+      description: The type will be extended.
+    - id: hours
+      type: System.Int64
+      description: The length of sleep.
+    content.cpp: >-
+      public:
+
+      [System::Runtime::CompilerServices::Extension]
+       static void Sleep(CatLibrary::ICat ^ icat, long hours);
+    content.csharp: public static void Sleep (this CatLibrary.ICat icat, long hours);
+    content.fsharp: 'static member Sleep : CatLibrary.ICat * int64 -> unit'
+  overload: CatLibrary.ICatExtension.Sleep*
+  exceptions: []
+  modifiers.csharp:
+  - public
+  - static
+  monikers:
+  - cat-1.0
+  - cat-2.0
+references:
+- uid: CatLibrary
+  commentId: N:CatLibrary
+  isExternal: false
+  name: CatLibrary
+  nameWithType: CatLibrary
+  fullName: CatLibrary
+  type: namespace
+- uid: System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: CatLibrary.ICatExtension.Play(CatLibrary.ICat,System.String)
+  parent: CatLibrary.ICatExtension
+  isExternal: false
+  name: Play(ICat, String)
+  nameWithType: ICatExtension.Play(ICat, String)
+  fullName: CatLibrary.ICatExtension.Play(ICat, String)
+  type: method
+- uid: CatLibrary.ICat
+  parent: CatLibrary
+  isExternal: false
+  name: ICat
+  nameWithType: ICat
+  fullName: CatLibrary.ICat
+- uid: System.String
+  parent: System
+  isExternal: true
+  name: String
+  nameWithType: String
+  fullName: System.String
+- uid: CatLibrary.ICatExtension.Sleep(CatLibrary.ICat,System.Int64)
+  parent: CatLibrary.ICatExtension
+  isExternal: false
+  name: Sleep(ICat, Int64)
+  nameWithType: ICatExtension.Sleep(ICat, Int64)
+  fullName: CatLibrary.ICatExtension.Sleep(ICat, Int64)
+  type: method
+- uid: System.Int64
+  parent: System
+  isExternal: true
+  name: Int64
+  nameWithType: Int64
+  fullName: System.Int64
+- uid: CatLibrary.ICatExtension.Play*
+  commentId: Overload:CatLibrary.ICatExtension.Play
+  parent: CatLibrary.ICatExtension
+  isExternal: false
+  name: Play
+  nameWithType: ICatExtension.Play
+  fullName: CatLibrary.ICatExtension.Play
+  monikers:
+  - cat-1.0
+  - cat-2.0
+  type: method
+- uid: CatLibrary.ICatExtension.Sleep*
+  commentId: Overload:CatLibrary.ICatExtension.Sleep
+  parent: CatLibrary.ICatExtension
+  isExternal: false
+  name: Sleep
+  nameWithType: ICatExtension.Sleep
+  fullName: CatLibrary.ICatExtension.Sleep
+  monikers:
+  - cat-1.0
+  - cat-2.0
+  type: method

@@ -1,0 +1,286 @@
+### YamlMime:ManagedReference
+items:
+- uid: CatLibrary.Tom
+  commentId: T:CatLibrary.Tom
+  id: Tom
+  children:
+  - CatLibrary.Tom.#ctor
+  - CatLibrary.Tom.TomMethod(CatLibrary.Complex{CatLibrary.TomFromBaseClass,CatLibrary.TomFromBaseClass},System.Tuple{System.String,CatLibrary.Tom})
+  langs:
+  - cpp
+  - csharp
+  - fsharp
+  - vb
+  name: Tom
+  nameWithType: CatLibrary.Tom
+  fullName: CatLibrary.Tom
+  type: Class
+  assemblies:
+  - CatLibrary
+  namespace: CatLibrary
+  summary: Tom class is only inherit from Object. Not any member inside itself.
+  syntax:
+    content: public class Tom
+    content.cpp: public ref class Tom
+    content.csharp: public class Tom
+    content.fsharp: type Tom = class
+    content.vb: Public Class Tom
+  inheritance:
+  - System.Object
+  derivedClasses:
+  - CatLibrary.TomFromBaseClass
+  implements: []
+  inheritedMembers: []
+  modifiers.csharp:
+  - public
+  monikers:
+  - cat-1.0
+  - cat-2.0
+- uid: CatLibrary.Tom.#ctor
+  commentId: M:CatLibrary.Tom.#ctor
+  id: '#ctor'
+  parent: CatLibrary.Tom
+  langs:
+  - cpp
+  - csharp
+  - vb
+  name: Tom()
+  nameWithType: Tom.Tom()
+  fullName: CatLibrary.Tom.Tom()
+  type: Constructor
+  assemblies:
+  - CatLibrary
+  namespace: CatLibrary
+  syntax:
+    content: public Tom ();
+    parameters: []
+    content.cpp: >-
+      public:
+       Tom();
+    content.csharp: public Tom ();
+    content.vb: Public Sub New ()
+  overload: CatLibrary.Tom.#ctor*
+  exceptions: []
+  modifiers.csharp:
+  - public
+  monikers:
+  - cat-1.0
+  - cat-2.0
+- uid: CatLibrary.Tom.TomMethod(CatLibrary.Complex{CatLibrary.TomFromBaseClass,CatLibrary.TomFromBaseClass},System.Tuple{System.String,CatLibrary.Tom})
+  commentId: M:CatLibrary.Tom.TomMethod(CatLibrary.Complex{CatLibrary.TomFromBaseClass,CatLibrary.TomFromBaseClass},System.Tuple{System.String,CatLibrary.Tom})
+  id: TomMethod(CatLibrary.Complex{CatLibrary.TomFromBaseClass,CatLibrary.TomFromBaseClass},System.Tuple{System.String,CatLibrary.Tom})
+  parent: CatLibrary.Tom
+  langs:
+  - cpp
+  - csharp
+  - fsharp
+  - vb
+  name: TomMethod(Complex<TomFromBaseClass,TomFromBaseClass>, Tuple<String,Tom>)
+  nameWithType: Tom.TomMethod(Complex<TomFromBaseClass,TomFromBaseClass>, Tuple<String,Tom>)
+  fullName: CatLibrary.Tom.TomMethod(Complex<TomFromBaseClass,TomFromBaseClass>, Tuple<String,Tom>)
+  type: Method
+  assemblies:
+  - CatLibrary
+  namespace: CatLibrary
+  summary: This is a Tom Method with complex type as return
+  syntax:
+    content: public CatLibrary.Complex<string,CatLibrary.TomFromBaseClass> TomMethod (CatLibrary.Complex<CatLibrary.TomFromBaseClass,CatLibrary.TomFromBaseClass> a, Tuple<string,CatLibrary.Tom> b);
+    parameters:
+    - id: a
+      type: CatLibrary.Complex{CatLibrary.TomFromBaseClass,CatLibrary.TomFromBaseClass}
+      description: A complex input
+    - id: b
+      type: System.Tuple{System.String,CatLibrary.Tom}
+      description: Another complex input
+    return:
+      type: CatLibrary.Complex{System.String,CatLibrary.TomFromBaseClass}
+      description: Complex @CatLibrary.TomFromBaseClass
+    content.cpp: >-
+      public:
+       CatLibrary::Complex<System::String ^, CatLibrary::TomFromBaseClass ^> ^ TomMethod(CatLibrary::Complex<CatLibrary::TomFromBaseClass ^, CatLibrary::TomFromBaseClass ^> ^ a, Tuple<System::String ^, CatLibrary::Tom ^> ^ b);
+    content.csharp: public CatLibrary.Complex<string,CatLibrary.TomFromBaseClass> TomMethod (CatLibrary.Complex<CatLibrary.TomFromBaseClass,CatLibrary.TomFromBaseClass> a, Tuple<string,CatLibrary.Tom> b);
+    content.fsharp: 'member this.TomMethod : CatLibrary.Complex<CatLibrary.TomFromBaseClass, CatLibrary.TomFromBaseClass> * string * CatLibrary.Tom -> CatLibrary.Complex<string, CatLibrary.TomFromBaseClass>'
+    content.vb: Public Function TomMethod (a As Complex(Of TomFromBaseClass, TomFromBaseClass), b As Tuple(Of String, Tom)) As Complex(Of String, TomFromBaseClass)
+  overload: CatLibrary.Tom.TomMethod*
+  exceptions:
+  - type: System.NotImplementedException
+    commentId: T:System.NotImplementedException
+    description: This is not implemented
+  - type: System.ArgumentException
+    commentId: T:System.ArgumentException
+    description: This is the exception to be thrown when implemented
+  - type: CatLibrary.CatException`1
+    commentId: T:CatLibrary.CatException`1
+    description: This is the exception in current documentation
+  modifiers.csharp:
+  - public
+  monikers:
+  - cat-1.0
+  - cat-2.0
+references:
+- uid: CatLibrary
+  commentId: N:CatLibrary
+  isExternal: false
+  name: CatLibrary
+  nameWithType: CatLibrary
+  fullName: CatLibrary
+  type: namespace
+- uid: System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: System.NotImplementedException
+  isExternal: true
+  name: System.NotImplementedException
+- uid: System.ArgumentException
+  isExternal: true
+  name: System.ArgumentException
+- uid: CatLibrary.CatException`1
+  commentId: T:CatLibrary.CatException`1
+  parent: CatLibrary
+  isExternal: false
+  name: CatException<T>
+  nameWithType: CatLibrary.CatException<T>
+  fullName: CatLibrary.CatException<T>
+  type: class
+- uid: CatLibrary.Tom.#ctor
+  parent: CatLibrary.Tom
+  isExternal: false
+  name: Tom()
+  nameWithType: Tom.Tom()
+  fullName: CatLibrary.Tom.Tom()
+  type: constructor
+- uid: CatLibrary.Tom.TomMethod(CatLibrary.Complex{CatLibrary.TomFromBaseClass,CatLibrary.TomFromBaseClass},System.Tuple{System.String,CatLibrary.Tom})
+  parent: CatLibrary.Tom
+  isExternal: false
+  name: TomMethod(Complex<TomFromBaseClass,TomFromBaseClass>, Tuple<String,Tom>)
+  nameWithType: Tom.TomMethod(Complex<TomFromBaseClass,TomFromBaseClass>, Tuple<String,Tom>)
+  fullName: CatLibrary.Tom.TomMethod(Complex<TomFromBaseClass,TomFromBaseClass>, Tuple<String,Tom>)
+  type: method
+- uid: CatLibrary.Complex`2
+  name: Complex<T,J>
+  nameWithType: Complex<T,J>
+  fullName: CatLibrary.Complex<T,J>
+- uid: System.String
+  isExternal: true
+  name: String
+  nameWithType: String
+  fullName: System.String
+- uid: CatLibrary.TomFromBaseClass
+  name: TomFromBaseClass
+  nameWithType: TomFromBaseClass
+  fullName: CatLibrary.TomFromBaseClass
+- uid: CatLibrary.Complex{System.String,CatLibrary.TomFromBaseClass}
+  parent: CatLibrary
+  name: Complex<String,TomFromBaseClass>
+  nameWithType: Complex<String,TomFromBaseClass>
+  fullName: CatLibrary.Complex<System.String,CatLibrary.TomFromBaseClass>
+  spec.csharp:
+  - uid: CatLibrary.Complex`2
+    name: Complex
+    nameWithType: Complex
+    fullName: CatLibrary.Complex
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+  - name: ','
+    nameWithType: ','
+    fullName: ','
+  - uid: CatLibrary.TomFromBaseClass
+    name: TomFromBaseClass
+    nameWithType: TomFromBaseClass
+    fullName: CatLibrary.TomFromBaseClass
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+- uid: CatLibrary.Complex{CatLibrary.TomFromBaseClass,CatLibrary.TomFromBaseClass}
+  parent: CatLibrary
+  name: Complex<TomFromBaseClass,TomFromBaseClass>
+  nameWithType: Complex<TomFromBaseClass,TomFromBaseClass>
+  fullName: CatLibrary.Complex<CatLibrary.TomFromBaseClass,CatLibrary.TomFromBaseClass>
+  spec.csharp:
+  - uid: CatLibrary.Complex`2
+    name: Complex
+    nameWithType: Complex
+    fullName: CatLibrary.Complex
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: CatLibrary.TomFromBaseClass
+    name: TomFromBaseClass
+    nameWithType: TomFromBaseClass
+    fullName: CatLibrary.TomFromBaseClass
+  - name: ','
+    nameWithType: ','
+    fullName: ','
+  - uid: CatLibrary.TomFromBaseClass
+    name: TomFromBaseClass
+    nameWithType: TomFromBaseClass
+    fullName: CatLibrary.TomFromBaseClass
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+- uid: System.Tuple`2
+  isExternal: true
+  name: Tuple
+  nameWithType: Tuple
+  fullName: System.Tuple
+- uid: CatLibrary.Tom
+  name: Tom
+  nameWithType: Tom
+  fullName: CatLibrary.Tom
+- uid: System.Tuple{System.String,CatLibrary.Tom}
+  parent: System
+  name: Tuple<String,Tom>
+  nameWithType: Tuple<String,Tom>
+  fullName: System.Tuple<System.String,CatLibrary.Tom>
+  spec.csharp:
+  - uid: System.Tuple`2
+    name: Tuple
+    nameWithType: Tuple
+    fullName: System.Tuple
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+  - name: ','
+    nameWithType: ','
+    fullName: ','
+  - uid: CatLibrary.Tom
+    name: Tom
+    nameWithType: Tom
+    fullName: CatLibrary.Tom
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+- uid: CatLibrary.Tom.#ctor*
+  commentId: Overload:CatLibrary.Tom.#ctor
+  parent: CatLibrary.Tom
+  isExternal: false
+  name: Tom
+  nameWithType: Tom.Tom
+  fullName: CatLibrary.Tom.Tom
+  monikers:
+  - cat-1.0
+  - cat-2.0
+  type: constructor
+- uid: CatLibrary.Tom.TomMethod*
+  commentId: Overload:CatLibrary.Tom.TomMethod
+  parent: CatLibrary.Tom
+  isExternal: false
+  name: TomMethod
+  nameWithType: Tom.TomMethod
+  fullName: CatLibrary.Tom.TomMethod
+  monikers:
+  - cat-1.0
+  - cat-2.0
+  type: method

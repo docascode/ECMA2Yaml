@@ -1,0 +1,55 @@
+### YamlMime:NetMember
+type: field
+members:
+- returns:
+    type: <xref href="System.Boolean?alt=System.Boolean&text=Boolean" data-throw-if-not-resolved="True"/>
+  uid: CatLibrary.Cat`2.isHealthy
+  commentId: F:CatLibrary.Cat`2.isHealthy
+  name: isHealthy
+  fullName: CatLibrary.Cat<T,K>.isHealthy
+  nameWithType: Cat<T,K>.isHealthy
+  attributes:
+  - System.ContextStaticAttribute
+  syntax:
+  - lang: cpp
+    value: 'public: bool isHealthy;'
+  - lang: csharp
+    value: >-
+      [System.ContextStatic]
+
+      public bool isHealthy;
+  - lang: fsharp
+    value: 'val mutable isHealthy : bool'
+  - lang: vb
+    value: 'Public isHealthy As Boolean '
+  monikers:
+  - cat-1.0
+  - cat-2.0
+  summary: Field with attribute.
+  metadata: {}
+namespace: CatLibrary
+assemblies:
+- CatLibrary
+devLangs:
+- cpp
+- csharp
+- fsharp
+- vb
+monikers:
+- cat-1.0
+- cat-2.0
+metadata:
+  api_name:
+  - CatLibrary.Cat`2.isHealthy
+  api_location:
+  - CatLibrary.dll
+  topic_type:
+  - apiref
+  api_type:
+  - Assembly
+  f1_keywords:
+  - CatLibrary.Cat`2.isHealthy
+  - CatLibrary::Cat`2::isHealthy
+  helpviewer_keywords:
+  - Cat<T,K>.isHealthy field [.NET]
+  - isHealthy field [.NET], class Cat<T,K>

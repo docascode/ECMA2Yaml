@@ -1,0 +1,58 @@
+### YamlMime:NetMember
+type: property
+members:
+- returns:
+    type: <xref href="System.String?alt=System.String&text=String" data-throw-if-not-resolved="True"/>
+  uid: CatLibrary.IAnimal.Name
+  commentId: P:CatLibrary.IAnimal.Name
+  name: Name
+  fullName: CatLibrary.IAnimal.Name
+  nameWithType: IAnimal.Name
+  syntax:
+  - lang: cpp
+    value: >-
+      public:
+       property System::String ^ Name { System::String ^ get(); };
+  - lang: csharp
+    value: public string Name { get; }
+  - lang: fsharp
+    value: 'member this.Name : string'
+  - lang: vb
+    value: Public ReadOnly Property Name As String
+  monikers:
+  - cat-1.0
+  - cat-2.0
+  summary: Name of Animal.
+  metadata: {}
+uid: CatLibrary.IAnimal.Name*
+commentId: Overload:CatLibrary.IAnimal.Name
+namespace: CatLibrary
+name: Name
+fullName: CatLibrary.IAnimal.Name
+nameWithType: IAnimal.Name
+assemblies:
+- CatLibrary
+devLangs:
+- cpp
+- csharp
+- fsharp
+- vb
+monikers:
+- cat-1.0
+- cat-2.0
+metadata:
+  api_name:
+  - CatLibrary.IAnimal.Name
+  - CatLibrary.IAnimal.get_Name
+  api_location:
+  - CatLibrary.dll
+  topic_type:
+  - apiref
+  api_type:
+  - Assembly
+  f1_keywords:
+  - CatLibrary.IAnimal.Name
+  - CatLibrary::IAnimal::Name
+  helpviewer_keywords:
+  - IAnimal.Name property [.NET]
+  - Name property [.NET], interface IAnimal

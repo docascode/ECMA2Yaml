@@ -1,0 +1,46 @@
+<Type Name="TomFromBaseClass+Jerry" FullName="CatLibrary.TomFromBaseClass+Jerry">
+  <TypeSignature Language="C#" Value="public class TomFromBaseClass.Jerry" />
+  <TypeSignature Language="ILAsm" Value=".class nested public auto ansi beforefieldinit TomFromBaseClass/Jerry extends System.Object" />
+  <TypeSignature Language="DocId" Value="T:CatLibrary.TomFromBaseClass.Jerry" />
+  <TypeSignature Language="VB.NET" Value="Public Class TomFromBaseClass.Jerry" />
+  <TypeSignature Language="C++ CLI" Value="public: ref class TomFromBaseClass::Jerry" />
+  <TypeSignature Language="F#" Value="type TomFromBaseClass.Jerry = class" />
+  <AssemblyInfo>
+    <AssemblyName>CatLibrary</AssemblyName>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>System.Object</BaseTypeName>
+  </Base>
+  <Interfaces />
+  <Docs>
+    <summary>
+            This is a <b>nested</b> class inside <see cref="T:CatLibrary.TomFromBaseClass" /></summary>
+    <remarks>To be added.</remarks>
+  </Docs>
+  <Members>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public Jerry (MRef.Demo.Enumeration.ColorType color);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(valuetype MRef.Demo.Enumeration.ColorType color) cil managed" />
+      <MemberSignature Language="DocId" Value="M:CatLibrary.TomFromBaseClass.Jerry.#ctor(MRef.Demo.Enumeration.ColorType)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New (color As ColorType)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; Jerry(MRef::Demo::Enumeration::ColorType color);" />
+      <MemberSignature Language="F#" Value="new CatLibrary.TomFromBaseClass.Jerry : MRef.Demo.Enumeration.ColorType -&gt; CatLibrary.TomFromBaseClass.Jerry" Usage="new CatLibrary.TomFromBaseClass.Jerry color" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>CatLibrary</AssemblyName>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="color" Type="MRef.Demo.Enumeration.ColorType" />
+      </Parameters>
+      <Docs>
+        <param name="color">Color of Jerry.</param>
+        <summary>
+            Jerry has different <see cref="T:MRef.Demo.Enumeration.ColorType">colors</see>.
+            </summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+  </Members>
+</Type>

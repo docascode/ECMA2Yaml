@@ -1,0 +1,68 @@
+### YamlMime:NetMember
+type: operator
+members:
+- returns:
+    description: Advanced class type of cat.
+    type: <xref href="CatLibrary.Tom?alt=CatLibrary.Tom&text=Tom" data-throw-if-not-resolved="True"/>
+  parameters:
+  - name: src
+    description: Instance of this class.
+    type: <xref href="CatLibrary.Cat`2?alt=CatLibrary.Cat`2&text=Cat%3CT%2CK%3E" data-throw-if-not-resolved="True"/>
+  uid: CatLibrary.Cat`2.op_Explicit(CatLibrary.Cat{`0,`1})~CatLibrary.Tom
+  commentId: M:CatLibrary.Cat`2.op_Explicit(CatLibrary.Cat{`0,`1})~CatLibrary.Tom
+  name: Explicit(Cat<T,K> to Tom)
+  fullName: CatLibrary.Cat<T,K>.Explicit(Cat<T,K> to Tom)
+  nameWithType: Cat<T,K>.Explicit(Cat<T,K> to Tom)
+  syntax:
+  - lang: cpp
+    value: >-
+      public:
+       static explicit operator CatLibrary::Tom ^(CatLibrary::Cat<T, K> ^ src);
+  - lang: csharp
+    value: public static explicit operator CatLibrary.Tom (CatLibrary.Cat<T,K> src);
+  - lang: fsharp
+    value: "static member op_Explicit : CatLibrary.Cat<'T, 'K (requires 'T : null and 'T : (new : unit -> 'T) and 'K : struct)> -> CatLibrary.Tom"
+  - lang: vb
+    value: Public Shared Narrowing Operator CType (src As Cat(Of T, K)) As Tom
+  monikers:
+  - cat-1.0
+  - cat-2.0
+  summary: >-
+    Expilicit operator of this class.
+
+    <p>It means this cat can evolve to change to Tom. Tom and Jerry.</p>
+  metadata: {}
+uid: CatLibrary.Cat`2.op_Explicit*
+commentId: Overload:CatLibrary.Cat`2.op_Explicit
+namespace: CatLibrary
+name: Explicit
+fullName: CatLibrary.Cat<T,K>.Explicit
+nameWithType: Cat<T,K>.Explicit
+assemblies:
+- CatLibrary
+devLangs:
+- cpp
+- csharp
+- fsharp
+- vb
+monikers:
+- cat-1.0
+- cat-2.0
+metadata:
+  api_name:
+  - CatLibrary.Cat`2.Explicit
+  - CatLibrary.Cat`2.op_Explicit
+  api_location:
+  - CatLibrary.dll
+  topic_type:
+  - apiref
+  api_type:
+  - Assembly
+  f1_keywords:
+  - CatLibrary.Cat`2.op_Explicit
+  - CatLibrary::Cat`2::op_Explicit
+  helpviewer_keywords:
+  - Cat<T,K>.Explicit operator [.NET]
+  - Explicit operator [.NET], class Cat<T,K>
+  - Cat<T,K>.Explicit(Cat<T,K> to Tom) operator [.NET]
+  - Explicit(Cat<T,K> to Tom) operator [.NET], class Cat<T,K>

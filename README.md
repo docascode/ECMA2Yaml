@@ -10,19 +10,29 @@
 ## Usage
 ```
 ECMA2Yaml.exe <Options>
-  -s, --source=VALUE         [Required] the folder path containing the ECMAXML files.
+  -s, --source=VALUE         [Required] the folder path containing the ECMAXML
+                               files.
   -o, --output=VALUE         [Required] the output folder to put yml files.
-  --fs, --fallbackSource=VALUE
-                             the folder path containing the fallback ECMAXML files.
-  -m, --metadata=VALUE       the folder path containing the overwrite MD files for metadata.
+  -m, --metadata=VALUE       the folder path containing the overwrite MD files
+                               for metadata.
   -l, --log=VALUE            the log file path.
-  -f, --flatten              to put all ymls in output root and not keep original folder structure.
+  -f, --flatten              to put all ymls in output root and not keep
+                               original folder structure.
   -p, --pathUrlMapping=VALUE1=>VALUE2
                              map local xml path to the Github url.
-  --fp, --fallbackPathUrlMapping=VALUE1=>VALUE2
-                             map local xml path to the Github url for fallbacks.
-  --strict                   strict mode, means that any unresolved type reference will cause a warning
-  --changeList=VALUE         OPS change list file, ECMA2Yaml will translate xml path to yml path
-  --skipPublishFilePath=VALUE
-                             Pass a file to OPS to let it know which files should skip publish
+      --strict               strict mode, means that any unresolved type
+                               reference will cause a warning
+      --mapFolder            folder mapping mode, maps assemblies in folder to
+                               json, used in .NET CI
+      --SDP                  SDP mode, generate yamls in the .NET SDP schema
+                               format
+      --changeList=VALUE     OPS change list file, ECMA2Yaml will translate xml
+                               path to yml path
+      --skipPublishFilePath=VALUE
+                             Pass a file to OPS to let it know which files
+                               should skip publish
+      --undocumentedApiReport=VALUE
+                             Save the Undocumented API validation result to
+                               Excel file
+      --branch=VALUE         current branch
 ```

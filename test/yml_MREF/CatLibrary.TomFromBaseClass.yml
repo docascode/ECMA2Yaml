@@ -1,0 +1,123 @@
+### YamlMime:ManagedReference
+items:
+- uid: CatLibrary.TomFromBaseClass
+  commentId: T:CatLibrary.TomFromBaseClass
+  id: TomFromBaseClass
+  children:
+  - CatLibrary.TomFromBaseClass.#ctor(System.Int32)
+  langs:
+  - cpp
+  - csharp
+  - fsharp
+  - vb
+  name: TomFromBaseClass
+  nameWithType: CatLibrary.TomFromBaseClass
+  fullName: CatLibrary.TomFromBaseClass
+  type: Class
+  assemblies:
+  - CatLibrary
+  namespace: CatLibrary
+  summary: '*TomFromBaseClass* inherits from @CatLibrary.Tom'
+  syntax:
+    content: 'public class TomFromBaseClass : CatLibrary.Tom'
+    content.cpp: 'public ref class TomFromBaseClass : CatLibrary::Tom'
+    content.csharp: 'public class TomFromBaseClass : CatLibrary.Tom'
+    content.fsharp: >-
+      type TomFromBaseClass = class
+          inherit Tom
+    content.vb: >-
+      Public Class TomFromBaseClass
+
+      Inherits Tom
+  inheritance:
+  - System.Object
+  - CatLibrary.Tom
+  implements: []
+  inheritedMembers:
+  - CatLibrary.Tom.TomMethod(CatLibrary.Complex{CatLibrary.TomFromBaseClass,CatLibrary.TomFromBaseClass},System.Tuple{System.String,CatLibrary.Tom})
+  modifiers.csharp:
+  - public
+  monikers:
+  - cat-1.0
+  - cat-2.0
+- uid: CatLibrary.TomFromBaseClass.#ctor(System.Int32)
+  commentId: M:CatLibrary.TomFromBaseClass.#ctor(System.Int32)
+  id: '#ctor(System.Int32)'
+  parent: CatLibrary.TomFromBaseClass
+  langs:
+  - cpp
+  - csharp
+  - fsharp
+  - vb
+  name: TomFromBaseClass(Int32)
+  nameWithType: TomFromBaseClass.TomFromBaseClass(Int32)
+  fullName: CatLibrary.TomFromBaseClass.TomFromBaseClass(Int32)
+  type: Constructor
+  assemblies:
+  - CatLibrary
+  namespace: CatLibrary
+  summary: 'This is a #ctor with parameter'
+  syntax:
+    content: public TomFromBaseClass (int k);
+    parameters:
+    - id: k
+      type: System.Int32
+      description: "\n        "
+    content.cpp: >-
+      public:
+       TomFromBaseClass(int k);
+    content.csharp: public TomFromBaseClass (int k);
+    content.fsharp: 'new CatLibrary.TomFromBaseClass : int -> CatLibrary.TomFromBaseClass'
+    content.vb: Public Sub New (k As Integer)
+  overload: CatLibrary.TomFromBaseClass.#ctor*
+  exceptions: []
+  modifiers.csharp:
+  - public
+  monikers:
+  - cat-1.0
+  - cat-2.0
+references:
+- uid: CatLibrary
+  commentId: N:CatLibrary
+  isExternal: false
+  name: CatLibrary
+  nameWithType: CatLibrary
+  fullName: CatLibrary
+  type: namespace
+- uid: CatLibrary.Tom
+  parent: CatLibrary
+  isExternal: false
+  name: Tom
+  nameWithType: Tom
+  fullName: CatLibrary.Tom
+- uid: CatLibrary.TomFromBaseClass.#ctor(System.Int32)
+  parent: CatLibrary.TomFromBaseClass
+  isExternal: false
+  name: TomFromBaseClass(Int32)
+  nameWithType: TomFromBaseClass.TomFromBaseClass(Int32)
+  fullName: CatLibrary.TomFromBaseClass.TomFromBaseClass(Int32)
+  type: constructor
+- uid: System.Int32
+  parent: System
+  isExternal: true
+  name: Int32
+  nameWithType: Int32
+  fullName: System.Int32
+- uid: CatLibrary.TomFromBaseClass.#ctor*
+  commentId: Overload:CatLibrary.TomFromBaseClass.#ctor
+  parent: CatLibrary.TomFromBaseClass
+  isExternal: false
+  name: TomFromBaseClass
+  nameWithType: TomFromBaseClass.TomFromBaseClass
+  fullName: CatLibrary.TomFromBaseClass.TomFromBaseClass
+  monikers:
+  - cat-1.0
+  - cat-2.0
+  type: constructor
+- uid: CatLibrary.Tom.TomMethod(CatLibrary.Complex{CatLibrary.TomFromBaseClass,CatLibrary.TomFromBaseClass},System.Tuple{System.String,CatLibrary.Tom})
+  parent: CatLibrary.Tom
+  isExternal: false
+  name: TomMethod(Complex<TomFromBaseClass,TomFromBaseClass>, Tuple<String,Tom>)
+  nameWithType: Tom.TomMethod(Complex<TomFromBaseClass,TomFromBaseClass>, Tuple<String,Tom>)
+  fullName: CatLibrary.Tom.TomMethod(Complex<TomFromBaseClass,TomFromBaseClass>, Tuple<String,Tom>)
+  type: method

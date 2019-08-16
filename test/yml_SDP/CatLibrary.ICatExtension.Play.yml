@@ -1,0 +1,63 @@
+### YamlMime:NetMember
+type: method
+members:
+- parameters:
+  - name: icat
+    description: Cat
+    type: <xref href="CatLibrary.ICat?alt=CatLibrary.ICat&text=ICat" data-throw-if-not-resolved="True"/>
+  - name: toy
+    description: Something to play
+    type: <xref href="System.String?alt=System.String&text=String" data-throw-if-not-resolved="True"/>
+  uid: CatLibrary.ICatExtension.Play(CatLibrary.ICat,System.String)
+  commentId: M:CatLibrary.ICatExtension.Play(CatLibrary.ICat,System.String)
+  name: Play(ICat, String)
+  fullName: CatLibrary.ICatExtension.Play(ICat, String)
+  nameWithType: ICatExtension.Play(ICat, String)
+  syntax:
+  - lang: cpp
+    value: >-
+      public:
+
+      [System::Runtime::CompilerServices::Extension]
+       static void Play(CatLibrary::ICat ^ icat, System::String ^ toy);
+  - lang: csharp
+    value: public static void Play (this CatLibrary.ICat icat, string toy);
+  - lang: fsharp
+    value: 'static member Play : CatLibrary.ICat * string -> unit'
+  monikers:
+  - cat-1.0
+  - cat-2.0
+  summary: Extension method to let cat play
+  metadata: {}
+uid: CatLibrary.ICatExtension.Play*
+commentId: Overload:CatLibrary.ICatExtension.Play
+namespace: CatLibrary
+name: Play
+fullName: CatLibrary.ICatExtension.Play
+nameWithType: ICatExtension.Play
+assemblies:
+- CatLibrary
+devLangs:
+- cpp
+- csharp
+- fsharp
+monikers:
+- cat-1.0
+- cat-2.0
+metadata:
+  api_name:
+  - CatLibrary.ICatExtension.Play
+  api_location:
+  - CatLibrary.dll
+  topic_type:
+  - apiref
+  api_type:
+  - Assembly
+  f1_keywords:
+  - CatLibrary.ICatExtension.Play
+  - CatLibrary::ICatExtension::Play
+  helpviewer_keywords:
+  - ICatExtension.Play method [.NET]
+  - Play method [.NET], class ICatExtension
+  - ICatExtension.Play(ICat, String) extension method [.NET]
+  - Play(ICat, String) extension method [.NET], class ICatExtension

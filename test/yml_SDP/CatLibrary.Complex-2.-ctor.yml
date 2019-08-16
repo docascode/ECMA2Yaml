@@ -1,0 +1,51 @@
+### YamlMime:NetMember
+type: constructor
+members:
+- uid: CatLibrary.Complex`2.#ctor
+  commentId: M:CatLibrary.Complex`2.#ctor
+  name: Complex<T,J>()
+  fullName: CatLibrary.Complex<T,J>.Complex<T,J>()
+  nameWithType: Complex<T,J>.Complex<T,J>()
+  syntax:
+  - lang: cpp
+    value: >-
+      public:
+       Complex();
+  - lang: csharp
+    value: public Complex ();
+  - lang: vb
+    value: Public Sub New ()
+  monikers:
+  - cat-1.0
+  - cat-2.0
+  metadata: {}
+uid: CatLibrary.Complex`2.#ctor*
+commentId: Overload:CatLibrary.Complex`2.#ctor
+namespace: CatLibrary
+name: Complex<T,J>
+fullName: CatLibrary.Complex<T,J>.Complex
+nameWithType: Complex<T,J>.Complex<T,J>
+assemblies:
+- CatLibrary
+devLangs:
+- cpp
+- csharp
+- vb
+monikers:
+- cat-1.0
+- cat-2.0
+metadata:
+  api_name:
+  - CatLibrary.Complex`2..ctor
+  api_location:
+  - CatLibrary.dll
+  topic_type:
+  - apiref
+  api_type:
+  - Assembly
+  f1_keywords:
+  - CatLibrary.Complex`2.#ctor
+  - CatLibrary::Complex`2::#ctor
+  helpviewer_keywords:
+  - Complex<T,J> class [.NET], constructors
+  - Complex<T,J>() class [.NET], constructors

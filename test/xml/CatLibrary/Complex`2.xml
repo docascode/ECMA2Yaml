@@ -1,0 +1,47 @@
+<Type Name="Complex&lt;T,J&gt;" FullName="CatLibrary.Complex&lt;T,J&gt;">
+  <TypeSignature Language="C#" Value="public class Complex&lt;T,J&gt;" />
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit Complex`2&lt;T, J&gt; extends System.Object" />
+  <TypeSignature Language="DocId" Value="T:CatLibrary.Complex`2" />
+  <TypeSignature Language="VB.NET" Value="Public Class Complex(Of T, J)" />
+  <TypeSignature Language="C++ CLI" Value="generic &lt;typename T, typename J&gt;&#xA;public ref class Complex" />
+  <TypeSignature Language="F#" Value="type Complex&lt;'T, 'J&gt; = class" />
+  <AssemblyInfo>
+    <AssemblyName>CatLibrary</AssemblyName>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <TypeParameters>
+    <TypeParameter Name="T" />
+    <TypeParameter Name="J" />
+  </TypeParameters>
+  <Base>
+    <BaseTypeName>System.Object</BaseTypeName>
+  </Base>
+  <Interfaces />
+  <Docs>
+    <typeparam name="T">
+    </typeparam>
+    <typeparam name="J">
+    </typeparam>
+    <summary />
+    <remarks>To be added.</remarks>
+  </Docs>
+  <Members>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public Complex ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor() cil managed" />
+      <MemberSignature Language="DocId" Value="M:CatLibrary.Complex`2.#ctor" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New ()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; Complex();" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>CatLibrary</AssemblyName>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters />
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+  </Members>
+</Type>

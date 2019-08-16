@@ -1,0 +1,66 @@
+### YamlMime:NetDelegate
+typeParameters:
+- description: Generic K.
+  name: K
+- description: Generic T.
+  name: T
+- description: Generic L.
+  name: L
+parameters:
+- name: k
+  description: Type K.
+  type: ''
+- name: t
+  description: Type T.
+  type: ''
+- name: l
+  description: Type L.
+  type: ''
+inheritances:
+- <xref href="System.Delegate" data-throw-if-not-resolved="True"/>
+uid: CatLibrary.MRefDelegate`3
+commentId: T:CatLibrary.MRefDelegate`3
+namespace: CatLibrary
+name: MRefDelegate<K,T,L>
+fullName: CatLibrary.MRefDelegate<K,T,L>
+nameWithType: CatLibrary.MRefDelegate<K,T,L>
+assemblies:
+- CatLibrary
+syntax:
+- lang: cpp
+  value: >-
+    generic <typename K, typename T, typename L>
+     where K : class, IComparable where T : value class where L : Tom, IEnumerable<long>public delegate void MRefDelegate(K k, T t, L l);
+- lang: csharp
+  value: 'public delegate void MRefDelegate<K,T,L>(K k, T t, L l) where K : class, IComparable where T : struct where L : Tom, IEnumerable<long>;'
+- lang: fsharp
+  value: "type MRefDelegate<'K, 'T, 'L (requires 'K : null and 'K :> IComparable and 'T : struct and 'L :> Tom and 'L :> seq<int64>)> = delegate of 'K * 'T * 'L -> unit"
+- lang: vb
+  value: Public Delegate Sub MRefDelegate(Of K, T, L)(k As K, t As T, l As L)
+devLangs:
+- cpp
+- csharp
+- fsharp
+- vb
+monikers:
+- cat-1.0
+- cat-2.0
+summary: Generic delegate with many constrains.
+metadata:
+  api_name:
+  - CatLibrary.MRefDelegate`3
+  - CatLibrary.MRefDelegate`3..ctor
+  - CatLibrary.MRefDelegate`3.Invoke
+  - CatLibrary.MRefDelegate`3.BeginInvoke
+  - CatLibrary.MRefDelegate`3.EndInvoke
+  api_location:
+  - CatLibrary.dll
+  topic_type:
+  - apiref
+  api_type:
+  - Assembly
+  f1_keywords:
+  - CatLibrary.MRefDelegate`3
+  - CatLibrary::MRefDelegate`3
+  helpviewer_keywords:
+  - CatLibrary.MRefDelegate<K,T,L> delegate [.NET]

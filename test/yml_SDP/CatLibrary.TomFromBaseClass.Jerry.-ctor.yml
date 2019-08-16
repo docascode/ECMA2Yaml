@@ -1,0 +1,57 @@
+### YamlMime:NetMember
+type: constructor
+members:
+- parameters:
+  - name: color
+    description: Color of Jerry.
+    type: <xref href="MRef.Demo.Enumeration.ColorType?alt=MRef.Demo.Enumeration.ColorType&text=ColorType" data-throw-if-not-resolved="True"/>
+  uid: CatLibrary.TomFromBaseClass.Jerry.#ctor(MRef.Demo.Enumeration.ColorType)
+  commentId: M:CatLibrary.TomFromBaseClass.Jerry.#ctor(MRef.Demo.Enumeration.ColorType)
+  name: TomFromBaseClass.Jerry(ColorType)
+  fullName: CatLibrary.TomFromBaseClass.Jerry.TomFromBaseClass.Jerry(ColorType)
+  nameWithType: TomFromBaseClass.Jerry.TomFromBaseClass.Jerry(ColorType)
+  syntax:
+  - lang: cpp
+    value: >-
+      public:
+       Jerry(MRef::Demo::Enumeration::ColorType color);
+  - lang: csharp
+    value: public Jerry (MRef.Demo.Enumeration.ColorType color);
+  - lang: fsharp
+    value: 'new CatLibrary.TomFromBaseClass.Jerry : MRef.Demo.Enumeration.ColorType -> CatLibrary.TomFromBaseClass.Jerry'
+  - lang: vb
+    value: Public Sub New (color As ColorType)
+  monikers:
+  - cat-2.0
+  summary: Jerry has different <xref data-throw-if-not-resolved="true" uid="MRef.Demo.Enumeration.ColorType"></xref>.
+  metadata: {}
+uid: CatLibrary.TomFromBaseClass.Jerry.#ctor*
+commentId: Overload:CatLibrary.TomFromBaseClass.Jerry.#ctor
+namespace: CatLibrary
+name: TomFromBaseClass.Jerry
+fullName: CatLibrary.TomFromBaseClass.Jerry.TomFromBaseClass.Jerry
+nameWithType: TomFromBaseClass.Jerry.TomFromBaseClass.Jerry
+assemblies:
+- CatLibrary
+devLangs:
+- cpp
+- csharp
+- fsharp
+- vb
+monikers:
+- cat-2.0
+metadata:
+  api_name:
+  - CatLibrary.TomFromBaseClass.Jerry..ctor
+  api_location:
+  - CatLibrary.dll
+  topic_type:
+  - apiref
+  api_type:
+  - Assembly
+  f1_keywords:
+  - CatLibrary.TomFromBaseClass.Jerry.#ctor
+  - CatLibrary::TomFromBaseClass::Jerry::#ctor
+  helpviewer_keywords:
+  - TomFromBaseClass.Jerry class [.NET], constructors
+  - TomFromBaseClass.Jerry(ColorType) class [.NET], constructors
