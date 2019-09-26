@@ -21,13 +21,13 @@ foreach($ecmaConfig in $jobs)
 {
 	$ecmaOutputYamlFolder = Join-Path $repositoryRoot $ecmaConfig.OutputYamlFolder
 	$ymlOutputFolder = Join-Path $outputFolder "_yml"
-	& robocopy $ecmaOutputYamlFolder $ymlOutputFolder *.yml /s
+	& robocopy $ecmaOutputYamlFolder $ymlOutputFolder *.yml /s /np /nfl /ndl
 
 	$ecmaOutputMDFolder = Join-Path $ecmaOutputYamlFolder "overwrites"
 	if (Test-Path $ecmaOutputMDFolder) 
 	{
 	    $mdOutputFolder = Join-Path $ymlOutputFolder "overwrites"
-	    & robocopy $ecmaOutputMDFolder $mdOutputFolder *.md /s
+	    & robocopy $ecmaOutputMDFolder $mdOutputFolder *.md /s /np /nfl /ndl
 	}
 }
 exit 0
