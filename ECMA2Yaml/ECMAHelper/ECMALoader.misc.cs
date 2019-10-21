@@ -237,17 +237,17 @@ namespace ECMA2Yaml
             }
 
             var modifiers = new SortedList<string, List<string>>();
-            if (sigs.ContainsKey("C#"))
+            if (sigs.TryGetValue("C#", out string val))
             {
                 var mods = new List<string>();
 
                 if (item != null && item.ItemType == ItemType.AttachedProperty)
                 {
-                    if (sigs["C#"].Contains(" Get" + item.Name))
+                    if (val.Contains(" Get" + item.Name))
                     {
                         mods.Add("get");
                     }
-                    if (sigs["C#"].Contains(" Set" + item.Name))
+                    if (val.Contains(" Set" + item.Name))
                     {
                         mods.Add("set");
                     }
@@ -255,9 +255,9 @@ namespace ECMA2Yaml
                 else
                 {
                     var startWithModifiers = new string[] { "public", "protected", "private" };
-                    mods.AddRange(startWithModifiers.Where(m => sigs["C#"].StartsWith(m)));
+                    mods.AddRange(startWithModifiers.Where(m => val.StartsWith(m)));
                     var containsModifiers = new string[] { "static", "const", "readonly", "sealed", "get;", "set;" };
-                    mods.AddRange(containsModifiers.Where(m => sigs["C#"].Contains(" " + m + " ")).Select(m => m.Trim(';')));
+                    mods.AddRange(containsModifiers.Where(m => val.Contains(" " + m + " ")).Select(m => m.Trim(';')));
                 }
 
                 if (mods.Any())
