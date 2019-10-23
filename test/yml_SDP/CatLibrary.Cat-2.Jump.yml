@@ -32,7 +32,7 @@ members:
 
       public void Jump (T ownType, K anotherOwnType, ref bool cheat);
   - lang: fsharp
-    value: "member this.Jump : 'T * 'K *  -> unit"
+    value: "member this.Jump : 'T * 'K * bool -> unit"
   - lang: vb
     value: Public Sub Jump (ownType As T, anotherOwnType As K, ByRef cheat As Boolean)
   monikers:

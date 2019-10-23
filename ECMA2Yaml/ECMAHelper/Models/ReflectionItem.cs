@@ -91,6 +91,7 @@ namespace ECMA2Yaml.Models
         public string SourceFileLocalPath { get; set; }
 
         public Dictionary<string, object> Metadata { get; set; }
+        public Dictionary<string, object> ExtendedMetadata { get; set; }
         public SortedList<string, List<string>> Modifiers { get; set; }
         public bool? IsStatic
         {

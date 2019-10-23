@@ -268,11 +268,23 @@ namespace ECMA2Yaml
             return modifiers;
         }
 
-        private Dictionary<string, object> LoadMetadata(XElement metadataElement)
+        private void LoadMetadata(ReflectionItem item, XElement rootElement)
         {
-            if (null != metadataElement)
-                return metadataElement.Elements("Meta")?.ToDictionary(x => x.Attribute("Name").Value, x => (object)x.Attribute("Value").Value);
-            return new Dictionary<string, object>();
+            var metadataElement = rootElement.Element("Metadata");
+            if (metadataElement != null)
+            {
+                item.ExtendedMetadata = metadataElement.Elements("Meta")
+                    ?.ToLookup(x => x.Attribute("Name").Value, x => x.Attribute("Value").Value)
+                    .ToDictionary(g => g.Key, g => g.Count() == 1 ? (object)g.First() : (object)g.ToArray());
+                foreach(var key in UWPMetadata.Values)
+                {
+                    if (item.ExtendedMetadata.TryGetValue(key, out object val))
+                    {
+                        item.ExtendedMetadata.Remove(key);
+                        item.Metadata.Add(key, val);
+                    }
+                }
+            }
         }
 
         private ECMAAttribute LoadAttribute(XElement attrElement)

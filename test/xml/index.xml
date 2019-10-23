@@ -77,11 +77,11 @@
         <Target Type="T:CatLibrary.ICat" />
       </Targets>
       <Member MemberName="Play">
-        <MemberSignature Language="C#" Value="public static void Play (this CatLibrary.ICat icat, string toy);" />
-        <MemberSignature Language="ILAsm" Value=".method public static hidebysig void Play(class CatLibrary.ICat icat, string toy) cil managed" />
-        <MemberSignature Language="DocId" Value="M:CatLibrary.ICatExtension.Play(CatLibrary.ICat,System.String)" />
-        <MemberSignature Language="C++ CLI" Value="public:&#xA;[System::Runtime::CompilerServices::Extension]&#xA; static void Play(CatLibrary::ICat ^ icat, System::String ^ toy);" />
-        <MemberSignature Language="F#" Value="static member Play : CatLibrary.ICat * string -&gt; unit" Usage="CatLibrary.ICatExtension.Play (icat, toy)" />
+        <MemberSignature Language="C#" Value="public static void Play (this CatLibrary.ICat icat, string toy);" FrameworkAlternate="cat-1.0" />
+        <MemberSignature Language="ILAsm" Value=".method public static hidebysig void Play(class CatLibrary.ICat icat, string toy) cil managed" FrameworkAlternate="cat-1.0" />
+        <MemberSignature Language="DocId" Value="M:CatLibrary.ICatExtension.Play(CatLibrary.ICat,System.String)" FrameworkAlternate="cat-1.0" />
+        <MemberSignature Language="C++ CLI" Value="public:&#xA;[System::Runtime::CompilerServices::Extension]&#xA; static void Play(CatLibrary::ICat ^ icat, System::String ^ toy);" FrameworkAlternate="cat-1.0" />
+        <MemberSignature Language="F#" Value="static member Play : CatLibrary.ICat * string -&gt; unit" Usage="CatLibrary.ICatExtension.Play (icat, toy)" FrameworkAlternate="cat-1.0" />
         <MemberType>ExtensionMethod</MemberType>
         <ReturnValue>
           <ReturnType>System.Void</ReturnType>
@@ -105,11 +105,11 @@
         <Target Type="T:CatLibrary.ICat" />
       </Targets>
       <Member MemberName="Sleep">
-        <MemberSignature Language="C#" Value="public static void Sleep (this CatLibrary.ICat icat, long hours);" />
-        <MemberSignature Language="ILAsm" Value=".method public static hidebysig void Sleep(class CatLibrary.ICat icat, int64 hours) cil managed" />
-        <MemberSignature Language="DocId" Value="M:CatLibrary.ICatExtension.Sleep(CatLibrary.ICat,System.Int64)" />
-        <MemberSignature Language="C++ CLI" Value="public:&#xA;[System::Runtime::CompilerServices::Extension]&#xA; static void Sleep(CatLibrary::ICat ^ icat, long hours);" />
-        <MemberSignature Language="F#" Value="static member Sleep : CatLibrary.ICat * int64 -&gt; unit" Usage="CatLibrary.ICatExtension.Sleep (icat, hours)" />
+        <MemberSignature Language="C#" Value="public static void Sleep (this CatLibrary.ICat icat, long hours);" FrameworkAlternate="cat-1.0" />
+        <MemberSignature Language="ILAsm" Value=".method public static hidebysig void Sleep(class CatLibrary.ICat icat, int64 hours) cil managed" FrameworkAlternate="cat-1.0" />
+        <MemberSignature Language="DocId" Value="M:CatLibrary.ICatExtension.Sleep(CatLibrary.ICat,System.Int64)" FrameworkAlternate="cat-1.0" />
+        <MemberSignature Language="C++ CLI" Value="public:&#xA;[System::Runtime::CompilerServices::Extension]&#xA; static void Sleep(CatLibrary::ICat ^ icat, long hours);" FrameworkAlternate="cat-1.0" />
+        <MemberSignature Language="F#" Value="static member Sleep : CatLibrary.ICat * int64 -&gt; unit" Usage="CatLibrary.ICatExtension.Sleep (icat, hours)" FrameworkAlternate="cat-1.0" />
         <MemberType>ExtensionMethod</MemberType>
         <ReturnValue>
           <ReturnType>System.Void</ReturnType>

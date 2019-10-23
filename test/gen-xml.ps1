@@ -18,7 +18,7 @@ $scriptPath = split-path -parent $MyInvocation.MyCommand.Definition
 $msbuildPath = & "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere" -latest -requires Microsoft.Component.MSBuild -find MSBuild\**\Bin\MSBuild.exe
 
 # Download URLs
-$mdocUrl = "https://github.com/mono/api-doc-tools/releases/download/mdoc-5.7.4.9/mdoc-5.7.4.9.zip"
+$mdocUrl = "https://github.com/mono/api-doc-tools/releases/download/mdoc-5.7.4.12/mdoc-5.7.4.12.zip"
 $nugetUrl = "https://dist.nuget.org/win-x86-commandline/latest/nuget.exe"
 
 pushd $scriptPath
@@ -54,4 +54,5 @@ Copy-Item "CatLibraryV1\CatLibrary\bin\Release\*" -Destination "frameworks\CatLi
 Copy-Item "CatLibraryV2\CatLibrary\bin\Release\*" -Destination "frameworks\CatLibrary\cat-2.0\" -Recurse -Force -Container
 
 & $mdocPath update -o xml -fx frameworks\CatLibrary -lang docid -lang vb.net -lang c++/cli -lang fsharp --delete
+
 popd

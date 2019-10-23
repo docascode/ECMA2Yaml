@@ -71,7 +71,7 @@ members:
   - lang: csharp
     value: public Cat (string nickName, out int age, string realName, bool isHealthy);
   - lang: fsharp
-    value: "new CatLibrary.Cat<'T, 'K (requires 'T : null and 'T : (new : unit -> 'T) and 'K : struct)> : string *  * string * bool -> CatLibrary.Cat<'T, 'K (requires 'T : null and 'T : (new : unit -> 'T) and 'K : struct)>"
+    value: "new CatLibrary.Cat<'T, 'K (requires 'T : null and 'T : (new : unit -> 'T) and 'K : struct)> : string * int * string * bool -> CatLibrary.Cat<'T, 'K (requires 'T : null and 'T : (new : unit -> 'T) and 'K : struct)>"
   - lang: vb
     value: Public Sub New (nickName As String, ByRef age As Integer, realName As String, isHealthy As Boolean)
   monikers:

@@ -1,4 +1,15 @@
 <Type Name="Cat&lt;T,K&gt;" FullName="CatLibrary.Cat&lt;T,K&gt;">
+  <Metadata>
+    <Meta Name="ms.openlocfilehash" Value="77d1b2a652c118438281090f72ac4caa93feec1a" />
+    <Meta Name="ms.sourcegitcommit" Value="055a4a82a0b08bfbdc21bd1347fb71f7fe2c099e" />
+    <Meta Name="ms.translationtype" Value="MT" />
+    <Meta Name="ms.contentlocale" Value="zh-CN" />
+    <Meta Name="ms.lasthandoff" Value="08/15/2019" />
+    <Meta Name="ms.locfileid" Value="69262388" />
+    <Meta Name="apiContracts" Value="Win10" />
+    <Meta Name="apiContracts" Value="Win10 build 1" />
+    <Meta Name="apiContracts" Value="Win10 build 2" />
+  </Metadata>
   <TypeSignature Language="C#" Value="public class Cat&lt;T,K&gt; : CatLibrary.ICat where T : class, new() where K : struct" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi serializable beforefieldinit Cat`2&lt;class .ctor T, struct .ctor (class System.ValueType) K&gt; extends System.Object implements class CatLibrary.IAnimal, class CatLibrary.ICat" />
   <TypeSignature Language="DocId" Value="T:CatLibrary.Cat`2" />
@@ -141,7 +152,7 @@
       <MemberSignature Language="DocId" Value="M:CatLibrary.Cat`2.#ctor(System.String,System.Int32@,System.String,System.Boolean)" />
       <MemberSignature Language="VB.NET" Value="Public Sub New (nickName As String, ByRef age As Integer, realName As String, isHealthy As Boolean)" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; Cat(System::String ^ nickName, [Runtime::InteropServices::Out] int % age, System::String ^ realName, bool isHealthy);" />
-      <MemberSignature Language="F#" Value="new CatLibrary.Cat&lt;'T, 'K (requires 'T : null and 'T : (new : unit -&gt; 'T) and 'K : struct)&gt; : string *  * string * bool -&gt; CatLibrary.Cat&lt;'T, 'K (requires 'T : null and 'T : (new : unit -&gt; 'T) and 'K : struct)&gt;" Usage="new CatLibrary.Cat&lt;'T, 'K (requires 'T : null and 'T : (new : unit -&gt; 'T) and 'K : struct)&gt; (nickName, age, realName, isHealthy)" />
+      <MemberSignature Language="F#" Value="new CatLibrary.Cat&lt;'T, 'K (requires 'T : null and 'T : (new : unit -&gt; 'T) and 'K : struct)&gt; : string * int * string * bool -&gt; CatLibrary.Cat&lt;'T, 'K (requires 'T : null and 'T : (new : unit -&gt; 'T) and 'K : struct)&gt;" Usage="new CatLibrary.Cat&lt;'T, 'K (requires 'T : null and 'T : (new : unit -&gt; 'T) and 'K : struct)&gt; (nickName, age, realName, isHealthy)" />
       <MemberType>Constructor</MemberType>
       <AssemblyInfo>
         <AssemblyName>CatLibrary</AssemblyName>
@@ -165,6 +176,17 @@
       </Docs>
     </Member>
     <Member MemberName="Age">
+      <Metadata>
+        <Meta Name="ms.openlocfilehash" Value="77d1b2a652c118438281090f72ac4caa93feec1a" />
+        <Meta Name="ms.sourcegitcommit" Value="055a4a82a0b08bfbdc21bd1347fb71f7fe2c099e" />
+        <Meta Name="ms.translationtype" Value="MT" />
+        <Meta Name="ms.contentlocale" Value="zh-CN" />
+        <Meta Name="ms.lasthandoff" Value="08/15/2019" />
+        <Meta Name="ms.locfileid" Value="69262388" />
+        <Meta Name="apiContracts" Value="Win10" />
+        <Meta Name="apiContracts" Value="Win10 build 1" />
+        <Meta Name="apiContracts" Value="Win10 build 2" />
+      </Metadata>
       <MemberSignature Language="C#" Value="protected int Age { get; set; }" />
       <MemberSignature Language="ILAsm" Value=".property instance int32 Age" />
       <MemberSignature Language="DocId" Value="P:CatLibrary.Cat`2.Age" />
@@ -527,7 +549,7 @@
       <MemberSignature Language="DocId" Value="M:CatLibrary.Cat`2.Jump(`0,`1,System.Boolean@)" />
       <MemberSignature Language="VB.NET" Value="Public Sub Jump (ownType As T, anotherOwnType As K, ByRef cheat As Boolean)" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; void Jump(T ownType, K anotherOwnType, bool % cheat);" />
-      <MemberSignature Language="F#" Value="member this.Jump : 'T * 'K *  -&gt; unit" Usage="cat.Jump (ownType, anotherOwnType, cheat)" />
+      <MemberSignature Language="F#" Value="member this.Jump : 'T * 'K * bool -&gt; unit" Usage="cat.Jump (ownType, anotherOwnType, cheat)" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>CatLibrary</AssemblyName>

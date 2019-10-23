@@ -4,7 +4,7 @@
   <TypeSignature Language="DocId" Value="T:CatLibrary.MRefNormalDelegate" />
   <TypeSignature Language="VB.NET" Value="Public Delegate Sub MRefNormalDelegate(pics As List(Of String), ByRef name As String)" />
   <TypeSignature Language="C++ CLI" Value="public delegate void MRefNormalDelegate(List&lt;System::String ^&gt; ^ pics, [Runtime::InteropServices::Out] System::String ^ % name);" />
-  <TypeSignature Language="F#" Value="type MRefNormalDelegate = delegate of List&lt;string&gt; *  -&gt; unit" />
+  <TypeSignature Language="F#" Value="type MRefNormalDelegate = delegate of List&lt;string&gt; * string -&gt; unit" />
   <AssemblyInfo>
     <AssemblyName>CatLibrary</AssemblyName>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>

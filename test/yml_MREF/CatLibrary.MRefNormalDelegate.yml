@@ -27,7 +27,7 @@ items:
       description: give out the needed name.
     content.cpp: public delegate void MRefNormalDelegate(List<System::String ^> ^ pics, [Runtime::InteropServices::Out] System::String ^ % name);
     content.csharp: public delegate void MRefNormalDelegate(List<string> pics, out string name);
-    content.fsharp: type MRefNormalDelegate = delegate of List<string> *  -> unit
+    content.fsharp: type MRefNormalDelegate = delegate of List<string> * string -> unit
     content.vb: Public Delegate Sub MRefNormalDelegate(pics As List(Of String), ByRef name As String)
   inheritance:
   - System.Delegate

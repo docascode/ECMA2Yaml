@@ -312,7 +312,7 @@ namespace ECMA2Yaml
             t.ItemType = InferTypeOfType(t);
 
             // Metadata
-            t.ExtendedMetadata = LoadMetadata(tRoot.Element("Metadata"));
+            LoadMetadata(t, tRoot);
 
             return t;
         }
@@ -469,6 +469,8 @@ namespace ECMA2Yaml
             {
                 FixEIIProperty(m);
             }
+
+            LoadMetadata(m, mElement);
 
             return m;
         }

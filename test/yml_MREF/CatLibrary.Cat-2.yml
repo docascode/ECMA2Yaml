@@ -101,6 +101,10 @@ items:
   - type: System.SerializableAttribute
   modifiers.csharp:
   - public
+  apiContracts:
+  - Win10
+  - Win10 build 1
+  - Win10 build 2
   monikers:
   - cat-1.0
   - cat-2.0
@@ -207,7 +211,7 @@ items:
       public:
        Cat(System::String ^ nickName, [Runtime::InteropServices::Out] int % age, System::String ^ realName, bool isHealthy);
     content.csharp: public Cat (string nickName, out int age, string realName, bool isHealthy);
-    content.fsharp: "new CatLibrary.Cat<'T, 'K (requires 'T : null and 'T : (new : unit -> 'T) and 'K : struct)> : string *  * string * bool -> CatLibrary.Cat<'T, 'K (requires 'T : null and 'T : (new : unit -> 'T) and 'K : struct)>"
+    content.fsharp: "new CatLibrary.Cat<'T, 'K (requires 'T : null and 'T : (new : unit -> 'T) and 'K : struct)> : string * int * string * bool -> CatLibrary.Cat<'T, 'K (requires 'T : null and 'T : (new : unit -> 'T) and 'K : struct)>"
     content.vb: Public Sub New (nickName As String, ByRef age As Integer, realName As String, isHealthy As Boolean)
   overload: CatLibrary.Cat`2.#ctor*
   exceptions: []
@@ -250,6 +254,10 @@ items:
   - protected
   - get
   - set
+  apiContracts:
+  - Win10
+  - Win10 build 1
+  - Win10 build 2
   monikers:
   - cat-1.0
   - cat-2.0
@@ -568,7 +576,7 @@ items:
       [System.Diagnostics.Conditional("Debug")]
 
       public void Jump (T ownType, K anotherOwnType, ref bool cheat);
-    content.fsharp: "member this.Jump : 'T * 'K *  -> unit"
+    content.fsharp: "member this.Jump : 'T * 'K * bool -> unit"
     content.vb: Public Sub Jump (ownType As T, anotherOwnType As K, ByRef cheat As Boolean)
   overload: CatLibrary.Cat`2.Jump*
   exceptions:
@@ -1415,3 +1423,9 @@ references:
   name: ICat
   nameWithType: ICat
   fullName: CatLibrary.ICat
+ms.openlocfilehash: 77d1b2a652c118438281090f72ac4caa93feec1a
+ms.sourcegitcommit: 055a4a82a0b08bfbdc21bd1347fb71f7fe2c099e
+ms.translationtype: MT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 08/15/2019
+ms.locfileid: "69262388"

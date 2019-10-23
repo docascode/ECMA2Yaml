@@ -30,6 +30,23 @@ namespace ECMA2Yaml.Models
         public static readonly string SDP_op_overwriteFileGitUrl = "_op_overwriteFileGitUrl";
     }
 
+    public class UWPMetadata
+    {
+        public static readonly string[] Values = new string[]
+        {
+            "requirement_sdk_names",
+            "requirement_sdk_urls",
+            "requirement_os_names",
+            "requirement_os_min_versions",
+            "deviceFamilies",
+            "deviceFamiliesVersions",
+            "apiContracts",
+            "apiContractsVersions",
+            "capabilities",
+            "xamlMemberSyntax"
+        };
+    }
+
     public static class Constants
     {
         public static IReadOnlyDictionary<string, string> DevLangMapping = new Dictionary<string, string>
