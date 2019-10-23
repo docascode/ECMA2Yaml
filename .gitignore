@@ -256,3 +256,6 @@ paket-files/
 ECMA2Yaml/_nuget/
 test/_bin/
 test/frameworks
+test/yml_MREF_After
+test/yml_SDP_After
+XmlYamlMapping.json

@@ -96,6 +96,12 @@ monikers:
 - cat-1.0
 - cat-2.0
 metadata:
+  ms.openlocfilehash: 77d1b2a652c118438281090f72ac4caa93feec1a
+  ms.sourcegitcommit: 055a4a82a0b08bfbdc21bd1347fb71f7fe2c099e
+  ms.translationtype: MT
+  ms.contentlocale: zh-CN
+  ms.lasthandoff: 08/15/2019
+  ms.locfileid: "69262388"
   api_name:
   - CatLibrary.Cat`2..ctor
   api_location:

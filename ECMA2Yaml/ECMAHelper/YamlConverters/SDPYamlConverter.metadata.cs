@@ -28,6 +28,13 @@ namespace ECMA2Yaml
                     }
                 }
             }
+            if (item?.ExtendedMetadata?.Count > 0)
+            {
+                foreach(var pair in item.ExtendedMetadata)
+                {
+                    model.Metadata[pair.Key] = pair.Value;
+                }
+            }
         }
     }
 }

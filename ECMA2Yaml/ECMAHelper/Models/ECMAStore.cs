@@ -247,7 +247,21 @@ namespace ECMA2Yaml.Models
                             {
                                 m.Metadata[OPSMetadata.InternalOnly] = mInternalOnly;
                             }
+                            if (m.ExtendedMetadata == null || m.ExtendedMetadata.Count == 0)
+                            {
+                                m.ExtendedMetadata = t.ExtendedMetadata;
+                            }
                             AddAdditionalNotes(m);
+                        }
+                    }
+                    if (t.Overloads != null)
+                    {
+                        foreach(var ol in t.Overloads)
+                        {
+                            if (ol.ExtendedMetadata == null || ol.ExtendedMetadata.Count == 0)
+                            {
+                                ol.ExtendedMetadata = t.ExtendedMetadata;
+                            }
                         }
                     }
                 }
