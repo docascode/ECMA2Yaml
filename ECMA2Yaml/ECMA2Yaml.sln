@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27130.2010
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29319.158
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECMA2Yaml", "ECMA2Yaml\ECMA2Yaml.csproj", "{5BDDF3B5-4F08-4DCD-B472-F04BE1076B44}"
 EndProject
@@ -15,6 +15,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapFolderToJson", "MapFolde
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{166E6A37-1ACD-4B17-81F8-77A82C53C61D}"
 	ProjectSection(SolutionItems) = preProject
+		..\.gitignore = ..\.gitignore
 		..\appveyor.yml = ..\appveyor.yml
 		..\diffYaml.bat = ..\diffYaml.bat
 		..\test\gen-xml.ps1 = ..\test\gen-xml.ps1
@@ -29,6 +30,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiffXML", "DiffXML\DiffXML.csproj", "{C8665919-26E7-4155-B60C-F9F5ED7CED90}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiffFiles", "DiffFiles\DiffFiles.csproj", "{9D29E371-F87E-4C20-9C6D-ACA64BFDCE5A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Intellisense", "Intellisense", "{485719A0-F910-40F0-8FDF-D98D5F41C757}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{16128EB1-7BA8-497F-AD57-D474F1AA3107}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -75,6 +80,12 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A12DBB3B-0AFC-4A73-B5AB-0260BDAD4073} = {16128EB1-7BA8-497F-AD57-D474F1AA3107}
+		{AF9D36AC-56B3-45B1-84E1-5C9160E96B85} = {485719A0-F910-40F0-8FDF-D98D5F41C757}
+		{C8665919-26E7-4155-B60C-F9F5ED7CED90} = {485719A0-F910-40F0-8FDF-D98D5F41C757}
+		{9D29E371-F87E-4C20-9C6D-ACA64BFDCE5A} = {16128EB1-7BA8-497F-AD57-D474F1AA3107}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3E2BB286-F255-4BA3-8EEF-96FB33C04E2A}
