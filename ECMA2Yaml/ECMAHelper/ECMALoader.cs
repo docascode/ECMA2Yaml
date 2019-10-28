@@ -3,6 +3,7 @@ using Microsoft.OpenPublishing.FileAbstractLayer;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -207,9 +208,19 @@ namespace ECMA2Yaml
             foreach (var sig in tRoot.Elements("TypeSignature"))
             {
                 t.Signatures[sig.Attribute("Language").Value] = sig.Attribute("Value").Value;
+                var modifierList = ParseModifiersFromSignatures(t.Signatures);
+                if (t.Modifiers == null)
+                {
+                    t.Modifiers = modifierList;
+                }
+                if (modifierList?.Count > 0
+                    && modifierList.TryGetValue("csharp", out List<string> mods)
+                    && t.Modifiers.TryGetValue("csharp", out var existingMods))
+                {
+                    t.Modifiers["csharp"] = existingMods.ConcatList(mods).Distinct().ToList();
+                }
             }
             t.DocId = t.Signatures.ContainsKey("DocId") ? t.Signatures["DocId"] : null;
-            t.Modifiers = ParseModifiersFromSignatures(t.Signatures);
 
             //AssemblyInfo
             t.AssemblyInfo = tRoot.Elements("AssemblyInfo")?.SelectMany(a => ParseAssemblyInfo(a)).ToList();
@@ -378,10 +389,20 @@ namespace ECMA2Yaml
                 if (val != null)
                 {
                     m.Signatures[sig.Attribute("Language").Value] = val.Value;
+                    var modifierList = ParseModifiersFromSignatures(m.Signatures, m);
+                    if (m.Modifiers == null)
+                    {
+                        m.Modifiers = modifierList;
+                    }
+                    if (modifierList?.Count > 0
+                        && modifierList.TryGetValue("csharp", out List<string> mods)
+                        && m.Modifiers.TryGetValue("csharp", out var existingMods))
+                    {
+                        m.Modifiers["csharp"] = existingMods.ConcatList(mods).Distinct().ToList();
+                    }
                 }
             }
             m.DocId = m.Signatures.ContainsKey("DocId") ? m.Signatures["DocId"] : null;
-            m.Modifiers = ParseModifiersFromSignatures(m.Signatures, m);
             m.AssemblyInfo = mElement.Elements("AssemblyInfo")?.SelectMany(a => ParseAssemblyInfo(a)).ToList();
 
             //TypeParameters
