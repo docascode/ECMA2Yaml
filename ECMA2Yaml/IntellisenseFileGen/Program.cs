@@ -69,14 +69,12 @@ namespace IntellisenseFileGen
                 return;
             }
             store.Build();
-
-            var typeList = LoadTypes();
+            //store.ItemsByDocId.ToDictionary(p => p.Key, p.Value.CommentId);
+            var typeList = LoadTypes(store.ItemsByDocId);
             ParallelOptions opt = new ParallelOptions() { MaxDegreeOfParallelism = Environment.ProcessorCount };
             var frameworks = store.GetFrameworkIndex();
             frameworks.FrameworkAssembliesPurged.Keys.ToList().ForEach(fw =>
             {
-                //if (fw == "netframework-4.6")
-                //{
                 string outPutFolder = Path.Combine(_outFolder, fw);
 
                 var fwAssemblyList = frameworks.FrameworkAssembliesPurged[fw];
@@ -133,7 +131,6 @@ namespace IntellisenseFileGen
                         }
                     }
                 });
-                //}
             });
 
             WriteLine($"All intellisense files done.");
@@ -204,7 +201,7 @@ namespace IntellisenseFileGen
         /// Load all xml file and convert to List<Type>
         /// </summary>
         /// <returns></returns>
-        public static List<Models.Type> LoadTypes()
+        public static List<Models.Type> LoadTypes(Dictionary<string, ECMA2Yaml.Models.ReflectionItem> ItemsByDocId)
         {
             var typeFileList = GetFiles(_xmlDataFolder, "*.xml");
             List<Models.Type> typeList = new List<Models.Type>();
@@ -215,7 +212,7 @@ namespace IntellisenseFileGen
 
                 if (xmlDoc.Root.Name.LocalName == "Type")
                 {
-                    Models.Type t = ConvertToType(xmlDoc);
+                    Models.Type t = ConvertToType(xmlDoc, ItemsByDocId);
                     if (t != null)
                     {
                         typeList.Add(t);
@@ -231,7 +228,7 @@ namespace IntellisenseFileGen
         /// </summary>
         /// <param name="xmlDoc"></param>
         /// <returns></returns>
-        private static Models.Type ConvertToType(XDocument xmlDoc)
+        private static Models.Type ConvertToType(XDocument xmlDoc, Dictionary<string, ECMA2Yaml.Models.ReflectionItem> ItemsByDocId)
         {
             Models.Type t = new Models.Type();
 
@@ -241,26 +238,27 @@ namespace IntellisenseFileGen
                 t.DocId = typeDocIdEle.Attribute("Value").Value;
             }
 
-            // for debug
-            //if (!IsMeetDebugCondition(t.DocId))
-            //{
-            //    return null;
-            //}
-
             var docsEle = new XElement("member");
             var typeSummaryEle = xmlDoc.Root.Element("Docs")?.Element("summary");
             var paramEles = xmlDoc.Root.Element("Docs")?.Elements("param");
             var typeparamEles = xmlDoc.Root.Element("Docs")?.Elements("typeparam");
             SpecialProcessElement(typeSummaryEle);
-            if (string.IsNullOrEmpty(typeSummaryEle?.Value))
+            if (!string.IsNullOrEmpty(typeSummaryEle?.Value))
             {
-                return null;
+                docsEle.Add(typeSummaryEle);
             }
             BatchSpecialProcess(paramEles);
             BatchSpecialProcess(typeparamEles);
 
-            docsEle.SetAttributeValue("name", t.DocId);
-            docsEle.Add(typeSummaryEle);
+            // For some Uid, need to escape, the escaped uid is [CommentId]
+            if (ItemsByDocId.ContainsKey(t.DocId))
+            {
+                docsEle.SetAttributeValue("name", ItemsByDocId[t.DocId].CommentId);
+            }
+            else
+            {
+                docsEle.SetAttributeValue("name", t.DocId);
+            }
             docsEle.Add(paramEles);
             docsEle.Add(typeparamEles);
             t.Docs = docsEle;
@@ -294,7 +292,7 @@ namespace IntellisenseFileGen
                 t.Members = new List<Member>();
                 memberEleList.ToList().ForEach(memberEle =>
                 {
-                    var m = ConvertToMember(memberEle);
+                    var m = ConvertToMember(memberEle, ItemsByDocId);
                     if (m != null)
                     {
                         t.Members.Add(m);
@@ -310,7 +308,7 @@ namespace IntellisenseFileGen
         /// </summary>
         /// <param name="member"></param>
         /// <returns></returns>
-        private static Member ConvertToMember(XElement member)
+        private static Member ConvertToMember(XElement member, Dictionary<string, ECMA2Yaml.Models.ReflectionItem> ItemsByDocId)
         {
             var m = new Member();
             var memberDocIdEle = member.Elements("MemberSignature")?.Where(p => p.Attribute("Language").Value == "DocId").First();
@@ -318,12 +316,7 @@ namespace IntellisenseFileGen
             {
                 m.DocId = memberDocIdEle.Attribute("Value").Value;
             }
-
-            // for debug
-            //if (!IsMeetDebugCondition(m.DocId))
-            //{
-            //    return null;
-            //}
+            SpecialProcessDuplicateParameters(member);
 
             var memberSummaryEle = member.Element("Docs")?.Element("summary");
             var paramEles = member.Element("Docs")?.Elements("param");
@@ -331,17 +324,38 @@ namespace IntellisenseFileGen
             var exceptionEles = member.Element("Docs")?.Elements("exception");
 
             var docsEle = new XElement("member");
-            docsEle.SetAttributeValue("name", SpecialProcessDocId(m.DocId));
-            SpecialProcessElement(memberSummaryEle);
-            if (string.IsNullOrEmpty(memberSummaryEle?.Value))
+
+            string realDocId = m.DocId;
+            if (ItemsByDocId.ContainsKey(m.DocId))
             {
-                return null;
+                string commentId = ItemsByDocId[m.DocId].CommentId;
+                if (commentId != m.DocId)
+                {
+                    realDocId = commentId;
+                }
             }
-            docsEle.Add(memberSummaryEle);
+
+            docsEle.SetAttributeValue("name", SpecialProcessDocId(realDocId));
+
+            SpecialProcessElement(memberSummaryEle);
+            if (!string.IsNullOrEmpty(memberSummaryEle?.Value))
+            {
+                docsEle.Add(memberSummaryEle);
+            }
+
             BatchSpecialProcess(paramEles);
-            docsEle.Add(paramEles);
+            var withChildParaList = paramEles.Where(p => p.HasElements || !string.IsNullOrEmpty(p.Value)).ToList();
+            if (withChildParaList != null && withChildParaList.Count > 0)
+            {
+                docsEle.Add(withChildParaList);
+            }
+
             BatchSpecialProcess(typeparamEles);
-            docsEle.Add(typeparamEles);
+            var withChildtypeParaList = typeparamEles.Where(p => p.HasElements || !string.IsNullOrEmpty(p.Value)).ToList();
+            if (withChildtypeParaList != null && withChildtypeParaList.Count > 0)
+            {
+                docsEle.Add(withChildtypeParaList);
+            }
 
             if (member.Element("Docs")?.Element("returns") != null)
             {
@@ -372,7 +386,11 @@ namespace IntellisenseFileGen
             }
 
             BatchSpecialProcess(exceptionEles);
-            docsEle.Add(exceptionEles);
+            var withChildExceptionList = exceptionEles.Where(p => p.HasElements || !string.IsNullOrEmpty(p.Value)).ToList();
+            if (withChildExceptionList != null && withChildExceptionList.Count > 0)
+            {
+                docsEle.Add(withChildExceptionList);
+            }
             m.Docs = docsEle;
 
             var AssemblyInfoEleList = member.Elements("AssemblyInfo");
@@ -393,7 +411,14 @@ namespace IntellisenseFileGen
                 });
             }
 
-            return m;
+            if (docsEle.HasElements)
+            {
+                return m;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         private static void BatchSpecialProcess(IEnumerable<XElement> eles)
@@ -465,6 +490,44 @@ namespace IntellisenseFileGen
             }
         }
 
+        //TODO
+        /// Two args('argument', 'eventArgument') are same, need to show different name according to framework version.
+        /// ===================================
+        /// <summary>
+        ///     <Parameters>
+        ///         <Parameter Name = "argument" Type="System.String" Index="0" FrameworkAlternate="netframework-1.1" />
+        ///         <Parameter Name = "eventArgument" Type="System.String" Index="0" FrameworkAlternate="netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netframework-4.8" />
+        ///     </Parameters>
+        /// </summary>
+        /// ===================================
+        /// <param name="member"></param>
+        private static void SpecialProcessDuplicateParameters(XElement member)
+        {
+            var paras = member.Element("Parameters")?.Elements("Parameter").Where(p => p.Attribute("Index") != null).ToList();
+            if (paras != null && paras.Count() > 1)
+            {
+                var indexG = paras.GroupBy(p => p.Attribute("Index").Value);
+                indexG.ToList().ForEach(p =>
+                {
+                    if (p.Count() > 1)
+                    {
+                        var groupParams = p.ToArray();
+                        var docParas = member.Element("Docs").Elements("param");
+                        for (int i = 1; i < p.Count(); i++)
+                        {
+                            var paraName = groupParams[i].Attribute("Name").Value;
+                            //string memberName = member.Elements("MemberSignature")?.Where(pp => pp.Attribute("Language").Value == "DocId").First().Attribute("Value").Value;
+                            var find = docParas.Where(pa => pa.Attribute("name")?.Value == paraName).FirstOrDefault();
+                            if (find != null)
+                            {
+                                find.Remove();
+                            }
+                        }
+                    }
+                });
+            }
+        }
+
         // Some xml text need special process
         public static bool SpecialProcessText(XText xText)
         {
@@ -490,14 +553,6 @@ namespace IntellisenseFileGen
                         contentChange = true;
                     }
                 }
-
-                //string pattern = "(\\n\\s+\\n)";
-                //var matches = RegexHelper.GetMatches_All_JustWantedOne(pattern, content);
-                //if (matches != null && matches.Length >= 1)
-                //{
-                //    content = content.Replace(matches[0], "\n");
-                //    contentChange = true;
-                //}
 
                 // [!INCLUDE[vstecmsbuild](~/includes/vstecmsbuild-md.md)]
                 string pattern = "(\\[!INCLUDE.*?\\((.*?)\\)\\])";
@@ -544,7 +599,7 @@ namespace IntellisenseFileGen
                 }
 
                 // [ISymUnmanagedWriter Interface](~/docs/framework/unmanaged-api/diagnostics/isymunmanagedwriter-interface.md) => ISymUnmanagedWriter Interface
-                pattern = "(\\[(.*?)\\]\\(.*?\\))";
+                pattern = "(\\[(.*?)\\]\\(.*\\))";
                 matches = RegexHelper.GetMatches_All_JustWantedOne(pattern, content);
                 if (matches != null && matches.Length >= 2)
                 {
@@ -618,19 +673,6 @@ namespace IntellisenseFileGen
         {
             string timestamp = string.Format("[{0}]", DateTime.Now.ToString());
             Console.WriteLine(timestamp + string.Format(format, args));
-        }
-
-        static bool IsMeetDebugCondition(string condition)
-        {
-            string[] conditions = new[] { "T:System.Globalization.NumberStyles", "F:System.Globalization.NumberStyles.AllowExponent" };
-            if (conditions != null && conditions.Contains(condition))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
         }
     }
 }
