@@ -75,9 +75,6 @@ namespace IntellisenseFileGen
             var frameworks = store.GetFrameworkIndex();
             frameworks.FrameworkAssembliesPurged.Keys.ToList().ForEach(fw =>
             {
-                // For debug
-                //if (fw == "netframework-4.6")
-                //{
                 string outPutFolder = Path.Combine(_outFolder, fw);
 
                 var fwAssemblyList = frameworks.FrameworkAssembliesPurged[fw];
@@ -87,12 +84,6 @@ namespace IntellisenseFileGen
 
                 Parallel.ForEach(fwAssemblyList, opt, assembly =>
                 {
-                    // For debug
-                    //if (assembly.Value.Name != "System.Data.Odbc")
-                    //{
-                    //    return;
-                    //}
-
                     string assemblyInfoStr = string.Format("{0}-{1}", assembly.Value.Name, assembly.Value.Version);
                     var assemblyTypes = typeList.Where(t =>
                     {
@@ -131,9 +122,6 @@ namespace IntellisenseFileGen
                         });
                         if (membersEle.HasElements)
                         {
-                            // For debug
-                            //var test = membersEle.Elements("member");
-
                             if (!Directory.Exists(outPutFolder))
                             {
                                 Directory.CreateDirectory(outPutFolder);
@@ -143,7 +131,6 @@ namespace IntellisenseFileGen
                         }
                     }
                 });
-                //}
             });
 
             WriteLine($"All intellisense files done.");
@@ -225,15 +212,11 @@ namespace IntellisenseFileGen
 
                 if (xmlDoc.Root.Name.LocalName == "Type")
                 {
-                    // For debug
-                    //if (xmlDoc.Root.Attribute("FullName").Value == "System.Json.JsonArray")
-                    //{
                     Models.Type t = ConvertToType(xmlDoc, ItemsByDocId);
                     if (t != null)
                     {
                         typeList.Add(t);
                     }
-                    //}
                 }
             });
 
@@ -254,12 +237,6 @@ namespace IntellisenseFileGen
             {
                 t.DocId = typeDocIdEle.Attribute("Value").Value;
             }
-
-            // for debug
-            //if (!IsMeetDebugCondition(t.DocId))
-            //{
-            //    return null;
-            //}
 
             var docsEle = new XElement("member");
             var typeSummaryEle = xmlDoc.Root.Element("Docs")?.Element("summary");
@@ -340,11 +317,6 @@ namespace IntellisenseFileGen
                 m.DocId = memberDocIdEle.Attribute("Value").Value;
             }
             SpecialProcessDuplicateParameters(member);
-            // for debug
-            //if (!IsMeetDebugCondition(m.DocId))
-            //{
-            //    return null;
-            //}
 
             var memberSummaryEle = member.Element("Docs")?.Element("summary");
             var paramEles = member.Element("Docs")?.Elements("param");
@@ -372,7 +344,6 @@ namespace IntellisenseFileGen
             }
 
             BatchSpecialProcess(paramEles);
-            //docsEle.Add(paramEles);
             var withChildParaList = paramEles.Where(p => p.HasElements || !string.IsNullOrEmpty(p.Value)).ToList();
             if (withChildParaList != null && withChildParaList.Count > 0)
             {
@@ -583,14 +554,6 @@ namespace IntellisenseFileGen
                     }
                 }
 
-                //string pattern = "(\\n\\s+\\n)";
-                //var matches = RegexHelper.GetMatches_All_JustWantedOne(pattern, content);
-                //if (matches != null && matches.Length >= 1)
-                //{
-                //    content = content.Replace(matches[0], "\n");
-                //    contentChange = true;
-                //}
-
                 // [!INCLUDE[vstecmsbuild](~/includes/vstecmsbuild-md.md)]
                 string pattern = "(\\[!INCLUDE.*?\\((.*?)\\)\\])";
                 var matches = RegexHelper.GetMatches_All_JustWantedOne(pattern, content);
@@ -674,13 +637,6 @@ namespace IntellisenseFileGen
                     }
                 }
 
-                //if (content.Contains("-or-") && Regex.IsMatch(content, @"\n"))
-                //{
-                //    // remove blank line
-                //    content = Regex.Replace(content, @"^\s+|\s+$", string.Empty, RegexOptions.Multiline);
-                //    xText.Value = content;
-                //}
-
                 if (contentChange)
                 {
                     xText.Value = content;
@@ -717,20 +673,6 @@ namespace IntellisenseFileGen
         {
             string timestamp = string.Format("[{0}]", DateTime.Now.ToString());
             Console.WriteLine(timestamp + string.Format(format, args));
-        }
-
-        // For debug
-        static bool IsMeetDebugCondition(string condition)
-        {
-            string[] conditions = new[] { "T:System.ComponentModel.Composition.Hosting.AssemblyCatalog", "M:System.ComponentModel.Composition.Hosting.AssemblyCatalog.GetExports(System.ComponentModel.Composition.Primitives.ImportDefinition)" };
-            if (conditions != null && conditions.Contains(condition))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
         }
     }
 }
