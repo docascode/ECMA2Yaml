@@ -273,15 +273,25 @@ namespace ECMA2Yaml
             var metadataElement = rootElement.Element("Metadata");
             if (metadataElement != null)
             {
-                item.ExtendedMetadata = metadataElement.Elements("Meta")
-                    ?.ToLookup(x => x.Attribute("Name").Value, x => x.Attribute("Value").Value)
-                    .ToDictionary(g => g.Key, g => g.Count() == 1 ? (object)g.First() : (object)g.ToArray());
-                foreach(var key in UWPMetadata.Values)
+                item.ExtendedMetadata = new Dictionary<string, object>();
+                foreach (var g in metadataElement.Elements("Meta")
+                    ?.ToLookup(x => x.Attribute("Name").Value, x => x.Attribute("Value").Value))
                 {
-                    if (item.ExtendedMetadata.TryGetValue(key, out object val))
+                    if (UWPMetadata.Values.TryGetValue(g.Key, out var datatype))
                     {
-                        item.ExtendedMetadata.Remove(key);
-                        item.Metadata.Add(key, val);
+                        switch(datatype)
+                        {
+                            case MetadataDataType.String:
+                                item.Metadata.Add(g.Key, g.First());
+                                break;
+                            case MetadataDataType.StringArray:
+                                item.Metadata.Add(g.Key, g.ToArray());
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        item.ExtendedMetadata.Add(g.Key, g.Count() == 1 ? (object)g.First() : (object)g.ToArray());
                     }
                 }
             }
