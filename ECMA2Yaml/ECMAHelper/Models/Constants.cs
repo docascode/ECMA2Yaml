@@ -32,19 +32,25 @@ namespace ECMA2Yaml.Models
 
     public class UWPMetadata
     {
-        public static readonly string[] Values = new string[]
+        public static readonly Dictionary<string, MetadataDataType> Values = new Dictionary<string, MetadataDataType>
         {
-            "requirement_sdk_names",
-            "requirement_sdk_urls",
-            "requirement_os_names",
-            "requirement_os_min_versions",
-            "deviceFamilies",
-            "deviceFamiliesVersions",
-            "apiContracts",
-            "apiContractsVersions",
-            "capabilities",
-            "xamlMemberSyntax"
+            { "requirement_sdk_names", MetadataDataType.StringArray },
+            {"requirement_sdk_urls", MetadataDataType.StringArray },
+            {"requirement_os_names", MetadataDataType.StringArray },
+            {"requirement_os_min_versions", MetadataDataType.StringArray },
+            {"deviceFamilies", MetadataDataType.StringArray },
+            {"deviceFamiliesVersions", MetadataDataType.StringArray },
+            {"apiContracts", MetadataDataType.StringArray },
+            {"apiContractsVersions", MetadataDataType.StringArray },
+            {"capabilities", MetadataDataType.StringArray },
+            {"xamlMemberSyntax", MetadataDataType.String },
         };
+    }
+
+    public enum MetadataDataType
+    {
+        String,
+        StringArray
     }
 
     public static class Constants
