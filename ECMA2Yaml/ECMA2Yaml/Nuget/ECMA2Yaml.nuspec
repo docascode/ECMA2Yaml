@@ -15,8 +15,7 @@
   <files>
     <file src="..\bin\Release\*.*" target="tools" exclude="..\bin\Release\*.xml;..\bin\Release\*.pdb;..\bin\Release\*.txt;..\bin\Release\log.*"/>
     <file src="..\bin\Release\Logging\*.*" target="tools\Logging"/>
-    <file src="..\..\IntellisenseFileGen\bin\Release\IntellisenseFileGen.exe" target="tools"/>
-    <file src="..\..\IntellisenseFileGen\bin\Release\IntellisenseFileGen.pdb" target="tools"/>
+    <file src="..\..\IntellisenseFileGen\bin\Release\IntellisenseFileGen.*" target="tools"/>
     <file src="Run.ps1" target="tools\Run.ps1" />
     <file src="PostBuild.ps1" target="tools\PostBuild.ps1" />
   </files>
