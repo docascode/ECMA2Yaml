@@ -16,7 +16,7 @@ namespace IntellisenseFileGen
     class Program
     {
         static string _xmlDataFolder = @"G:\SourceCode\DevCode\dotnet-api-docs\xml";
-        static string _rootFolder = @"G:\SourceCode\DevCode\dotnet-api-docs";
+        static string _docsetFolder = @"G:\SourceCode\DevCode\dotnet-api-docs";
         static string _outFolder = @"G:\ECMA2Yaml-output\GenerateIntellisense\_intellisense";
         static Dictionary<string, string> _replaceStringDic = new Dictionary<string, string>() {
             { "\\\"","\"" },
@@ -32,7 +32,8 @@ namespace IntellisenseFileGen
             var opt = new CommandLineOptions();
             if (opt.Parse(args))
             {
-                _xmlDataFolder = Path.Combine(opt.DataRootPath, "xml");
+                _xmlDataFolder = opt.XmlPath;
+                _docsetFolder = opt.DocsetPath;
                 _outFolder = opt.OutFolder;
             }
 
@@ -42,7 +43,7 @@ namespace IntellisenseFileGen
 
                 return;
             }
-            if (!Directory.Exists(_xmlDataFolder))
+            if (!Directory.Exists(_docsetFolder))
             {
                 // TODO: log error
                 return;
@@ -561,7 +562,7 @@ namespace IntellisenseFileGen
                 {
                     for (int i = 0; i < matches.Length; i += 2)
                     {
-                        string includeFileFullName = matches[i + 1].Replace("~", _rootFolder);
+                        string includeFileFullName = matches[i + 1].Replace("~", _docsetFolder);
                         if (File.Exists(includeFileFullName))
                         {
                             string includeFileContent = File.ReadAllText(includeFileFullName);
@@ -583,7 +584,7 @@ namespace IntellisenseFileGen
                 {
                     for (int i = 0; i < matches.Length; i += 2)
                     {
-                        string includeFileFullName = Path.Combine(_rootFolder, "includes", matches[i + 1]);
+                        string includeFileFullName = Path.Combine(_docsetFolder, "includes", matches[i + 1]);
                         if (File.Exists(includeFileFullName))
                         {
                             string includeFileContent = File.ReadAllText(includeFileFullName);

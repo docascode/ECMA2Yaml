@@ -61,7 +61,6 @@
     <Compile Include="Models\FrameworkIndex.cs" />
     <Compile Include="Models\Member.cs" />
     <Compile Include="Models\Type.cs" />
-    <Compile Include="Program_backup.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="RegexHelper.cs" />
   </ItemGroup>

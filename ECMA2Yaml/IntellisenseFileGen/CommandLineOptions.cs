@@ -9,7 +9,8 @@ namespace IntellisenseFileGen
 {
     public class CommandLineOptions
     {
-        public string DataRootPath { get; set; }
+        public string DocsetPath { get; set; }
+        public string XmlPath { get; set; }
         public string OutFolder { get; set; }
 
 
@@ -19,7 +20,8 @@ namespace IntellisenseFileGen
         public CommandLineOptions()
         {
             _options = new OptionSet {
-                { "r|rootpath=", "[Required] the data root path.", s => DataRootPath = s },
+                { "d|docsetpath=", "[Required] the docset path.", s => DocsetPath = s },
+                { "x|xmlpath=", "[Required] the xml data path.", s => XmlPath = s },
                 { "o|outpath=", "[Required] output file path.",  s => OutFolder = s},
             };
         }
@@ -27,7 +29,7 @@ namespace IntellisenseFileGen
         public bool Parse(string[] args)
         {
             Extras = _options.Parse(args);
-            if (string.IsNullOrEmpty(DataRootPath) || string.IsNullOrEmpty(OutFolder))
+            if (string.IsNullOrEmpty(DocsetPath) || string.IsNullOrEmpty(XmlPath) || string.IsNullOrEmpty(OutFolder))
             {
                 PrintUsage();
                 return false;
