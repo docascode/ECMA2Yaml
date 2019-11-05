@@ -58,6 +58,7 @@ namespace IntellisenseFileGen
             catch (Exception ex)
             {
                 WriteLine(ex.ToString());
+                throw ex;
                 // TODO: log error
             }
         }
@@ -72,9 +73,33 @@ namespace IntellisenseFileGen
                 return;
             }
             store.Build();
-            var typeList = LoadTypes(store.ItemsByDocId);
-            ParallelOptions opt = new ParallelOptions() { MaxDegreeOfParallelism = Environment.ProcessorCount };
             var frameworks = store.GetFrameworkIndex();
+            List<string> requiredFrameworkList = new List<string>();
+            frameworks.FrameworkAssembliesPurged.Keys.ToList().ForEach(fw =>
+            {
+                if (string.IsNullOrEmpty(_moniker) || _moniker.Equals(fw, StringComparison.OrdinalIgnoreCase))
+                {
+                    requiredFrameworkList.Add(fw);
+                }
+            });
+
+            if (requiredFrameworkList.Count == 0)
+            {
+                string message = string.Empty;
+                if (string.IsNullOrEmpty(_moniker))
+                {
+                    message = string.Format("Generated file failed since found 0 moniker.");
+                }
+                else
+                {
+                    message = string.Format("Generated file failed since found 0 moniker with filter moniker name '{0}'.", _moniker);
+                }
+
+                throw new Exception(message);
+            }
+
+            var typeList = LoadTypes(store.ItemsByDocId);
+
             frameworks.FrameworkAssembliesPurged.Keys.ToList().ForEach(fw =>
             {
                 if (string.IsNullOrEmpty(_moniker) || _moniker.Equals(fw, StringComparison.OrdinalIgnoreCase))
