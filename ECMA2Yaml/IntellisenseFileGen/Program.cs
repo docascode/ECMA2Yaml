@@ -18,6 +18,7 @@ namespace IntellisenseFileGen
         static string _xmlDataFolder = @"G:\SourceCode\DevCode\dotnet-api-docs\xml";
         static string _docsetFolder = @"G:\SourceCode\DevCode\dotnet-api-docs";
         static string _outFolder = @"G:\ECMA2Yaml-output\GenerateIntellisense\_intellisense";
+        static string _moniker = string.Empty;
         static Dictionary<string, string> _replaceStringDic = new Dictionary<string, string>() {
             { "\\\"","\"" },
             { "\\*","*" },
@@ -35,6 +36,7 @@ namespace IntellisenseFileGen
                 _xmlDataFolder = opt.XmlPath;
                 _docsetFolder = opt.DocsetPath;
                 _outFolder = opt.OutFolder;
+                _moniker = opt.Moniker;
             }
 
             if (string.IsNullOrEmpty(_xmlDataFolder))
@@ -56,6 +58,7 @@ namespace IntellisenseFileGen
             catch (Exception ex)
             {
                 WriteLine(ex.ToString());
+                throw ex;
                 // TODO: log error
             }
         }
@@ -70,68 +73,95 @@ namespace IntellisenseFileGen
                 return;
             }
             store.Build();
-            //store.ItemsByDocId.ToDictionary(p => p.Key, p.Value.CommentId);
-            var typeList = LoadTypes(store.ItemsByDocId);
-            ParallelOptions opt = new ParallelOptions() { MaxDegreeOfParallelism = Environment.ProcessorCount };
             var frameworks = store.GetFrameworkIndex();
+            List<string> requiredFrameworkList = new List<string>();
             frameworks.FrameworkAssembliesPurged.Keys.ToList().ForEach(fw =>
             {
-                string outPutFolder = Path.Combine(_outFolder, fw);
-
-                var fwAssemblyList = frameworks.FrameworkAssembliesPurged[fw];
-                var ass_Type_Mem_OfFw = frameworks.DocIdToFrameworkDict.Where(p => p.Value != null && p.Value.Contains(fw)).Select(p => p.Key).ToList();
-                var fwTypeDocIdList = ass_Type_Mem_OfFw.Where(p => p.Contains("T:")).ToHashSet();
-                var fwMemberDocIdList = ass_Type_Mem_OfFw.Where(p => p.Contains("M:") || p.Contains("P:") || p.Contains("F:") || p.Contains("E:")).ToHashSet();
-
-                Parallel.ForEach(fwAssemblyList, opt, assembly =>
+                if (string.IsNullOrEmpty(_moniker) || _moniker.Equals(fw, StringComparison.OrdinalIgnoreCase))
                 {
-                    string assemblyInfoStr = string.Format("{0}-{1}", assembly.Value.Name, assembly.Value.Version);
-                    var assemblyTypes = typeList.Where(t =>
-                    {
-                        return t.AssemblyInfos.Exists(p => { return p == assemblyInfoStr; });
-                    }).ToList();
+                    requiredFrameworkList.Add(fw);
+                }
+            });
 
-                    // Order by xml
-                    var selectedAssemblyTypes = assemblyTypes.Where(p => { return fwTypeDocIdList.Contains(p.DocId); });
-                    if (selectedAssemblyTypes != null && selectedAssemblyTypes.Count() > 0)
-                    {
-                        XDocument intelligenceDoc = new XDocument(new XDeclaration("1.0", "utf-8", null));
-                        var docEle = new XElement("doc");
-                        var assemblyEle = new XElement("assembly");
-                        var membersEle = new XElement("members");
-                        docEle.Add(assemblyEle);
-                        docEle.Add(membersEle);
-                        intelligenceDoc.Add(docEle);
-                        assemblyEle.SetElementValue("name", assembly.Value.Name);
+            if (requiredFrameworkList.Count == 0)
+            {
+                string message = string.Empty;
+                if (string.IsNullOrEmpty(_moniker))
+                {
+                    message = string.Format("Generated file failed since found 0 moniker.");
+                }
+                else
+                {
+                    message = string.Format("Generated file failed since found 0 moniker with filter moniker name '{0}'.", _moniker);
+                }
 
-                        selectedAssemblyTypes.OrderBy(p => p.DocId).ToList().ForEach(tt =>
+                throw new Exception(message);
+            }
+
+            var typeList = LoadTypes(store.ItemsByDocId);
+
+            frameworks.FrameworkAssembliesPurged.Keys.ToList().ForEach(fw =>
+            {
+                if (string.IsNullOrEmpty(_moniker) || _moniker.Equals(fw, StringComparison.OrdinalIgnoreCase))
+                {
+                    string outPutFolder = Path.Combine(_outFolder, fw);
+
+                    var fwAssemblyList = frameworks.FrameworkAssembliesPurged[fw];
+                    var ass_Type_Mem_OfFw = frameworks.DocIdToFrameworkDict.Where(p => p.Value != null && p.Value.Contains(fw)).Select(p => p.Key).ToList();
+                    var fwTypeDocIdList = ass_Type_Mem_OfFw.Where(p => p.Contains("T:")).ToHashSet();
+                    var fwMemberDocIdList = ass_Type_Mem_OfFw.Where(p => p.Contains("M:") || p.Contains("P:") || p.Contains("F:") || p.Contains("E:")).ToHashSet();
+
+                    fwAssemblyList.ToList().ForEach(assembly =>
+                    {
+                        string assemblyInfoStr = string.Format("{0}-{1}", assembly.Value.Name, assembly.Value.Version);
+                        var assemblyTypes = typeList.Where(t =>
                         {
-                            membersEle.Add(tt.Docs);
-                            if (tt.Members != null && tt.Members.Count() > 0)
+                            return t.AssemblyInfos.Exists(p => { return p == assemblyInfoStr; });
+                        }).ToList();
+
+                        // Order by xml
+                        var selectedAssemblyTypes = assemblyTypes.Where(p => { return fwTypeDocIdList.Contains(p.DocId); });
+                        if (selectedAssemblyTypes != null && selectedAssemblyTypes.Count() > 0)
+                        {
+                            XDocument intelligenceDoc = new XDocument(new XDeclaration("1.0", "utf-8", null));
+                            var docEle = new XElement("doc");
+                            var assemblyEle = new XElement("assembly");
+                            var membersEle = new XElement("members");
+                            docEle.Add(assemblyEle);
+                            docEle.Add(membersEle);
+                            intelligenceDoc.Add(docEle);
+                            assemblyEle.SetElementValue("name", assembly.Value.Name);
+
+                            selectedAssemblyTypes.OrderBy(p => p.DocId).ToList().ForEach(tt =>
                             {
+                                membersEle.Add(tt.Docs);
                                 if (tt.Members != null && tt.Members.Count() > 0)
                                 {
-                                    tt.Members.OrderBy(p => p.DocId).ToList().ForEach(m =>
+                                    if (tt.Members != null && tt.Members.Count() > 0)
                                     {
-                                        if (fwMemberDocIdList.Contains(m.DocId) /*&& m.AssemblyInfos.Exists(p => { return p == assemblyInfoStr; })*/)
+                                        tt.Members.OrderBy(p => p.DocId).ToList().ForEach(m =>
                                         {
-                                            membersEle.Add(m.Docs);
-                                        }
-                                    });
+                                            if (fwMemberDocIdList.Contains(m.DocId) /*&& m.AssemblyInfos.Exists(p => { return p == assemblyInfoStr; })*/)
+                                            {
+                                                membersEle.Add(m.Docs);
+                                            }
+                                        });
+                                    }
                                 }
-                            }
-                        });
-                        if (membersEle.HasElements)
-                        {
-                            if (!Directory.Exists(outPutFolder))
+                            });
+                            if (membersEle.HasElements)
                             {
-                                Directory.CreateDirectory(outPutFolder);
+                                if (!Directory.Exists(outPutFolder))
+                                {
+                                    Directory.CreateDirectory(outPutFolder);
+                                }
+
+                                intelligenceDoc.Save(Path.Combine(outPutFolder, assembly.Value.Name + ".xml"));
+                                WriteLine($"Done generate {fw}.{assembly.Value.Name} intellisense files.");
                             }
-                            intelligenceDoc.Save(Path.Combine(outPutFolder, assembly.Value.Name + ".xml"));
-                            WriteLine($"Done generate {fw}.{assembly.Value.Name} intellisense files.");
                         }
-                    }
-                });
+                    });
+                }
             });
 
             WriteLine($"All intellisense files done.");

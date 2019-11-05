@@ -12,6 +12,7 @@ namespace IntellisenseFileGen
         public string DocsetPath { get; set; }
         public string XmlPath { get; set; }
         public string OutFolder { get; set; }
+        public string Moniker { get; set; }
 
 
         List<string> Extras = null;
@@ -23,6 +24,7 @@ namespace IntellisenseFileGen
                 { "d|docsetpath=", "[Required] the docset path.", s => DocsetPath = s },
                 { "x|xmlpath=", "[Required] the xml data path.", s => XmlPath = s },
                 { "o|outpath=", "[Required] output file path.",  s => OutFolder = s},
+                { "m|moniker=", "moniker name.",  s => Moniker = s},
             };
         }
 
