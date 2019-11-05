@@ -94,8 +94,8 @@ namespace IntellisenseFileGen
                             return t.AssemblyInfos.Exists(p => { return p == assemblyInfoStr; });
                         }).ToList();
 
-                    // Order by xml
-                    var selectedAssemblyTypes = assemblyTypes.Where(p => { return fwTypeDocIdList.Contains(p.DocId); });
+                        // Order by xml
+                        var selectedAssemblyTypes = assemblyTypes.Where(p => { return fwTypeDocIdList.Contains(p.DocId); });
                         if (selectedAssemblyTypes != null && selectedAssemblyTypes.Count() > 0)
                         {
                             XDocument intelligenceDoc = new XDocument(new XDeclaration("1.0", "utf-8", null));
@@ -130,21 +130,9 @@ namespace IntellisenseFileGen
                                 {
                                     Directory.CreateDirectory(outPutFolder);
                                 }
-                            //System.Xml.XmlWriterSettings settings = new System.Xml.XmlWriterSettings()
-                            //{
-                            //    Indent = true,
-                            //    IndentChars = "",
-                            //    OmitXmlDeclaration = false
-                            //};
-                            //using (var writer = System.Xml.XmlWriter.Create(Path.Combine(outPutFolder, assembly.Value.Name + ".xml"),settings))
-                            //{
-                            //    intelligenceDoc.Save(writer);
-                            //    WriteLine($"Done generate {fw}.{assembly.Value.Name} intellisense files.");
-                            //}
 
-                            intelligenceDoc.Save(Path.Combine(outPutFolder, assembly.Value.Name + ".xml"));
+                                intelligenceDoc.Save(Path.Combine(outPutFolder, assembly.Value.Name + ".xml"));
                                 WriteLine($"Done generate {fw}.{assembly.Value.Name} intellisense files.");
-
                             }
                         }
                     });
