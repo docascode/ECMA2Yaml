@@ -62,6 +62,10 @@ if ($jobs -isnot [system.array])
 foreach($ecmaConfig in $jobs)
 {
     $ecmaXmlGitUrlBase = $publicGitUrl + "blob/" + $publicBranch
+	if ($publicGitUrl.StartsWith("visualstudio.com"))
+	{
+	    $ecmaXmlGitUrlBase = $publicGitUrl + "?version=GB" + $publicBranch
+	}
     echo "Using $ecmaXmlGitUrlBase as url base"
     $ecmaSourceXmlFolder = Join-Path $repositoryRoot $ecmaConfig.SourceXmlFolder
     $ecmaOutputYamlFolder = Join-Path $repositoryRoot $ecmaConfig.OutputYamlFolder

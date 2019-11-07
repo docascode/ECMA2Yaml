@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 
 namespace ECMA2Yaml.Models
 {
@@ -141,31 +142,32 @@ namespace ECMA2Yaml.Models
 
         public void TranslateSourceLocation(string sourcePathRoot, string gitBaseUrl)
         {
+            bool vstsRepo = gitBaseUrl.Contains("visualstudio.com");
             if (!sourcePathRoot.EndsWith("\\"))
             {
                 sourcePathRoot += "\\";
             }
-            if (!gitBaseUrl.EndsWith("/"))
+            if (!gitBaseUrl.EndsWith("/") && !vstsRepo)
             {
                 gitBaseUrl += "/";
             }
             foreach (var ns in _nsList)
             {
-                TranslateSourceLocation(ns, sourcePathRoot, gitBaseUrl);
+                TranslateSourceLocation(ns, sourcePathRoot, gitBaseUrl, vstsRepo);
                 foreach (var t in ns.Types)
                 {
-                    TranslateSourceLocation(t, sourcePathRoot, gitBaseUrl);
+                    TranslateSourceLocation(t, sourcePathRoot, gitBaseUrl, vstsRepo);
                     if (t.Members != null)
                     {
                         foreach (var m in t.Members)
                         {
-                            TranslateSourceLocation(m, sourcePathRoot, gitBaseUrl);
+                            TranslateSourceLocation(m, sourcePathRoot, gitBaseUrl, vstsRepo);
                         }
                         if (t.Overloads != null)
                         {
                             foreach (var o in t.Overloads)
                             {
-                                TranslateSourceLocation(o, sourcePathRoot, gitBaseUrl);
+                                TranslateSourceLocation(o, sourcePathRoot, gitBaseUrl, vstsRepo);
                             }
                         }
                     }
@@ -173,13 +175,22 @@ namespace ECMA2Yaml.Models
             }
         }
 
-        private void TranslateSourceLocation(ReflectionItem item, string sourcePathRoot, string gitBaseUrl)
+        private void TranslateSourceLocation(ReflectionItem item, string sourcePathRoot, string gitBaseUrl, bool vstsRepo = false)
         {
             if (!string.IsNullOrEmpty(item.SourceFileLocalPath)
                 && item.SourceFileLocalPath.StartsWith(sourcePathRoot)
                 && !item.Metadata.ContainsKey(OPSMetadata.ContentUrl))
             {
-                var contentGitUrl = item.SourceFileLocalPath.Replace(sourcePathRoot, gitBaseUrl).Replace("\\", "/");
+                string contentGitUrl = null;
+                if (vstsRepo)
+                {
+                    var path = item.SourceFileLocalPath.Replace(sourcePathRoot, "/").Replace("\\", "/");
+                    contentGitUrl = $"{gitBaseUrl}&path={WebUtility.UrlEncode(path)}";
+                }
+                else
+                {
+                    contentGitUrl = item.SourceFileLocalPath.Replace(sourcePathRoot, gitBaseUrl).Replace("\\", "/");
+                }
                 item.Metadata[OPSMetadata.ContentUrl] = contentGitUrl;
                 item.Metadata[OPSMetadata.OriginalContentUrl] = contentGitUrl;
                 item.Metadata[OPSMetadata.RefSkeletionUrl] = item.Metadata[OPSMetadata.ContentUrl];
