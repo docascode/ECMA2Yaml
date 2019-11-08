@@ -19,6 +19,7 @@ namespace IntellisenseFileGen
         static string _docsetFolder = @"G:\SourceCode\DevCode\dotnet-api-docs";
         static string _outFolder = @"G:\ECMA2Yaml-output\GenerateIntellisense\_intellisense";
         static string _moniker = string.Empty;
+        static string _repoRootFolder = string.Empty;
         static Dictionary<string, string> _replaceStringDic = new Dictionary<string, string>() {
             { "\\\"","\"" },
             { "\\*","*" },
@@ -50,6 +51,7 @@ namespace IntellisenseFileGen
                 // TODO: log error
                 return;
             }
+            SetRootPathByFilePath(_xmlDataFolder);
 
             try
             {
@@ -65,9 +67,10 @@ namespace IntellisenseFileGen
 
         public static void Start()
         {
-            var fileAccessor = new FileAccessor(_xmlDataFolder);
+            var fileAccessor = new FileAccessor(_repoRootFolder);
             ECMALoader loader = new ECMALoader(fileAccessor);
-            var store = loader.LoadFolder("");
+            string xmlFolder = _xmlDataFolder.Replace(_repoRootFolder, "").Trim(Path.DirectorySeparatorChar);
+            var store = loader.LoadFolder(xmlFolder);
             if (store == null)
             {
                 return;
@@ -100,7 +103,7 @@ namespace IntellisenseFileGen
 
             var typeList = LoadTypes(store.ItemsByDocId);
 
-            frameworks.FrameworkAssembliesPurged.Keys.ToList().ForEach(fw =>
+            requiredFrameworkList.ForEach(fw =>
             {
                 if (string.IsNullOrEmpty(_moniker) || _moniker.Equals(fw, StringComparison.OrdinalIgnoreCase))
                 {
@@ -180,66 +183,17 @@ namespace IntellisenseFileGen
         }
 
         /// <summary>
-        /// Load Frameworks info, include assemblies
-        /// </summary>
-        /// <returns></returns>
-        public static FrameworkIndex LoadFrameworks()
-        {
-            string frameworkIndexFolder = $"{_xmlDataFolder}\\FrameworksIndex";
-            var frameworkIndexFileList = GetFiles(frameworkIndexFolder, "*.xml");
-
-            FrameworkIndex frameworkIndex = new FrameworkIndex()
-            {
-                NamespaceDocIdsDict = new Dictionary<string, List<FrameworkDocIdInfo>>(),
-                FrameworkAssemblies = new Dictionary<string, List<AssemblyInfo>>()
-            };
-
-            foreach (var fwFile in frameworkIndexFileList)
-            {
-                XDocument fxDoc = XDocument.Load(fwFile.FullName);
-                var fxName = fxDoc.Root.Attribute("Name").Value;
-                frameworkIndex.NamespaceDocIdsDict[fxName] = new List<FrameworkDocIdInfo>();
-                foreach (var nsElement in fxDoc.Root.Elements("Namespace"))
-                {
-                    var ns = nsElement.Attribute("Name").Value;
-                    foreach (var tElement in nsElement.Elements("Type"))
-                    {
-                        var t = tElement.Attribute("Id").Value;
-                        frameworkIndex.NamespaceDocIdsDict[fxName].Add(new FrameworkDocIdInfo() { DocId = t, Namespace = ns });
-                        foreach (var mElement in tElement.Elements("Member"))
-                        {
-                            var m = mElement.Attribute("Id").Value;
-                            frameworkIndex.NamespaceDocIdsDict[fxName].Add(new FrameworkDocIdInfo() { DocId = m, Namespace = ns, ParentDocId = t });
-                        }
-                    }
-                }
-
-                var assemblyNodes = fxDoc.Root.Element("Assemblies")?.Elements("Assembly")?.Select(ele => new AssemblyInfo()
-                {
-                    Name = ele.Attribute("Name")?.Value,
-                    Version = ele.Attribute("Version")?.Value,
-                }).ToList();
-
-                if (assemblyNodes != null)
-                {
-                    frameworkIndex.FrameworkAssemblies.Add(fxName, assemblyNodes);
-                }
-            }
-            return frameworkIndex;
-        }
-
-        /// <summary>
         /// Load all xml file and convert to List<Type>
         /// </summary>
         /// <returns></returns>
         public static List<Models.Type> LoadTypes(Dictionary<string, ECMA2Yaml.Models.ReflectionItem> ItemsByDocId)
         {
-            var typeFileList = GetFiles(_xmlDataFolder, "*.xml");
+            var typeFileList = GetFiles("xml", "**\\*.xml");
             List<Models.Type> typeList = new List<Models.Type>();
             ParallelOptions opt = new ParallelOptions() { MaxDegreeOfParallelism = Environment.ProcessorCount };
             Parallel.ForEach(typeFileList, opt, typeFile =>
             {
-                XDocument xmlDoc = XDocument.Load(typeFile.FullName);
+                XDocument xmlDoc = XDocument.Load(typeFile.AbsolutePath);
 
                 if (xmlDoc.Root.Name.LocalName == "Type")
                 {
@@ -694,10 +648,29 @@ namespace IntellisenseFileGen
             }
         }
 
-        static FileInfo[] GetFiles(string path, string pattern)
+        static IEnumerable<FileItem> GetFiles(string subFolder, string glob)
         {
-            DirectoryInfo di = new DirectoryInfo(path);
-            return di.GetFiles(pattern, SearchOption.AllDirectories).OrderBy(f => f.Name).ToArray();
+            var _fileAccessor = new FileAccessor(_repoRootFolder);
+            return _fileAccessor.ListFiles(new string[] { glob }, subFolder: subFolder);
+        }
+
+        static void SetRootPathByFilePath(string path)
+        {
+            while (!string.IsNullOrEmpty(path))
+            {
+                //var docfxJsonPath = Path.Combine(path, "docfx.json");
+                //if (File.Exists(docfxJsonPath))
+                //{
+                //    DocsetRootPath = path;
+                //}
+                var repoConfigPath = Path.Combine(path, ".openpublishing.publish.config.json");
+                if (File.Exists(repoConfigPath))
+                {
+                    _repoRootFolder = path;
+                }
+
+                path = Path.GetDirectoryName(path);
+            }
         }
 
         static void WriteLine(string format, params object[] args)
