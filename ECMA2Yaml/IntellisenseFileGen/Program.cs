@@ -188,7 +188,8 @@ namespace IntellisenseFileGen
         /// <returns></returns>
         public static List<Models.Type> LoadTypes(Dictionary<string, ECMA2Yaml.Models.ReflectionItem> ItemsByDocId)
         {
-            var typeFileList = GetFiles("xml", "**\\*.xml");
+            string xmlFolder = _xmlDataFolder.Replace(_repoRootFolder, "").Trim(Path.DirectorySeparatorChar);
+            var typeFileList = GetFiles(xmlFolder, "**\\*.xml");
             List<Models.Type> typeList = new List<Models.Type>();
             ParallelOptions opt = new ParallelOptions() { MaxDegreeOfParallelism = Environment.ProcessorCount };
             Parallel.ForEach(typeFileList, opt, typeFile =>
