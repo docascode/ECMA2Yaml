@@ -28,6 +28,7 @@ namespace IntellisenseFileGen
             { "\\_","_" },
         };
         private static string[] _ignoreTags = new string[] { "sup", "b", "csee", "br" };
+        static FileAccessor _fileAccessor;
 
         static void Main(string[] args)
         {
@@ -52,6 +53,7 @@ namespace IntellisenseFileGen
                 return;
             }
             SetRootPathByFilePath(_xmlDataFolder);
+            _fileAccessor = new FileAccessor(_repoRootFolder);
 
             try
             {
@@ -67,8 +69,7 @@ namespace IntellisenseFileGen
 
         public static void Start()
         {
-            var fileAccessor = new FileAccessor(_repoRootFolder);
-            ECMALoader loader = new ECMALoader(fileAccessor);
+            ECMALoader loader = new ECMALoader(_fileAccessor);
             string xmlFolder = _xmlDataFolder.Replace(_repoRootFolder, "").Trim(Path.DirectorySeparatorChar);
             var store = loader.LoadFolder(xmlFolder);
             if (store == null)
@@ -651,7 +652,6 @@ namespace IntellisenseFileGen
 
         static IEnumerable<FileItem> GetFiles(string subFolder, string glob)
         {
-            var _fileAccessor = new FileAccessor(_repoRootFolder);
             return _fileAccessor.ListFiles(new string[] { glob }, subFolder: subFolder);
         }
 
