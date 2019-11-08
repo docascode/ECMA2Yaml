@@ -25,15 +25,15 @@ $branch = $ParameterDictionary.environment.repositoryBranch
 $publicGitUrl = & git config --get remote.origin.url
 if ($publicGitUrl.EndsWith(".git"))
 {
-	$publicGitUrl = $publicGitUrl.Substring(0, $publicGitUrl.Length - 4)
+    $publicGitUrl = $publicGitUrl.Substring(0, $publicGitUrl.Length - 4)
 }
 if ([string]::IsNullOrEmpty($branch))
 {
-	& git branch | foreach {
-		if ($_ -match "^\* (.*)") {
-			$branch = $matches[1]
-		}
-	}
+    & git branch | foreach {
+        if ($_ -match "^\* (.*)") {
+            $branch = $matches[1]
+        }
+    }
 }
 popd
 $publicBranch = $branch
@@ -62,21 +62,21 @@ if ($jobs -isnot [system.array])
 foreach($ecmaConfig in $jobs)
 {
     $ecmaXmlGitUrlBase = $publicGitUrl + "blob/" + $publicBranch
-	if ($publicGitUrl.StartsWith("visualstudio.com"))
-	{
-	    $ecmaXmlGitUrlBase = $publicGitUrl + "?version=GB" + $publicBranch
-	}
+    if ($publicGitUrl.Contains("visualstudio.com"))
+    {
+        $ecmaXmlGitUrlBase = $publicGitUrl + "?version=GB" + $publicBranch
+    }
     echo "Using $ecmaXmlGitUrlBase as url base"
     $ecmaSourceXmlFolder = Join-Path $repositoryRoot $ecmaConfig.SourceXmlFolder
     $ecmaOutputYamlFolder = Join-Path $repositoryRoot $ecmaConfig.OutputYamlFolder
     $allArgs = @("-s", "$ecmaSourceXmlFolder", "-o", "$ecmaOutputYamlFolder", "-l", "$logFilePath", "-p", """$repositoryRoot=>$ecmaXmlGitUrlBase""", "--branch", "$branch");
     
     $processedGitUrl = $publicGitUrl -replace "https://","" -replace "/","_"
-	$reportId = $ecmaConfig.id
-	if (-not $reportId)
-	{
-	    $reportId = $ParameterDictionary.docset.docsetInfo.docset_name
-	}
+    $reportId = $ecmaConfig.id
+    if (-not $reportId)
+    {
+        $reportId = $ParameterDictionary.docset.docsetInfo.docset_name
+    }
     $undocumentedApiReport = Join-Path $outputFolder "UndocAPIReport_${processedGitUrl}_${branch}_${reportId}.xlsx"
     $allArgs += "--undocumentedApiReport"
     $allArgs += "$undocumentedApiReport"
@@ -91,7 +91,7 @@ foreach($ecmaConfig in $jobs)
             $fallbackRepo = $repo
         }
     }
-	if (-not (Test-Path $ecmaSourceXmlFolder) -and -not $fallbackRepo)
+    if (-not (Test-Path $ecmaSourceXmlFolder) -and -not $fallbackRepo)
     {
         continue;
     }
@@ -113,7 +113,7 @@ foreach($ecmaConfig in $jobs)
     {
         $allArgs += "-strict";
     }
-	if ($ecmaConfig.SDPMode)
+    if ($ecmaConfig.SDPMode)
     {
         $allArgs += "-SDP";
     }
