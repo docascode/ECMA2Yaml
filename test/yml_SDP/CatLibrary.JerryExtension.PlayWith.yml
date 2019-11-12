@@ -43,6 +43,9 @@ devLangs:
 monikers:
 - cat-2.0
 metadata:
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/JerryExtension.xml
+  _op_overwriteFileGitUrl: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/JerryExtension.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/JerryExtension.xml
   api_name:
   - CatLibrary.JerryExtension.PlayWith
   api_location:

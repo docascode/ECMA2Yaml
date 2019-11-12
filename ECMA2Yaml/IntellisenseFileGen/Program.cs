@@ -52,7 +52,7 @@ namespace IntellisenseFileGen
                 // TODO: log error
                 return;
             }
-            SetRootPathByFilePath(_xmlDataFolder);
+            _repoRootFolder = ECMALoader.GetRepoRootBySubPath(_xmlDataFolder);
             _fileAccessor = new FileAccessor(_repoRootFolder);
 
             try
@@ -653,25 +653,6 @@ namespace IntellisenseFileGen
         static IEnumerable<FileItem> GetFiles(string subFolder, string glob)
         {
             return _fileAccessor.ListFiles(new string[] { glob }, subFolder: subFolder);
-        }
-
-        static void SetRootPathByFilePath(string path)
-        {
-            while (!string.IsNullOrEmpty(path))
-            {
-                //var docfxJsonPath = Path.Combine(path, "docfx.json");
-                //if (File.Exists(docfxJsonPath))
-                //{
-                //    DocsetRootPath = path;
-                //}
-                var repoConfigPath = Path.Combine(path, ".openpublishing.publish.config.json");
-                if (File.Exists(repoConfigPath))
-                {
-                    _repoRootFolder = path;
-                }
-
-                path = Path.GetDirectoryName(path);
-            }
         }
 
         static void WriteLine(string format, params object[] args)

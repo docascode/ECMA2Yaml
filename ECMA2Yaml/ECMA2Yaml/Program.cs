@@ -64,9 +64,16 @@ namespace ECMA2Yaml
 
             WriteLine("Building loaded files...");
             store.Build();
-            if (!string.IsNullOrEmpty(opt.RepoRootPath) && !string.IsNullOrEmpty(opt.GitBaseUrl))
+            if (!string.IsNullOrEmpty(opt.RepoRootPath)
+                && !string.IsNullOrEmpty(opt.PublicRepoUrl)
+                && !string.IsNullOrEmpty(opt.PublicBranch))
             {
-                store.TranslateSourceLocation(opt.RepoRootPath, opt.GitBaseUrl);
+                store.TranslateSourceLocation(opt.RepoRootPath, opt.PublicRepoUrl, opt.PublicBranch);
+            }
+            else
+            {
+                WriteLine("Not enough information, unable to generate git url related metadata. -repoRoot {0}, -publicRepo {1}, -publicBranch {2}",
+                    opt.RepoRootPath, opt.PublicRepoUrl, opt.PublicBranch);
             }
             
             WriteLine("Loaded {0} namespaces.", store.Namespaces.Count);

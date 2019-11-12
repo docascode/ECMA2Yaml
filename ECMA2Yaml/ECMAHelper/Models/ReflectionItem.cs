@@ -89,6 +89,7 @@ namespace ECMA2Yaml.Models
         public ReflectionItem Parent { get; set; }
         public Docs Docs { get; set; }
         public string SourceFileLocalPath { get; set; }
+        public GitSourceDetail SourceDetail { get; set; }
 
         public Dictionary<string, object> Metadata { get; set; }
         public Dictionary<string, object> ExtendedMetadata { get; set; }

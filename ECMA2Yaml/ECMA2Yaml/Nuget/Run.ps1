@@ -50,6 +50,8 @@ if (-not $publicGitUrl.EndsWith("/"))
 {
     $publicGitUrl += "/"
 }
+echo "Using $publicGitUrl and $publicBranch as url base"
+
 $jobs = $ParameterDictionary.docset.docsetInfo.ECMA2Yaml
 if (!$jobs)
 {
@@ -61,15 +63,16 @@ if ($jobs -isnot [system.array])
 }
 foreach($ecmaConfig in $jobs)
 {
-    $ecmaXmlGitUrlBase = $publicGitUrl + "blob/" + $publicBranch
-    if ($publicGitUrl.Contains("visualstudio.com"))
-    {
-        $ecmaXmlGitUrlBase = $publicGitUrl + "?version=GB" + $publicBranch
-    }
-    echo "Using $ecmaXmlGitUrlBase as url base"
     $ecmaSourceXmlFolder = Join-Path $repositoryRoot $ecmaConfig.SourceXmlFolder
     $ecmaOutputYamlFolder = Join-Path $repositoryRoot $ecmaConfig.OutputYamlFolder
-    $allArgs = @("-s", "$ecmaSourceXmlFolder", "-o", "$ecmaOutputYamlFolder", "-l", "$logFilePath", "-p", """$repositoryRoot=>$ecmaXmlGitUrlBase""", "--branch", "$branch");
+    $allArgs = @("-s", "$ecmaSourceXmlFolder",
+	"-o", "$ecmaOutputYamlFolder",
+	"-l", "$logFilePath",
+	"-p",
+	"--repoRoot", "$repositoryRoot",
+	"--branch", "$branch",
+	"--publicBranch", "$publicBranch",
+	"--publicRepoUrl", "$publicGitUrl");
     
     $processedGitUrl = $publicGitUrl -replace "https://","" -replace "/","_"
     $reportId = $ecmaConfig.id

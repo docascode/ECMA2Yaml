@@ -10,7 +10,6 @@ namespace ECMA2Yaml
         public string MetadataFolder = null;
         public string OutputFolder = null;
         public string RepoRootPath = null;
-        public string GitBaseUrl = null;
         public string SkipPublishFilePath = null;
         public string UndocumentedApiReport = null;
         public string LogFilePath = "log.json";
@@ -20,7 +19,8 @@ namespace ECMA2Yaml
         public bool StrictMode = false;
         public bool MapMode = false;
         public bool SDPMode = false;
-
+        public string PublicBranch = null;
+        public string PublicRepoUrl = null;
         List<string> Extras = null;
         OptionSet _options = null;
 
@@ -32,14 +32,16 @@ namespace ECMA2Yaml
                 { "m|metadata=", "the folder path containing the overwrite MD files for metadata.", s => MetadataFolder = s.NormalizePath() },
                 { "l|log=", "the log file path.", l => LogFilePath = l.NormalizePath() },
                 { "f|flatten", "to put all ymls in output root and not keep original folder structure.", f => Flatten = f != null },
-                { "p|pathUrlMapping={=>}", "map local xml path to the Github url.", (p, u) => { RepoRootPath = p.NormalizePath();  GitBaseUrl = u; } },
                 { "strict", "strict mode, means that any unresolved type reference will cause a warning",  s => StrictMode = s != null },
                 { "mapFolder", "folder mapping mode, maps assemblies in folder to json, used in .NET CI",  s => MapMode = s != null },
                 { "SDP", "SDP mode, generate yamls in the .NET SDP schema format",  s => SDPMode = s != null },
                 { "changeList=", "OPS change list file, ECMA2Yaml will translate xml path to yml path",  s => ChangeListFiles.Add(s)},
                 { "skipPublishFilePath=", "Pass a file to OPS to let it know which files should skip publish",  s => SkipPublishFilePath = s.NormalizePath()},
                 { "undocumentedApiReport=", "Save the Undocumented API validation result to Excel file",  s => UndocumentedApiReport = s.NormalizePath()},
-                { "branch=", "current branch", s => CurrentBranch = s}
+                { "branch=", "current branch", s => CurrentBranch = s},
+                { "publicBranch=", "the branch that is public to contributors", s => PublicBranch = s},
+                { "publicRepoUrl=", "the branch that is public to contributors", s => PublicRepoUrl = s},
+                { "repoRoot=", "the local path of the root of the repo", s => RepoRootPath = s}
             };
         }
 
@@ -51,6 +53,11 @@ namespace ECMA2Yaml
                 PrintUsage();
                 return false;
             }
+            if (string.IsNullOrEmpty(RepoRootPath))
+            {
+                RepoRootPath = ECMALoader.GetRepoRootBySubPath(SourceFolder);
+            }
+            PublicBranch = PublicBranch ?? CurrentBranch;
             return true;
         }
 

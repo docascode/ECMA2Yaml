@@ -32,6 +32,9 @@ items:
   - static
   monikers:
   - cat-2.0
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/JerryExtension.xml
+  original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/JerryExtension.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/JerryExtension.xml
 - uid: CatLibrary.JerryExtension.PlayWith(CatLibrary.TomFromBaseClass.Jerry,CatLibrary.Tom)
   commentId: M:CatLibrary.JerryExtension.PlayWith(CatLibrary.TomFromBaseClass.Jerry,CatLibrary.Tom)
   id: PlayWith(CatLibrary.TomFromBaseClass.Jerry,CatLibrary.Tom)
@@ -72,6 +75,9 @@ items:
   - static
   monikers:
   - cat-2.0
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/JerryExtension.xml
+  original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/JerryExtension.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/JerryExtension.xml
 references:
 - uid: CatLibrary
   commentId: N:CatLibrary
@@ -116,4 +122,7 @@ references:
   fullName: CatLibrary.JerryExtension.PlayWith
   monikers:
   - cat-2.0
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/JerryExtension.xml
+  original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/JerryExtension.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/JerryExtension.xml
   type: method

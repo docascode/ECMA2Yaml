@@ -68,6 +68,9 @@ remarks: >-
 
   <ul></ul>
 metadata:
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/MRef.Demo.Enumeration/ColorType.xml
+  _op_overwriteFileGitUrl: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/MRef.Demo.Enumeration/ColorType.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/MRef.Demo.Enumeration/ColorType.xml
   api_name:
   - MRef.Demo.Enumeration.ColorType
   - MRef.Demo.Enumeration.ColorType.Blue

@@ -46,6 +46,9 @@ monikers:
 - cat-2.0
 summary: '*TomFromBaseClass* inherits from @CatLibrary.Tom'
 metadata:
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/TomFromBaseClass.xml
+  _op_overwriteFileGitUrl: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/TomFromBaseClass.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/TomFromBaseClass.xml
   api_name:
   - CatLibrary.TomFromBaseClass
   api_location:

@@ -34,7 +34,7 @@ namespace ECMA2Yaml.Models
     {
         public static readonly Dictionary<string, MetadataDataType> Values = new Dictionary<string, MetadataDataType>
         {
-            { "requirement_sdk_names", MetadataDataType.StringArray },
+            {"requirement_sdk_names", MetadataDataType.StringArray },
             {"requirement_sdk_urls", MetadataDataType.StringArray },
             {"requirement_os_names", MetadataDataType.StringArray },
             {"requirement_os_min_versions", MetadataDataType.StringArray },
@@ -44,6 +44,7 @@ namespace ECMA2Yaml.Models
             {"apiContractsVersions", MetadataDataType.StringArray },
             {"capabilities", MetadataDataType.StringArray },
             {"xamlMemberSyntax", MetadataDataType.String },
+            {"contentSourcePath", MetadataDataType.String }
         };
     }
 

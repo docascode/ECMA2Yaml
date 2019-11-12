@@ -41,6 +41,9 @@ summary: >-
 
   <p>This class must be <strong>public</strong> and <strong>static</strong>.</p><p>Also it shouldn't be a geneic class</p>
 metadata:
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/ICatExtension.xml
+  _op_overwriteFileGitUrl: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/ICatExtension.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/ICatExtension.xml
   api_name:
   - CatLibrary.ICatExtension
   api_location:

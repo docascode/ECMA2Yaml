@@ -108,6 +108,9 @@ items:
   monikers:
   - cat-1.0
   - cat-2.0
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
 - uid: CatLibrary.Cat`2.#ctor
   commentId: M:CatLibrary.Cat`2.#ctor
   id: '#ctor'
@@ -139,6 +142,9 @@ items:
   monikers:
   - cat-1.0
   - cat-2.0
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
 - uid: CatLibrary.Cat`2.#ctor(`0)
   commentId: M:CatLibrary.Cat`2.#ctor(`0)
   id: '#ctor(`0)'
@@ -175,6 +181,9 @@ items:
   monikers:
   - cat-1.0
   - cat-2.0
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
 - uid: CatLibrary.Cat`2.#ctor(System.String,System.Int32@,System.String,System.Boolean)
   commentId: M:CatLibrary.Cat`2.#ctor(System.String,System.Int32@,System.String,System.Boolean)
   id: '#ctor(System.String,System.Int32@,System.String,System.Boolean)'
@@ -220,6 +229,9 @@ items:
   monikers:
   - cat-1.0
   - cat-2.0
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
 - uid: CatLibrary.Cat`2.Age
   commentId: P:CatLibrary.Cat`2.Age
   id: Age
@@ -261,6 +273,9 @@ items:
   monikers:
   - cat-1.0
   - cat-2.0
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
 - uid: CatLibrary.Cat`2.CalculateFood(System.DateTime)
   commentId: M:CatLibrary.Cat`2.CalculateFood(System.DateTime)
   id: CalculateFood(System.DateTime)
@@ -300,6 +315,9 @@ items:
   monikers:
   - cat-1.0
   - cat-2.0
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
 - uid: CatLibrary.Cat`2.CatchJerry
   commentId: M:CatLibrary.Cat`2.CatchJerry
   id: CatchJerry
@@ -337,6 +355,9 @@ items:
   - public
   monikers:
   - cat-2.0
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
 - uid: CatLibrary.Cat`2.CatchJerry(System.Boolean)
   commentId: M:CatLibrary.Cat`2.CatchJerry(System.Boolean)
   id: CatchJerry(System.Boolean)
@@ -372,6 +393,9 @@ items:
   - public
   monikers:
   - cat-2.0
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
 - uid: CatLibrary.Cat`2.Equals(System.Object)
   commentId: M:CatLibrary.Cat`2.Equals(System.Object)
   id: Equals(System.Object)
@@ -411,6 +435,9 @@ items:
   monikers:
   - cat-1.0
   - cat-2.0
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
 - uid: CatLibrary.Cat`2.GetTailLength(System.Int32*,System.Object[])
   commentId: M:CatLibrary.Cat`2.GetTailLength(System.Int32*,System.Object[])
   id: GetTailLength(System.Int32*,System.Object[])
@@ -454,6 +481,9 @@ items:
   monikers:
   - cat-1.0
   - cat-2.0
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
 - uid: CatLibrary.Cat`2.isHealthy
   commentId: F:CatLibrary.Cat`2.isHealthy
   id: isHealthy
@@ -494,6 +524,9 @@ items:
   monikers:
   - cat-1.0
   - cat-2.0
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
 - uid: CatLibrary.Cat`2.Item(System.String)
   commentId: P:CatLibrary.Cat`2.Item(System.String)
   id: Item(System.String)
@@ -537,6 +570,9 @@ items:
   monikers:
   - cat-1.0
   - cat-2.0
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
 - uid: CatLibrary.Cat`2.Jump(`0,`1,System.Boolean@)
   commentId: M:CatLibrary.Cat`2.Jump(`0,`1,System.Boolean@)
   id: Jump(`0,`1,System.Boolean@)
@@ -590,6 +626,9 @@ items:
   monikers:
   - cat-1.0
   - cat-2.0
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
 - uid: CatLibrary.Cat`2.Name
   commentId: P:CatLibrary.Cat`2.Name
   id: Name
@@ -628,6 +667,9 @@ items:
   monikers:
   - cat-1.0
   - cat-2.0
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
 - uid: CatLibrary.Cat`2.op_Addition(CatLibrary.Cat{`0,`1},System.Int32)
   commentId: M:CatLibrary.Cat`2.op_Addition(CatLibrary.Cat{`0,`1},System.Int32)
   id: op_Addition(CatLibrary.Cat{`0,`1},System.Int32)
@@ -671,6 +713,9 @@ items:
   monikers:
   - cat-1.0
   - cat-2.0
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
 - uid: CatLibrary.Cat`2.op_Explicit(CatLibrary.Cat{`0,`1})~CatLibrary.Tom
   commentId: M:CatLibrary.Cat`2.op_Explicit(CatLibrary.Cat{`0,`1})~CatLibrary.Tom
   id: op_Explicit(CatLibrary.Cat{`0,`1})~CatLibrary.Tom
@@ -714,6 +759,9 @@ items:
   monikers:
   - cat-1.0
   - cat-2.0
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
 - uid: CatLibrary.Cat`2.op_Subtraction(CatLibrary.Cat{`0,`1},System.Int32)
   commentId: M:CatLibrary.Cat`2.op_Subtraction(CatLibrary.Cat{`0,`1},System.Int32)
   id: op_Subtraction(CatLibrary.Cat{`0,`1},System.Int32)
@@ -757,6 +805,9 @@ items:
   monikers:
   - cat-1.0
   - cat-2.0
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
 - uid: CatLibrary.Cat`2.ownEat
   commentId: E:CatLibrary.Cat`2.ownEat
   id: ownEat
@@ -788,6 +839,9 @@ items:
   monikers:
   - cat-1.0
   - cat-2.0
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
 - uid: CatLibrary.Cat`2.CatLibrary#IAnimal#Eat(System.String)
   commentId: M:CatLibrary.Cat`2.CatLibrary#IAnimal#Eat(System.String)
   id: CatLibrary#IAnimal#Eat(System.String)
@@ -821,6 +875,9 @@ items:
   monikers:
   - cat-1.0
   - cat-2.0
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
 - uid: CatLibrary.Cat`2.CatLibrary#IAnimal#Eat
   commentId: M:CatLibrary.Cat`2.CatLibrary#IAnimal#Eat
   id: CatLibrary#IAnimal#Eat
@@ -851,6 +908,9 @@ items:
   monikers:
   - cat-1.0
   - cat-2.0
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
 - uid: CatLibrary.Cat`2.CatLibrary#IAnimal#Eat``1(``0)
   commentId: M:CatLibrary.Cat`2.CatLibrary#IAnimal#Eat``1(``0)
   id: CatLibrary#IAnimal#Eat``1(``0)
@@ -889,6 +949,9 @@ items:
   monikers:
   - cat-1.0
   - cat-2.0
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
 - uid: CatLibrary.Cat`2.CatLibrary#IAnimal#Item(System.Int32)
   commentId: P:CatLibrary.Cat`2.CatLibrary#IAnimal#Item(System.Int32)
   id: CatLibrary#IAnimal#Item(System.Int32)
@@ -927,6 +990,9 @@ items:
   monikers:
   - cat-1.0
   - cat-2.0
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
 - uid: CatLibrary.Cat`2.CatLibrary#ICat#eat
   commentId: E:CatLibrary.Cat`2.CatLibrary#ICat#eat
   id: CatLibrary#ICat#eat
@@ -952,6 +1018,9 @@ items:
   monikers:
   - cat-1.0
   - cat-2.0
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
 references:
 - uid: CatLibrary
   commentId: N:CatLibrary
@@ -1254,6 +1323,9 @@ references:
   monikers:
   - cat-1.0
   - cat-2.0
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
   type: constructor
 - uid: CatLibrary.Cat`2.Age*
   commentId: Overload:CatLibrary.Cat`2.Age
@@ -1265,6 +1337,9 @@ references:
   monikers:
   - cat-1.0
   - cat-2.0
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
   type: property
 - uid: CatLibrary.Cat`2.CalculateFood*
   commentId: Overload:CatLibrary.Cat`2.CalculateFood
@@ -1276,6 +1351,9 @@ references:
   monikers:
   - cat-1.0
   - cat-2.0
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
   type: method
 - uid: CatLibrary.Cat`2.CatchJerry*
   commentId: Overload:CatLibrary.Cat`2.CatchJerry
@@ -1286,6 +1364,9 @@ references:
   fullName: CatLibrary.Cat<T,K>.CatchJerry
   monikers:
   - cat-2.0
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
   type: method
 - uid: CatLibrary.Cat`2.Equals*
   commentId: Overload:CatLibrary.Cat`2.Equals
@@ -1297,6 +1378,9 @@ references:
   monikers:
   - cat-1.0
   - cat-2.0
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
   type: method
 - uid: CatLibrary.Cat`2.GetTailLength*
   commentId: Overload:CatLibrary.Cat`2.GetTailLength
@@ -1308,6 +1392,9 @@ references:
   monikers:
   - cat-1.0
   - cat-2.0
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
   type: method
 - uid: CatLibrary.Cat`2.Item*
   commentId: Overload:CatLibrary.Cat`2.Item
@@ -1319,6 +1406,9 @@ references:
   monikers:
   - cat-1.0
   - cat-2.0
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
   type: property
 - uid: CatLibrary.Cat`2.Jump*
   commentId: Overload:CatLibrary.Cat`2.Jump
@@ -1330,6 +1420,9 @@ references:
   monikers:
   - cat-1.0
   - cat-2.0
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
   type: method
 - uid: CatLibrary.Cat`2.Name*
   commentId: Overload:CatLibrary.Cat`2.Name
@@ -1341,6 +1434,9 @@ references:
   monikers:
   - cat-1.0
   - cat-2.0
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
   type: property
 - uid: CatLibrary.Cat`2.op_Addition*
   commentId: Overload:CatLibrary.Cat`2.op_Addition
@@ -1352,6 +1448,9 @@ references:
   monikers:
   - cat-1.0
   - cat-2.0
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
   type: operator
 - uid: CatLibrary.Cat`2.op_Explicit*
   commentId: Overload:CatLibrary.Cat`2.op_Explicit
@@ -1363,6 +1462,9 @@ references:
   monikers:
   - cat-1.0
   - cat-2.0
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
   type: operator
 - uid: CatLibrary.Cat`2.op_Subtraction*
   commentId: Overload:CatLibrary.Cat`2.op_Subtraction
@@ -1374,6 +1476,9 @@ references:
   monikers:
   - cat-1.0
   - cat-2.0
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
   type: operator
 - uid: CatLibrary.Cat`2.CatLibrary#IAnimal#Eat*
   commentId: Overload:CatLibrary.Cat`2.CatLibrary#IAnimal#Eat
@@ -1385,6 +1490,9 @@ references:
   monikers:
   - cat-1.0
   - cat-2.0
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
   type: method
 - uid: CatLibrary.Cat`2.CatLibrary#IAnimal#Item*
   commentId: Overload:CatLibrary.Cat`2.CatLibrary#IAnimal#Item
@@ -1396,6 +1504,9 @@ references:
   monikers:
   - cat-1.0
   - cat-2.0
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
   type: property
 - uid: CatLibrary.ICatExtension.Play(CatLibrary.ICat,System.String)
   parent: CatLibrary.ICatExtension

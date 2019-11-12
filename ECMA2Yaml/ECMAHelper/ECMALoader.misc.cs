@@ -10,6 +10,7 @@ using System.Text.RegularExpressions;
 using Newtonsoft.Json;
 using Microsoft.OpenPublishing.FileAbstractLayer;
 using Path = System.IO.Path;
+using System.IO;
 
 namespace ECMA2Yaml
 {
@@ -304,6 +305,26 @@ namespace ECMA2Yaml
                 Declaration = attrElement.Element("AttributeName").Value,
                 Visible = true
             };
+        }
+
+        public static string GetRepoRootBySubPath(string path)
+        {
+            while (!string.IsNullOrEmpty(path))
+            {
+                //var docfxJsonPath = Path.Combine(path, "docfx.json");
+                //if (File.Exists(docfxJsonPath))
+                //{
+                //    DocsetRootPath = path;
+                //}
+                var repoConfigPath = Path.Combine(path, ".openpublishing.publish.config.json");
+                if (File.Exists(repoConfigPath))
+                {
+                    return path;
+                }
+
+                path = Path.GetDirectoryName(path);
+            }
+            return null;
         }
     }
 }

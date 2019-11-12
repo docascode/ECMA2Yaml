@@ -39,6 +39,9 @@ items:
   monikers:
   - cat-1.0
   - cat-2.0
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/MRef.Demo.Enumeration/ColorType.xml
+  original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/MRef.Demo.Enumeration/ColorType.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/MRef.Demo.Enumeration/ColorType.xml
 - uid: MRef.Demo.Enumeration.ColorType.Blue
   commentId: F:MRef.Demo.Enumeration.ColorType.Blue
   id: Blue
@@ -70,6 +73,9 @@ items:
   monikers:
   - cat-1.0
   - cat-2.0
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/MRef.Demo.Enumeration/ColorType.xml
+  original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/MRef.Demo.Enumeration/ColorType.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/MRef.Demo.Enumeration/ColorType.xml
 - uid: MRef.Demo.Enumeration.ColorType.Red
   commentId: F:MRef.Demo.Enumeration.ColorType.Red
   id: Red
@@ -101,6 +107,9 @@ items:
   monikers:
   - cat-1.0
   - cat-2.0
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/MRef.Demo.Enumeration/ColorType.xml
+  original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/MRef.Demo.Enumeration/ColorType.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/MRef.Demo.Enumeration/ColorType.xml
 - uid: MRef.Demo.Enumeration.ColorType.Yellow
   commentId: F:MRef.Demo.Enumeration.ColorType.Yellow
   id: Yellow
@@ -132,6 +141,9 @@ items:
   monikers:
   - cat-1.0
   - cat-2.0
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/MRef.Demo.Enumeration/ColorType.xml
+  original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/MRef.Demo.Enumeration/ColorType.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/MRef.Demo.Enumeration/ColorType.xml
 references:
 - uid: MRef.Demo.Enumeration
   commentId: N:MRef.Demo.Enumeration

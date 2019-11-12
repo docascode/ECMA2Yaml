@@ -34,6 +34,9 @@ monikers:
 - cat-1.0
 - cat-2.0
 metadata:
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/ICat.xml
+  _op_overwriteFileGitUrl: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/ICat.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/ICat.xml
   api_name:
   - CatLibrary.ICat.eat
   - CatLibrary.ICat.add_eat

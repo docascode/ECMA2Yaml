@@ -140,34 +140,41 @@ namespace ECMA2Yaml.Models
             }
         }
 
-        public void TranslateSourceLocation(string sourcePathRoot, string gitBaseUrl)
+        public void TranslateSourceLocation(string sourcePathRoot, string gitRepoUrl, string gitBranch)
         {
-            bool vstsRepo = gitBaseUrl.Contains("visualstudio.com");
+            bool vstsRepo = gitRepoUrl.Contains("visualstudio.com");
+            string gitUrlPattern;
+            sourcePathRoot = System.IO.Path.GetFullPath(sourcePathRoot);
+            if (vstsRepo)
+            {
+                gitUrlPattern = gitRepoUrl.TrimEnd('/') + "?path={0}&version=GB" + gitBranch;
+            }
+            else
+            {
+                gitUrlPattern = gitRepoUrl.TrimEnd('/') + "/blob/" + gitBranch + "{0}";
+            }
             if (!sourcePathRoot.EndsWith("\\"))
             {
                 sourcePathRoot += "\\";
             }
-            if (!gitBaseUrl.EndsWith("/") && !vstsRepo)
-            {
-                gitBaseUrl += "/";
-            }
+
             foreach (var ns in _nsList)
             {
-                TranslateSourceLocation(ns, sourcePathRoot, gitBaseUrl, vstsRepo);
+                TranslateSourceLocation(ns, sourcePathRoot, gitUrlPattern, gitRepoUrl, gitBranch, vstsRepo);
                 foreach (var t in ns.Types)
                 {
-                    TranslateSourceLocation(t, sourcePathRoot, gitBaseUrl, vstsRepo);
+                    TranslateSourceLocation(t, sourcePathRoot, gitUrlPattern, gitRepoUrl, gitBranch, vstsRepo);
                     if (t.Members != null)
                     {
                         foreach (var m in t.Members)
                         {
-                            TranslateSourceLocation(m, sourcePathRoot, gitBaseUrl, vstsRepo);
+                            TranslateSourceLocation(m, sourcePathRoot, gitUrlPattern, gitRepoUrl, gitBranch, vstsRepo);
                         }
                         if (t.Overloads != null)
                         {
                             foreach (var o in t.Overloads)
                             {
-                                TranslateSourceLocation(o, sourcePathRoot, gitBaseUrl, vstsRepo);
+                                TranslateSourceLocation(o, sourcePathRoot, gitUrlPattern, gitRepoUrl, gitBranch, vstsRepo);
                             }
                         }
                     }
@@ -175,21 +182,38 @@ namespace ECMA2Yaml.Models
             }
         }
 
-        private void TranslateSourceLocation(ReflectionItem item, string sourcePathRoot, string gitBaseUrl, bool vstsRepo = false)
+        private void TranslateSourceLocation(
+            ReflectionItem item,
+            string sourcePathRoot,
+            string gitUrlPattern,
+            string gitRepoUrl,
+            string branch,
+            bool vstsRepo = false)
         {
             if (!string.IsNullOrEmpty(item.SourceFileLocalPath)
                 && item.SourceFileLocalPath.StartsWith(sourcePathRoot)
                 && !item.Metadata.ContainsKey(OPSMetadata.ContentUrl))
             {
-                string contentGitUrl = null;
+                string contentGitUrl;
+                string xmlPath = item.SourceFileLocalPath.Replace(sourcePathRoot, "/").Replace("\\", "/");
                 if (vstsRepo)
                 {
-                    var path = item.SourceFileLocalPath.Replace(sourcePathRoot, "/").Replace("\\", "/");
-                    contentGitUrl = $"{gitBaseUrl}&path={WebUtility.UrlEncode(path)}";
+                    contentGitUrl = string.Format(gitUrlPattern, WebUtility.UrlEncode(xmlPath));
+                    if (item.Metadata.TryGetValue("contentSourcePath", out object val))
+                    {
+                        var mdPath = val?.ToString();
+                        item.Metadata.Remove("contentSourcePath");
+                        item.SourceDetail = new GitSourceDetail()
+                        {
+                            Path = mdPath, 
+                            RepoBranch = branch,
+                            RepoUrl = gitRepoUrl
+                        };
+                    }
                 }
                 else
                 {
-                    contentGitUrl = item.SourceFileLocalPath.Replace(sourcePathRoot, gitBaseUrl).Replace("\\", "/");
+                    contentGitUrl = string.Format(gitUrlPattern, xmlPath);
                 }
                 item.Metadata[OPSMetadata.ContentUrl] = contentGitUrl;
                 item.Metadata[OPSMetadata.OriginalContentUrl] = contentGitUrl;
