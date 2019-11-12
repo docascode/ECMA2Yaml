@@ -202,7 +202,6 @@ namespace ECMA2Yaml.Models
                     if (item.Metadata.TryGetValue("contentSourcePath", out object val))
                     {
                         var mdPath = val?.ToString();
-                        item.Metadata.Remove("contentSourcePath");
                         item.SourceDetail = new GitSourceDetail()
                         {
                             Path = mdPath, 
@@ -215,6 +214,7 @@ namespace ECMA2Yaml.Models
                 {
                     contentGitUrl = string.Format(gitUrlPattern, xmlPath);
                 }
+                item.Metadata.Remove("contentSourcePath");
                 item.Metadata[OPSMetadata.ContentUrl] = contentGitUrl;
                 item.Metadata[OPSMetadata.OriginalContentUrl] = contentGitUrl;
                 item.Metadata[OPSMetadata.RefSkeletionUrl] = item.Metadata[OPSMetadata.ContentUrl];
