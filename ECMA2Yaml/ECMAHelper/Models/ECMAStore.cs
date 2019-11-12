@@ -199,9 +199,10 @@ namespace ECMA2Yaml.Models
                 if (vstsRepo)
                 {
                     contentGitUrl = string.Format(gitUrlPattern, WebUtility.UrlEncode(xmlPath));
-                    if (item.Metadata.TryGetValue("contentSourcePath", out object val))
+                    if (item.Metadata.TryGetValue("contentSourcePath", out object val) && val != null)
                     {
-                        var mdPath = val?.ToString();
+                        var mdPath = val.ToString().Replace("\\", "/");
+                        mdPath = mdPath.StartsWith("/") ? mdPath : ("/" + mdPath);
                         item.SourceDetail = new GitSourceDetail()
                         {
                             Path = mdPath, 
