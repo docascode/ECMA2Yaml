@@ -3,6 +3,7 @@ using IntellisenseFileGen.Models;
 using Microsoft.OpenPublishing.FileAbstractLayer;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -29,7 +30,6 @@ namespace IntellisenseFileGen
         };
         private static string[] _ignoreTags = new string[] { "sup", "b", "csee", "br" };
         static FileAccessor _fileAccessor;
-        static object _lockObj = new object();
 
         static void Main(string[] args)
         {
@@ -192,7 +192,7 @@ namespace IntellisenseFileGen
         {
             string xmlFolder = _xmlDataFolder.Replace(_repoRootFolder, "").Trim(Path.DirectorySeparatorChar);
             var typeFileList = GetFiles(xmlFolder, "**\\*.xml");
-            List<Models.Type> typeList = new List<Models.Type>();
+            ConcurrentBag<Models.Type> typeList = new ConcurrentBag<Models.Type>();
             ParallelOptions opt = new ParallelOptions() { MaxDegreeOfParallelism = Environment.ProcessorCount };
             Parallel.ForEach(typeFileList, opt, typeFile =>
             {
@@ -203,15 +203,12 @@ namespace IntellisenseFileGen
                     Models.Type t = ConvertToType(xmlDoc, ItemsByDocId);
                     if (t != null)
                     {
-                        lock (_lockObj)
-                        {
-                            typeList.Add(t);
-                        }
+                        typeList.Add(t);
                     }
                 }
             });
 
-            return typeList;
+            return typeList.ToList();
         }
 
         /// <summary>
