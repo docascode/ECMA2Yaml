@@ -70,7 +70,7 @@ foreach($ecmaConfig in $jobs)
 	"--repoRoot", "$repositoryRoot",
 	"--repoBranch", "$repoBranch",
 	"--repoUrl", "$repoUrl",
-	"--publicBranch", "$publicBranch",
+	"--publicRepoBranch", "$publicBranch",
 	"--publicRepoUrl", "$publicGitUrl");
     
     $processedGitUrl = $repoUrl -replace "https://","" -replace "/","_"

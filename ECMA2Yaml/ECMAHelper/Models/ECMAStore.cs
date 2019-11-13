@@ -237,10 +237,10 @@ namespace ECMA2Yaml.Models
             {
                 string xmlPath = item.SourceFileLocalPath.Replace(sourcePathRoot, "/").Replace("\\", "/");
                 
-                string contentGitUrl = gitUrlPattern(xmlPath);
+                string contentGitUrl = publicGitUrlPattern(xmlPath);
                 item.Metadata[OPSMetadata.ContentUrl] = contentGitUrl;
 
-                string originalContentGitUrl = publicGitUrlPattern(xmlPath);
+                string originalContentGitUrl = gitUrlPattern(xmlPath);
                 item.Metadata[OPSMetadata.OriginalContentUrl] = originalContentGitUrl;
                 item.Metadata[OPSMetadata.RefSkeletionUrl] = originalContentGitUrl;
             }
