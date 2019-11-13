@@ -47,6 +47,9 @@ monikers:
 - cat-2.0
 summary: Generic delegate with many constrains.
 metadata:
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/MRefDelegate`3.xml
+  _op_overwriteFileGitUrl: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/MRefDelegate`3.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/MRefDelegate`3.xml
   api_name:
   - CatLibrary.MRefDelegate`3
   - CatLibrary.MRefDelegate`3..ctor

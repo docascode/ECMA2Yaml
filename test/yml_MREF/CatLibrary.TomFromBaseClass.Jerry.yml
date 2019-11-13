@@ -34,6 +34,9 @@ items:
   - public
   monikers:
   - cat-2.0
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/TomFromBaseClass+Jerry.xml
+  original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/TomFromBaseClass+Jerry.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/TomFromBaseClass+Jerry.xml
 - uid: CatLibrary.TomFromBaseClass.Jerry.#ctor(MRef.Demo.Enumeration.ColorType)
   commentId: M:CatLibrary.TomFromBaseClass.Jerry.#ctor(MRef.Demo.Enumeration.ColorType)
   id: '#ctor(MRef.Demo.Enumeration.ColorType)'
@@ -69,6 +72,9 @@ items:
   - public
   monikers:
   - cat-2.0
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/TomFromBaseClass+Jerry.xml
+  original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/TomFromBaseClass+Jerry.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/TomFromBaseClass+Jerry.xml
 references:
 - uid: CatLibrary
   commentId: N:CatLibrary
@@ -105,6 +111,9 @@ references:
   fullName: CatLibrary.TomFromBaseClass.Jerry.TomFromBaseClass.Jerry
   monikers:
   - cat-2.0
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/TomFromBaseClass+Jerry.xml
+  original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/TomFromBaseClass+Jerry.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/TomFromBaseClass+Jerry.xml
   type: constructor
 - uid: CatLibrary.JerryExtension.PlayWith(CatLibrary.TomFromBaseClass.Jerry,CatLibrary.Tom)
   parent: CatLibrary.JerryExtension

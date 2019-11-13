@@ -48,6 +48,9 @@ items:
   monikers:
   - cat-1.0
   - cat-2.0
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/ICat.xml
+  original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/ICat.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/ICat.xml
 - uid: CatLibrary.ICat.CatchJerry
   commentId: M:CatLibrary.ICat.CatchJerry
   id: CatchJerry
@@ -80,6 +83,9 @@ items:
   - public
   monikers:
   - cat-2.0
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/ICat.xml
+  original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/ICat.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/ICat.xml
 - uid: CatLibrary.ICat.eat
   commentId: E:CatLibrary.ICat.eat
   id: eat
@@ -109,6 +115,9 @@ items:
   monikers:
   - cat-1.0
   - cat-2.0
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/ICat.xml
+  original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/ICat.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/ICat.xml
 references:
 - uid: CatLibrary
   commentId: N:CatLibrary
@@ -146,6 +155,9 @@ references:
   fullName: CatLibrary.ICat.CatchJerry
   monikers:
   - cat-2.0
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/ICat.xml
+  original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/ICat.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/ICat.xml
   type: method
 - uid: CatLibrary.IAnimal.Eat
   parent: CatLibrary.IAnimal

@@ -64,9 +64,18 @@ namespace ECMA2Yaml
 
             WriteLine("Building loaded files...");
             store.Build();
-            if (!string.IsNullOrEmpty(opt.RepoRootPath) && !string.IsNullOrEmpty(opt.GitBaseUrl))
+            if (!string.IsNullOrEmpty(opt.RepoRootPath)
+                && !string.IsNullOrEmpty(opt.PublicRepoUrl)
+                && !string.IsNullOrEmpty(opt.PublicRepoBranch)
+                && !string.IsNullOrEmpty(opt.RepoUrl)
+                && !string.IsNullOrEmpty(opt.RepoBranch))
             {
-                store.TranslateSourceLocation(opt.RepoRootPath, opt.GitBaseUrl);
+                store.TranslateSourceLocation(opt.RepoRootPath, opt.RepoUrl, opt.RepoBranch, opt.PublicRepoUrl, opt.PublicRepoBranch);
+            }
+            else
+            {
+                WriteLine("Not enough information, unable to generate git url related metadata. -repoRoot {0}, -publicRepo {1}, -publicBranch {2}",
+                    opt.RepoRootPath, opt.PublicRepoUrl, opt.PublicRepoBranch);
             }
             
             WriteLine("Loaded {0} namespaces.", store.Namespaces.Count);
@@ -77,7 +86,7 @@ namespace ECMA2Yaml
 
             if (!string.IsNullOrEmpty(opt.UndocumentedApiReport))
             {
-                UndocumentedApi.ReportGenerator.GenerateReport(store, opt.UndocumentedApiReport.BackSlashToForwardSlash(), opt.CurrentBranch);
+                UndocumentedApi.ReportGenerator.GenerateReport(store, opt.UndocumentedApiReport.BackSlashToForwardSlash(), opt.RepoBranch);
             }
 
             IDictionary<string, List<string>> fileMapping = null;

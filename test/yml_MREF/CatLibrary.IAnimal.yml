@@ -37,6 +37,9 @@ items:
   monikers:
   - cat-1.0
   - cat-2.0
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/IAnimal.xml
+  original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/IAnimal.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/IAnimal.xml
 - uid: CatLibrary.IAnimal.Eat
   commentId: M:CatLibrary.IAnimal.Eat
   id: Eat
@@ -70,6 +73,9 @@ items:
   monikers:
   - cat-1.0
   - cat-2.0
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/IAnimal.xml
+  original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/IAnimal.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/IAnimal.xml
 - uid: CatLibrary.IAnimal.Eat(System.String)
   commentId: M:CatLibrary.IAnimal.Eat(System.String)
   id: Eat(System.String)
@@ -106,6 +112,9 @@ items:
   monikers:
   - cat-1.0
   - cat-2.0
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/IAnimal.xml
+  original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/IAnimal.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/IAnimal.xml
 - uid: CatLibrary.IAnimal.Eat``1(``0)
   commentId: M:CatLibrary.IAnimal.Eat``1(``0)
   id: Eat``1(``0)
@@ -145,6 +154,9 @@ items:
   monikers:
   - cat-1.0
   - cat-2.0
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/IAnimal.xml
+  original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/IAnimal.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/IAnimal.xml
 - uid: CatLibrary.IAnimal.Item(System.Int32)
   commentId: P:CatLibrary.IAnimal.Item(System.Int32)
   id: Item(System.Int32)
@@ -185,6 +197,9 @@ items:
   monikers:
   - cat-1.0
   - cat-2.0
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/IAnimal.xml
+  original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/IAnimal.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/IAnimal.xml
 - uid: CatLibrary.IAnimal.Name
   commentId: P:CatLibrary.IAnimal.Name
   id: Name
@@ -221,6 +236,9 @@ items:
   monikers:
   - cat-1.0
   - cat-2.0
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/IAnimal.xml
+  original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/IAnimal.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/IAnimal.xml
 references:
 - uid: CatLibrary
   commentId: N:CatLibrary
@@ -286,6 +304,9 @@ references:
   monikers:
   - cat-1.0
   - cat-2.0
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/IAnimal.xml
+  original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/IAnimal.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/IAnimal.xml
   type: method
 - uid: CatLibrary.IAnimal.Item*
   commentId: Overload:CatLibrary.IAnimal.Item
@@ -297,6 +318,9 @@ references:
   monikers:
   - cat-1.0
   - cat-2.0
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/IAnimal.xml
+  original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/IAnimal.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/IAnimal.xml
   type: property
 - uid: CatLibrary.IAnimal.Name*
   commentId: Overload:CatLibrary.IAnimal.Name
@@ -308,6 +332,9 @@ references:
   monikers:
   - cat-1.0
   - cat-2.0
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/IAnimal.xml
+  original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/IAnimal.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/IAnimal.xml
   type: property
 - uid: CatLibrary.Cat`2
   commentId: T:CatLibrary.Cat`2

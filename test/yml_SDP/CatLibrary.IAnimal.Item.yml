@@ -46,6 +46,9 @@ monikers:
 - cat-1.0
 - cat-2.0
 metadata:
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/IAnimal.xml
+  _op_overwriteFileGitUrl: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/IAnimal.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/IAnimal.xml
   api_name:
   - CatLibrary.IAnimal.Item
   - CatLibrary.IAnimal.get_Item

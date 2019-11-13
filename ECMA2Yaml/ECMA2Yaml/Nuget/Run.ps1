@@ -20,24 +20,25 @@ $changeListTsvFilePath = $ParameterDictionary.context.changeListTsvFilePath
 $userSpecifiedChangeListTsvFilePath = $ParameterDictionary.context.userSpecifiedChangeListTsvFilePath
 
 pushd $repositoryRoot
-$branch = $ParameterDictionary.environment.repositoryBranch
+$repoBranch = $ParameterDictionary.environment.repositoryBranch
 
-$publicGitUrl = & git config --get remote.origin.url
-if ($publicGitUrl.EndsWith(".git"))
+$repoUrl = & git config --get remote.origin.url
+if ($repoUrl.EndsWith(".git"))
 {
-    $publicGitUrl = $publicGitUrl.Substring(0, $publicGitUrl.Length - 4)
+    $repoUrl = $repoUrl.Substring(0, $repoUrl.Length - 4)
 }
-if ([string]::IsNullOrEmpty($branch))
+if ([string]::IsNullOrEmpty($repoBranch))
 {
     & git branch | foreach {
         if ($_ -match "^\* (.*)") {
-            $branch = $matches[1]
+            $repoBranch = $matches[1]
         }
     }
 }
 popd
-$publicBranch = $branch
 
+$publicGitUrl = $repoUrl
+$publicBranch = $repoBranch
 if (-not [string]::IsNullOrEmpty($ParameterDictionary.environment.publishConfigContent.git_repository_url_open_to_public_contributors))
 {
     $publicGitUrl = $ParameterDictionary.environment.publishConfigContent.git_repository_url_open_to_public_contributors
@@ -46,10 +47,9 @@ if (-not [string]::IsNullOrEmpty($ParameterDictionary.environment.publishConfigC
 {
     $publicBranch = $ParameterDictionary.environment.publishConfigContent.git_repository_branch_open_to_public_contributors
 }
-if (-not $publicGitUrl.EndsWith("/"))
-{
-    $publicGitUrl += "/"
-}
+echo "Using $repoUrl and $repoBranch as git url base"
+echo "Using $publicGitUrl and $publicBranch as public git url base"
+
 $jobs = $ParameterDictionary.docset.docsetInfo.ECMA2Yaml
 if (!$jobs)
 {
@@ -61,17 +61,19 @@ if ($jobs -isnot [system.array])
 }
 foreach($ecmaConfig in $jobs)
 {
-    $ecmaXmlGitUrlBase = $publicGitUrl + "blob/" + $publicBranch
-    if ($publicGitUrl.Contains("visualstudio.com"))
-    {
-        $ecmaXmlGitUrlBase = $publicGitUrl + "?version=GB" + $publicBranch
-    }
-    echo "Using $ecmaXmlGitUrlBase as url base"
     $ecmaSourceXmlFolder = Join-Path $repositoryRoot $ecmaConfig.SourceXmlFolder
     $ecmaOutputYamlFolder = Join-Path $repositoryRoot $ecmaConfig.OutputYamlFolder
-    $allArgs = @("-s", "$ecmaSourceXmlFolder", "-o", "$ecmaOutputYamlFolder", "-l", "$logFilePath", "-p", """$repositoryRoot=>$ecmaXmlGitUrlBase""", "--branch", "$branch");
+    $allArgs = @("-s", "$ecmaSourceXmlFolder",
+	"-o", "$ecmaOutputYamlFolder",
+	"-l", "$logFilePath",
+	"-p",
+	"--repoRoot", "$repositoryRoot",
+	"--repoBranch", "$repoBranch",
+	"--repoUrl", "$repoUrl",
+	"--publicRepoBranch", "$publicBranch",
+	"--publicRepoUrl", "$publicGitUrl");
     
-    $processedGitUrl = $publicGitUrl -replace "https://","" -replace "/","_"
+    $processedGitUrl = $repoUrl -replace "https://","" -replace "/","_"
     $reportId = $ecmaConfig.id
     if (-not $reportId)
     {

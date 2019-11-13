@@ -140,60 +140,109 @@ namespace ECMA2Yaml.Models
             }
         }
 
-        public void TranslateSourceLocation(string sourcePathRoot, string gitBaseUrl)
+        public void TranslateSourceLocation(
+            string sourcePathRoot,
+            string gitRepoUrl,
+            string gitRepoBranch,
+            string publicGitRepoUrl, 
+            string publicGitBranch)
         {
-            bool vstsRepo = gitBaseUrl.Contains("visualstudio.com");
+            sourcePathRoot = System.IO.Path.GetFullPath(sourcePathRoot);
             if (!sourcePathRoot.EndsWith("\\"))
             {
                 sourcePathRoot += "\\";
             }
-            if (!gitBaseUrl.EndsWith("/") && !vstsRepo)
-            {
-                gitBaseUrl += "/";
-            }
+
+            var gitUrlPattern = GetGitUrlGenerator(gitRepoUrl, gitRepoBranch);
+            var publicGitUrlPattern = GetGitUrlGenerator(publicGitRepoUrl, publicGitBranch);
+
             foreach (var ns in _nsList)
             {
-                TranslateSourceLocation(ns, sourcePathRoot, gitBaseUrl, vstsRepo);
+                TranslateSourceLocation(ns, sourcePathRoot, gitUrlPattern, publicGitUrlPattern);
+                HandleContentSourceMeta(ns);
                 foreach (var t in ns.Types)
                 {
-                    TranslateSourceLocation(t, sourcePathRoot, gitBaseUrl, vstsRepo);
+                    TranslateSourceLocation(t, sourcePathRoot, gitUrlPattern, publicGitUrlPattern);
+                    HandleContentSourceMeta(t);
                     if (t.Members != null)
                     {
                         foreach (var m in t.Members)
                         {
-                            TranslateSourceLocation(m, sourcePathRoot, gitBaseUrl, vstsRepo);
+                            TranslateSourceLocation(m, sourcePathRoot, gitUrlPattern, publicGitUrlPattern);
+                            HandleContentSourceMeta(m);
                         }
                         if (t.Overloads != null)
                         {
                             foreach (var o in t.Overloads)
                             {
-                                TranslateSourceLocation(o, sourcePathRoot, gitBaseUrl, vstsRepo);
+                                TranslateSourceLocation(o, sourcePathRoot, gitUrlPattern, publicGitUrlPattern);
+                                HandleContentSourceMeta(o);
                             }
                         }
                     }
                 }
             }
+
+            Func<string, string> GetGitUrlGenerator(string gitUrl, string gitBranch)
+            {
+                bool isVSTS = gitUrl.Contains("visualstudio.com");
+                if (isVSTS)
+                {
+                    string pattern = gitUrl + "?path={0}&version=GB" + gitBranch;
+                    return xmlPath => string.Format(pattern, WebUtility.UrlEncode(xmlPath));
+                }
+                else
+                {
+                    string pattern = gitUrl + "/blob/" + gitBranch + "{0}";
+                    return xmlPath => string.Format(pattern, xmlPath);
+                }
+            }
+
+            void HandleContentSourceMeta(ReflectionItem item)
+            {
+                if (item.Metadata.TryGetValue("contentSourcePath", out object val) && val != null)
+                {
+                    var mdPath = val.ToString().Replace("\\", "/");
+                    mdPath = mdPath.StartsWith("/") ? mdPath : ("/" + mdPath);
+                    item.SourceDetail = new GitSourceDetail()
+                    {
+                        Path = mdPath,
+                        RepoBranch = publicGitBranch,
+                        RepoUrl = publicGitRepoUrl
+                    };
+                    item.Metadata.Remove("contentSourcePath");
+                }
+            }
         }
 
-        private void TranslateSourceLocation(ReflectionItem item, string sourcePathRoot, string gitBaseUrl, bool vstsRepo = false)
+        /// <summary>
+        /// reference doc: https://review.docs.microsoft.com/en-us/engineering/projects/ops/edit-button?branch=master
+        /// content_git_url: the url that is used in live page edit button
+        /// original_content_git_url: the url of the file that is used to really publish the page. Also used in review page edit button.
+        /// </summary>
+        /// <param name="item"></param>
+        /// <param name="sourcePathRoot"></param>
+        /// <param name="gitUrlPattern"></param>
+        /// <param name="publicGitUrlPattern"></param>
+        /// <param name="vstsRepo"></param>
+        private void TranslateSourceLocation(
+            ReflectionItem item,
+            string sourcePathRoot,
+            Func<string, string> gitUrlPattern,
+            Func<string, string> publicGitUrlPattern)
         {
             if (!string.IsNullOrEmpty(item.SourceFileLocalPath)
                 && item.SourceFileLocalPath.StartsWith(sourcePathRoot)
                 && !item.Metadata.ContainsKey(OPSMetadata.ContentUrl))
             {
-                string contentGitUrl = null;
-                if (vstsRepo)
-                {
-                    var path = item.SourceFileLocalPath.Replace(sourcePathRoot, "/").Replace("\\", "/");
-                    contentGitUrl = $"{gitBaseUrl}&path={WebUtility.UrlEncode(path)}";
-                }
-                else
-                {
-                    contentGitUrl = item.SourceFileLocalPath.Replace(sourcePathRoot, gitBaseUrl).Replace("\\", "/");
-                }
+                string xmlPath = item.SourceFileLocalPath.Replace(sourcePathRoot, "/").Replace("\\", "/");
+                
+                string contentGitUrl = publicGitUrlPattern(xmlPath);
                 item.Metadata[OPSMetadata.ContentUrl] = contentGitUrl;
-                item.Metadata[OPSMetadata.OriginalContentUrl] = contentGitUrl;
-                item.Metadata[OPSMetadata.RefSkeletionUrl] = item.Metadata[OPSMetadata.ContentUrl];
+
+                string originalContentGitUrl = gitUrlPattern(xmlPath);
+                item.Metadata[OPSMetadata.OriginalContentUrl] = originalContentGitUrl;
+                item.Metadata[OPSMetadata.RefSkeletionUrl] = originalContentGitUrl;
             }
         }
 

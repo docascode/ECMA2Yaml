@@ -40,6 +40,9 @@ items:
   monikers:
   - cat-1.0
   - cat-2.0
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/TomFromBaseClass.xml
+  original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/TomFromBaseClass.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/TomFromBaseClass.xml
 - uid: CatLibrary.TomFromBaseClass.#ctor(System.Int32)
   commentId: M:CatLibrary.TomFromBaseClass.#ctor(System.Int32)
   id: '#ctor(System.Int32)'
@@ -76,6 +79,9 @@ items:
   monikers:
   - cat-1.0
   - cat-2.0
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/TomFromBaseClass.xml
+  original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/TomFromBaseClass.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/TomFromBaseClass.xml
 references:
 - uid: CatLibrary
   commentId: N:CatLibrary
@@ -113,6 +119,9 @@ references:
   monikers:
   - cat-1.0
   - cat-2.0
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/TomFromBaseClass.xml
+  original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/TomFromBaseClass.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/TomFromBaseClass.xml
   type: constructor
 - uid: CatLibrary.Tom.TomMethod(CatLibrary.Complex{CatLibrary.TomFromBaseClass,CatLibrary.TomFromBaseClass},System.Tuple{System.String,CatLibrary.Tom})
   parent: CatLibrary.Tom

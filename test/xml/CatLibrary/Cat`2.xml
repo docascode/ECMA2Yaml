@@ -9,6 +9,7 @@
     <Meta Name="apiContracts" Value="Win10" />
     <Meta Name="apiContracts" Value="Win10 build 1" />
     <Meta Name="apiContracts" Value="Win10 build 2" />
+    <Meta Name="contentSourcePath" Value="aaa\bbb.md" />
   </Metadata>
   <TypeSignature Language="C#" Value="public class Cat&lt;T,K&gt; : CatLibrary.ICat where T : class, new() where K : struct" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi serializable beforefieldinit Cat`2&lt;class .ctor T, struct .ctor (class System.ValueType) K&gt; extends System.Object implements class CatLibrary.IAnimal, class CatLibrary.ICat" />

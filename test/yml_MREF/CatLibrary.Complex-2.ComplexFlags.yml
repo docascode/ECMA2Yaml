@@ -44,6 +44,9 @@ items:
   - public
   monikers:
   - cat-2.0
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Complex`2+ComplexFlags.xml
+  original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Complex`2+ComplexFlags.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Complex`2+ComplexFlags.xml
 - uid: CatLibrary.Complex`2.ComplexFlags.None
   commentId: F:CatLibrary.Complex`2.ComplexFlags.None
   id: None
@@ -72,6 +75,9 @@ items:
   exceptions: []
   monikers:
   - cat-2.0
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Complex`2+ComplexFlags.xml
+  original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Complex`2+ComplexFlags.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Complex`2+ComplexFlags.xml
 - uid: CatLibrary.Complex`2.ComplexFlags.SkipInitialPreparation
   commentId: F:CatLibrary.Complex`2.ComplexFlags.SkipInitialPreparation
   id: SkipInitialPreparation
@@ -100,6 +106,9 @@ items:
   exceptions: []
   monikers:
   - cat-2.0
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Complex`2+ComplexFlags.xml
+  original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Complex`2+ComplexFlags.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Complex`2+ComplexFlags.xml
 - uid: CatLibrary.Complex`2.ComplexFlags.StickyWrite
   commentId: F:CatLibrary.Complex`2.ComplexFlags.StickyWrite
   id: StickyWrite
@@ -128,6 +137,9 @@ items:
   exceptions: []
   monikers:
   - cat-2.0
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Complex`2+ComplexFlags.xml
+  original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Complex`2+ComplexFlags.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Complex`2+ComplexFlags.xml
 references:
 - uid: CatLibrary
   commentId: N:CatLibrary

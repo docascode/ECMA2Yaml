@@ -32,6 +32,9 @@ monikers:
 - cat-2.0
 summary: This class extends <xref data-throw-if-not-resolved="true" uid="CatLibrary.TomFromBaseClass.Jerry"></xref>.
 metadata:
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/JerryExtension.xml
+  _op_overwriteFileGitUrl: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/JerryExtension.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/JerryExtension.xml
   api_name:
   - CatLibrary.JerryExtension
   api_location:

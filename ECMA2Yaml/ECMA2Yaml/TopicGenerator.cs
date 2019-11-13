@@ -18,7 +18,7 @@ namespace ECMA2Yaml
 
             foreach (var ns in store.Namespaces.Where(ns => !string.IsNullOrEmpty(ns.Key)))
             {
-                rval.Add(ns.Key, ns.Value.ToPageViewModel());
+                rval.Add(ns.Key, ns.Value.ToPageViewModel(store));
             }
 
             return rval;
@@ -40,21 +40,7 @@ namespace ECMA2Yaml
     public static class ModelConversionExtensions
     {
         private static string[] languageList = new string[] { "csharp" };
-        public static PageViewModel ToPageViewModel(this Namespace ns)
-        {
-            var item = ns.ToItemViewModel();
-            var pv = new PageViewModel()
-            {
-                Items = new List<ItemViewModel>()
-                {
-                    item
-                },
-                References = ns.Types.Select(t => t.ToReferenceViewModel()).ToList()
-            };
-            return pv;
-        }
-
-        public static ItemViewModel ToItemViewModel(this Namespace ns)
+        public static PageViewModel ToPageViewModel(this Namespace ns, ECMAStore store)
         {
             var item = new ItemViewModel()
             {
@@ -69,11 +55,20 @@ namespace ECMA2Yaml
                 Children = ns.Types.Select(t => t.Uid).ToList(),
                 Summary = ns.Docs?.Summary,
                 Remarks = ns.Docs?.Remarks,
-                Examples = string.IsNullOrEmpty(ns.Docs?.Examples) ? null : new List<string> { ns.Docs?.Examples }
+                Examples = string.IsNullOrEmpty(ns.Docs?.Examples) ? null : new List<string> { ns.Docs?.Examples },
+                SeeAlsos = ns.Docs.BuildSeeAlsoList(store),
+                Source = ns.SourceDetail.ToSourceDetail()
             };
             item.Metadata.MergeMetadata(ns.Metadata);
-
-            return item;
+            var pv = new PageViewModel()
+            {
+                Items = new List<ItemViewModel>()
+                {
+                    item
+                },
+                References = ns.Types.Select(t => t.ToReferenceViewModel()).ToList()
+            };
+            return pv;
         }
 
         public static ReferenceViewModel ToReferenceViewModel(this Models.Type t)
@@ -216,7 +211,8 @@ namespace ECMA2Yaml
                 ExtensionMethods = t.ExtensionMethods,
                 Attributes = t.Attributes.GetAttributeInfo(store),
                 Modifiers = t.Modifiers,
-                SeeAlsos = t.Docs.BuildSeeAlsoList(store)
+                SeeAlsos = t.Docs.BuildSeeAlsoList(store),
+                Source = t.SourceDetail.ToSourceDetail()
             };
             item.Metadata.MergeMetadata(t.Metadata);
             item.Metadata.AddPermissions(t.Docs);
@@ -280,7 +276,8 @@ namespace ECMA2Yaml
                 Exceptions = m.Docs.Exceptions?.Select(ex => new ExceptionInfo() { CommentId = ex.CommentId, Description = ex.Description, Type = ex.Uid }).ToList(),
                 Attributes = m.Attributes.GetAttributeInfo(store),
                 Modifiers = m.Modifiers,
-                SeeAlsos = m.Docs.BuildSeeAlsoList(store)
+                SeeAlsos = m.Docs.BuildSeeAlsoList(store),
+                Source = m.SourceDetail.ToSourceDetail()
             };
             var implements = m.Implements?.Select(commentId => commentId.ResolveCommentId(store)?.Uid)?.Where(uid => uid != null)?.ToList();
             if (implements?.Count > 0)
@@ -637,6 +634,24 @@ namespace ECMA2Yaml
                 LinkType = LinkType.HRef, 
                 LinkId = tag.Uri,
                 AltText = tag.Text
+            };
+        }
+
+        public static SourceDetail ToSourceDetail(this GitSourceDetail source)
+        {
+            if (source == null)
+            {
+                return null;
+            }
+            return new SourceDetail()
+            {
+                Path = source.Path,
+                Remote = new Microsoft.DocAsCode.Common.Git.GitDetail()
+                {
+                    RelativePath = source.Path,
+                    RemoteBranch = source.RepoBranch,
+                    RemoteRepositoryUrl = source.RepoUrl
+                }
             };
         }
     }
