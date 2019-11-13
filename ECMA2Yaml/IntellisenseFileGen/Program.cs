@@ -248,6 +248,36 @@ namespace IntellisenseFileGen
             }
             docsEle.Add(paramEles);
             docsEle.Add(typeparamEles);
+
+            // Returus
+            if (xmlDoc.Root.Element("Docs")?.Element("returns") != null)
+            {
+                if (xmlDoc.Root.Element("Docs")?.Element("returns").Value != "To be added.")
+                {
+                    var returnEle = xmlDoc.Root.Element("Docs")?.Element("returns");
+                    SpecialProcessElement(returnEle);
+                    docsEle.Add(returnEle);
+                }
+            }
+            else if (xmlDoc.Root.Element("Docs")?.Element("value") != null)
+            {
+                if (xmlDoc.Root.Element("Docs")?.Element("value").Value != "To be added.")
+                {
+                    var child = xmlDoc.Root.Element("Docs")?.Element("value").Nodes();
+                    if (child != null && child.Count() > 0)
+                    {
+                        XElement returnsEle = new XElement("returns");
+                        foreach (var ele in child)
+                        {
+                            returnsEle.Add(ele);
+                        }
+
+                        SpecialProcessElement(returnsEle);
+                        docsEle.Add(returnsEle);
+                    }
+                }
+            }
+
             t.Docs = docsEle;
 
             var AssemblyInfoEleList = xmlDoc.Root.Elements("AssemblyInfo");
