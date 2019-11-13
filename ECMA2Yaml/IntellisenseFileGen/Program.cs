@@ -29,6 +29,7 @@ namespace IntellisenseFileGen
         };
         private static string[] _ignoreTags = new string[] { "sup", "b", "csee", "br" };
         static FileAccessor _fileAccessor;
+        static object _lockObj = new object();
 
         static void Main(string[] args)
         {
@@ -202,7 +203,10 @@ namespace IntellisenseFileGen
                     Models.Type t = ConvertToType(xmlDoc, ItemsByDocId);
                     if (t != null)
                     {
-                        typeList.Add(t);
+                        lock (_lockObj)
+                        {
+                            typeList.Add(t);
+                        }
                     }
                 }
             });
@@ -219,65 +223,14 @@ namespace IntellisenseFileGen
         {
             Models.Type t = new Models.Type();
 
-            var typeDocIdEle = xmlDoc.Root.Elements("TypeSignature")?.Where(p => p.Attribute("Language").Value == "DocId")?.FirstOrDefault();
-            if (typeDocIdEle != null)
+            string docId = GetDocId(xmlDoc.Root, "TypeSignature");
+            if (!string.IsNullOrEmpty(docId))
             {
-                t.DocId = typeDocIdEle.Attribute("Value").Value;
+                t.DocId = docId;
             }
 
             var docsEle = new XElement("member");
-            var typeSummaryEle = xmlDoc.Root.Element("Docs")?.Element("summary");
-            var paramEles = xmlDoc.Root.Element("Docs")?.Elements("param");
-            var typeparamEles = xmlDoc.Root.Element("Docs")?.Elements("typeparam");
-            SpecialProcessElement(typeSummaryEle);
-            if (!string.IsNullOrEmpty(typeSummaryEle?.Value))
-            {
-                docsEle.Add(typeSummaryEle);
-            }
-            BatchSpecialProcess(paramEles);
-            BatchSpecialProcess(typeparamEles);
-
-            // For some Uid, need to escape, the escaped uid is [CommentId]
-            if (ItemsByDocId.ContainsKey(t.DocId))
-            {
-                docsEle.SetAttributeValue("name", ItemsByDocId[t.DocId].CommentId);
-            }
-            else
-            {
-                docsEle.SetAttributeValue("name", t.DocId);
-            }
-            docsEle.Add(paramEles);
-            docsEle.Add(typeparamEles);
-
-            // Returus
-            if (xmlDoc.Root.Element("Docs")?.Element("returns") != null)
-            {
-                if (xmlDoc.Root.Element("Docs")?.Element("returns").Value != "To be added.")
-                {
-                    var returnEle = xmlDoc.Root.Element("Docs")?.Element("returns");
-                    SpecialProcessElement(returnEle);
-                    docsEle.Add(returnEle);
-                }
-            }
-            else if (xmlDoc.Root.Element("Docs")?.Element("value") != null)
-            {
-                if (xmlDoc.Root.Element("Docs")?.Element("value").Value != "To be added.")
-                {
-                    var child = xmlDoc.Root.Element("Docs")?.Element("value").Nodes();
-                    if (child != null && child.Count() > 0)
-                    {
-                        XElement returnsEle = new XElement("returns");
-                        foreach (var ele in child)
-                        {
-                            returnsEle.Add(ele);
-                        }
-
-                        SpecialProcessElement(returnsEle);
-                        docsEle.Add(returnsEle);
-                    }
-                }
-            }
-
+            SetDocsEle(docsEle, xmlDoc.Root.Element("Docs"), ItemsByDocId, docId);
             t.Docs = docsEle;
 
             var AssemblyInfoEleList = xmlDoc.Root.Elements("AssemblyInfo");
@@ -328,86 +281,16 @@ namespace IntellisenseFileGen
         private static Member ConvertToMember(XElement member, Dictionary<string, ECMA2Yaml.Models.ReflectionItem> ItemsByDocId)
         {
             var m = new Member();
-            var memberDocIdEle = member.Elements("MemberSignature")?.Where(p => p.Attribute("Language").Value == "DocId").First();
-            if (memberDocIdEle != null)
+
+            string docId = GetDocId(member, "MemberSignature");
+            if (!string.IsNullOrEmpty(docId))
             {
-                m.DocId = memberDocIdEle.Attribute("Value").Value;
+                m.DocId = docId;
             }
             SpecialProcessDuplicateParameters(member);
 
-            var memberSummaryEle = member.Element("Docs")?.Element("summary");
-            var paramEles = member.Element("Docs")?.Elements("param");
-            var typeparamEles = member.Element("Docs")?.Elements("typeparam");
-            var exceptionEles = member.Element("Docs")?.Elements("exception");
-
             var docsEle = new XElement("member");
-
-            string realDocId = m.DocId;
-            if (ItemsByDocId.ContainsKey(m.DocId))
-            {
-                string commentId = ItemsByDocId[m.DocId].CommentId;
-                if (commentId != m.DocId)
-                {
-                    realDocId = commentId;
-                }
-            }
-
-            docsEle.SetAttributeValue("name", SpecialProcessDocId(realDocId));
-
-            SpecialProcessElement(memberSummaryEle);
-            if (!string.IsNullOrEmpty(memberSummaryEle?.Value))
-            {
-                docsEle.Add(memberSummaryEle);
-            }
-
-            BatchSpecialProcess(paramEles);
-            var withChildParaList = paramEles.Where(p => p.HasElements || !string.IsNullOrEmpty(p.Value)).ToList();
-            if (withChildParaList != null && withChildParaList.Count > 0)
-            {
-                docsEle.Add(withChildParaList);
-            }
-
-            BatchSpecialProcess(typeparamEles);
-            var withChildtypeParaList = typeparamEles.Where(p => p.HasElements || !string.IsNullOrEmpty(p.Value)).ToList();
-            if (withChildtypeParaList != null && withChildtypeParaList.Count > 0)
-            {
-                docsEle.Add(withChildtypeParaList);
-            }
-
-            if (member.Element("Docs")?.Element("returns") != null)
-            {
-                if (member.Element("Docs")?.Element("returns").Value != "To be added.")
-                {
-                    var returnEle = member.Element("Docs")?.Element("returns");
-                    SpecialProcessElement(returnEle);
-                    docsEle.Add(returnEle);
-                }
-            }
-            else if (member.Element("Docs")?.Element("value") != null)
-            {
-                if (member.Element("Docs")?.Element("value").Value != "To be added.")
-                {
-                    var child = member.Element("Docs")?.Element("value").Nodes();
-                    if (child != null && child.Count() > 0)
-                    {
-                        XElement returnsEle = new XElement("returns");
-                        foreach (var ele in child)
-                        {
-                            returnsEle.Add(ele);
-                        }
-
-                        SpecialProcessElement(returnsEle);
-                        docsEle.Add(returnsEle);
-                    }
-                }
-            }
-
-            BatchSpecialProcess(exceptionEles);
-            var withChildExceptionList = exceptionEles.Where(p => p.HasElements || !string.IsNullOrEmpty(p.Value)).ToList();
-            if (withChildExceptionList != null && withChildExceptionList.Count > 0)
-            {
-                docsEle.Add(withChildExceptionList);
-            }
+            SetDocsEle(docsEle, member.Element("Docs"), ItemsByDocId, docId);
             m.Docs = docsEle;
 
             var AssemblyInfoEleList = member.Elements("AssemblyInfo");
@@ -436,6 +319,116 @@ namespace IntellisenseFileGen
             {
                 return null;
             }
+        }
+
+        private static void SetDocsEle(XElement docsEle, XElement xmlEle, Dictionary<string, ECMA2Yaml.Models.ReflectionItem> ItemsByDocId, string docId)
+        {
+            if (xmlEle == null || docsEle == null)
+            {
+                return;
+            }
+
+            var summaryEle = xmlEle.Element("summary");
+            var paramEles = xmlEle?.Elements("param");
+            var typeparamEles = xmlEle.Elements("typeparam");
+            var exceptionEles = xmlEle.Elements("exception");
+
+            if (summaryEle != null)
+            {
+                SpecialProcessElement(summaryEle);
+                if (!string.IsNullOrEmpty(summaryEle?.Value))
+                {
+                    docsEle.Add(summaryEle);
+                }
+            }
+
+            if (paramEles != null && paramEles.Count() > 0)
+            {
+                BatchSpecialProcess(paramEles);
+                var withChildParaList = paramEles.Where(p => p.HasElements || !string.IsNullOrEmpty(p.Value)).ToList();
+                if (withChildParaList != null && withChildParaList.Count > 0)
+                {
+                    docsEle.Add(withChildParaList);
+                }
+            }
+
+            if (typeparamEles != null && typeparamEles.Count() > 0)
+            {
+                BatchSpecialProcess(typeparamEles);
+                var withChildtypeParaList = typeparamEles.Where(p => p.HasElements || !string.IsNullOrEmpty(p.Value)).ToList();
+                if (withChildtypeParaList != null && withChildtypeParaList.Count > 0)
+                {
+                    docsEle.Add(withChildtypeParaList);
+                }
+            }
+
+            if (exceptionEles != null && exceptionEles.Count() > 0)
+            {
+                BatchSpecialProcess(exceptionEles);
+                var withChildExceptionList = exceptionEles.Where(p => p.HasElements || !string.IsNullOrEmpty(p.Value)).ToList();
+                if (withChildExceptionList != null && withChildExceptionList.Count > 0)
+                {
+                    docsEle.Add(withChildExceptionList);
+                }
+            }
+
+            // Returns
+            if (xmlEle.Element("returns") != null)
+            {
+                if (xmlEle.Element("returns").Value != "To be added.")
+                {
+                    var returnEle = xmlEle.Element("returns");
+                    SpecialProcessElement(returnEle);
+                    docsEle.Add(returnEle);
+                }
+            }
+            else if (xmlEle.Element("value") != null)
+            {
+                if (xmlEle.Element("value").Value != "To be added.")
+                {
+                    var child = xmlEle.Element("value").Nodes();
+                    if (child != null && child.Count() > 0)
+                    {
+                        XElement returnsEle = new XElement("returns");
+                        foreach (var ele in child)
+                        {
+                            returnsEle.Add(ele);
+                        }
+
+                        SpecialProcessElement(returnsEle);
+                        docsEle.Add(returnsEle);
+                    }
+                }
+            }
+
+            // For some Uid, need to escape, the escaped uid is [CommentId]
+            string realDocId = docId;
+            if (ItemsByDocId.ContainsKey(docId))
+            {
+                string commentId = ItemsByDocId[docId].CommentId;
+                if (commentId != docId)
+                {
+                    realDocId = commentId;
+                }
+            }
+            docsEle.SetAttributeValue("name", SpecialProcessDocId(realDocId));
+        }
+
+        private static string GetDocId(XElement xmlEle, string signatureName = "MemberSignature")
+        {
+            string docId = string.Empty;
+            if (xmlEle == null)
+            {
+                return docId;
+            }
+
+            var docIdEle = xmlEle.Elements(signatureName)?.Where(p => p.Attribute("Language").Value == "DocId")?.FirstOrDefault();
+            if (docIdEle != null)
+            {
+                docId = docIdEle.Attribute("Value").Value;
+            }
+
+            return docId;
         }
 
         private static void BatchSpecialProcess(IEnumerable<XElement> eles)
