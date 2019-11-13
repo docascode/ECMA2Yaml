@@ -18,7 +18,7 @@ namespace ECMA2Yaml
 
             foreach (var ns in store.Namespaces.Where(ns => !string.IsNullOrEmpty(ns.Key)))
             {
-                rval.Add(ns.Key, ns.Value.ToPageViewModel());
+                rval.Add(ns.Key, ns.Value.ToPageViewModel(store));
             }
 
             return rval;
@@ -40,21 +40,7 @@ namespace ECMA2Yaml
     public static class ModelConversionExtensions
     {
         private static string[] languageList = new string[] { "csharp" };
-        public static PageViewModel ToPageViewModel(this Namespace ns)
-        {
-            var item = ns.ToItemViewModel();
-            var pv = new PageViewModel()
-            {
-                Items = new List<ItemViewModel>()
-                {
-                    item
-                },
-                References = ns.Types.Select(t => t.ToReferenceViewModel()).ToList()
-            };
-            return pv;
-        }
-
-        public static ItemViewModel ToItemViewModel(this Namespace ns)
+        public static PageViewModel ToPageViewModel(this Namespace ns, ECMAStore store)
         {
             var item = new ItemViewModel()
             {
@@ -70,11 +56,19 @@ namespace ECMA2Yaml
                 Summary = ns.Docs?.Summary,
                 Remarks = ns.Docs?.Remarks,
                 Examples = string.IsNullOrEmpty(ns.Docs?.Examples) ? null : new List<string> { ns.Docs?.Examples },
+                SeeAlsos = ns.Docs.BuildSeeAlsoList(store),
                 Source = ns.SourceDetail.ToSourceDetail()
             };
             item.Metadata.MergeMetadata(ns.Metadata);
-
-            return item;
+            var pv = new PageViewModel()
+            {
+                Items = new List<ItemViewModel>()
+                {
+                    item
+                },
+                References = ns.Types.Select(t => t.ToReferenceViewModel()).ToList()
+            };
+            return pv;
         }
 
         public static ReferenceViewModel ToReferenceViewModel(this Models.Type t)
