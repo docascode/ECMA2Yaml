@@ -258,4 +258,5 @@ test/_bin/
 test/frameworks
 test/yml_MREF_After
 test/yml_SDP_After
+test/intellisense_After
 XmlYamlMapping.json
