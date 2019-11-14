@@ -37,6 +37,10 @@ items:
   monikers:
   - cat-1.0
   - cat-2.0
+  _op_AssemblyMonikerMapping:
+    CatLibrary:
+    - cat-1.0
+    - cat-2.0
   content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/IAnimal.xml
   original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/IAnimal.xml
   original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/IAnimal.xml
