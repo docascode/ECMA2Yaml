@@ -1,0 +1,248 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <assembly>
+    <name>System.Core</name>
+  </assembly>
+  <members>
+    <member name="T:System.Collections.Generic.HashSet`1">
+      <summary>Represents a set of values.</summary>
+      <typeparam name="T">The type of elements in the hash set.</typeparam>
+    </member>
+    <member name="M:System.Collections.Generic.HashSet`1.#ctor">
+      <summary>Initializes a new instance of the <see cref="T:System.Collections.Generic.HashSet`1" /> class that is empty and uses the default equality comparer for the set type.</summary>
+    </member>
+    <member name="M:System.Collections.Generic.HashSet`1.#ctor(System.Collections.Generic.IEnumerable{`0})">
+      <summary>Initializes a new instance of the <see cref="T:System.Collections.Generic.HashSet`1" /> class that uses the default equality comparer for the set type, contains elements copied from the specified collection, and has sufficient capacity to accommodate the number of elements copied.</summary>
+      <param name="collection">The collection whose elements are copied to the new set.</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="collection" /> is <see langword="null" />.</exception>
+    </member>
+    <member name="M:System.Collections.Generic.HashSet`1.#ctor(System.Collections.Generic.IEnumerable{`0},System.Collections.Generic.IEqualityComparer{`0})">
+      <summary>Initializes a new instance of the <see cref="T:System.Collections.Generic.HashSet`1" /> class that uses the specified equality comparer for the set type, contains elements copied from the specified collection, and has sufficient capacity to accommodate the number of elements copied.</summary>
+      <param name="collection">The collection whose elements are copied to the new set.</param>
+      <param name="comparer">The <see cref="T:System.Collections.Generic.IEqualityComparer`1" /> implementation to use when comparing values in the set, or <see langword="null" /> to use the default <see cref="T:System.Collections.Generic.EqualityComparer`1" /> implementation for the set type.</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="collection" /> is <see langword="null" />.</exception>
+    </member>
+    <member name="M:System.Collections.Generic.HashSet`1.#ctor(System.Collections.Generic.IEqualityComparer{`0})">
+      <summary>Initializes a new instance of the <see cref="T:System.Collections.Generic.HashSet`1" /> class that is empty and uses the specified equality comparer for the set type.</summary>
+      <param name="comparer">The <see cref="T:System.Collections.Generic.IEqualityComparer`1" /> implementation to use when comparing values in the set, or <see langword="null" /> to use the default <see cref="T:System.Collections.Generic.EqualityComparer`1" /> implementation for the set type.</param>
+    </member>
+    <member name="M:System.Collections.Generic.HashSet`1.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>Initializes a new instance of the <see cref="T:System.Collections.Generic.HashSet`1" /> class with serialized data.</summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> object that contains the information required to serialize the <see cref="T:System.Collections.Generic.HashSet`1" /> object.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> structure that contains the source and destination of the serialized stream associated with the <see cref="T:System.Collections.Generic.HashSet`1" /> object.</param>
+    </member>
+    <member name="M:System.Collections.Generic.HashSet`1.Add(`0)">
+      <summary>Adds the specified element to a set.</summary>
+      <param name="item">The element to add to the set.</param>
+      <returns>
+        <see langword="true" /> if the element is added to the <see cref="T:System.Collections.Generic.HashSet`1" /> object; <see langword="false" /> if the element is already present.</returns>
+    </member>
+    <member name="M:System.Collections.Generic.HashSet`1.Clear">
+      <summary>Removes all elements from a <see cref="T:System.Collections.Generic.HashSet`1" /> object.</summary>
+    </member>
+    <member name="M:System.Collections.Generic.HashSet`1.Contains(`0)">
+      <summary>Determines whether a <see cref="T:System.Collections.Generic.HashSet`1" /> object contains the specified element.</summary>
+      <param name="item">The element to locate in the <see cref="T:System.Collections.Generic.HashSet`1" /> object.</param>
+      <returns>
+        <see langword="true" /> if the <see cref="T:System.Collections.Generic.HashSet`1" /> object contains the specified element; otherwise, <see langword="false" />.</returns>
+    </member>
+    <member name="M:System.Collections.Generic.HashSet`1.CopyTo(`0[])">
+      <summary>Copies the elements of a <see cref="T:System.Collections.Generic.HashSet`1" /> object to an array.</summary>
+      <param name="array">The one-dimensional array that is the destination of the elements copied from the <see cref="T:System.Collections.Generic.HashSet`1" /> object. The array must have zero-based indexing.</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="array" /> is <see langword="null" />.</exception>
+    </member>
+    <member name="M:System.Collections.Generic.HashSet`1.CopyTo(`0[],System.Int32)">
+      <summary>Copies the elements of a <see cref="T:System.Collections.Generic.HashSet`1" /> object to an array, starting at the specified array index.</summary>
+      <param name="array">The one-dimensional array that is the destination of the elements copied from the <see cref="T:System.Collections.Generic.HashSet`1" /> object. The array must have zero-based indexing.</param>
+      <param name="arrayIndex">The zero-based index in <paramref name="array" /> at which copying begins.</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="array" /> is <see langword="null" />.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="arrayIndex" /> is less than 0.</exception>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="arrayIndex" /> is greater than the length of the destination <paramref name="array" />.</exception>
+    </member>
+    <member name="M:System.Collections.Generic.HashSet`1.CopyTo(`0[],System.Int32,System.Int32)">
+      <summary>Copies the specified number of elements of a <see cref="T:System.Collections.Generic.HashSet`1" /> object to an array, starting at the specified array index.</summary>
+      <param name="array">The one-dimensional array that is the destination of the elements copied from the <see cref="T:System.Collections.Generic.HashSet`1" /> object. The array must have zero-based indexing.</param>
+      <param name="arrayIndex">The zero-based index in <paramref name="array" /> at which copying begins.</param>
+      <param name="count">The number of elements to copy to <paramref name="array" />.</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="array" /> is <see langword="null" />.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="arrayIndex" /> is less than 0.  
+  
+ -or-  
+  
+ <paramref name="count" /> is less than 0.</exception>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="arrayIndex" /> is greater than the length of the destination <paramref name="array" />.  
+  
+ -or-  
+  
+ <paramref name="count" /> is greater than the available space from the <paramref name="index" /> to the end of the destination <paramref name="array" />.</exception>
+    </member>
+    <member name="M:System.Collections.Generic.HashSet`1.CreateSetComparer">
+      <summary>Returns an <see cref="T:System.Collections.IEqualityComparer" /> object that can be used for equality testing of a <see cref="T:System.Collections.Generic.HashSet`1" /> object.</summary>
+      <returns>An <see cref="T:System.Collections.IEqualityComparer" /> object that can be used for deep equality testing of the <see cref="T:System.Collections.Generic.HashSet`1" /> object.</returns>
+    </member>
+    <member name="M:System.Collections.Generic.HashSet`1.ExceptWith(System.Collections.Generic.IEnumerable{`0})">
+      <summary>Removes all elements in the specified collection from the current <see cref="T:System.Collections.Generic.HashSet`1" /> object.</summary>
+      <param name="other">The collection of items to remove from the <see cref="T:System.Collections.Generic.HashSet`1" /> object.</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="other" /> is <see langword="null" />.</exception>
+    </member>
+    <member name="M:System.Collections.Generic.HashSet`1.GetEnumerator">
+      <summary>Returns an enumerator that iterates through a <see cref="T:System.Collections.Generic.HashSet`1" /> object.</summary>
+      <returns>A <see cref="T:System.Collections.Generic.HashSet`1.Enumerator" /> object for the <see cref="T:System.Collections.Generic.HashSet`1" /> object.</returns>
+    </member>
+    <member name="M:System.Collections.Generic.HashSet`1.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>Implements the <see cref="T:System.Runtime.Serialization.ISerializable" /> interface and returns the data needed to serialize a <see cref="T:System.Collections.Generic.HashSet`1" /> object.</summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> object that contains the information required to serialize the <see cref="T:System.Collections.Generic.HashSet`1" /> object.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> structure that contains the source and destination of the serialized stream associated with the <see cref="T:System.Collections.Generic.HashSet`1" /> object.</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="info" /> is <see langword="null" />.</exception>
+    </member>
+    <member name="M:System.Collections.Generic.HashSet`1.IntersectWith(System.Collections.Generic.IEnumerable{`0})">
+      <summary>Modifies the current <see cref="T:System.Collections.Generic.HashSet`1" /> object to contain only elements that are present in that object and in the specified collection.</summary>
+      <param name="other">The collection to compare to the current <see cref="T:System.Collections.Generic.HashSet`1" /> object.</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="other" /> is <see langword="null" />.</exception>
+    </member>
+    <member name="M:System.Collections.Generic.HashSet`1.IsProperSubsetOf(System.Collections.Generic.IEnumerable{`0})">
+      <summary>Determines whether a <see cref="T:System.Collections.Generic.HashSet`1" /> object is a proper subset of the specified collection.</summary>
+      <param name="other">The collection to compare to the current <see cref="T:System.Collections.Generic.HashSet`1" /> object.</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="other" /> is <see langword="null" />.</exception>
+      <returns>
+        <see langword="true" /> if the <see cref="T:System.Collections.Generic.HashSet`1" /> object is a proper subset of <paramref name="other" />; otherwise, <see langword="false" />.</returns>
+    </member>
+    <member name="M:System.Collections.Generic.HashSet`1.IsProperSupersetOf(System.Collections.Generic.IEnumerable{`0})">
+      <summary>Determines whether a <see cref="T:System.Collections.Generic.HashSet`1" /> object is a proper superset of the specified collection.</summary>
+      <param name="other">The collection to compare to the current <see cref="T:System.Collections.Generic.HashSet`1" /> object.</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="other" /> is <see langword="null" />.</exception>
+      <returns>
+        <see langword="true" /> if the <see cref="T:System.Collections.Generic.HashSet`1" /> object is a proper superset of <paramref name="other" />; otherwise, <see langword="false" />.</returns>
+    </member>
+    <member name="M:System.Collections.Generic.HashSet`1.IsSubsetOf(System.Collections.Generic.IEnumerable{`0})">
+      <summary>Determines whether a <see cref="T:System.Collections.Generic.HashSet`1" /> object is a subset of the specified collection.</summary>
+      <param name="other">The collection to compare to the current <see cref="T:System.Collections.Generic.HashSet`1" /> object.</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="other" /> is <see langword="null" />.</exception>
+      <returns>
+        <see langword="true" /> if the <see cref="T:System.Collections.Generic.HashSet`1" /> object is a subset of <paramref name="other" />; otherwise, <see langword="false" />.</returns>
+    </member>
+    <member name="M:System.Collections.Generic.HashSet`1.IsSupersetOf(System.Collections.Generic.IEnumerable{`0})">
+      <summary>Determines whether a <see cref="T:System.Collections.Generic.HashSet`1" /> object is a superset of the specified collection.</summary>
+      <param name="other">The collection to compare to the current <see cref="T:System.Collections.Generic.HashSet`1" /> object.</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="other" /> is <see langword="null" />.</exception>
+      <returns>
+        <see langword="true" /> if the <see cref="T:System.Collections.Generic.HashSet`1" /> object is a superset of <paramref name="other" />; otherwise, <see langword="false" />.</returns>
+    </member>
+    <member name="M:System.Collections.Generic.HashSet`1.OnDeserialization(System.Object)">
+      <summary>Implements the <see cref="T:System.Runtime.Serialization.ISerializable" /> interface and raises the deserialization event when the deserialization is complete.</summary>
+      <param name="sender">The source of the deserialization event.</param>
+      <exception cref="T:System.Runtime.Serialization.SerializationException">The <see cref="T:System.Runtime.Serialization.SerializationInfo" /> object associated with the current <see cref="T:System.Collections.Generic.HashSet`1" /> object is invalid.</exception>
+    </member>
+    <member name="M:System.Collections.Generic.HashSet`1.Overlaps(System.Collections.Generic.IEnumerable{`0})">
+      <summary>Determines whether the current <see cref="T:System.Collections.Generic.HashSet`1" /> object and a specified collection share common elements.</summary>
+      <param name="other">The collection to compare to the current <see cref="T:System.Collections.Generic.HashSet`1" /> object.</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="other" /> is <see langword="null" />.</exception>
+      <returns>
+        <see langword="true" /> if the <see cref="T:System.Collections.Generic.HashSet`1" /> object and <paramref name="other" /> share at least one common element; otherwise, <see langword="false" />.</returns>
+    </member>
+    <member name="M:System.Collections.Generic.HashSet`1.Remove(`0)">
+      <summary>Removes the specified element from a <see cref="T:System.Collections.Generic.HashSet`1" /> object.</summary>
+      <param name="item">The element to remove.</param>
+      <returns>
+        <see langword="true" /> if the element is successfully found and removed; otherwise, <see langword="false" />.  This method returns <see langword="false" /> if <paramref name="item" /> is not found in the <see cref="T:System.Collections.Generic.HashSet`1" /> object.</returns>
+    </member>
+    <member name="M:System.Collections.Generic.HashSet`1.RemoveWhere(System.Predicate{`0})">
+      <summary>Removes all elements that match the conditions defined by the specified predicate from a <see cref="T:System.Collections.Generic.HashSet`1" /> collection.</summary>
+      <param name="match">The <see cref="T:System.Predicate`1" /> delegate that defines the conditions of the elements to remove.</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="match" /> is <see langword="null" />.</exception>
+      <returns>The number of elements that were removed from the <see cref="T:System.Collections.Generic.HashSet`1" /> collection.</returns>
+    </member>
+    <member name="M:System.Collections.Generic.HashSet`1.SetEquals(System.Collections.Generic.IEnumerable{`0})">
+      <summary>Determines whether a <see cref="T:System.Collections.Generic.HashSet`1" /> object and the specified collection contain the same elements.</summary>
+      <param name="other">The collection to compare to the current <see cref="T:System.Collections.Generic.HashSet`1" /> object.</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="other" /> is <see langword="null" />.</exception>
+      <returns>
+        <see langword="true" /> if the <see cref="T:System.Collections.Generic.HashSet`1" /> object is equal to <paramref name="other" />; otherwise, false.</returns>
+    </member>
+    <member name="M:System.Collections.Generic.HashSet`1.SymmetricExceptWith(System.Collections.Generic.IEnumerable{`0})">
+      <summary>Modifies the current <see cref="T:System.Collections.Generic.HashSet`1" /> object to contain only elements that are present either in that object or in the specified collection, but not both.</summary>
+      <param name="other">The collection to compare to the current <see cref="T:System.Collections.Generic.HashSet`1" /> object.</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="other" /> is <see langword="null" />.</exception>
+    </member>
+    <member name="M:System.Collections.Generic.HashSet`1.System#Collections#Generic#ICollection{T}#Add(`0)">
+      <summary>Adds an item to an <see cref="T:System.Collections.Generic.ICollection`1" /> object.</summary>
+      <param name="item">The object to add to the <see cref="T:System.Collections.Generic.ICollection`1" /> object.</param>
+      <exception cref="T:System.NotSupportedException">The <see cref="T:System.Collections.Generic.ICollection`1" /> is read-only.</exception>
+    </member>
+    <member name="M:System.Collections.Generic.HashSet`1.System#Collections#Generic#IEnumerable{T}#GetEnumerator">
+      <summary>Returns an enumerator that iterates through a collection.</summary>
+      <returns>An <see cref="T:System.Collections.Generic.IEnumerator`1" /> object that can be used to iterate through the collection.</returns>
+    </member>
+    <member name="M:System.Collections.Generic.HashSet`1.System#Collections#IEnumerable#GetEnumerator">
+      <summary>Returns an enumerator that iterates through a collection.</summary>
+      <returns>An <see cref="T:System.Collections.IEnumerator" /> object that can be used to iterate through the collection.</returns>
+    </member>
+    <member name="M:System.Collections.Generic.HashSet`1.TrimExcess">
+      <summary>Sets the capacity of a <see cref="T:System.Collections.Generic.HashSet`1" /> object to the actual number of elements it contains, rounded up to a nearby, implementation-specific value.</summary>
+    </member>
+    <member name="M:System.Collections.Generic.HashSet`1.UnionWith(System.Collections.Generic.IEnumerable{`0})">
+      <summary>Modifies the current <see cref="T:System.Collections.Generic.HashSet`1" /> object to contain all elements that are present in itself, the specified collection, or both.</summary>
+      <param name="other">The collection to compare to the current <see cref="T:System.Collections.Generic.HashSet`1" /> object.</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="other" /> is <see langword="null" />.</exception>
+    </member>
+    <member name="P:System.Collections.Generic.HashSet`1.Comparer">
+      <summary>Gets the <see cref="T:System.Collections.Generic.IEqualityComparer`1" /> object that is used to determine equality for the values in the set.</summary>
+      <returns>The <see cref="T:System.Collections.Generic.IEqualityComparer`1" /> object that is used to determine equality for the values in the set.</returns>
+    </member>
+    <member name="P:System.Collections.Generic.HashSet`1.Count">
+      <summary>Gets the number of elements that are contained in a set.</summary>
+      <returns>The number of elements that are contained in the set.</returns>
+    </member>
+    <member name="P:System.Collections.Generic.HashSet`1.System#Collections#Generic#ICollection{T}#IsReadOnly">
+      <summary>Gets a value indicating whether a collection is read-only.</summary>
+      <returns>
+        <see langword="true" /> if the collection is read-only; otherwise, <see langword="false" />.</returns>
+    </member>
+    <member name="T:System.Collections.Generic.HashSet`1.Enumerator">
+      <summary>Enumerates the elements of a <see cref="T:System.Collections.Generic.HashSet`1" /> object.</summary>
+    </member>
+    <member name="M:System.Collections.Generic.HashSet`1.Enumerator.Dispose">
+      <summary>Releases all resources used by a <see cref="T:System.Collections.Generic.HashSet`1.Enumerator" /> object.</summary>
+    </member>
+    <member name="M:System.Collections.Generic.HashSet`1.Enumerator.MoveNext">
+      <summary>Advances the enumerator to the next element of the <see cref="T:System.Collections.Generic.HashSet`1" /> collection.</summary>
+      <exception cref="T:System.InvalidOperationException">The collection was modified after the enumerator was created.</exception>
+      <returns>
+        <see langword="true" /> if the enumerator was successfully advanced to the next element; <see langword="false" /> if the enumerator has passed the end of the collection.</returns>
+    </member>
+    <member name="M:System.Collections.Generic.HashSet`1.Enumerator.System#Collections#IEnumerator#Reset">
+      <summary>Sets the enumerator to its initial position, which is before the first element in the collection.</summary>
+      <exception cref="T:System.InvalidOperationException">The collection was modified after the enumerator was created.</exception>
+    </member>
+    <member name="P:System.Collections.Generic.HashSet`1.Enumerator.Current">
+      <summary>Gets the element at the current position of the enumerator.</summary>
+      <returns>The element in the <see cref="T:System.Collections.Generic.HashSet`1" /> collection at the current position of the enumerator.</returns>
+    </member>
+    <member name="P:System.Collections.Generic.HashSet`1.Enumerator.System#Collections#IEnumerator#Current">
+      <summary>Gets the element at the current position of the enumerator.</summary>
+      <exception cref="T:System.InvalidOperationException">The enumerator is positioned before the first element of the collection or after the last element.</exception>
+      <returns>The element in the collection at the current position of the enumerator, as an <see cref="T:System.Object" />.</returns>
+    </member>
+  </members>
+</doc>
