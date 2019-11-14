@@ -56,6 +56,11 @@ namespace IntellisenseFileGen
             _repoRootFolder = ECMALoader.GetRepoRootBySubPath(_xmlDataFolder);
             _fileAccessor = new FileAccessor(_repoRootFolder);
 
+            WriteLine(string.Format("xml path:'{0}'", _xmlDataFolder));
+            WriteLine(string.Format("docset path:'{0}'", _docsetFolder));
+            WriteLine(string.Format("out path:'{0}'", _outFolder));
+            WriteLine(string.Format("root path:'{0}'", _repoRootFolder));
+
             try
             {
                 Start();

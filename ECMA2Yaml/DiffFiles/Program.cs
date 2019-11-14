@@ -113,11 +113,11 @@ namespace DiffFiles
             {
                 ConsoleLog(string.Format("Path1 have {0} files", oldFileList.Count()));
                 ConsoleLog(string.Format("Path2 have {0} files", newFileList.Count()));
-                
+
                 //List<string> shortYaml1FileNameList = oldFileList.Select(f => f.FullName.Replace(oldPath, "")).ToList();
                 //List<string> shortYaml2FileNameList = newFileList.Select(f => f.FullName.Replace(newPath, "")).ToList();
-                List<string> shortYaml1FileNameList = oldFileList.Select(f => f.Name).ToList();
-                List<string> shortYaml2FileNameList = newFileList.Select(f => f.Name).ToList();
+                List<string> shortYaml1FileNameList = oldFileList.Select(f => f.FullName.Replace(oldPath, "")).ToList();
+                List<string> shortYaml2FileNameList = newFileList.Select(f => f.FullName.Replace(newPath, "")).ToList();
 
                 var except = shortYaml2FileNameList.Except(shortYaml1FileNameList);
                 var except1 = shortYaml1FileNameList.Except(shortYaml2FileNameList);
@@ -153,12 +153,12 @@ namespace DiffFiles
                 oldFileList.ToList().ForEach(file =>
                 {
                     string file1FullPath = file.FullName;
-                    string file2FullPath = newFileList.Where(p=>p.Name==file.Name).FirstOrDefault()?.FullName;
-                    
+                    string file2FullPath = newFileList.Where(p => p.FullName.Replace(newPath, oldPath) == file1FullPath).FirstOrDefault()?.FullName;
+
                     string diffMessage = string.Empty;
                     if (!CompareFiles(file1FullPath, file2FullPath, out diffMessage))
                     {
-                        LogMessage(2, string.Format("================{0} have diff as following===========\r\n", file.Name));
+                        LogMessage(2, string.Format("================{0} have diff as following===========\r\n", file.FullName.Replace(oldPath, "")));
                         LogMessage(2, diffMessage);
                     }
                 });
@@ -231,7 +231,7 @@ namespace DiffFiles
         private static FileInfo[] GetFiles(string path)
         {
             DirectoryInfo di = new DirectoryInfo(path);
-            return di.GetFiles("*.yml", SearchOption.AllDirectories);
+            return di.GetFiles("*.*", SearchOption.AllDirectories);
         }
 
         private static void LogMessage(int errorType, string message)
@@ -246,7 +246,7 @@ namespace DiffFiles
 
         private static void ConsoleLog(string message)
         {
-            Console.WriteLine(string.Format("[{0}]{1}",DateTime.Now,message));
+            Console.WriteLine(string.Format("[{0}]{1}", DateTime.Now, message));
         }
 
         private static string GetTestDataDir()
