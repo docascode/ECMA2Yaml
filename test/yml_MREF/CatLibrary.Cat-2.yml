@@ -35,6 +35,12 @@ items:
   nameWithType: CatLibrary.Cat<T,K>
   fullName: CatLibrary.Cat<T,K>
   type: Class
+  source:
+    remote:
+      path: /aaa/bbb.md
+      branch: master
+      repo: https://github.com/docascode/ECMA2Yaml
+    path: /aaa/bbb.md
   assemblies:
   - CatLibrary
   namespace: CatLibrary
@@ -105,10 +111,14 @@ items:
   - Win10
   - Win10 build 1
   - Win10 build 2
-  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
   monikers:
   - cat-1.0
   - cat-2.0
+  _op_AssemblyMonikerMapping:
+    CatLibrary:
+    - cat-1.0
+    - cat-2.0
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
   original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
   original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
 - uid: CatLibrary.Cat`2.#ctor

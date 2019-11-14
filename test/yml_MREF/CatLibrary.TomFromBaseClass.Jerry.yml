@@ -34,6 +34,9 @@ items:
   - public
   monikers:
   - cat-2.0
+  _op_AssemblyMonikerMapping:
+    CatLibrary:
+    - cat-2.0
   content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/TomFromBaseClass+Jerry.xml
   original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/TomFromBaseClass+Jerry.xml
   original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/TomFromBaseClass+Jerry.xml
