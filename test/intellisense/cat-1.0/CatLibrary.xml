@@ -15,6 +15,7 @@
       <typeparam name="T">This type should be class and can new instance.</typeparam>
       <typeparam name="K">This type is a struct type, class type can't be used for this parameter.</typeparam>
     </member>
+    <member name="E:CatLibrary.Cat`2.CatLibrary#ICat#eat" />
     <member name="E:CatLibrary.Cat`2.ownEat">
       <summary>
             Eat event of this cat</summary>
@@ -100,6 +101,8 @@
     <member name="M:CatLibrary.Cat`2.op_Subtraction(CatLibrary.Cat{`0,`1},System.Int32)">
       <summary>
             Similar with operaotr +, refer to that topic.</summary>
+      <param name="lsr" />
+      <param name="rsr" />
     </member>
     <member name="P:CatLibrary.Cat`2.Age">
       <summary>
@@ -121,8 +124,15 @@
       <summary>
             EII property.</summary>
     </member>
-    <member name="T:CatLibrary.CatException`1" />
-    <member name="T:CatLibrary.Complex`2" />
+    <member name="T:CatLibrary.CatException`1">
+      <typeparam name="T" />
+    </member>
+    <member name="M:CatLibrary.CatException`1.#ctor" />
+    <member name="T:CatLibrary.Complex`2">
+      <typeparam name="T"></typeparam>
+      <typeparam name="J"></typeparam>
+    </member>
+    <member name="M:CatLibrary.Complex`2.#ctor" />
     <member name="T:CatLibrary.FakeDelegate`1">
       <summary>
             Fake delegate</summary>
@@ -206,6 +216,7 @@
       <summary>
             Tom class is only inherit from Object. Not any member inside itself.</summary>
     </member>
+    <member name="M:CatLibrary.Tom.#ctor" />
     <member name="M:CatLibrary.Tom.TomMethod(CatLibrary.Complex{CatLibrary.TomFromBaseClass,CatLibrary.TomFromBaseClass},System.Tuple{System.String,CatLibrary.Tom})">
       <summary>
             This is a Tom Method with complex type as return</summary>
@@ -223,6 +234,7 @@
     <member name="M:CatLibrary.TomFromBaseClass.#ctor(System.Int32)">
       <summary>
             This is a #ctor with parameter</summary>
+      <param name="k"></param>
     </member>
     <member name="T:MRef.Demo.Enumeration.ColorType">
       <summary>

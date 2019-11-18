@@ -42,9 +42,15 @@ namespace DiffFiles
                     }
                 }
 
-                if (File.Exists(_logFileFullName) && !string.IsNullOrEmpty(File.ReadAllText(_logFileFullName)))
+                if (File.Exists(_logFileFullName))
                 {
-                    Environment.Exit(-1);
+                    string compareLog = File.ReadAllText(_logFileFullName);
+                    if (!string.IsNullOrEmpty(compareLog))
+                    {
+                        ConsoleLog("======================Compare log======================.");
+                        ConsoleLog(compareLog);
+                        Environment.Exit(-1);
+                    }
                 }
                 else
                 {
