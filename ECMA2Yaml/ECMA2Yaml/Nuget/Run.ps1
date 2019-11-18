@@ -105,6 +105,11 @@ foreach($ecmaConfig in $jobs)
         $skipPublishFilePath = $ParameterDictionary.environment.skipPublishFilePath;
         $allArgs +=  "-skipPublishFilePath"
         $allArgs +=  "$skipPublishFilePath"
+
+		# workaround for https://dev.azure.com/ceapex/Engineering/_workitems/edit/131942
+		$enIncludePath = Join-Path $fallbackRepoRoot "includes"
+		$locIncludePath = Join-Path $repositoryRoot "includes"
+		& robocopy /xc /xn /xo $enIncludePath $locIncludePath
     }
     
     if ($ecmaConfig.Flatten)
