@@ -100,6 +100,8 @@
     <member name="M:CatLibrary.Cat`2.op_Subtraction(CatLibrary.Cat{`0,`1},System.Int32)">
       <summary>
             Similar with operaotr +, refer to that topic.</summary>
+      <param name="lsr" />
+      <param name="rsr" />
     </member>
     <member name="P:CatLibrary.Cat`2.Age">
       <summary>
@@ -223,6 +225,7 @@
     <member name="M:CatLibrary.TomFromBaseClass.#ctor(System.Int32)">
       <summary>
             This is a #ctor with parameter</summary>
+      <param name="k"></param>
     </member>
     <member name="T:MRef.Demo.Enumeration.ColorType">
       <summary>
