@@ -232,7 +232,7 @@ namespace IntellisenseFileGen
             }
 
             var docsEle = new XElement("member");
-            SetDocsEle(docsEle, xmlDoc.Root.Element("Docs"), ItemsByDocId, docId);
+            SetDocsEle(docsEle, xmlDoc.Root, ItemsByDocId, docId);
             t.Docs = docsEle;
 
             var AssemblyInfoEleList = xmlDoc.Root.Elements("AssemblyInfo");
@@ -292,7 +292,7 @@ namespace IntellisenseFileGen
             SpecialProcessDuplicateParameters(member);
 
             var docsEle = new XElement("member");
-            SetDocsEle(docsEle, member.Element("Docs"), ItemsByDocId, docId);
+            SetDocsEle(docsEle, member, ItemsByDocId, docId);
             m.Docs = docsEle;
 
             var AssemblyInfoEleList = member.Elements("AssemblyInfo");
@@ -313,14 +313,7 @@ namespace IntellisenseFileGen
                 });
             }
 
-            if (docsEle.HasElements)
-            {
-                return m;
-            }
-            else
-            {
-                return null;
-            }
+            return m;
         }
 
         private static void SetDocsEle(XElement docsEle, XElement xmlEle, Dictionary<string, ECMA2Yaml.Models.ReflectionItem> ItemsByDocId, string docId)
@@ -330,10 +323,10 @@ namespace IntellisenseFileGen
                 return;
             }
 
-            var summaryEle = xmlEle.Element("summary");
-            var paramEles = xmlEle?.Elements("param");
-            var typeparamEles = xmlEle.Elements("typeparam");
-            var exceptionEles = xmlEle.Elements("exception");
+            var summaryEle = xmlEle.Element("Docs")?.Element("summary");
+            var paramEles = xmlEle.Element("Docs")?.Elements("param");
+            var typeparamEles = xmlEle.Element("Docs")?.Elements("typeparam");
+            var exceptionEles = xmlEle.Element("Docs")?.Elements("exception");
 
             if (summaryEle != null)
             {
@@ -347,48 +340,60 @@ namespace IntellisenseFileGen
             if (paramEles != null && paramEles.Count() > 0)
             {
                 BatchSpecialProcess(paramEles);
-                var withChildParaList = paramEles.Where(p => p.HasElements || !string.IsNullOrEmpty(p.Value)).ToList();
-                if (withChildParaList != null && withChildParaList.Count > 0)
+                docsEle.Add(paramEles);
+            }
+            else
+            {
+                var paras = xmlEle.Element("Parameters")?.Elements("Parameter");
+                if (paras != null && paras.Count() > 0)
                 {
-                    docsEle.Add(withChildParaList);
+                    paras.ToList().ForEach(p=> {
+                        var mPara = new XElement("param");
+                        mPara.SetAttributeValue("name",p.Attribute("Name")?.Value);
+                        docsEle.Add(mPara);
+                    });
                 }
             }
 
             if (typeparamEles != null && typeparamEles.Count() > 0)
             {
                 BatchSpecialProcess(typeparamEles);
-                var withChildtypeParaList = typeparamEles.Where(p => p.HasElements || !string.IsNullOrEmpty(p.Value)).ToList();
-                if (withChildtypeParaList != null && withChildtypeParaList.Count > 0)
+                docsEle.Add(typeparamEles);
+            }
+            else
+            {
+                var paras = xmlEle.Element("TypeParameters")?.Elements("TypeParameter");
+                if (paras != null && paras.Count() > 0)
                 {
-                    docsEle.Add(withChildtypeParaList);
+                    paras.ToList().ForEach(p => {
+                        var tPara = new XElement("typeparam");
+                        tPara.SetAttributeValue("name", p.Attribute("Name")?.Value);
+                        docsEle.Add(tPara);
+                    });
                 }
             }
 
             if (exceptionEles != null && exceptionEles.Count() > 0)
             {
                 BatchSpecialProcess(exceptionEles);
-                var withChildExceptionList = exceptionEles.Where(p => p.HasElements || !string.IsNullOrEmpty(p.Value)).ToList();
-                if (withChildExceptionList != null && withChildExceptionList.Count > 0)
-                {
-                    docsEle.Add(withChildExceptionList);
-                }
+                docsEle.Add(exceptionEles);
             }
 
             // Returns
-            if (xmlEle.Element("returns") != null)
+            if (xmlEle.Element("Docs")?.Element("returns") != null)
             {
-                if (xmlEle.Element("returns").Value != "To be added.")
+                if (xmlEle.Element("Docs")?.Element("returns").Value != "To be added.")
                 {
-                    var returnEle = xmlEle.Element("returns");
+                    var returnEle = xmlEle.Element("Docs")?.Element("returns");
                     SpecialProcessElement(returnEle);
                     docsEle.Add(returnEle);
                 }
             }
-            else if (xmlEle.Element("value") != null)
+            else if (xmlEle.Element("Docs")?.Element("value") != null)
             {
-                if (xmlEle.Element("value").Value != "To be added.")
+                if (xmlEle.Element("Docs")?.Element("value").Value != "To be added.")
                 {
-                    var child = xmlEle.Element("value").Nodes();
+                    var child = xmlEle.Element("Docs")?.Element("value").Nodes();
                     if (child != null && child.Count() > 0)
                     {
                         XElement returnsEle = new XElement("returns");

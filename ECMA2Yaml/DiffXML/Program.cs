@@ -54,10 +54,10 @@ namespace DiffXML
                             //{
                             SpecialProcessElement(p);
 
-                            if (IsEmpty(p))
-                            {
-                                p.Remove();
-                            }
+                            //if (IsEmpty(p))
+                            //{
+                            //    p.Remove();
+                            //}
                             //}
                         });
 
