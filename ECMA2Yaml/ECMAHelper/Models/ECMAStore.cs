@@ -342,7 +342,9 @@ namespace ECMA2Yaml.Models
                             notes.Caller = val;
                             break;
                         case "overrides":
-                            if (item.ItemType == ItemType.Interface || item.Parent?.ItemType == ItemType.Interface)
+                            if (item.ItemType == ItemType.Interface
+                                || item.Parent?.ItemType == ItemType.Interface
+                                || item.IsAbstract == true)
                             {
                                 notes.Implementer = val;
                             }

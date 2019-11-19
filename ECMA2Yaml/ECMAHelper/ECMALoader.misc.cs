@@ -257,7 +257,7 @@ namespace ECMA2Yaml
                 {
                     var startWithModifiers = new string[] { "public", "protected", "private" };
                     mods.AddRange(startWithModifiers.Where(m => val.StartsWith(m)));
-                    var containsModifiers = new string[] { "static", "const", "readonly", "sealed", "get;", "set;" };
+                    var containsModifiers = new string[] { "abstract", "static", "const", "readonly", "sealed", "get;", "set;" };
                     mods.AddRange(containsModifiers.Where(m => val.Contains(" " + m + " ")).Select(m => m.Trim(';')));
                 }
 

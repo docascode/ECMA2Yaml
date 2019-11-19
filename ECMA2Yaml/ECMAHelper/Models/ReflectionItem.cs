@@ -105,6 +105,17 @@ namespace ECMA2Yaml.Models
                 return null;
             }
         }
+        public bool? IsAbstract
+        {
+            get
+            {
+                if (Modifiers != null && Modifiers.ContainsKey("csharp"))
+                {
+                    return Modifiers["csharp"].Contains("abstract");
+                }
+                return null;
+            }
+        }
         public List<AssemblyInfo> AssemblyInfo { get; set; }
         public VersionedProperty<AssemblyInfo> VersionedAssemblyInfo { get; set; }
 
