@@ -21,12 +21,13 @@ namespace IntellisenseFileGen
         static string _outFolder = @"G:\ECMA2Yaml-output\GenerateIntellisense\_intellisense";
         static string _moniker = string.Empty;
         static string _repoRootFolder = string.Empty;
-        static Dictionary<string, string> _replaceStringDic = new Dictionary<string, string>() {
-            { "\\\"","\"" },
-            { "\\*","*" },
-            { "\\\\","\\" },
-            { "\\#","#" },
-            { "\\_","_" },
+        static string[] _replaceStringDic = new string[] {
+            "1C3C342C96EA43BD96398FAADBD52FF2",@"\\",@"\"
+            ,"99AC517E3C8446B48C624569028BE7A2","\\\"","\""
+            ,"2BAD1A8DDD5C4C55A920F73420E93A9B",@"\*","*"
+            ,"3AB5B1F3925442EE9934073CB9F8F0D6",@"\#","#"
+            ,"5EA867E6FA4C4CD0A67956D5FF4BA155",@"\_","_"
+            ,"B550F73CF41241B4977E7F607604D4FA",@"\[","["
         };
         private static string[] _ignoreTags = new string[] { "sup", "b", "csee", "br" };
         static FileAccessor _fileAccessor;
@@ -347,9 +348,10 @@ namespace IntellisenseFileGen
                 var paras = xmlEle.Element("Parameters")?.Elements("Parameter");
                 if (paras != null && paras.Count() > 0)
                 {
-                    paras.ToList().ForEach(p=> {
+                    paras.ToList().ForEach(p =>
+                    {
                         var mPara = new XElement("param");
-                        mPara.SetAttributeValue("name",p.Attribute("Name")?.Value);
+                        mPara.SetAttributeValue("name", p.Attribute("Name")?.Value);
                         docsEle.Add(mPara);
                     });
                 }
@@ -365,7 +367,8 @@ namespace IntellisenseFileGen
                 var paras = xmlEle.Element("TypeParameters")?.Elements("TypeParameter");
                 if (paras != null && paras.Count() > 0)
                 {
-                    paras.ToList().ForEach(p => {
+                    paras.ToList().ForEach(p =>
+                    {
                         var tPara = new XElement("typeparam");
                         tPara.SetAttributeValue("name", p.Attribute("Name")?.Value);
                         docsEle.Add(tPara);
@@ -561,12 +564,12 @@ namespace IntellisenseFileGen
 
             if (content.Length > 5)
             {
-                // **Switch Viewing Mode** => Switch Viewing Mode
-                foreach (string key in _replaceStringDic.Keys)
+                // \* => 2BAD1A8DDD5C4C55A920F73420E93A9B
+                for (int i = 0; i < _replaceStringDic.Length - 1; i += 3)
                 {
-                    if (content.Contains(key))
+                    if (content.Contains(_replaceStringDic[i + 1]))
                     {
-                        content = content.Replace(key, _replaceStringDic[key]);
+                        content = content.Replace(_replaceStringDic[i + 1], _replaceStringDic[i]);
                         contentChange = true;
                     }
                 }
@@ -650,6 +653,16 @@ namespace IntellisenseFileGen
                     for (int i = 0; i < matches.Length; i += 2)
                     {
                         content = content.Replace(matches[i], matches[i + 1]);
+                        contentChange = true;
+                    }
+                }
+
+                // 2BAD1A8DDD5C4C55A920F73420E93A9B => *
+                for (int i = 0; i < _replaceStringDic.Length - 1; i += 3)
+                {
+                    if (content.Contains(_replaceStringDic[i]))
+                    {
+                        content = content.Replace(_replaceStringDic[i], _replaceStringDic[i + 2]);
                         contentChange = true;
                     }
                 }
