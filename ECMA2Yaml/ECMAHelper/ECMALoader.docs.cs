@@ -105,7 +105,7 @@ namespace ECMA2Yaml
                 Parameters = dElement.Elements("param")?.Where(p => !string.IsNullOrEmpty(p.Attribute("name").Value)).ToDictionary(p => p.Attribute("name").Value, p => NormalizeDocsElement(p)),
                 TypeParameters = dElement.Elements("typeparam")?.Where(p => !string.IsNullOrEmpty(p.Attribute("name").Value)).ToDictionary(p => p.Attribute("name").Value, p => NormalizeDocsElement(GetInnerXml(p))),
                 AdditionalNotes = additionalNotes,
-                Returns = NormalizeDocsElement(GetInnerXml(dElement.Element("returns"))), //<value> will be transformed to <returns> by xslt in advance
+                Returns = NormalizeDocsElement(dElement.Element("returns")), //<value> will be transformed to <returns> by xslt in advance
                 ThreadSafety = threadSafetyContent,
                 ThreadSafetyInfo = threadSafety,
                 Since = NormalizeDocsElement(dElement.Element("since")?.Value),
