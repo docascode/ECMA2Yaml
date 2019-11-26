@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace IntellisenseFileGen
@@ -9,19 +10,19 @@ namespace IntellisenseFileGen
     public class Constants
     {
         // [!INCLUDE[vstecmsbuild] (~/includes/vstecmsbuild-md.md)]
-        public static readonly string Include_Pattern1 = "(\\[!INCLUDE.*?\\((.*?)\\)\\])";
+        public static Regex Include_Pattern1 = new Regex("(\\[!INCLUDE.*?\\((.*?)\\)\\])", RegexOptions.Compiled);
         // !INCLUDE[linq_dataset]
-        public static readonly string Include_Pattern2 = "(!INCLUDE\\[(.*?)\\])";
+        public static Regex Include_Pattern2 = new Regex("(!INCLUDE\\[(.*?)\\])", RegexOptions.Compiled);
 
         // [ISymUnmanagedWriter Interface](~/docs/framework/unmanaged-api/diagnostics/isymunmanagedwriter-interface.md) 
-        public static readonly string Link_Pattern = "(\\[(.*?)\\]\\(.*\\))";
+        public static Regex Link_Pattern = new Regex("(\\[(.*?)\\]\\(.*\\))", RegexOptions.Compiled);
 
         // *Unix*,_Unix_
-        public static readonly string SingleSytax_Pattern = "([\\*|\\`]([\\w|\\.|\\#|\\+|\\s|/|-]+?)[\\*|\\`])";
+        public static Regex SingleSytax_Pattern = new Regex("([\\*|\\`]([\\w|\\.|\\#|\\+|\\s|/|-]+?)[\\*|\\`])", RegexOptions.Compiled);
         // **Unix**,__Unix__
-        public static readonly string DoubleSytax_Pattern = "([_*]{2}([\\w|\\.|\\#|\\+|\\s|/|-]+?)[_*]{2})";
+        public static Regex DoubleSytax_Pattern = new Regex("([_*]{2}([\\w|\\.|\\#|\\+|\\s|/|-]+?)[_*]{2})", RegexOptions.Compiled);
         // 
-        public static readonly string TripleSytax_Pattern = "TODO";
+        public static Regex TripleSytax_Pattern = new Regex("TODO", RegexOptions.Compiled);
 
     }
 }

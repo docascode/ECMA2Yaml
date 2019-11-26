@@ -9,7 +9,7 @@ namespace IntellisenseFileGen
 {
     public class RegexHelper
     {
-        public static string[] GetMatches_All_JustWantedOne(string pattern, string input)
+        public static string[] GetMatches_All_JustWantedOne(Regex regex, string input)
         {
             List<string> strList = new List<string>();
             if (string.IsNullOrEmpty(input))
@@ -17,7 +17,7 @@ namespace IntellisenseFileGen
                 return null;
             }
 
-            MatchCollection matches = GetMatch(pattern, input);
+            MatchCollection matches = GetMatch(regex, input);
             if (matches != null && matches.Count > 0)
             {
                 foreach (Match match in matches)
@@ -36,9 +36,8 @@ namespace IntellisenseFileGen
             return strList.ToArray();
         }
 
-        private static MatchCollection GetMatch(string pattern, string input, RegexOptions regexOptions = RegexOptions.IgnoreCase)
+        private static MatchCollection GetMatch(Regex regex, string input)
         {
-            Regex regex = new Regex(pattern, regexOptions);
             if (regex.IsMatch(input))
             {
                 return regex.Matches(input);

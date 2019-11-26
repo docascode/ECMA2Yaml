@@ -575,8 +575,7 @@ namespace IntellisenseFileGen
                 }
 
                 // [!INCLUDE[vstecmsbuild](~/includes/vstecmsbuild-md.md)]
-                string pattern = Constants.Include_Pattern1;
-                var matches = RegexHelper.GetMatches_All_JustWantedOne(pattern, content);
+                var matches = RegexHelper.GetMatches_All_JustWantedOne(Constants.Include_Pattern1, content);
                 if (matches != null && matches.Length >= 2)
                 {
                     for (int i = 0; i < matches.Length; i += 2)
@@ -597,8 +596,7 @@ namespace IntellisenseFileGen
                 }
 
                 // !INCLUDE[linq_dataset]
-                pattern = Constants.Include_Pattern2;
-                matches = RegexHelper.GetMatches_All_JustWantedOne(pattern, content);
+                matches = RegexHelper.GetMatches_All_JustWantedOne(Constants.Include_Pattern2, content);
                 if (matches != null && matches.Length >= 2)
                 {
                     for (int i = 0; i < matches.Length; i += 2)
@@ -619,8 +617,7 @@ namespace IntellisenseFileGen
                 }
 
                 // [ISymUnmanagedWriter Interface](~/docs/framework/unmanaged-api/diagnostics/isymunmanagedwriter-interface.md) => ISymUnmanagedWriter Interface
-                pattern = Constants.Link_Pattern;
-                matches = RegexHelper.GetMatches_All_JustWantedOne(pattern, content);
+                matches = RegexHelper.GetMatches_All_JustWantedOne(Constants.Link_Pattern, content);
                 if (matches != null && matches.Length >= 2)
                 {
                     for (int i = 0; i < matches.Length; i += 2)
@@ -632,8 +629,7 @@ namespace IntellisenseFileGen
 
                 // **Unix** => Unix
                 // __Unix__ => Unix
-                pattern = Constants.DoubleSytax_Pattern;
-                matches = RegexHelper.GetMatches_All_JustWantedOne(pattern, content);
+                matches = RegexHelper.GetMatches_All_JustWantedOne(Constants.DoubleSytax_Pattern, content);
                 if (matches != null && matches.Length >= 2)
                 {
                     for (int i = 0; i < matches.Length; i += 2)
@@ -646,8 +642,7 @@ namespace IntellisenseFileGen
                 // *Unix* => Unix
                 // `Unix` => Unix
                 // TODO: _Unix_ => Unix, need to identify this case HKEY_CLASSES_ROOT
-                pattern = Constants.SingleSytax_Pattern;
-                matches = RegexHelper.GetMatches_All_JustWantedOne(pattern, content);
+                matches = RegexHelper.GetMatches_All_JustWantedOne(Constants.SingleSytax_Pattern, content);
                 if (matches != null && matches.Length >= 2)
                 {
                     for (int i = 0; i < matches.Length; i += 2)

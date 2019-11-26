@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
@@ -134,11 +135,11 @@ namespace UnitTest
             Assert.AreEqual<string>(text.Value, expected);
         }
 
-        private static void PatternValidate(string inText, string expected, string pattern)
+        private static void PatternValidate(string inText, string expected, Regex regex)
         {
             string updatedContent = inText;
 
-            var matches = RegexHelper.GetMatches_All_JustWantedOne(pattern, inText);
+            var matches = RegexHelper.GetMatches_All_JustWantedOne(regex, inText);
             if (matches != null && matches.Length >= 2)
             {
                 for (int i = 0; i < matches.Length; i += 2)
