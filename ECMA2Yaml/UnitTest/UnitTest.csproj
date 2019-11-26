@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ExtensionTests.cs" />
+    <Compile Include="IntellisenseFileTests.cs" />
     <Compile Include="MarkdownTests.cs" />
     <Compile Include="EcmaDescTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -76,6 +77,10 @@
     <ProjectReference Include="..\ECMAHelper\ECMAHelper.csproj">
       <Project>{b5d18314-613f-492a-9564-c9bcd1a183e6}</Project>
       <Name>ECMAHelper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IntellisenseFileGen\IntellisenseFileGen.csproj">
+      <Project>{af9d36ac-56b3-45b1-84e1-5c9160e96b85}</Project>
+      <Name>IntellisenseFileGen</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
