@@ -21,8 +21,17 @@ namespace IntellisenseFileGen
         public static Regex SingleSytax_Pattern = new Regex("([\\*|\\`]([\\w|\\.|\\#|\\+|\\s|/|-]+?)[\\*|\\`])", RegexOptions.Compiled);
         // **Unix**,__Unix__
         public static Regex DoubleSytax_Pattern = new Regex("([_*]{2}([\\w|\\.|\\#|\\+|\\s|/|-]+?)[_*]{2})", RegexOptions.Compiled);
-        // 
-        public static Regex TripleSytax_Pattern = new Regex("TODO", RegexOptions.Compiled);
 
+        //```csharp this is a test page```
+        //```csharp 
+        //this is a test page 
+        //```
+        public static Regex TripleSytax_Pattern1 = new Regex("(```csharp\\s*(.*?)\\s*```)", RegexOptions.Compiled);
+
+        //```this is a test page```
+        //```
+        //this is a test page
+        //```
+        public static Regex TripleSytax_Pattern2 = new Regex("(```\\s*(.*?)\\s*```)", RegexOptions.Compiled);
     }
 }

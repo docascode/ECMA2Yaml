@@ -652,6 +652,28 @@ namespace IntellisenseFileGen
                     }
                 }
 
+                //```csharp this is a test page```
+                matches = RegexHelper.GetMatches_All_JustWantedOne(Constants.TripleSytax_Pattern1, content);
+                if (matches != null && matches.Length >= 2)
+                {
+                    for (int i = 0; i < matches.Length; i += 2)
+                    {
+                        content = content.Replace(matches[i], matches[i + 1]);
+                        contentChange = true;
+                    }
+                }
+
+                //```this is a test page```
+                matches = RegexHelper.GetMatches_All_JustWantedOne(Constants.TripleSytax_Pattern2, content);
+                if (matches != null && matches.Length >= 2)
+                {
+                    for (int i = 0; i < matches.Length; i += 2)
+                    {
+                        content = content.Replace(matches[i], matches[i + 1]);
+                        contentChange = true;
+                    }
+                }
+
                 // 2BAD1A8DDD5C4C55A920F73420E93A9B => *
                 for (int i = 0; i < _replaceStringDic.Length - 1; i += 3)
                 {
