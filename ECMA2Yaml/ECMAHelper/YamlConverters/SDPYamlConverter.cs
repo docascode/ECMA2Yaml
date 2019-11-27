@@ -81,9 +81,8 @@ namespace ECMA2Yaml
 
         private T InitWithBasicProperties<T>(ReflectionItem item) where T : ItemSDPModelBase, new()
         {
-            var signatures = ConverterHelper.BuildSignatures(item)
-                ?.Select(sig => new SignatureModel() { Lang = sig.Key, Value = sig.Value })
-                .ToList();
+            var rawSignatures = _store.UWPMode ? ConverterHelper.BuildUWPSignatures(item) : ConverterHelper.BuildSignatures(item);
+            var signatures = rawSignatures?.Select(sig => new SignatureModel() { Lang = sig.Key, Value = sig.Value }).ToList();
             T rval = new T
             {
                 Uid = item.Uid,

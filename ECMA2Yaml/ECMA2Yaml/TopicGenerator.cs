@@ -230,12 +230,12 @@ namespace ECMA2Yaml
         public static SyntaxDetailViewModel ToSyntaxDetailViewModel(this ReflectionItem item, ECMAStore store)
         {
             const string csharp = "C#";
-            var contents = ConverterHelper.BuildSignatures(item);
+            var contents = store.UWPMode ? ConverterHelper.BuildUWPSignatures(item) : ConverterHelper.BuildSignatures(item);
 
             var syntax = new SyntaxDetailViewModel()
             {
                 Contents = contents,
-                Content = contents.ContainsKey(Models.Constants.DevLangMapping[csharp]) ? contents[Models.Constants.DevLangMapping[csharp]] : null,
+                Content = contents.ContainsKey(Models.ECMADevLangs.OPSMapping[csharp]) ? contents[Models.ECMADevLangs.OPSMapping[csharp]] : null,
                 Parameters = item.Parameters?.Select(p => p.ToApiParameter(store))?.ToList(),
                 TypeParameters = item.TypeParameters?.Select(tp => tp.ToApiParameter(store))?.ToList()
             };

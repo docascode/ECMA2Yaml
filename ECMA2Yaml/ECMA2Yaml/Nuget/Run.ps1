@@ -124,6 +124,10 @@ foreach($ecmaConfig in $jobs)
     {
         $allArgs += "-SDP";
     }
+	if ($ecmaConfig.UWP)
+    {
+        $allArgs += "-UWP";
+    }
     if (-not [string]::IsNullOrEmpty($ecmaConfig.SourceMetadataFolder))
     {
         $ecmaSourceMetadataFolder = Join-Path $repositoryRoot $ecmaConfig.SourceMetadataFolder

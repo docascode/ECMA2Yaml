@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace ECMA2Yaml
@@ -39,9 +40,9 @@ namespace ECMA2Yaml
             {
                 foreach (var sigPair in item.Signatures)
                 {
-                    if (Models.Constants.DevLangMapping.ContainsKey(sigPair.Key))
+                    if (Models.ECMADevLangs.OPSMapping.ContainsKey(sigPair.Key))
                     {
-                        var lang = Models.Constants.DevLangMapping[sigPair.Key];
+                        var lang = Models.ECMADevLangs.OPSMapping[sigPair.Key];
                         if (sigPair.Key == csharp)
                         {
                             var contentBuilder = new StringBuilder();
@@ -64,6 +65,57 @@ namespace ECMA2Yaml
             }
 
             return contents;
+        }
+
+        public static SortedList<string, string> BuildUWPSignatures(ReflectionItem item)
+        {
+            var contents = new SortedList<string, string>();
+            if (item.Signatures != null)
+            {
+                foreach (var sigPair in item.Signatures)
+                {
+                    if (Models.ECMADevLangs.OPSMapping.ContainsKey(sigPair.Key))
+                    {
+                        var langAlias = Models.ECMADevLangs.OPSMapping[sigPair.Key];
+                        switch (sigPair.Key)
+                        {
+                            case ECMADevLangs.CSharp:
+                                contents[langAlias] = UWPCSharpSignatureTransform(sigPair.Value);
+                                break;
+                            case ECMADevLangs.CPP_CLI:
+                            case ECMADevLangs.CPP_CX:
+                            case ECMADevLangs.CPP_WINRT:
+                                contents[langAlias] = UWPCPPSignatureTransform(sigPair.Value);
+                                break;
+                            default:
+                                contents[langAlias] = sigPair.Value;
+                                break;
+                        }
+                    }
+                }
+            }
+
+            return contents;
+        }
+
+        private static readonly Regex CSharpSignatureLongNameRegex = new Regex("\\w+(\\.\\w+){2,}", RegexOptions.Compiled);
+        private static string UWPCSharpSignatureTransform(string sig)
+        {
+            return CSharpSignatureLongNameRegex.Replace(sig, match =>
+            {
+                var val = match.Value;
+                return val.Substring(val.LastIndexOf('.') + 1);
+            });
+        }
+
+        private static readonly Regex CPPSignatureLongNameRegex = new Regex("\\w+(::\\w+){2,}", RegexOptions.Compiled);
+        private static string UWPCPPSignatureTransform(string sig)
+        {
+            return CPPSignatureLongNameRegex.Replace(sig, match =>
+            {
+                var val = match.Value;
+                return val.Substring(val.LastIndexOf(':') + 1);
+            });
         }
     }
 }

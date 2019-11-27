@@ -61,6 +61,7 @@ namespace ECMA2Yaml
                 return;
             }
             store.StrictMode = opt.StrictMode;
+            store.UWPMode = opt.UWPMode;
 
             WriteLine("Building loaded files...");
             store.Build();

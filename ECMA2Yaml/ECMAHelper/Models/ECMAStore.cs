@@ -20,6 +20,7 @@ namespace ECMA2Yaml.Models
         public ILookup<string, Member> ExtensionMethodUidsByTargetUid { get; set; }
         public FilterStore FilterStore { get; set; }
         public bool StrictMode { get; set; }
+        public bool UWPMode { get; set; }
 
         private static Dictionary<string, EcmaDesc> typeDescriptorCache;
 
@@ -719,7 +720,7 @@ namespace ECMA2Yaml.Models
             }
         }
 
-        string[] attributePrefix = { "get: ", "set: ", "add: ", "remove: " };
+        readonly string[] attributePrefix = { "get: ", "set: ", "add: ", "remove: " };
 
         private void ResolveAttribute(ECMAAttribute attr)
         {
@@ -996,7 +997,7 @@ namespace ECMA2Yaml.Models
 
         public static EcmaDesc GetOrAddTypeDescriptor(string typeString)
         {
-            EcmaDesc desc = null;
+            EcmaDesc desc;
             if (typeDescriptorCache.ContainsKey(typeString))
             {
                 desc = typeDescriptorCache[typeString];

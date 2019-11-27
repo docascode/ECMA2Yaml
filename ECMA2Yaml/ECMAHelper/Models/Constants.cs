@@ -54,17 +54,27 @@ namespace ECMA2Yaml.Models
         StringArray
     }
 
-    public static class Constants
+    public static class ECMADevLangs
     {
-        public static IReadOnlyDictionary<string, string> DevLangMapping = new Dictionary<string, string>
+        public static IReadOnlyDictionary<string, string> OPSMapping = new Dictionary<string, string>
         {
-            {"C#", "csharp" },
-            {"VB.NET", "vb" },
-            {"F#", "fsharp" },
-            {"C++ CLI", "cpp" },
-            {"C++ CX", "cppcx" },
-            {"C++ WINRT", "cppwinrt" },
-            {"JavaScript", "javascript" }
+            { CSharp, "csharp" },
+            { VB, "vb" },
+            { FSharp, "fsharp" },
+            { CPP_CLI, "cpp" },
+            { CPP_CX, "cppcx" },
+            { CPP_WINRT, "cppwinrt" },
+            { JavaScript, "javascript" }
         };
+
+        public static readonly string[] All = typeof(ECMADevLangs).GetAllPublicConstantValues<string>();
+
+        public const string CSharp = "C#";
+        public const string VB = "VB.NET";
+        public const string FSharp = "F#";
+        public const string CPP_CLI = "C++ CLI";
+        public const string CPP_CX = "C++ CX";
+        public const string CPP_WINRT = "C++ WINRT";
+        public const string JavaScript = "JavaScript";
     }
 }
