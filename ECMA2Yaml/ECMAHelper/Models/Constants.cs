@@ -63,7 +63,8 @@ namespace ECMA2Yaml.Models
             {"F#", "fsharp" },
             {"C++ CLI", "cpp" },
             {"C++ CX", "cppcx" },
-            {"C++ WINRT", "cppwinrt" }
+            {"C++ WINRT", "cppwinrt" },
+            {"JavaScript", "javascript" }
         };
     }
 }

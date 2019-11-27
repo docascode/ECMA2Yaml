@@ -207,7 +207,7 @@ namespace ECMA2Yaml
             t.Signatures = new Dictionary<string, string>();
             foreach (var sig in tRoot.Elements("TypeSignature"))
             {
-                t.Signatures[sig.Attribute("Language").Value] = sig.Attribute("Value").Value;
+                t.Signatures[sig.Attribute("Language").Value] = (sig.Attribute("Value") ?? sig.Attribute("Usage"))?.Value;
                 var modifierList = ParseModifiersFromSignatures(t.Signatures);
                 if (t.Modifiers == null)
                 {
