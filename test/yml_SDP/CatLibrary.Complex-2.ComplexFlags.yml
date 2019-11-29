@@ -37,6 +37,8 @@ assemblies:
 - CatLibrary
 attributes:
 - System.FlagsAttribute
+attributesWithMoniker:
+- uid: System.FlagsAttribute
 syntax:
 - lang: cpp
   value: 'public: enum class Complex<T, J>::ComplexFlags'

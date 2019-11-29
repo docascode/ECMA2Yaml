@@ -506,6 +506,9 @@
         <Attribute>
           <AttributeName>System.ContextStatic</AttributeName>
         </Attribute>
+        <Attribute FrameworkAlternate="cat-2.0">
+          <AttributeName>System.Obsolete("mark IsHealthy as obsolete for testing")</AttributeName>
+        </Attribute>
       </Attributes>
       <ReturnValue>
         <ReturnType>System.Boolean</ReturnType>

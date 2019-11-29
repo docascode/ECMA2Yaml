@@ -112,6 +112,7 @@
     <Compile Include="Models\SDP\Shared\TypeParameter.cs" />
     <Compile Include="Models\SDP\Shared\TypeReference.cs" />
     <Compile Include="Models\SDP\DelegateSDPModel.cs" />
+    <Compile Include="Models\SDP\Shared\VersionedAttribute.cs" />
     <Compile Include="Models\SDP\TypeSDPModel.cs" />
     <Compile Include="Models\SDP\NamespaceSDPModel.cs" />
     <Compile Include="YamlConverters\SDPYamlConverter.metadata.cs" />

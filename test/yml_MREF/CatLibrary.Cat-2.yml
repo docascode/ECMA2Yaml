@@ -515,6 +515,8 @@ items:
     content: >-
       [System.ContextStatic]
 
+      [System.Obsolete("mark IsHealthy as obsolete for testing")]
+
       public bool isHealthy;
     return:
       type: System.Boolean
@@ -523,12 +525,15 @@ items:
     content.csharp: >-
       [System.ContextStatic]
 
+      [System.Obsolete("mark IsHealthy as obsolete for testing")]
+
       public bool isHealthy;
     content.fsharp: 'val mutable isHealthy : bool'
     content.vb: 'Public isHealthy As Boolean '
   exceptions: []
   attributes:
   - type: System.ContextStaticAttribute
+  - type: System.ObsoleteAttribute
   modifiers.csharp:
   - public
   monikers:

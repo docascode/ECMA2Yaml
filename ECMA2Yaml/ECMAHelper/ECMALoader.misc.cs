@@ -303,7 +303,8 @@ namespace ECMA2Yaml
             return new ECMAAttribute()
             {
                 Declaration = attrElement.Element("AttributeName").Value,
-                Visible = true
+                Visible = true,
+                Monikers = attrElement.Attribute("FrameworkAlternate")?.Value.Split(';').ToHashSet()
             };
         }
 

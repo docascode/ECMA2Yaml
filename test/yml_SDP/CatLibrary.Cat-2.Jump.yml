@@ -21,6 +21,8 @@ members:
   nameWithType: Cat<T,K>.Jump(T, K, Boolean)
   attributes:
   - System.Diagnostics.ConditionalAttribute
+  attributesWithMoniker:
+  - uid: System.Diagnostics.ConditionalAttribute
   syntax:
   - lang: cpp
     value: >-

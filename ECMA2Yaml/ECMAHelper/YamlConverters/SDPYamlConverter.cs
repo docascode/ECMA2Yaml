@@ -90,7 +90,11 @@ namespace ECMA2Yaml
                 Name = item.Name,
 
                 Assemblies = item.AssemblyInfo?.Select(asm => asm.Name).Distinct().ToList(),
-                Attributes = item.Attributes?.Where(att => att.Visible).Select(att => att.TypeFullName).ToList().NullIfEmpty(),
+                Attributes = item.Attributes?.Where(att => att.Visible).Select(att => att.TypeFullName)
+                    .ToList().NullIfEmpty(),
+                AttributesWithMoniker = item.Attributes?.Where(att => att.Visible)
+                    .Select(att => new VersionedAttribute() { Uid = att.TypeFullName, Monikers = att.Monikers?.ToArray() })
+                    .ToList().NullIfEmpty(),
                 Syntax = signatures,
                 DevLangs = signatures?.Select(sig => sig.Lang).ToList().NullIfEmpty() ?? defaultLangList,
 
@@ -172,13 +176,13 @@ namespace ECMA2Yaml
             return null;
         }
 
-        private T ConvertParameter<T>(Parameter p, List<Parameter> knownTypeParams = null, bool showGenericType = true) where T: TypeReference, new()
+        private T ConvertParameter<T>(Parameter p, List<Parameter> knownTypeParams = null, bool showGenericType = true) where T : TypeReference, new()
         {
             var isGeneric = knownTypeParams?.Any(tp => tp.Name == p.Type) ?? false;
             return new T()
             {
                 Description = p.Description,
-                Type = isGeneric 
+                Type = isGeneric
                     ? (showGenericType ? p.Type : "") // should be `p.Type`, tracked in https://ceapex.visualstudio.com/Engineering/_workitems/edit/72695
                     : TypeStringToTypeMDString(p.OriginalTypeString ?? p.Type, _store)
             };
@@ -203,7 +207,7 @@ namespace ECMA2Yaml
             StringBuilder sb = new StringBuilder();
             if (docs.AltMemberCommentIds != null)
             {
-                foreach(var altMemberId in docs.AltMemberCommentIds)
+                foreach (var altMemberId in docs.AltMemberCommentIds)
                 {
                     var uid = altMemberId.ResolveCommentId(store)?.Uid ?? altMemberId.Substring(altMemberId.IndexOf(':') + 1);
                     uid = System.Web.HttpUtility.UrlEncode(uid);

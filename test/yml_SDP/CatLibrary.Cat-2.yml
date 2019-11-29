@@ -122,6 +122,8 @@ assemblies:
 - CatLibrary
 attributes:
 - System.SerializableAttribute
+attributesWithMoniker:
+- uid: System.SerializableAttribute
 syntax:
 - lang: cpp
   value: >-

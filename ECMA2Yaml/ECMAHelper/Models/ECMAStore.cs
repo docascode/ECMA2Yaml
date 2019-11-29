@@ -537,6 +537,11 @@ namespace ECMA2Yaml.Models
         private void MonikerizeItem(ReflectionItem item, List<string> monikers)
         {
             item.Metadata[OPSMetadata.Monikers] = monikers;
+            MonikerizeAssembly(item, monikers);
+        }
+
+        private void MonikerizeAssembly(ReflectionItem item, List<string> monikers)
+        {
             if (_frameworks.FrameworkAssembliesPurged?.Count > 0 && item.AssemblyInfo != null)
             {
                 var valuesPerMoniker = new Dictionary<string, List<AssemblyInfo>>();
@@ -562,7 +567,7 @@ namespace ECMA2Yaml.Models
                     }
                     else
                     {
-                        
+
                     }
                     valuesPerMoniker[moniker] = assemblies;
                 }

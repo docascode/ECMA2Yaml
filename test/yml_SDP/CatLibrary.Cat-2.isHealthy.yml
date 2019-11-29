@@ -10,12 +10,20 @@ members:
   nameWithType: Cat<T,K>.isHealthy
   attributes:
   - System.ContextStaticAttribute
+  - System.ObsoleteAttribute
+  attributesWithMoniker:
+  - uid: System.ContextStaticAttribute
+  - uid: System.ObsoleteAttribute
+    monikers:
+    - cat-2.0
   syntax:
   - lang: cpp
     value: 'public: bool isHealthy;'
   - lang: csharp
     value: >-
       [System.ContextStatic]
+
+      [System.Obsolete("mark IsHealthy as obsolete for testing")]
 
       public bool isHealthy;
   - lang: fsharp
@@ -25,6 +33,7 @@ members:
   monikers:
   - cat-1.0
   - cat-2.0
+  isDeprecated: true
   summary: Field with attribute.
   metadata: {}
 namespace: CatLibrary
