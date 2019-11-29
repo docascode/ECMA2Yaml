@@ -101,11 +101,12 @@ namespace ECMA2Yaml
         private static readonly Regex CSharpSignatureLongNameRegex = new Regex("\\w+(\\.\\w+){2,}", RegexOptions.Compiled);
         private static string UWPCSharpSignatureTransform(string sig)
         {
-            return CSharpSignatureLongNameRegex.Replace(sig, match =>
+            var csharpSyntax = CSharpSignatureLongNameRegex.Replace(sig, match =>
             {
                 var val = match.Value;
                 return val.Substring(val.LastIndexOf('.') + 1);
             });
+            return csharpSyntax.Replace(" (", "(");
         }
 
         private static readonly Regex CPPSignatureLongNameRegex = new Regex("\\w+(::\\w+){2,}", RegexOptions.Compiled);
