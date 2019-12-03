@@ -136,9 +136,9 @@ namespace ECMA2Yaml
             {
                 foreach (var t in ns.Types)
                 {
-                    if (t.Signatures != null && t.Signatures.ContainsKey("C#") && t.Signatures["C#"].StartsWith("public sealed class"))
+                    if (t.Signatures.IsPublishSealedClass)
                     {
-                        t.Members = t.Members.Where(m => !(m.Signatures.ContainsKey("C#") && m.Signatures["C#"].StartsWith("protected "))).ToList();
+                        t.Members = t.Members.Where(m => !m.Signatures.IsProtected).ToList();
                     }
                 }
             }
@@ -204,23 +204,9 @@ namespace ECMA2Yaml
             t.SourceFileLocalPath = typeFile.AbsolutePath;
 
             //TypeSignature
-            t.Signatures = new Dictionary<string, string>();
-            foreach (var sig in tRoot.Elements("TypeSignature"))
-            {
-                t.Signatures[sig.Attribute("Language").Value] = (sig.Attribute("Value") ?? sig.Attribute("Usage"))?.Value;
-                var modifierList = ParseModifiersFromSignatures(t.Signatures);
-                if (t.Modifiers == null)
-                {
-                    t.Modifiers = modifierList;
-                }
-                if (modifierList?.Count > 0
-                    && modifierList.TryGetValue("csharp", out List<string> mods)
-                    && t.Modifiers.TryGetValue("csharp", out var existingMods))
-                {
-                    t.Modifiers["csharp"] = existingMods.ConcatList(mods).Distinct().ToList();
-                }
-            }
-            t.DocId = t.Signatures.ContainsKey("DocId") ? t.Signatures["DocId"] : null;
+            t.Signatures = new VersionedSignatures(tRoot.Elements("TypeSignature"));
+            t.Modifiers = t.Signatures.CombinedModifiers;
+            t.DocId = t.Signatures.DocId;
 
             //AssemblyInfo
             t.AssemblyInfo = tRoot.Elements("AssemblyInfo")?.SelectMany(a => ParseAssemblyInfo(a)).ToList();
@@ -319,7 +305,7 @@ namespace ECMA2Yaml
 
         private static ItemType InferTypeOfType(Models.Type t)
         {
-            var signature = t.Signatures["C#"];
+            var signature = t.Signatures.Dict[ECMADevLangs.CSharp].FirstOrDefault()?.Value;
             if (t.BaseType == null && signature.Contains(" interface "))
             {
                 return ItemType.Interface;
@@ -382,27 +368,9 @@ namespace ECMA2Yaml
                 m.Metadata[OPSMetadata.LiteralValue] = memberValue;
             }
 
-            m.Signatures = new Dictionary<string, string>();
-            foreach (var sig in mElement.Elements("MemberSignature"))
-            {
-                var val = sig.Attribute("Value");
-                if (val != null)
-                {
-                    m.Signatures[sig.Attribute("Language").Value] = val.Value;
-                    var modifierList = ParseModifiersFromSignatures(m.Signatures, m);
-                    if (m.Modifiers == null)
-                    {
-                        m.Modifiers = modifierList;
-                    }
-                    if (modifierList?.Count > 0
-                        && modifierList.TryGetValue("csharp", out List<string> mods)
-                        && m.Modifiers.TryGetValue("csharp", out var existingMods))
-                    {
-                        m.Modifiers["csharp"] = existingMods.ConcatList(mods).Distinct().ToList();
-                    }
-                }
-            }
-            m.DocId = m.Signatures.ContainsKey("DocId") ? m.Signatures["DocId"] : null;
+            m.Signatures = new VersionedSignatures(mElement.Elements("MemberSignature"), m.ItemType);
+            m.Modifiers = m.Signatures.CombinedModifiers;
+            m.DocId = m.Signatures.DocId;
             m.AssemblyInfo = mElement.Elements("AssemblyInfo")?.SelectMany(a => ParseAssemblyInfo(a)).ToList();
 
             //TypeParameters
@@ -464,37 +432,9 @@ namespace ECMA2Yaml
             //Docs
             m.Docs = LoadDocs(mElement.Element("Docs"));
 
-            //hard code this type to minimize workaround impact
-            if (t.FullName == "Microsoft.VisualBasic.Collection")
-            {
-                FixEIIProperty(m);
-            }
-
             LoadMetadata(m, mElement);
 
             return m;
-        }
-
-        //workaround for https://github.com/mono/api-doc-tools/issues/92, bug #1025217
-        private void FixEIIProperty(Member m)
-        {
-            if (m.ItemType == ItemType.Property && m.Name.Contains('.'))
-            {
-                var parts = m.Name.Split('.');
-                if (parts.Length > 2 && parts.Last().StartsWith(parts[parts.Length - 2]))
-                {
-                    var name = m.Name.Replace(parts[parts.Length - 2] + "." + parts[parts.Length - 2], parts[parts.Length - 2] + ".");
-                    if (m.Signatures?.Count > 0)
-                    {
-                        var langs = m.Signatures.Keys.ToList();
-                        foreach (var lang in langs)
-                        {
-                            m.Signatures[lang] = m.Signatures[lang].Replace(m.Name, name);
-                        }
-                    }
-                    m.Name = name;
-                }
-            }
         }
 
         private Member LoadMemberGroup(Models.Type t, XElement mElement)

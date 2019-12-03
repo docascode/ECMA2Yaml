@@ -19,7 +19,9 @@ namespace ECMA2Yaml.Models
         {
             get
             {
-                return ItemType == ItemType.Property && Signatures.ContainsKey("C#") && Signatures["C#"].Contains("[");
+                return ItemType == ItemType.Property
+                    && Signatures.Dict.ContainsKey(ECMADevLangs.CSharp)
+                    && Signatures.Dict[ECMADevLangs.CSharp].Any(s => s.Value.Contains("["));
             }
         }
         public List<string> Implements { get; set; }

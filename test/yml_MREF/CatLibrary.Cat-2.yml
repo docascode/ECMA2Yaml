@@ -975,6 +975,7 @@ items:
   langs:
   - cpp
   - csharp
+  - fsharp
   - vb
   name: IAnimal.Item[Int32]
   nameWithType: Cat<T,K>.IAnimal.Item[Int32]
@@ -995,6 +996,7 @@ items:
       description: Cat's name.
     content.cpp: property System::String ^ CatLibrary::IAnimal::Item[int] { System::String ^ get(int a); };
     content.csharp: string CatLibrary.IAnimal.Item[int a] { get; }
+    content.fsharp: CatLibrary.IAnimal.Item
     content.vb: " ReadOnly Property Item(a As Integer) As String Implements IAnimal.Item"
   overload: CatLibrary.Cat`2.CatLibrary#IAnimal#Item*
   exceptions: []

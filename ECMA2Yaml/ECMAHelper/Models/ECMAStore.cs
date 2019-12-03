@@ -345,7 +345,7 @@ namespace ECMA2Yaml.Models
                         case "overrides":
                             if (item.ItemType == ItemType.Interface
                                 || item.Parent?.ItemType == ItemType.Interface
-                                || item.IsAbstract == true)
+                                || item.Signatures.IsAbstract == true)
                             {
                                 notes.Implementer = val;
                             }
@@ -399,7 +399,7 @@ namespace ECMA2Yaml.Models
                     var thisParam = m.Parameters?.FirstOrDefault(p =>  p.RefType == "this");
                     if (m.Parameters != null && thisParam != null)
                     {
-                        if (m.Parent != null && m.Parent.IsStatic.HasValue && m.Parent.IsStatic.Value == true)
+                        if (m.Parent != null && m.Parent.Signatures.IsStatic)
                         {
                             var targetDocId = thisParam.Type;
 
@@ -803,7 +803,7 @@ namespace ECMA2Yaml.Models
                         {
                             foreach (var m in inter.Members)
                             {
-                                if (m.Name != "Finalize" && m.ItemType != ItemType.Constructor && !(m.IsStatic.HasValue && m.IsStatic.Value))
+                                if (m.Name != "Finalize" && m.ItemType != ItemType.Constructor && !m.Signatures.IsStatic)
                                 {
                                     t.InheritedMembers[m.Id] = inter.Uid;
                                 }
@@ -863,7 +863,7 @@ namespace ECMA2Yaml.Models
 
                 t.InheritanceUids.Reverse();
 
-                if (t.ItemType == ItemType.Class && ! (t.IsStatic.HasValue && t.IsStatic.Value))
+                if (t.ItemType == ItemType.Class && !t.Signatures.IsStatic)
                 {
                     t.InheritedMembers = new Dictionary<string, string>();
                     foreach (var btUid in t.InheritanceUids)
@@ -879,7 +879,7 @@ namespace ECMA2Yaml.Models
                                         && m.ItemType != ItemType.Constructor
                                         && m.ItemType != ItemType.AttachedProperty
                                         && m.ItemType != ItemType.AttachedEvent
-                                        && ! (m.IsStatic.HasValue && m.IsStatic.Value))
+                                        && !m.Signatures.IsStatic)
                                     {
                                         t.InheritedMembers[m.Id] = bt.Uid;
                                     }

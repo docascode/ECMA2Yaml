@@ -115,6 +115,7 @@
     <Compile Include="Models\SDP\Shared\VersionedAttribute.cs" />
     <Compile Include="Models\SDP\TypeSDPModel.cs" />
     <Compile Include="Models\SDP\NamespaceSDPModel.cs" />
+    <Compile Include="Models\VersionedSignatures.cs" />
     <Compile Include="YamlConverters\SDPYamlConverter.metadata.cs" />
     <Compile Include="YamlConverters\SDPYamlConverter.Overload.cs" />
     <Compile Include="YamlConverters\SDPYamlConverter.Member.cs" />

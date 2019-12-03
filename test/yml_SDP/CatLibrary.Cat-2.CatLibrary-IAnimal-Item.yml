@@ -20,6 +20,8 @@ members:
     value: property System::String ^ CatLibrary::IAnimal::Item[int] { System::String ^ get(int a); };
   - lang: csharp
     value: string CatLibrary.IAnimal.Item[int a] { get; }
+  - lang: fsharp
+    value: CatLibrary.IAnimal.Item
   - lang: vb
     value: " ReadOnly Property Item(a As Integer) As String Implements IAnimal.Item"
   monikers:
@@ -38,6 +40,7 @@ assemblies:
 devLangs:
 - cpp
 - csharp
+- fsharp
 - vb
 monikers:
 - cat-1.0

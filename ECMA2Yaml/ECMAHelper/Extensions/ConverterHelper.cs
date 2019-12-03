@@ -34,16 +34,16 @@ namespace ECMA2Yaml
 
         public static SortedList<string, string> BuildSignatures(ReflectionItem item)
         {
-            const string csharp = "C#";
             var contents = new SortedList<string, string>();
-            if (item.Signatures != null)
+            if (item.Signatures?.Dict != null)
             {
-                foreach (var sigPair in item.Signatures)
+                foreach (var sigPair in item.Signatures.Dict)
                 {
                     if (Models.ECMADevLangs.OPSMapping.ContainsKey(sigPair.Key))
                     {
                         var lang = Models.ECMADevLangs.OPSMapping[sigPair.Key];
-                        if (sigPair.Key == csharp)
+                        var val = sigPair.Value.LastOrDefault()?.Value;
+                        if (sigPair.Key == ECMADevLangs.CSharp)
                         {
                             var contentBuilder = new StringBuilder();
                             if (item.Attributes?.Count > 0)
@@ -53,12 +53,12 @@ namespace ECMA2Yaml
                                     contentBuilder.AppendFormat("[{0}]\n", att.Declaration);
                                 }
                             }
-                            contentBuilder.Append(sigPair.Value);
+                            contentBuilder.Append(val);
                             contents[lang] = contentBuilder.ToString();
                         }
                         else
                         {
-                            contents[lang] = sigPair.Value;
+                            contents[lang] = val;
                         }
                     }
                 }
@@ -70,25 +70,26 @@ namespace ECMA2Yaml
         public static SortedList<string, string> BuildUWPSignatures(ReflectionItem item)
         {
             var contents = new SortedList<string, string>();
-            if (item.Signatures != null)
+            if (item.Signatures.Dict != null)
             {
-                foreach (var sigPair in item.Signatures)
+                foreach (var sigPair in item.Signatures.Dict)
                 {
                     if (Models.ECMADevLangs.OPSMapping.ContainsKey(sigPair.Key))
                     {
                         var langAlias = Models.ECMADevLangs.OPSMapping[sigPair.Key];
+                        var val = sigPair.Value.LastOrDefault()?.Value;
                         switch (sigPair.Key)
                         {
                             case ECMADevLangs.CSharp:
-                                contents[langAlias] = UWPCSharpSignatureTransform(sigPair.Value);
+                                contents[langAlias] = UWPCSharpSignatureTransform(val);
                                 break;
                             case ECMADevLangs.CPP_CLI:
                             case ECMADevLangs.CPP_CX:
                             case ECMADevLangs.CPP_WINRT:
-                                contents[langAlias] = UWPCPPSignatureTransform(sigPair.Value);
+                                contents[langAlias] = UWPCPPSignatureTransform(val);
                                 break;
                             default:
-                                contents[langAlias] = sigPair.Value;
+                                contents[langAlias] = val;
                                 break;
                         }
                     }

@@ -84,7 +84,7 @@ namespace ECMA2Yaml.Models
         public List<Parameter> TypeParameters { get; set; }
         public List<Parameter> Parameters { get; set; }
         public Parameter ReturnValueType { get; set; }
-        public Dictionary<string, string> Signatures { get; set; }
+        public VersionedSignatures Signatures { get; set; }
         public List<ECMAAttribute> Attributes { get; set; }
         public ReflectionItem Parent { get; set; }
         public Docs Docs { get; set; }
@@ -94,28 +94,6 @@ namespace ECMA2Yaml.Models
         public Dictionary<string, object> Metadata { get; set; }
         public Dictionary<string, object> ExtendedMetadata { get; set; }
         public SortedList<string, List<string>> Modifiers { get; set; }
-        public bool? IsStatic
-        {
-            get
-            {
-                if (Modifiers != null && Modifiers.ContainsKey("csharp"))
-                {
-                    return Modifiers["csharp"].Contains("static");
-                }
-                return null;
-            }
-        }
-        public bool? IsAbstract
-        {
-            get
-            {
-                if (Modifiers != null && Modifiers.ContainsKey("csharp"))
-                {
-                    return Modifiers["csharp"].Contains("abstract");
-                }
-                return null;
-            }
-        }
         public List<AssemblyInfo> AssemblyInfo { get; set; }
         public VersionedProperty<AssemblyInfo> VersionedAssemblyInfo { get; set; }
 
