@@ -17,11 +17,12 @@ namespace ECMA2Yaml
         public static IDictionary<string, List<string>> Generate(
             ECMAStore store,
             string outputFolder,
-            bool flatten)
+            bool flatten,
+            bool withVersioning)
         {
             WriteLine("Generating SDP Yaml models...");
 
-            var sdpConverter = new SDPYamlConverter(store);
+            var sdpConverter = new SDPYamlConverter(store, withVersioning);
             sdpConverter.Convert();
 
             WriteLine("Writing SDP Yaml files...");

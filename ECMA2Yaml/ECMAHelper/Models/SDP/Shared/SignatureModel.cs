@@ -18,4 +18,15 @@ namespace ECMA2Yaml.Models.SDP
         [YamlMember(Alias = "value")]
         public string Value { get; set; }
     }
+
+    public class VersionedSignatureModel
+    {
+        [JsonProperty("lang")]
+        [YamlMember(Alias = "lang")]
+        public string Lang { get; set; }
+
+        [JsonProperty("values")]
+        [YamlMember(Alias = "values")]
+        public List<VersionedValue> Values { get; set; }
+    }
 }

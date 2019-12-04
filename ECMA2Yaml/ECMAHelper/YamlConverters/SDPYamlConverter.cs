@@ -12,6 +12,7 @@ namespace ECMA2Yaml
     public partial class SDPYamlConverter
     {
         private readonly ECMAStore _store;
+        private readonly bool _withVersioning;
 
         private static string[] defaultLangList = new string[] { "csharp" };
 
@@ -20,9 +21,10 @@ namespace ECMA2Yaml
         public Dictionary<string, ItemSDPModelBase> MemberPages { get; } = new Dictionary<string, ItemSDPModelBase>();
         public Dictionary<string, ItemSDPModelBase> OverloadPages { get; } = new Dictionary<string, ItemSDPModelBase>();
 
-        public SDPYamlConverter(ECMAStore store)
+        public SDPYamlConverter(ECMAStore store, bool withVersioning = false)
         {
             _store = store;
+            _withVersioning = withVersioning;
         }
 
         public void Convert()
@@ -81,8 +83,6 @@ namespace ECMA2Yaml
 
         private T InitWithBasicProperties<T>(ReflectionItem item) where T : ItemSDPModelBase, new()
         {
-            var rawSignatures = _store.UWPMode ? ConverterHelper.BuildUWPSignatures(item) : ConverterHelper.BuildSignatures(item);
-            var signatures = rawSignatures?.Select(sig => new SignatureModel() { Lang = sig.Key, Value = sig.Value }).ToList();
             T rval = new T
             {
                 Uid = item.Uid,
@@ -92,17 +92,26 @@ namespace ECMA2Yaml
                 Assemblies = item.AssemblyInfo?.Select(asm => asm.Name).Distinct().ToList(),
                 Attributes = item.Attributes?.Where(att => att.Visible).Select(att => att.TypeFullName)
                     .ToList().NullIfEmpty(),
-                AttributesWithMoniker = item.Attributes?.Where(att => att.Visible)
-                    .Select(att => new VersionedAttribute() { Uid = att.TypeFullName, Monikers = att.Monikers?.ToArray() })
-                    .ToList().NullIfEmpty(),
-                Syntax = signatures,
-                DevLangs = signatures?.Select(sig => sig.Lang).ToList().NullIfEmpty() ?? defaultLangList,
+                DevLangs = item.Signatures?.DevLangs ?? defaultLangList,
 
                 SeeAlso = BuildSeeAlsoList(item.Docs, _store),
                 Summary = item.Docs.Summary,
                 Remarks = item.Docs.Remarks,
                 Examples = item.Docs.Examples
             };
+
+            if(_withVersioning)
+            {
+                rval.AttributesWithMoniker = item.Attributes?.Where(att => att.Visible)
+                    .Select(att => new VersionedValue() { Value = att.TypeFullName, Monikers = att.Monikers?.ToArray() })
+                    .ToList().NullIfEmpty();
+                rval.SyntaxWithMoniker = ConverterHelper.BuildVersionedSignatures(item);
+            }
+            else
+            {
+                var rawSignatures = _store.UWPMode ? ConverterHelper.BuildUWPSignatures(item) : ConverterHelper.BuildSignatures(item);
+                rval.Syntax = rawSignatures?.Select(sig => new SignatureModel() { Lang = sig.Key, Value = sig.Value }).ToList();
+            }
 
             switch (item)
             {

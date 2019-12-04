@@ -128,6 +128,10 @@ foreach($ecmaConfig in $jobs)
     {
         $allArgs += "-UWP";
     }
+	if ($ecmaConfig.Versioning)
+    {
+        $allArgs += "-Versioning";
+    }
     if (-not [string]::IsNullOrEmpty($ecmaConfig.SourceMetadataFolder))
     {
         $ecmaSourceMetadataFolder = Join-Path $repositoryRoot $ecmaConfig.SourceMetadataFolder

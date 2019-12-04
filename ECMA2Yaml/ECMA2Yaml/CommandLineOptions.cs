@@ -25,6 +25,7 @@ namespace ECMA2Yaml
         public bool MapMode = false;
         public bool SDPMode = false;
         public bool UWPMode = false;
+        public bool Versioning = false;
         List<string> Extras = null;
         OptionSet _options = null;
 
@@ -40,6 +41,7 @@ namespace ECMA2Yaml
                 { "mapFolder", "folder mapping mode, maps assemblies in folder to json, used in .NET CI",  s => MapMode = s != null },
                 { "SDP", "SDP mode, generate yamls in the .NET SDP schema format",  s => SDPMode = s != null },
                 { "UWP", "UWP mode, special treatment for UWP pipeline",  s => UWPMode = s != null },
+                { "Versioning", "Versioning mode, output property-level versioning data",  s => Versioning = s != null },
                 { "changeList=", "OPS change list file, ECMA2Yaml will translate xml path to yml path",  s => ChangeListFiles.Add(s)},
                 { "skipPublishFilePath=", "Pass a file to OPS to let it know which files should skip publish",  s => SkipPublishFilePath = s.NormalizePath()},
                 { "undocumentedApiReport=", "Save the Undocumented API validation result to Excel file",  s => UndocumentedApiReport = s.NormalizePath()},

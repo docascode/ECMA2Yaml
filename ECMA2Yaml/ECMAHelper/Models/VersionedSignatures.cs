@@ -9,16 +9,11 @@ namespace ECMA2Yaml.Models
 {
     public class VersionedSignatures
     {
-        public class SignatureWithMoniker
-        {
-            public HashSet<string> Monikers { get; set; }
-            public string Value { get; set; }
-        }
-
         readonly string csharp = ECMADevLangs.OPSMapping[ECMADevLangs.CSharp];
 
-        public Dictionary<string, List<SignatureWithMoniker>> Dict { get; set; }
+        public Dictionary<string, List<VersionedValue>> Dict { get; set; }
         public SortedList<string, List<string>> CombinedModifiers { get; private set; }
+        public string[] DevLangs { get; private set; }
         public string DocId { get; private set; }
 
         public bool IsPublishSealedClass 
@@ -61,12 +56,15 @@ namespace ECMA2Yaml.Models
                     monikersStr = string.Join(";", monikers.OrderBy(m => m));
                 }
                 return (val, lang, monikersStr, monikers);
-            }).GroupBy(t => t.lang)
-            .ToDictionary(g => g.Key, g => g.Select( t => new SignatureWithMoniker()
-            {
-                Monikers = t.monikers,
-                Value = t.val
-            }).ToList());
+            })
+            .GroupBy(t => t.lang)
+            .ToDictionary(g => g.Key,
+                g => g.Count() > 1
+                ? g.Select(t => new VersionedValue(t.monikers.ToArray(), t.val)).ToList()
+                : g.Select(t => new VersionedValue(null, t.val)).ToList() // remove monikers if there's only one version
+                );
+
+            DevLangs = Dict.Keys.Where(k => ECMADevLangs.OPSMapping.ContainsKey(k)).Select(k => ECMADevLangs.OPSMapping[k]).ToArray();
 
             foreach (var sig in Dict[ECMADevLangs.CSharp])
             {

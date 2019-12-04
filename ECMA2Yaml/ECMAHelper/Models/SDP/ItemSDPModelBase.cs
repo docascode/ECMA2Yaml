@@ -53,11 +53,15 @@ namespace ECMA2Yaml.Models.SDP
 
         [JsonProperty("attributesWithMoniker")]
         [YamlMember(Alias = "attributesWithMoniker")]
-        public IEnumerable<VersionedAttribute> AttributesWithMoniker { get; set; }
+        public IEnumerable<VersionedValue> AttributesWithMoniker { get; set; }
 
         [JsonProperty("syntax")]
         [YamlMember(Alias = "syntax")]
         public IEnumerable<SignatureModel> Syntax { get; set; }
+
+        [JsonProperty("syntaxWithMoniker")]
+        [YamlMember(Alias = "syntaxWithMoniker")]
+        public IEnumerable<VersionedSignatureModel> SyntaxWithMoniker { get; set; }
 
         [JsonProperty("devLangs")]
         [YamlMember(Alias = "devLangs")]

@@ -1,4 +1,5 @@
 ﻿using ECMA2Yaml.Models;
+using ECMA2Yaml.Models.SDP;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -65,6 +66,72 @@ namespace ECMA2Yaml
             }
 
             return contents;
+        }
+
+        public static List<VersionedSignatureModel> BuildVersionedSignatures(ReflectionItem item)
+        {
+            var contents = new SortedList<string, List<VersionedValue>>();
+            if (item.Signatures?.Dict != null)
+            {
+                foreach (var sigPair in item.Signatures.Dict)
+                {
+                    if (Models.ECMADevLangs.OPSMapping.ContainsKey(sigPair.Key))
+                    {
+                        var lang = Models.ECMADevLangs.OPSMapping[sigPair.Key];
+                        var sigValues = sigPair.Value;
+                        var visibleAttrs = item.Attributes?.Where(attr => attr.Visible).ToList();
+                        if (sigPair.Key == ECMADevLangs.CSharp
+                            && visibleAttrs?.Count > 0)
+                        {
+                            bool versionedSig = sigValues.Any(v => v.Monikers?.Length > 0) && sigValues.Count > 1;
+                            bool versionedAttr = visibleAttrs.Any(attr => attr.Monikers?.Count > 0);
+                            // devide into 2 cases for better perf, most of the time neither signature nor attributes are versioned
+                            if (!versionedSig && !versionedAttr)
+                            {
+                                contents[lang] = new List<VersionedValue>() 
+                                { 
+                                    new VersionedValue(null, AttachAttributesToSignature(visibleAttrs, sigValues.First().Value)) 
+                                };
+                            }
+                            else
+                            {
+                                var allMonikers = item.Metadata[OPSMetadata.Monikers] as List<string>;
+                                contents[lang] = allMonikers.Select(moniker =>
+                                {
+                                    var sig = sigValues.FirstOrDefault(s => s.Monikers == null || s.Monikers.Contains(moniker));
+                                    var attrs = visibleAttrs.Where(a => a.Monikers == null || a.Monikers.Contains(moniker)).ToList();
+                                    var combinedSig = AttachAttributesToSignature(attrs, sig?.Value);
+                                    return (moniker, combinedSig);
+                                })
+                                .GroupBy(t => t.combinedSig)
+                                .Select(g => new VersionedValue(g.Select(t => t.moniker).ToArray(), g.Key))
+                                .ToList();
+                            }
+                        }
+                        else
+                        {
+                            contents[lang] = sigValues;
+                        }
+                    }
+                }
+            }
+
+            return contents.Select(sig => new VersionedSignatureModel() { Lang = sig.Key, Values = sig.Value }).ToList();
+        }
+
+        private static string AttachAttributesToSignature(IEnumerable<ECMAAttribute> attrs, string sig)
+        {
+            var contentBuilder = new StringBuilder();
+            if (attrs?.Any() == true)
+            {
+                foreach (var att in attrs)
+                {
+                    contentBuilder.AppendFormat("[{0}]\n", att.Declaration);
+                }
+            }
+            contentBuilder.Append(sig);
+
+            return contentBuilder.ToString();
         }
 
         public static SortedList<string, string> BuildUWPSignatures(ReflectionItem item)

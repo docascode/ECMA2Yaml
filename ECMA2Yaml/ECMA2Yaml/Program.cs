@@ -93,7 +93,7 @@ namespace ECMA2Yaml
             IDictionary<string, List<string>> fileMapping = null;
             if (opt.SDPMode)
             {
-                fileMapping = SDPYamlGenerator.Generate(store, opt.OutputFolder, opt.Flatten);
+                fileMapping = SDPYamlGenerator.Generate(store, opt.OutputFolder, opt.Flatten, opt.Versioning);
                 YamlUtility.Serialize(Path.Combine(opt.OutputFolder, "toc.yml"), SDPTOCGenerator.Generate(store), YamlMime.TableOfContent);
             }
             else
