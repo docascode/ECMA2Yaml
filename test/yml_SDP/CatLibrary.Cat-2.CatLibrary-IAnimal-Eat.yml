@@ -80,9 +80,9 @@ nameWithType: Cat<T,K>.IAnimal.Eat
 assemblies:
 - CatLibrary
 devLangs:
-- cpp
 - csharp
 - vb
+- cpp
 monikers:
 - cat-1.0
 - cat-2.0

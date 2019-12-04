@@ -33,10 +33,10 @@ syntax:
 - lang: vb
   value: Public Class Complex(Of T, J)
 devLangs:
-- cpp
 - csharp
-- fsharp
 - vb
+- cpp
+- fsharp
 monikers:
 - cat-1.0
 - cat-2.0

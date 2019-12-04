@@ -33,10 +33,10 @@ nameWithType: Cat<T,K>.Age
 assemblies:
 - CatLibrary
 devLangs:
-- cpp
 - csharp
-- fsharp
 - vb
+- cpp
+- fsharp
 monikers:
 - cat-1.0
 - cat-2.0

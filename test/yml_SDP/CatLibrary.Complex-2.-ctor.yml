@@ -28,9 +28,9 @@ nameWithType: Complex<T,J>.Complex<T,J>
 assemblies:
 - CatLibrary
 devLangs:
-- cpp
 - csharp
 - vb
+- cpp
 monikers:
 - cat-1.0
 - cat-2.0

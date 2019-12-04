@@ -88,9 +88,9 @@ nameWithType: Cat<T,K>.Cat<T,K>
 assemblies:
 - CatLibrary
 devLangs:
-- cpp
 - csharp
 - vb
+- cpp
 - fsharp
 monikers:
 - cat-1.0

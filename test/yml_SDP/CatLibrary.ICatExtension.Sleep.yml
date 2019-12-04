@@ -38,8 +38,8 @@ nameWithType: ICatExtension.Sleep
 assemblies:
 - CatLibrary
 devLangs:
-- cpp
 - csharp
+- cpp
 - fsharp
 monikers:
 - cat-1.0

@@ -37,8 +37,8 @@ nameWithType: JerryExtension.PlayWith
 assemblies:
 - CatLibrary
 devLangs:
-- cpp
 - csharp
+- cpp
 - fsharp
 monikers:
 - cat-2.0

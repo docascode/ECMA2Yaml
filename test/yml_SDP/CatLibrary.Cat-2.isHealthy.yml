@@ -11,11 +11,6 @@ members:
   attributes:
   - System.ContextStaticAttribute
   - System.ObsoleteAttribute
-  attributesWithMoniker:
-  - uid: System.ContextStaticAttribute
-  - uid: System.ObsoleteAttribute
-    monikers:
-    - cat-2.0
   syntax:
   - lang: cpp
     value: 'public: bool isHealthy;'
@@ -40,10 +35,10 @@ namespace: CatLibrary
 assemblies:
 - CatLibrary
 devLangs:
-- cpp
 - csharp
-- fsharp
 - vb
+- cpp
+- fsharp
 monikers:
 - cat-1.0
 - cat-2.0

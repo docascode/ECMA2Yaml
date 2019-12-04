@@ -34,10 +34,10 @@ nameWithType: TomFromBaseClass.Jerry.TomFromBaseClass.Jerry
 assemblies:
 - CatLibrary
 devLangs:
-- cpp
 - csharp
-- fsharp
 - vb
+- cpp
+- fsharp
 monikers:
 - cat-2.0
 metadata:

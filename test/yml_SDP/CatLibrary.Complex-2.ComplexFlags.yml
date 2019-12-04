@@ -37,8 +37,6 @@ assemblies:
 - CatLibrary
 attributes:
 - System.FlagsAttribute
-attributesWithMoniker:
-- uid: System.FlagsAttribute
 syntax:
 - lang: cpp
   value: 'public: enum class Complex<T, J>::ComplexFlags'
@@ -52,10 +50,10 @@ syntax:
 - lang: vb
   value: Public Enum Complex(Of T, J).ComplexFlags
 devLangs:
-- cpp
 - csharp
-- fsharp
 - vb
+- cpp
+- fsharp
 monikers:
 - cat-2.0
 metadata:

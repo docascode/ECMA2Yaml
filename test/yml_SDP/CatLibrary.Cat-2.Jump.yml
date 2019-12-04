@@ -21,8 +21,6 @@ members:
   nameWithType: Cat<T,K>.Jump(T, K, Boolean)
   attributes:
   - System.Diagnostics.ConditionalAttribute
-  attributesWithMoniker:
-  - uid: System.Diagnostics.ConditionalAttribute
   syntax:
   - lang: cpp
     value: >-
@@ -51,10 +49,10 @@ nameWithType: Cat<T,K>.Jump
 assemblies:
 - CatLibrary
 devLangs:
-- cpp
 - csharp
-- fsharp
 - vb
+- cpp
+- fsharp
 monikers:
 - cat-1.0
 - cat-2.0

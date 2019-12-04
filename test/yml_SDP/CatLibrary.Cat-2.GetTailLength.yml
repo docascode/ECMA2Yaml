@@ -42,8 +42,8 @@ nameWithType: Cat<T,K>.GetTailLength
 assemblies:
 - CatLibrary
 devLangs:
-- cpp
 - csharp
+- cpp
 - fsharp
 monikers:
 - cat-1.0

@@ -26,10 +26,10 @@ syntax:
 - lang: vb
   value: Public Delegate Sub MRefNormalDelegate(pics As List(Of String), ByRef name As String)
 devLangs:
-- cpp
 - csharp
-- fsharp
 - vb
+- cpp
+- fsharp
 monikers:
 - cat-1.0
 - cat-2.0

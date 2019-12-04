@@ -38,10 +38,10 @@ syntax:
 - lang: vb
   value: 'Public Delegate Function FakeDelegate(Of T)(num As Long, name As String, ParamArray scores As Object()) As Integer '
 devLangs:
-- cpp
 - csharp
-- fsharp
 - vb
+- cpp
+- fsharp
 monikers:
 - cat-1.0
 - cat-2.0

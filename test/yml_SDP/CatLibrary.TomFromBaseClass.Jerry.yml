@@ -28,10 +28,10 @@ syntax:
 - lang: vb
   value: Public Class TomFromBaseClass.Jerry
 devLangs:
-- cpp
 - csharp
-- fsharp
 - vb
+- cpp
+- fsharp
 monikers:
 - cat-2.0
 summary: This is a <strong>nested</strong> class inside <xref data-throw-if-not-resolved="true" uid="CatLibrary.TomFromBaseClass"></xref>

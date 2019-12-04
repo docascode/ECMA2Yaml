@@ -24,10 +24,10 @@ syntax:
 - lang: vb
   value: Public Module JerryExtension
 devLangs:
-- cpp
 - csharp
-- fsharp
 - vb
+- cpp
+- fsharp
 monikers:
 - cat-2.0
 summary: This class extends <xref data-throw-if-not-resolved="true" uid="CatLibrary.TomFromBaseClass.Jerry"></xref>.
