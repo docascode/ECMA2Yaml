@@ -105,7 +105,7 @@ namespace ECMA2Yaml
                 rval.AttributesWithMoniker = item.Attributes?.Where(att => att.Visible)
                     .Select(att => new VersionedValue() { Value = att.TypeFullName, Monikers = att.Monikers?.ToArray() })
                     .ToList().NullIfEmpty();
-                rval.SyntaxWithMoniker = ConverterHelper.BuildVersionedSignatures(item);
+                rval.SyntaxWithMoniker = ConverterHelper.BuildVersionedSignatures(item)?.NullIfEmpty();
             }
             else
             {
