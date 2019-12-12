@@ -11,6 +11,7 @@ namespace UnitTest
     [TestClass]
     public class IntellisenseFileTests
     {
+
         [DataTestMethod]
         [DataRow(@"Sets a value indicating whether the members of the global object should be made available to the script engine. \[Not presently supported.\]"
                     , "Sets a value indicating whether the members of the global object should be made available to the script engine. [Not presently supported.]")]
