@@ -332,7 +332,8 @@ namespace IntellisenseFileGen
             if (summaryEle != null)
             {
                 SpecialProcessElement(summaryEle);
-                if (!string.IsNullOrEmpty(summaryEle?.Value))
+
+                if (!string.IsNullOrEmpty(summaryEle?.Value) || summaryEle.HasElements)
                 {
                     docsEle.Add(summaryEle);
                 }

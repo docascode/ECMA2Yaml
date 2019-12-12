@@ -18,9 +18,9 @@ namespace IntellisenseFileGen
         public static Regex Link_Pattern = new Regex("(\\[(.*?)\\]\\(.*\\))", RegexOptions.Compiled);
 
         // *Unix*,_Unix_
-        public static Regex SingleSytax_Pattern = new Regex("([\\*|\\`]([\\w|\\.|\\#|\\+|\\s|/|-]+?)[\\*|\\`])", RegexOptions.Compiled);
+        public static Regex SingleSytax_Pattern = new Regex("([\\*|\\`]([\\w|\\.|\\#|\\+|\\s|/|:|-]+?)[\\*|\\`])", RegexOptions.Compiled);
         // **Unix**,__Unix__
-        public static Regex DoubleSytax_Pattern = new Regex("([_*]{2}([\\w|\\.|\\#|\\+|\\s|/|-]+?)[_*]{2})", RegexOptions.Compiled);
+        public static Regex DoubleSytax_Pattern = new Regex("([_*]{2}([\\w|\\.|\\#|\\+|\\s|/|:|-]+?)[_*]{2})", RegexOptions.Compiled);
 
         //```csharp this is a test page```
         //```csharp 
