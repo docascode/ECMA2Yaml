@@ -50,6 +50,10 @@ namespace UnitTest
                 , "The valid values are C#, VB, and C++.")]
         [DataRow("The brush for the **ExpandAll/CollapseAll** button in the designer view."
                 , "The brush for the ExpandAll/CollapseAll button in the designer view.")]
+        [DataRow("**Note: This API is now obsolete.** The non-obsolete alternative is"
+                , "Note: This API is now obsolete. The non-obsolete alternative is")]
+        [DataRow("be found in the **Rights-GUID** row"
+                , "be found in the Rights-GUID row")]
         public void DoubleSytax_Pattern_Test(string inText, string expected)
         {
             PatternValidate(inText, expected, Constants.DoubleSytax_Pattern);
