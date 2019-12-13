@@ -107,13 +107,13 @@ items:
   - type: System.SerializableAttribute
   modifiers.csharp:
   - public
+  monikers:
+  - cat-1.0
+  - cat-2.0
   apiContracts:
   - Win10
   - Win10 build 1
   - Win10 build 2
-  monikers:
-  - cat-1.0
-  - cat-2.0
   _op_AssemblyMonikerMapping:
     CatLibrary:
     - cat-1.0
@@ -276,13 +276,13 @@ items:
   - protected
   - get
   - set
+  monikers:
+  - cat-1.0
+  - cat-2.0
   apiContracts:
   - Win10
   - Win10 build 1
   - Win10 build 2
-  monikers:
-  - cat-1.0
-  - cat-2.0
   content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
   original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
   original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
@@ -386,7 +386,10 @@ items:
   namespace: CatLibrary
   summary: If you force it, maybe it can.
   syntax:
-    content: public void CatchJerry (bool force);
+    content: >-
+      [System.Obsolete("mark CatchJerry(bool force) as obsolete for testing")]
+
+      public void CatchJerry (bool force);
     parameters:
     - id: force
       type: System.Boolean
@@ -394,11 +397,16 @@ items:
     content.cpp: >-
       public:
        void CatchJerry(bool force);
-    content.csharp: public void CatchJerry (bool force);
+    content.csharp: >-
+      [System.Obsolete("mark CatchJerry(bool force) as obsolete for testing")]
+
+      public void CatchJerry (bool force);
     content.fsharp: 'member this.CatchJerry : bool -> unit'
     content.vb: Public Sub CatchJerry (force As Boolean)
   overload: CatLibrary.Cat`2.CatchJerry*
   exceptions: []
+  attributes:
+  - type: System.ObsoleteAttribute
   modifiers.csharp:
   - public
   monikers:

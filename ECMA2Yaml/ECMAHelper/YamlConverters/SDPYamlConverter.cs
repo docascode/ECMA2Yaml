@@ -90,25 +90,27 @@ namespace ECMA2Yaml
                 Name = item.Name,
 
                 Assemblies = item.AssemblyInfo?.Select(asm => asm.Name).Distinct().ToList(),
-                Attributes = item.Attributes?.Where(att => att.Visible).Select(att => att.TypeFullName)
-                    .ToList().NullIfEmpty(),
                 DevLangs = item.Signatures?.DevLangs ?? defaultLangList,
 
                 SeeAlso = BuildSeeAlsoList(item.Docs, _store),
                 Summary = item.Docs.Summary,
                 Remarks = item.Docs.Remarks,
-                Examples = item.Docs.Examples
+                Examples = item.Docs.Examples,
+                Monikers = item.Monikers
             };
 
             if(_withVersioning)
             {
                 rval.AttributesWithMoniker = item.Attributes?.Where(att => att.Visible)
-                    .Select(att => new VersionedValue() { Value = att.TypeFullName, Monikers = att.Monikers?.ToArray() })
+                    .Select(att => new VersionedValue() { Value = att.TypeFullName, Monikers = att.Monikers?.ToHashSet() })
                     .ToList().NullIfEmpty();
+                rval.AttributeMonikers = ConverterHelper.ConsolidateVersionedValues(rval.AttributesWithMoniker, item.Monikers);
                 rval.SyntaxWithMoniker = ConverterHelper.BuildVersionedSignatures(item)?.NullIfEmpty();
             }
             else
             {
+                rval.Attributes = item.Attributes?.Where(att => att.Visible).Select(att => att.TypeFullName)
+                    .ToList().NullIfEmpty();
                 var rawSignatures = _store.UWPMode ? ConverterHelper.BuildUWPSignatures(item) : ConverterHelper.BuildSignatures(item);
                 rval.Syntax = rawSignatures?.Select(sig => new SignatureModel() { Lang = sig.Key, Value = sig.Value }).ToList();
             }
@@ -135,11 +137,6 @@ namespace ECMA2Yaml
                     rval.FullName = n.Name;
                     GenerateRequiredMetadata(rval, item);
                     break;
-            }
-
-            if (item.Metadata.TryGetValue(OPSMetadata.Monikers, out var monikers))
-            {
-                rval.Monikers = (IEnumerable<string>)monikers;
             }
 
             if (item.Metadata.TryGetValue(OPSMetadata.InternalOnly, out object val))

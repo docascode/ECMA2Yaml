@@ -59,6 +59,7 @@ namespace ECMA2Yaml
                 SeeAlsos = ns.Docs.BuildSeeAlsoList(store),
                 Source = ns.SourceDetail.ToSourceDetail()
             };
+            item.Metadata[OPSMetadata.Monikers] = ns.Monikers;
             item.Metadata.MergeMetadata(ns.Metadata);
             var pv = new PageViewModel()
             {
@@ -214,6 +215,7 @@ namespace ECMA2Yaml
                 SeeAlsos = t.Docs.BuildSeeAlsoList(store),
                 Source = t.SourceDetail.ToSourceDetail()
             };
+            item.Metadata[OPSMetadata.Monikers] = t.Monikers;
             item.Metadata.MergeMetadata(t.Metadata);
             item.Metadata.AddPermissions(t.Docs);
             //item.Metadata.AddThreadSafety(t.Docs);
@@ -284,6 +286,7 @@ namespace ECMA2Yaml
             {
                 item.Implements = implements;
             }
+            item.Metadata[OPSMetadata.Monikers] = m.Monikers;
             item.Metadata.MergeMetadata(m.Metadata);
             item.Metadata.AddPermissions(m.Docs);
             //item.Metadata.AddThreadSafety(m.Docs);
@@ -320,6 +323,7 @@ namespace ECMA2Yaml
             };
             if (withMetadata)
             {
+                r.Additional[OPSMetadata.Monikers] = m.Monikers;
                 r.Additional.MergeMetadata(m.Metadata);
             }
             if (m.ItemType != ItemType.Default)

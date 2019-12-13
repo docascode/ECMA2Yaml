@@ -34,19 +34,25 @@ members:
   name: CatchJerry(Boolean)
   fullName: CatLibrary.Cat<T,K>.CatchJerry(Boolean)
   nameWithType: Cat<T,K>.CatchJerry(Boolean)
+  attributes:
+  - System.ObsoleteAttribute
   syntax:
   - lang: cpp
     value: >-
       public:
        void CatchJerry(bool force);
   - lang: csharp
-    value: public void CatchJerry (bool force);
+    value: >-
+      [System.Obsolete("mark CatchJerry(bool force) as obsolete for testing")]
+
+      public void CatchJerry (bool force);
   - lang: fsharp
     value: 'member this.CatchJerry : bool -> unit'
   - lang: vb
     value: Public Sub CatchJerry (force As Boolean)
   monikers:
   - cat-2.0
+  isDeprecated: true
   summary: If you force it, maybe it can.
   metadata: {}
 uid: CatLibrary.Cat`2.CatchJerry*

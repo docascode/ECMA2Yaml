@@ -83,7 +83,7 @@ namespace ECMA2Yaml
                         if (sigPair.Key == ECMADevLangs.CSharp
                             && visibleAttrs?.Count > 0)
                         {
-                            bool versionedSig = sigValues.Any(v => v.Monikers?.Length > 0) && sigValues.Count > 1;
+                            bool versionedSig = sigValues.Any(v => v.Monikers?.Count > 0) && sigValues.Count > 1;
                             bool versionedAttr = visibleAttrs.Any(attr => attr.Monikers?.Count > 0);
                             // devide into 2 cases for better perf, most of the time neither signature nor attributes are versioned
                             if (!versionedSig && !versionedAttr)
@@ -95,8 +95,8 @@ namespace ECMA2Yaml
                             }
                             else
                             {
-                                var allMonikers = item.Metadata[OPSMetadata.Monikers] as List<string>;
-                                contents[lang] = allMonikers.Select(moniker =>
+
+                                contents[lang] = item.Monikers.Select(moniker =>
                                 {
                                     var sig = sigValues.FirstOrDefault(s => s.Monikers == null || s.Monikers.Contains(moniker));
                                     var attrs = visibleAttrs.Where(a => a.Monikers == null || a.Monikers.Contains(moniker)).ToList();
@@ -104,7 +104,7 @@ namespace ECMA2Yaml
                                     return (moniker, combinedSig);
                                 })
                                 .GroupBy(t => t.combinedSig)
-                                .Select(g => new VersionedValue(g.Select(t => t.moniker).ToArray(), g.Key))
+                                .Select(g => new VersionedValue(g.Select(t => t.moniker).ToHashSet(), g.Key))
                                 .ToList();
                             }
                         }
@@ -164,6 +164,24 @@ namespace ECMA2Yaml
             }
 
             return contents;
+        }
+
+        public static IEnumerable<string> ConsolidateVersionedValues(IEnumerable<VersionedValue> vals, HashSet<string> pageMonikers)
+        {
+            if (vals == null || vals.Any(v => v.Monikers == null))
+            { 
+                return null;
+            }
+            HashSet<string> allMonikers = new HashSet<string>();
+            foreach(var val in vals)
+            {
+                allMonikers.UnionWith(val.Monikers);
+                if (val.Monikers.SetEquals(pageMonikers))
+                {
+                    val.Monikers = null;
+                }
+            }
+            return allMonikers.SetEquals(pageMonikers) ? null : allMonikers;
         }
 
         private static readonly Regex CSharpSignatureLongNameRegex = new Regex("\\w+(\\.\\w+){2,}", RegexOptions.Compiled);

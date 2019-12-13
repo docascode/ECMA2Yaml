@@ -30,17 +30,14 @@ namespace ECMA2Yaml
                     Name = fItem.DisplayName,
                     NameWithType = enumTypeItem.Name + '.' + fItem.Name,
                     FullName = fItem.FullDisplayName,
-                    Summary = fItem.Docs.Summary
+                    Summary = fItem.Docs.Summary,
+                    Monikers = fItem.Monikers
                 };
                 if (fItem.Metadata.TryGetValue(OPSMetadata.LiteralValue, out object val))
                 {
                     f.LiteralValue = val?.ToString();
                 }
                 f.LiteralValue = f.LiteralValue ?? "";
-                if (fItem.Metadata.TryGetValue(OPSMetadata.Monikers, out var monikers))
-                {
-                    f.Monikers = (IEnumerable<string>)monikers;
-                }
                 memberTouchCache.Add(f.Uid);
 
                 return f;

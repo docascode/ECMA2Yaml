@@ -60,7 +60,7 @@ namespace ECMA2Yaml.Models
             .GroupBy(t => t.lang)
             .ToDictionary(g => g.Key,
                 g => g.Count() > 1
-                ? g.Select(t => new VersionedValue(t.monikers.ToArray(), t.val)).ToList()
+                ? g.Select(t => new VersionedValue(t.monikers.ToHashSet(), t.val)).ToList()
                 : g.Select(t => new VersionedValue(null, t.val)).ToList() // remove monikers if there's only one version
                 );
 

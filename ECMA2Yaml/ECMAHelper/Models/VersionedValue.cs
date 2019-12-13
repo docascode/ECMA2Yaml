@@ -15,11 +15,11 @@ namespace ECMA2Yaml.Models
         public string Value { get; set; }
         [JsonProperty("monikers")]
         [YamlMember(Alias = "monikers")]
-        public string[] Monikers { get; set; }
+        public HashSet<string> Monikers { get; set; }
 
         public VersionedValue() { }
 
-        public VersionedValue(string[] monikers, string value)
+        public VersionedValue(HashSet<string> monikers, string value)
         {
             Monikers = monikers;
             Value = value;

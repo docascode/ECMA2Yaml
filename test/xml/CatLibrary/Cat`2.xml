@@ -275,6 +275,11 @@
         <AssemblyName>CatLibrary</AssemblyName>
         <AssemblyVersion>1.0.0.0</AssemblyVersion>
       </AssemblyInfo>
+      <Attributes>
+        <Attribute FrameworkAlternate="cat-2.0">
+          <AttributeName>System.Obsolete("mark CatchJerry(bool force) as obsolete for testing")</AttributeName>
+        </Attribute>
+      </Attributes>
       <ReturnValue>
         <ReturnType>System.Void</ReturnType>
       </ReturnValue>

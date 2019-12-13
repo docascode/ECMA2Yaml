@@ -206,6 +206,7 @@ namespace CatLibrary
         /// <summary>
         /// If you force it, maybe it can.
         /// </summary>
+        [Obsolete("mark CatchJerry(bool force) as obsolete for testing")]
         public void CatchJerry(bool force)
         {
             throw new NotImplementedException();

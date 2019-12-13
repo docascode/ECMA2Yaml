@@ -73,10 +73,10 @@ items:
     content.fsharp: Blue = 1
     content.vb: Blue
   exceptions: []
-  literalValue: "1"
   monikers:
   - cat-1.0
   - cat-2.0
+  literalValue: "1"
   content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/MRef.Demo.Enumeration/ColorType.xml
   original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/MRef.Demo.Enumeration/ColorType.xml
   original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/MRef.Demo.Enumeration/ColorType.xml
@@ -107,10 +107,10 @@ items:
     content.fsharp: Red = 0
     content.vb: Red
   exceptions: []
-  literalValue: "0"
   monikers:
   - cat-1.0
   - cat-2.0
+  literalValue: "0"
   content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/MRef.Demo.Enumeration/ColorType.xml
   original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/MRef.Demo.Enumeration/ColorType.xml
   original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/MRef.Demo.Enumeration/ColorType.xml
@@ -141,10 +141,10 @@ items:
     content.fsharp: Yellow = 2
     content.vb: Yellow
   exceptions: []
-  literalValue: "2"
   monikers:
   - cat-1.0
   - cat-2.0
+  literalValue: "2"
   content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/MRef.Demo.Enumeration/ColorType.xml
   original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/MRef.Demo.Enumeration/ColorType.xml
   original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/MRef.Demo.Enumeration/ColorType.xml

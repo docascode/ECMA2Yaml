@@ -266,9 +266,9 @@ namespace ECMA2Yaml.Models
                 {
                     ns.Metadata[OPSMetadata.InternalOnly] = nsInternalOnly;
                 }
-                if (_monikerNugetMapping != null && ns.Metadata.ContainsKey(OPSMetadata.Monikers))
+                if (_monikerNugetMapping != null && ns.Monikers != null)
                 {
-                    var monikers = (List<string>)ns.Metadata[OPSMetadata.Monikers];
+                    var monikers = ns.Monikers as IEnumerable<string>;
                     List<string> packages = new List<string>();
                     foreach (var moniker in monikers)
                     {
@@ -436,11 +436,6 @@ namespace ECMA2Yaml.Models
             foreach (var t in _tList)
             {
                 List<string> extensionMethods = new List<string>();
-                List<string> typeMonikers = null;
-                if (t.Metadata.TryGetValue(OPSMetadata.Monikers, out object tMonikers))
-                {
-                    typeMonikers = tMonikers as List<string>;
-                }
                 Stack<string> uidsToCheck = new Stack<string>();
                 uidsToCheck.Push(t.Uid);
                 while (uidsToCheck.Count > 0)
@@ -458,13 +453,9 @@ namespace ECMA2Yaml.Models
                             {
                                 return false;
                             }
-                            List<string> exMonikers = null;
-                            if (ex.Parent != null && ex.Parent.Metadata.TryGetValue(OPSMetadata.Monikers, out object monikers))
-                            {
-                                exMonikers = monikers as List<string>;
-                            }
-                            return (exMonikers == null && typeMonikers == null) ||
-                                   (exMonikers != null && typeMonikers != null && exMonikers.Intersect(typeMonikers).Any());
+                            HashSet<string> exMonikers = ex.Parent?.Monikers;
+                            return (exMonikers == null && t.Monikers == null) ||
+                                   (exMonikers != null && t.Monikers != null && exMonikers.Intersect(t.Monikers).Any());
                         });
 
                         extensionMethods.AddRange(exCandiates.Select(ex => ex.Uid));
@@ -536,7 +527,7 @@ namespace ECMA2Yaml.Models
 
         private void MonikerizeItem(ReflectionItem item, List<string> monikers)
         {
-            item.Metadata[OPSMetadata.Monikers] = monikers;
+            item.Monikers = new HashSet<string>(monikers);
             MonikerizeAssembly(item, monikers);
         }
 

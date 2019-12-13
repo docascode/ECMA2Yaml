@@ -97,6 +97,8 @@ namespace ECMA2Yaml.Models
         public List<AssemblyInfo> AssemblyInfo { get; set; }
         public VersionedProperty<AssemblyInfo> VersionedAssemblyInfo { get; set; }
 
+        public HashSet<string> Monikers { get; set; }
+
         public ReflectionItem()
         {
             Metadata = new Dictionary<string, object>();

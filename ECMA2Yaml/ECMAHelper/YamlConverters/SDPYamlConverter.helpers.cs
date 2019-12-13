@@ -142,16 +142,12 @@ namespace ECMA2Yaml
             {
                 return null;
             }
-            var rval = new TypeMemberLink()
+            return new TypeMemberLink()
             {
                 Uid = m.Uid,
-                InheritedFrom = (t != null && m.Parent.Uid != t.Uid) ? m.Parent.Uid : null
+                InheritedFrom = (t != null && m.Parent.Uid != t.Uid) ? m.Parent.Uid : null,
+                Monikers = m.Monikers
             };
-            if (m.Metadata.TryGetValue(OPSMetadata.Monikers, out var monikers))
-            {
-                rval.Monikers = (IEnumerable<string>)monikers;
-            }
-            return rval;
         }
 
         public static NamespaceTypeLink ConvertNamespaceTypeLink(Namespace ns, Models.Type t)
@@ -160,15 +156,11 @@ namespace ECMA2Yaml
             {
                 return null;
             }
-            var rval = new NamespaceTypeLink()
+            return new NamespaceTypeLink()
             {
-                Uid = t.Uid
+                Uid = t.Uid,
+                Monikers = t.Monikers
             };
-            if (t.Metadata.TryGetValue(OPSMetadata.Monikers, out var monikers))
-            {
-                rval.Monikers = (IEnumerable<string>)monikers;
-            }
-            return rval;
         }
 
         private static string HtmlEncodeLinkText(string text)
