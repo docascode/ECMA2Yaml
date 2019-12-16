@@ -477,7 +477,7 @@ namespace ECMA2Yaml.Models
             }
             if (_monikerAssemblyMapping != null && _monikerAssemblyMapping.Count > 0)
             {
-                _frameworks.FrameworkAssembliesPurged = _frameworks.FrameworkAssemblies?.ToDictionary(
+                _frameworks.FrameworkAssemblies = _frameworks.FrameworkAssemblies?.ToDictionary(
                     p => p.Key,
                     p => p.Value.Where(a => _monikerAssemblyMapping[p.Key].Contains(a.Key)).ToDictionary(purged => purged.Key, purged => purged.Value));
             }
@@ -533,12 +533,12 @@ namespace ECMA2Yaml.Models
 
         private void MonikerizeAssembly(ReflectionItem item, List<string> monikers)
         {
-            if (_frameworks.FrameworkAssembliesPurged?.Count > 0 && item.AssemblyInfo != null)
+            if (_frameworks.FrameworkAssemblies?.Count > 0 && item.AssemblyInfo != null)
             {
                 var valuesPerMoniker = new Dictionary<string, List<AssemblyInfo>>();
                 foreach (var moniker in monikers)
                 {
-                    var frameworkAssemblies = _frameworks.FrameworkAssembliesPurged[moniker];
+                    var frameworkAssemblies = _frameworks.FrameworkAssemblies[moniker];
                     var assemblies = item.AssemblyInfo.Where(
                         itemAsm => frameworkAssemblies.TryGetValue(itemAsm.Name, out var fxAsm) && fxAsm.Version == itemAsm.Version).ToList();
                     if (assemblies.Count == 0)

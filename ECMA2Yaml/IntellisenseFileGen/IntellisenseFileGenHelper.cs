@@ -86,7 +86,7 @@ namespace IntellisenseFileGen
             store.Build();
             var frameworks = store.GetFrameworkIndex();
             List<string> requiredFrameworkList = new List<string>();
-            frameworks.FrameworkAssembliesPurged.Keys.ToList().ForEach(fw =>
+            frameworks.FrameworkAssemblies.Keys.ToList().ForEach(fw =>
             {
                 if (string.IsNullOrEmpty(_moniker) || _moniker.Equals(fw, StringComparison.OrdinalIgnoreCase))
                 {
@@ -117,7 +117,7 @@ namespace IntellisenseFileGen
                 {
                     string outPutFolder = Path.Combine(_outFolder, fw);
 
-                    var fwAssemblyList = frameworks.FrameworkAssembliesPurged[fw];
+                    var fwAssemblyList = frameworks.FrameworkAssemblies[fw];
                     var ass_Type_Mem_OfFw = frameworks.DocIdToFrameworkDict.Where(p => p.Value != null && p.Value.Contains(fw)).Select(p => p.Key).ToList();
                     var fwTypeDocIdList = ass_Type_Mem_OfFw.Where(p => p.Contains("T:")).ToHashSet();
                     var fwMemberDocIdList = ass_Type_Mem_OfFw.Where(p => p.Contains("M:") || p.Contains("P:") || p.Contains("F:") || p.Contains("E:")).ToHashSet();
