@@ -235,7 +235,7 @@ namespace ECMA2Yaml
             }
 
             //BaseTypeName
-            t.BaseType = LoadBaseType(tRoot.Element("Base"));
+            t.BaseTypes = LoadBaseType(tRoot.Element("Base"));
 
             //Interfaces
             var interfacesElement = tRoot.Element("Interfaces");
@@ -306,19 +306,19 @@ namespace ECMA2Yaml
         private static ItemType InferTypeOfType(Models.Type t)
         {
             var signature = t.Signatures.Dict[ECMADevLangs.CSharp].FirstOrDefault()?.Value;
-            if (t.BaseType == null && signature.Contains(" interface "))
+            if (t.BaseTypes == null && signature.Contains(" interface "))
             {
                 return ItemType.Interface;
             }
-            else if ("System.Enum" == t.BaseType?.Name && signature.Contains(" enum "))
+            else if (t.BaseTypes.Any(bt => bt.Name == "System.Enum") && signature.Contains(" enum "))
             {
                 return ItemType.Enum;
             }
-            else if ("System.Delegate" == t.BaseType?.Name && signature.Contains(" delegate "))
+            else if (t.BaseTypes.Any(bt => bt.Name == "System.Delegate") && signature.Contains(" delegate "))
             {
                 return ItemType.Delegate;
             }
-            else if ("System.ValueType" == t.BaseType?.Name && signature.Contains(" struct "))
+            else if (t.BaseTypes.Any(bt => bt.Name == "System.ValueType") && signature.Contains(" struct "))
             {
                 return ItemType.Struct;
             }
@@ -332,24 +332,38 @@ namespace ECMA2Yaml
             }
         }
 
-        private BaseType LoadBaseType(XElement bElement)
+        private List<BaseType> LoadBaseType(XElement bElement)
         {
             if (bElement == null)
             {
                 return null;
             }
-            BaseType bt = new BaseType();
-            bt.Name = bElement.Elements("BaseTypeName")?.LastOrDefault()?.Value;
-            var btaElements = bElement.Element("BaseTypeArguments")?.Elements("BaseTypeArgument");
-            if (btaElements != null)
+            List<BaseType> baseTypes = new List<BaseType>();
+            var nameElements = bElement.Elements("BaseTypeName");
+            if (nameElements != null)
             {
-                bt.TypeArguments = btaElements.Select(e => new BaseTypeArgument()
+                foreach (var nameElement in nameElements)
                 {
-                    TypeParamName = e.Attribute("TypeParamName").Value,
-                    Value = e.Value
-                }).ToList();
+                    BaseType bt = new BaseType();
+                    bt.Name = nameElement.Value;
+                    bt.Monikers = LoadFrameworkAlternate(nameElement);
+                    if (bt.Name.Contains("<"))
+                    {
+                        var btaElements = bElement.Element("BaseTypeArguments")?.Elements("BaseTypeArgument");
+                        if (btaElements != null)
+                        {
+                            bt.TypeArguments = btaElements.Select(e => new BaseTypeArgument()
+                            {
+                                TypeParamName = e.Attribute("TypeParamName").Value,
+                                Value = e.Value
+                            }).ToList();
+                        }
+                    }
+                    baseTypes.Add(bt);
+                }
             }
-            return bt;
+
+            return baseTypes;
         }
 
         private Member LoadMember(Models.Type t, XElement mElement)

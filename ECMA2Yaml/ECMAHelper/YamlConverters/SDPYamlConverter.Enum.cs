@@ -16,8 +16,15 @@ namespace ECMA2Yaml
         {
             var sdpEnum = InitWithBasicProperties<EnumSDPModel>(enumTypeItem);
 
-            sdpEnum.Inheritances = enumTypeItem.InheritanceUids?.Select(uid => UidToTypeMDString(uid, _store)).ToList();
-
+            if (_withVersioning)
+            {
+                sdpEnum.InheritancesWithMoniker = enumTypeItem.InheritanceChains;
+            }
+            else
+            {
+                sdpEnum.Inheritances = enumTypeItem.InheritanceChains?.LastOrDefault().Value.Select(uid => UidToTypeMDString(uid, _store)).ToList();
+            }
+            
             sdpEnum.IsFlags = enumTypeItem.Attributes != null 
                 && enumTypeItem.Attributes.Any(attr => attr.Declaration == "System.Flags");
 

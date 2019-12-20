@@ -70,7 +70,7 @@ namespace ECMA2Yaml
 
         public static List<VersionedSignatureModel> BuildVersionedSignatures(ReflectionItem item)
         {
-            var contents = new SortedList<string, List<VersionedValue>>();
+            var contents = new SortedList<string, List<VersionedString>>();
             if (item.Signatures?.Dict != null)
             {
                 foreach (var sigPair in item.Signatures.Dict)
@@ -88,9 +88,9 @@ namespace ECMA2Yaml
                             // devide into 2 cases for better perf, most of the time neither signature nor attributes are versioned
                             if (!versionedSig && !versionedAttr)
                             {
-                                contents[lang] = new List<VersionedValue>() 
+                                contents[lang] = new List<VersionedString>() 
                                 { 
-                                    new VersionedValue(null, AttachAttributesToSignature(visibleAttrs, sigValues.First().Value)) 
+                                    new VersionedString(null, AttachAttributesToSignature(visibleAttrs, sigValues.First().Value)) 
                                 };
                             }
                             else
@@ -104,7 +104,7 @@ namespace ECMA2Yaml
                                     return (moniker, combinedSig);
                                 })
                                 .GroupBy(t => t.combinedSig)
-                                .Select(g => new VersionedValue(g.Select(t => t.moniker).ToHashSet(), g.Key))
+                                .Select(g => new VersionedString(g.Select(t => t.moniker).ToHashSet(), g.Key))
                                 .ToList();
                             }
                         }
@@ -166,7 +166,7 @@ namespace ECMA2Yaml
             return contents;
         }
 
-        public static IEnumerable<string> ConsolidateVersionedValues(IEnumerable<VersionedValue> vals, HashSet<string> pageMonikers)
+        public static IEnumerable<string> ConsolidateVersionedValues(IEnumerable<VersionedString> vals, HashSet<string> pageMonikers)
         {
             if (vals == null || vals.Any(v => v.Monikers == null))
             { 
