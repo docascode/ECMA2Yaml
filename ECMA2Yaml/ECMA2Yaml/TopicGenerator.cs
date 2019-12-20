@@ -258,7 +258,7 @@ namespace ECMA2Yaml
             var item = new ItemViewModel()
             {
                 Id = m.Id,
-                Uid = m.Uid,
+                Uid = store.UWPMode ? m.GetUWPUID() : m.Uid,
                 CommentId = m.CommentId,
                 Name = m.DisplayName,
                 NameWithType = t.Name + '.' + m.DisplayName,
