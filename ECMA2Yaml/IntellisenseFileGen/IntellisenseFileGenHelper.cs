@@ -109,7 +109,7 @@ namespace IntellisenseFileGen
                 throw new Exception(message);
             }
 
-            var typeList = LoadTypes(store.ItemsByDocId);
+            var typeList = LoadTypes(store);
 
             requiredFrameworkList.ForEach(fw =>
             {
@@ -194,7 +194,7 @@ namespace IntellisenseFileGen
         /// Load all xml file and convert to List<Type>
         /// </summary>
         /// <returns></returns>
-        public static List<Models.Type> LoadTypes(Dictionary<string, ECMA2Yaml.Models.ReflectionItem> ItemsByDocId)
+        public static List<Models.Type> LoadTypes(ECMA2Yaml.Models.ECMAStore store)
         {
             string xmlFolder = _xmlDataFolder.Replace(_repoRootFolder, "").Trim(Path.DirectorySeparatorChar);
             var typeFileList = GetFiles(xmlFolder, "**\\*.xml");
@@ -206,7 +206,7 @@ namespace IntellisenseFileGen
 
                 if (xmlDoc.Root.Name.LocalName == "Type")
                 {
-                    Models.Type t = ConvertToType(xmlDoc, ItemsByDocId);
+                    Models.Type t = ConvertToType(xmlDoc, store);
                     if (t != null)
                     {
                         typeList.Add(t);
@@ -222,7 +222,7 @@ namespace IntellisenseFileGen
         /// </summary>
         /// <param name="xmlDoc"></param>
         /// <returns></returns>
-        private static Models.Type ConvertToType(XDocument xmlDoc, Dictionary<string, ECMA2Yaml.Models.ReflectionItem> ItemsByDocId)
+        private static Models.Type ConvertToType(XDocument xmlDoc, ECMA2Yaml.Models.ECMAStore store)
         {
             Models.Type t = new Models.Type();
 
@@ -233,7 +233,7 @@ namespace IntellisenseFileGen
             }
 
             var docsEle = new XElement("member");
-            SetDocsEle(docsEle, xmlDoc.Root, ItemsByDocId, docId);
+            SetDocsEle(docsEle, xmlDoc.Root, store.ItemsByDocId, docId);
             t.Docs = docsEle;
 
             var AssemblyInfoEleList = xmlDoc.Root.Elements("AssemblyInfo");
@@ -265,7 +265,7 @@ namespace IntellisenseFileGen
                 t.Members = new List<Member>();
                 memberEleList.ToList().ForEach(memberEle =>
                 {
-                    var m = ConvertToMember(memberEle, ItemsByDocId);
+                    var m = ConvertToMember(memberEle, store);
                     if (m != null)
                     {
                         t.Members.Add(m);
@@ -281,11 +281,16 @@ namespace IntellisenseFileGen
         /// </summary>
         /// <param name="member"></param>
         /// <returns></returns>
-        private static Member ConvertToMember(XElement member, Dictionary<string, ECMA2Yaml.Models.ReflectionItem> ItemsByDocId)
+        private static Member ConvertToMember(XElement member, ECMA2Yaml.Models.ECMAStore store)
         {
             var m = new Member();
 
             string docId = GetDocId(member, "MemberSignature");
+            if (!store.MembersByUid.ContainsKey(docId.Remove(0, 2)))
+            {
+                return null;
+            }
+
             if (!string.IsNullOrEmpty(docId))
             {
                 m.DocId = docId;
@@ -293,7 +298,7 @@ namespace IntellisenseFileGen
             SpecialProcessDuplicateParameters(member);
 
             var docsEle = new XElement("member");
-            SetDocsEle(docsEle, member, ItemsByDocId, docId);
+            SetDocsEle(docsEle, member, store.ItemsByDocId, docId);
             m.Docs = docsEle;
 
             var AssemblyInfoEleList = member.Elements("AssemblyInfo");
