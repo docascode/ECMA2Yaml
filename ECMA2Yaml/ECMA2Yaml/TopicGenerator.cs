@@ -222,9 +222,9 @@ namespace ECMA2Yaml
 
             //not top level class like System.Object, has children
             if (t.ItemType == ItemType.Interface
-                && store.ImplementChildrenByUid.ContainsKey(t.Uid))
+                && store.ImplementationChildrenByUid.ContainsKey(t.Uid))
             {
-                item.DerivedClasses = store.ImplementChildrenByUid[t.Uid].Select(v => v.Value).ToList();
+                item.DerivedClasses = store.ImplementationChildrenByUid[t.Uid].Select(v => v.Value).ToList();
             }
             else if (store.InheritanceParentsByUid.ContainsKey(t.Uid) 
                 && store.InheritanceParentsByUid[t.Uid]?.Count > 0

@@ -178,7 +178,7 @@ namespace ECMA2Yaml
                 }
                 catch (Exception ex)
                 {
-                    OPSLogger.LogUserError(LogCode.ECMA2Yaml_InternalError, ex.Message, typeFile.AbsolutePath);
+                    OPSLogger.LogUserError(LogCode.ECMA2Yaml_InternalError, ex.ToString(), typeFile.AbsolutePath);
                     _errorFiles.Add(typeFile.AbsolutePath);
                 }
             }
@@ -310,15 +310,18 @@ namespace ECMA2Yaml
             {
                 return ItemType.Interface;
             }
-            else if (t.BaseTypes.Any(bt => bt.Name == "System.Enum") && signature.Contains(" enum "))
+            else if ((t.BaseTypes == null || t.BaseTypes.Any(bt => bt.Name == "System.Enum"))
+                && signature.Contains(" enum "))
             {
                 return ItemType.Enum;
             }
-            else if (t.BaseTypes.Any(bt => bt.Name == "System.Delegate") && signature.Contains(" delegate "))
+            else if ((t.BaseTypes == null || t.BaseTypes.Any(bt => bt.Name == "System.Delegate"))
+                && signature.Contains(" delegate "))
             {
                 return ItemType.Delegate;
             }
-            else if (t.BaseTypes.Any(bt => bt.Name == "System.ValueType") && signature.Contains(" struct "))
+            else if ((t.BaseTypes == null || t.BaseTypes.Any(bt => bt.Name == "System.ValueType"))
+                && signature.Contains(" struct "))
             {
                 return ItemType.Struct;
             }

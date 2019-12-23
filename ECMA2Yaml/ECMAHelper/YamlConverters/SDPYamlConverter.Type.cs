@@ -44,9 +44,9 @@ namespace ECMA2Yaml
 
             //not top level class like System.Object, has children
             if (t.ItemType == ItemType.Interface
-                && _store.ImplementChildrenByUid.ContainsKey(t.Uid))
+                && _store.ImplementationChildrenByUid.ContainsKey(t.Uid))
             {
-                sdpType.DerivedClasses = _store.ImplementChildrenByUid[t.Uid].Select(v => v.Value).ToList();
+                sdpType.DerivedClasses = _store.ImplementationChildrenByUid[t.Uid].Select(v => v.Value).ToList();
             }
             else if (_store.InheritanceParentsByUid.ContainsKey(t.Uid)
                 && _store.InheritanceParentsByUid[t.Uid]?.Count > 0

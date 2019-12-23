@@ -15,9 +15,9 @@ namespace ECMA2Yaml.Models
         public Dictionary<string, Member> MembersByUid { get; set; }
         public Dictionary<string, ReflectionItem> ItemsByDocId { get; set; }
         public Dictionary<string, List<VersionedString>> InheritanceParentsByUid { get; set; }
-        public Dictionary<string, List<VersionedString>> ImplementParentsByUid { get; set; }
         public Dictionary<string, List<VersionedString>> InheritanceChildrenByUid { get; set; }
-        public Dictionary<string, List<VersionedString>> ImplementChildrenByUid { get; set; }
+        public Dictionary<string, List<VersionedString>> ImplementationParentsByUid { get; set; }
+        public Dictionary<string, List<VersionedString>> ImplementationChildrenByUid { get; set; }
         public Dictionary<string, Member> ExtensionMethodsByMemberDocId { get; set; }
         public ILookup<string, Member> ExtensionMethodUidsByTargetUid { get; set; }
         public FilterStore FilterStore { get; set; }
@@ -36,7 +36,6 @@ namespace ECMA2Yaml.Models
 
         public ECMAStore(IEnumerable<Namespace> nsList,
             FrameworkIndex frameworks,
-            //List<ExtensionMethod> extensionMethods,
             Dictionary<string, string> monikerNugetMapping = null,
             Dictionary<string, List<string>> monikerAssemblyMapping = null)
         {
@@ -45,14 +44,13 @@ namespace ECMA2Yaml.Models
             _nsList = nsList;
             _tList = nsList.SelectMany(ns => ns.Types).ToList();
             _frameworks = frameworks;
-            //_extensionMethods = extensionMethods;
             _monikerNugetMapping = monikerNugetMapping;
             _monikerAssemblyMapping = monikerAssemblyMapping;
 
             InheritanceParentsByUid = new Dictionary<string, List<VersionedString>>();
             InheritanceChildrenByUid = new Dictionary<string, List<VersionedString>>();
-            ImplementParentsByUid = new Dictionary<string, List<VersionedString>>();
-            ImplementChildrenByUid = new Dictionary<string, List<VersionedString>>();
+            ImplementationParentsByUid = new Dictionary<string, List<VersionedString>>();
+            ImplementationChildrenByUid = new Dictionary<string, List<VersionedString>>();
         }
 
         public void Build()
@@ -445,11 +443,11 @@ namespace ECMA2Yaml.Models
             foreach (var t in _tList)
             {
                 var exMethodsFromBaseType = CheckAvailableExtensionMethods(t, InheritanceParentsByUid);
-                var exMethodsFromInterface = CheckAvailableExtensionMethods(t, ImplementParentsByUid);
-                var allExMethods = exMethodsFromBaseType.MergeWith(exMethodsFromInterface);
-                if (allExMethods.Count > 0)
+                //var exMethodsFromInterface = CheckAvailableExtensionMethods(t, ImplementationParentsByUid);
+                //var allExMethods = exMethodsFromBaseType.MergeWith(exMethodsFromInterface);
+                if (exMethodsFromBaseType.Count > 0)
                 {
-                    t.ExtensionMethods = allExMethods.Distinct().ToList();
+                    t.ExtensionMethods = exMethodsFromBaseType.Distinct().ToList();
                     t.ExtensionMethods.Sort();
                 }
             }
@@ -467,6 +465,27 @@ namespace ECMA2Yaml.Models
                 {
                     parentDict[uid].ForEach(u => uidsToCheck.Push(u.Value));
                 }
+                var exCandiates = GetExtensionMethodCandidatesForType(uid);
+                if (exCandiates != null)
+                {
+                    extensionMethods.AddRange(exCandiates);
+                }
+                if (TypesByUid.TryGetValue(uid, out var type) && type.Interfaces?.Count > 0)
+                {
+                    foreach(var f in type.Interfaces)
+                    {
+                        exCandiates = GetExtensionMethodCandidatesForType(f.ToOuterTypeUid());
+                        if (exCandiates != null)
+                        {
+                            extensionMethods.AddRange(exCandiates);
+                        }
+                    }
+                }
+            }
+            return extensionMethods;
+
+            List<string> GetExtensionMethodCandidatesForType(string uid)
+            {
                 if (ExtensionMethodUidsByTargetUid.Contains(uid))
                 {
                     var exCandiates = ExtensionMethodUidsByTargetUid[uid].Where(ex =>
@@ -480,10 +499,10 @@ namespace ECMA2Yaml.Models
                                (exMonikers != null && t.Monikers != null && exMonikers.Intersect(t.Monikers).Any());
                     });
 
-                    extensionMethods.AddRange(exCandiates.Select(ex => ex.Uid));
+                    return exCandiates.Select(ex => ex.Uid).ToList();
                 }
+                return null;
             }
-            return extensionMethods;
         }
 
         private void BuildFrameworks()
@@ -785,17 +804,17 @@ namespace ECMA2Yaml.Models
 
         private void AddImplementMapping(string childUid, string parentUid, HashSet<string> monikers = null)
         {
-            if (!ImplementParentsByUid.ContainsKey(childUid))
+            if (!ImplementationParentsByUid.ContainsKey(childUid))
             {
-                ImplementParentsByUid.Add(childUid, new List<VersionedString>());
+                ImplementationParentsByUid.Add(childUid, new List<VersionedString>());
             }
-            ImplementParentsByUid[childUid].Add(new VersionedString() { Value = parentUid, Monikers = monikers });
+            ImplementationParentsByUid[childUid].Add(new VersionedString() { Value = parentUid, Monikers = monikers });
 
-            if (!ImplementChildrenByUid.ContainsKey(parentUid))
+            if (!ImplementationChildrenByUid.ContainsKey(parentUid))
             {
-                ImplementChildrenByUid.Add(parentUid, new List<VersionedString>());
+                ImplementationChildrenByUid.Add(parentUid, new List<VersionedString>());
             }
-            ImplementChildrenByUid[parentUid].Add(new VersionedString() { Value = childUid, Monikers = monikers });
+            ImplementationChildrenByUid[parentUid].Add(new VersionedString() { Value = childUid, Monikers = monikers });
         }
 
         private void FillInheritanceImplementationGraph(Type t)
