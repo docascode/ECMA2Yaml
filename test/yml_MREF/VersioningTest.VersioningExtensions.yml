@@ -1,0 +1,197 @@
+### YamlMime:ManagedReference
+items:
+- uid: VersioningTest.VersioningExtensions
+  commentId: T:VersioningTest.VersioningExtensions
+  id: VersioningExtensions
+  children:
+  - VersioningTest.VersioningExtensions.ExtMethodForD(VersioningTest.D)
+  - VersioningTest.VersioningExtensions.ExtMethodForI(VersioningTest.I)
+  langs:
+  - cpp
+  - csharp
+  - fsharp
+  - vb
+  name: VersioningExtensions
+  nameWithType: VersioningTest.VersioningExtensions
+  fullName: VersioningTest.VersioningExtensions
+  type: Class
+  assemblies:
+  - CatLibrary
+  namespace: VersioningTest
+  syntax:
+    content: public static class VersioningExtensions
+    content.cpp: public ref class VersioningExtensions abstract sealed
+    content.csharp: public static class VersioningExtensions
+    content.fsharp: type VersioningExtensions = class
+    content.vb: Public Module VersioningExtensions
+  inheritance:
+  - System.Object
+  implements: []
+  modifiers.csharp:
+  - public
+  - static
+  monikers:
+  - cat-1.0
+  - cat-2.0
+  _op_AssemblyMonikerMapping:
+    CatLibrary:
+    - cat-1.0
+    - cat-2.0
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/VersioningExtensions.xml
+  original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/VersioningExtensions.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/VersioningExtensions.xml
+- uid: VersioningTest.VersioningExtensions.ExtMethodForD(VersioningTest.D)
+  commentId: M:VersioningTest.VersioningExtensions.ExtMethodForD(VersioningTest.D)
+  id: ExtMethodForD(VersioningTest.D)
+  isExtensionMethod: true
+  parent: VersioningTest.VersioningExtensions
+  langs:
+  - cpp
+  - csharp
+  - fsharp
+  - vb
+  name: ExtMethodForD(D)
+  nameWithType: VersioningExtensions.ExtMethodForD(D)
+  fullName: VersioningTest.VersioningExtensions.ExtMethodForD(D)
+  type: Method
+  assemblies:
+  - CatLibrary
+  namespace: VersioningTest
+  summary: this extension method should show up in class `D` for all monikers, and in `F/G/H` for `cat-2.0` only.
+  syntax:
+    content: public static void ExtMethodForD (this VersioningTest.D i);
+    parameters:
+    - id: i
+      type: VersioningTest.D
+      description: "\n        "
+    content.cpp: >-
+      public:
+
+      [System::Runtime::CompilerServices::Extension]
+       static void ExtMethodForD(VersioningTest::D ^ i);
+    content.csharp: public static void ExtMethodForD (this VersioningTest.D i);
+    content.fsharp: 'static member ExtMethodForD : VersioningTest.D -> unit'
+    content.vb: >-
+      <Extension()>
+
+      Public Sub ExtMethodForD (i As D)
+  overload: VersioningTest.VersioningExtensions.ExtMethodForD*
+  exceptions: []
+  modifiers.csharp:
+  - public
+  - static
+  monikers:
+  - cat-1.0
+  - cat-2.0
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/VersioningExtensions.xml
+  original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/VersioningExtensions.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/VersioningExtensions.xml
+- uid: VersioningTest.VersioningExtensions.ExtMethodForI(VersioningTest.I)
+  commentId: M:VersioningTest.VersioningExtensions.ExtMethodForI(VersioningTest.I)
+  id: ExtMethodForI(VersioningTest.I)
+  isExtensionMethod: true
+  parent: VersioningTest.VersioningExtensions
+  langs:
+  - cpp
+  - csharp
+  - fsharp
+  name: ExtMethodForI(I)
+  nameWithType: VersioningExtensions.ExtMethodForI(I)
+  fullName: VersioningTest.VersioningExtensions.ExtMethodForI(I)
+  type: Method
+  assemblies:
+  - CatLibrary
+  namespace: VersioningTest
+  summary: this extension method should show up in interface <code data-dev-comment-type="c">I</code>, class <code data-dev-comment-type="c">C</code> and <code data-dev-comment-type="c">E</code> for all monikers, and in `F/G/H` for `cat-1.0` only.
+  syntax:
+    content: public static void ExtMethodForI (this VersioningTest.I i);
+    parameters:
+    - id: i
+      type: VersioningTest.I
+      description: "\n        "
+    content.cpp: >-
+      public:
+
+      [System::Runtime::CompilerServices::Extension]
+       static void ExtMethodForI(VersioningTest::I ^ i);
+    content.csharp: public static void ExtMethodForI (this VersioningTest.I i);
+    content.fsharp: 'static member ExtMethodForI : VersioningTest.I -> unit'
+  overload: VersioningTest.VersioningExtensions.ExtMethodForI*
+  exceptions: []
+  modifiers.csharp:
+  - public
+  - static
+  monikers:
+  - cat-1.0
+  - cat-2.0
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/VersioningExtensions.xml
+  original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/VersioningExtensions.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/VersioningExtensions.xml
+references:
+- uid: VersioningTest
+  commentId: N:VersioningTest
+  isExternal: false
+  name: VersioningTest
+  nameWithType: VersioningTest
+  fullName: VersioningTest
+  type: namespace
+- uid: System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: VersioningTest.VersioningExtensions.ExtMethodForD(VersioningTest.D)
+  parent: VersioningTest.VersioningExtensions
+  isExternal: false
+  name: ExtMethodForD(D)
+  nameWithType: VersioningExtensions.ExtMethodForD(D)
+  fullName: VersioningTest.VersioningExtensions.ExtMethodForD(D)
+  type: method
+- uid: VersioningTest.D
+  parent: VersioningTest
+  isExternal: false
+  name: D
+  nameWithType: D
+  fullName: VersioningTest.D
+- uid: VersioningTest.VersioningExtensions.ExtMethodForI(VersioningTest.I)
+  parent: VersioningTest.VersioningExtensions
+  isExternal: false
+  name: ExtMethodForI(I)
+  nameWithType: VersioningExtensions.ExtMethodForI(I)
+  fullName: VersioningTest.VersioningExtensions.ExtMethodForI(I)
+  type: method
+- uid: VersioningTest.I
+  parent: VersioningTest
+  isExternal: false
+  name: I
+  nameWithType: I
+  fullName: VersioningTest.I
+- uid: VersioningTest.VersioningExtensions.ExtMethodForD*
+  commentId: Overload:VersioningTest.VersioningExtensions.ExtMethodForD
+  parent: VersioningTest.VersioningExtensions
+  isExternal: false
+  name: ExtMethodForD
+  nameWithType: VersioningExtensions.ExtMethodForD
+  fullName: VersioningTest.VersioningExtensions.ExtMethodForD
+  monikers:
+  - cat-1.0
+  - cat-2.0
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/VersioningExtensions.xml
+  original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/VersioningExtensions.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/VersioningExtensions.xml
+  type: method
+- uid: VersioningTest.VersioningExtensions.ExtMethodForI*
+  commentId: Overload:VersioningTest.VersioningExtensions.ExtMethodForI
+  parent: VersioningTest.VersioningExtensions
+  isExternal: false
+  name: ExtMethodForI
+  nameWithType: VersioningExtensions.ExtMethodForI
+  fullName: VersioningTest.VersioningExtensions.ExtMethodForI
+  monikers:
+  - cat-1.0
+  - cat-2.0
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/VersioningExtensions.xml
+  original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/VersioningExtensions.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/VersioningExtensions.xml
+  type: method

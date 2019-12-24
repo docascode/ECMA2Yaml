@@ -1,0 +1,40 @@
+<Type Name="D" FullName="VersioningTest.D">
+  <TypeSignature Language="C#" Value="public class D : VersioningTest.B" />
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit D extends VersioningTest.B" />
+  <TypeSignature Language="DocId" Value="T:VersioningTest.D" />
+  <TypeSignature Language="VB.NET" Value="Public Class D&#xA;Inherits B" />
+  <TypeSignature Language="C++ CLI" Value="public ref class D : VersioningTest::B" />
+  <TypeSignature Language="F#" Value="type D = class&#xA;    inherit B" />
+  <AssemblyInfo>
+    <AssemblyName>CatLibrary</AssemblyName>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>VersioningTest.A</BaseTypeName>
+    <BaseTypeName FrameworkAlternate="cat-2.0">VersioningTest.B</BaseTypeName>
+  </Base>
+  <Interfaces />
+  <Docs>
+    <summary>To be added.</summary>
+    <remarks>To be added.</remarks>
+  </Docs>
+  <Members>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public D ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor() cil managed" />
+      <MemberSignature Language="DocId" Value="M:VersioningTest.D.#ctor" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New ()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; D();" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>CatLibrary</AssemblyName>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters />
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+  </Members>
+</Type>

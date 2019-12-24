@@ -1,0 +1,43 @@
+<Type Name="C" FullName="VersioningTest.C">
+  <TypeSignature Language="C#" Value="public class C : VersioningTest.I" />
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit C extends System.Object implements class VersioningTest.I" />
+  <TypeSignature Language="DocId" Value="T:VersioningTest.C" />
+  <TypeSignature Language="VB.NET" Value="Public Class C&#xA;Implements I" />
+  <TypeSignature Language="C++ CLI" Value="public ref class C : VersioningTest::I" />
+  <TypeSignature Language="F#" Value="type C = class&#xA;    interface I" />
+  <AssemblyInfo>
+    <AssemblyName>CatLibrary</AssemblyName>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>System.Object</BaseTypeName>
+  </Base>
+  <Interfaces>
+    <Interface>
+      <InterfaceName>VersioningTest.I</InterfaceName>
+    </Interface>
+  </Interfaces>
+  <Docs>
+    <summary>To be added.</summary>
+    <remarks>To be added.</remarks>
+  </Docs>
+  <Members>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public C ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor() cil managed" />
+      <MemberSignature Language="DocId" Value="M:VersioningTest.C.#ctor" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New ()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; C();" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>CatLibrary</AssemblyName>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters />
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+  </Members>
+</Type>

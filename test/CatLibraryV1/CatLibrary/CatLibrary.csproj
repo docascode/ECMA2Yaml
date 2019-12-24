@@ -52,6 +52,7 @@
     <Compile Include="IAnimal.cs" />
     <Compile Include="ICat.cs" />
     <Compile Include="ICatExtension.cs" />
+    <Compile Include="InheritanceGraph1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tom.cs" />
     <Compile Include="TomFromBaseClass.cs" />

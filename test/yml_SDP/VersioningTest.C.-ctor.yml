@@ -1,0 +1,54 @@
+### YamlMime:NetMember
+type: constructor
+members:
+- uid: VersioningTest.C.#ctor
+  commentId: M:VersioningTest.C.#ctor
+  name: C()
+  fullName: VersioningTest.C.C()
+  nameWithType: C.C()
+  syntax:
+  - lang: cpp
+    value: >-
+      public:
+       C();
+  - lang: csharp
+    value: public C ();
+  - lang: vb
+    value: Public Sub New ()
+  monikers:
+  - cat-1.0
+  - cat-2.0
+  metadata: {}
+uid: VersioningTest.C.#ctor*
+commentId: Overload:VersioningTest.C.#ctor
+namespace: VersioningTest
+name: C
+fullName: VersioningTest.C.C
+nameWithType: C.C
+assemblies:
+- CatLibrary
+devLangs:
+- csharp
+- vb
+- cpp
+monikers:
+- cat-1.0
+- cat-2.0
+metadata:
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/C.xml
+  _op_overwriteFileGitUrl: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/C.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/C.xml
+  api_name:
+  - VersioningTest.C..ctor
+  api_location:
+  - CatLibrary.dll
+  topic_type:
+  - apiref
+  api_type:
+  - Assembly
+  f1_keywords:
+  - VersioningTest.C.#ctor
+  - VersioningTest::C::#ctor
+  helpviewer_keywords:
+  - C class [.NET], constructors
+  - C() class [.NET], constructors

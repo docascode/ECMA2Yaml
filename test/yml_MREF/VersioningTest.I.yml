@@ -1,0 +1,64 @@
+### YamlMime:ManagedReference
+items:
+- uid: VersioningTest.I
+  commentId: T:VersioningTest.I
+  id: I
+  children: []
+  langs:
+  - cpp
+  - csharp
+  - fsharp
+  - vb
+  name: I
+  nameWithType: VersioningTest.I
+  fullName: VersioningTest.I
+  type: Interface
+  assemblies:
+  - CatLibrary
+  namespace: VersioningTest
+  syntax:
+    content: public interface I
+    content.cpp: public interface class I
+    content.csharp: public interface I
+    content.fsharp: type I = interface
+    content.vb: Public Interface I
+  derivedClasses:
+  - VersioningTest.C
+  implements: []
+  extensionMethods:
+  - VersioningTest.VersioningExtensions.ExtMethodForI(VersioningTest.I)
+  modifiers.csharp:
+  - public
+  monikers:
+  - cat-1.0
+  - cat-2.0
+  _op_AssemblyMonikerMapping:
+    CatLibrary:
+    - cat-1.0
+    - cat-2.0
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/I.xml
+  original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/I.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/I.xml
+references:
+- uid: VersioningTest
+  commentId: N:VersioningTest
+  isExternal: false
+  name: VersioningTest
+  nameWithType: VersioningTest
+  fullName: VersioningTest
+  type: namespace
+- uid: VersioningTest.VersioningExtensions.ExtMethodForI(VersioningTest.I)
+  parent: VersioningTest.VersioningExtensions
+  isExternal: false
+  name: ExtMethodForI(I)
+  nameWithType: VersioningExtensions.ExtMethodForI(I)
+  fullName: VersioningTest.VersioningExtensions.ExtMethodForI(I)
+  type: method
+- uid: VersioningTest.C
+  commentId: T:VersioningTest.C
+  parent: VersioningTest
+  isExternal: false
+  name: C
+  nameWithType: VersioningTest.C
+  fullName: VersioningTest.C
+  type: class

@@ -188,3 +188,104 @@ items:
   monikers:
   - cat-1.0
   - cat-2.0
+- uid: VersioningTest
+  name: VersioningTest
+  items:
+  - uid: VersioningTest.A
+    name: A
+    items:
+    - uid: VersioningTest.A.#ctor*
+      name: A
+      type: Constructor
+    - uid: VersioningTest.A.MethodFromClassA*
+      name: MethodFromClassA
+      type: Method
+    monikers:
+    - cat-1.0
+    - cat-2.0
+  - uid: VersioningTest.B
+    name: B
+    items:
+    - uid: VersioningTest.B.#ctor*
+      name: B
+      type: Constructor
+    - uid: VersioningTest.B.MethodFromClassB*
+      name: MethodFromClassB
+      type: Method
+    monikers:
+    - cat-1.0
+    - cat-2.0
+  - uid: VersioningTest.C
+    name: C
+    items:
+    - uid: VersioningTest.C.#ctor*
+      name: C
+      type: Constructor
+    monikers:
+    - cat-1.0
+    - cat-2.0
+  - uid: VersioningTest.D
+    name: D
+    items:
+    - uid: VersioningTest.D.#ctor*
+      name: D
+      type: Constructor
+    monikers:
+    - cat-1.0
+    - cat-2.0
+  - uid: VersioningTest.E
+    name: E
+    items:
+    - uid: VersioningTest.E.#ctor*
+      name: E
+      type: Constructor
+    monikers:
+    - cat-1.0
+    - cat-2.0
+  - uid: VersioningTest.F
+    name: F
+    items:
+    - uid: VersioningTest.F.#ctor*
+      name: F
+      type: Constructor
+    monikers:
+    - cat-1.0
+    - cat-2.0
+  - uid: VersioningTest.G
+    name: G
+    items:
+    - uid: VersioningTest.G.#ctor*
+      name: G
+      type: Constructor
+    monikers:
+    - cat-1.0
+    - cat-2.0
+  - uid: VersioningTest.H
+    name: H
+    items:
+    - uid: VersioningTest.H.#ctor*
+      name: H
+      type: Constructor
+    monikers:
+    - cat-1.0
+    - cat-2.0
+  - uid: VersioningTest.I
+    name: I
+    monikers:
+    - cat-1.0
+    - cat-2.0
+  - uid: VersioningTest.VersioningExtensions
+    name: VersioningExtensions
+    items:
+    - uid: VersioningTest.VersioningExtensions.ExtMethodForD*
+      name: ExtMethodForD
+      type: Method
+    - uid: VersioningTest.VersioningExtensions.ExtMethodForI*
+      name: ExtMethodForI
+      type: Method
+    monikers:
+    - cat-1.0
+    - cat-2.0
+  monikers:
+  - cat-1.0
+  - cat-2.0

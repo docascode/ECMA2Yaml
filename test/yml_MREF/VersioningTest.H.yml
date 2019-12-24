@@ -1,0 +1,150 @@
+### YamlMime:ManagedReference
+items:
+- uid: VersioningTest.H
+  commentId: T:VersioningTest.H
+  id: H
+  children:
+  - VersioningTest.H.#ctor
+  langs:
+  - cpp
+  - csharp
+  - fsharp
+  - vb
+  name: H
+  nameWithType: VersioningTest.H
+  fullName: VersioningTest.H
+  type: Class
+  assemblies:
+  - CatLibrary
+  namespace: VersioningTest
+  syntax:
+    content: 'public class H : VersioningTest.F'
+    content.cpp: 'public ref class H : VersioningTest::F'
+    content.csharp: 'public class H : VersioningTest.F'
+    content.fsharp: >-
+      type H = class
+          inherit F
+    content.vb: >-
+      Public Class H
+
+      Inherits F
+  inheritance:
+  - System.Object
+  - VersioningTest.B
+  - VersioningTest.D
+  - VersioningTest.F
+  implements: []
+  inheritedMembers:
+  - VersioningTest.A.MethodFromClassA(System.String)
+  - VersioningTest.B.MethodFromClassB(System.String)
+  extensionMethods:
+  - VersioningTest.VersioningExtensions.ExtMethodForD(VersioningTest.D)
+  - VersioningTest.VersioningExtensions.ExtMethodForI(VersioningTest.I)
+  modifiers.csharp:
+  - public
+  monikers:
+  - cat-1.0
+  - cat-2.0
+  _op_AssemblyMonikerMapping:
+    CatLibrary:
+    - cat-1.0
+    - cat-2.0
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/H.xml
+  original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/H.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/H.xml
+- uid: VersioningTest.H.#ctor
+  commentId: M:VersioningTest.H.#ctor
+  id: '#ctor'
+  parent: VersioningTest.H
+  langs:
+  - cpp
+  - csharp
+  - vb
+  name: H()
+  nameWithType: H.H()
+  fullName: VersioningTest.H.H()
+  type: Constructor
+  assemblies:
+  - CatLibrary
+  namespace: VersioningTest
+  syntax:
+    content: public H ();
+    parameters: []
+    content.cpp: >-
+      public:
+       H();
+    content.csharp: public H ();
+    content.vb: Public Sub New ()
+  overload: VersioningTest.H.#ctor*
+  exceptions: []
+  modifiers.csharp:
+  - public
+  monikers:
+  - cat-1.0
+  - cat-2.0
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/H.xml
+  original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/H.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/H.xml
+references:
+- uid: VersioningTest
+  commentId: N:VersioningTest
+  isExternal: false
+  name: VersioningTest
+  nameWithType: VersioningTest
+  fullName: VersioningTest
+  type: namespace
+- uid: VersioningTest.F
+  parent: VersioningTest
+  isExternal: false
+  name: F
+  nameWithType: F
+  fullName: VersioningTest.F
+- uid: VersioningTest.H.#ctor
+  parent: VersioningTest.H
+  isExternal: false
+  name: H()
+  nameWithType: H.H()
+  fullName: VersioningTest.H.H()
+  type: constructor
+- uid: VersioningTest.H.#ctor*
+  commentId: Overload:VersioningTest.H.#ctor
+  parent: VersioningTest.H
+  isExternal: false
+  name: H
+  nameWithType: H.H
+  fullName: VersioningTest.H.H
+  monikers:
+  - cat-1.0
+  - cat-2.0
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/H.xml
+  original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/H.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/H.xml
+  type: constructor
+- uid: VersioningTest.A.MethodFromClassA(System.String)
+  parent: VersioningTest.A
+  isExternal: false
+  name: MethodFromClassA(String)
+  nameWithType: A.MethodFromClassA(String)
+  fullName: VersioningTest.A.MethodFromClassA(String)
+  type: method
+- uid: VersioningTest.B.MethodFromClassB(System.String)
+  parent: VersioningTest.B
+  isExternal: false
+  name: MethodFromClassB(String)
+  nameWithType: B.MethodFromClassB(String)
+  fullName: VersioningTest.B.MethodFromClassB(String)
+  type: method
+- uid: VersioningTest.VersioningExtensions.ExtMethodForD(VersioningTest.D)
+  parent: VersioningTest.VersioningExtensions
+  isExternal: false
+  name: ExtMethodForD(D)
+  nameWithType: VersioningExtensions.ExtMethodForD(D)
+  fullName: VersioningTest.VersioningExtensions.ExtMethodForD(D)
+  type: method
+- uid: VersioningTest.VersioningExtensions.ExtMethodForI(VersioningTest.I)
+  parent: VersioningTest.VersioningExtensions
+  isExternal: false
+  name: ExtMethodForI(I)
+  nameWithType: VersioningExtensions.ExtMethodForI(I)
+  fullName: VersioningTest.VersioningExtensions.ExtMethodForI(I)
+  type: method

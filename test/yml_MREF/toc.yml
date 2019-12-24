@@ -83,3 +83,59 @@
   monikers:
   - cat-1.0
   - cat-2.0
+- uid: VersioningTest
+  name: VersioningTest
+  items:
+  - uid: VersioningTest.A
+    name: A
+    monikers:
+    - cat-1.0
+    - cat-2.0
+  - uid: VersioningTest.B
+    name: B
+    monikers:
+    - cat-1.0
+    - cat-2.0
+  - uid: VersioningTest.C
+    name: C
+    monikers:
+    - cat-1.0
+    - cat-2.0
+  - uid: VersioningTest.D
+    name: D
+    monikers:
+    - cat-1.0
+    - cat-2.0
+  - uid: VersioningTest.E
+    name: E
+    monikers:
+    - cat-1.0
+    - cat-2.0
+  - uid: VersioningTest.F
+    name: F
+    monikers:
+    - cat-1.0
+    - cat-2.0
+  - uid: VersioningTest.G
+    name: G
+    monikers:
+    - cat-1.0
+    - cat-2.0
+  - uid: VersioningTest.H
+    name: H
+    monikers:
+    - cat-1.0
+    - cat-2.0
+  - uid: VersioningTest.I
+    name: I
+    monikers:
+    - cat-1.0
+    - cat-2.0
+  - uid: VersioningTest.VersioningExtensions
+    name: VersioningExtensions
+    monikers:
+    - cat-1.0
+    - cat-2.0
+  monikers:
+  - cat-1.0
+  - cat-2.0

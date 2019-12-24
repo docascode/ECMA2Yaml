@@ -1,0 +1,186 @@
+### YamlMime:ManagedReference
+items:
+- uid: VersioningTest.A
+  commentId: T:VersioningTest.A
+  id: A
+  children:
+  - VersioningTest.A.#ctor
+  - VersioningTest.A.MethodFromClassA(System.String)
+  langs:
+  - cpp
+  - csharp
+  - fsharp
+  - vb
+  name: A
+  nameWithType: VersioningTest.A
+  fullName: VersioningTest.A
+  type: Class
+  assemblies:
+  - CatLibrary
+  namespace: VersioningTest
+  syntax:
+    content: public class A
+    content.cpp: public ref class A
+    content.csharp: public class A
+    content.fsharp: type A = class
+    content.vb: Public Class A
+  inheritance:
+  - System.Object
+  derivedClasses:
+  - VersioningTest.D
+  implements: []
+  inheritedMembers: []
+  modifiers.csharp:
+  - public
+  monikers:
+  - cat-1.0
+  - cat-2.0
+  _op_AssemblyMonikerMapping:
+    CatLibrary:
+    - cat-1.0
+    - cat-2.0
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/A.xml
+  original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/A.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/A.xml
+- uid: VersioningTest.A.#ctor
+  commentId: M:VersioningTest.A.#ctor
+  id: '#ctor'
+  parent: VersioningTest.A
+  langs:
+  - cpp
+  - csharp
+  - vb
+  name: A()
+  nameWithType: A.A()
+  fullName: VersioningTest.A.A()
+  type: Constructor
+  assemblies:
+  - CatLibrary
+  namespace: VersioningTest
+  syntax:
+    content: public A ();
+    parameters: []
+    content.cpp: >-
+      public:
+       A();
+    content.csharp: public A ();
+    content.vb: Public Sub New ()
+  overload: VersioningTest.A.#ctor*
+  exceptions: []
+  modifiers.csharp:
+  - public
+  monikers:
+  - cat-1.0
+  - cat-2.0
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/A.xml
+  original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/A.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/A.xml
+- uid: VersioningTest.A.MethodFromClassA(System.String)
+  commentId: M:VersioningTest.A.MethodFromClassA(System.String)
+  id: MethodFromClassA(System.String)
+  parent: VersioningTest.A
+  langs:
+  - cpp
+  - csharp
+  - fsharp
+  - vb
+  name: MethodFromClassA(String)
+  nameWithType: A.MethodFromClassA(String)
+  fullName: VersioningTest.A.MethodFromClassA(String)
+  type: Method
+  assemblies:
+  - CatLibrary
+  namespace: VersioningTest
+  summary: this method should show up as inherited member in class `D` only for `cat-1.0`
+  syntax:
+    content: public void MethodFromClassA (string param1);
+    parameters:
+    - id: param1
+      type: System.String
+      description: "\n        "
+    content.cpp: >-
+      public:
+       void MethodFromClassA(System::String ^ param1);
+    content.csharp: public void MethodFromClassA (string param1);
+    content.fsharp: 'member this.MethodFromClassA : string -> unit'
+    content.vb: Public Sub MethodFromClassA (param1 As String)
+  overload: VersioningTest.A.MethodFromClassA*
+  exceptions: []
+  modifiers.csharp:
+  - public
+  monikers:
+  - cat-1.0
+  - cat-2.0
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/A.xml
+  original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/A.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/A.xml
+references:
+- uid: VersioningTest
+  commentId: N:VersioningTest
+  isExternal: false
+  name: VersioningTest
+  nameWithType: VersioningTest
+  fullName: VersioningTest
+  type: namespace
+- uid: System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: VersioningTest.A.#ctor
+  parent: VersioningTest.A
+  isExternal: false
+  name: A()
+  nameWithType: A.A()
+  fullName: VersioningTest.A.A()
+  type: constructor
+- uid: VersioningTest.A.MethodFromClassA(System.String)
+  parent: VersioningTest.A
+  isExternal: false
+  name: MethodFromClassA(String)
+  nameWithType: A.MethodFromClassA(String)
+  fullName: VersioningTest.A.MethodFromClassA(String)
+  type: method
+- uid: System.String
+  parent: System
+  isExternal: true
+  name: String
+  nameWithType: String
+  fullName: System.String
+- uid: VersioningTest.A.#ctor*
+  commentId: Overload:VersioningTest.A.#ctor
+  parent: VersioningTest.A
+  isExternal: false
+  name: A
+  nameWithType: A.A
+  fullName: VersioningTest.A.A
+  monikers:
+  - cat-1.0
+  - cat-2.0
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/A.xml
+  original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/A.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/A.xml
+  type: constructor
+- uid: VersioningTest.A.MethodFromClassA*
+  commentId: Overload:VersioningTest.A.MethodFromClassA
+  parent: VersioningTest.A
+  isExternal: false
+  name: MethodFromClassA
+  nameWithType: A.MethodFromClassA
+  fullName: VersioningTest.A.MethodFromClassA
+  monikers:
+  - cat-1.0
+  - cat-2.0
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/A.xml
+  original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/A.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/A.xml
+  type: method
+- uid: VersioningTest.D
+  commentId: T:VersioningTest.D
+  parent: VersioningTest
+  isExternal: false
+  name: D
+  nameWithType: VersioningTest.D
+  fullName: VersioningTest.D
+  type: class
