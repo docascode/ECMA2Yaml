@@ -17,8 +17,10 @@ namespace IntellisenseFileGen
         // [ISymUnmanagedWriter Interface](~/docs/framework/unmanaged-api/diagnostics/isymunmanagedwriter-interface.md) 
         public static Regex Link_Pattern = new Regex("(\\[(.*?)\\]\\(.*\\))", RegexOptions.Compiled);
 
-        // *Unix*,_Unix_
-        public static Regex SingleSytax_Pattern = new Regex("([\\*|\\`]([\\w|\\.|\\#|\\+|\\s|/|:|-]+?)[\\*|\\`])", RegexOptions.Compiled);
+        // *Unix*
+        public static Regex SingleSytax_Pattern1 = new Regex("(\\*([\\w|\\.|\\#|\\+|\\s|/|:|-]+?)\\*)", RegexOptions.Compiled);
+        // `Unix`
+        public static Regex SingleSytax_Pattern2 = new Regex("(`(.*?)`)", RegexOptions.Compiled);
         // **Unix**,__Unix__
         public static Regex DoubleSytax_Pattern = new Regex("([_*]{2}([\\w|\\.|\\#|\\+|\\s|/|:|-]+?)[_*]{2})", RegexOptions.Compiled);
 

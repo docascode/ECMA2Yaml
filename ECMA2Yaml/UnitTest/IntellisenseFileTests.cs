@@ -16,6 +16,8 @@ namespace UnitTest
                     , "Sets a value indicating whether the members of the global object should be made available to the script engine. [Not presently supported.]")]
         [DataRow("The filter string. The default is \"*.\\*\" (Watches all files.)"
                     , "The filter string. The default is \"*.*\" (Watches all files.)")]
+        [DataRow("The UTF-8 encoded value to be written as a JSON comment within `/*..*/`."
+                    , "The UTF-8 encoded value to be written as a JSON comment within /*..*/.")]
         public void SpecialProcessText_Test(string inText, string expected)
         {
             SpecialProcessValidation(inText, expected);
@@ -32,15 +34,22 @@ namespace UnitTest
                     , "by the user in the form functionname-arguments-ILoffset. A named breakpoint")]
         [DataRow("such as \"*.*\", is changed by setting the"
                     , "such as \".\", is changed by setting the")]
-        [DataRow("this is `Unix` testing", "this is Unix testing")]
         [DataRow("with the default format *dd-mmm-yy*. For A.D. dates"
                     , "with the default format dd-mmm-yy. For A.D. dates")]
         [DataRow(" flag allows the parsed string to contain an exponent that begins with the \"E\" or \"e\" character and that is followed by an optional positive or negative sign and an integer. In other words, it successfully parses strings in the form *nnn*E*xx*, *nnn*E+*xx*, and *nnn*E-*xx*. It does not allow a decimal separator or sign in the significand or mantissa; to allow these elements in the string to be parsed, use the "
                     , " flag allows the parsed string to contain an exponent that begins with the \"E\" or \"e\" character and that is followed by an optional positive or negative sign and an integer. In other words, it successfully parses strings in the form nnnExx, nnnE+xx, and nnnE-xx. It does not allow a decimal separator or sign in the significand or mantissa; to allow these elements in the string to be parsed, use the ")]
         [DataRow("*flag* allows the *parsed*", "flag allows the parsed")]
-        public void SingleSytax_Pattern_Test(string inText, string expected)
+        public void SingleSytax_Pattern1_Test(string inText, string expected)
         {
-            PatternValidate(inText, expected, Constants.SingleSytax_Pattern);
+            PatternValidate(inText, expected, Constants.SingleSytax_Pattern1);
+        }
+
+        [DataRow("this is `Unix` testing", "this is Unix testing")]
+        [DataRow(@" if the path is null or if the file path denotes a root (such as `\`, `C:\`, or `\\server\share`)."
+                    , @" if the path is null or if the file path denotes a root (such as \, C:\, or \\server\share).")]
+        public void SingleSytax_Pattern2_Test(string inText, string expected)
+        {
+            PatternValidate(inText, expected, Constants.SingleSytax_Pattern2);
         }
 
         [DataTestMethod]
@@ -129,7 +138,7 @@ Boolean isAvailable = scheduleObject.RawSchedule[2, 15, 3];
             XText text = new XText(inText);
             IntellisenseFileGenHelper.SpecialProcessText(text);
 
-            Assert.AreEqual<string>(text.Value, expected);
+            Assert.AreEqual<string>(expected,text.Value);
         }
 
         private static void PatternValidate(string inText, string expected, Regex regex)
