@@ -559,6 +559,7 @@ namespace IntellisenseFileGen
         {
             string content = xText.Value;
             bool contentChange = false;
+            Dictionary<string, string> localReplaceStringDic = new Dictionary<string, string>();
             if (string.IsNullOrEmpty(content))
             {
                 return false;
@@ -570,6 +571,55 @@ namespace IntellisenseFileGen
 
             if (content.Length > 5)
             {
+                //```csharp this is a test page```
+                var matches = RegexHelper.GetMatches_All_JustWantedOne(Constants.TripleSytax_Pattern1, content);
+                if (matches != null && matches.Length >= 2)
+                {
+                    for (int i = 0; i < matches.Length; i += 2)
+                    {
+                        string guid = Guid.NewGuid().ToString("N");
+                        content = content.Replace(matches[i], guid);
+                        localReplaceStringDic.Add(guid, matches[i + 1]);
+
+                        contentChange = true;
+                    }
+                }
+
+                //```this is a test page```
+                matches = RegexHelper.GetMatches_All_JustWantedOne(Constants.TripleSytax_Pattern2, content);
+                if (matches != null && matches.Length >= 2)
+                {
+                    for (int i = 0; i < matches.Length; i += 2)
+                    {
+                        string guid = Guid.NewGuid().ToString("N");
+                        content = content.Replace(matches[i], guid);
+                        localReplaceStringDic.Add(guid, matches[i + 1]);
+
+                        contentChange = true;
+                    }
+                }
+
+                // `Unix` => guid(Unix)
+                // Content between two `, is origin content, don't need escape
+                // following demo, *..* is origin content, don't need to escape
+                // ============================================================================
+                // JSON comment within `/*..*/`.      ==>       JSON comment within /*..*/
+                // ============================================================================
+                // We need to protect /*..*/, put it into a dic(localReplaceStringDic), replace it with a guid, 
+                // After other things done, we need replace the content back
+                matches = RegexHelper.GetMatches_All_JustWantedOne(Constants.SingleSytax_Pattern2, content);
+                if (matches != null && matches.Length >= 2)
+                {
+                    for (int i = 0; i < matches.Length; i += 2)
+                    {
+                        string guid = Guid.NewGuid().ToString("N");
+                        content = content.Replace(matches[i], guid);
+                        localReplaceStringDic.Add(guid, matches[i + 1]);
+
+                        contentChange = true;
+                    }
+                }
+
                 // \* => 2BAD1A8DDD5C4C55A920F73420E93A9B
                 for (int i = 0; i < _replaceStringDic.Length - 1; i += 3)
                 {
@@ -581,7 +631,7 @@ namespace IntellisenseFileGen
                 }
 
                 // [!INCLUDE[vstecmsbuild](~/includes/vstecmsbuild-md.md)]
-                var matches = RegexHelper.GetMatches_All_JustWantedOne(Constants.Include_Pattern1, content);
+                matches = RegexHelper.GetMatches_All_JustWantedOne(Constants.Include_Pattern1, content);
                 if (matches != null && matches.Length >= 2)
                 {
                     for (int i = 0; i < matches.Length; i += 2)
@@ -646,31 +696,8 @@ namespace IntellisenseFileGen
                 }
 
                 // *Unix* => Unix
-                // `Unix` => Unix
                 // TODO: _Unix_ => Unix, need to identify this case HKEY_CLASSES_ROOT
-                matches = RegexHelper.GetMatches_All_JustWantedOne(Constants.SingleSytax_Pattern, content);
-                if (matches != null && matches.Length >= 2)
-                {
-                    for (int i = 0; i < matches.Length; i += 2)
-                    {
-                        content = content.Replace(matches[i], matches[i + 1]);
-                        contentChange = true;
-                    }
-                }
-
-                //```csharp this is a test page```
-                matches = RegexHelper.GetMatches_All_JustWantedOne(Constants.TripleSytax_Pattern1, content);
-                if (matches != null && matches.Length >= 2)
-                {
-                    for (int i = 0; i < matches.Length; i += 2)
-                    {
-                        content = content.Replace(matches[i], matches[i + 1]);
-                        contentChange = true;
-                    }
-                }
-
-                //```this is a test page```
-                matches = RegexHelper.GetMatches_All_JustWantedOne(Constants.TripleSytax_Pattern2, content);
+                matches = RegexHelper.GetMatches_All_JustWantedOne(Constants.SingleSytax_Pattern1, content);
                 if (matches != null && matches.Length >= 2)
                 {
                     for (int i = 0; i < matches.Length; i += 2)
@@ -688,6 +715,14 @@ namespace IntellisenseFileGen
                         content = content.Replace(_replaceStringDic[i], _replaceStringDic[i + 2]);
                         contentChange = true;
                     }
+                }
+
+                // guid(Unix) => Unix
+                if (localReplaceStringDic.Keys != null && localReplaceStringDic.Keys.Count() > 0)
+                {
+                    localReplaceStringDic.ToList().ForEach(p => {
+                        content = content.Replace(p.Key, p.Value);
+                    });
                 }
 
                 if (contentChange)
