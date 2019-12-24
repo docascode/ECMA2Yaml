@@ -1,10 +1,19 @@
 ### YamlMime:NetType
 type: class
-inheritances:
-- <xref href="System.Object" data-throw-if-not-resolved="True"/>
-- <xref href="VersioningTest.B?alt=VersioningTest.B&text=B" data-throw-if-not-resolved="True"/>
-- <xref href="VersioningTest.D?alt=VersioningTest.D&text=D" data-throw-if-not-resolved="True"/>
-- <xref href="VersioningTest.F?alt=VersioningTest.F&text=F" data-throw-if-not-resolved="True"/>
+inheritancesWithMoniker:
+- value:
+  - <xref href="System.Object" data-throw-if-not-resolved="True"/>
+  - <xref href="VersioningTest.C?alt=VersioningTest.C&text=C" data-throw-if-not-resolved="True"/>
+  - <xref href="VersioningTest.F?alt=VersioningTest.F&text=F" data-throw-if-not-resolved="True"/>
+  monikers:
+  - cat-1.0
+- value:
+  - <xref href="System.Object" data-throw-if-not-resolved="True"/>
+  - <xref href="VersioningTest.B?alt=VersioningTest.B&text=B" data-throw-if-not-resolved="True"/>
+  - <xref href="VersioningTest.D?alt=VersioningTest.D&text=D" data-throw-if-not-resolved="True"/>
+  - <xref href="VersioningTest.F?alt=VersioningTest.F&text=F" data-throw-if-not-resolved="True"/>
+  monikers:
+  - cat-2.0
 extensionMethods:
 - uid: VersioningTest.VersioningExtensions.ExtMethodForD(VersioningTest.D)
   monikers:
@@ -33,20 +42,24 @@ fullName: VersioningTest.H
 nameWithType: VersioningTest.H
 assemblies:
 - CatLibrary
-syntax:
+syntaxWithMoniker:
 - lang: cpp
-  value: 'public ref class H : VersioningTest::F'
+  values:
+  - value: 'public ref class H : VersioningTest::F'
 - lang: csharp
-  value: 'public class H : VersioningTest.F'
+  values:
+  - value: 'public class H : VersioningTest.F'
 - lang: fsharp
-  value: >-
-    type H = class
-        inherit F
+  values:
+  - value: >-
+      type H = class
+          inherit F
 - lang: vb
-  value: >-
-    Public Class H
+  values:
+  - value: >-
+      Public Class H
 
-    Inherits F
+      Inherits F
 devLangs:
 - csharp
 - vb

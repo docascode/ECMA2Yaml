@@ -1,0 +1,59 @@
+### YamlMime:NetType
+type: class
+inheritancesWithMoniker:
+- value:
+  - <xref href="System.Object" data-throw-if-not-resolved="True"/>
+extensionMethods:
+- uid: CatLibrary.JerryExtension.PlayWith(CatLibrary.TomFromBaseClass.Jerry,CatLibrary.Tom)
+  monikers:
+  - cat-2.0
+constructors:
+- uid: CatLibrary.TomFromBaseClass.Jerry.#ctor(MRef.Demo.Enumeration.ColorType)
+  monikers:
+  - cat-2.0
+uid: CatLibrary.TomFromBaseClass.Jerry
+commentId: T:CatLibrary.TomFromBaseClass.Jerry
+namespace: CatLibrary
+name: TomFromBaseClass.Jerry
+fullName: CatLibrary.TomFromBaseClass.Jerry
+nameWithType: CatLibrary.TomFromBaseClass.Jerry
+assemblies:
+- CatLibrary
+syntaxWithMoniker:
+- lang: cpp
+  values:
+  - value: 'public: ref class TomFromBaseClass::Jerry'
+- lang: csharp
+  values:
+  - value: public class TomFromBaseClass.Jerry
+- lang: fsharp
+  values:
+  - value: type TomFromBaseClass.Jerry = class
+- lang: vb
+  values:
+  - value: Public Class TomFromBaseClass.Jerry
+devLangs:
+- csharp
+- vb
+- cpp
+- fsharp
+monikers:
+- cat-2.0
+summary: This is a <strong>nested</strong> class inside <xref data-throw-if-not-resolved="true" uid="CatLibrary.TomFromBaseClass"></xref>
+metadata:
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/TomFromBaseClass+Jerry.xml
+  _op_overwriteFileGitUrl: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/TomFromBaseClass+Jerry.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/TomFromBaseClass+Jerry.xml
+  api_name:
+  - CatLibrary.TomFromBaseClass.Jerry
+  api_location:
+  - CatLibrary.dll
+  topic_type:
+  - apiref
+  api_type:
+  - Assembly
+  f1_keywords:
+  - CatLibrary.TomFromBaseClass.Jerry
+  - CatLibrary::TomFromBaseClass::Jerry
+  helpviewer_keywords:
+  - CatLibrary.TomFromBaseClass.Jerry class [.NET]

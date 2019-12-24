@@ -1,0 +1,24 @@
+### YamlMime:NetNamespace
+enums:
+- uid: MRef.Demo.Enumeration.ColorType
+  monikers:
+  - cat-1.0
+  - cat-2.0
+uid: MRef.Demo.Enumeration
+commentId: N:MRef.Demo.Enumeration
+name: MRef.Demo.Enumeration
+fullName: MRef.Demo.Enumeration
+devLangs:
+- csharp
+monikers:
+- cat-1.0
+- cat-2.0
+metadata:
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/ns-MRef.Demo.Enumeration.xml
+  _op_overwriteFileGitUrl: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/ns-MRef.Demo.Enumeration.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/ns-MRef.Demo.Enumeration.xml
+  f1_keywords:
+  - MRef.Demo.Enumeration
+  - MRef::Demo::Enumeration
+  helpviewer_keywords:
+  - MRef.Demo.Enumeration namespace [.NET]

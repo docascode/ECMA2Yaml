@@ -1,0 +1,57 @@
+### YamlMime:NetMember
+type: constructor
+members:
+- uid: VersioningTest.H.#ctor
+  commentId: M:VersioningTest.H.#ctor
+  name: H()
+  fullName: VersioningTest.H.H()
+  nameWithType: H.H()
+  syntaxWithMoniker:
+  - lang: cpp
+    values:
+    - value: >-
+        public:
+         H();
+  - lang: csharp
+    values:
+    - value: public H ();
+  - lang: vb
+    values:
+    - value: Public Sub New ()
+  monikers:
+  - cat-1.0
+  - cat-2.0
+  metadata: {}
+uid: VersioningTest.H.#ctor*
+commentId: Overload:VersioningTest.H.#ctor
+namespace: VersioningTest
+name: H
+fullName: VersioningTest.H.H
+nameWithType: H.H
+assemblies:
+- CatLibrary
+devLangs:
+- csharp
+- vb
+- cpp
+monikers:
+- cat-1.0
+- cat-2.0
+metadata:
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/H.xml
+  _op_overwriteFileGitUrl: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/H.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/H.xml
+  api_name:
+  - VersioningTest.H..ctor
+  api_location:
+  - CatLibrary.dll
+  topic_type:
+  - apiref
+  api_type:
+  - Assembly
+  f1_keywords:
+  - VersioningTest.H.#ctor
+  - VersioningTest::H::#ctor
+  helpviewer_keywords:
+  - H class [.NET], constructors
+  - H() class [.NET], constructors

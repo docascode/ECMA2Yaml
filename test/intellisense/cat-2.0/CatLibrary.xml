@@ -291,5 +291,46 @@
       <summary>
             yellow comes from desert</summary>
     </member>
+    <member name="T:VersioningTest.A" />
+    <member name="M:VersioningTest.A.#ctor" />
+    <member name="M:VersioningTest.A.MethodFromClassA(System.String)">
+      <summary>
+            this method should show up as inherited member in class D only for cat-1.0</summary>
+      <param name="param1"></param>
+    </member>
+    <member name="T:VersioningTest.B" />
+    <member name="M:VersioningTest.B.#ctor" />
+    <member name="M:VersioningTest.B.MethodFromClassB(System.String)">
+      <summary>
+            this method should show up as inherited member in class D/F/G/H only for cat-2.0</summary>
+      <param name="param1"></param>
+    </member>
+    <member name="T:VersioningTest.C" />
+    <member name="M:VersioningTest.C.#ctor" />
+    <member name="T:VersioningTest.D" />
+    <member name="M:VersioningTest.D.#ctor" />
+    <member name="T:VersioningTest.E" />
+    <member name="M:VersioningTest.E.#ctor" />
+    <member name="T:VersioningTest.F">
+      <summary>
+            class F should has two inheritance chains: C for cat-1.0, and `B -&gt; D for cat-2.0`.</summary>
+    </member>
+    <member name="M:VersioningTest.F.#ctor" />
+    <member name="T:VersioningTest.G" />
+    <member name="M:VersioningTest.G.#ctor" />
+    <member name="T:VersioningTest.H" />
+    <member name="M:VersioningTest.H.#ctor" />
+    <member name="T:VersioningTest.I" />
+    <member name="T:VersioningTest.VersioningExtensions" />
+    <member name="M:VersioningTest.VersioningExtensions.ExtMethodForD(VersioningTest.D)">
+      <summary>
+            this extension method should show up in class D for all monikers, and in F/G/H for cat-2.0 only.</summary>
+      <param name="i"></param>
+    </member>
+    <member name="M:VersioningTest.VersioningExtensions.ExtMethodForI(VersioningTest.I)">
+      <summary>
+            this extension method should show up in interface <c>I</c>, class <c>C</c> and <c>E</c> for all monikers, and in F/G/H for cat-1.0 only.</summary>
+      <param name="i"></param>
+    </member>
   </members>
 </doc>

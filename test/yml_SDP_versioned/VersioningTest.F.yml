@@ -1,9 +1,17 @@
 ### YamlMime:NetType
 type: class
-inheritances:
-- <xref href="System.Object" data-throw-if-not-resolved="True"/>
-- <xref href="VersioningTest.B?alt=VersioningTest.B&text=B" data-throw-if-not-resolved="True"/>
-- <xref href="VersioningTest.D?alt=VersioningTest.D&text=D" data-throw-if-not-resolved="True"/>
+inheritancesWithMoniker:
+- value:
+  - <xref href="System.Object" data-throw-if-not-resolved="True"/>
+  - <xref href="VersioningTest.C?alt=VersioningTest.C&text=C" data-throw-if-not-resolved="True"/>
+  monikers:
+  - cat-1.0
+- value:
+  - <xref href="System.Object" data-throw-if-not-resolved="True"/>
+  - <xref href="VersioningTest.B?alt=VersioningTest.B&text=B" data-throw-if-not-resolved="True"/>
+  - <xref href="VersioningTest.D?alt=VersioningTest.D&text=D" data-throw-if-not-resolved="True"/>
+  monikers:
+  - cat-2.0
 derivedClasses:
 - VersioningTest.G
 - VersioningTest.H
@@ -35,20 +43,24 @@ fullName: VersioningTest.F
 nameWithType: VersioningTest.F
 assemblies:
 - CatLibrary
-syntax:
+syntaxWithMoniker:
 - lang: cpp
-  value: 'public ref class F : VersioningTest::D'
+  values:
+  - value: 'public ref class F : VersioningTest::D'
 - lang: csharp
-  value: 'public class F : VersioningTest.D'
+  values:
+  - value: 'public class F : VersioningTest.D'
 - lang: fsharp
-  value: >-
-    type F = class
-        inherit D
+  values:
+  - value: >-
+      type F = class
+          inherit D
 - lang: vb
-  value: >-
-    Public Class F
+  values:
+  - value: >-
+      Public Class F
 
-    Inherits D
+      Inherits D
 devLangs:
 - csharp
 - vb

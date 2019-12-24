@@ -66,12 +66,18 @@ namespace ECMA2Yaml.Models
 
             foreach (var t in _tList)
             {
+                BuildOverload(t);
+            }
+
+            PopulateMonikers();
+
+            foreach (var t in _tList)
+            {
                 FillInheritanceImplementationGraph(t);
             }
 
             foreach (var t in _tList)
             {
-                BuildOverload(t);
                 BuildInheritance(t);
                 BuildDocs(t);
             }
@@ -80,7 +86,7 @@ namespace ECMA2Yaml.Models
 
             BuildAttributes();
 
-            BuildFrameworks();
+            MonikerizeAssembly();
 
             BuildExtensionMethods();
 
@@ -505,7 +511,7 @@ namespace ECMA2Yaml.Models
             }
         }
 
-        private void BuildFrameworks()
+        private void PopulateMonikers()
         {
             if (_frameworks == null || _frameworks.DocIdToFrameworkDict.Count == 0)
             {
@@ -522,13 +528,26 @@ namespace ECMA2Yaml.Models
             {
                 if (_frameworks.DocIdToFrameworkDict.ContainsKey(ns.Uid))
                 {
-                    MonikerizeItem(ns, _frameworks.DocIdToFrameworkDict[ns.Uid]);
+                    ns.Monikers = new HashSet<string>(_frameworks.DocIdToFrameworkDict[ns.Uid]);
                 }
                 foreach (var t in ns.Types)
                 {
                     if (!string.IsNullOrEmpty(t.DocId) && _frameworks.DocIdToFrameworkDict.ContainsKey(t.DocId))
                     {
-                        MonikerizeItem(t, _frameworks.DocIdToFrameworkDict[t.DocId]);
+                        t.Monikers = new HashSet<string>(_frameworks.DocIdToFrameworkDict[t.DocId]);
+                        if (t.BaseTypes?.Count > 1)
+                        {
+                            //more than 1 base types, need to specify monikers
+                            var remainingMonikers = new HashSet<string>(t.Monikers);
+                            foreach(var bt in t.BaseTypes.Where(b => b.Monikers != null))
+                            {
+                                remainingMonikers.ExceptWith(bt.Monikers);
+                            }
+                            foreach (var bt in t.BaseTypes.Where(b => b.Monikers == null))
+                            {
+                                bt.Monikers = remainingMonikers;
+                            }
+                        }
                     }
                     if (t.Members != null)
                     {
@@ -536,7 +555,7 @@ namespace ECMA2Yaml.Models
                         {
                             if (_frameworks.DocIdToFrameworkDict.ContainsKey(m.DocId))
                             {
-                                MonikerizeItem(m, _frameworks.DocIdToFrameworkDict[m.DocId]);
+                                m.Monikers = new HashSet<string>(_frameworks.DocIdToFrameworkDict[m.DocId]);
                             }
                             else
                             {
@@ -553,7 +572,7 @@ namespace ECMA2Yaml.Models
                                 .SelectMany(m => _frameworks.DocIdToFrameworkDict.ContainsKey(m.DocId) ? _frameworks.DocIdToFrameworkDict[m.DocId] : Enumerable.Empty<string>()).Distinct().ToList();
                             if (monikers?.Count > 0)
                             {
-                                MonikerizeItem(ol, monikers);
+                                ol.Monikers = new HashSet<string>(monikers);
                             }
                         }
                     }
@@ -561,13 +580,42 @@ namespace ECMA2Yaml.Models
             }
         }
 
-        private void MonikerizeItem(ReflectionItem item, List<string> monikers)
+        private void MonikerizeAssembly()
         {
-            item.Monikers = new HashSet<string>(monikers);
-            MonikerizeAssembly(item, monikers);
+            foreach (var ns in _nsList)
+            {
+                foreach (var t in ns.Types)
+                {
+                    if (t.Monikers != null)
+                    {
+                        MonikerizeAssembly(t, t.Monikers);
+                    }
+                    if (t.Members != null)
+                    {
+                        foreach (var m in t.Members.Where(m => !string.IsNullOrEmpty(m.DocId)))
+                        {
+                            if (m.Monikers != null)
+                            {
+                                MonikerizeAssembly(m, m.Monikers);
+                            }
+                        }
+                    }
+                    //special handling for monikers metadata
+                    if (t.Overloads != null)
+                    {
+                        foreach (var ol in t.Overloads)
+                        {
+                            if (ol.Monikers != null)
+                            {
+                                MonikerizeAssembly(ol, ol.Monikers);
+                            }
+                        }
+                    }
+                }
+            }
         }
 
-        private void MonikerizeAssembly(ReflectionItem item, List<string> monikers)
+        private void MonikerizeAssembly(ReflectionItem item, IEnumerable<string> monikers)
         {
             if (_frameworks.FrameworkAssemblies?.Count > 0 && item.AssemblyInfo != null)
             {
@@ -832,7 +880,7 @@ namespace ECMA2Yaml.Models
                 {
                     if (bt.Uid != t.Uid)
                     {
-                        AddInheritanceMapping(t.Uid, bt.Uid);
+                        AddInheritanceMapping(t.Uid, bt.Uid, bt.Monikers);
                     }
                 }
             }

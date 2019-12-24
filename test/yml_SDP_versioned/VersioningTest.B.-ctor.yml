@@ -1,0 +1,57 @@
+### YamlMime:NetMember
+type: constructor
+members:
+- uid: VersioningTest.B.#ctor
+  commentId: M:VersioningTest.B.#ctor
+  name: B()
+  fullName: VersioningTest.B.B()
+  nameWithType: B.B()
+  syntaxWithMoniker:
+  - lang: cpp
+    values:
+    - value: >-
+        public:
+         B();
+  - lang: csharp
+    values:
+    - value: public B ();
+  - lang: vb
+    values:
+    - value: Public Sub New ()
+  monikers:
+  - cat-1.0
+  - cat-2.0
+  metadata: {}
+uid: VersioningTest.B.#ctor*
+commentId: Overload:VersioningTest.B.#ctor
+namespace: VersioningTest
+name: B
+fullName: VersioningTest.B.B
+nameWithType: B.B
+assemblies:
+- CatLibrary
+devLangs:
+- csharp
+- vb
+- cpp
+monikers:
+- cat-1.0
+- cat-2.0
+metadata:
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/B.xml
+  _op_overwriteFileGitUrl: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/B.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/B.xml
+  api_name:
+  - VersioningTest.B..ctor
+  api_location:
+  - CatLibrary.dll
+  topic_type:
+  - apiref
+  api_type:
+  - Assembly
+  f1_keywords:
+  - VersioningTest.B.#ctor
+  - VersioningTest::B::#ctor
+  helpviewer_keywords:
+  - B class [.NET], constructors
+  - B() class [.NET], constructors

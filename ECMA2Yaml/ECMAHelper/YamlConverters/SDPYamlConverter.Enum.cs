@@ -18,7 +18,11 @@ namespace ECMA2Yaml
 
             if (_withVersioning)
             {
-                sdpEnum.InheritancesWithMoniker = enumTypeItem.InheritanceChains;
+                sdpEnum.InheritancesWithMoniker = enumTypeItem.InheritanceChains?.Select(
+                    chain => new VersionedValue<List<string>>(
+                        chain.Monikers,
+                        chain.Value.Select(uid => UidToTypeMDString(uid, _store)).ToList()
+                        )).ToList();
             }
             else
             {

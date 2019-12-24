@@ -35,7 +35,6 @@ items:
   - VersioningTest.F
   implements: []
   inheritedMembers:
-  - VersioningTest.A.MethodFromClassA(System.String)
   - VersioningTest.B.MethodFromClassB(System.String)
   extensionMethods:
   - VersioningTest.VersioningExtensions.ExtMethodForD(VersioningTest.D)
@@ -120,13 +119,6 @@ references:
   original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/G.xml
   original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/G.xml
   type: constructor
-- uid: VersioningTest.A.MethodFromClassA(System.String)
-  parent: VersioningTest.A
-  isExternal: false
-  name: MethodFromClassA(String)
-  nameWithType: A.MethodFromClassA(String)
-  fullName: VersioningTest.A.MethodFromClassA(String)
-  type: method
 - uid: VersioningTest.B.MethodFromClassB(System.String)
   parent: VersioningTest.B
   isExternal: false
