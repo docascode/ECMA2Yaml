@@ -18,6 +18,8 @@ namespace UnitTest
                     , "The filter string. The default is \"*.*\" (Watches all files.)")]
         [DataRow("The UTF-8 encoded value to be written as a JSON comment within `/*..*/`."
                     , "The UTF-8 encoded value to be written as a JSON comment within /*..*/.")]
+        [DataRow("The UTF-8 encoded value to be written as a JSON comment within `/*.test1.*/`, another JSON comment within `/*.test2.*/`."
+                    , "The UTF-8 encoded value to be written as a JSON comment within /*.test1.*/, another JSON comment within /*.test2.*/.")]
         public void SpecialProcessText_Test(string inText, string expected)
         {
             SpecialProcessValidation(inText, expected);
