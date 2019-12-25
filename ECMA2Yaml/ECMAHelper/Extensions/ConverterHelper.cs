@@ -166,6 +166,16 @@ namespace ECMA2Yaml
             return contents;
         }
 
+        public static HashSet<string> TrimMonikers(HashSet<string> propertyMonikers, HashSet<string> itemMonikers)
+        {
+            if (itemMonikers != null && propertyMonikers != null
+                && propertyMonikers.SequenceEqual(itemMonikers))
+            {
+                return null;
+            }
+            return propertyMonikers;
+        }
+
         public static IEnumerable<string> ConsolidateVersionedValues(IEnumerable<VersionedString> vals, HashSet<string> pageMonikers)
         {
             if (vals == null || vals.Any(v => v.Monikers == null))

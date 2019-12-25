@@ -888,6 +888,8 @@ namespace ECMA2Yaml.Models
 
         public List<VersionedValue<List<string>>> BuildInheritanceChain(string uid)
         {
+            if (uid == "Microsoft.Build.Framework.BuildErrorEventArgs")
+                Console.WriteLine();
             if (!TypesByUid.TryGetValue(uid, out Type t))
             {
                 return null;
@@ -910,10 +912,14 @@ namespace ECMA2Yaml.Models
                     {
                         foreach(var grandParentChain in grandParents)
                         {
-                            HashSet<string> commonMonikers = grandParentChain.Monikers ?? parent.Monikers;
-                            if (grandParentChain.Monikers != null && parent.Monikers != null)
+                            HashSet<string> commonMonikers = new HashSet<string>(t.Monikers);
+                            if (grandParentChain.Monikers != null)
                             {
-                                commonMonikers = grandParentChain.Monikers.Intersect(parent.Monikers).ToHashSet();
+                                commonMonikers.IntersectWith(grandParentChain.Monikers);
+                            }
+                            if (parent.Monikers != null)
+                            {
+                                commonMonikers.IntersectWith(parent.Monikers);
                             }
                             if (commonMonikers == null || commonMonikers.Count > 0)
                             {

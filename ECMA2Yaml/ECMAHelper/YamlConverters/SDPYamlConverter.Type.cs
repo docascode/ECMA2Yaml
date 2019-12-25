@@ -22,7 +22,7 @@ namespace ECMA2Yaml
             {
                 sdpType.InheritancesWithMoniker = t.InheritanceChains?.Select(
                     chain => new VersionedValue<List<string>>(
-                        chain.Monikers, 
+                        ConverterHelper.TrimMonikers(chain.Monikers, t.Monikers),
                         chain.Value.Select(uid => UidToTypeMDString(uid, _store)).ToList()
                         )).ToList();
             }
