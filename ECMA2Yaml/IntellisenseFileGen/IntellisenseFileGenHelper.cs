@@ -231,9 +231,12 @@ namespace IntellisenseFileGen
             {
                 t.DocId = docId;
             }
-
+            if (!store.ItemsByDocId.ContainsKey(docId))
+            {
+                return null;
+            }
             var docsEle = new XElement("member");
-            SetDocsEle(docsEle, xmlDoc.Root, store.ItemsByDocId, docId);
+            SetDocsEle(docsEle, xmlDoc.Root, docId);
             t.Docs = docsEle;
 
             var AssemblyInfoEleList = xmlDoc.Root.Elements("AssemblyInfo");
@@ -286,19 +289,29 @@ namespace IntellisenseFileGen
             var m = new Member();
 
             string docId = GetDocId(member, "MemberSignature");
-            if (!store.MembersByUid.ContainsKey(docId.Remove(0, 2)))
-            {
-                return null;
-            }
-
             if (!string.IsNullOrEmpty(docId))
             {
                 m.DocId = docId;
             }
+            else
+            {
+                throw new Exception("DocId missing for member " + member.Attribute("MemberName")?.Value);
+            }
+
+            if (store.ItemsByDocId.TryGetValue(docId, out var item))
+            {
+                m.CommentId = item.CommentId;
+                m.Uid = item.Uid;
+            }
+            else
+            {
+                return null;
+            }
+
             SpecialProcessDuplicateParameters(member);
 
             var docsEle = new XElement("member");
-            SetDocsEle(docsEle, member, store.ItemsByDocId, docId);
+            SetDocsEle(docsEle, member, m.CommentId);
             m.Docs = docsEle;
 
             var AssemblyInfoEleList = member.Elements("AssemblyInfo");
@@ -322,7 +335,7 @@ namespace IntellisenseFileGen
             return m;
         }
 
-        private static void SetDocsEle(XElement docsEle, XElement xmlEle, Dictionary<string, ECMA2Yaml.Models.ReflectionItem> ItemsByDocId, string docId)
+        private static void SetDocsEle(XElement docsEle, XElement xmlEle, string uid)
         {
             if (xmlEle == null || docsEle == null)
             {
@@ -417,17 +430,7 @@ namespace IntellisenseFileGen
                 }
             }
 
-            // For some Uid, need to escape, the escaped uid is [CommentId]
-            string realDocId = docId;
-            if (ItemsByDocId.ContainsKey(docId))
-            {
-                string commentId = ItemsByDocId[docId].CommentId;
-                if (commentId != docId)
-                {
-                    realDocId = commentId;
-                }
-            }
-            docsEle.SetAttributeValue("name", SpecialProcessDocId(realDocId));
+            docsEle.SetAttributeValue("name", uid);
         }
 
         private static string GetDocId(XElement xmlEle, string signatureName = "MemberSignature")
@@ -438,7 +441,7 @@ namespace IntellisenseFileGen
                 return docId;
             }
 
-            var docIdEle = xmlEle.Elements(signatureName)?.Where(p => p.Attribute("Language").Value == "DocId")?.FirstOrDefault();
+            var docIdEle = xmlEle.Elements(signatureName)?.Where(p => p.Attribute("Language").Value == "DocId").LastOrDefault();
             if (docIdEle != null)
             {
                 docId = docIdEle.Attribute("Value").Value;
@@ -720,7 +723,8 @@ namespace IntellisenseFileGen
                 // guid(Unix) => Unix
                 if (localReplaceStringDic.Keys != null && localReplaceStringDic.Keys.Count() > 0)
                 {
-                    localReplaceStringDic.ToList().ForEach(p => {
+                    localReplaceStringDic.ToList().ForEach(p =>
+                    {
                         content = content.Replace(p.Key, p.Value);
                     });
                 }
@@ -732,23 +736,6 @@ namespace IntellisenseFileGen
             }
 
             return false;
-        }
-
-        /// <summary>
-        /// Document id have special char, need transfer
-        /// </summary>
-        /// <param name="docId"></param>
-        /// <returns></returns>
-        public static string SpecialProcessDocId(string docId)
-        {
-            if (string.IsNullOrEmpty(docId))
-            {
-                return docId;
-            }
-            else
-            {
-                return docId.Replace("<", "{").Replace(">", "}");
-            }
         }
 
         static IEnumerable<FileItem> GetFiles(string subFolder, string glob)
