@@ -168,12 +168,34 @@ namespace ECMA2Yaml
 
         public static HashSet<string> TrimMonikers(HashSet<string> propertyMonikers, HashSet<string> itemMonikers)
         {
-            if (itemMonikers != null && propertyMonikers != null
-                && propertyMonikers.SequenceEqual(itemMonikers))
+            if (itemMonikers != null && propertyMonikers != null)
             {
-                return null;
+                if (itemMonikers.IsSubsetOf(propertyMonikers))
+                {
+                    return null;
+                }
+                else if (propertyMonikers.Overlaps(itemMonikers))
+                {
+                    return new HashSet<string>(propertyMonikers.Intersect(itemMonikers));
+                }
             }
             return propertyMonikers;
+        }
+
+        public static List<VersionedValue<T>> TrimMonikers<T>(List<VersionedValue<T>> versionedValues, HashSet<string> itemMonikers)
+        {
+            if (versionedValues?.Count == 1) //for perf, 95% cases there's no versioning
+            {
+                versionedValues[0].Monikers = null;
+            }
+            else if (versionedValues?.Count > 1)
+            {
+                foreach (var v in versionedValues)
+                {
+                    v.Monikers = TrimMonikers(v.Monikers, itemMonikers);
+                }
+            }
+            return versionedValues;
         }
 
         public static IEnumerable<string> ConsolidateVersionedValues(IEnumerable<VersionedString> vals, HashSet<string> pageMonikers)

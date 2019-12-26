@@ -524,6 +524,7 @@ namespace ECMA2Yaml.Models
                     p => p.Value.Where(a => _monikerAssemblyMapping[p.Key].Contains(a.Key)).ToDictionary(purged => purged.Key, purged => purged.Value));
             }
 
+            var allMonikers = _frameworks.FrameworkAssemblies.Keys.ToHashSet();
             foreach (var ns in _nsList)
             {
                 if (_frameworks.DocIdToFrameworkDict.ContainsKey(ns.Uid))
@@ -535,11 +536,11 @@ namespace ECMA2Yaml.Models
                     if (!string.IsNullOrEmpty(t.DocId) && _frameworks.DocIdToFrameworkDict.ContainsKey(t.DocId))
                     {
                         t.Monikers = new HashSet<string>(_frameworks.DocIdToFrameworkDict[t.DocId]);
-                        if (t.BaseTypes?.Count > 1)
+                        if (t.BaseTypes?.Count > 0)
                         {
-                            //more than 1 base types, need to specify monikers
-                            var remainingMonikers = new HashSet<string>(t.Monikers);
-                            foreach(var bt in t.BaseTypes.Where(b => b.Monikers != null))
+                            //specify monikers for easier calculation
+                            var remainingMonikers = new HashSet<string>(allMonikers);
+                            foreach (var bt in t.BaseTypes.Where(b => b.Monikers != null))
                             {
                                 remainingMonikers.ExceptWith(bt.Monikers);
                             }
@@ -888,8 +889,6 @@ namespace ECMA2Yaml.Models
 
         public List<VersionedValue<List<string>>> BuildInheritanceChain(string uid)
         {
-            if (uid == "Microsoft.Build.Framework.BuildErrorEventArgs")
-                Console.WriteLine();
             if (!TypesByUid.TryGetValue(uid, out Type t))
             {
                 return null;
@@ -900,38 +899,33 @@ namespace ECMA2Yaml.Models
             }
             else if (InheritanceParentsByUid.TryGetValue(uid, out var parents))
             {
-                var inheritanceUids = new List<VersionedValue<List<string>>>();
+                var inheritanceChains = new List<VersionedValue<List<string>>>();
                 foreach (var parent in parents)
                 {
                     var grandParents = BuildInheritanceChain(parent.Value);
                     if (grandParents == null)
                     {
-                        inheritanceUids.Add(new VersionedValue<List<string>>(parent.Monikers, new List<string>() { parent.Value }));
+                        inheritanceChains.Add(new VersionedValue<List<string>>(parent.Monikers, new List<string>() { parent.Value }));
                     }
                     else
                     {
                         foreach(var grandParentChain in grandParents)
                         {
-                            HashSet<string> commonMonikers = new HashSet<string>(t.Monikers);
-                            if (grandParentChain.Monikers != null)
+                            if (parent.Monikers.Overlaps(grandParentChain.Monikers))
                             {
-                                commonMonikers.IntersectWith(grandParentChain.Monikers);
-                            }
-                            if (parent.Monikers != null)
-                            {
-                                commonMonikers.IntersectWith(parent.Monikers);
-                            }
-                            if (commonMonikers == null || commonMonikers.Count > 0)
-                            {
-                                var chain = new List<string>(grandParentChain.Value);
-                                chain.Add(parent.Value);
-                                inheritanceUids.Add(new VersionedValue<List<string>>(commonMonikers, chain));
+                                var commonMonikers = new HashSet<string>(parent.Monikers.Intersect(grandParentChain.Monikers));
+                                if (commonMonikers.Overlaps(t.Monikers))
+                                {
+                                    var chain = new List<string>(grandParentChain.Value);
+                                    chain.Add(parent.Value);
+                                    inheritanceChains.Add(new VersionedValue<List<string>>(commonMonikers, chain));
+                                }
                             }
                         }
                     }
                 }
-                t.InheritanceChains = inheritanceUids;
-                return inheritanceUids;
+                t.InheritanceChains = inheritanceChains;
+                return inheritanceChains;
             }
             else
             {
