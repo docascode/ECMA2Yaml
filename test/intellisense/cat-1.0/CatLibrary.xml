@@ -274,7 +274,7 @@
     <member name="M:VersioningTest.E.#ctor" />
     <member name="T:VersioningTest.F">
       <summary>
-            class F should has two inheritance chains: C for cat-1.0, and `B -&gt; D for cat-2.0`.</summary>
+            class F should has two inheritance chains: C for cat-1.0, and B -&gt; D for cat-2.0.</summary>
     </member>
     <member name="M:VersioningTest.F.#ctor" />
     <member name="T:VersioningTest.G" />
