@@ -15,7 +15,7 @@ namespace ECMA2Yaml.Models
         public string RefType { get; set; }
         public string Description { get; set; }
         public string Index { get; set; }
-        public string[] FrameworkAlternate { get; set; }
+        public HashSet<string> Monikers { get; set; }
 
         public static Parameter FromXElement(XElement p)
         {
@@ -31,7 +31,7 @@ namespace ECMA2Yaml.Models
                 OriginalTypeString = typeStr,
                 RefType = p.Attribute("RefType")?.Value,
                 Index = p.Attribute("Index")?.Value,
-                FrameworkAlternate = p.Attribute("FrameworkAlternate")?.Value?.Split(';')
+                Monikers = ECMALoader.LoadFrameworkAlternate(p)
             };
         }
     }

@@ -1,0 +1,149 @@
+### YamlMime:ManagedReference
+items:
+- uid: VersioningTest.C
+  commentId: T:VersioningTest.C
+  id: C
+  children:
+  - VersioningTest.C.#ctor
+  langs:
+  - cpp
+  - csharp
+  - fsharp
+  - vb
+  name: C
+  nameWithType: VersioningTest.C
+  fullName: VersioningTest.C
+  type: Class
+  assemblies:
+  - CatLibrary
+  namespace: VersioningTest
+  syntax:
+    content: 'public class C : VersioningTest.I'
+    content.cpp: 'public ref class C : VersioningTest::I'
+    content.csharp: 'public class C : VersioningTest.I'
+    content.fsharp: >-
+      type C = class
+          interface I
+    content.vb: >-
+      Public Class C
+
+      Implements I
+  inheritance:
+  - System.Object
+  derivedClasses:
+  - VersioningTest.E
+  - VersioningTest.F
+  implements:
+  - VersioningTest.I
+  inheritedMembers: []
+  extensionMethods:
+  - VersioningTest.VersioningExtensions.ExtMethodForI(VersioningTest.I)
+  modifiers.csharp:
+  - public
+  monikers:
+  - cat-1.0
+  - cat-2.0
+  _op_AssemblyMonikerMapping:
+    CatLibrary:
+    - cat-1.0
+    - cat-2.0
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/C.xml
+  original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/C.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/C.xml
+- uid: VersioningTest.C.#ctor
+  commentId: M:VersioningTest.C.#ctor
+  id: '#ctor'
+  parent: VersioningTest.C
+  langs:
+  - cpp
+  - csharp
+  - vb
+  name: C()
+  nameWithType: C.C()
+  fullName: VersioningTest.C.C()
+  type: Constructor
+  assemblies:
+  - CatLibrary
+  namespace: VersioningTest
+  syntax:
+    content: public C ();
+    parameters: []
+    content.cpp: >-
+      public:
+       C();
+    content.csharp: public C ();
+    content.vb: Public Sub New ()
+  overload: VersioningTest.C.#ctor*
+  exceptions: []
+  modifiers.csharp:
+  - public
+  monikers:
+  - cat-1.0
+  - cat-2.0
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/C.xml
+  original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/C.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/C.xml
+references:
+- uid: VersioningTest
+  commentId: N:VersioningTest
+  isExternal: false
+  name: VersioningTest
+  nameWithType: VersioningTest
+  fullName: VersioningTest
+  type: namespace
+- uid: System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: VersioningTest.C.#ctor
+  parent: VersioningTest.C
+  isExternal: false
+  name: C()
+  nameWithType: C.C()
+  fullName: VersioningTest.C.C()
+  type: constructor
+- uid: VersioningTest.C.#ctor*
+  commentId: Overload:VersioningTest.C.#ctor
+  parent: VersioningTest.C
+  isExternal: false
+  name: C
+  nameWithType: C.C
+  fullName: VersioningTest.C.C
+  monikers:
+  - cat-1.0
+  - cat-2.0
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/C.xml
+  original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/C.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/C.xml
+  type: constructor
+- uid: VersioningTest.VersioningExtensions.ExtMethodForI(VersioningTest.I)
+  parent: VersioningTest.VersioningExtensions
+  isExternal: false
+  name: ExtMethodForI(I)
+  nameWithType: VersioningExtensions.ExtMethodForI(I)
+  fullName: VersioningTest.VersioningExtensions.ExtMethodForI(I)
+  type: method
+- uid: VersioningTest.I
+  parent: VersioningTest
+  isExternal: false
+  name: I
+  nameWithType: I
+  fullName: VersioningTest.I
+- uid: VersioningTest.E
+  commentId: T:VersioningTest.E
+  parent: VersioningTest
+  isExternal: false
+  name: E
+  nameWithType: VersioningTest.E
+  fullName: VersioningTest.E
+  type: class
+- uid: VersioningTest.F
+  commentId: T:VersioningTest.F
+  parent: VersioningTest
+  isExternal: false
+  name: F
+  nameWithType: VersioningTest.F
+  fullName: VersioningTest.F
+  type: class

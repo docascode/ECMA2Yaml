@@ -14,8 +14,10 @@ namespace ECMA2Yaml.Models
         public Dictionary<string, Type> TypesByUid { get; set; }
         public Dictionary<string, Member> MembersByUid { get; set; }
         public Dictionary<string, ReflectionItem> ItemsByDocId { get; set; }
-        public Dictionary<string, List<string>> InheritanceParentsByUid { get; set; }
-        public Dictionary<string, List<string>> InheritanceChildrenByUid { get; set; }
+        public Dictionary<string, List<VersionedString>> InheritanceParentsByUid { get; set; }
+        public Dictionary<string, List<VersionedString>> InheritanceChildrenByUid { get; set; }
+        public Dictionary<string, List<VersionedString>> ImplementationParentsByUid { get; set; }
+        public Dictionary<string, List<VersionedString>> ImplementationChildrenByUid { get; set; }
         public Dictionary<string, Member> ExtensionMethodsByMemberDocId { get; set; }
         public ILookup<string, Member> ExtensionMethodUidsByTargetUid { get; set; }
         public FilterStore FilterStore { get; set; }
@@ -34,7 +36,6 @@ namespace ECMA2Yaml.Models
 
         public ECMAStore(IEnumerable<Namespace> nsList,
             FrameworkIndex frameworks,
-            //List<ExtensionMethod> extensionMethods,
             Dictionary<string, string> monikerNugetMapping = null,
             Dictionary<string, List<string>> monikerAssemblyMapping = null)
         {
@@ -43,12 +44,13 @@ namespace ECMA2Yaml.Models
             _nsList = nsList;
             _tList = nsList.SelectMany(ns => ns.Types).ToList();
             _frameworks = frameworks;
-            //_extensionMethods = extensionMethods;
             _monikerNugetMapping = monikerNugetMapping;
             _monikerAssemblyMapping = monikerAssemblyMapping;
 
-            InheritanceParentsByUid = new Dictionary<string, List<string>>();
-            InheritanceChildrenByUid = new Dictionary<string, List<string>>();
+            InheritanceParentsByUid = new Dictionary<string, List<VersionedString>>();
+            InheritanceChildrenByUid = new Dictionary<string, List<VersionedString>>();
+            ImplementationParentsByUid = new Dictionary<string, List<VersionedString>>();
+            ImplementationChildrenByUid = new Dictionary<string, List<VersionedString>>();
         }
 
         public void Build()
@@ -65,6 +67,17 @@ namespace ECMA2Yaml.Models
             foreach (var t in _tList)
             {
                 BuildOverload(t);
+            }
+
+            PopulateMonikers();
+
+            foreach (var t in _tList)
+            {
+                FillInheritanceImplementationGraph(t);
+            }
+
+            foreach (var t in _tList)
+            {
                 BuildInheritance(t);
                 BuildDocs(t);
             }
@@ -73,7 +86,7 @@ namespace ECMA2Yaml.Models
 
             BuildAttributes();
 
-            BuildFrameworks();
+            MonikerizeAssembly();
 
             BuildExtensionMethods();
 
@@ -435,41 +448,70 @@ namespace ECMA2Yaml.Models
 
             foreach (var t in _tList)
             {
-                List<string> extensionMethods = new List<string>();
-                Stack<string> uidsToCheck = new Stack<string>();
-                uidsToCheck.Push(t.Uid);
-                while (uidsToCheck.Count > 0)
+                var exMethodsFromBaseType = CheckAvailableExtensionMethods(t, InheritanceParentsByUid);
+                //var exMethodsFromInterface = CheckAvailableExtensionMethods(t, ImplementationParentsByUid);
+                //var allExMethods = exMethodsFromBaseType.MergeWith(exMethodsFromInterface);
+                if (exMethodsFromBaseType.Count > 0)
                 {
-                    var uid = uidsToCheck.Pop();
-                    if (InheritanceParentsByUid.ContainsKey(uid))
-                    {
-                        InheritanceParentsByUid[uid].ForEach(u => uidsToCheck.Push(u));
-                    }
-                    if (ExtensionMethodUidsByTargetUid.Contains(uid))
-                    {
-                        var exCandiates = ExtensionMethodUidsByTargetUid[uid].Where(ex =>
-                        {
-                            if (string.IsNullOrEmpty(ex.Uid))
-                            {
-                                return false;
-                            }
-                            HashSet<string> exMonikers = ex.Parent?.Monikers;
-                            return (exMonikers == null && t.Monikers == null) ||
-                                   (exMonikers != null && t.Monikers != null && exMonikers.Intersect(t.Monikers).Any());
-                        });
-
-                        extensionMethods.AddRange(exCandiates.Select(ex => ex.Uid));
-                    }
-                }
-                if (extensionMethods.Count > 0)
-                {
-                    t.ExtensionMethods = extensionMethods.Distinct().ToList();
+                    t.ExtensionMethods = exMethodsFromBaseType.Distinct().ToList();
                     t.ExtensionMethods.Sort();
                 }
             }
         }
 
-        private void BuildFrameworks()
+        private List<string> CheckAvailableExtensionMethods(Type t, Dictionary<string, List<VersionedString>> parentDict)
+        {
+            List<string> extensionMethods = new List<string>();
+            Stack<string> uidsToCheck = new Stack<string>();
+            uidsToCheck.Push(t.Uid);
+            while (uidsToCheck.Count > 0)
+            {
+                var uid = uidsToCheck.Pop();
+                if (parentDict.ContainsKey(uid))
+                {
+                    parentDict[uid].ForEach(u => uidsToCheck.Push(u.Value));
+                }
+                var exCandiates = GetExtensionMethodCandidatesForType(uid);
+                if (exCandiates != null)
+                {
+                    extensionMethods.AddRange(exCandiates);
+                }
+                if (TypesByUid.TryGetValue(uid, out var type) && type.Interfaces?.Count > 0)
+                {
+                    foreach(var f in type.Interfaces)
+                    {
+                        exCandiates = GetExtensionMethodCandidatesForType(f.ToOuterTypeUid());
+                        if (exCandiates != null)
+                        {
+                            extensionMethods.AddRange(exCandiates);
+                        }
+                    }
+                }
+            }
+            return extensionMethods;
+
+            List<string> GetExtensionMethodCandidatesForType(string uid)
+            {
+                if (ExtensionMethodUidsByTargetUid.Contains(uid))
+                {
+                    var exCandiates = ExtensionMethodUidsByTargetUid[uid].Where(ex =>
+                    {
+                        if (string.IsNullOrEmpty(ex.Uid))
+                        {
+                            return false;
+                        }
+                        HashSet<string> exMonikers = ex.Parent?.Monikers;
+                        return (exMonikers == null && t.Monikers == null) ||
+                               (exMonikers != null && t.Monikers != null && exMonikers.Intersect(t.Monikers).Any());
+                    });
+
+                    return exCandiates.Select(ex => ex.Uid).ToList();
+                }
+                return null;
+            }
+        }
+
+        private void PopulateMonikers()
         {
             if (_frameworks == null || _frameworks.DocIdToFrameworkDict.Count == 0)
             {
@@ -482,17 +524,31 @@ namespace ECMA2Yaml.Models
                     p => p.Value.Where(a => _monikerAssemblyMapping[p.Key].Contains(a.Key)).ToDictionary(purged => purged.Key, purged => purged.Value));
             }
 
+            var allMonikers = _frameworks.FrameworkAssemblies.Keys.ToHashSet();
             foreach (var ns in _nsList)
             {
                 if (_frameworks.DocIdToFrameworkDict.ContainsKey(ns.Uid))
                 {
-                    MonikerizeItem(ns, _frameworks.DocIdToFrameworkDict[ns.Uid]);
+                    ns.Monikers = new HashSet<string>(_frameworks.DocIdToFrameworkDict[ns.Uid]);
                 }
                 foreach (var t in ns.Types)
                 {
                     if (!string.IsNullOrEmpty(t.DocId) && _frameworks.DocIdToFrameworkDict.ContainsKey(t.DocId))
                     {
-                        MonikerizeItem(t, _frameworks.DocIdToFrameworkDict[t.DocId]);
+                        t.Monikers = new HashSet<string>(_frameworks.DocIdToFrameworkDict[t.DocId]);
+                        if (t.BaseTypes?.Count > 0)
+                        {
+                            //specify monikers for easier calculation
+                            var remainingMonikers = new HashSet<string>(allMonikers);
+                            foreach (var bt in t.BaseTypes.Where(b => b.Monikers != null))
+                            {
+                                remainingMonikers.ExceptWith(bt.Monikers);
+                            }
+                            foreach (var bt in t.BaseTypes.Where(b => b.Monikers == null))
+                            {
+                                bt.Monikers = remainingMonikers;
+                            }
+                        }
                     }
                     if (t.Members != null)
                     {
@@ -500,7 +556,7 @@ namespace ECMA2Yaml.Models
                         {
                             if (_frameworks.DocIdToFrameworkDict.ContainsKey(m.DocId))
                             {
-                                MonikerizeItem(m, _frameworks.DocIdToFrameworkDict[m.DocId]);
+                                m.Monikers = new HashSet<string>(_frameworks.DocIdToFrameworkDict[m.DocId]);
                             }
                             else
                             {
@@ -517,7 +573,7 @@ namespace ECMA2Yaml.Models
                                 .SelectMany(m => _frameworks.DocIdToFrameworkDict.ContainsKey(m.DocId) ? _frameworks.DocIdToFrameworkDict[m.DocId] : Enumerable.Empty<string>()).Distinct().ToList();
                             if (monikers?.Count > 0)
                             {
-                                MonikerizeItem(ol, monikers);
+                                ol.Monikers = new HashSet<string>(monikers);
                             }
                         }
                     }
@@ -525,13 +581,42 @@ namespace ECMA2Yaml.Models
             }
         }
 
-        private void MonikerizeItem(ReflectionItem item, List<string> monikers)
+        private void MonikerizeAssembly()
         {
-            item.Monikers = new HashSet<string>(monikers);
-            MonikerizeAssembly(item, monikers);
+            foreach (var ns in _nsList)
+            {
+                foreach (var t in ns.Types)
+                {
+                    if (t.Monikers != null)
+                    {
+                        MonikerizeAssembly(t, t.Monikers);
+                    }
+                    if (t.Members != null)
+                    {
+                        foreach (var m in t.Members.Where(m => !string.IsNullOrEmpty(m.DocId)))
+                        {
+                            if (m.Monikers != null)
+                            {
+                                MonikerizeAssembly(m, m.Monikers);
+                            }
+                        }
+                    }
+                    //special handling for monikers metadata
+                    if (t.Overloads != null)
+                    {
+                        foreach (var ol in t.Overloads)
+                        {
+                            if (ol.Monikers != null)
+                            {
+                                MonikerizeAssembly(ol, ol.Monikers);
+                            }
+                        }
+                    }
+                }
+            }
         }
 
-        private void MonikerizeAssembly(ReflectionItem item, List<string> monikers)
+        private void MonikerizeAssembly(ReflectionItem item, IEnumerable<string> monikers)
         {
             if (_frameworks.FrameworkAssemblies?.Count > 0 && item.AssemblyInfo != null)
             {
@@ -575,9 +660,9 @@ namespace ECMA2Yaml.Models
             foreach (var t in tList)
             {
                 t.Build(this);
-                if (t.BaseType != null)
+                if (t.BaseTypes != null)
                 {
-                    t.BaseType.Build(this);
+                    t.BaseTypes.ForEach(bt => bt.Build(this));
                 }
             }
             foreach (var t in tList.Where(x => x.Members?.Count > 0))
@@ -751,19 +836,102 @@ namespace ECMA2Yaml.Models
             }
         }
 
-        private void AddInheritanceMapping(string childUid, string parentUid)
+        private void AddInheritanceMapping(string childUid, string parentUid, HashSet<string> monikers = null)
         {
             if (!InheritanceParentsByUid.ContainsKey(childUid))
             {
-                InheritanceParentsByUid.Add(childUid, new List<string>());
+                InheritanceParentsByUid.Add(childUid, new List<VersionedString>());
             }
-            InheritanceParentsByUid[childUid].Add(parentUid);
+            InheritanceParentsByUid[childUid].Add(new VersionedString() { Value = parentUid, Monikers = monikers });
 
             if (!InheritanceChildrenByUid.ContainsKey(parentUid))
             {
-                InheritanceChildrenByUid.Add(parentUid, new List<string>());
+                InheritanceChildrenByUid.Add(parentUid, new List<VersionedString>());
             }
-            InheritanceChildrenByUid[parentUid].Add(childUid);
+            InheritanceChildrenByUid[parentUid].Add(new VersionedString() { Value = childUid, Monikers = monikers });
+        }
+
+        private void AddImplementMapping(string childUid, string parentUid, HashSet<string> monikers = null)
+        {
+            if (!ImplementationParentsByUid.ContainsKey(childUid))
+            {
+                ImplementationParentsByUid.Add(childUid, new List<VersionedString>());
+            }
+            ImplementationParentsByUid[childUid].Add(new VersionedString() { Value = parentUid, Monikers = monikers });
+
+            if (!ImplementationChildrenByUid.ContainsKey(parentUid))
+            {
+                ImplementationChildrenByUid.Add(parentUid, new List<VersionedString>());
+            }
+            ImplementationChildrenByUid[parentUid].Add(new VersionedString() { Value = childUid, Monikers = monikers });
+        }
+
+        private void FillInheritanceImplementationGraph(Type t)
+        {
+            if (t.Interfaces?.Count > 0)
+            {
+                foreach (var f in t.Interfaces)
+                {
+                    AddImplementMapping(t.Uid, f.ToOuterTypeUid());
+                }
+            }
+            if (t.BaseTypes != null)
+            {
+                foreach(var bt in t.BaseTypes)
+                {
+                    if (bt.Uid != t.Uid)
+                    {
+                        AddInheritanceMapping(t.Uid, bt.Uid, bt.Monikers);
+                    }
+                }
+            }
+        }
+
+        public List<VersionedValue<List<string>>> BuildInheritanceChain(string uid)
+        {
+            if (!TypesByUid.TryGetValue(uid, out Type t))
+            {
+                return null;
+            }
+            if (t.InheritanceChains != null)
+            {
+                return t.InheritanceChains; //already calculated, return directly
+            }
+            else if (InheritanceParentsByUid.TryGetValue(uid, out var parents))
+            {
+                var inheritanceChains = new List<VersionedValue<List<string>>>();
+                foreach (var parent in parents)
+                {
+                    var grandParents = BuildInheritanceChain(parent.Value);
+                    if (grandParents == null)
+                    {
+                        inheritanceChains.Add(new VersionedValue<List<string>>(parent.Monikers, new List<string>() { parent.Value }));
+                    }
+                    else
+                    {
+                        foreach(var grandParentChain in grandParents)
+                        {
+                            if (parent.Monikers.Overlaps(grandParentChain.Monikers))
+                            {
+                                var commonMonikers = new HashSet<string>(parent.Monikers.Intersect(grandParentChain.Monikers));
+                                if (commonMonikers.Overlaps(t.Monikers))
+                                {
+                                    var chain = new List<string>(grandParentChain.Value);
+                                    chain.Add(parent.Value);
+                                    inheritanceChains.Add(new VersionedValue<List<string>>(commonMonikers, chain));
+                                }
+                            }
+                        }
+                    }
+                }
+                t.InheritanceChains = inheritanceChains;
+                return inheritanceChains;
+            }
+            else
+            {
+                t.InheritanceChains = null;
+                return null;
+            }
         }
 
         private void BuildInheritance(Type t)
@@ -786,7 +954,6 @@ namespace ECMA2Yaml.Models
                 foreach (var f in t.Interfaces)
                 {
                     var interfaceUid = f.ToOuterTypeUid();
-                    AddInheritanceMapping(t.Uid, interfaceUid);
 
                     if (TypesByUid.TryGetValue(interfaceUid, out Type inter))
                     {
@@ -817,67 +984,38 @@ namespace ECMA2Yaml.Models
 
         private void BuildInheritanceDefault(Type t)
         {
-            if (t.Interfaces?.Count > 0)
+            if (t.BaseTypes != null)
             {
-                foreach (var f in t.Interfaces)
-                {
-                    AddInheritanceMapping(t.Uid, f.ToOuterTypeUid());
-                }
-            }
-            if (t.BaseType != null)
-            {
-                t.InheritanceUids = new List<string>();
-                string baseUid = t.BaseType.Uid;
-                if (baseUid == t.Uid)
-                {
-                    return;
-                }
-                AddInheritanceMapping(t.Uid, baseUid);
-                do
-                {
-                    t.InheritanceUids.Add(baseUid);
-                    if (TypesByUid.ContainsKey(baseUid))
-                    {
-                        var tb = TypesByUid[baseUid];
-                        baseUid = tb.BaseType?.Uid;
-                    }
-                    else
-                    {
-                        if (StrictMode)
-                        {
-                            OPSLogger.LogUserWarning(LogCode.ECMA2Yaml_Type_ExternalBaseType, LogMessageUtility.FormatMessage(LogCode.ECMA2Yaml_Type_ExternalBaseType, t.FullName, baseUid), t.SourceFileLocalPath);
-                        }
-                        baseUid = null;
-                        break;
-                    }
-                } while (baseUid != null);
-
-                t.InheritanceUids.Reverse();
+                t.InheritanceChains = BuildInheritanceChain(t.Uid);
 
                 if (t.ItemType == ItemType.Class && !t.Signatures.IsStatic)
                 {
                     t.InheritedMembers = new Dictionary<string, string>();
-                    foreach (var btUid in t.InheritanceUids)
+                    foreach(var inheritanceChain in t.InheritanceChains)
                     {
-                        if (TypesByUid.ContainsKey(btUid))
+                        foreach (var btUid in inheritanceChain.Value)
                         {
-                            var bt = TypesByUid[btUid];
-                            if (bt.Members != null)
+                            if (TypesByUid.ContainsKey(btUid))
                             {
-                                foreach (var m in bt.Members)
+                                var bt = TypesByUid[btUid];
+                                if (bt.Members != null)
                                 {
-                                    if (m.Name != "Finalize" 
-                                        && m.ItemType != ItemType.Constructor
-                                        && m.ItemType != ItemType.AttachedProperty
-                                        && m.ItemType != ItemType.AttachedEvent
-                                        && !m.Signatures.IsStatic)
+                                    foreach (var m in bt.Members)
                                     {
-                                        t.InheritedMembers[m.Id] = bt.Uid;
+                                        if (m.Name != "Finalize"
+                                            && m.ItemType != ItemType.Constructor
+                                            && m.ItemType != ItemType.AttachedProperty
+                                            && m.ItemType != ItemType.AttachedEvent
+                                            && !m.Signatures.IsStatic)
+                                        {
+                                            t.InheritedMembers[m.Id] = bt.Uid;
+                                        }
                                     }
                                 }
                             }
                         }
                     }
+
                     if (t.Members != null)
                     {
                         foreach (var m in t.Members)

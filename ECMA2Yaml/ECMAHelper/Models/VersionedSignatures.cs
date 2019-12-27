@@ -11,7 +11,7 @@ namespace ECMA2Yaml.Models
     {
         readonly string csharp = ECMADevLangs.OPSMapping[ECMADevLangs.CSharp];
 
-        public Dictionary<string, List<VersionedValue>> Dict { get; set; }
+        public Dictionary<string, List<VersionedString>> Dict { get; set; }
         public SortedList<string, List<string>> CombinedModifiers { get; private set; }
         public string[] DevLangs { get; private set; }
         public string DocId { get; private set; }
@@ -43,8 +43,8 @@ namespace ECMA2Yaml.Models
             {
                 var val = (sig.Attribute("Value") ?? sig.Attribute("Usage"))?.Value;
                 var lang = sig.Attribute("Language").Value;
-                var monikersStr = sig.Attribute("FrameworkAlternate")?.Value;
-                var monikers = monikersStr?.Split(';').ToHashSet();
+                var monikers = ECMALoader.LoadFrameworkAlternate(sig);
+                string monikersStr = null;
                 // DocId should not have any monikers attached to it.
                 // But we have to scan all versions to workaround https://ceapex.visualstudio.com/Engineering/_workitems/edit/148316
                 if (lang == "DocId")
@@ -60,8 +60,8 @@ namespace ECMA2Yaml.Models
             .GroupBy(t => t.lang)
             .ToDictionary(g => g.Key,
                 g => g.Count() > 1
-                ? g.Select(t => new VersionedValue(t.monikers.ToHashSet(), t.val)).ToList()
-                : g.Select(t => new VersionedValue(null, t.val)).ToList() // remove monikers if there's only one version
+                ? g.Select(t => new VersionedString(t.monikers.ToHashSet(), t.val)).ToList()
+                : g.Select(t => new VersionedString(null, t.val)).ToList() // remove monikers if there's only one version
                 );
 
             DevLangs = Dict.Keys.Where(k => ECMADevLangs.OPSMapping.ContainsKey(k)).Select(k => ECMADevLangs.OPSMapping[k]).ToArray();

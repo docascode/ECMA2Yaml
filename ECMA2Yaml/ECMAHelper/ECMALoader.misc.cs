@@ -304,8 +304,13 @@ namespace ECMA2Yaml
             {
                 Declaration = attrElement.Element("AttributeName").Value,
                 Visible = true,
-                Monikers = attrElement.Attribute("FrameworkAlternate")?.Value.Split(';').ToHashSet()
+                Monikers = LoadFrameworkAlternate(attrElement)
             };
+        }
+
+        public static HashSet<string> LoadFrameworkAlternate(XElement element)
+        {
+            return element.Attribute("FrameworkAlternate")?.Value.Split(';').ToHashSet();
         }
 
         public static string GetRepoRootBySubPath(string path)

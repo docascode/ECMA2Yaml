@@ -8,18 +8,27 @@ using YamlDotNet.Serialization;
 
 namespace ECMA2Yaml.Models
 {
-    public class VersionedValue
+    public class VersionedString : VersionedValue<string>
+    {
+        public VersionedString() { }
+
+        public VersionedString(HashSet<string> monikers, string value) : base(monikers, value)
+        {
+        }
+    }
+
+    public class VersionedValue<T>
     {
         [JsonProperty("value")]
         [YamlMember(Alias = "value")]
-        public string Value { get; set; }
+        public T Value { get; set; }
         [JsonProperty("monikers")]
         [YamlMember(Alias = "monikers")]
         public HashSet<string> Monikers { get; set; }
 
         public VersionedValue() { }
 
-        public VersionedValue(HashSet<string> monikers, string value)
+        public VersionedValue(HashSet<string> monikers, T value)
         {
             Monikers = monikers;
             Value = value;

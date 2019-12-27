@@ -118,9 +118,9 @@ namespace ECMA2Yaml
             {
                 pv.References.Add((t.Parent as Namespace).ToReferenceViewModel());
             }
-            if (t.BaseType != null)
+            if (t.BaseTypes != null)
             {
-                pv.References.AddRange(t.BaseType.ToReferenceViewModel(store));
+                pv.References.AddRange(t.BaseTypes.SelectMany(bt => bt.ToReferenceViewModel(store)));
             }
             pv.References.AddRange(t.GenerateReferencesFromParameters(store));
             if (t.Members != null)
@@ -204,6 +204,8 @@ namespace ECMA2Yaml
                 Implements = t.Interfaces?.Where(i => i != null).Select(i => store.TypesByFullName.ContainsKey(i) ? store.TypesByFullName[i].Uid : i.ToSpecId()).ToList(),
                 Inheritance = t.InheritanceUids,
                 AssemblyNameList = store.UWPMode ? null : t.AssemblyInfo.Select(a => a.Name).Distinct().ToList(),
+                Inheritance = t.InheritanceChains?.LastOrDefault().Value,
+                AssemblyNameList = t.AssemblyInfo.Select(a => a.Name).Distinct().ToList(),
                 InheritedMembers = t.InheritedMembers?.Select(p => p.Value + '.' + p.Key).OrderBy(s => s).ToList(),
                 SupportedLanguages = syntax.Contents?.Keys?.ToArray(),
                 Summary = t.Docs?.Summary,
@@ -219,12 +221,18 @@ namespace ECMA2Yaml
             item.Metadata.MergeMetadata(t.Metadata);
             item.Metadata.AddPermissions(t.Docs);
             //item.Metadata.AddThreadSafety(t.Docs);
+
             //not top level class like System.Object, has children
-            if ((t.ItemType == ItemType.Interface
-                || (store.InheritanceParentsByUid.ContainsKey(t.Uid) && store.InheritanceParentsByUid[t.Uid]?.Count > 0))
+            if (t.ItemType == ItemType.Interface
+                && store.ImplementationChildrenByUid.ContainsKey(t.Uid))
+            {
+                item.DerivedClasses = store.ImplementationChildrenByUid[t.Uid].Select(v => v.Value).ToList();
+            }
+            else if (store.InheritanceParentsByUid.ContainsKey(t.Uid) 
+                && store.InheritanceParentsByUid[t.Uid]?.Count > 0
                 && store.InheritanceChildrenByUid.ContainsKey(t.Uid))
             {
-                item.DerivedClasses = store.InheritanceChildrenByUid[t.Uid];
+                item.DerivedClasses = store.InheritanceChildrenByUid[t.Uid].Select(v => v.Value).ToList();
             }
             return item;
         }
@@ -600,7 +608,7 @@ namespace ECMA2Yaml
         {
             var altMembers = docs.AltMemberCommentIds?.Select(a => a.ResolveCommentId(store)?.ToLinkInfo()).Where(r => r != null).NullIfEmpty()?.ToList();
             var related = docs.Related?.Select(r => r.ToLinkInfo())?.ToList();
-            return altMembers.Merge(related);
+            return altMembers.MergeWith(related);
         }
 
         public static LinkInfo ToLinkInfo(this ReflectionItem item)

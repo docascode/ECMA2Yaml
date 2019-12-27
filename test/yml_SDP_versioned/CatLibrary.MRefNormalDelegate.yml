@@ -1,0 +1,61 @@
+### YamlMime:NetDelegate
+parameters:
+- name: pics
+  description: a name list of pictures.
+  type: <xref href="System.Collections.Generic.List`1?alt=System.Collections.Generic.List&text=List" data-throw-if-not-resolved="True"/>&lt;<xref href="System.String?alt=System.String&text=String" data-throw-if-not-resolved="True"/>&gt;
+- name: name
+  description: give out the needed name.
+  type: <xref href="System.String?alt=System.String&text=String" data-throw-if-not-resolved="True"/>
+inheritances:
+- <xref href="System.Delegate" data-throw-if-not-resolved="True"/>
+uid: CatLibrary.MRefNormalDelegate
+commentId: T:CatLibrary.MRefNormalDelegate
+namespace: CatLibrary
+name: MRefNormalDelegate
+fullName: CatLibrary.MRefNormalDelegate
+nameWithType: CatLibrary.MRefNormalDelegate
+assemblies:
+- CatLibrary
+syntaxWithMoniker:
+- lang: cpp
+  values:
+  - value: public delegate void MRefNormalDelegate(List<System::String ^> ^ pics, [Runtime::InteropServices::Out] System::String ^ % name);
+- lang: csharp
+  values:
+  - value: public delegate void MRefNormalDelegate(List<string> pics, out string name);
+- lang: fsharp
+  values:
+  - value: type MRefNormalDelegate = delegate of List<string> * string -> unit
+- lang: vb
+  values:
+  - value: Public Delegate Sub MRefNormalDelegate(pics As List(Of String), ByRef name As String)
+devLangs:
+- csharp
+- vb
+- cpp
+- fsharp
+monikers:
+- cat-1.0
+- cat-2.0
+summary: Delegate in the namespace
+metadata:
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/MRefNormalDelegate.xml
+  _op_overwriteFileGitUrl: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/MRefNormalDelegate.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/MRefNormalDelegate.xml
+  api_name:
+  - CatLibrary.MRefNormalDelegate
+  - CatLibrary.MRefNormalDelegate..ctor
+  - CatLibrary.MRefNormalDelegate.Invoke
+  - CatLibrary.MRefNormalDelegate.BeginInvoke
+  - CatLibrary.MRefNormalDelegate.EndInvoke
+  api_location:
+  - CatLibrary.dll
+  topic_type:
+  - apiref
+  api_type:
+  - Assembly
+  f1_keywords:
+  - CatLibrary.MRefNormalDelegate
+  - CatLibrary::MRefNormalDelegate
+  helpviewer_keywords:
+  - CatLibrary.MRefNormalDelegate delegate [.NET]

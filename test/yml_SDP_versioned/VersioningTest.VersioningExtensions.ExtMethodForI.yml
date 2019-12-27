@@ -1,0 +1,66 @@
+### YamlMime:NetMember
+type: method
+members:
+- parameters:
+  - name: i
+    description: "\n        "
+    type: <xref href="VersioningTest.I?alt=VersioningTest.I&text=I" data-throw-if-not-resolved="True"/>
+  uid: VersioningTest.VersioningExtensions.ExtMethodForI(VersioningTest.I)
+  commentId: M:VersioningTest.VersioningExtensions.ExtMethodForI(VersioningTest.I)
+  name: ExtMethodForI(I)
+  fullName: VersioningTest.VersioningExtensions.ExtMethodForI(I)
+  nameWithType: VersioningExtensions.ExtMethodForI(I)
+  syntaxWithMoniker:
+  - lang: cpp
+    values:
+    - value: >-
+        public:
+
+        [System::Runtime::CompilerServices::Extension]
+         static void ExtMethodForI(VersioningTest::I ^ i);
+  - lang: csharp
+    values:
+    - value: public static void ExtMethodForI (this VersioningTest.I i);
+  - lang: fsharp
+    values:
+    - value: 'static member ExtMethodForI : VersioningTest.I -> unit'
+  monikers:
+  - cat-1.0
+  - cat-2.0
+  summary: this extension method should show up in interface <code data-dev-comment-type="c">I</code>, class <code data-dev-comment-type="c">C</code> and <code data-dev-comment-type="c">E</code> for all monikers, and in `F/G/H` for `cat-1.0` only.
+  metadata: {}
+uid: VersioningTest.VersioningExtensions.ExtMethodForI*
+commentId: Overload:VersioningTest.VersioningExtensions.ExtMethodForI
+namespace: VersioningTest
+name: ExtMethodForI
+fullName: VersioningTest.VersioningExtensions.ExtMethodForI
+nameWithType: VersioningExtensions.ExtMethodForI
+assemblies:
+- CatLibrary
+devLangs:
+- csharp
+- cpp
+- fsharp
+monikers:
+- cat-1.0
+- cat-2.0
+metadata:
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/VersioningExtensions.xml
+  _op_overwriteFileGitUrl: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/VersioningExtensions.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/VersioningExtensions.xml
+  api_name:
+  - VersioningTest.VersioningExtensions.ExtMethodForI
+  api_location:
+  - CatLibrary.dll
+  topic_type:
+  - apiref
+  api_type:
+  - Assembly
+  f1_keywords:
+  - VersioningTest.VersioningExtensions.ExtMethodForI
+  - VersioningTest::VersioningExtensions::ExtMethodForI
+  helpviewer_keywords:
+  - VersioningExtensions.ExtMethodForI method [.NET]
+  - ExtMethodForI method [.NET], class VersioningExtensions
+  - VersioningExtensions.ExtMethodForI(I) extension method [.NET]
+  - ExtMethodForI(I) extension method [.NET], class VersioningExtensions
