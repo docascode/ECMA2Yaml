@@ -69,6 +69,18 @@
     <Namespace Name="MRef.Demo.Enumeration">
       <Type Name="ColorType" Kind="Enumeration" />
     </Namespace>
+    <Namespace Name="VersioningTest">
+      <Type Name="A" Kind="Class" />
+      <Type Name="B" Kind="Class" />
+      <Type Name="C" Kind="Class" />
+      <Type Name="D" Kind="Class" />
+      <Type Name="E" Kind="Class" />
+      <Type Name="F" Kind="Class" />
+      <Type Name="G" Kind="Class" />
+      <Type Name="H" Kind="Class" />
+      <Type Name="I" Kind="Interface" />
+      <Type Name="VersioningExtensions" Kind="Class" />
+    </Namespace>
   </Types>
   <Title>Untitled</Title>
   <ExtensionMethods>
@@ -154,6 +166,59 @@
             </summary>
         </Docs>
         <Link Type="CatLibrary.JerryExtension" Member="M:CatLibrary.JerryExtension.PlayWith(CatLibrary.TomFromBaseClass.Jerry,CatLibrary.Tom)" />
+      </Member>
+    </ExtensionMethod>
+    <ExtensionMethod>
+      <Targets>
+        <Target Type="T:VersioningTest.D" />
+      </Targets>
+      <Member MemberName="ExtMethodForD">
+        <MemberSignature Language="C#" Value="public static void ExtMethodForD (this VersioningTest.D i);" FrameworkAlternate="cat-1.0" />
+        <MemberSignature Language="ILAsm" Value=".method public static hidebysig void ExtMethodForD(class VersioningTest.D i) cil managed" FrameworkAlternate="cat-1.0" />
+        <MemberSignature Language="DocId" Value="M:VersioningTest.VersioningExtensions.ExtMethodForD(VersioningTest.D)" FrameworkAlternate="cat-1.0" />
+        <MemberSignature Language="VB.NET" Value="&lt;Extension()&gt;&#xA;Public Sub ExtMethodForD (i As D)" FrameworkAlternate="cat-1.0" />
+        <MemberSignature Language="C++ CLI" Value="public:&#xA;[System::Runtime::CompilerServices::Extension]&#xA; static void ExtMethodForD(VersioningTest::D ^ i);" FrameworkAlternate="cat-1.0" />
+        <MemberSignature Language="F#" Value="static member ExtMethodForD : VersioningTest.D -&gt; unit" Usage="VersioningTest.VersioningExtensions.ExtMethodForD i" FrameworkAlternate="cat-1.0" />
+        <MemberType>ExtensionMethod</MemberType>
+        <ReturnValue>
+          <ReturnType>System.Void</ReturnType>
+        </ReturnValue>
+        <Parameters>
+          <Parameter Name="i" Type="VersioningTest.D" Index="0" FrameworkAlternate="cat-1.0" RefType="this" />
+        </Parameters>
+        <Docs>
+          <param name="i" />
+          <summary>
+            this extension method should show up in class `D` for all monikers, and in `F/G/H` for `cat-2.0` only.
+            </summary>
+        </Docs>
+        <Link Type="VersioningTest.VersioningExtensions" Member="M:VersioningTest.VersioningExtensions.ExtMethodForD(VersioningTest.D)" />
+      </Member>
+    </ExtensionMethod>
+    <ExtensionMethod>
+      <Targets>
+        <Target Type="T:VersioningTest.I" />
+      </Targets>
+      <Member MemberName="ExtMethodForI">
+        <MemberSignature Language="C#" Value="public static void ExtMethodForI (this VersioningTest.I i);" FrameworkAlternate="cat-1.0" />
+        <MemberSignature Language="ILAsm" Value=".method public static hidebysig void ExtMethodForI(class VersioningTest.I i) cil managed" FrameworkAlternate="cat-1.0" />
+        <MemberSignature Language="DocId" Value="M:VersioningTest.VersioningExtensions.ExtMethodForI(VersioningTest.I)" FrameworkAlternate="cat-1.0" />
+        <MemberSignature Language="C++ CLI" Value="public:&#xA;[System::Runtime::CompilerServices::Extension]&#xA; static void ExtMethodForI(VersioningTest::I ^ i);" FrameworkAlternate="cat-1.0" />
+        <MemberSignature Language="F#" Value="static member ExtMethodForI : VersioningTest.I -&gt; unit" Usage="VersioningTest.VersioningExtensions.ExtMethodForI i" FrameworkAlternate="cat-1.0" />
+        <MemberType>ExtensionMethod</MemberType>
+        <ReturnValue>
+          <ReturnType>System.Void</ReturnType>
+        </ReturnValue>
+        <Parameters>
+          <Parameter Name="i" Type="VersioningTest.I" Index="0" FrameworkAlternate="cat-1.0" RefType="this" />
+        </Parameters>
+        <Docs>
+          <param name="i" />
+          <summary>
+            this extension method should show up in interface <c>I</c>, class <c>C</c> and <c>E</c> for all monikers, and in `F/G/H` for `cat-1.0` only.
+            </summary>
+        </Docs>
+        <Link Type="VersioningTest.VersioningExtensions" Member="M:VersioningTest.VersioningExtensions.ExtMethodForI(VersioningTest.I)" />
       </Member>
     </ExtensionMethod>
   </ExtensionMethods>

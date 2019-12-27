@@ -27,6 +27,6 @@ namespace ECMA2Yaml.Models.SDP
 
         [JsonProperty("values")]
         [YamlMember(Alias = "values")]
-        public List<VersionedValue> Values { get; set; }
+        public List<VersionedString> Values { get; set; }
     }
 }

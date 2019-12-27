@@ -18,9 +18,23 @@ namespace ECMA2Yaml
             sdpType.TypeParameters = ConvertTypeParameters(t);
             sdpType.ThreadSafety = ConvertThreadSafety(t);
 
-            sdpType.Inheritances = t.InheritanceUids?.Select(uid => UidToTypeMDString(uid, _store))
+            if (_withVersioning)
+            {
+                sdpType.InheritancesWithMoniker = ConverterHelper.TrimMonikers(
+                    t.InheritanceChains?.Select(
+                    chain => new VersionedValue<List<string>>(
+                        chain.Monikers,
+                        chain.Value.Select(uid => UidToTypeMDString(uid, _store)).ToList()
+                        )).ToList(),
+                    t.Monikers);
+            }
+            else
+            {
+                sdpType.Inheritances = t.InheritanceChains?.LastOrDefault().Value.Select(uid => UidToTypeMDString(uid, _store))
                 .ToList()
                 .NullIfEmpty();
+            }
+            
             sdpType.Implements = t.Interfaces?.Where(i => i != null)
                 .Select(i => TypeStringToTypeMDString(i, _store))
                 .ToList()
@@ -35,11 +49,16 @@ namespace ECMA2Yaml
                 .NullIfEmpty();
 
             //not top level class like System.Object, has children
-            if ((t.ItemType == ItemType.Interface
-                || (_store.InheritanceParentsByUid.ContainsKey(t.Uid) && _store.InheritanceParentsByUid[t.Uid]?.Count > 0))
+            if (t.ItemType == ItemType.Interface
+                && _store.ImplementationChildrenByUid.ContainsKey(t.Uid))
+            {
+                sdpType.DerivedClasses = _store.ImplementationChildrenByUid[t.Uid].Select(v => v.Value).ToList();
+            }
+            else if (_store.InheritanceParentsByUid.ContainsKey(t.Uid)
+                && _store.InheritanceParentsByUid[t.Uid]?.Count > 0
                 && _store.InheritanceChildrenByUid.ContainsKey(t.Uid))
             {
-                sdpType.DerivedClasses = _store.InheritanceChildrenByUid[t.Uid];
+                sdpType.DerivedClasses = _store.InheritanceChildrenByUid[t.Uid].Select(v => v.Value).ToList();
             }
 
             if (t.Attributes != null

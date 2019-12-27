@@ -1,0 +1,62 @@
+### YamlMime:NetType
+type: class
+inheritances:
+- <xref href="System.Object" data-throw-if-not-resolved="True"/>
+- <xref href="VersioningTest.C?alt=VersioningTest.C&text=C" data-throw-if-not-resolved="True"/>
+extensionMethods:
+- uid: VersioningTest.VersioningExtensions.ExtMethodForI(VersioningTest.I)
+  monikers:
+  - cat-1.0
+  - cat-2.0
+constructors:
+- uid: VersioningTest.E.#ctor
+  monikers:
+  - cat-1.0
+  - cat-2.0
+uid: VersioningTest.E
+commentId: T:VersioningTest.E
+namespace: VersioningTest
+name: E
+fullName: VersioningTest.E
+nameWithType: VersioningTest.E
+assemblies:
+- CatLibrary
+syntax:
+- lang: cpp
+  value: 'public ref class E : VersioningTest::C'
+- lang: csharp
+  value: 'public class E : VersioningTest.C'
+- lang: fsharp
+  value: >-
+    type E = class
+        inherit C
+- lang: vb
+  value: >-
+    Public Class E
+
+    Inherits C
+devLangs:
+- csharp
+- vb
+- cpp
+- fsharp
+monikers:
+- cat-1.0
+- cat-2.0
+metadata:
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/E.xml
+  _op_overwriteFileGitUrl: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/E.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/E.xml
+  api_name:
+  - VersioningTest.E
+  api_location:
+  - CatLibrary.dll
+  topic_type:
+  - apiref
+  api_type:
+  - Assembly
+  f1_keywords:
+  - VersioningTest.E
+  - VersioningTest::E
+  helpviewer_keywords:
+  - VersioningTest.E class [.NET]

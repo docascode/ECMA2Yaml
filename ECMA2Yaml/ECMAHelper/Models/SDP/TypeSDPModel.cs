@@ -36,6 +36,10 @@ namespace ECMA2Yaml.Models.SDP
         [YamlMember(Alias = "inheritances")]
         public IEnumerable<string> Inheritances { get; set; }
 
+        [JsonProperty("inheritancesWithMoniker")]
+        [YamlMember(Alias = "inheritancesWithMoniker")]
+        public IEnumerable<VersionedValue<List<string>>> InheritancesWithMoniker { get; set; }
+
         [JsonProperty("derivedClasses")]
         [YamlMember(Alias = "derivedClasses")]
         public IEnumerable<string> DerivedClasses { get; set; }

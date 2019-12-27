@@ -1,0 +1,66 @@
+<Type Name="A" FullName="VersioningTest.A">
+  <TypeSignature Language="C#" Value="public class A" />
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit A extends System.Object" />
+  <TypeSignature Language="DocId" Value="T:VersioningTest.A" />
+  <TypeSignature Language="VB.NET" Value="Public Class A" />
+  <TypeSignature Language="C++ CLI" Value="public ref class A" />
+  <TypeSignature Language="F#" Value="type A = class" />
+  <AssemblyInfo>
+    <AssemblyName>CatLibrary</AssemblyName>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>System.Object</BaseTypeName>
+  </Base>
+  <Interfaces />
+  <Docs>
+    <summary>To be added.</summary>
+    <remarks>To be added.</remarks>
+  </Docs>
+  <Members>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public A ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor() cil managed" />
+      <MemberSignature Language="DocId" Value="M:VersioningTest.A.#ctor" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New ()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; A();" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>CatLibrary</AssemblyName>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters />
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="MethodFromClassA">
+      <MemberSignature Language="C#" Value="public void MethodFromClassA (string param1);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance void MethodFromClassA(string param1) cil managed" />
+      <MemberSignature Language="DocId" Value="M:VersioningTest.A.MethodFromClassA(System.String)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub MethodFromClassA (param1 As String)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; void MethodFromClassA(System::String ^ param1);" />
+      <MemberSignature Language="F#" Value="member this.MethodFromClassA : string -&gt; unit" Usage="a.MethodFromClassA param1" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>CatLibrary</AssemblyName>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="param1" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="param1">
+        </param>
+        <summary>
+            this method should show up as inherited member in class `D` only for `cat-1.0`
+            </summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+  </Members>
+</Type>

@@ -1,0 +1,100 @@
+### YamlMime:NetEnum
+inheritancesWithMoniker:
+- value:
+  - <xref href="System.Enum" data-throw-if-not-resolved="True"/>
+fields:
+- uid: MRef.Demo.Enumeration.ColorType.Blue
+  commentId: F:MRef.Demo.Enumeration.ColorType.Blue
+  literalValue: "1"
+  name: Blue
+  nameWithType: ColorType.Blue
+  fullName: MRef.Demo.Enumeration.ColorType.Blue
+  summary: blue like river
+  monikers:
+  - cat-1.0
+  - cat-2.0
+- uid: MRef.Demo.Enumeration.ColorType.Red
+  commentId: F:MRef.Demo.Enumeration.ColorType.Red
+  literalValue: "0"
+  name: Red
+  nameWithType: ColorType.Red
+  fullName: MRef.Demo.Enumeration.ColorType.Red
+  summary: this color is red
+  monikers:
+  - cat-1.0
+  - cat-2.0
+- uid: MRef.Demo.Enumeration.ColorType.Yellow
+  commentId: F:MRef.Demo.Enumeration.ColorType.Yellow
+  literalValue: "2"
+  name: Yellow
+  nameWithType: ColorType.Yellow
+  fullName: MRef.Demo.Enumeration.ColorType.Yellow
+  summary: yellow comes from desert
+  monikers:
+  - cat-1.0
+  - cat-2.0
+uid: MRef.Demo.Enumeration.ColorType
+commentId: T:MRef.Demo.Enumeration.ColorType
+namespace: MRef.Demo.Enumeration
+name: ColorType
+fullName: MRef.Demo.Enumeration.ColorType
+nameWithType: MRef.Demo.Enumeration.ColorType
+assemblies:
+- CatLibrary
+syntaxWithMoniker:
+- lang: cpp
+  values:
+  - value: public enum class ColorType
+- lang: csharp
+  values:
+  - value: public enum ColorType
+- lang: fsharp
+  values:
+  - value: 'type ColorType = '
+- lang: vb
+  values:
+  - value: Public Enum ColorType
+devLangs:
+- csharp
+- vb
+- cpp
+- fsharp
+monikers:
+- cat-1.0
+- cat-2.0
+seeAlso: >+
+  - <xref:System.Object>
+
+summary: Enumeration ColorType
+remarks: >-
+  <p>
+        Red/Blue/Yellow can become all color you want.
+  </p>
+
+  <ul></ul>
+metadata:
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/MRef.Demo.Enumeration/ColorType.xml
+  _op_overwriteFileGitUrl: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/MRef.Demo.Enumeration/ColorType.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/MRef.Demo.Enumeration/ColorType.xml
+  api_name:
+  - MRef.Demo.Enumeration.ColorType
+  - MRef.Demo.Enumeration.ColorType.Blue
+  - MRef.Demo.Enumeration.ColorType.Red
+  - MRef.Demo.Enumeration.ColorType.Yellow
+  api_location:
+  - CatLibrary.dll
+  topic_type:
+  - apiref
+  api_type:
+  - Assembly
+  f1_keywords:
+  - MRef.Demo.Enumeration.ColorType
+  - MRef::Demo::Enumeration::ColorType
+  - MRef.Demo.Enumeration.ColorType.Blue
+  - MRef::Demo::Enumeration::ColorType::Blue
+  - MRef.Demo.Enumeration.ColorType.Red
+  - MRef::Demo::Enumeration::ColorType::Red
+  - MRef.Demo.Enumeration.ColorType.Yellow
+  - MRef::Demo::Enumeration::ColorType::Yellow
+  helpviewer_keywords:
+  - MRef.Demo.Enumeration.ColorType enum [.NET]

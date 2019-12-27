@@ -35,7 +35,7 @@ namespace ECMA2Yaml
             return list;
         }
 
-        public static List<T> Merge<T>(this List<T> left, List<T> right)
+        public static List<T> MergeWith<T>(this List<T> left, List<T> right)
         {
             if (left == null)
             {

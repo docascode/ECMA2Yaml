@@ -1,0 +1,39 @@
+<Type Name="E" FullName="VersioningTest.E">
+  <TypeSignature Language="C#" Value="public class E : VersioningTest.C" />
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit E extends VersioningTest.C" />
+  <TypeSignature Language="DocId" Value="T:VersioningTest.E" />
+  <TypeSignature Language="VB.NET" Value="Public Class E&#xA;Inherits C" />
+  <TypeSignature Language="C++ CLI" Value="public ref class E : VersioningTest::C" />
+  <TypeSignature Language="F#" Value="type E = class&#xA;    inherit C" />
+  <AssemblyInfo>
+    <AssemblyName>CatLibrary</AssemblyName>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>VersioningTest.C</BaseTypeName>
+  </Base>
+  <Interfaces />
+  <Docs>
+    <summary>To be added.</summary>
+    <remarks>To be added.</remarks>
+  </Docs>
+  <Members>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public E ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor() cil managed" />
+      <MemberSignature Language="DocId" Value="M:VersioningTest.E.#ctor" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New ()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; E();" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>CatLibrary</AssemblyName>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters />
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+  </Members>
+</Type>

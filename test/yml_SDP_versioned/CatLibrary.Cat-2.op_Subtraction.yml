@@ -1,0 +1,78 @@
+### YamlMime:NetMember
+type: operator
+members:
+- returns:
+    type: <xref href="System.Int32?alt=System.Int32&text=Int32" data-throw-if-not-resolved="True"/>
+  parameters:
+  - name: lsr
+    type: <xref href="CatLibrary.Cat`2?alt=CatLibrary.Cat`2&text=Cat%3CT%2CK%3E" data-throw-if-not-resolved="True"/>
+  - name: rsr
+    type: <xref href="System.Int32?alt=System.Int32&text=Int32" data-throw-if-not-resolved="True"/>
+  uid: CatLibrary.Cat`2.op_Subtraction(CatLibrary.Cat{`0,`1},System.Int32)
+  commentId: M:CatLibrary.Cat`2.op_Subtraction(CatLibrary.Cat{`0,`1},System.Int32)
+  name: Subtraction(Cat<T,K>, Int32)
+  fullName: CatLibrary.Cat<T,K>.Subtraction(Cat<T,K>, Int32)
+  nameWithType: Cat<T,K>.Subtraction(Cat<T,K>, Int32)
+  syntaxWithMoniker:
+  - lang: cpp
+    values:
+    - value: >-
+        public:
+         static int operator -(CatLibrary::Cat<T, K> ^ lsr, int rsr);
+  - lang: csharp
+    values:
+    - value: public static int operator - (CatLibrary.Cat<T,K> lsr, int rsr);
+  - lang: fsharp
+    values:
+    - value: "static member ( - ) : CatLibrary.Cat<'T, 'K (requires 'T : null and 'T : (new : unit -> 'T) and 'K : struct)> * int -> int"
+  - lang: vb
+    values:
+    - value: Public Shared Operator - (lsr As Cat(Of T, K), rsr As Integer) As Integer
+  monikers:
+  - cat-1.0
+  - cat-2.0
+  summary: Similar with operaotr +, refer to that topic.
+  metadata: {}
+uid: CatLibrary.Cat`2.op_Subtraction*
+commentId: Overload:CatLibrary.Cat`2.op_Subtraction
+namespace: CatLibrary
+name: Subtraction
+fullName: CatLibrary.Cat<T,K>.Subtraction
+nameWithType: Cat<T,K>.Subtraction
+assemblies:
+- CatLibrary
+devLangs:
+- csharp
+- vb
+- cpp
+- fsharp
+monikers:
+- cat-1.0
+- cat-2.0
+metadata:
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  _op_overwriteFileGitUrl: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  ms.openlocfilehash: 77d1b2a652c118438281090f72ac4caa93feec1a
+  ms.sourcegitcommit: 055a4a82a0b08bfbdc21bd1347fb71f7fe2c099e
+  ms.translationtype: MT
+  ms.contentlocale: zh-CN
+  ms.lasthandoff: 08/15/2019
+  ms.locfileid: "69262388"
+  api_name:
+  - CatLibrary.Cat`2.Subtraction
+  - CatLibrary.Cat`2.op_Subtraction
+  api_location:
+  - CatLibrary.dll
+  topic_type:
+  - apiref
+  api_type:
+  - Assembly
+  f1_keywords:
+  - CatLibrary.Cat`2.op_Subtraction
+  - CatLibrary::Cat`2::op_Subtraction
+  helpviewer_keywords:
+  - Cat<T,K>.Subtraction operator [.NET]
+  - Subtraction operator [.NET], class Cat<T,K>
+  - Cat<T,K>.Subtraction(Cat<T,K>, Int32) operator [.NET]
+  - Subtraction(Cat<T,K>, Int32) operator [.NET], class Cat<T,K>
