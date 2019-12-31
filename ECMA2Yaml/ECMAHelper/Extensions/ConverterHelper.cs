@@ -137,7 +137,7 @@ namespace ECMA2Yaml
         public static SortedList<string, string> BuildUWPSignatures(ReflectionItem item)
         {
             var contents = new SortedList<string, string>();
-            if (item.Signatures.Dict != null)
+            if (item.Signatures?.Dict != null)
             {
                 foreach (var sigPair in item.Signatures.Dict)
                 {
