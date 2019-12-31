@@ -175,7 +175,7 @@ items:
   syntax:
     content: public Cat (T ownType);
     parameters:
-    - id: ownType
+    - id: thisType
       type: T
       description: This parameter type defined by class.
     content.cpp: >-
@@ -217,7 +217,7 @@ items:
     - id: nickName
       type: System.String
       description: it's string type.
-    - id: age
+    - id: ageNumber
       type: System.Int32
       description: It's an out and ref parameter.
     - id: realName

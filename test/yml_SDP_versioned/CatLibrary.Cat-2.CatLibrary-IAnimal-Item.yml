@@ -5,7 +5,8 @@ members:
     description: Cat's name.
     type: <xref href="System.String?alt=System.String&text=String" data-throw-if-not-resolved="True"/>
   parameters:
-  - name: a
+  - nameWithMonikers:
+    - value: a
     description: Cat's number.
     type: <xref href="System.Int32?alt=System.Int32&text=Int32" data-throw-if-not-resolved="True"/>
   implements:

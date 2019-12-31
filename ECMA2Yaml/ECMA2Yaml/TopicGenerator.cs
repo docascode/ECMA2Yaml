@@ -316,6 +316,15 @@ namespace ECMA2Yaml
             return ap;
         }
 
+        public static ApiParameter ToApiParameter(this TypeParameter tp, ECMAStore store)
+        {
+            return new ApiParameter()
+            {
+                Name = tp.Name,
+                Description = tp.Description ?? ""
+            };
+        }
+
         public static ReferenceViewModel ToReferenceViewModel(this Member m, bool withMetadata = false)
         {
             var r = new ReferenceViewModel()
@@ -368,7 +377,7 @@ namespace ECMA2Yaml
                 refs.AddRange(item.Parameters.SelectMany(p => GenerateReferencesByTypeString(p.Type, store)).Where(r => r != null));
             }
 
-            var typeParameters = item.TypeParameters ?? new List<Parameter>();
+            var typeParameters = item.TypeParameters ?? new List<TypeParameter>();
             if (item.Parent != null && item.Parent is Models.Type)
             {
                 var t = item.Parent as Models.Type;

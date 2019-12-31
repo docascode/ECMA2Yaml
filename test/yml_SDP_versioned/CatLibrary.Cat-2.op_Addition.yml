@@ -5,10 +5,12 @@ members:
     description: Result with <em>int</em> type.
     type: <xref href="System.Int32?alt=System.Int32&text=Int32" data-throw-if-not-resolved="True"/>
   parameters:
-  - name: lsr
+  - nameWithMonikers:
+    - value: lsr
     description: '...'
     type: <xref href="CatLibrary.Cat`2?alt=CatLibrary.Cat`2&text=Cat%3CT%2CK%3E" data-throw-if-not-resolved="True"/>
-  - name: rsr
+  - nameWithMonikers:
+    - value: rsr
     description: ~~~
     type: <xref href="System.Int32?alt=System.Int32&text=Int32" data-throw-if-not-resolved="True"/>
   uid: CatLibrary.Cat`2.op_Addition(CatLibrary.Cat{`0,`1},System.Int32)

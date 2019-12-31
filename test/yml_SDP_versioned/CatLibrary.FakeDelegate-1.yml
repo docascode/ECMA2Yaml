@@ -6,13 +6,16 @@ returns:
   description: Return a fake number to confuse you.
   type: <xref href="System.Int32?alt=System.Int32&text=Int32" data-throw-if-not-resolved="True"/>
 parameters:
-- name: num
+- nameWithMonikers:
+  - value: num
   description: Fake para
   type: <xref href="System.Int64?alt=System.Int64&text=Int64" data-throw-if-not-resolved="True"/>
-- name: name
+- nameWithMonikers:
+  - value: name
   description: Fake para
   type: <xref href="System.String?alt=System.String&text=String" data-throw-if-not-resolved="True"/>
-- name: scores
+- nameWithMonikers:
+  - value: scores
   description: Optional Parameter.
   type: <xref href="System.Object?alt=System.Object&text=Object" data-throw-if-not-resolved="True"/>[]
 inheritances:

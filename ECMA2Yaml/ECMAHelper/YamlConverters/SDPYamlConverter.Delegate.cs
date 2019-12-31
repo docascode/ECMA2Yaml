@@ -25,12 +25,8 @@ namespace ECMA2Yaml
                 sdpDelegate.Returns = ConvertParameter<TypeReference>(t.ReturnValueType);
             }
 
-            sdpDelegate.Parameters = t.Parameters?.Select(p =>
-            {
-                var r = ConvertParameter<ParameterReference>(p, t.TypeParameters, showGenericType:false);
-                r.Name = p.Name;
-                return r;
-            });
+            sdpDelegate.Parameters = t.Parameters?.Select(p => ConvertNamedParameter(p, t.TypeParameters, showGenericType: false))
+                .ToList().NullIfEmpty();
 
             if (t.Attributes != null
                 && t.Attributes.Any(attr => attr.Declaration == "System.CLSCompliant(false)"))

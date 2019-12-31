@@ -7,13 +7,16 @@ typeParameters:
 - description: Generic L.
   name: L
 parameters:
-- name: k
+- nameWithMonikers:
+  - value: k
   description: Type K.
   type: ''
-- name: t
+- nameWithMonikers:
+  - value: t
   description: Type T.
   type: ''
-- name: l
+- nameWithMonikers:
+  - value: l
   description: Type L.
   type: ''
 inheritances:

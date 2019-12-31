@@ -215,14 +215,14 @@ namespace ECMA2Yaml
             var tpElement = tRoot.Element("TypeParameters");
             if (tpElement != null)
             {
-                t.TypeParameters = tpElement.Elements("TypeParameter")?.Select(tp => new Parameter() { Name = tp.Attribute("Name").Value }).ToList();
+                t.TypeParameters = ParameterBase.LoadVersionedParameters<TypeParameter>(tpElement.Elements("TypeParameter"));
             }
 
             //Parameters
             var pElement = tRoot.Element("Parameters");
             if (pElement != null)
             {
-                t.Parameters = pElement.Elements("Parameter").Select(p => Parameter.FromXElement(p)).ToList();
+                t.Parameters = ParameterBase.LoadVersionedParameters<Parameter>(pElement.Elements("Parameter"));
             }
 
             var rvalElement = tRoot.Element("ReturnValue");
@@ -394,26 +394,14 @@ namespace ECMA2Yaml
             var tpElement = mElement.Element("TypeParameters");
             if (tpElement != null)
             {
-                m.TypeParameters = tpElement.Elements("TypeParameter").Select(tp => Parameter.FromXElement(tp)).ToList();
+                m.TypeParameters = ParameterBase.LoadVersionedParameters<TypeParameter>(tpElement.Elements("TypeParameter"));
             }
 
             //Parameters
             var pElement = mElement.Element("Parameters");
             if (pElement != null)
             {
-                m.Parameters = pElement.Elements("Parameter").Select(p => Parameter.FromXElement(p)).ToList();
-                if (m.Parameters.All(p => !string.IsNullOrEmpty(p.Index)))
-                {
-                    //foreach(var group in m.Parameters.GroupBy(p => p.Index))
-                    //{
-                    //    if (group.Select(p => p.Type).Distinct().Count() > 1)
-                    //    {
-                    //        Console.WriteLine(t.FullName);
-                    //        Console.WriteLine(m.DocId);
-                    //    }
-                    //}
-                    m.Parameters = m.Parameters.GroupBy(p => p.Index).OrderBy(g => g.Key).Select(g => g.First()).ToList();
-                }
+                m.Parameters = ParameterBase.LoadVersionedParameters<Parameter>(pElement.Elements("Parameter"));
             }
 
             //Attributes

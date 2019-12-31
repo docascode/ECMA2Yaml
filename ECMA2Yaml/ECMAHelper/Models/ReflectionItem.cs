@@ -81,7 +81,7 @@ namespace ECMA2Yaml.Models
                 return null;
             }
         }
-        public List<Parameter> TypeParameters { get; set; }
+        public List<TypeParameter> TypeParameters { get; set; }
         public List<Parameter> Parameters { get; set; }
         public Parameter ReturnValueType { get; set; }
         public VersionedSignatures Signatures { get; set; }

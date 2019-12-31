@@ -24,7 +24,13 @@ members:
   summary: Default constructor.
   metadata: {}
 - parameters:
-  - name: ownType
+  - nameWithMonikers:
+    - value: thisType
+      monikers:
+      - cat-1.0
+    - value: ownType
+      monikers:
+      - cat-2.0
     description: This parameter type defined by class.
     type: T
   uid: CatLibrary.Cat`2.#ctor(`0)
@@ -37,32 +43,63 @@ members:
     values:
     - value: >-
         public:
+         Cat(T thisType);
+      monikers:
+      - cat-1.0
+    - value: >-
+        public:
          Cat(T ownType);
+      monikers:
+      - cat-2.0
   - lang: csharp
     values:
+    - value: public Cat (T thisType);
+      monikers:
+      - cat-1.0
     - value: public Cat (T ownType);
+      monikers:
+      - cat-2.0
   - lang: fsharp
     values:
     - value: "new CatLibrary.Cat<'T, 'K (requires 'T : null and 'T : (new : unit -> 'T) and 'K : struct)> : 'T -> CatLibrary.Cat<'T, 'K (requires 'T : null and 'T : (new : unit -> 'T) and 'K : struct)>"
+      monikers:
+      - cat-1.0
+    - value: "new CatLibrary.Cat<'T, 'K (requires 'T : null and 'T : (new : unit -> 'T) and 'K : struct)> : 'T -> CatLibrary.Cat<'T, 'K (requires 'T : null and 'T : (new : unit -> 'T) and 'K : struct)>"
+      monikers:
+      - cat-2.0
   - lang: vb
     values:
+    - value: Public Sub New (thisType As T)
+      monikers:
+      - cat-1.0
     - value: Public Sub New (ownType As T)
+      monikers:
+      - cat-2.0
   monikers:
   - cat-1.0
   - cat-2.0
   summary: Constructor with one generic parameter.
   metadata: {}
 - parameters:
-  - name: nickName
+  - nameWithMonikers:
+    - value: nickName
     description: it's string type.
     type: <xref href="System.String?alt=System.String&text=String" data-throw-if-not-resolved="True"/>
-  - name: age
+  - nameWithMonikers:
+    - value: ageNumber
+      monikers:
+      - cat-1.0
+    - value: age
+      monikers:
+      - cat-2.0
     description: It's an out and ref parameter.
     type: <xref href="System.Int32?alt=System.Int32&text=Int32" data-throw-if-not-resolved="True"/>
-  - name: realName
+  - nameWithMonikers:
+    - value: realName
     description: It's an out paramter.
     type: <xref href="System.String?alt=System.String&text=String" data-throw-if-not-resolved="True"/>
-  - name: isHealthy
+  - nameWithMonikers:
+    - value: isHealthy
     description: It's an in parameter.
     type: <xref href="System.Boolean?alt=System.Boolean&text=Boolean" data-throw-if-not-resolved="True"/>
   uid: CatLibrary.Cat`2.#ctor(System.String,System.Int32@,System.String,System.Boolean)
@@ -75,16 +112,38 @@ members:
     values:
     - value: >-
         public:
+         Cat(System::String ^ nickName, [Runtime::InteropServices::Out] int % ageNumber, System::String ^ realName, bool isHealthy);
+      monikers:
+      - cat-1.0
+    - value: >-
+        public:
          Cat(System::String ^ nickName, [Runtime::InteropServices::Out] int % age, System::String ^ realName, bool isHealthy);
+      monikers:
+      - cat-2.0
   - lang: csharp
     values:
+    - value: public Cat (string nickName, out int ageNumber, string realName, bool isHealthy);
+      monikers:
+      - cat-1.0
     - value: public Cat (string nickName, out int age, string realName, bool isHealthy);
+      monikers:
+      - cat-2.0
   - lang: fsharp
     values:
     - value: "new CatLibrary.Cat<'T, 'K (requires 'T : null and 'T : (new : unit -> 'T) and 'K : struct)> : string * int * string * bool -> CatLibrary.Cat<'T, 'K (requires 'T : null and 'T : (new : unit -> 'T) and 'K : struct)>"
+      monikers:
+      - cat-1.0
+    - value: "new CatLibrary.Cat<'T, 'K (requires 'T : null and 'T : (new : unit -> 'T) and 'K : struct)> : string * int * string * bool -> CatLibrary.Cat<'T, 'K (requires 'T : null and 'T : (new : unit -> 'T) and 'K : struct)>"
+      monikers:
+      - cat-2.0
   - lang: vb
     values:
+    - value: Public Sub New (nickName As String, ByRef ageNumber As Integer, realName As String, isHealthy As Boolean)
+      monikers:
+      - cat-1.0
     - value: Public Sub New (nickName As String, ByRef age As Integer, realName As String, isHealthy As Boolean)
+      monikers:
+      - cat-2.0
   monikers:
   - cat-1.0
   - cat-2.0

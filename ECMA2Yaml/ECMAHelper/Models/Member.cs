@@ -166,7 +166,7 @@ namespace ECMA2Yaml.Models
 
         //Example:System.Collections.Generic.Dictionary`2.#ctor(System.Collections.Generic.IDictionary{`0,`1},System.Collections.Generic.IEqualityComparer{`0})
         private static Dictionary<string, Regex> TypeParameterRegexes = new Dictionary<string, Regex>();
-        private string ReplaceGenericInParameterUid(List<Parameter> typeParameters, string prefix, string paraUid)
+        private string ReplaceGenericInParameterUid(List<TypeParameter> typeParameters, string prefix, string paraUid)
         {
             if (typeParameters?.Count > 0)
             {

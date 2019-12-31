@@ -5,7 +5,8 @@ members:
     description: Animal name.
     type: <xref href="System.String?alt=System.String&text=String" data-throw-if-not-resolved="True"/>
   parameters:
-  - name: index
+  - nameWithMonikers:
+    - value: index
     description: Animal number.
     type: <xref href="System.Int32?alt=System.Int32&text=Int32" data-throw-if-not-resolved="True"/>
   uid: CatLibrary.IAnimal.Item(System.Int32)

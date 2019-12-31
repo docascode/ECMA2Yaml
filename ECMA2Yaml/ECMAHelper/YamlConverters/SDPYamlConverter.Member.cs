@@ -29,12 +29,8 @@ namespace ECMA2Yaml
                 sdpMember.Returns = ConvertParameter<TypeReference>(m.ReturnValueType, knowTypeParams);
             }
 
-            sdpMember.Parameters = m.Parameters?.Select(p =>
-            {
-                var r = ConvertParameter<ParameterReference>(p, knowTypeParams);
-                r.Name = p.Name;
-                return r;
-            }).ToList().NullIfEmpty();
+            sdpMember.Parameters = m.Parameters?.Select(p => ConvertNamedParameter(p, knowTypeParams))
+                .ToList().NullIfEmpty();
 
             sdpMember.Exceptions = m.Docs.Exceptions?.Select(
                 p => new TypeReference()

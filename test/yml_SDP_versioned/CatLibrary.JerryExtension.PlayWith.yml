@@ -2,10 +2,12 @@
 type: method
 members:
 - parameters:
-  - name: jerry
+  - nameWithMonikers:
+    - value: jerry
     description: "\n        "
     type: <xref href="CatLibrary.TomFromBaseClass.Jerry?alt=CatLibrary.TomFromBaseClass.Jerry&text=TomFromBaseClass.Jerry" data-throw-if-not-resolved="True"/>
-  - name: tom
+  - nameWithMonikers:
+    - value: tom
     description: "\n        "
     type: <xref href="CatLibrary.Tom?alt=CatLibrary.Tom&text=Tom" data-throw-if-not-resolved="True"/>
   uid: CatLibrary.JerryExtension.PlayWith(CatLibrary.TomFromBaseClass.Jerry,CatLibrary.Tom)

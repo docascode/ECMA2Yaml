@@ -1034,16 +1034,22 @@ namespace ECMA2Yaml.Models
         {
             if (t.TypeParameters != null && t.Docs?.TypeParameters != null)
             {
-                foreach (var tp in t.TypeParameters)
+                foreach (var ttp in t.TypeParameters)
                 {
-                    tp.Description = t.Docs.TypeParameters.ContainsKey(tp.Name) ? t.Docs.TypeParameters[tp.Name] : null;
+                    if (t.Docs.TypeParameters.TryGetValue(ttp.Name, out var ttpDesc))
+                    {
+                        ttp.Description = ttpDesc;
+                    }
                 }
             }
             if (t.Parameters != null && t.Docs?.Parameters != null)
             {
                 foreach (var tp in t.Parameters)
                 {
-                    tp.Description = t.Docs.Parameters.ContainsKey(tp.Name) ? t.Docs.Parameters[tp.Name] : null;
+                    if (t.Docs.Parameters.TryGetValue(tp.Name, out var tpDesc))
+                    {
+                        tp.Description = tpDesc;
+                    }
                 }
             }
             if (t.Members != null)
@@ -1060,14 +1066,20 @@ namespace ECMA2Yaml.Models
                     {
                         foreach (var mtp in m.TypeParameters)
                         {
-                            mtp.Description = m.Docs.TypeParameters.ContainsKey(mtp.Name) ? m.Docs.TypeParameters[mtp.Name] : null;
+                            if (m.Docs.TypeParameters.TryGetValue(mtp.Name, out var mtpDesc))
+                            {
+                                mtp.Description = mtpDesc;
+                            }
                         }
                     }
                     if (m.Parameters != null && m.Docs?.Parameters != null)
                     {
                         foreach (var mp in m.Parameters)
                         {
-                            mp.Description = m.Docs.Parameters.ContainsKey(mp.Name) ? m.Docs.Parameters[mp.Name] : null;
+                            if (m.Docs.Parameters.TryGetValue(mp.Name, out var mpDesc))
+                            {
+                                mp.Description = mpDesc;
+                            }
                         }
                     }
                     if (m.ReturnValueType != null && m.Docs?.Returns != null)

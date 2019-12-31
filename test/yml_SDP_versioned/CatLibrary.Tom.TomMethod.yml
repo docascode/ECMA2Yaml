@@ -5,10 +5,12 @@ members:
     description: Complex @CatLibrary.TomFromBaseClass
     type: <xref href="CatLibrary.Complex`2?alt=CatLibrary.Complex&text=Complex" data-throw-if-not-resolved="True"/>&lt;<xref href="System.String?alt=System.String&text=String" data-throw-if-not-resolved="True"/>,<xref href="CatLibrary.TomFromBaseClass?alt=CatLibrary.TomFromBaseClass&text=TomFromBaseClass" data-throw-if-not-resolved="True"/>&gt;
   parameters:
-  - name: a
+  - nameWithMonikers:
+    - value: a
     description: A complex input
     type: <xref href="CatLibrary.Complex`2?alt=CatLibrary.Complex&text=Complex" data-throw-if-not-resolved="True"/>&lt;<xref href="CatLibrary.TomFromBaseClass?alt=CatLibrary.TomFromBaseClass&text=TomFromBaseClass" data-throw-if-not-resolved="True"/>,<xref href="CatLibrary.TomFromBaseClass?alt=CatLibrary.TomFromBaseClass&text=TomFromBaseClass" data-throw-if-not-resolved="True"/>&gt;
-  - name: b
+  - nameWithMonikers:
+    - value: b
     description: Another complex input
     type: <xref href="System.Tuple`2?alt=System.Tuple&text=Tuple" data-throw-if-not-resolved="True"/>&lt;<xref href="System.String?alt=System.String&text=String" data-throw-if-not-resolved="True"/>,<xref href="CatLibrary.Tom?alt=CatLibrary.Tom&text=Tom" data-throw-if-not-resolved="True"/>&gt;
   exceptions:
