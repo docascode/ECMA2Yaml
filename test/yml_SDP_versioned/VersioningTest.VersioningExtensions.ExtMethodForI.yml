@@ -2,7 +2,7 @@
 type: method
 members:
 - parameters:
-  - nameWithMonikers:
+  - namesWithMonikers:
     - value: i
     description: "\n        "
     type: <xref href="VersioningTest.I?alt=VersioningTest.I&text=I" data-throw-if-not-resolved="True"/>

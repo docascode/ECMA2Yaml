@@ -200,7 +200,7 @@ namespace ECMA2Yaml
             var r = ConvertParameter<ParameterReference>(p, knownTypeParams, showGenericType);
             if (_withVersioning)
             {
-                r.NameWithMonikers = p.VersionedNames;
+                r.NamesWithMonikers = p.VersionedNames;
             }
             else
             {

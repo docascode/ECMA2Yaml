@@ -2,11 +2,11 @@
 type: method
 members:
 - parameters:
-  - nameWithMonikers:
+  - namesWithMonikers:
     - value: jerry
     description: "\n        "
     type: <xref href="CatLibrary.TomFromBaseClass.Jerry?alt=CatLibrary.TomFromBaseClass.Jerry&text=TomFromBaseClass.Jerry" data-throw-if-not-resolved="True"/>
-  - nameWithMonikers:
+  - namesWithMonikers:
     - value: tom
     description: "\n        "
     type: <xref href="CatLibrary.Tom?alt=CatLibrary.Tom&text=Tom" data-throw-if-not-resolved="True"/>

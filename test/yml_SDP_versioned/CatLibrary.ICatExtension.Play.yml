@@ -2,11 +2,11 @@
 type: method
 members:
 - parameters:
-  - nameWithMonikers:
+  - namesWithMonikers:
     - value: icat
     description: Cat
     type: <xref href="CatLibrary.ICat?alt=CatLibrary.ICat&text=ICat" data-throw-if-not-resolved="True"/>
-  - nameWithMonikers:
+  - namesWithMonikers:
     - value: toy
     description: Something to play
     type: <xref href="System.String?alt=System.String&text=String" data-throw-if-not-resolved="True"/>

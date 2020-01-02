@@ -5,11 +5,11 @@ members:
     description: Return cat tail's length.
     type: <xref href="System.Int64?alt=System.Int64&text=Int64" data-throw-if-not-resolved="True"/>
   parameters:
-  - nameWithMonikers:
+  - namesWithMonikers:
     - value: catName
     description: Thie represent for cat name length.
     type: <xref href="System.Int32?alt=System.Int32&text=Int32" data-throw-if-not-resolved="True"/>*
-  - nameWithMonikers:
+  - namesWithMonikers:
     - value: parameters
     description: Optional parameters.
     type: <xref href="System.Object?alt=System.Object&text=Object" data-throw-if-not-resolved="True"/>[]

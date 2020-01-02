@@ -27,7 +27,7 @@ members:
   summary: Animal's eat method.
   metadata: {}
 - parameters:
-  - nameWithMonikers:
+  - namesWithMonikers:
     - value: food
     description: Food to eat
     type: <xref href="System.String?alt=System.String&text=String" data-throw-if-not-resolved="True"/>
@@ -60,7 +60,7 @@ members:
   - description: It's a class type.
     name: Tool
   parameters:
-  - nameWithMonikers:
+  - namesWithMonikers:
     - value: tool
     description: Tool name.
     type: Tool
