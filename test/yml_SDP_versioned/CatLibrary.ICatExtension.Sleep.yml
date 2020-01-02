@@ -2,11 +2,11 @@
 type: method
 members:
 - parameters:
-  - namesWithMonikers:
+  - namesWithMoniker:
     - value: icat
     description: The type will be extended.
     type: <xref href="CatLibrary.ICat?alt=CatLibrary.ICat&text=ICat" data-throw-if-not-resolved="True"/>
-  - namesWithMonikers:
+  - namesWithMoniker:
     - value: hours
     description: The length of sleep.
     type: <xref href="System.Int64?alt=System.Int64&text=Int64" data-throw-if-not-resolved="True"/>

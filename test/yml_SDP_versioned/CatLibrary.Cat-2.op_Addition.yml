@@ -5,11 +5,11 @@ members:
     description: Result with <em>int</em> type.
     type: <xref href="System.Int32?alt=System.Int32&text=Int32" data-throw-if-not-resolved="True"/>
   parameters:
-  - namesWithMonikers:
+  - namesWithMoniker:
     - value: lsr
     description: '...'
     type: <xref href="CatLibrary.Cat`2?alt=CatLibrary.Cat`2&text=Cat%3CT%2CK%3E" data-throw-if-not-resolved="True"/>
-  - namesWithMonikers:
+  - namesWithMoniker:
     - value: rsr
     description: ~~~
     type: <xref href="System.Int32?alt=System.Int32&text=Int32" data-throw-if-not-resolved="True"/>

@@ -2,7 +2,7 @@
 type: method
 members:
 - parameters:
-  - namesWithMonikers:
+  - namesWithMoniker:
     - value: food
     description: Food to eat
     type: <xref href="System.String?alt=System.String&text=String" data-throw-if-not-resolved="True"/>
@@ -54,7 +54,7 @@ members:
   - description: Tool for eat.
     name: Tool
   parameters:
-  - namesWithMonikers:
+  - namesWithMoniker:
     - value: a
     description: Tool name.
     type: Tool

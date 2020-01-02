@@ -2,15 +2,15 @@
 type: method
 members:
 - parameters:
-  - namesWithMonikers:
+  - namesWithMoniker:
     - value: ownType
     description: Type come from class define.
     type: T
-  - namesWithMonikers:
+  - namesWithMoniker:
     - value: anotherOwnType
     description: Type come from class define.
     type: K
-  - namesWithMonikers:
+  - namesWithMoniker:
     - value: cheat
     description: Hint whether this cat has cheat mode.
     type: <xref href="System.Boolean?alt=System.Boolean&text=Boolean" data-throw-if-not-resolved="True"/>

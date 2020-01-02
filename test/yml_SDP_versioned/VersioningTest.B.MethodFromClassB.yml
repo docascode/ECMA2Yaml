@@ -2,7 +2,7 @@
 type: method
 members:
 - parameters:
-  - namesWithMonikers:
+  - namesWithMoniker:
     - value: param1
     description: "\n        "
     type: <xref href="System.String?alt=System.String&text=String" data-throw-if-not-resolved="True"/>

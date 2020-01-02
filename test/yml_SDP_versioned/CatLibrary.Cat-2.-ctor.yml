@@ -24,7 +24,7 @@ members:
   summary: Default constructor.
   metadata: {}
 - parameters:
-  - namesWithMonikers:
+  - namesWithMoniker:
     - value: thisType
       monikers:
       - cat-1.0
@@ -81,11 +81,11 @@ members:
   summary: Constructor with one generic parameter.
   metadata: {}
 - parameters:
-  - namesWithMonikers:
+  - namesWithMoniker:
     - value: nickName
     description: it's string type.
     type: <xref href="System.String?alt=System.String&text=String" data-throw-if-not-resolved="True"/>
-  - namesWithMonikers:
+  - namesWithMoniker:
     - value: ageNumber
       monikers:
       - cat-1.0
@@ -94,11 +94,11 @@ members:
       - cat-2.0
     description: It's an out and ref parameter.
     type: <xref href="System.Int32?alt=System.Int32&text=Int32" data-throw-if-not-resolved="True"/>
-  - namesWithMonikers:
+  - namesWithMoniker:
     - value: realName
     description: It's an out paramter.
     type: <xref href="System.String?alt=System.String&text=String" data-throw-if-not-resolved="True"/>
-  - namesWithMonikers:
+  - namesWithMoniker:
     - value: isHealthy
     description: It's an in parameter.
     type: <xref href="System.Boolean?alt=System.Boolean&text=Boolean" data-throw-if-not-resolved="True"/>

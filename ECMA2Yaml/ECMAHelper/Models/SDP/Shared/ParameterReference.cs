@@ -14,8 +14,8 @@ namespace ECMA2Yaml.Models.SDP
         [YamlMember(Alias = "name")]
         public string Name { get; set; }
 
-        [JsonProperty("namesWithMonikers")]
-        [YamlMember(Alias = "namesWithMonikers")]
-        public List<VersionedString> NamesWithMonikers { get; set; }
+        [JsonProperty("namesWithMoniker")]
+        [YamlMember(Alias = "namesWithMoniker")]
+        public List<VersionedString> NamesWithMoniker { get; set; }
     }
 }

@@ -2,7 +2,7 @@
 type: constructor
 members:
 - parameters:
-  - namesWithMonikers:
+  - namesWithMoniker:
     - value: k
     description: "\n        "
     type: <xref href="System.Int32?alt=System.Int32&text=Int32" data-throw-if-not-resolved="True"/>

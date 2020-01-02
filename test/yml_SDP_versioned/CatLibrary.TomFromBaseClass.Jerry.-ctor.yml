@@ -2,7 +2,7 @@
 type: constructor
 members:
 - parameters:
-  - namesWithMonikers:
+  - namesWithMoniker:
     - value: color
     description: Color of Jerry.
     type: <xref href="MRef.Demo.Enumeration.ColorType?alt=MRef.Demo.Enumeration.ColorType&text=ColorType" data-throw-if-not-resolved="True"/>
