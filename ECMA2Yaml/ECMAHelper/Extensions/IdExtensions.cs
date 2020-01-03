@@ -170,16 +170,6 @@ namespace ECMA2Yaml
             return (parts[0], parts[1]);
         }
 
-        public static string GetUWPUID(this ReflectionItem item)
-        {
-            if (item.DocId != item.CommentId)
-            {
-                var (_, uid) = ParseCommentId(item.DocId);
-                return uid;
-            }
-            return item.Uid;
-        }
-
         private static bool NeedParseByECMADesc(string typeStr)
         {
             return (!string.IsNullOrEmpty(typeStr) && (typeStr.Contains('<') || typeStr.Contains('+')));
