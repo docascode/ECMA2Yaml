@@ -524,7 +524,7 @@ namespace ECMA2Yaml.Models
                     p => p.Value.Where(a => _monikerAssemblyMapping[p.Key].Contains(a.Key)).ToDictionary(purged => purged.Key, purged => purged.Value));
             }
 
-            var allMonikers = _frameworks.FrameworkAssemblies.Keys.ToHashSet();
+            var allMonikers = _frameworks.AllFrameworks;
             foreach (var ns in _nsList)
             {
                 if (_frameworks.DocIdToFrameworkDict.ContainsKey(ns.Uid))
@@ -887,7 +887,7 @@ namespace ECMA2Yaml.Models
             }
         }
 
-        public List<VersionedValue<List<string>>> BuildInheritanceChain(string uid)
+        public List<VersionedCollection<string>> BuildInheritanceChain(string uid)
         {
             if (!TypesByUid.TryGetValue(uid, out Type t))
             {
@@ -899,13 +899,13 @@ namespace ECMA2Yaml.Models
             }
             else if (InheritanceParentsByUid.TryGetValue(uid, out var parents))
             {
-                var inheritanceChains = new List<VersionedValue<List<string>>>();
+                var inheritanceChains = new List<VersionedCollection<string>>();
                 foreach (var parent in parents)
                 {
                     var grandParents = BuildInheritanceChain(parent.Value);
                     if (grandParents == null)
                     {
-                        inheritanceChains.Add(new VersionedValue<List<string>>(parent.Monikers, new List<string>() { parent.Value }));
+                        inheritanceChains.Add(new VersionedCollection<string>(parent.Monikers, new List<string>() { parent.Value }));
                     }
                     else
                     {
@@ -916,9 +916,9 @@ namespace ECMA2Yaml.Models
                                 var commonMonikers = new HashSet<string>(parent.Monikers.Intersect(grandParentChain.Monikers));
                                 if (commonMonikers.Overlaps(t.Monikers))
                                 {
-                                    var chain = new List<string>(grandParentChain.Value);
+                                    var chain = new List<string>(grandParentChain.Values);
                                     chain.Add(parent.Value);
-                                    inheritanceChains.Add(new VersionedValue<List<string>>(commonMonikers, chain));
+                                    inheritanceChains.Add(new VersionedCollection<string>(commonMonikers, chain));
                                 }
                             }
                         }
@@ -993,7 +993,7 @@ namespace ECMA2Yaml.Models
                     t.InheritedMembers = new Dictionary<string, string>();
                     foreach(var inheritanceChain in t.InheritanceChains)
                     {
-                        foreach (var btUid in inheritanceChain.Value)
+                        foreach (var btUid in inheritanceChain.Values)
                         {
                             if (TypesByUid.ContainsKey(btUid))
                             {

@@ -103,13 +103,15 @@ namespace ECMA2Yaml
             FrameworkIndex frameworkIndex = new FrameworkIndex()
             {
                 DocIdToFrameworkDict = new Dictionary<string, List<string>>(),
-                FrameworkAssemblies = new Dictionary<string, Dictionary<string, AssemblyInfo>>()
+                FrameworkAssemblies = new Dictionary<string, Dictionary<string, AssemblyInfo>>(),
+                AllFrameworks = new HashSet<string>()
             };
 
             foreach (var fxFile in ListFiles(frameworkFolder, Path.Combine(frameworkFolder, "*.xml")).OrderBy(f => Path.GetFileNameWithoutExtension(f.AbsolutePath)))
             {
                 XDocument fxDoc = XDocument.Load(fxFile.AbsolutePath);
                 var fxName = fxDoc.Root.Attribute("Name").Value;
+                frameworkIndex.AllFrameworks.Add(fxName);
                 foreach (var nsElement in fxDoc.Root.Elements("Namespace"))
                 {
                     var ns = nsElement.Attribute("Name").Value;

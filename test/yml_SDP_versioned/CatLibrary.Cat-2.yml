@@ -9,7 +9,7 @@ implements:
 - <xref href="CatLibrary.IAnimal?alt=CatLibrary.IAnimal&text=IAnimal" data-throw-if-not-resolved="True"/>
 - <xref href="CatLibrary.ICat?alt=CatLibrary.ICat&text=ICat" data-throw-if-not-resolved="True"/>
 inheritancesWithMoniker:
-- value:
+- values:
   - <xref href="System.Object" data-throw-if-not-resolved="True"/>
 extensionMethods:
 - uid: CatLibrary.ICatExtension.Play(CatLibrary.ICat,System.String)

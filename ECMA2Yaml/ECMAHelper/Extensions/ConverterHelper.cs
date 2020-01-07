@@ -198,6 +198,22 @@ namespace ECMA2Yaml
             return versionedValues;
         }
 
+        public static List<VersionedCollection<T>> TrimMonikers<T>(List<VersionedCollection<T>> versionedValues, HashSet<string> itemMonikers)
+        {
+            if (versionedValues?.Count == 1) //for perf, 95% cases there's no versioning
+            {
+                versionedValues[0].Monikers = null;
+            }
+            else if (versionedValues?.Count > 1)
+            {
+                foreach (var v in versionedValues)
+                {
+                    v.Monikers = TrimMonikers(v.Monikers, itemMonikers);
+                }
+            }
+            return versionedValues;
+        }
+
         public static IEnumerable<string> ConsolidateVersionedValues(IEnumerable<VersionedString> vals, HashSet<string> pageMonikers)
         {
             if (vals == null || vals.Any(v => v.Monikers == null))
