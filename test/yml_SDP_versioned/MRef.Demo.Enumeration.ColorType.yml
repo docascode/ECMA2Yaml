@@ -1,6 +1,6 @@
 ### YamlMime:NetEnum
 inheritancesWithMoniker:
-- value:
+- values:
   - <xref href="System.Enum" data-throw-if-not-resolved="True"/>
 fields:
 - uid: MRef.Demo.Enumeration.ColorType.Blue

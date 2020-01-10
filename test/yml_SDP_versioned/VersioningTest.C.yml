@@ -3,7 +3,7 @@ type: class
 implements:
 - <xref href="VersioningTest.I?alt=VersioningTest.I&text=I" data-throw-if-not-resolved="True"/>
 inheritancesWithMoniker:
-- value:
+- values:
   - <xref href="System.Object" data-throw-if-not-resolved="True"/>
 derivedClasses:
 - VersioningTest.E

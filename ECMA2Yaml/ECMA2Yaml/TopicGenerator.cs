@@ -202,7 +202,7 @@ namespace ECMA2Yaml
                 Children = t.Members?.Select(m => m.Uid).ToList(),
                 Syntax = syntax,
                 Implements = t.Interfaces?.Where(i => i != null).Select(i => store.TypesByFullName.ContainsKey(i) ? store.TypesByFullName[i].Uid : i.ToSpecId()).ToList(),
-                Inheritance = t.InheritanceChains?.LastOrDefault().Value,
+                Inheritance = t.InheritanceChains?.LastOrDefault()?.Values,
                 AssemblyNameList = store.UWPMode ? null : t.AssemblyInfo.Select(a => a.Name).Distinct().ToList(),
                 InheritedMembers = t.InheritedMembers?.Select(p => p.Value + '.' + p.Key).OrderBy(s => s).ToList(),
                 SupportedLanguages = syntax.Contents?.Keys?.ToArray(),
@@ -264,7 +264,7 @@ namespace ECMA2Yaml
             var item = new ItemViewModel()
             {
                 Id = m.Id,
-                Uid = store.UWPMode ? m.GetUWPUID() : m.Uid,
+                Uid = m.Uid,
                 CommentId = m.CommentId,
                 Name = m.DisplayName,
                 NameWithType = t.Name + '.' + m.DisplayName,

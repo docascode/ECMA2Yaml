@@ -3,7 +3,7 @@ typeParameters:
 - name: T
 type: class
 inheritancesWithMoniker:
-- value:
+- values:
   - <xref href="System.Exception" data-throw-if-not-resolved="True"/>
 constructors:
 - uid: CatLibrary.CatException`1.#ctor

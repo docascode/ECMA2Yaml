@@ -120,6 +120,17 @@ namespace ECMA2Yaml.Models
                     Id += string.Format("({0})", string.Join(",", GetParameterUids(store)));
                 }
             }
+
+            //special handling for compatibility in UWP legacy MD content
+            if (store.UWPMode && DocId != null)
+            {
+                var pos1 = Id.IndexOf('(');
+                var pos2 = DocId.IndexOf('(');
+                if (pos1 > 0 && pos2 > 0)
+                {
+                    Id = Id.Substring(0, pos1) + DocId.Substring(pos2);
+                }
+            }
         }
 
         public string GetOverloadId()

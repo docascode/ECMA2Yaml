@@ -69,6 +69,9 @@ metadata:
   content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/ns-CatLibrary.xml
   _op_overwriteFileGitUrl: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/ns-CatLibrary.xml
   original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/ns-CatLibrary.xml
+  ms.openlocfilehash: 77d1b2a652c118438281090fdfh435ta93feec1a
+  ms.sourcegitcommit: 055a4a82a0b08bfbdc21bd1347fb71f7fe2c099e
+  ms.translationtype: MT
   f1_keywords:
   - CatLibrary
   helpviewer_keywords:

@@ -34,4 +34,22 @@ namespace ECMA2Yaml.Models
             Value = value;
         }
     }
+
+    public class VersionedCollection<T>
+    {
+        [JsonProperty("values")]
+        [YamlMember(Alias = "values")]
+        public List<T> Values { get; set; }
+        [JsonProperty("monikers")]
+        [YamlMember(Alias = "monikers")]
+        public HashSet<string> Monikers { get; set; }
+
+        public VersionedCollection() { }
+
+        public VersionedCollection(HashSet<string> monikers, List<T> value)
+        {
+            Monikers = monikers;
+            Values = value;
+        }
+    }
 }

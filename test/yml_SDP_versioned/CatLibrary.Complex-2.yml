@@ -6,7 +6,7 @@ typeParameters:
   name: J
 type: class
 inheritancesWithMoniker:
-- value:
+- values:
   - <xref href="System.Object" data-throw-if-not-resolved="True"/>
 constructors:
 - uid: CatLibrary.Complex`2.#ctor

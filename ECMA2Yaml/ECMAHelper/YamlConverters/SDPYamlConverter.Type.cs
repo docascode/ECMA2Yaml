@@ -22,15 +22,15 @@ namespace ECMA2Yaml
             {
                 sdpType.InheritancesWithMoniker = ConverterHelper.TrimMonikers(
                     t.InheritanceChains?.Select(
-                    chain => new VersionedValue<List<string>>(
+                    chain => new VersionedCollection<string>(
                         chain.Monikers,
-                        chain.Value.Select(uid => UidToTypeMDString(uid, _store)).ToList()
+                        chain.Values.Select(uid => UidToTypeMDString(uid, _store)).ToList()
                         )).ToList(),
                     t.Monikers);
             }
             else
             {
-                sdpType.Inheritances = t.InheritanceChains?.LastOrDefault().Value.Select(uid => UidToTypeMDString(uid, _store))
+                sdpType.Inheritances = t.InheritanceChains?.LastOrDefault()?.Values.Select(uid => UidToTypeMDString(uid, _store))
                 .ToList()
                 .NullIfEmpty();
             }

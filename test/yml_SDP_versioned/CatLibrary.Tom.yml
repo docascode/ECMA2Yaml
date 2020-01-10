@@ -1,7 +1,7 @@
 ### YamlMime:NetType
 type: class
 inheritancesWithMoniker:
-- value:
+- values:
   - <xref href="System.Object" data-throw-if-not-resolved="True"/>
 derivedClasses:
 - CatLibrary.TomFromBaseClass

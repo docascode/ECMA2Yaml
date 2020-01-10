@@ -1,4 +1,9 @@
 <Namespace Name="CatLibrary">
+  <Metadata>
+    <Meta Name="ms.openlocfilehash" Value="77d1b2a652c118438281090fdfh435ta93feec1a" />
+    <Meta Name="ms.sourcegitcommit" Value="055a4a82a0b08bfbdc21bd1347fb71f7fe2c099e" />
+    <Meta Name="ms.translationtype" Value="MT" />
+  </Metadata>
   <Docs>
     <summary>To be added.</summary>
     <remarks>To be added.</remarks>

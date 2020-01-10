@@ -20,15 +20,15 @@ namespace ECMA2Yaml
             {
                 sdpEnum.InheritancesWithMoniker = ConverterHelper.TrimMonikers(
                     enumTypeItem.InheritanceChains?.Select(
-                    chain => new VersionedValue<List<string>>(
+                    chain => new VersionedCollection<string>(
                         chain.Monikers,
-                        chain.Value.Select(uid => UidToTypeMDString(uid, _store)).ToList()
+                        chain.Values.Select(uid => UidToTypeMDString(uid, _store)).ToList()
                         )).ToList(),
                     enumTypeItem.Monikers);
             }
             else
             {
-                sdpEnum.Inheritances = enumTypeItem.InheritanceChains?.LastOrDefault().Value.Select(uid => UidToTypeMDString(uid, _store)).ToList();
+                sdpEnum.Inheritances = enumTypeItem.InheritanceChains?.LastOrDefault().Values.Select(uid => UidToTypeMDString(uid, _store)).ToList();
             }
             
             sdpEnum.IsFlags = enumTypeItem.Attributes != null 
