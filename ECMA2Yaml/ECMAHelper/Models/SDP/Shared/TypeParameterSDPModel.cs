@@ -8,7 +8,7 @@ using YamlDotNet.Serialization;
 
 namespace ECMA2Yaml.Models.SDP
 {
-    public class TypeParameter
+    public class TypeParameterSDPModel
     {
         [JsonProperty("description")]
         [YamlMember(Alias = "description")]

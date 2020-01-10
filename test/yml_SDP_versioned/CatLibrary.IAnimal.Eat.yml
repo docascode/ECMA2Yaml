@@ -27,7 +27,8 @@ members:
   summary: Animal's eat method.
   metadata: {}
 - parameters:
-  - name: food
+  - namesWithMoniker:
+    - value: food
     description: Food to eat
     type: <xref href="System.String?alt=System.String&text=String" data-throw-if-not-resolved="True"/>
   uid: CatLibrary.IAnimal.Eat(System.String)
@@ -59,7 +60,8 @@ members:
   - description: It's a class type.
     name: Tool
   parameters:
-  - name: tool
+  - namesWithMoniker:
+    - value: tool
     description: Tool name.
     type: Tool
   uid: CatLibrary.IAnimal.Eat``1(``0)

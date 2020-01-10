@@ -109,7 +109,7 @@
     <Compile Include="Models\SDP\Shared\TypeMemberLink.cs" />
     <Compile Include="Models\SDP\Shared\ParameterReference.cs" />
     <Compile Include="Models\SDP\Shared\ThreadSafety.cs" />
-    <Compile Include="Models\SDP\Shared\TypeParameter.cs" />
+    <Compile Include="Models\SDP\Shared\TypeParameterSDPModel.cs" />
     <Compile Include="Models\SDP\Shared\TypeReference.cs" />
     <Compile Include="Models\SDP\DelegateSDPModel.cs" />
     <Compile Include="Models\VersionedValue.cs" />

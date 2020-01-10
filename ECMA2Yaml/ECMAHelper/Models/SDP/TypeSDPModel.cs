@@ -14,7 +14,7 @@ namespace ECMA2Yaml.Models.SDP
 
         [JsonProperty("typeParameters")]
         [YamlMember(Alias = "typeParameters")]
-        public IEnumerable<TypeParameter> TypeParameters { get; set; }
+        public IEnumerable<TypeParameterSDPModel> TypeParameters { get; set; }
 
         [JsonProperty("type")]
         [YamlMember(Alias = "type")]

@@ -2,10 +2,12 @@
 type: method
 members:
 - parameters:
-  - name: icat
+  - namesWithMoniker:
+    - value: icat
     description: Cat
     type: <xref href="CatLibrary.ICat?alt=CatLibrary.ICat&text=ICat" data-throw-if-not-resolved="True"/>
-  - name: toy
+  - namesWithMoniker:
+    - value: toy
     description: Something to play
     type: <xref href="System.String?alt=System.String&text=String" data-throw-if-not-resolved="True"/>
   uid: CatLibrary.ICatExtension.Play(CatLibrary.ICat,System.String)
