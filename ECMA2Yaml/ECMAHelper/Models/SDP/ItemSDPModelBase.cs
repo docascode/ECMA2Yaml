@@ -103,6 +103,46 @@ namespace ECMA2Yaml.Models.SDP
         [YamlMember(Alias = "examples")]
         public string Examples { get; set; }
 
+        [JsonProperty("requirement_sdk_names")]
+        [YamlMember(Alias = "requirement_sdk_names")]
+        public IEnumerable<string> RequirementSDKNames { get; set; }
+
+        [JsonProperty("requirement_sdk_urls")]
+        [YamlMember(Alias = "requirement_sdk_urls")]
+        public IEnumerable<string> RequirementSDKUrls { get; set; }
+
+        [JsonProperty("requirement_os_names")]
+        [YamlMember(Alias = "requirement_os_names")]
+        public IEnumerable<string> RequirementOSNames { get; set; }
+
+        [JsonProperty("requirement_os_min_versions")]
+        [YamlMember(Alias = "requirement_os_min_versions")]
+        public IEnumerable<string> RequirementOSMinVersions { get; set; }
+
+        [JsonProperty("deviceFamilies")]
+        [YamlMember(Alias = "deviceFamilies")]
+        public IEnumerable<string> DeviceFamilies { get; set; }
+
+        [JsonProperty("deviceFamiliesVersions")]
+        [YamlMember(Alias = "deviceFamiliesVersions")]
+        public IEnumerable<string> DeviceFamiliesVersions { get; set; }
+
+        [JsonProperty("apiContracts")]
+        [YamlMember(Alias = "apiContracts")]
+        public IEnumerable<string> ApiContracts { get; set; }
+
+        [JsonProperty("apiContractsVersions")]
+        [YamlMember(Alias = "apiContractsVersions")]
+        public IEnumerable<string> ApiContractsVersions { get; set; }
+
+        [JsonProperty("capabilities")]
+        [YamlMember(Alias = "capabilities")]
+        public IEnumerable<string> Capabilities { get; set; }
+
+        [JsonProperty("xamlMemberSyntax")]
+        [YamlMember(Alias = "xamlMemberSyntax")]
+        public string XamlMemberSyntax { get; set; }
+
         [JsonProperty("metadata")]
         [YamlMember(Alias = "metadata")]
         public Dictionary<string, object> Metadata { get; set; }
