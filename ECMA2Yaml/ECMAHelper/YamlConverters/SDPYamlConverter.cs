@@ -154,7 +154,53 @@ namespace ECMA2Yaml
                 rval.IsDeprecated = true;
             }
 
+            GenerateUWPMetadata(rval, item);
+
             return rval;
+        }
+
+        private void GenerateUWPMetadata(ItemSDPModelBase model, ReflectionItem item)
+        {
+            if (item.Metadata.TryGetValue(UWPMetadata.RequirementSDKNames, out object requirementSDKNames))
+            {
+                model.RequirementSDKNames = (IEnumerable<string>)requirementSDKNames;
+            }
+            if (item.Metadata.TryGetValue(UWPMetadata.RequirementSDKUrls, out object requirementSDKUrls))
+            {
+                model.RequirementSDKUrls = (IEnumerable<string>)requirementSDKUrls;
+            }
+            if (item.Metadata.TryGetValue(UWPMetadata.RequirementOSNames, out object requirementOSNames))
+            {
+                model.RequirementOSNames = (IEnumerable<string>)requirementOSNames;
+            }
+            if (item.Metadata.TryGetValue(UWPMetadata.RequirementOSMinVersions, out object requirementOSMinVersions))
+            {
+                model.RequirementOSMinVersions = (IEnumerable<string>)requirementOSMinVersions;
+            }
+            if (item.Metadata.TryGetValue(UWPMetadata.DeviceFamilies, out object deviceFamilies))
+            {
+                model.DeviceFamilies = (IEnumerable<string>)deviceFamilies;
+            }
+            if (item.Metadata.TryGetValue(UWPMetadata.DeviceFamiliesVersions, out object deviceFamiliesVersions))
+            {
+                model.DeviceFamiliesVersions = (IEnumerable<string>)deviceFamiliesVersions;
+            }
+            if (item.Metadata.TryGetValue(UWPMetadata.ApiContracts, out object apiContracts))
+            {
+                model.ApiContracts = (IEnumerable<string>)apiContracts;
+            }
+            if (item.Metadata.TryGetValue(UWPMetadata.ApiContractsVersions, out object apiContractsVersions))
+            {
+                model.ApiContractsVersions = (IEnumerable<string>)apiContractsVersions;
+            }
+            if (item.Metadata.TryGetValue(UWPMetadata.Capabilities, out object capabilities))
+            {
+                model.Capabilities = (IEnumerable<string>)capabilities;
+            }
+            if (item.Metadata.TryGetValue(UWPMetadata.XamlMemberSyntax, out object xamlMemberSyntax))
+            {
+                model.XamlMemberSyntax = (string)xamlMemberSyntax;
+            }
         }
 
         private void GenerateRequiredMetadata(ItemSDPModelBase model, ReflectionItem item, List<ReflectionItem> childrenItems = null)
