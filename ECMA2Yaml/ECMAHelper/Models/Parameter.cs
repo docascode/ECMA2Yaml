@@ -81,6 +81,15 @@ namespace ECMA2Yaml.Models
 
     public class TypeParameter : ParameterBase
     {
+        public bool? IsContravariant { get; set; }
+        public bool? IsCovariant { get; set; }
 
+        public override void LoadFromXElement(XElement p)
+        {
+            base.LoadFromXElement(p);
+            var parameterAttributes = p.Element("Constraints")?.Elements("ParameterAttribute")?.ToArray();
+            IsContravariant = parameterAttributes?.Any(pa => pa.Value == "Contravariant") == true ? true : (bool?)null;
+            IsCovariant = parameterAttributes?.Any(pa => pa.Value == "Covariant") == true ? true : (bool?)null;
+        }
     }
 }
