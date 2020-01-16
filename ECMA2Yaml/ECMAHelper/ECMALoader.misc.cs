@@ -177,33 +177,6 @@ namespace ECMA2Yaml
             return null;
         }
 
-        private List<ExtensionMethod> LoadExtensionMethods(string path)
-        {
-            var indexFile = Path.Combine(path, "index.xml");
-            if (!_fileAccessor.Exists(indexFile))
-            {
-                return null;
-            }
-
-            var extensionMethods = new List<ExtensionMethod>();
-            XDocument idxDoc = XDocument.Parse(_fileAccessor.ReadAllText(indexFile));
-            var emElements = idxDoc?.Root?.Element("ExtensionMethods")?.Elements("ExtensionMethod");
-            if (emElements != null)
-            {
-                foreach (var em in emElements)
-                {
-                    extensionMethods.Add(new ExtensionMethod()
-                    {
-                        TargetDocId = em.Element("Targets").Element("Target").Attribute("Type").Value,
-                        MemberDocId = em.Element("Member").Element("Link").Attribute("Member").Value,
-                        ParentTypeString = em.Element("Member").Element("Link").Attribute("Type").Value
-                    });
-                }
-            }
-
-            return extensionMethods;
-        }
-
         private IEnumerable<FileItem> ListFiles(string subFolder, string glob)
         {
             return _fileAccessor.ListFiles(new string[] { glob }, subFolder: subFolder);
@@ -232,44 +205,6 @@ namespace ECMA2Yaml
             };
         }
 
-        private SortedList<string, List<string>> ParseModifiersFromSignatures(Dictionary<string, string> sigs, ReflectionItem item = null)
-        {
-            if (sigs == null)
-            {
-                return null;
-            }
-
-            var modifiers = new SortedList<string, List<string>>();
-            if (sigs.TryGetValue("C#", out string val))
-            {
-                var mods = new List<string>();
-
-                if (item != null && item.ItemType == ItemType.AttachedProperty)
-                {
-                    if (val.Contains(" Get" + item.Name))
-                    {
-                        mods.Add("get");
-                    }
-                    if (val.Contains(" Set" + item.Name))
-                    {
-                        mods.Add("set");
-                    }
-                }
-                else
-                {
-                    var startWithModifiers = new string[] { "public", "protected", "private" };
-                    mods.AddRange(startWithModifiers.Where(m => val.StartsWith(m)));
-                    var containsModifiers = new string[] { "abstract", "static", "const", "readonly", "sealed", "get;", "set;" };
-                    mods.AddRange(containsModifiers.Where(m => val.Contains(" " + m + " ")).Select(m => m.Trim(';')));
-                }
-
-                if (mods.Any())
-                {
-                    modifiers.Add("csharp", mods);
-                }
-            }
-            return modifiers;
-        }
 
         private void LoadMetadata(ReflectionItem item, XElement rootElement)
         {

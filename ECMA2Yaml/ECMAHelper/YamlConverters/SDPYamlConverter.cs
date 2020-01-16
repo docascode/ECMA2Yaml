@@ -168,23 +168,22 @@ namespace ECMA2Yaml
             HelpViewerKeywordsGenerator.Generate(model, item, childrenItems);
         }
 
-        private IEnumerable<TypeParameter> ConvertTypeParameters(ReflectionItem item)
+        private IEnumerable<TypeParameterSDPModel> ConvertTypeParameters(ReflectionItem item)
         {
             if (item.TypeParameters?.Count > 0)
             {
                 return item.TypeParameters.Select(tp =>
-                    new TypeParameter()
+                    new TypeParameterSDPModel()
                     {
                         Description = tp.Description,
-                        Name = tp.Name,
-                        IsContravariant = tp.IsContravariant,
-                        IsCovariant = tp.IsCovariant
+                        Name = tp.Name
                     }).ToList();
             }
             return null;
         }
 
-        private T ConvertParameter<T>(Parameter p, List<Parameter> knownTypeParams = null, bool showGenericType = true) where T : TypeReference, new()
+        private T ConvertParameter<T>(Parameter p, List<TypeParameter> knownTypeParams = null, bool showGenericType = true)
+            where T : TypeReference, new()
         {
             var isGeneric = knownTypeParams?.Any(tp => tp.Name == p.Type) ?? false;
             return new T()
@@ -194,6 +193,20 @@ namespace ECMA2Yaml
                     ? (showGenericType ? p.Type : "") // should be `p.Type`, tracked in https://ceapex.visualstudio.com/Engineering/_workitems/edit/72695
                     : TypeStringToTypeMDString(p.OriginalTypeString ?? p.Type, _store)
             };
+        }
+
+        private ParameterReference ConvertNamedParameter(Parameter p, List<TypeParameter> knownTypeParams = null, bool showGenericType = true)
+        {
+            var r = ConvertParameter<ParameterReference>(p, knownTypeParams, showGenericType);
+            if (_withVersioning)
+            {
+                r.NamesWithMoniker = p.VersionedNames;
+            }
+            else
+            {
+                r.Name = p.Name;
+            }
+            return r;
         }
 
         private Models.SDP.ThreadSafety ConvertThreadSafety(ReflectionItem item)

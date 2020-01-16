@@ -5,7 +5,8 @@ members:
     description: Advanced class type of cat.
     type: <xref href="CatLibrary.Tom?alt=CatLibrary.Tom&text=Tom" data-throw-if-not-resolved="True"/>
   parameters:
-  - name: src
+  - namesWithMoniker:
+    - value: src
     description: Instance of this class.
     type: <xref href="CatLibrary.Cat`2?alt=CatLibrary.Cat`2&text=Cat%3CT%2CK%3E" data-throw-if-not-resolved="True"/>
   uid: CatLibrary.Cat`2.op_Explicit(CatLibrary.Cat{`0,`1})~CatLibrary.Tom

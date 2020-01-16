@@ -70,17 +70,17 @@ namespace CatLibrary
         /// <summary>
         /// Constructor with one generic parameter.
         /// </summary>
-        /// <param name="ownType">This parameter type defined by class.</param>
-        public Cat(T ownType) { }
+        /// <param name="thisType">This parameter type defined by class.</param>
+        public Cat(T thisType) { }
 
         /// <summary>
         /// It's a complex constructor. The parameter will have some attributes.
         /// </summary>
         /// <param name="nickName">it's string type.</param>
-        /// <param name="age">It's an out and ref parameter.</param>
+        /// <param name="ageNumber">It's an out and ref parameter.</param>
         /// <param name="realName">It's an out paramter.</param>
         /// <param name="isHealthy">It's an in parameter.</param>
-        public Cat(string nickName, out int age, [Out] string realName, [In] bool isHealthy) { age = 1; }
+        public Cat(string nickName, out int ageNumber, [Out] string realName, [In] bool isHealthy) { ageNumber = 1; }
 
         //Methods: template + normal with generic type + pointer method
         /// <summary>

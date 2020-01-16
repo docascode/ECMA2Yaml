@@ -1,9 +1,11 @@
 ### YamlMime:NetDelegate
 parameters:
-- name: pics
+- namesWithMoniker:
+  - value: pics
   description: a name list of pictures.
   type: <xref href="System.Collections.Generic.List`1?alt=System.Collections.Generic.List&text=List" data-throw-if-not-resolved="True"/>&lt;<xref href="System.String?alt=System.String&text=String" data-throw-if-not-resolved="True"/>&gt;
-- name: name
+- namesWithMoniker:
+  - value: name
   description: give out the needed name.
   type: <xref href="System.String?alt=System.String&text=String" data-throw-if-not-resolved="True"/>
 inheritances:
