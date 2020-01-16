@@ -12,13 +12,13 @@
         /// </summary>
         /// <param name="icat">The type will be extended.</param>
         /// <param name="hours">The length of sleep.</param>
-        public static void Sleep(this ICat icat, long hours) { }
+        public static void Sleep(this ICat<string, string> icat, long hours) { }
 
         /// <summary>
         /// Extension method to let cat play
         /// </summary>
         /// <param name="icat">Cat</param>
         /// <param name="toy">Something to play</param>
-        public static void Play(this ICat icat, string toy) { }
+        public static void Play(this ICat<string, string> icat, string toy) { }
     }
 }

@@ -5,7 +5,7 @@ namespace CatLibrary
     /// <summary>
     /// Cat's interface
     /// </summary>
-    public interface ICat : IAnimal
+    public interface ICat<in Tin, out Tout> : IAnimal
     {
         //event
         /// <summary>
