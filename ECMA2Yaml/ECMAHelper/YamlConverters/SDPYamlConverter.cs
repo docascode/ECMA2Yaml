@@ -176,7 +176,9 @@ namespace ECMA2Yaml
                     new TypeParameter()
                     {
                         Description = tp.Description,
-                        Name = tp.Name
+                        Name = tp.Name,
+                        IsContravariant = tp.IsContravariant,
+                        IsCovariant = tp.IsCovariant
                     }).ToList();
             }
             return null;

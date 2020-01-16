@@ -217,7 +217,7 @@ namespace ECMA2Yaml
             var tpElement = tRoot.Element("TypeParameters");
             if (tpElement != null)
             {
-                t.TypeParameters = tpElement.Elements("TypeParameter")?.Select(tp => new Parameter() { Name = tp.Attribute("Name").Value }).ToList();
+                t.TypeParameters = tpElement.Elements("TypeParameter")?.Select(tp => Parameter.FromXElement(tp)).ToList();
             }
 
             //Parameters

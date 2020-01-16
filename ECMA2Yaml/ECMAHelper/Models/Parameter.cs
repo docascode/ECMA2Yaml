@@ -15,6 +15,8 @@ namespace ECMA2Yaml.Models
         public string RefType { get; set; }
         public string Description { get; set; }
         public string Index { get; set; }
+        public bool? IsContravariant { get; set; }
+        public bool? IsCovariant { get; set; }
         public HashSet<string> Monikers { get; set; }
 
         public static Parameter FromXElement(XElement p)
@@ -24,10 +26,13 @@ namespace ECMA2Yaml.Models
                 return null;
             }
             var typeStr = p.Attribute("Type")?.Value;
+            var parameterAttributes = p.Element("Constraints")?.Elements("ParameterAttribute")?.ToArray();
             return new Parameter
             {
                 Name = p.Attribute("Name")?.Value,
                 Type = typeStr?.TrimEnd('&'),
+                IsContravariant = parameterAttributes?.Any(pa => pa.Value == "Contravariant") == true ? true : (bool?)null,
+                IsCovariant = parameterAttributes?.Any(pa => pa.Value == "Covariant") == true ? true : (bool?)null,
                 OriginalTypeString = typeStr,
                 RefType = p.Attribute("RefType")?.Value,
                 Index = p.Attribute("Index")?.Value,
