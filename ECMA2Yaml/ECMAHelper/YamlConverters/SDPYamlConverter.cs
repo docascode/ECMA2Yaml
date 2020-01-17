@@ -96,7 +96,8 @@ namespace ECMA2Yaml
                 Summary = item.Docs.Summary,
                 Remarks = item.Docs.Remarks,
                 Examples = item.Docs.Examples,
-                Monikers = item.Monikers
+                Monikers = item.Monikers,
+                Source = item.SourceDetail.ToSDPSourceDetail()
             };
 
             if(_withVersioning)
