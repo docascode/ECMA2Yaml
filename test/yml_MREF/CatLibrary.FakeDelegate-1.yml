@@ -17,7 +17,7 @@ items:
   namespace: CatLibrary
   summary: Fake delegate
   syntax:
-    content: public delegate int FakeDelegate<T>(long num, string name, params object[] scores);
+    content: public delegate int FakeDelegate<out T>(long num, string name, params object[] scores);
     parameters:
     - id: num
       type: System.Int64
@@ -38,9 +38,9 @@ items:
       generic <typename T>
 
       public delegate int FakeDelegate(long num, System::String ^ name, ... cli::array <System::Object ^> ^ scores);
-    content.csharp: public delegate int FakeDelegate<T>(long num, string name, params object[] scores);
+    content.csharp: public delegate int FakeDelegate<out T>(long num, string name, params object[] scores);
     content.fsharp: type FakeDelegate<'T> = delegate of int64 * string * obj[] -> int
-    content.vb: 'Public Delegate Function FakeDelegate(Of T)(num As Long, name As String, ParamArray scores As Object()) As Integer '
+    content.vb: 'Public Delegate Function FakeDelegate(Of Out T)(num As Long, name As String, ParamArray scores As Object()) As Integer '
   inheritance:
   - System.Delegate
   modifiers.csharp:

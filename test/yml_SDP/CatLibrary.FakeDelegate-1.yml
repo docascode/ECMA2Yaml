@@ -2,6 +2,7 @@
 typeParameters:
 - description: Fake para
   name: T
+  isCovariant: true
 returns:
   description: Return a fake number to confuse you.
   type: <xref href="System.Int32?alt=System.Int32&text=Int32" data-throw-if-not-resolved="True"/>
@@ -32,11 +33,11 @@ syntax:
 
     public delegate int FakeDelegate(long num, System::String ^ name, ... cli::array <System::Object ^> ^ scores);
 - lang: csharp
-  value: public delegate int FakeDelegate<T>(long num, string name, params object[] scores);
+  value: public delegate int FakeDelegate<out T>(long num, string name, params object[] scores);
 - lang: fsharp
   value: type FakeDelegate<'T> = delegate of int64 * string * obj[] -> int
 - lang: vb
-  value: 'Public Delegate Function FakeDelegate(Of T)(num As Long, name As String, ParamArray scores As Object()) As Integer '
+  value: 'Public Delegate Function FakeDelegate(Of Out T)(num As Long, name As String, ParamArray scores As Object()) As Integer '
 devLangs:
 - csharp
 - vb

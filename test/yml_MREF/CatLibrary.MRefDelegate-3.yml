@@ -17,7 +17,7 @@ items:
   namespace: CatLibrary
   summary: Generic delegate with many constrains.
   syntax:
-    content: 'public delegate void MRefDelegate<K,T,L>(K k, T t, L l) where K : class, IComparable where T : struct where L : Tom, IEnumerable<long>;'
+    content: 'public delegate void MRefDelegate<in K,T,L>(K k, T t, L l) where K : class, IComparable where T : struct where L : Tom, IEnumerable<long>;'
     parameters:
     - id: k
       type: K
@@ -38,9 +38,9 @@ items:
     content.cpp: >-
       generic <typename K, typename T, typename L>
        where K : class, IComparable where T : value class where L : Tom, IEnumerable<long>public delegate void MRefDelegate(K k, T t, L l);
-    content.csharp: 'public delegate void MRefDelegate<K,T,L>(K k, T t, L l) where K : class, IComparable where T : struct where L : Tom, IEnumerable<long>;'
+    content.csharp: 'public delegate void MRefDelegate<in K,T,L>(K k, T t, L l) where K : class, IComparable where T : struct where L : Tom, IEnumerable<long>;'
     content.fsharp: "type MRefDelegate<'K, 'T, 'L (requires 'K : null and 'K :> IComparable and 'T : struct and 'L :> Tom and 'L :> seq<int64>)> = delegate of 'K * 'T * 'L -> unit"
-    content.vb: Public Delegate Sub MRefDelegate(Of K, T, L)(k As K, t As T, l As L)
+    content.vb: Public Delegate Sub MRefDelegate(Of In K, T, L)(k As K, t As T, l As L)
   inheritance:
   - System.Delegate
   modifiers.csharp:

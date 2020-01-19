@@ -57,7 +57,7 @@ namespace CatLibrary
     /// </list>
     /// </remarks>
     [Serializable]
-    public class Cat<T, K> : ICat<string, string>
+    public class Cat<T, K> : ICat
         where T : class, new()
         where K : struct
     {
@@ -211,7 +211,7 @@ namespace CatLibrary
         /// <summary>
         /// EII event.
         /// </summary>
-        event EventHandler ICat<string, string>.eat
+        event EventHandler ICat.eat
         {
             add { ownEat += value; }
             remove { ownEat -= value; }

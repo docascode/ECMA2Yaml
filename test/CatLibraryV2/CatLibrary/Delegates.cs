@@ -24,7 +24,7 @@ namespace CatLibrary
     /// <param name="k">Type K.</param>
     /// <param name="t">Type T.</param>
     /// <param name="l">Type L.</param>
-    public delegate void MRefDelegate<K, T, L>(K k, T t, L l)
+    public delegate void MRefDelegate<in K, T, L>(K k, T t, L l)
         where K : class, IComparable
         where T : struct
         where L : Tom, IEnumerable<long>;
@@ -37,5 +37,5 @@ namespace CatLibrary
     /// <param name="name">Fake para</param>
     /// <param name="scores">Optional Parameter.</param>
     /// <returns>Return a fake number to confuse you.</returns>
-    public delegate int FakeDelegate<T>(long num, string name, params object[] scores);
+    public delegate int FakeDelegate<out T>(long num, string name, params object[] scores);
 }

@@ -1,8 +1,8 @@
 <Type Name="FakeDelegate&lt;T&gt;" FullName="CatLibrary.FakeDelegate&lt;T&gt;">
-  <TypeSignature Language="C#" Value="public delegate int FakeDelegate&lt;T&gt;(long num, string name, params object[] scores);" />
-  <TypeSignature Language="ILAsm" Value=".class public auto ansi sealed FakeDelegate`1&lt;T&gt; extends System.MulticastDelegate" />
+  <TypeSignature Language="C#" Value="public delegate int FakeDelegate&lt;out T&gt;(long num, string name, params object[] scores);" />
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi sealed FakeDelegate`1&lt;+ T&gt; extends System.MulticastDelegate" />
   <TypeSignature Language="DocId" Value="T:CatLibrary.FakeDelegate`1" />
-  <TypeSignature Language="VB.NET" Value="Public Delegate Function FakeDelegate(Of T)(num As Long, name As String, ParamArray scores As Object()) As Integer " />
+  <TypeSignature Language="VB.NET" Value="Public Delegate Function FakeDelegate(Of Out T)(num As Long, name As String, ParamArray scores As Object()) As Integer " />
   <TypeSignature Language="C++ CLI" Value="generic &lt;typename T&gt;&#xA;public delegate int FakeDelegate(long num, System::String ^ name, ... cli::array &lt;System::Object ^&gt; ^ scores);" />
   <TypeSignature Language="F#" Value="type FakeDelegate&lt;'T&gt; = delegate of int64 * string * obj[] -&gt; int" />
   <AssemblyInfo>
@@ -10,7 +10,11 @@
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
   </AssemblyInfo>
   <TypeParameters>
-    <TypeParameter Name="T" />
+    <TypeParameter Name="T">
+      <Constraints>
+        <ParameterAttribute>Covariant</ParameterAttribute>
+      </Constraints>
+    </TypeParameter>
   </TypeParameters>
   <Base>
     <BaseTypeName>System.Delegate</BaseTypeName>
