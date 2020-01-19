@@ -22,6 +22,14 @@ namespace ECMA2Yaml.Models.SDP
         [YamlMember(Alias = "constraints")]
         public IEnumerable<Constraint> Constraints { get; set; }
 
+        [JsonProperty("isContravariant")]
+        [YamlMember(Alias = "isContravariant")]
+        public bool? IsContravariant { get; set; }
+
+        [JsonProperty("isCovariant")]
+        [YamlMember(Alias = "isCovariant")]
+        public bool? IsCovariant { get; set; }
+
         public class Constraint
         {
             [JsonProperty("parameterAttribute")]

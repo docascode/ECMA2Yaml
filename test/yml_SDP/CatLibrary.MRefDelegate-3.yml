@@ -2,6 +2,7 @@
 typeParameters:
 - description: Generic K.
   name: K
+  isContravariant: true
 - description: Generic T.
   name: T
 - description: Generic L.
@@ -32,11 +33,11 @@ syntax:
     generic <typename K, typename T, typename L>
      where K : class, IComparable where T : value class where L : Tom, IEnumerable<long>public delegate void MRefDelegate(K k, T t, L l);
 - lang: csharp
-  value: 'public delegate void MRefDelegate<K,T,L>(K k, T t, L l) where K : class, IComparable where T : struct where L : Tom, IEnumerable<long>;'
+  value: 'public delegate void MRefDelegate<in K,T,L>(K k, T t, L l) where K : class, IComparable where T : struct where L : Tom, IEnumerable<long>;'
 - lang: fsharp
   value: "type MRefDelegate<'K, 'T, 'L (requires 'K : null and 'K :> IComparable and 'T : struct and 'L :> Tom and 'L :> seq<int64>)> = delegate of 'K * 'T * 'L -> unit"
 - lang: vb
-  value: Public Delegate Sub MRefDelegate(Of K, T, L)(k As K, t As T, l As L)
+  value: Public Delegate Sub MRefDelegate(Of In K, T, L)(k As K, t As T, l As L)
 devLangs:
 - csharp
 - vb
