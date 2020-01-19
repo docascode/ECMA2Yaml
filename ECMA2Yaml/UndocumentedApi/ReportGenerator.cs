@@ -192,7 +192,7 @@ namespace ECMA2Yaml.UndocumentedApi
                 Name = item.Name,
                 Results = Validator.ValidateItem(item),
                 SourceFilePath = item.Metadata.ContainsKey(OPSMetadata.RefSkeletionUrl) ? item.Metadata[OPSMetadata.RefSkeletionUrl] as string: item.SourceFileLocalPath,
-                Monikers = item.Metadata.ContainsKey(OPSMetadata.Monikers) ? item.Metadata[OPSMetadata.Monikers] as IEnumerable<string> : null
+                Monikers = item.Monikers
             };
             switch (item)
             {
