@@ -97,6 +97,16 @@ namespace UnitTest
         }
 
         [TestMethod]
+        public void TestEcmaDescToDisplayName_GenericNested()
+        {
+            EcmaUrlParser EcmaParser = new EcmaUrlParser();
+            Monodoc.Ecma.EcmaDesc desc = EcmaParser.Parse("T:System.Collections.Generic.HashSet<Namespace.Class+NestedClass>+NestedClass2");
+            var displayName = desc.ToDisplayName();
+            var expected = "HashSet<Class.NestedClass>.NestedClass2";
+            Assert.AreEqual(expected, displayName);
+        }
+
+        [TestMethod]
         public void TestEcmaDescToMD_GenericNestedArray()
         {
             EcmaUrlParser EcmaParser = new EcmaUrlParser();

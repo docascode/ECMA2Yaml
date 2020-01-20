@@ -117,6 +117,10 @@ namespace ECMA2Yaml
             {
                 name = string.Format("{0}<{1}>", desc.TypeName, string.Join(",", desc.GenericTypeArguments.Select(d => d.ToDisplayName())));
             }
+            if (desc.NestedType != null)
+            {
+                name += ("." + desc.NestedType.TypeName);
+            }
             if (desc.ArrayDimensions?.Count > 0)
             {
                 for (int i = 0; i < desc.ArrayDimensions?.Count; i++)
