@@ -29,7 +29,7 @@ namespace ECMA2Yaml
                 sdpOverload.NameWithType = members.First().Parent.Name + "." + sdpOverload.Name;
             }
 
-            sdpOverload.Assemblies = sdpOverload.Members.SelectMany(m => m.Assemblies).Distinct().ToList();
+            sdpOverload.Assemblies = sdpOverload.Members.Where(m => m.Assemblies != null).SelectMany(m => m.Assemblies).Distinct().ToList();
             sdpOverload.Namespace = sdpOverload.Members.First().Namespace;
             sdpOverload.DevLangs = sdpOverload.Members.SelectMany(m => m.DevLangs).Distinct().ToList();
             sdpOverload.Monikers = sdpOverload.Members.Where(m => m.Monikers != null).SelectMany(m => m.Monikers).Distinct().ToList();

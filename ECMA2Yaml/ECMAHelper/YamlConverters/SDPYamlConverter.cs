@@ -89,7 +89,7 @@ namespace ECMA2Yaml
                 CommentId = item.CommentId,
                 Name = item.Name,
 
-                Assemblies = item.AssemblyInfo?.Select(asm => asm.Name).Distinct().ToList(),
+                Assemblies = _store.UWPMode ? null : item.AssemblyInfo?.Select(asm => asm.Name).Distinct().ToList(),
                 DevLangs = item.Signatures?.DevLangs ?? defaultLangList,
 
                 SeeAlso = BuildSeeAlsoList(item.Docs, _store),

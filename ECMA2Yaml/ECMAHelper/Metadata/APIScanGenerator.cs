@@ -34,6 +34,7 @@ namespace ECMA2Yaml
         public static void Generate(ItemSDPModelBase model, ReflectionItem item)
         {
             var apiNames = GetApiNames(item).ToList();
+            var assemblies = item.AssemblyInfo?.Select(asm => asm.Name).Distinct().ToList();
             if (apiNames.Count > 0)
             {
                 if (!model.Metadata.ContainsKey(APISCAN_APINAME))
@@ -42,7 +43,7 @@ namespace ECMA2Yaml
                 }
                 if (!model.Metadata.ContainsKey(APISCAN_APILOCATION))
                 {
-                    model.Metadata[APISCAN_APILOCATION] = model.Assemblies.Select(a => a + ".dll").ToList();
+                    model.Metadata[APISCAN_APILOCATION] = assemblies.Select(a => a + ".dll").ToList();
                 }
                 if (!model.Metadata.ContainsKey(APISCAN_TOPICTYPE))
                 {
