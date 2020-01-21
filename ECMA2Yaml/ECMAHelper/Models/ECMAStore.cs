@@ -414,19 +414,19 @@ namespace ECMA2Yaml.Models
                     {
                         if (m.Parent != null && m.Parent.Signatures.IsStatic)
                         {
-                            var targetDocId = thisParam.Type;
+                            var targetType = thisParam.Type;
 
                             // Temp fix bug: 106581- C# extension methods not showing up in class reference docs
                             // Next step, transfer special char like "+" when loading xml data, need add more case to cover this change.
-                            if (targetDocId.Contains("+"))
+                            if (targetType.Contains("+"))
                             {
-                                targetDocId = targetDocId.Replace("+",".");
+                                targetType = targetType.Replace("+",".");
                             }
 
                             m.IsExtensionMethod = true;
-                            if (TypesByFullName.TryGetValue(targetDocId, out Type type))
+                            if (IdExtensions.TryResolveSimpleTypeString(targetType, this, out string uid))
                             {
-                                m.TargetDocId = type.DocId;
+                                m.TargetUid = uid;
                                 _extensionMethods.Add(m);
                             }
                         }
@@ -440,7 +440,7 @@ namespace ECMA2Yaml.Models
             }
 
             ExtensionMethodsByMemberDocId = _extensionMethods.ToDictionary(ex => ex.DocId);
-            ExtensionMethodUidsByTargetUid = _extensionMethods.ToLookup(ex => ex.TargetDocId.Replace("T:", ""));
+            ExtensionMethodUidsByTargetUid = _extensionMethods.ToLookup(ex => ex.TargetUid);
             foreach (var ex in _extensionMethods.Where(ex => ex.Uid == null))
             {
                 OPSLogger.LogUserInfo(string.Format("ExtensionMethod {0} not found in its type {1}", ex.DocId, ex.Parent.Name), "index.xml");

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace ECMA2Yaml
@@ -172,6 +173,35 @@ namespace ECMA2Yaml
             }
 
             return (parts[0], parts[1]);
+        }
+
+        private static Regex GenericPartTypeStrRegex = new Regex("<[\\w,\\s]+>", RegexOptions.Compiled);
+        public static bool TryResolveSimpleTypeString(string typeStr, ECMAStore store, out string uid)
+        {
+            if (!string.IsNullOrEmpty(typeStr))
+            {
+                if (store.TypesByFullName.TryGetValue(typeStr, out var t))
+                {
+                    uid = t.Uid;
+                    return true;
+                }
+                if (typeStr.Contains('<'))
+                {
+                    bool simpleGeneric = false;
+                    var result = GenericPartTypeStrRegex.Replace(typeStr, match =>
+                    {
+                        simpleGeneric = true;
+                        return "`" + (match.Value.Count(c => c == ',') + 1);
+                    });
+                    if (simpleGeneric)
+                    {
+                        uid = result;
+                        return true;
+                    }
+                }
+            }
+            uid = typeStr;
+            return false;
         }
 
         private static bool NeedParseByECMADesc(string typeStr)

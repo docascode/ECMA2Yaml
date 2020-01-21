@@ -14,7 +14,7 @@ namespace ECMA2Yaml.Models
         public string FullDisplayName { get; set; }
         public string Overload { get; set; }
         public bool IsExtensionMethod { get; set; }
-        public string TargetDocId { get; set; }
+        public string TargetUid { get; set; }
         public bool IsIndexer
         {
             get
