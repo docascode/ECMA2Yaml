@@ -128,9 +128,9 @@ foreach($ecmaConfig in $jobs)
     {
         $allArgs += "-UWP";
     }
-	if ($ecmaConfig.Versioning)
+	if ($ecmaConfig.NoVersioning)
     {
-        $allArgs += "-Versioning";
+        $allArgs += "-NoVersioning";
     }
     if (-not [string]::IsNullOrEmpty($ecmaConfig.SourceMetadataFolder))
     {
