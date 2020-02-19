@@ -235,6 +235,9 @@ namespace IntellisenseFileGen
             {
                 return null;
             }
+
+            SpecialProcessDuplicateParameters(xmlDoc.Root);
+
             var docsEle = new XElement("member");
             SetDocsEle(docsEle, xmlDoc.Root, docId);
             t.Docs = docsEle;
@@ -469,6 +472,7 @@ namespace IntellisenseFileGen
         {
             if (ele != null)
             {
+                if (ele.Name == "c") return;
                 // Replace href see with content
                 // <see href="~/docs/framework/unmanaged-api/diagnostics/isymunmanageddocument-interface.md">ISymUnmanagedDocument</see> => ISymUnmanagedDocument
                 var hrefEles = ele.Elements().Where(p => !string.IsNullOrEmpty(p.Attribute("href")?.Value) || _ignoreTags.Contains(p.Name.ToString()));
