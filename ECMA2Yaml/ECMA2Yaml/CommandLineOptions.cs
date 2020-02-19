@@ -51,7 +51,7 @@ namespace ECMA2Yaml
                 { "repoRoot=", "the local path of the root of the repo", s => RepoRootPath = s},
                 { "repoUrl=", "the url of the current repo being processed", s => RepoUrl = s},
                 { "repoBranch=", "the branch of the current repo being processed", s => RepoBranch = s},
-                { "xmlYamlMappingFile", "Mapping between XML files and generated yaml files",  s => XMLYamlMappingFile = s },
+                { "xmlYamlMappingFile=", "Mapping between XML files and generated yaml files",  s => XMLYamlMappingFile = s },
             };
         }
 
