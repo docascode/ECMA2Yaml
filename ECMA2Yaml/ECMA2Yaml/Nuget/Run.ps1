@@ -14,6 +14,7 @@ $logFilePath = $ParameterDictionary.environment.logFile
 $logOutputFolder = $ParameterDictionary.environment.logOutputFolder
 $cacheFolder = $ParameterDictionary.environment.cacheFolder
 $outputFolder = $ParameterDictionary.environment.outputFolder
+$docsetName = $ParameterDictionary.docset.docsetInfo.docset_name
 
 $dependentFileListFilePath = $ParameterDictionary.context.dependentFileListFilePath
 $changeListTsvFilePath = $ParameterDictionary.context.changeListTsvFilePath
@@ -74,14 +75,17 @@ foreach($ecmaConfig in $jobs)
 	"--publicRepoUrl", "$publicGitUrl");
     
     $processedGitUrl = $repoUrl -replace "https://","" -replace "/","_"
-    $reportId = $ecmaConfig.id
-    if (-not $reportId)
+    $runId = $ecmaConfig.id
+    if (-not $runId)
     {
-        $reportId = $ParameterDictionary.docset.docsetInfo.docset_name
+        $runId = $docsetName
     }
-    $undocumentedApiReport = Join-Path $outputFolder "UndocAPIReport_${processedGitUrl}_${branch}_${reportId}.xlsx"
+    $undocumentedApiReport = Join-Path $outputFolder "UndocAPIReport_${processedGitUrl}_${branch}_${runId}.xlsx"
     $allArgs += "--undocumentedApiReport"
     $allArgs += "$undocumentedApiReport"
+	$xmlYamlMappingFile = Join-Path $outputFolder "XMLYamlMapping_${runId}.json"
+	$allArgs += "--xmlYamlMappingFile"
+	$allArgs += "$xmlYamlMappingFile"
 
     $fallbackRepoRoot = Join-Path $repositoryRoot _repo.en-us
     $ecmaFallbackSourceXmlFolder = Join-Path $fallbackRepoRoot $ecmaConfig.SourceXmlFolder

@@ -189,10 +189,9 @@ namespace ECMA2Yaml
                     }
                 }
             }
-            else
+            if (!string.IsNullOrEmpty(opt.XMLYamlMappingFile))
             {
-                var mappingFolder = string.IsNullOrEmpty(opt.LogFilePath) ? opt.OutputFolder : Path.GetDirectoryName(opt.LogFilePath);
-                JsonUtility.Serialize(Path.Combine(mappingFolder, "XmlYamlMapping.json"), fileMapping, Newtonsoft.Json.Formatting.Indented);
+                JsonUtility.Serialize(opt.XMLYamlMappingFile, fileMapping, Newtonsoft.Json.Formatting.Indented);
             }
             
             //Save fallback file list as skip publish
