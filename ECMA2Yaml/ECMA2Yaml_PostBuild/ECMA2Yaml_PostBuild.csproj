@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommandLineOptions.cs" />
+    <Compile Include="DependencyItem.cs" />
     <Compile Include="Program.cs" />
   </ItemGroup>
   <ItemGroup>
