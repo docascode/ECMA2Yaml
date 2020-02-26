@@ -194,7 +194,7 @@ namespace IntellisenseFileGen
                 }
             });
 
-           WriteLine($"All intellisense files done.");
+            WriteLine($"All intellisense files done.");
         }
 
         /// <summary>
