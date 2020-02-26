@@ -177,7 +177,7 @@ namespace ECMA2Yaml
                 YamlUtility.Serialize(Path.Combine(opt.OutputFolder, "toc.yml"), TOCGenerator.Generate(store), YamlMime.TableOfContent);
             }
 
-            //Translate change list or save mapping file
+            //Translate change list
             if (opt.ChangeListFiles.Count > 0)
             {
                 foreach(var changeList in opt.ChangeListFiles)
@@ -189,17 +189,29 @@ namespace ECMA2Yaml
                     }
                 }
             }
+            //save yaml -> xml mapping file, for build and localization to calculate file dependency
             if (!string.IsNullOrEmpty(opt.YamlXMLMappingFile))
             {
                 var yamlXMLMapping = new Dictionary<string, string>();
+                char[] pathSplitters = new char[] { '\\', '/'};
                 foreach (var singleXMLMapping in xmlYamlFileMapping)
                 {
+                    var xmlFilePath = singleXMLMapping.Key;
+                    if (!string.IsNullOrEmpty(opt.RepoRootPath))
+                    {
+                        xmlFilePath = xmlFilePath.Replace(opt.RepoRootPath, "").TrimStart(pathSplitters);
+                    }
                     foreach (var yamlFile in singleXMLMapping.Value)
                     {
-                        yamlXMLMapping[yamlFile] = singleXMLMapping.Key;
+                        var mapKey = yamlFile;
+                        if (!string.IsNullOrEmpty(opt.RepoRootPath))
+                        {
+                            mapKey = mapKey.Replace(opt.RepoRootPath, "").TrimStart(pathSplitters);
+                        }
+                        yamlXMLMapping[mapKey] = xmlFilePath;
                     }
                 }
-                JsonUtility.Serialize(opt.YamlXMLMappingFile, yamlXMLMapping, Newtonsoft.Json.Formatting.Indented);
+                JsonUtility.Serialize(opt.YamlXMLMappingFile, yamlXMLMapping, Formatting.Indented);
             }
             
             //Save fallback file list as skip publish

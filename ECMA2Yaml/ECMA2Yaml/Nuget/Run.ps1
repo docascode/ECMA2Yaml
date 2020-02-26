@@ -82,7 +82,7 @@ foreach($ecmaConfig in $jobs)
     $undocumentedApiReport = Join-Path $outputFolder "UndocAPIReport_${processedGitUrl}_${branch}_${reportId}.xlsx"
     $allArgs += "--undocumentedApiReport"
     $allArgs += "$undocumentedApiReport"
-	$yamlXMLMappingFile = Join-Path $logOutputFolder "build-file-path-to-repo-file-path.mapped.json"
+	$yamlXMLMappingFile = Join-Path $logOutputFolder "build_file_path_to_repo_file_path.mapped.json"
 	$allArgs += "--yamlXMLMappingFile"
 	$allArgs += "$yamlXMLMappingFile"
 
