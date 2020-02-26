@@ -145,7 +145,17 @@ namespace IntellisenseFileGen
 
                             selectedAssemblyTypes.OrderBy(p => p.DocId).ToList().ForEach(tt =>
                             {
-                                membersEle.Add(tt.Docs);
+                                string id = tt.Uid ?? tt.DocId.Replace("T:", "");
+                                if (store.TypesByUid.ContainsKey(id))
+                                {
+                                    var type = store.TypesByUid[id];
+                                    membersEle.Add(SpecialProcessDuplicateParameters(tt.Docs, type, fw));
+                                }
+                                else
+                                {
+                                    membersEle.Add(tt.Docs);
+                                }
+
                                 if (tt.Members != null && tt.Members.Count() > 0)
                                 {
                                     if (tt.Members != null && tt.Members.Count() > 0)
@@ -154,7 +164,16 @@ namespace IntellisenseFileGen
                                         {
                                             if (fwMemberDocIdList.Contains(m.DocId) /*&& m.AssemblyInfos.Exists(p => { return p == assemblyInfoStr; })*/)
                                             {
-                                                membersEle.Add(m.Docs);
+                                                if (store.MembersByUid.ContainsKey(m.Uid))
+                                                {
+                                                    var member = store.MembersByUid[m.Uid];
+                                                    membersEle.Add(SpecialProcessDuplicateParameters(m.Docs, member, fw));
+                                                }
+                                                else
+                                                {
+                                                    membersEle.Add(m.Docs);
+                                                }
+
                                             }
                                         });
                                     }
@@ -236,8 +255,6 @@ namespace IntellisenseFileGen
                 return null;
             }
 
-            SpecialProcessDuplicateParameters(xmlDoc.Root);
-
             var docsEle = new XElement("member");
             SetDocsEle(docsEle, xmlDoc.Root, docId);
             t.Docs = docsEle;
@@ -310,8 +327,6 @@ namespace IntellisenseFileGen
             {
                 return null;
             }
-
-            SpecialProcessDuplicateParameters(member);
 
             var docsEle = new XElement("member");
             SetDocsEle(docsEle, member, m.CommentId);
@@ -523,7 +538,6 @@ namespace IntellisenseFileGen
             }
         }
 
-        //TODO
         /// Two args('argument', 'eventArgument') are same, need to show different name according to framework version.
         /// ===================================
         /// <summary>
@@ -534,31 +548,37 @@ namespace IntellisenseFileGen
         /// </summary>
         /// ===================================
         /// <param name="member"></param>
-        private static void SpecialProcessDuplicateParameters(XElement member)
+        public static XElement SpecialProcessDuplicateParameters(XElement obj, ECMA2Yaml.Models.ReflectionItem item, string targetFw)
         {
-            var paras = member.Element("Parameters")?.Elements("Parameter").Where(p => p.Attribute("Index") != null).ToList();
-            if (paras != null && paras.Count() > 1)
+            if (item == null || item.Parameters == null || item.Parameters.Count == 0) return obj;
+
+            XElement changeObj = new XElement(obj);
+            var docParas = changeObj.Elements("param");
+            if (docParas == null || docParas.Count() == 0) return obj;
+
+            item.Parameters.Where(p => p.Index.HasValue).ToList().ForEach(p =>
             {
-                var indexG = paras.GroupBy(p => p.Attribute("Index").Value);
-                indexG.ToList().ForEach(p =>
+                if (p.VersionedNames != null)
                 {
-                    if (p.Count() > 1)
+                    foreach (var vn in p.VersionedNames)
                     {
-                        var groupParams = p.ToArray();
-                        var docParas = member.Element("Docs").Elements("param");
-                        for (int i = 1; i < p.Count(); i++)
+                        if (vn.Monikers != null)
                         {
-                            var paraName = groupParams[i].Attribute("Name").Value;
-                            //string memberName = member.Elements("MemberSignature")?.Where(pp => pp.Attribute("Language").Value == "DocId").First().Attribute("Value").Value;
-                            var find = docParas.Where(pa => pa.Attribute("name")?.Value == paraName).FirstOrDefault();
-                            if (find != null)
+                            if (!vn.Monikers.Contains(targetFw))
                             {
-                                find.Remove();
+                                // remove
+                                var find = docParas.Where(pa => pa.Attribute("name")?.Value == vn.Value).FirstOrDefault();
+                                if (find != null)
+                                {
+                                    find.Remove();
+                                }
                             }
                         }
                     }
-                });
-            }
+                }
+            });
+
+            return changeObj;
         }
 
         // Some xml text need special process

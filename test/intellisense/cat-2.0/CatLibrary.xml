@@ -31,13 +31,13 @@
     <member name="M:CatLibrary.Cat`2.#ctor(`0)">
       <summary>
             Constructor with one generic parameter.</summary>
-      <param name="thisType">This parameter type defined by class.</param>
+      <param name="ownType">This parameter type defined by class.</param>
     </member>
     <member name="M:CatLibrary.Cat`2.#ctor(System.String,System.Int32@,System.String,System.Boolean)">
       <summary>
             It's a complex constructor. The parameter will have some attributes.</summary>
       <param name="nickName">it's string type.</param>
-      <param name="ageNumber">It's an out and ref parameter.</param>
+      <param name="age">It's an out and ref parameter.</param>
       <param name="realName">It's an out paramter.</param>
       <param name="isHealthy">It's an in parameter.</param>
     </member>
