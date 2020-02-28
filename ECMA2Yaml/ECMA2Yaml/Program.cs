@@ -189,30 +189,7 @@ namespace ECMA2Yaml
                     }
                 }
             }
-            //save yaml -> xml mapping file, for build and localization to calculate file dependency
-            if (!string.IsNullOrEmpty(opt.YamlXMLMappingFile))
-            {
-                var yamlXMLMapping = new Dictionary<string, string>();
-                char[] pathSplitters = new char[] { '\\', '/'};
-                foreach (var singleXMLMapping in xmlYamlFileMapping)
-                {
-                    var xmlFilePath = singleXMLMapping.Key;
-                    if (!string.IsNullOrEmpty(opt.RepoRootPath))
-                    {
-                        xmlFilePath = xmlFilePath.Replace(opt.RepoRootPath, "").TrimStart(pathSplitters);
-                    }
-                    foreach (var yamlFile in singleXMLMapping.Value)
-                    {
-                        var mapKey = yamlFile;
-                        if (!string.IsNullOrEmpty(opt.RepoRootPath))
-                        {
-                            mapKey = mapKey.Replace(opt.RepoRootPath, "").TrimStart(pathSplitters);
-                        }
-                        yamlXMLMapping[mapKey] = xmlFilePath;
-                    }
-                }
-                JsonUtility.Serialize(opt.YamlXMLMappingFile, yamlXMLMapping, Formatting.Indented);
-            }
+            WriteYamlXMLFileMap(opt.YamlXMLMappingFile, opt.RepoRootPath, xmlYamlFileMapping);
             
             //Save fallback file list as skip publish
             if (!string.IsNullOrEmpty(opt.SkipPublishFilePath) && loader.FallbackFiles?.Count > 0)
@@ -313,6 +290,48 @@ namespace ECMA2Yaml
                 }
             }
             return count;
+        }
+
+        /// <summary>
+        /// save yaml -> xml mapping file, for build and localization to calculate file dependency
+        /// </summary>
+        /// <param name="fileMapPath"></param>
+        /// <param name="repoRoot"></param>
+        /// <param name="xmlYamlFileMap"></param>
+        static void WriteYamlXMLFileMap(string fileMapPath, string repoRoot, IDictionary<string, List<string>> xmlYamlFileMap)
+        {
+            if (!string.IsNullOrEmpty(fileMapPath))
+            {
+                var yamlXMLMapping = new Dictionary<string, string>();
+                if (File.Exists(fileMapPath))
+                {
+                    var existingMapContent = File.ReadAllText(fileMapPath);
+                    if (!string.IsNullOrEmpty(existingMapContent))
+                    {
+                        yamlXMLMapping = JsonConvert.DeserializeObject<Dictionary<string, string>>(existingMapContent);
+                    }
+                }
+
+                char[] pathSplitters = new char[] { '\\', '/' };
+                foreach (var singleXMLMapping in xmlYamlFileMap)
+                {
+                    var xmlFilePath = singleXMLMapping.Key;
+                    if (!string.IsNullOrEmpty(repoRoot))
+                    {
+                        xmlFilePath = xmlFilePath.Replace(repoRoot, "").TrimStart(pathSplitters);
+                    }
+                    foreach (var yamlFile in singleXMLMapping.Value)
+                    {
+                        var mapKey = yamlFile;
+                        if (!string.IsNullOrEmpty(repoRoot))
+                        {
+                            mapKey = mapKey.Replace(repoRoot, "").TrimStart(pathSplitters);
+                        }
+                        yamlXMLMapping[mapKey] = xmlFilePath;
+                    }
+                }
+                JsonUtility.Serialize(fileMapPath, yamlXMLMapping, Formatting.Indented);
+            }
         }
 
         static void WriteLine(string format, params object[] args)
