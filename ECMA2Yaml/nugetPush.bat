@@ -1,12 +1,12 @@
-IF %APPVEYOR_REPO_BRANCH%=="master" (
+IF "%APPVEYOR_REPO_BRANCH%"=="master" (
     IF NOT DEFINED APPVEYOR_PULL_REQUEST_NUMBER (
         set NeedPublishNuget=1
     )
 )
-IF %APPVEYOR_REPO_BRANCH%=="develop" (
+IF "%APPVEYOR_REPO_BRANCH%"=="develop" (
     set NeedPublishNuget=1
 )
-IF %NeedPublishNuget%=="1" (
+IF "%NeedPublishNuget%"=="1" (
     nuget push ./_nuget/Microsoft.DocAsCode.ECMA2Yaml.%APPVEYOR_BUILD_VERSION%.nupkg %opFeedKey% -Source %MYGETFEED%
     nuget push ./_nuget/Microsoft.DocAsCode.ECMAHelper.%APPVEYOR_BUILD_VERSION%.nupkg %opFeedKey% -Source %MYGETFEED%
     nuget push ./_nuget/Microsoft.DocAsCode.ECMA2Yaml.%APPVEYOR_BUILD_VERSION%.nupkg %nugetKey% -Source %nugetUrl%
