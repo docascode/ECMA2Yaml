@@ -159,24 +159,6 @@ namespace ECMA2Yaml
             return null;
         }
 
-        private Dictionary<string, List<string>> LoadMonikerAssemblyMapping(string folder)
-        {
-            var file = Path.Combine(folder, "_moniker2Assembly.json");
-            if (_fileAccessor.Exists(file))
-            {
-                try
-                {
-                    return JsonConvert.DeserializeObject<Dictionary<string, List<string>>>(_fileAccessor.ReadAllText(file));
-                }
-                catch (Exception ex)
-                {
-                    OPSLogger.LogUserError(LogCode.ECMA2Yaml_MonikerToAssembly_Failed, LogMessageUtility.FormatMessage(LogCode.ECMA2Yaml_MonikerToAssembly_Failed, ex.ToString()), file);
-                    return null;
-                }
-            }
-            return null;
-        }
-
         private IEnumerable<FileItem> ListFiles(string subFolder, string glob)
         {
             return _fileAccessor.ListFiles(new string[] { glob }, subFolder: subFolder);

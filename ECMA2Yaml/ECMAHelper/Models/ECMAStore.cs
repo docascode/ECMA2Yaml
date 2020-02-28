@@ -31,13 +31,10 @@ namespace ECMA2Yaml.Models
         private FrameworkIndex _frameworks;
         private List<Member> _extensionMethods;
         private Dictionary<string, string> _monikerNugetMapping;
-        private Dictionary<string, List<string>> _monikerAssemblyMapping;
-        private Dictionary<string, List<string>> _assemblyMonikerMapping;
 
         public ECMAStore(IEnumerable<Namespace> nsList,
             FrameworkIndex frameworks,
-            Dictionary<string, string> monikerNugetMapping = null,
-            Dictionary<string, List<string>> monikerAssemblyMapping = null)
+            Dictionary<string, string> monikerNugetMapping = null)
         {
             typeDescriptorCache = new Dictionary<string, EcmaDesc>();
 
@@ -45,7 +42,6 @@ namespace ECMA2Yaml.Models
             _tList = nsList.SelectMany(ns => ns.Types).ToList();
             _frameworks = frameworks;
             _monikerNugetMapping = monikerNugetMapping;
-            _monikerAssemblyMapping = monikerAssemblyMapping;
 
             InheritanceParentsByUid = new Dictionary<string, List<VersionedString>>();
             InheritanceChildrenByUid = new Dictionary<string, List<VersionedString>>();
@@ -262,11 +258,6 @@ namespace ECMA2Yaml.Models
 
         private void BuildOtherMetadata()
         {
-            if (_monikerAssemblyMapping != null)
-            {
-                _assemblyMonikerMapping = _monikerAssemblyMapping.SelectMany(p => p.Value.Select(v => Tuple.Create(p.Key, v)))
-                    .GroupBy(p => p.Item2).ToDictionary(g => g.Key, g => g.Select(p => p.Item1).ToList());
-            }
             foreach (var ns in _nsList)
             {
                 bool nsInternalOnly = ns.Docs?.InternalOnly ?? false;
@@ -516,12 +507,6 @@ namespace ECMA2Yaml.Models
             if (_frameworks == null || _frameworks.DocIdToFrameworkDict.Count == 0)
             {
                 return;
-            }
-            if (_monikerAssemblyMapping != null && _monikerAssemblyMapping.Count > 0)
-            {
-                _frameworks.FrameworkAssemblies = _frameworks.FrameworkAssemblies?.ToDictionary(
-                    p => p.Key,
-                    p => p.Value.Where(a => _monikerAssemblyMapping[p.Key].Contains(a.Key)).ToDictionary(purged => purged.Key, purged => purged.Value));
             }
 
             var allMonikers = _frameworks.AllFrameworks;
