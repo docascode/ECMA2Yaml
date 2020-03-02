@@ -499,6 +499,18 @@ namespace IntellisenseFileGen
                     });
                 }
 
+                // <summary><format type="text/markdown"><![CDATA[Describes the common properties that all features have.]]></format></summary> 
+                // => 
+                // <summary>Describes the common properties that all features have.</summary>
+                var formatEles = ele.Elements().Where(p=>p.Name=="format");
+                if (formatEles != null && formatEles.Count() > 0)
+                {
+                    formatEles.ToList().ForEach(formatEle =>
+                    {
+                        formatEle.ReplaceWith(formatEle.Value);
+                    });
+                }
+
                 var child = ele.Nodes();
                 if (child != null && child.Count() > 0)
                 {
