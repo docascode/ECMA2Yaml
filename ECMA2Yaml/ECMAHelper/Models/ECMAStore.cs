@@ -574,7 +574,7 @@ namespace ECMA2Yaml.Models
                 {
                     if (t.Monikers != null)
                     {
-                        MonikerizeAssembly(t, t.Monikers);
+                        MonikerizeTypeAssembly(t);
                     }
                     if (t.Members != null)
                     {
@@ -582,7 +582,7 @@ namespace ECMA2Yaml.Models
                         {
                             if (m.Monikers != null)
                             {
-                                MonikerizeAssembly(m, m.Monikers);
+                                MonikerizeMemberAssembly(m, t.VersionedAssemblyInfo.ValuesPerMoniker);
                             }
                         }
                     }
@@ -593,7 +593,7 @@ namespace ECMA2Yaml.Models
                         {
                             if (ol.Monikers != null)
                             {
-                                MonikerizeAssembly(ol, ol.Monikers);
+                                MonikerizeMemberAssembly(ol, t.VersionedAssemblyInfo.ValuesPerMoniker);
                             }
                         }
                     }
@@ -601,39 +601,56 @@ namespace ECMA2Yaml.Models
             }
         }
 
-        private void MonikerizeAssembly(ReflectionItem item, IEnumerable<string> monikers)
+        private void MonikerizeTypeAssembly(Type t)
         {
-            if (_frameworks.FrameworkAssemblies?.Count > 0 && item.AssemblyInfo != null)
+            if (_frameworks.FrameworkAssemblies?.Count > 0 && t.AssemblyInfo != null)
             {
                 var valuesPerMoniker = new Dictionary<string, List<AssemblyInfo>>();
-                foreach (var moniker in monikers)
+                foreach (var moniker in t.Monikers)
                 {
                     var frameworkAssemblies = _frameworks.FrameworkAssemblies[moniker];
-                    var assemblies = item.AssemblyInfo.Where(
+                    var assemblies = t.AssemblyInfo.Where(
                         itemAsm => frameworkAssemblies.TryGetValue(itemAsm.Name, out var fxAsm) && fxAsm.Version == itemAsm.Version).ToList();
-                    if (assemblies.Count == 0)
+                    if (t.TypeForwardingChain?.TypeForwardingsPerMoniker != null
+                        && t.TypeForwardingChain.TypeForwardingsPerMoniker.TryGetValue(moniker, out var fwdList) == true)
                     {
-                        // due to https://github.com/mono/api-doc-tools/issues/400, sometimes the versions don't match
-                        var fallbackAssemblies = item.AssemblyInfo.Where(
-                            itemAsm => frameworkAssemblies.TryGetValue(itemAsm.Name, out var fxAsm)).ToList();
-                        if (fallbackAssemblies != null)
+                        foreach(var fwd in fwdList)
                         {
-                            valuesPerMoniker[moniker] = fallbackAssemblies;
-                            OPSLogger.LogUserInfo($"{item.Uid}'s moniker {moniker} can't match any assembly by version, fallback to name matching.");
-                        }
-                        else
-                        {
-                            OPSLogger.LogUserWarning(LogCode.ECMA2Yaml_UidAssembly_NotMatched, LogMessageUtility.FormatMessage(LogCode.ECMA2Yaml_UidAssembly_NotMatched, item.Uid, moniker));
+                            if (assemblies.Contains(fwd.From) && assemblies.Contains(fwd.To))
+                            {
+                                assemblies.Remove(fwd.From);
+                            }
                         }
                     }
-                    else
+                    if (assemblies.Count == 0)
                     {
-
+                        OPSLogger.LogUserWarning(LogCode.ECMA2Yaml_UidAssembly_NotMatched,
+                            LogMessageUtility.FormatMessage(LogCode.ECMA2Yaml_UidAssembly_NotMatched, t.Uid, moniker),
+                            t.SourceFileLocalPath);
                     }
                     valuesPerMoniker[moniker] = assemblies;
                 }
-                item.VersionedAssemblyInfo = new VersionedProperty<AssemblyInfo>(valuesPerMoniker);
+                t.VersionedAssemblyInfo = new VersionedProperty<AssemblyInfo>(valuesPerMoniker);
             }
+        }
+
+        private void MonikerizeMemberAssembly(Member m, Dictionary<string, List<AssemblyInfo>> typeAssemblies)
+        {
+            var mAssemblies = new Dictionary<string, List<AssemblyInfo>>();
+            foreach (var moniker in m.Monikers)
+            {
+                if (typeAssemblies.TryGetValue(moniker, out var assemblies))
+                {
+                    mAssemblies[moniker] = assemblies;
+                }
+                else
+                {
+                    OPSLogger.LogUserWarning(LogCode.ECMA2Yaml_ExtraMonikerFoundInMember,
+                            LogMessageUtility.FormatMessage(LogCode.ECMA2Yaml_ExtraMonikerFoundInMember, moniker, m.Uid),
+                            m.SourceFileLocalPath);
+                }
+            }
+            m.VersionedAssemblyInfo = new VersionedProperty<AssemblyInfo>(mAssemblies);
         }
 
         private void BuildIds(IEnumerable<Namespace> nsList, IEnumerable<Type> tList)
