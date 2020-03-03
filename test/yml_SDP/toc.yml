@@ -18,6 +18,8 @@ items:
     - uid: CatLibrary.Cat`2.CatchJerry*
       name: CatchJerry
       type: Method
+      monikers:
+      - cat-2.0
     - uid: CatLibrary.Cat`2.Equals*
       name: Equals
       type: Method
@@ -109,6 +111,8 @@ items:
     - uid: CatLibrary.ICat.CatchJerry*
       name: CatchJerry
       type: Method
+      monikers:
+      - cat-2.0
     - uid: CatLibrary.ICat.eat
       name: eat
       type: Event
