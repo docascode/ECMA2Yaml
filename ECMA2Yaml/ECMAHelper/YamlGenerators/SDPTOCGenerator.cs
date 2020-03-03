@@ -81,6 +81,10 @@ namespace ECMA2Yaml
                 {
                     tocEntry.Metadata["isEii"] = true;
                 }
+                if (!IsMonikersEqual(t.Monikers,ol.Monikers))
+                {
+                    tocEntry.Metadata[OPSMetadata.Monikers] = ol.Monikers.ToArray();
+                }
                 items.Add(tocEntry);
             }
             foreach (var m in t.Members.Where(m => m.Overload == null))
@@ -91,9 +95,45 @@ namespace ECMA2Yaml
                     Name = m.DisplayName
                 };
                 tocEntry.Metadata["type"] = m.ItemType.ToString();
+                if (!IsMonikersEqual(t.Monikers, m.Monikers))
+                {
+                    tocEntry.Metadata[OPSMetadata.Monikers] = m.Monikers.ToArray();
+                }
                 items.Add(tocEntry);
             }
             return items;
+        }
+
+        private static bool IsMonikersEqual(HashSet<string> tMonikers, HashSet<string> mMonikers)
+        {
+            if (tMonikers == null && mMonikers == null)
+            {
+                return true;
+            }
+            else if (tMonikers == null || mMonikers == null)
+            {
+                return false;
+            }
+            else
+            {
+                if (tMonikers.Count() != mMonikers.Count())
+                {
+                    return false;
+                }
+                else
+                {
+                    string tMonikerStr = string.Join(",",tMonikers.OrderBy(p=>p));
+                    string mMonikerStr = string.Join(",", mMonikers.OrderBy(p => p));
+                    if (tMonikerStr.Equals(mMonikerStr, StringComparison.OrdinalIgnoreCase))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
         }
     }
 }
