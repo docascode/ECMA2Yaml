@@ -6,7 +6,7 @@
     /// </summary>
     /// <remarks>
     /// <para>
-    /// Red/Blue/Yellow can become all color you want.
+    /// Red/Blue/Yellow/Purple can become all color you want.
     /// </para>
     /// <list type="bullet">
     /// <listItem>

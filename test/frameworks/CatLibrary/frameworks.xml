@@ -7,5 +7,6 @@
   <Framework Name="cat-2.0" Source="cat-2.0">
     <assemblySearchPath>dependencies\cat-2.0</assemblySearchPath>
     <import>cat-2.0\CatLibrary.xml</import>
+    <import>cat-2.0\MRef.Demo.xml</import>
   </Framework>
 </Frameworks>
