@@ -106,21 +106,7 @@ namespace ECMA2Yaml
 
         private static bool IsNeedAddMonikers(HashSet<string> tMonikers, HashSet<string> mMonikers)
         {
-            if (mMonikers?.Count > 0)
-            {
-                if (tMonikers?.Count > 0)
-                {
-                    return !tMonikers.SetEquals(mMonikers);
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            else
-            {
-                return false;
-            }
+            return mMonikers?.Count > 0 && tMonikers?.Count > 0 && !tMonikers.SetEquals(mMonikers);
         }
     }
 }
