@@ -8,6 +8,7 @@
   <AssemblyInfo>
     <AssemblyName>CatLibrary</AssemblyName>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
   </AssemblyInfo>
   <Base>
     <BaseTypeName>CatLibrary.Tom</BaseTypeName>
@@ -31,13 +32,13 @@
       <AssemblyInfo>
         <AssemblyName>CatLibrary</AssemblyName>
         <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Parameters>
         <Parameter Name="k" Type="System.Int32" />
       </Parameters>
       <Docs>
-        <param name="k">
-        </param>
+        <param name="k" />
         <summary>
             This is a #ctor with parameter
             </summary>

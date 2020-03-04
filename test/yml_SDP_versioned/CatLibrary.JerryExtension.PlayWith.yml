@@ -4,11 +4,9 @@ members:
 - parameters:
   - namesWithMoniker:
     - value: jerry
-    description: "\n        "
     type: <xref href="CatLibrary.TomFromBaseClass.Jerry?alt=CatLibrary.TomFromBaseClass.Jerry&text=TomFromBaseClass.Jerry" data-throw-if-not-resolved="True"/>
   - namesWithMoniker:
     - value: tom
-    description: "\n        "
     type: <xref href="CatLibrary.Tom?alt=CatLibrary.Tom&text=Tom" data-throw-if-not-resolved="True"/>
   uid: CatLibrary.JerryExtension.PlayWith(CatLibrary.TomFromBaseClass.Jerry,CatLibrary.Tom)
   commentId: M:CatLibrary.JerryExtension.PlayWith(CatLibrary.TomFromBaseClass.Jerry,CatLibrary.Tom)
@@ -29,6 +27,12 @@ members:
   - lang: fsharp
     values:
     - value: 'static member PlayWith : CatLibrary.TomFromBaseClass.Jerry * CatLibrary.Tom -> unit'
+  - lang: vb
+    values:
+    - value: >-
+        <Extension()>
+
+        Public Sub PlayWith (jerry As TomFromBaseClass.Jerry, tom As Tom)
   monikers:
   - cat-2.0
   summary: Jerry can play with a Tom.
@@ -43,6 +47,7 @@ assemblies:
 - CatLibrary
 devLangs:
 - csharp
+- vb
 - cpp
 - fsharp
 monikers:

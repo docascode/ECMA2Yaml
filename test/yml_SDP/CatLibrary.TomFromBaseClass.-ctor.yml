@@ -3,7 +3,6 @@ type: constructor
 members:
 - parameters:
   - name: k
-    description: "\n        "
     type: <xref href="System.Int32?alt=System.Int32&text=Int32" data-throw-if-not-resolved="True"/>
   uid: CatLibrary.TomFromBaseClass.#ctor(System.Int32)
   commentId: M:CatLibrary.TomFromBaseClass.#ctor(System.Int32)

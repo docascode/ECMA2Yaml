@@ -3,7 +3,6 @@ type: method
 members:
 - parameters:
   - name: i
-    description: "\n        "
     type: <xref href="VersioningTest.I?alt=VersioningTest.I&text=I" data-throw-if-not-resolved="True"/>
   uid: VersioningTest.VersioningExtensions.ExtMethodForI(VersioningTest.I)
   commentId: M:VersioningTest.VersioningExtensions.ExtMethodForI(VersioningTest.I)
@@ -21,6 +20,11 @@ members:
     value: public static void ExtMethodForI (this VersioningTest.I i);
   - lang: fsharp
     value: 'static member ExtMethodForI : VersioningTest.I -> unit'
+  - lang: vb
+    value: >-
+      <Extension()>
+
+      Public Sub ExtMethodForI (i As I)
   monikers:
   - cat-1.0
   - cat-2.0
@@ -36,6 +40,7 @@ assemblies:
 - CatLibrary
 devLangs:
 - csharp
+- vb
 - cpp
 - fsharp
 monikers:

@@ -8,6 +8,7 @@
   <AssemblyInfo>
     <AssemblyName>CatLibrary</AssemblyName>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
   </AssemblyInfo>
   <Base>
     <BaseTypeName>System.Object</BaseTypeName>
@@ -28,6 +29,7 @@
       <AssemblyInfo>
         <AssemblyName>CatLibrary</AssemblyName>
         <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Parameters />
       <Docs>
@@ -46,6 +48,7 @@
       <AssemblyInfo>
         <AssemblyName>CatLibrary</AssemblyName>
         <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Void</ReturnType>
@@ -54,8 +57,7 @@
         <Parameter Name="param1" Type="System.String" />
       </Parameters>
       <Docs>
-        <param name="param1">
-        </param>
+        <param name="param1" />
         <summary>
             this method should show up as inherited member in class `D/F/G/H` only for `cat-2.0`
             </summary>

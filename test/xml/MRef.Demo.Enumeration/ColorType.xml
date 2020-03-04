@@ -8,6 +8,7 @@
   <AssemblyInfo>
     <AssemblyName>CatLibrary</AssemblyName>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
   </AssemblyInfo>
   <Base>
     <BaseTypeName>System.Enum</BaseTypeName>
@@ -46,6 +47,7 @@
       <AssemblyInfo>
         <AssemblyName>CatLibrary</AssemblyName>
         <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>MRef.Demo.Enumeration.ColorType</ReturnType>
@@ -68,6 +70,7 @@
       <AssemblyInfo>
         <AssemblyName>CatLibrary</AssemblyName>
         <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>MRef.Demo.Enumeration.ColorType</ReturnType>
@@ -90,6 +93,7 @@
       <AssemblyInfo>
         <AssemblyName>CatLibrary</AssemblyName>
         <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>MRef.Demo.Enumeration.ColorType</ReturnType>

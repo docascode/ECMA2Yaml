@@ -70,6 +70,8 @@ members:
     value: 'public void Eat<Tool> (Tool tool) where Tool : class;'
   - lang: fsharp
     value: "abstract member Eat : 'ool -> unit (requires 'ool : null)"
+  - lang: vb
+    value: Public Sub Eat(Of Tool As Class) (tool As Tool)
   monikers:
   - cat-1.0
   - cat-2.0

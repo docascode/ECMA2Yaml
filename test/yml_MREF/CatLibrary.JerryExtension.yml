@@ -47,6 +47,7 @@ items:
   - cpp
   - csharp
   - fsharp
+  - vb
   name: PlayWith(TomFromBaseClass+Jerry, Tom)
   nameWithType: JerryExtension.PlayWith(TomFromBaseClass+Jerry, Tom)
   fullName: CatLibrary.JerryExtension.PlayWith(TomFromBaseClass+Jerry, Tom)
@@ -60,10 +61,10 @@ items:
     parameters:
     - id: jerry
       type: CatLibrary.TomFromBaseClass.Jerry
-      description: "\n        "
+      description: ''
     - id: tom
       type: CatLibrary.Tom
-      description: "\n        "
+      description: ''
     content.cpp: >-
       public:
 
@@ -71,6 +72,10 @@ items:
        static void PlayWith(CatLibrary::TomFromBaseClass::Jerry ^ jerry, CatLibrary::Tom ^ tom);
     content.csharp: public static void PlayWith (this CatLibrary.TomFromBaseClass.Jerry jerry, CatLibrary.Tom tom);
     content.fsharp: 'static member PlayWith : CatLibrary.TomFromBaseClass.Jerry * CatLibrary.Tom -> unit'
+    content.vb: >-
+      <Extension()>
+
+      Public Sub PlayWith (jerry As TomFromBaseClass.Jerry, tom As Tom)
   overload: CatLibrary.JerryExtension.PlayWith*
   exceptions: []
   modifiers.csharp:
