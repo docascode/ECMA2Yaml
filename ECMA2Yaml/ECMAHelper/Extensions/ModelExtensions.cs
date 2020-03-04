@@ -25,13 +25,9 @@ namespace ECMA2Yaml
             }
             return new SourceDetail()
             {
-                Path = source.Path,
-                Remote = new GitDetail()
-                {
-                    RelativePath = source.Path,
-                    RemoteBranch = source.RepoBranch,
-                    RemoteRepositoryUrl = source.RepoUrl
-                }
+                RelativePath = source.Path,
+                RemoteBranch = source.RepoBranch,
+                RemoteRepositoryUrl = source.RepoUrl
             };
         }
     }
