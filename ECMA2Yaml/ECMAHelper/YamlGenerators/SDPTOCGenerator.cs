@@ -81,7 +81,7 @@ namespace ECMA2Yaml
                 {
                     tocEntry.Metadata["isEii"] = true;
                 }
-                if (!IsMonikersEqual(t.Monikers,ol.Monikers))
+                if (IsNeedAddMonikers(t.Monikers, ol.Monikers))
                 {
                     tocEntry.Metadata[OPSMetadata.Monikers] = ol.Monikers.ToArray();
                 }
@@ -95,7 +95,7 @@ namespace ECMA2Yaml
                     Name = m.DisplayName
                 };
                 tocEntry.Metadata["type"] = m.ItemType.ToString();
-                if (!IsMonikersEqual(t.Monikers, m.Monikers))
+                if (IsNeedAddMonikers(t.Monikers, m.Monikers))
                 {
                     tocEntry.Metadata[OPSMetadata.Monikers] = m.Monikers.ToArray();
                 }
@@ -104,35 +104,22 @@ namespace ECMA2Yaml
             return items;
         }
 
-        private static bool IsMonikersEqual(HashSet<string> tMonikers, HashSet<string> mMonikers)
+        private static bool IsNeedAddMonikers(HashSet<string> tMonikers, HashSet<string> mMonikers)
         {
-            if (tMonikers == null && mMonikers == null)
+            if (mMonikers?.Count > 0)
             {
-                return true;
-            }
-            else if (tMonikers == null || mMonikers == null)
-            {
-                return false;
-            }
-            else
-            {
-                if (tMonikers.Count() != mMonikers.Count())
+                if (tMonikers?.Count > 0)
                 {
-                    return false;
+                    return !tMonikers.SetEquals(mMonikers);
                 }
                 else
                 {
-                    string tMonikerStr = string.Join(",",tMonikers.OrderBy(p=>p));
-                    string mMonikerStr = string.Join(",", mMonikers.OrderBy(p => p));
-                    if (tMonikerStr.Equals(mMonikerStr, StringComparison.OrdinalIgnoreCase))
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
+                    return false;
                 }
+            }
+            else
+            {
+                return false;
             }
         }
     }
