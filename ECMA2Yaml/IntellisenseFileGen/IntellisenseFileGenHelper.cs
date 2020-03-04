@@ -129,9 +129,9 @@ namespace IntellisenseFileGen
                     fwAssemblyList.ForEach(assembly =>
                     {
                         var assemblyTypes = fwTypesByAssembly[assembly].Select(t => typesByDocId[t.DocId]).ToList();
-                        var assemblyMemberDocIds = fwMemberDocIdsByAssembly[assembly];
+                        var assemblyMemberDocIds = fwMemberDocIdsByAssembly.ContainsKey(assembly) ? fwMemberDocIdsByAssembly[assembly] : new HashSet<string>();
                         // Order by xml
-                        if (assemblyTypes != null && assemblyTypes.Count() > 0)
+                        if (assemblyTypes.Count > 0)
                         {
                             XDocument intelligenceDoc = new XDocument(new XDeclaration("1.0", "utf-8", null));
                             var docEle = new XElement("doc");
