@@ -275,22 +275,6 @@
             Jerry has different <see cref="T:MRef.Demo.Enumeration.ColorType">colors</see>.</summary>
       <param name="color">Color of Jerry.</param>
     </member>
-    <member name="T:MRef.Demo.Enumeration.ColorType">
-      <summary>
-            Enumeration ColorType</summary>
-    </member>
-    <member name="F:MRef.Demo.Enumeration.ColorType.Blue">
-      <summary>
-            blue like river</summary>
-    </member>
-    <member name="F:MRef.Demo.Enumeration.ColorType.Red">
-      <summary>
-            this color is red</summary>
-    </member>
-    <member name="F:MRef.Demo.Enumeration.ColorType.Yellow">
-      <summary>
-            yellow comes from desert</summary>
-    </member>
     <member name="T:VersioningTest.A" />
     <member name="M:VersioningTest.A.#ctor" />
     <member name="M:VersioningTest.A.MethodFromClassA(System.String)">

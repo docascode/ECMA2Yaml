@@ -115,7 +115,7 @@ namespace ECMA2Yaml
                 foreach (var nsElement in fxDoc.Root.Elements("Namespace"))
                 {
                     var ns = nsElement.Attribute("Name").Value;
-                    frameworkIndex.DocIdToFrameworkDict.AddWithKey(ns, fxName);
+                    frameworkIndex.DocIdToFrameworkDict.AddWithKey("N:" + ns, fxName);
                     foreach (var tElement in nsElement.Elements("Type"))
                     {
                         var t = tElement.Attribute("Id").Value;

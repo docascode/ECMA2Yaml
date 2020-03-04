@@ -491,9 +491,9 @@ namespace ECMA2Yaml.Models
             var allMonikers = _frameworks.AllFrameworks;
             foreach (var ns in _nsList)
             {
-                if (_frameworks.DocIdToFrameworkDict.ContainsKey(ns.Uid))
+                if (_frameworks.DocIdToFrameworkDict.ContainsKey(ns.CommentId))
                 {
-                    ns.Monikers = new HashSet<string>(_frameworks.DocIdToFrameworkDict[ns.Uid]);
+                    ns.Monikers = new HashSet<string>(_frameworks.DocIdToFrameworkDict[ns.CommentId]);
                 }
                 foreach (var t in ns.Types)
                 {
