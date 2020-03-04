@@ -13,6 +13,15 @@ fields:
   monikers:
   - cat-1.0
   - cat-2.0
+- uid: MRef.Demo.Enumeration.ColorType.Purple
+  commentId: F:MRef.Demo.Enumeration.ColorType.Purple
+  literalValue: "4"
+  name: Purple
+  nameWithType: ColorType.Purple
+  fullName: MRef.Demo.Enumeration.ColorType.Purple
+  summary: purple rain, purple rain
+  monikers:
+  - cat-2.0
 - uid: MRef.Demo.Enumeration.ColorType.Red
   commentId: F:MRef.Demo.Enumeration.ColorType.Red
   literalValue: "0"
@@ -41,6 +50,7 @@ fullName: MRef.Demo.Enumeration.ColorType
 nameWithType: MRef.Demo.Enumeration.ColorType
 assemblies:
 - CatLibrary
+- MRef.Demo
 syntaxWithMoniker:
 - lang: cpp
   values:
@@ -68,7 +78,7 @@ seeAlso: >+
 summary: Enumeration ColorType
 remarks: >-
   <p>
-        Red/Blue/Yellow can become all color you want.
+        Red/Blue/Yellow/Purple can become all color you want.
   </p>
 
   <ul></ul>
@@ -79,10 +89,12 @@ metadata:
   api_name:
   - MRef.Demo.Enumeration.ColorType
   - MRef.Demo.Enumeration.ColorType.Blue
+  - MRef.Demo.Enumeration.ColorType.Purple
   - MRef.Demo.Enumeration.ColorType.Red
   - MRef.Demo.Enumeration.ColorType.Yellow
   api_location:
   - CatLibrary.dll
+  - MRef.Demo.dll
   topic_type:
   - apiref
   api_type:
@@ -92,6 +104,8 @@ metadata:
   - MRef::Demo::Enumeration::ColorType
   - MRef.Demo.Enumeration.ColorType.Blue
   - MRef::Demo::Enumeration::ColorType::Blue
+  - MRef.Demo.Enumeration.ColorType.Purple
+  - MRef::Demo::Enumeration::ColorType::Purple
   - MRef.Demo.Enumeration.ColorType.Red
   - MRef::Demo::Enumeration::ColorType::Red
   - MRef.Demo.Enumeration.ColorType.Yellow
