@@ -12,6 +12,9 @@ members:
   - lang: csharp
     values:
     - value: event EventHandler CatLibrary.ICat.eat;
+  - lang: fsharp
+    values:
+    - value: 'member this.CatLibrary.ICat.eat : EventHandler '
   - lang: vb
     values:
     - value: Custom Event eat As EventHandler Implements CatLibrary.ICat
@@ -25,6 +28,7 @@ assemblies:
 devLangs:
 - csharp
 - vb
+- fsharp
 monikers:
 - cat-1.0
 - cat-2.0

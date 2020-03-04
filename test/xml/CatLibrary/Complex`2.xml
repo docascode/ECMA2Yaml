@@ -8,6 +8,7 @@
   <AssemblyInfo>
     <AssemblyName>CatLibrary</AssemblyName>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
   </AssemblyInfo>
   <TypeParameters>
     <TypeParameter Name="T" />
@@ -18,10 +19,8 @@
   </Base>
   <Interfaces />
   <Docs>
-    <typeparam name="T">
-    </typeparam>
-    <typeparam name="J">
-    </typeparam>
+    <typeparam name="T" />
+    <typeparam name="J" />
     <summary />
     <remarks>To be added.</remarks>
   </Docs>
@@ -36,6 +35,7 @@
       <AssemblyInfo>
         <AssemblyName>CatLibrary</AssemblyName>
         <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Parameters />
       <Docs>

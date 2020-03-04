@@ -8,6 +8,7 @@
   <AssemblyInfo>
     <AssemblyName>CatLibrary</AssemblyName>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
   </AssemblyInfo>
   <Base>
     <BaseTypeName>System.Object</BaseTypeName>
@@ -24,12 +25,14 @@
       <MemberSignature Language="C#" Value="public static void PlayWith (this CatLibrary.TomFromBaseClass.Jerry jerry, CatLibrary.Tom tom);" />
       <MemberSignature Language="ILAsm" Value=".method public static hidebysig void PlayWith(class CatLibrary.TomFromBaseClass/Jerry jerry, class CatLibrary.Tom tom) cil managed" />
       <MemberSignature Language="DocId" Value="M:CatLibrary.JerryExtension.PlayWith(CatLibrary.TomFromBaseClass.Jerry,CatLibrary.Tom)" />
+      <MemberSignature Language="VB.NET" Value="&lt;Extension()&gt;&#xA;Public Sub PlayWith (jerry As TomFromBaseClass.Jerry, tom As Tom)" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA;[System::Runtime::CompilerServices::Extension]&#xA; static void PlayWith(CatLibrary::TomFromBaseClass::Jerry ^ jerry, CatLibrary::Tom ^ tom);" />
       <MemberSignature Language="F#" Value="static member PlayWith : CatLibrary.TomFromBaseClass.Jerry * CatLibrary.Tom -&gt; unit" Usage="CatLibrary.JerryExtension.PlayWith (jerry, tom)" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>CatLibrary</AssemblyName>
         <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Void</ReturnType>
@@ -39,10 +42,8 @@
         <Parameter Name="tom" Type="CatLibrary.Tom" />
       </Parameters>
       <Docs>
-        <param name="jerry">
-        </param>
-        <param name="tom">
-        </param>
+        <param name="jerry" />
+        <param name="tom" />
         <summary>
             Jerry can play with a Tom.
             </summary>

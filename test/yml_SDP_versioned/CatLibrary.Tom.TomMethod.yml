@@ -33,7 +33,7 @@ members:
          CatLibrary::Complex<System::String ^, CatLibrary::TomFromBaseClass ^> ^ TomMethod(CatLibrary::Complex<CatLibrary::TomFromBaseClass ^, CatLibrary::TomFromBaseClass ^> ^ a, Tuple<System::String ^, CatLibrary::Tom ^> ^ b);
   - lang: csharp
     values:
-    - value: public CatLibrary.Complex<string,CatLibrary.TomFromBaseClass> TomMethod (CatLibrary.Complex<CatLibrary.TomFromBaseClass,CatLibrary.TomFromBaseClass> a, Tuple<string,CatLibrary.Tom> b);
+    - value: public CatLibrary.Complex<string,CatLibrary.TomFromBaseClass> TomMethod (CatLibrary.Complex<CatLibrary.TomFromBaseClass,CatLibrary.TomFromBaseClass> a, (string,CatLibrary.Tom) b);
   - lang: fsharp
     values:
     - value: 'member this.TomMethod : CatLibrary.Complex<CatLibrary.TomFromBaseClass, CatLibrary.TomFromBaseClass> * string * CatLibrary.Tom -> CatLibrary.Complex<string, CatLibrary.TomFromBaseClass>'

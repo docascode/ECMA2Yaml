@@ -25,7 +25,7 @@ members:
     - value: string CatLibrary.IAnimal.Item[int a] { get; }
   - lang: fsharp
     values:
-    - value: CatLibrary.IAnimal.Item
+    - value: 'member this.CatLibrary.IAnimal.Item(int) : string'
   - lang: vb
     values:
     - value: " ReadOnly Property Item(a As Integer) As String Implements IAnimal.Item"

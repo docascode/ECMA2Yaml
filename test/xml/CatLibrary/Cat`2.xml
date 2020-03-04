@@ -20,6 +20,7 @@
   <AssemblyInfo>
     <AssemblyName>CatLibrary</AssemblyName>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
   </AssemblyInfo>
   <TypeParameters>
     <TypeParameter Name="T">
@@ -115,6 +116,7 @@
       <AssemblyInfo>
         <AssemblyName>CatLibrary</AssemblyName>
         <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Parameters />
       <Docs>
@@ -140,6 +142,7 @@
       <AssemblyInfo>
         <AssemblyName>CatLibrary</AssemblyName>
         <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Parameters>
         <Parameter Name="thisType" Type="T" Index="0" FrameworkAlternate="cat-1.0" />
@@ -170,6 +173,7 @@
       <AssemblyInfo>
         <AssemblyName>CatLibrary</AssemblyName>
         <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Parameters>
         <Parameter Name="nickName" Type="System.String" Index="0" />
@@ -179,8 +183,8 @@
         <Parameter Name="isHealthy" Type="System.Boolean" Index="3" />
       </Parameters>
       <Docs>
-        <param name="nickName">it's string type.</param>
         <param name="ageNumber">It's an out and ref parameter.</param>
+        <param name="nickName">it's string type.</param>
         <param name="age">It's an out and ref parameter.</param>
         <param name="realName">It's an out paramter.</param>
         <param name="isHealthy">It's an in parameter.</param>
@@ -212,6 +216,7 @@
       <AssemblyInfo>
         <AssemblyName>CatLibrary</AssemblyName>
         <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Int32</ReturnType>
@@ -235,6 +240,7 @@
       <AssemblyInfo>
         <AssemblyName>CatLibrary</AssemblyName>
         <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Collections.Generic.Dictionary&lt;System.String,System.Collections.Generic.List&lt;System.Int32&gt;&gt;</ReturnType>
@@ -265,6 +271,7 @@
       <AssemblyInfo>
         <AssemblyName>CatLibrary</AssemblyName>
         <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Void</ReturnType>
@@ -288,6 +295,7 @@
       <AssemblyInfo>
         <AssemblyName>CatLibrary</AssemblyName>
         <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
         <Attribute FrameworkAlternate="cat-2.0">
@@ -314,6 +322,7 @@
       <MemberSignature Language="DocId" Value="M:CatLibrary.Cat`2.CatLibrary#IAnimal#Eat" />
       <MemberSignature Language="VB.NET" Value="Sub Eat () Implements IAnimal.Eat" />
       <MemberSignature Language="C++ CLI" Value=" virtual void CatLibrary.IAnimal.Eat() = CatLibrary::IAnimal::Eat;" />
+      <MemberSignature Language="F#" Value="abstract member CatLibrary.IAnimal.Eat : unit -&gt; unit&#xA;override this.CatLibrary.IAnimal.Eat : unit -&gt; unit" Usage="cat.CatLibrary.IAnimal.Eat " />
       <MemberType>Method</MemberType>
       <Implements>
         <InterfaceMember>M:CatLibrary.IAnimal.Eat</InterfaceMember>
@@ -321,6 +330,7 @@
       <AssemblyInfo>
         <AssemblyName>CatLibrary</AssemblyName>
         <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Void</ReturnType>
@@ -339,6 +349,7 @@
       <MemberSignature Language="DocId" Value="M:CatLibrary.Cat`2.CatLibrary#IAnimal#Eat(System.String)" />
       <MemberSignature Language="VB.NET" Value="Sub Eat (food As String) Implements IAnimal.Eat" />
       <MemberSignature Language="C++ CLI" Value=" virtual void CatLibrary.IAnimal.Eat(System::String ^ food) = CatLibrary::IAnimal::Eat;" />
+      <MemberSignature Language="F#" Value="abstract member CatLibrary.IAnimal.Eat : string -&gt; unit&#xA;override this.CatLibrary.IAnimal.Eat : string -&gt; unit" Usage="cat.CatLibrary.IAnimal.Eat food" />
       <MemberType>Method</MemberType>
       <Implements>
         <InterfaceMember>M:CatLibrary.IAnimal.Eat(System.String)</InterfaceMember>
@@ -346,6 +357,7 @@
       <AssemblyInfo>
         <AssemblyName>CatLibrary</AssemblyName>
         <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Void</ReturnType>
@@ -367,6 +379,7 @@
       <MemberSignature Language="DocId" Value="M:CatLibrary.Cat`2.CatLibrary#IAnimal#Eat``1(``0)" />
       <MemberSignature Language="VB.NET" Value="Sub Eat(Of Tool As Class) (a As Tool) Implements IAnimal.Eat" />
       <MemberSignature Language="C++ CLI" Value="generic &lt;typename Tool&gt;&#xA; where Tool : class virtual void CatLibrary.IAnimal.Eat(Tool a) = CatLibrary::IAnimal::Eat;" />
+      <MemberSignature Language="F#" Value="abstract member CatLibrary.IAnimal.Eat : 'ool -&gt; unit (requires 'ool : null)&#xA;override this.CatLibrary.IAnimal.Eat : 'ool -&gt; unit (requires 'ool : null)" Usage="cat.CatLibrary.IAnimal.Eat a" />
       <MemberType>Method</MemberType>
       <Implements>
         <InterfaceMember>M:CatLibrary.IAnimal.Eat``1(``0)</InterfaceMember>
@@ -374,6 +387,7 @@
       <AssemblyInfo>
         <AssemblyName>CatLibrary</AssemblyName>
         <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Void</ReturnType>
@@ -403,7 +417,7 @@
       <MemberSignature Language="DocId" Value="P:CatLibrary.Cat`2.CatLibrary#IAnimal#Item(System.Int32)" />
       <MemberSignature Language="VB.NET" Value=" ReadOnly Property Item(a As Integer) As String Implements IAnimal.Item" />
       <MemberSignature Language="C++ CLI" Value="property System::String ^ CatLibrary::IAnimal::Item[int] { System::String ^ get(int a); };" />
-      <MemberSignature Language="F#" Usage="CatLibrary.IAnimal.Item" />
+      <MemberSignature Language="F#" Value="member this.CatLibrary.IAnimal.Item(int) : string" Usage="CatLibrary.IAnimal.Item" />
       <MemberType>Property</MemberType>
       <Implements>
         <InterfaceMember>P:CatLibrary.IAnimal.Item(System.Int32)</InterfaceMember>
@@ -411,6 +425,7 @@
       <AssemblyInfo>
         <AssemblyName>CatLibrary</AssemblyName>
         <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.String</ReturnType>
@@ -432,6 +447,7 @@
       <MemberSignature Language="ILAsm" Value=".event class System.EventHandler CatLibrary.ICat.eat" />
       <MemberSignature Language="DocId" Value="E:CatLibrary.Cat`2.CatLibrary#ICat#eat" />
       <MemberSignature Language="VB.NET" Value="Custom Event eat As EventHandler Implements CatLibrary.ICat" />
+      <MemberSignature Language="F#" Value="member this.CatLibrary.ICat.eat : EventHandler " Usage="member this.CatLibrary.ICat.eat : System.EventHandler " />
       <MemberType>Event</MemberType>
       <Implements>
         <InterfaceMember>E:CatLibrary.ICat.eat</InterfaceMember>
@@ -439,6 +455,7 @@
       <AssemblyInfo>
         <AssemblyName>CatLibrary</AssemblyName>
         <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.EventHandler</ReturnType>
@@ -459,6 +476,7 @@
       <AssemblyInfo>
         <AssemblyName>CatLibrary</AssemblyName>
         <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Boolean</ReturnType>
@@ -484,6 +502,7 @@
       <AssemblyInfo>
         <AssemblyName>CatLibrary</AssemblyName>
         <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Int64</ReturnType>
@@ -520,6 +539,7 @@
       <AssemblyInfo>
         <AssemblyName>CatLibrary</AssemblyName>
         <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
         <Attribute>
@@ -550,6 +570,7 @@
       <AssemblyInfo>
         <AssemblyName>CatLibrary</AssemblyName>
         <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Int32</ReturnType>
@@ -577,6 +598,7 @@
       <AssemblyInfo>
         <AssemblyName>CatLibrary</AssemblyName>
         <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
         <Attribute>
@@ -616,6 +638,7 @@
       <AssemblyInfo>
         <AssemblyName>CatLibrary</AssemblyName>
         <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.String</ReturnType>
@@ -639,6 +662,7 @@
       <AssemblyInfo>
         <AssemblyName>CatLibrary</AssemblyName>
         <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Int32</ReturnType>
@@ -668,6 +692,7 @@
       <AssemblyInfo>
         <AssemblyName>CatLibrary</AssemblyName>
         <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>CatLibrary.Tom</ReturnType>
@@ -695,6 +720,7 @@
       <AssemblyInfo>
         <AssemblyName>CatLibrary</AssemblyName>
         <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Int32</ReturnType>
@@ -724,6 +750,7 @@
       <AssemblyInfo>
         <AssemblyName>CatLibrary</AssemblyName>
         <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.EventHandler</ReturnType>
