@@ -121,6 +121,25 @@ namespace ECMA2Yaml.Models
         {
             foreach (var t in _tList)
             {
+                //Sometimes type forwarding definitions do not specify the target version,
+                //so we need to infer the actual version based on the version we have in frameworkindex file
+                if (t.TypeForwardingChain?.TypeForwardingsPerMoniker?.Count > 0
+                    && _frameworks.FrameworkAssemblies?.Count > 0)
+                {
+                    foreach(var fwdPerMoniker in t.TypeForwardingChain.TypeForwardingsPerMoniker)
+                    {
+                        if (_frameworks.FrameworkAssemblies.TryGetValue(fwdPerMoniker.Key, out var assemblyDict))
+                        {
+                            foreach(var fwd in fwdPerMoniker.Value)
+                            {
+                                if (fwd.To.Version == "0.0.0.0" && assemblyDict.TryGetValue(fwd.To.Name, out var asmInfo))
+                                {
+                                    fwd.To.Version = asmInfo.Version;
+                                }
+                            }
+                        }
+                    }
+                }
                 if (t.AssemblyInfo?.Count > 0 && t.Members?.Count > 0)
                 {
                     foreach (var m in t.Members)
