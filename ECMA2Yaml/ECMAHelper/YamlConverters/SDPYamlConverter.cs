@@ -97,7 +97,7 @@ namespace ECMA2Yaml
                 Remarks = item.Docs.Remarks,
                 Examples = item.Docs.Examples,
                 Monikers = item.Monikers,
-                Source = item.SourceDetail.ToSDPSourceDetail()
+                Source = _store.UWPMode ? item.SourceDetail.ToSDPSourceDetail() : null
             };
 
             if(_withVersioning)
