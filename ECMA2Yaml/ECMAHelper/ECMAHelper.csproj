@@ -106,6 +106,7 @@
     <Compile Include="Models\SDP\MemberSDPModel.cs" />
     <Compile Include="Models\SDP\OverloadSDPModel.cs" />
     <Compile Include="Models\SDP\Shared\NamespaceTypeLink.cs" />
+    <Compile Include="Models\SDP\Shared\SourceDetail.cs" />
     <Compile Include="Models\SDP\Shared\TypeMemberLink.cs" />
     <Compile Include="Models\SDP\Shared\ParameterReference.cs" />
     <Compile Include="Models\SDP\Shared\ThreadSafety.cs" />
