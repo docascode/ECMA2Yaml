@@ -118,10 +118,12 @@ namespace IntellisenseFileGen
                     string outPutFolder = Path.Combine(_outFolder, fw);
 
                     var fwAssemblyList = frameworks.FrameworkAssemblies[fw].Values.ToList();
-                    var fwTypesByAssembly = store.TypesByUid.Values
+                    var fwTypeDocIdsByAssembly = store.TypesByUid.Values
                     .Where(t => t.Monikers.Contains(fw))
                     .SelectMany(t => t.VersionedAssemblyInfo.ValuesPerMoniker[fw].Select(asm => (asmName: asm.Name, t.DocId)))
-                    .ToLookup(tuple => tuple.asmName);
+                    .GroupBy(tuple => tuple.asmName)
+                    .ToDictionary(g => g.Key, g => g.Select(t => t.DocId).ToHashSet());
+
                     var fwMemberDocIdsByAssembly = store.MembersByUid.Values
                     .Where(m => m.Monikers.Contains(fw))
                     .SelectMany(m => m.VersionedAssemblyInfo.ValuesPerMoniker[fw].Select(asm => (asmName: asm.Name, m.DocId)))
@@ -130,7 +132,7 @@ namespace IntellisenseFileGen
 
                     fwAssemblyList.ForEach(assembly =>
                     {
-                        var assemblyTypes = fwTypesByAssembly[assembly.Name].Select(t => typesByDocId[t.DocId]).ToList();
+                        var assemblyTypes = fwTypeDocIdsByAssembly[assembly.Name].Select(docId => typesByDocId[docId]).ToList();
                         var assemblyMemberDocIds = fwMemberDocIdsByAssembly.ContainsKey(assembly.Name) ? fwMemberDocIdsByAssembly[assembly.Name] : new HashSet<string>();
                         // Order by xml
                         if (assemblyTypes.Count > 0)
