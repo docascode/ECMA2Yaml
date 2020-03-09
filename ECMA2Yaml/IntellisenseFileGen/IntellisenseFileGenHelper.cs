@@ -123,13 +123,13 @@ namespace IntellisenseFileGen
                     .SelectMany(t => t.VersionedAssemblyInfo.ValuesPerMoniker[fw].Select(asm => (asmName: asm.Name, t.DocId)))
                     .GroupBy(tuple => tuple.asmName)
                     .ToDictionary(g => g.Key, g => g.Select(t => t.DocId).ToHashSet());
-
                     var fwMemberDocIdsByAssembly = store.MembersByUid.Values
                     .Where(m => m.Monikers.Contains(fw))
                     .SelectMany(m => m.VersionedAssemblyInfo.ValuesPerMoniker[fw].Select(asm => (asmName: asm.Name, m.DocId)))
                     .GroupBy(tuple => tuple.asmName)
                     .ToDictionary(g => g.Key, g => g.Select(m => m.DocId).ToHashSet());
 
+                    fwAssemblyList = fwAssemblyList.Where(asm => fwTypeDocIdsByAssembly.ContainsKey(asm.Name)).ToList();
                     fwAssemblyList.ForEach(assembly =>
                     {
                         var assemblyTypes = fwTypeDocIdsByAssembly[assembly.Name].Select(docId => typesByDocId[docId]).ToList();
