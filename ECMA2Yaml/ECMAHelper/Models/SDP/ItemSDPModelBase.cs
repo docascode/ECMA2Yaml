@@ -103,6 +103,10 @@ namespace ECMA2Yaml.Models.SDP
         [YamlMember(Alias = "examples")]
         public string Examples { get; set; }
 
+        [JsonProperty("source")]
+        [YamlMember(Alias = "source")]
+        public SourceDetail Source { get; set; }
+
         [JsonProperty("metadata")]
         [YamlMember(Alias = "metadata")]
         public Dictionary<string, object> Metadata { get; set; }
