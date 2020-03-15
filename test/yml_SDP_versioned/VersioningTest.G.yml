@@ -40,8 +40,8 @@ namespace: VersioningTest
 name: G
 fullName: VersioningTest.G
 nameWithType: VersioningTest.G
-assemblies:
-- CatLibrary
+assembliesWithMoniker:
+- value: CatLibrary.dll
 syntaxWithMoniker:
 - lang: cpp
   values:

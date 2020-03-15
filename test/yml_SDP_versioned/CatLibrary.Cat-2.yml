@@ -119,8 +119,8 @@ namespace: CatLibrary
 name: Cat<T,K>
 fullName: CatLibrary.Cat<T,K>
 nameWithType: CatLibrary.Cat<T,K>
-assemblies:
-- CatLibrary
+assembliesWithMoniker:
+- value: CatLibrary.dll
 attributesWithMoniker:
 - value: System.SerializableAttribute
 syntaxWithMoniker:

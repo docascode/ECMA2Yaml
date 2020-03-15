@@ -17,8 +17,8 @@ namespace: CatLibrary
 name: TomFromBaseClass.Jerry
 fullName: CatLibrary.TomFromBaseClass.Jerry
 nameWithType: CatLibrary.TomFromBaseClass.Jerry
-assemblies:
-- CatLibrary
+assembliesWithMoniker:
+- value: CatLibrary.dll
 syntaxWithMoniker:
 - lang: cpp
   values:

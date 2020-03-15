@@ -36,8 +36,8 @@ namespace: CatLibrary
 name: TomFromBaseClass.Jerry
 fullName: CatLibrary.TomFromBaseClass.Jerry.TomFromBaseClass.Jerry
 nameWithType: TomFromBaseClass.Jerry.TomFromBaseClass.Jerry
-assemblies:
-- CatLibrary
+assembliesWithMoniker:
+- value: CatLibrary.dll
 devLangs:
 - csharp
 - vb

@@ -31,8 +31,8 @@ namespace: CatLibrary
 name: CatchJerry
 fullName: CatLibrary.ICat.CatchJerry
 nameWithType: ICat.CatchJerry
-assemblies:
-- CatLibrary
+assembliesWithMoniker:
+- value: CatLibrary.dll
 devLangs:
 - csharp
 - vb

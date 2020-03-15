@@ -40,8 +40,8 @@ namespace: CatLibrary
 name: Equals
 fullName: CatLibrary.Cat<T,K>.Equals
 nameWithType: Cat<T,K>.Equals
-assemblies:
-- CatLibrary
+assembliesWithMoniker:
+- value: CatLibrary.dll
 devLangs:
 - csharp
 - vb

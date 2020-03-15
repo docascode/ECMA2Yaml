@@ -18,8 +18,8 @@ namespace: CatLibrary
 name: ICatExtension
 fullName: CatLibrary.ICatExtension
 nameWithType: CatLibrary.ICatExtension
-assemblies:
-- CatLibrary
+assembliesWithMoniker:
+- value: CatLibrary.dll
 syntaxWithMoniker:
 - lang: cpp
   values:

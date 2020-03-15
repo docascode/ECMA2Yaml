@@ -41,8 +41,8 @@ namespace: VersioningTest
 name: ExtMethodForI
 fullName: VersioningTest.VersioningExtensions.ExtMethodForI
 nameWithType: VersioningExtensions.ExtMethodForI
-assemblies:
-- CatLibrary
+assembliesWithMoniker:
+- value: CatLibrary.dll
 devLangs:
 - csharp
 - vb

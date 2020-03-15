@@ -34,8 +34,8 @@ namespace: CatLibrary
 name: Complex<T,J>.ComplexFlags
 fullName: CatLibrary.Complex<T,J>.ComplexFlags
 nameWithType: CatLibrary.Complex<T,J>.ComplexFlags
-assemblies:
-- CatLibrary
+assembliesWithMoniker:
+- value: CatLibrary.dll
 attributesWithMoniker:
 - value: System.FlagsAttribute
 syntaxWithMoniker:
