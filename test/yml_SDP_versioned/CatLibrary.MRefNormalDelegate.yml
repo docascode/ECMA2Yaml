@@ -16,8 +16,8 @@ namespace: CatLibrary
 name: MRefNormalDelegate
 fullName: CatLibrary.MRefNormalDelegate
 nameWithType: CatLibrary.MRefNormalDelegate
-assemblies:
-- CatLibrary
+assembliesWithMoniker:
+- value: CatLibrary.dll
 syntaxWithMoniker:
 - lang: cpp
   values:

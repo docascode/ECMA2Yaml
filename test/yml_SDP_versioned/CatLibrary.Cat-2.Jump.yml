@@ -53,8 +53,8 @@ namespace: CatLibrary
 name: Jump
 fullName: CatLibrary.Cat<T,K>.Jump
 nameWithType: Cat<T,K>.Jump
-assemblies:
-- CatLibrary
+assembliesWithMoniker:
+- value: CatLibrary.dll
 devLangs:
 - csharp
 - vb

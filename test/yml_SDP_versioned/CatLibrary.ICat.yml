@@ -54,8 +54,8 @@ namespace: CatLibrary
 name: ICat
 fullName: CatLibrary.ICat
 nameWithType: CatLibrary.ICat
-assemblies:
-- CatLibrary
+assembliesWithMoniker:
+- value: CatLibrary.dll
 syntaxWithMoniker:
 - lang: cpp
   values:

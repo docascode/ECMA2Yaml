@@ -36,8 +36,8 @@ namespace: VersioningTest
 name: MethodFromClassA
 fullName: VersioningTest.A.MethodFromClassA
 nameWithType: A.MethodFromClassA
-assemblies:
-- CatLibrary
+assembliesWithMoniker:
+- value: CatLibrary.dll
 devLangs:
 - csharp
 - vb

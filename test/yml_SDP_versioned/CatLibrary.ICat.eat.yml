@@ -27,8 +27,8 @@ members:
   summary: eat event of cat. Every cat must implement this event.
   metadata: {}
 namespace: CatLibrary
-assemblies:
-- CatLibrary
+assembliesWithMoniker:
+- value: CatLibrary.dll
 devLangs:
 - csharp
 - vb

@@ -44,8 +44,8 @@ namespace: CatLibrary
 name: GetTailLength
 fullName: CatLibrary.Cat<T,K>.GetTailLength
 nameWithType: Cat<T,K>.GetTailLength
-assemblies:
-- CatLibrary
+assembliesWithMoniker:
+- value: CatLibrary.dll
 devLangs:
 - csharp
 - cpp

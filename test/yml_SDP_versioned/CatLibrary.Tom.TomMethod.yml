@@ -51,8 +51,8 @@ namespace: CatLibrary
 name: TomMethod
 fullName: CatLibrary.Tom.TomMethod
 nameWithType: Tom.TomMethod
-assemblies:
-- CatLibrary
+assembliesWithMoniker:
+- value: CatLibrary.dll
 devLangs:
 - csharp
 - vb

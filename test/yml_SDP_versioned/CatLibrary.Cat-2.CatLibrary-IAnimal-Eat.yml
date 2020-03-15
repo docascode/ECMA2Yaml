@@ -106,8 +106,8 @@ namespace: CatLibrary
 name: IAnimal.Eat
 fullName: CatLibrary.Cat<T,K>.CatLibrary.IAnimal.Eat
 nameWithType: Cat<T,K>.IAnimal.Eat
-assemblies:
-- CatLibrary
+assembliesWithMoniker:
+- value: CatLibrary.dll
 devLangs:
 - csharp
 - vb
