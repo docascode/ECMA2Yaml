@@ -254,6 +254,7 @@ paket-files/
 
 # Mine
 ECMA2Yaml/_nuget/
+ECMA2Yaml/MigrationBackup/
 test/_bin/
 test/frameworks
 test/yml_MREF_After
