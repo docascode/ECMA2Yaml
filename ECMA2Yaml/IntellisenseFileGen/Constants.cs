@@ -35,5 +35,8 @@ namespace IntellisenseFileGen
         //this is a test page
         //```
         public static Regex TripleSytax_Pattern2 = new Regex("(```\\s*(.*?)\\s*```)", RegexOptions.Compiled);
+
+        // <summary>Creates an @Windows.AI.MachineLearning.ImageFeatureValue?text=ImageFeatureValue using the given video frame.</summary>
+        public static Regex Link_Pattern1 = new Regex("(@.*\\?text=(.*))", RegexOptions.Compiled);
     }
 }

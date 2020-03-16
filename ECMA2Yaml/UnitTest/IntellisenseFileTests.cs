@@ -135,6 +135,14 @@ Boolean isAvailable = scheduleObject.RawSchedule[2, 15, 3];
             PatternValidate(inText, expected, Constants.Link_Pattern);
         }
 
+        [DataTestMethod]
+        [DataRow("Creates an @Windows.AI.MachineLearning.ImageFeatureValue?text=ImageFeatureValue using the given video frame."
+                , "Creates an ImageFeatureValue using the given video frame.")]
+        public void Link_Pattern1_Test(string inText, string expected)
+        {
+            PatternValidate(inText, expected, Constants.Link_Pattern1);
+        }
+
         private static void SpecialProcessValidation(string inText, string expected)
         {
             XText text = new XText(inText);

@@ -509,7 +509,17 @@ namespace IntellisenseFileGen
                 {
                     formatEles.ToList().ForEach(formatEle =>
                     {
-                        formatEle.ReplaceWith(formatEle.Value);
+                        string cdDataValue = formatEle.Value;
+                        var matches = RegexHelper.GetMatches_All_JustWantedOne(Constants.Link_Pattern1, cdDataValue);
+                        if (matches != null && matches.Length >= 2)
+                        {
+                            for (int i = 0; i < matches.Length; i += 2)
+                            {
+                                cdDataValue = cdDataValue.Replace(matches[i], matches[i + 1]);
+                            }
+                        }
+
+                        formatEle.ReplaceWith(System.Net.WebUtility.HtmlDecode(cdDataValue));
                     });
                 }
 
