@@ -103,21 +103,13 @@ namespace ECMA2Yaml.Models.SDP
         [YamlMember(Alias = "examples")]
         public string Examples { get; set; }
 
-        [JsonProperty("requirement_sdk_names")]
-        [YamlMember(Alias = "requirement_sdk_names")]
-        public IEnumerable<string> RequirementSDKNames { get; set; }
+        [JsonProperty("sdk_requirements")]
+        [YamlMember(Alias = "sdk_requirements")]
+        public SDKRequirements SDKRequirements { get; set; }
 
-        [JsonProperty("requirement_sdk_urls")]
-        [YamlMember(Alias = "requirement_sdk_urls")]
-        public IEnumerable<string> RequirementSDKUrls { get; set; }
-
-        [JsonProperty("requirement_os_names")]
-        [YamlMember(Alias = "requirement_os_names")]
-        public IEnumerable<string> RequirementOSNames { get; set; }
-
-        [JsonProperty("requirement_os_min_versions")]
-        [YamlMember(Alias = "requirement_os_min_versions")]
-        public IEnumerable<string> RequirementOSMinVersions { get; set; }
+        [JsonProperty("os_requirements")]
+        [YamlMember(Alias = "os_requirements")]
+        public OSRequirements OSRequirements{ get; set; }
 
         [JsonProperty("deviceFamilies")]
         [YamlMember(Alias = "deviceFamilies")]

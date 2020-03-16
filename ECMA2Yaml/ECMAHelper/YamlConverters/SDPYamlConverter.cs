@@ -161,21 +161,23 @@ namespace ECMA2Yaml
 
         private void GenerateUWPMetadata(ItemSDPModelBase model, ReflectionItem item)
         {
-            if (item.Metadata.TryGetValue(UWPMetadata.RequirementSDKNames, out object requirementSDKNames))
+            if (item.Metadata.TryGetValue(UWPMetadata.SDKRequirementsName, out object sdkReqName))
             {
-                model.RequirementSDKNames = (IEnumerable<string>)requirementSDKNames;
+                SDKRequirements sdkRequirements = new SDKRequirements { Name = (string)sdkReqName };
+                if (item.Metadata.TryGetValue(UWPMetadata.SDKRequirementsUrl, out object sdkReqUrl))
+                {
+                    sdkRequirements.Url = (string)sdkReqUrl;
+                }
+                model.SDKRequirements = sdkRequirements;
             }
-            if (item.Metadata.TryGetValue(UWPMetadata.RequirementSDKUrls, out object requirementSDKUrls))
+            if (item.Metadata.TryGetValue(UWPMetadata.OSRequirementsName, out object osReqName))
             {
-                model.RequirementSDKUrls = (IEnumerable<string>)requirementSDKUrls;
-            }
-            if (item.Metadata.TryGetValue(UWPMetadata.RequirementOSNames, out object requirementOSNames))
-            {
-                model.RequirementOSNames = (IEnumerable<string>)requirementOSNames;
-            }
-            if (item.Metadata.TryGetValue(UWPMetadata.RequirementOSMinVersions, out object requirementOSMinVersions))
-            {
-                model.RequirementOSMinVersions = (IEnumerable<string>)requirementOSMinVersions;
+                OSRequirements osRequirements = new OSRequirements { Name = (string)osReqName };
+                if (item.Metadata.TryGetValue(UWPMetadata.OSRequirementsMinVersion, out object osReqMinVer))
+                {
+                    osRequirements.MinVer = (string)osReqMinVer;
+                }
+                model.OSRequirements = osRequirements;
             }
             if (item.Metadata.TryGetValue(UWPMetadata.DeviceFamilies, out object deviceFamilies))
             {

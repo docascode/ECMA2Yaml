@@ -32,10 +32,10 @@ namespace ECMA2Yaml.Models
 
     public class UWPMetadata
     {
-        public static readonly string RequirementSDKNames = "requirement_sdk_names";
-        public static readonly string RequirementSDKUrls = "requirement_sdk_urls";
-        public static readonly string RequirementOSNames = "requirement_os_names";
-        public static readonly string RequirementOSMinVersions = "requirement_os_min_versions";
+        public static readonly string SDKRequirementsName = "requirement_sdk_names";
+        public static readonly string SDKRequirementsUrl = "requirement_sdk_urls";
+        public static readonly string OSRequirementsName = "requirement_os_names";
+        public static readonly string OSRequirementsMinVersion = "requirement_os_min_versions";
         public static readonly string DeviceFamilies = "deviceFamilies";
         public static readonly string DeviceFamiliesVersions = "deviceFamiliesVersions";
         public static readonly string ApiContracts = "apiContracts";
@@ -46,10 +46,10 @@ namespace ECMA2Yaml.Models
 
         public static readonly Dictionary<string, MetadataDataType> Values = new Dictionary<string, MetadataDataType>
         {
-            {RequirementSDKNames, MetadataDataType.StringArray },
-            {RequirementSDKUrls, MetadataDataType.StringArray },
-            {RequirementOSNames, MetadataDataType.StringArray },
-            {RequirementOSMinVersions, MetadataDataType.StringArray },
+            {SDKRequirementsName, MetadataDataType.String },
+            {SDKRequirementsUrl, MetadataDataType.String },
+            {OSRequirementsName, MetadataDataType.String },
+            {OSRequirementsMinVersion, MetadataDataType.String },
             {DeviceFamilies, MetadataDataType.StringArray },
             {DeviceFamiliesVersions, MetadataDataType.StringArray },
             {ApiContracts, MetadataDataType.StringArray },
