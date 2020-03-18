@@ -113,19 +113,11 @@ namespace ECMA2Yaml.Models.SDP
 
         [JsonProperty("deviceFamilies")]
         [YamlMember(Alias = "deviceFamilies")]
-        public IEnumerable<string> DeviceFamilies { get; set; }
-
-        [JsonProperty("deviceFamiliesVersions")]
-        [YamlMember(Alias = "deviceFamiliesVersions")]
-        public IEnumerable<string> DeviceFamiliesVersions { get; set; }
+        public IEnumerable<DeviceFamily> DeviceFamilies { get; set; }
 
         [JsonProperty("apiContracts")]
         [YamlMember(Alias = "apiContracts")]
-        public IEnumerable<string> ApiContracts { get; set; }
-
-        [JsonProperty("apiContractsVersions")]
-        [YamlMember(Alias = "apiContractsVersions")]
-        public IEnumerable<string> ApiContractsVersions { get; set; }
+        public IEnumerable<APIContract> ApiContracts { get; set; }
 
         [JsonProperty("capabilities")]
         [YamlMember(Alias = "capabilities")]

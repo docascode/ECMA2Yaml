@@ -36,10 +36,10 @@ namespace ECMA2Yaml.Models
         public static readonly string SDKRequirementsUrl = "requirement_sdk_urls";
         public static readonly string OSRequirementsName = "requirement_os_names";
         public static readonly string OSRequirementsMinVersion = "requirement_os_min_versions";
-        public static readonly string DeviceFamilies = "deviceFamilies";
-        public static readonly string DeviceFamiliesVersions = "deviceFamiliesVersions";
-        public static readonly string ApiContracts = "apiContracts";
-        public static readonly string ApiContractsVersions = "apiContractsVersions";
+        public static readonly string DeviceFamilyNames = "deviceFamilies";
+        public static readonly string DeviceFamilyVersions = "deviceFamiliesVersions";
+        public static readonly string ApiContractNames = "apiContracts";
+        public static readonly string ApiContractVersions = "apiContractsVersions";
         public static readonly string Capabilities = "capabilities";
         public static readonly string XamlMemberSyntax = "xamlMemberSyntax";
         public static readonly string ContentSourcePath = "contentSourcePath";
@@ -50,10 +50,10 @@ namespace ECMA2Yaml.Models
             {SDKRequirementsUrl, MetadataDataType.String },
             {OSRequirementsName, MetadataDataType.String },
             {OSRequirementsMinVersion, MetadataDataType.String },
-            {DeviceFamilies, MetadataDataType.StringArray },
-            {DeviceFamiliesVersions, MetadataDataType.StringArray },
-            {ApiContracts, MetadataDataType.StringArray },
-            {ApiContractsVersions, MetadataDataType.StringArray },
+            {DeviceFamilyNames, MetadataDataType.StringArray },
+            {DeviceFamilyVersions, MetadataDataType.StringArray },
+            {ApiContractNames, MetadataDataType.StringArray },
+            {ApiContractVersions, MetadataDataType.StringArray },
             {Capabilities, MetadataDataType.StringArray },
             {XamlMemberSyntax, MetadataDataType.String },
             {ContentSourcePath, MetadataDataType.String }

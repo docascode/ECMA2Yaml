@@ -179,21 +179,51 @@ namespace ECMA2Yaml
                 }
                 model.OSRequirements = osRequirements;
             }
-            if (item.Metadata.TryGetValue(UWPMetadata.DeviceFamilies, out object deviceFamilies))
+            if (item.Metadata.TryGetValue(UWPMetadata.DeviceFamilyNames, out object deviceFamilies))
             {
-                model.DeviceFamilies = (IEnumerable<string>)deviceFamilies;
+                String[] familyNames = (String[])deviceFamilies;
+                List<DeviceFamily> families = new List<DeviceFamily>();
+                if (familyNames.Length > 0 && item.Metadata.TryGetValue(UWPMetadata.DeviceFamilyVersions, out object deviceFamilyVersions))
+                {
+                    String[] familyVersions = (String[])deviceFamilyVersions;
+
+                    if (familyVersions.Length > 0)
+                    {
+                        int minNameVersionPairs = Math.Min(familyNames.Length, familyVersions.Length);
+
+                        for (int i = 0; i < minNameVersionPairs; i++)
+                        {
+                            DeviceFamily df = new DeviceFamily { Name = familyNames[i], Version = familyVersions[i] };
+                            families.Add(df);
+                        }
+                    }
+                }
+
+                if (families.Count > 0)
+                    model.DeviceFamilies = families;
             }
-            if (item.Metadata.TryGetValue(UWPMetadata.DeviceFamiliesVersions, out object deviceFamiliesVersions))
+            if (item.Metadata.TryGetValue(UWPMetadata.ApiContractNames, out object apiContracts))
             {
-                model.DeviceFamiliesVersions = (IEnumerable<string>)deviceFamiliesVersions;
-            }
-            if (item.Metadata.TryGetValue(UWPMetadata.ApiContracts, out object apiContracts))
-            {
-                model.ApiContracts = (IEnumerable<string>)apiContracts;
-            }
-            if (item.Metadata.TryGetValue(UWPMetadata.ApiContractsVersions, out object apiContractsVersions))
-            {
-                model.ApiContractsVersions = (IEnumerable<string>)apiContractsVersions;
+                String[] apicNames = (String[])apiContracts;
+                List<APIContract> contracts = new List<APIContract>();
+                if (apicNames.Length > 0 && item.Metadata.TryGetValue(UWPMetadata.ApiContractVersions, out object apicVersions))
+                {
+                    String[] contractVersions = (String[])apicVersions;
+
+                    if (contractVersions.Length > 0)
+                    {
+                        int minNameVersionPairs = Math.Min(apicNames.Length, contractVersions.Length);
+
+                        for (int i = 0; i < minNameVersionPairs; i++)
+                        {
+                            APIContract apic = new APIContract { Name = apicNames[i], Version = contractVersions[i] };
+                            contracts.Add(apic);
+                        }
+                    }
+                }
+
+                if (contracts.Count > 0)
+                    model.ApiContracts = contracts;
             }
             if (item.Metadata.TryGetValue(UWPMetadata.Capabilities, out object capabilities))
             {
