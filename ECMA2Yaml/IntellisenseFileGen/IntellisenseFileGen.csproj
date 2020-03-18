@@ -58,12 +58,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ECMAHelper\ECMAHelper.csproj">
-      <Project>{b5d18314-613f-492a-9564-c9bcd1a183e6}</Project>
-      <Name>ECMAHelper</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
@@ -76,6 +70,12 @@
     <PackageReference Include="Newtonsoft.Json">
       <Version>9.0.1</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ECMAHelper\ECMAHelper.csproj">
+      <Project>{5ee5a983-5433-4d03-8ab3-c17b742d891b}</Project>
+      <Name>ECMAHelper</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
