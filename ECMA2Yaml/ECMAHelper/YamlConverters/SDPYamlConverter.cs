@@ -106,7 +106,10 @@ namespace ECMA2Yaml
                     .Select(att => new VersionedString() { Value = att.TypeFullName, Monikers = att.Monikers?.ToHashSet() })
                     .ToList().NullIfEmpty();
                 rval.AttributeMonikers = ConverterHelper.ConsolidateVersionedValues(rval.AttributesWithMoniker, item.Monikers);
-                rval.SyntaxWithMoniker = ConverterHelper.BuildVersionedSignatures(item)?.NullIfEmpty();
+                rval.SyntaxWithMoniker = (_store.UWPMode 
+                    ? ConverterHelper.BuildVersionedUWPSignatures(item)
+                    : ConverterHelper.BuildVersionedSignatures(item))
+                    ?.NullIfEmpty();
             }
             else
             {
