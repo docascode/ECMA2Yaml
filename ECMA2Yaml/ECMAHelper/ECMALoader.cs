@@ -38,7 +38,6 @@ namespace ECMA2Yaml
             //var extensionMethods = LoadExtensionMethods(sourcePath);
             var filterStore = LoadFilters(sourcePath);
             var monikerNugetMapping = LoadMonikerPackageMapping(sourcePath);
-            var monikerAssemblyMapping = LoadMonikerAssemblyMapping(sourcePath);
 
             ConcurrentBag<Namespace> namespaces = new ConcurrentBag<Namespace>();
             ParallelOptions opt = new ParallelOptions() { MaxDegreeOfParallelism = Environment.ProcessorCount };
@@ -71,7 +70,7 @@ namespace ECMA2Yaml
             }
 
             var filteredNS = Filter(namespaces, filterStore);
-            var store = new ECMAStore(filteredNS.OrderBy(ns => ns.Name).ToArray(), frameworks, /*extensionMethods,*/ monikerNugetMapping, monikerAssemblyMapping)
+            var store = new ECMAStore(filteredNS.OrderBy(ns => ns.Name).ToArray(), frameworks, monikerNugetMapping)
             {
                 FilterStore = filterStore
             };
@@ -251,6 +250,14 @@ namespace ECMA2Yaml
             if (attrs != null)
             {
                 t.Attributes = attrs.Elements("Attribute").Select(a => LoadAttribute(a)).ToList();
+            }
+
+            //TypeForwardingChain
+            var forwardingChain = tRoot.Element("TypeForwardingChain");
+            if (forwardingChain != null)
+            {
+                var fwds = forwardingChain.Elements("TypeForwarding").Select(fwd => LoadTypeForwarding(fwd)).ToList();
+                t.TypeForwardingChain = new TypeForwardingChain(fwds);
             }
 
             //Members
@@ -446,12 +453,33 @@ namespace ECMA2Yaml
 
         private Member LoadMemberGroup(Models.Type t, XElement mElement)
         {
-            Member m = new Member();
-            m.Parent = t;
-            m.Name = mElement.Attribute("MemberName").Value;
-            m.AssemblyInfo = mElement.Elements("AssemblyInfo")?.SelectMany(a => ParseAssemblyInfo(a)).ToList();
-            m.Docs = LoadDocs(mElement.Element("Docs"));
+            Member m = new Member
+            {
+                Parent = t,
+                Name = mElement.Attribute("MemberName").Value,
+                AssemblyInfo = mElement.Elements("AssemblyInfo")?.SelectMany(a => ParseAssemblyInfo(a)).ToList(),
+                Docs = LoadDocs(mElement.Element("Docs"))
+            };
             return m;
+        }
+
+        private VersionedValue<TypeForwarding> LoadTypeForwarding(XElement fwdElement)
+        {
+            var fwd = new TypeForwarding()
+            {
+                From = new AssemblyInfo()
+                {
+                    Name = fwdElement.Attribute("From")?.Value,
+                    Version = fwdElement.Attribute("FromVersion")?.Value
+                },
+                To = new AssemblyInfo()
+                {
+                    Name = fwdElement.Attribute("To")?.Value,
+                    Version = fwdElement.Attribute("ToVersion")?.Value
+                }
+            };
+            var monikers = LoadFrameworkAlternate(fwdElement);
+            return new VersionedValue<TypeForwarding>(monikers, fwd);
         }
     }
 }

@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\ECMAStore.assemblies.cs" />
     <Compile Include="Extensions\ConverterHelper.cs" />
     <Compile Include="Extensions\ModelExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
@@ -76,6 +77,7 @@
     <Compile Include="Models\SDP\Shared\TypeParameterSDPModel.cs" />
     <Compile Include="Models\SDP\Shared\TypeReference.cs" />
     <Compile Include="Models\SDP\DelegateSDPModel.cs" />
+    <Compile Include="Models\TypeForwarding.cs" />
     <Compile Include="Models\VersionedValue.cs" />
     <Compile Include="Models\SDP\TypeSDPModel.cs" />
     <Compile Include="Models\SDP\NamespaceSDPModel.cs" />

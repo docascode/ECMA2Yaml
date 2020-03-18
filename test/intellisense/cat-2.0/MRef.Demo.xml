@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <assembly>
+    <name>MRef.Demo</name>
+  </assembly>
+  <members>
+    <member name="T:MRef.Demo.Enumeration.ColorType">
+      <summary>
+            Enumeration ColorType</summary>
+    </member>
+    <member name="F:MRef.Demo.Enumeration.ColorType.Blue">
+      <summary>
+            blue like river</summary>
+    </member>
+    <member name="F:MRef.Demo.Enumeration.ColorType.Purple">
+      <summary>
+            purple rain, purple rain</summary>
+    </member>
+    <member name="F:MRef.Demo.Enumeration.ColorType.Red">
+      <summary>
+            this color is red</summary>
+    </member>
+    <member name="F:MRef.Demo.Enumeration.ColorType.Yellow">
+      <summary>
+            yellow comes from desert</summary>
+    </member>
+  </members>
+</doc>

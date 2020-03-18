@@ -109,7 +109,7 @@ namespace IntellisenseFileGen
                 throw new Exception(message);
             }
 
-            var typeList = LoadTypes(store);
+            var typesByDocId = LoadTypes(store).ToDictionary(t => t.DocId, t => t);
 
             requiredFrameworkList.ForEach(fw =>
             {
@@ -117,22 +117,25 @@ namespace IntellisenseFileGen
                 {
                     string outPutFolder = Path.Combine(_outFolder, fw);
 
-                    var fwAssemblyList = frameworks.FrameworkAssemblies[fw];
-                    var ass_Type_Mem_OfFw = frameworks.DocIdToFrameworkDict.Where(p => p.Value != null && p.Value.Contains(fw)).Select(p => p.Key).ToList();
-                    var fwTypeDocIdList = ass_Type_Mem_OfFw.Where(p => p.Contains("T:")).ToHashSet();
-                    var fwMemberDocIdList = ass_Type_Mem_OfFw.Where(p => p.Contains("M:") || p.Contains("P:") || p.Contains("F:") || p.Contains("E:")).ToHashSet();
+                    var fwAssemblyList = frameworks.FrameworkAssemblies[fw].Values.ToList();
+                    var fwTypeDocIdsByAssembly = store.TypesByUid.Values
+                    .Where(t => t.Monikers.Contains(fw))
+                    .SelectMany(t => t.VersionedAssemblyInfo.ValuesPerMoniker[fw].Select(asm => (asmName: asm.Name, t.DocId)))
+                    .GroupBy(tuple => tuple.asmName)
+                    .ToDictionary(g => g.Key, g => g.Select(t => t.DocId).ToHashSet());
+                    var fwMemberDocIdsByAssembly = store.MembersByUid.Values
+                    .Where(m => m.Monikers.Contains(fw))
+                    .SelectMany(m => m.VersionedAssemblyInfo.ValuesPerMoniker[fw].Select(asm => (asmName: asm.Name, m.DocId)))
+                    .GroupBy(tuple => tuple.asmName)
+                    .ToDictionary(g => g.Key, g => g.Select(m => m.DocId).ToHashSet());
 
-                    fwAssemblyList.ToList().ForEach(assembly =>
+                    fwAssemblyList = fwAssemblyList.Where(asm => fwTypeDocIdsByAssembly.ContainsKey(asm.Name)).ToList();
+                    fwAssemblyList.ForEach(assembly =>
                     {
-                        string assemblyInfoStr = string.Format("{0}-{1}", assembly.Value.Name, assembly.Value.Version);
-                        var assemblyTypes = typeList.Where(t =>
-                        {
-                            return t.AssemblyInfos.Exists(p => { return p == assemblyInfoStr; });
-                        }).ToList();
-
+                        var assemblyTypes = fwTypeDocIdsByAssembly[assembly.Name].Select(docId => typesByDocId[docId]).ToList();
+                        var assemblyMemberDocIds = fwMemberDocIdsByAssembly.ContainsKey(assembly.Name) ? fwMemberDocIdsByAssembly[assembly.Name] : new HashSet<string>();
                         // Order by xml
-                        var selectedAssemblyTypes = assemblyTypes.Where(p => { return fwTypeDocIdList.Contains(p.DocId); });
-                        if (selectedAssemblyTypes != null && selectedAssemblyTypes.Count() > 0)
+                        if (assemblyTypes.Count > 0)
                         {
                             XDocument intelligenceDoc = new XDocument(new XDeclaration("1.0", "utf-8", null));
                             var docEle = new XElement("doc");
@@ -141,9 +144,9 @@ namespace IntellisenseFileGen
                             docEle.Add(assemblyEle);
                             docEle.Add(membersEle);
                             intelligenceDoc.Add(docEle);
-                            assemblyEle.SetElementValue("name", assembly.Value.Name);
+                            assemblyEle.SetElementValue("name", assembly.Name);
 
-                            selectedAssemblyTypes.OrderBy(p => p.DocId).ToList().ForEach(tt =>
+                            assemblyTypes.OrderBy(p => p.DocId).ToList().ForEach(tt =>
                             {
                                 string id = tt.Uid ?? tt.DocId.Replace("T:", "");
                                 if (store.TypesByUid.ContainsKey(id))
@@ -162,7 +165,7 @@ namespace IntellisenseFileGen
                                     {
                                         tt.Members.OrderBy(p => p.DocId).ToList().ForEach(m =>
                                         {
-                                            if (fwMemberDocIdList.Contains(m.DocId) /*&& m.AssemblyInfos.Exists(p => { return p == assemblyInfoStr; })*/)
+                                            if (assemblyMemberDocIds.Contains(m.DocId))
                                             {
                                                 if (store.MembersByUid.ContainsKey(m.Uid))
                                                 {
@@ -173,7 +176,6 @@ namespace IntellisenseFileGen
                                                 {
                                                     membersEle.Add(m.Docs);
                                                 }
-
                                             }
                                         });
                                     }
@@ -186,8 +188,8 @@ namespace IntellisenseFileGen
                                     Directory.CreateDirectory(outPutFolder);
                                 }
 
-                                intelligenceDoc.Save(Path.Combine(outPutFolder, assembly.Value.Name + ".xml"));
-                                WriteLine($"Done generate {fw}.{assembly.Value.Name} intellisense files.");
+                                intelligenceDoc.Save(Path.Combine(outPutFolder, assembly.Name + ".xml"));
+                                WriteLine($"Done generate {fw}.{assembly.Name} intellisense files.");
                             }
                         }
                     });
