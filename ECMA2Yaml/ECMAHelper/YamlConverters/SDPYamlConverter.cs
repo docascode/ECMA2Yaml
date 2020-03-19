@@ -161,6 +161,9 @@ namespace ECMA2Yaml
 
         private void GenerateUWPMetadata(ItemSDPModelBase model, ReflectionItem item)
         {
+            if (model.UWPProperties == null)
+                model.UWPProperties = new UWPProperties();
+
             if (item.Metadata.TryGetValue(UWPMetadata.SDKRequirementsName, out object sdkReqName))
             {
                 SDKRequirements sdkRequirements = new SDKRequirements { Name = (string)sdkReqName };
@@ -168,7 +171,7 @@ namespace ECMA2Yaml
                 {
                     sdkRequirements.Url = (string)sdkReqUrl;
                 }
-                model.SDKRequirements = sdkRequirements;
+                model.UWPProperties.SDKRequirements = sdkRequirements;
             }
             if (item.Metadata.TryGetValue(UWPMetadata.OSRequirementsName, out object osReqName))
             {
@@ -177,7 +180,7 @@ namespace ECMA2Yaml
                 {
                     osRequirements.MinVer = (string)osReqMinVer;
                 }
-                model.OSRequirements = osRequirements;
+                model.UWPProperties.OSRequirements = osRequirements;
             }
             if (item.Metadata.TryGetValue(UWPMetadata.DeviceFamilyNames, out object deviceFamilies))
             {
@@ -200,7 +203,7 @@ namespace ECMA2Yaml
                 }
 
                 if (families.Count > 0)
-                    model.DeviceFamilies = families;
+                    model.UWPProperties.DeviceFamilies = families;
             }
             if (item.Metadata.TryGetValue(UWPMetadata.ApiContractNames, out object apiContracts))
             {
@@ -223,11 +226,11 @@ namespace ECMA2Yaml
                 }
 
                 if (contracts.Count > 0)
-                    model.ApiContracts = contracts;
+                    model.UWPProperties.APIContracts = contracts;
             }
             if (item.Metadata.TryGetValue(UWPMetadata.Capabilities, out object capabilities))
             {
-                model.Capabilities = (IEnumerable<string>)capabilities;
+                model.UWPProperties.Capabilities = (IEnumerable<string>)capabilities;
             }
             if (item.Metadata.TryGetValue(UWPMetadata.XamlMemberSyntax, out object xamlMemberSyntax))
             {

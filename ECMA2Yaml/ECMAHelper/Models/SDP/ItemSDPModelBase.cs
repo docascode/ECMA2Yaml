@@ -103,25 +103,29 @@ namespace ECMA2Yaml.Models.SDP
         [YamlMember(Alias = "examples")]
         public string Examples { get; set; }
 
-        [JsonProperty("sdk_requirements")]
-        [YamlMember(Alias = "sdk_requirements")]
-        public SDKRequirements SDKRequirements { get; set; }
+        [JsonProperty("uwpProperties")]
+        [YamlMember(Alias = "uwpProperties")]
+        public UWPProperties UWPProperties { get; set; }
 
-        [JsonProperty("os_requirements")]
-        [YamlMember(Alias = "os_requirements")]
-        public OSRequirements OSRequirements{ get; set; }
+        //[JsonProperty("sdk_requirements")]
+        //[YamlMember(Alias = "sdk_requirements")]
+        //public SDKRequirements SDKRequirements { get; set; }
 
-        [JsonProperty("deviceFamilies")]
-        [YamlMember(Alias = "deviceFamilies")]
-        public IEnumerable<DeviceFamily> DeviceFamilies { get; set; }
+        //[JsonProperty("os_requirements")]
+        //[YamlMember(Alias = "os_requirements")]
+        //public OSRequirements OSRequirements{ get; set; }
 
-        [JsonProperty("apiContracts")]
-        [YamlMember(Alias = "apiContracts")]
-        public IEnumerable<APIContract> ApiContracts { get; set; }
+        //[JsonProperty("deviceFamilies")]
+        //[YamlMember(Alias = "deviceFamilies")]
+        //public IEnumerable<DeviceFamily> DeviceFamilies { get; set; }
 
-        [JsonProperty("capabilities")]
-        [YamlMember(Alias = "capabilities")]
-        public IEnumerable<string> Capabilities { get; set; }
+        //[JsonProperty("apiContracts")]
+        //[YamlMember(Alias = "apiContracts")]
+        //public IEnumerable<APIContract> ApiContracts { get; set; }
+
+        //[JsonProperty("capabilities")]
+        //[YamlMember(Alias = "capabilities")]
+        //public IEnumerable<string> Capabilities { get; set; }
 
         [JsonProperty("xamlMemberSyntax")]
         [YamlMember(Alias = "xamlMemberSyntax")]

@@ -106,6 +106,7 @@
     <Compile Include="Models\GitSourceDetail.cs" />
     <Compile Include="Models\OSRequirements.cs" />
     <Compile Include="Models\DeviceFamily.cs" />
+    <Compile Include="Models\UWPProperties.cs" />
     <Compile Include="Models\SDKRequirements.cs" />
     <Compile Include="Models\SDP\MemberSDPModel.cs" />
     <Compile Include="Models\SDP\OverloadSDPModel.cs" />
