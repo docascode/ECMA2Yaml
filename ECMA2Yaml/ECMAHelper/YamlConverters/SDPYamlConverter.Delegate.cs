@@ -25,7 +25,7 @@ namespace ECMA2Yaml
                 sdpDelegate.Returns = ConvertParameter<TypeReference>(t.ReturnValueType);
             }
 
-            sdpDelegate.Parameters = t.Parameters?.Select(p => ConvertNamedParameter(p, t.TypeParameters, showGenericType: false))
+            sdpDelegate.Parameters = t.Parameters?.Select(p => ConvertNamedParameter(p, t.TypeParameters))
                 .ToList().NullIfEmpty();
 
             if (t.Attributes != null
