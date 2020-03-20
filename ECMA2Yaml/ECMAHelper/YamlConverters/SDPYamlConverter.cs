@@ -161,8 +161,7 @@ namespace ECMA2Yaml
 
         private void GenerateUWPMetadata(ItemSDPModelBase model, ReflectionItem item)
         {
-            if (model.UWPProperties == null)
-                model.UWPProperties = new UWPProperties();
+            UWPProperties uwpProperties = new UWPProperties();
 
             if (item.Metadata.TryGetValue(UWPMetadata.SDKRequirementsName, out object sdkReqName))
             {
@@ -171,7 +170,7 @@ namespace ECMA2Yaml
                 {
                     sdkRequirements.Url = (string)sdkReqUrl;
                 }
-                model.UWPProperties.SDKRequirements = sdkRequirements;
+                uwpProperties.SDKRequirements = sdkRequirements;
             }
             if (item.Metadata.TryGetValue(UWPMetadata.OSRequirementsName, out object osReqName))
             {
@@ -180,7 +179,7 @@ namespace ECMA2Yaml
                 {
                     osRequirements.MinVer = (string)osReqMinVer;
                 }
-                model.UWPProperties.OSRequirements = osRequirements;
+                uwpProperties.OSRequirements = osRequirements;
             }
             if (item.Metadata.TryGetValue(UWPMetadata.DeviceFamilyNames, out object deviceFamilies))
             {
@@ -203,7 +202,7 @@ namespace ECMA2Yaml
                 }
 
                 if (families.Count > 0)
-                    model.UWPProperties.DeviceFamilies = families;
+                    uwpProperties.DeviceFamilies = families;
             }
             if (item.Metadata.TryGetValue(UWPMetadata.ApiContractNames, out object apiContracts))
             {
@@ -226,16 +225,22 @@ namespace ECMA2Yaml
                 }
 
                 if (contracts.Count > 0)
-                    model.UWPProperties.APIContracts = contracts;
+                    uwpProperties.APIContracts = contracts;
             }
             if (item.Metadata.TryGetValue(UWPMetadata.Capabilities, out object capabilities))
             {
-                model.UWPProperties.Capabilities = (IEnumerable<string>)capabilities;
+                uwpProperties.Capabilities = (IEnumerable<string>)capabilities;
             }
-            if (item.Metadata.TryGetValue(UWPMetadata.XamlMemberSyntax, out object xamlMemberSyntax))
-            {
-                model.XamlMemberSyntax = (string)xamlMemberSyntax;
-            }
+            //if (item.Metadata.TryGetValue(UWPMetadata.XamlMemberSyntax, out object xamlMemberSyntax))
+            //{
+            //    model.XamlMemberSyntax = (string)xamlMemberSyntax;
+            //}
+
+            if (uwpProperties.OSRequirements != null
+                || uwpProperties.SDKRequirements != null
+                || uwpProperties.DeviceFamilies != null
+                || uwpProperties.APIContracts != null)
+                model.UWPProperties = uwpProperties;
         }
 
         private void GenerateRequiredMetadata(ItemSDPModelBase model, ReflectionItem item, List<ReflectionItem> childrenItems = null)
