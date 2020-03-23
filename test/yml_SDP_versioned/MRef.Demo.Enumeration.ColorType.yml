@@ -48,9 +48,13 @@ namespace: MRef.Demo.Enumeration
 name: ColorType
 fullName: MRef.Demo.Enumeration.ColorType
 nameWithType: MRef.Demo.Enumeration.ColorType
-assemblies:
-- CatLibrary
-- MRef.Demo
+assembliesWithMoniker:
+- value: CatLibrary.dll
+  monikers:
+  - cat-1.0
+- value: MRef.Demo.dll
+  monikers:
+  - cat-2.0
 syntaxWithMoniker:
 - lang: cpp
   values:

@@ -28,8 +28,8 @@ namespace: VersioningTest
 name: G
 fullName: VersioningTest.G.G
 nameWithType: G.G
-assemblies:
-- CatLibrary
+assembliesWithMoniker:
+- value: CatLibrary.dll
 devLangs:
 - csharp
 - vb

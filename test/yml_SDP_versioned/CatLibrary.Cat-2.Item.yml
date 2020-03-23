@@ -42,8 +42,8 @@ namespace: CatLibrary
 name: Item[String]
 fullName: CatLibrary.Cat<T,K>.Item[String]
 nameWithType: Cat<T,K>.Item[String]
-assemblies:
-- CatLibrary
+assembliesWithMoniker:
+- value: CatLibrary.dll
 devLangs:
 - csharp
 - vb

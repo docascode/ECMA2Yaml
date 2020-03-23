@@ -28,8 +28,8 @@ namespace: VersioningTest
 name: A
 fullName: VersioningTest.A.A
 nameWithType: A.A
-assemblies:
-- CatLibrary
+assembliesWithMoniker:
+- value: CatLibrary.dll
 devLangs:
 - csharp
 - vb

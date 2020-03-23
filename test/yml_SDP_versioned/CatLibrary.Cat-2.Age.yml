@@ -34,8 +34,8 @@ namespace: CatLibrary
 name: Age
 fullName: CatLibrary.Cat<T,K>.Age
 nameWithType: Cat<T,K>.Age
-assemblies:
-- CatLibrary
+assembliesWithMoniker:
+- value: CatLibrary.dll
 devLangs:
 - csharp
 - vb

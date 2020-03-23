@@ -17,8 +17,8 @@ namespace: CatLibrary
 name: Complex<T,J>
 fullName: CatLibrary.Complex<T,J>
 nameWithType: CatLibrary.Complex<T,J>
-assemblies:
-- CatLibrary
+assembliesWithMoniker:
+- value: CatLibrary.dll
 syntaxWithMoniker:
 - lang: cpp
   values:

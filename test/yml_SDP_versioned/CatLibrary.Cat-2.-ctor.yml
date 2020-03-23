@@ -155,8 +155,8 @@ namespace: CatLibrary
 name: Cat<T,K>
 fullName: CatLibrary.Cat<T,K>.Cat
 nameWithType: Cat<T,K>.Cat<T,K>
-assemblies:
-- CatLibrary
+assembliesWithMoniker:
+- value: CatLibrary.dll
 devLangs:
 - csharp
 - vb

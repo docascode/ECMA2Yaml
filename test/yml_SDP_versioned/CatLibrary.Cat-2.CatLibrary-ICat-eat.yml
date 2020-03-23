@@ -23,8 +23,8 @@ members:
   - cat-2.0
   metadata: {}
 namespace: CatLibrary
-assemblies:
-- CatLibrary
+assembliesWithMoniker:
+- value: CatLibrary.dll
 devLangs:
 - csharp
 - vb

@@ -27,8 +27,8 @@ namespace: CatLibrary
 name: FakeDelegate<T>
 fullName: CatLibrary.FakeDelegate<T>
 nameWithType: CatLibrary.FakeDelegate<T>
-assemblies:
-- CatLibrary
+assembliesWithMoniker:
+- value: CatLibrary.dll
 syntaxWithMoniker:
 - lang: cpp
   values:

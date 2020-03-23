@@ -40,8 +40,8 @@ namespace: VersioningTest
 name: H
 fullName: VersioningTest.H
 nameWithType: VersioningTest.H
-assemblies:
-- CatLibrary
+assembliesWithMoniker:
+- value: CatLibrary.dll
 syntaxWithMoniker:
 - lang: cpp
   values:

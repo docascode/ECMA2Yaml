@@ -40,8 +40,8 @@ namespace: CatLibrary
 name: IAnimal.Item[Int32]
 fullName: CatLibrary.Cat<T,K>.CatLibrary.IAnimal.Item[Int32]
 nameWithType: Cat<T,K>.IAnimal.Item[Int32]
-assemblies:
-- CatLibrary
+assembliesWithMoniker:
+- value: CatLibrary.dll
 devLangs:
 - csharp
 - vb

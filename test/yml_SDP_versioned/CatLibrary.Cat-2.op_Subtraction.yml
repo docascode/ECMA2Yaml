@@ -41,8 +41,8 @@ namespace: CatLibrary
 name: Subtraction
 fullName: CatLibrary.Cat<T,K>.Subtraction
 nameWithType: Cat<T,K>.Subtraction
-assemblies:
-- CatLibrary
+assembliesWithMoniker:
+- value: CatLibrary.dll
 devLangs:
 - csharp
 - vb

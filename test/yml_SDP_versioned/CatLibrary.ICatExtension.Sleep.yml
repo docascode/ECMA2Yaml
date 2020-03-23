@@ -46,8 +46,8 @@ namespace: CatLibrary
 name: Sleep
 fullName: CatLibrary.ICatExtension.Sleep
 nameWithType: ICatExtension.Sleep
-assemblies:
-- CatLibrary
+assembliesWithMoniker:
+- value: CatLibrary.dll
 devLangs:
 - csharp
 - vb

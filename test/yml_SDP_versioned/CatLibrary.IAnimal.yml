@@ -31,8 +31,8 @@ namespace: CatLibrary
 name: IAnimal
 fullName: CatLibrary.IAnimal
 nameWithType: CatLibrary.IAnimal
-assemblies:
-- CatLibrary
+assembliesWithMoniker:
+- value: CatLibrary.dll
 syntaxWithMoniker:
 - lang: cpp
   values:

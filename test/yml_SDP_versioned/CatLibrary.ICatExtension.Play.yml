@@ -46,8 +46,8 @@ namespace: CatLibrary
 name: Play
 fullName: CatLibrary.ICatExtension.Play
 nameWithType: ICatExtension.Play
-assemblies:
-- CatLibrary
+assembliesWithMoniker:
+- value: CatLibrary.dll
 devLangs:
 - csharp
 - vb

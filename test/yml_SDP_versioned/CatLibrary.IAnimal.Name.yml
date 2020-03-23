@@ -34,8 +34,8 @@ namespace: CatLibrary
 name: Name
 fullName: CatLibrary.IAnimal.Name
 nameWithType: IAnimal.Name
-assemblies:
-- CatLibrary
+assembliesWithMoniker:
+- value: CatLibrary.dll
 devLangs:
 - csharp
 - vb

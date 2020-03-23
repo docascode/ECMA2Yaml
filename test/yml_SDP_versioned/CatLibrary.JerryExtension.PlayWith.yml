@@ -43,8 +43,8 @@ namespace: CatLibrary
 name: PlayWith
 fullName: CatLibrary.JerryExtension.PlayWith
 nameWithType: JerryExtension.PlayWith
-assemblies:
-- CatLibrary
+assembliesWithMoniker:
+- value: CatLibrary.dll
 devLangs:
 - csharp
 - vb
