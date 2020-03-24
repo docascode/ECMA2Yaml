@@ -844,7 +844,7 @@ namespace ECMA2Yaml.Models
         {
             if (t.Interfaces?.Count > 0)
             {
-                t.InheritedMembers = new Dictionary<string, string>();
+                t.InheritedMembers = new Dictionary<string, VersionedString>();
                 foreach (var f in t.Interfaces)
                 {
                     var interfaceUid = f.ToOuterTypeUid();
@@ -857,7 +857,7 @@ namespace ECMA2Yaml.Models
                             {
                                 if (m.Name != "Finalize" && m.ItemType != ItemType.Constructor && !m.Signatures.IsStatic)
                                 {
-                                    t.InheritedMembers[m.Id] = inter.Uid;
+                                    t.InheritedMembers[m.Id] = new VersionedString(null, inter.Uid);
                                 }
                             }
                         }
@@ -884,7 +884,7 @@ namespace ECMA2Yaml.Models
 
                 if (t.ItemType == ItemType.Class && !t.Signatures.IsStatic)
                 {
-                    t.InheritedMembers = new Dictionary<string, string>();
+                    t.InheritedMembers = new Dictionary<string, VersionedString>();
                     foreach(var inheritanceChain in t.InheritanceChains)
                     {
                         foreach (var btUid in inheritanceChain.Values)
@@ -902,7 +902,7 @@ namespace ECMA2Yaml.Models
                                             && m.ItemType != ItemType.AttachedEvent
                                             && !m.Signatures.IsStatic)
                                         {
-                                            t.InheritedMembers[m.Id] = bt.Uid;
+                                            t.InheritedMembers[m.Id] = new VersionedString(inheritanceChain.Monikers, bt.Uid);
                                         }
                                     }
                                 }

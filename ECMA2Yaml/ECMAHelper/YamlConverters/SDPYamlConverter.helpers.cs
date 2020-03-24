@@ -142,11 +142,19 @@ namespace ECMA2Yaml
             {
                 return null;
             }
+            var monikers = m.Monikers;
+            VersionedString inheritedFrom = null;
+            if (t?.InheritedMembers != null
+                && t.InheritedMembers.TryGetValue(m.Id, out inheritedFrom)
+                && inheritedFrom.Monikers != null)
+            {
+                monikers = monikers.Intersect(inheritedFrom.Monikers).ToHashSet();
+            }
             return new TypeMemberLink()
             {
                 Uid = m.Uid,
-                InheritedFrom = (t != null && m.Parent.Uid != t.Uid) ? m.Parent.Uid : null,
-                Monikers = m.Monikers
+                InheritedFrom = inheritedFrom?.Value,
+                Monikers = monikers
             };
         }
 

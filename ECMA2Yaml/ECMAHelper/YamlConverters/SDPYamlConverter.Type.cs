@@ -82,7 +82,7 @@ namespace ECMA2Yaml
             }
             if (t.InheritedMembers != null)
             {
-                members.AddRange(t.InheritedMembers.Select(p => p.Value + '.' + p.Key).Select(im => _store.MembersByUid[im]));
+                members.AddRange(t.InheritedMembers.Select(p => p.Value.Value + '.' + p.Key).Select(im => _store.MembersByUid[im]));
             }
             members = members.OrderBy(m => m.DisplayName).ToList();
             if (members.Count > 0)
