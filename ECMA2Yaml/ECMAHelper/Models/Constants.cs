@@ -47,18 +47,18 @@ namespace ECMA2Yaml.Models
 
         public static readonly Dictionary<string, MetadataDataType> Values = new Dictionary<string, MetadataDataType>
         {
-            {SDKRequirementsName, MetadataDataType.String },
-            {SDKRequirementsUrl, MetadataDataType.String },
-            {OSRequirementsName, MetadataDataType.String },
-            {OSRequirementsMinVersion, MetadataDataType.String },
-            {DeviceFamilyNames, MetadataDataType.StringArray },
-            {DeviceFamilyVersions, MetadataDataType.StringArray },
             {ApiContractNames, MetadataDataType.StringArray },
             {ApiContractVersions, MetadataDataType.StringArray },
             {Capabilities, MetadataDataType.StringArray },
-            {XamlSyntax, MetadataDataType.String },
+            {ContentSourcePath, MetadataDataType.String },
+            {DeviceFamilyNames, MetadataDataType.StringArray },
+            {DeviceFamilyVersions, MetadataDataType.StringArray },
+            {OSRequirementsMinVersion, MetadataDataType.String },
+            {OSRequirementsName, MetadataDataType.String },
             {XamlMemberSyntax, MetadataDataType.String },
-            {ContentSourcePath, MetadataDataType.String }
+            {XamlSyntax, MetadataDataType.String },
+            {SDKRequirementsName, MetadataDataType.String },
+            {SDKRequirementsUrl, MetadataDataType.String }
         };
     }
 

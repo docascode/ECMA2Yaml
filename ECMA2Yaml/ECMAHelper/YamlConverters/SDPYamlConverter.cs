@@ -154,7 +154,10 @@ namespace ECMA2Yaml
                 rval.IsDeprecated = true;
             }
 
-            GenerateUWPRequirements(rval, item);
+            if (_store.UWPMode)
+            {
+                GenerateUWPRequirements(rval, item);
+            }
 
             return rval;
         }
