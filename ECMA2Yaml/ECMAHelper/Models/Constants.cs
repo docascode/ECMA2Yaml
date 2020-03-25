@@ -41,6 +41,7 @@ namespace ECMA2Yaml.Models
         public static readonly string ApiContractNames = "apiContracts";
         public static readonly string ApiContractVersions = "apiContractsVersions";
         public static readonly string Capabilities = "capabilities";
+        public static readonly string XamlSyntax = "xamlSyntax";
         public static readonly string XamlMemberSyntax = "xamlMemberSyntax";
         public static readonly string ContentSourcePath = "contentSourcePath";
 
@@ -55,6 +56,7 @@ namespace ECMA2Yaml.Models
             {ApiContractNames, MetadataDataType.StringArray },
             {ApiContractVersions, MetadataDataType.StringArray },
             {Capabilities, MetadataDataType.StringArray },
+            {XamlSyntax, MetadataDataType.String },
             {XamlMemberSyntax, MetadataDataType.String },
             {ContentSourcePath, MetadataDataType.String }
         };

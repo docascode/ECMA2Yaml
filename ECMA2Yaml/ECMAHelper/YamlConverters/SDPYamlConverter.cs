@@ -154,33 +154,15 @@ namespace ECMA2Yaml
                 rval.IsDeprecated = true;
             }
 
-            GenerateUWPMetadata(rval, item);
+            GenerateUWPRequirements(rval, item);
 
             return rval;
         }
 
-        private void GenerateUWPMetadata(ItemSDPModelBase model, ReflectionItem item)
+        private void GenerateUWPRequirements(ItemSDPModelBase model, ReflectionItem item)
         {
-            UWPProperties uwpProperties = new UWPProperties();
+            UWPRequirements uwpRequirements = new UWPRequirements();
 
-            if (item.Metadata.TryGetValue(UWPMetadata.SDKRequirementsName, out object sdkReqName))
-            {
-                SDKRequirements sdkRequirements = new SDKRequirements { Name = (string)sdkReqName };
-                if (item.Metadata.TryGetValue(UWPMetadata.SDKRequirementsUrl, out object sdkReqUrl))
-                {
-                    sdkRequirements.Url = (string)sdkReqUrl;
-                }
-                uwpProperties.SDKRequirements = sdkRequirements;
-            }
-            if (item.Metadata.TryGetValue(UWPMetadata.OSRequirementsName, out object osReqName))
-            {
-                OSRequirements osRequirements = new OSRequirements { Name = (string)osReqName };
-                if (item.Metadata.TryGetValue(UWPMetadata.OSRequirementsMinVersion, out object osReqMinVer))
-                {
-                    osRequirements.MinVer = (string)osReqMinVer;
-                }
-                uwpProperties.OSRequirements = osRequirements;
-            }
             if (item.Metadata.TryGetValue(UWPMetadata.DeviceFamilyNames, out object deviceFamilies))
             {
                 String[] familyNames = (String[])deviceFamilies;
@@ -202,7 +184,7 @@ namespace ECMA2Yaml
                 }
 
                 if (families.Count > 0)
-                    uwpProperties.DeviceFamilies = families;
+                    uwpRequirements.DeviceFamilies = families;
             }
             if (item.Metadata.TryGetValue(UWPMetadata.ApiContractNames, out object apiContracts))
             {
@@ -225,22 +207,42 @@ namespace ECMA2Yaml
                 }
 
                 if (contracts.Count > 0)
-                    uwpProperties.APIContracts = contracts;
+                    uwpRequirements.APIContracts = contracts;
+            }
+            if (item.Metadata.TryGetValue(UWPMetadata.SDKRequirementsName, out object sdkReqName))
+            {
+                SDKRequirements sdkRequirements = new SDKRequirements { Name = (string)sdkReqName };
+                if (item.Metadata.TryGetValue(UWPMetadata.SDKRequirementsUrl, out object sdkReqUrl))
+                {
+                    sdkRequirements.Url = (string)sdkReqUrl;
+                }
+                model.SDKRequirements = sdkRequirements;
+            }
+            if (item.Metadata.TryGetValue(UWPMetadata.OSRequirementsName, out object osReqName))
+            {
+                OSRequirements osRequirements = new OSRequirements { Name = (string)osReqName };
+                if (item.Metadata.TryGetValue(UWPMetadata.OSRequirementsMinVersion, out object osReqMinVer))
+                {
+                    osRequirements.MinVer = (string)osReqMinVer;
+                }
+                model.OSRequirements = osRequirements;
             }
             if (item.Metadata.TryGetValue(UWPMetadata.Capabilities, out object capabilities))
             {
-                uwpProperties.Capabilities = (IEnumerable<string>)capabilities;
+                model.Capabilities = (IEnumerable<string>)capabilities;
             }
-            //if (item.Metadata.TryGetValue(UWPMetadata.XamlMemberSyntax, out object xamlMemberSyntax))
-            //{
-            //    model.XamlMemberSyntax = (string)xamlMemberSyntax;
-            //}
+            if (item.Metadata.TryGetValue(UWPMetadata.XamlMemberSyntax, out object xamlMemberSyntax))
+            {
+                model.XamlMemberSyntax = (string)xamlMemberSyntax;
+            }
+            if (item.Metadata.TryGetValue(UWPMetadata.XamlSyntax, out object xamlSyntax))
+            {
+                model.XamlSyntax = (string)xamlSyntax;
+            }
 
-            if (uwpProperties.OSRequirements != null
-                || uwpProperties.SDKRequirements != null
-                || uwpProperties.DeviceFamilies != null
-                || uwpProperties.APIContracts != null)
-                model.UWPProperties = uwpProperties;
+            if (uwpRequirements.DeviceFamilies != null
+                || uwpRequirements.APIContracts != null)
+                model.UWPRequirements = uwpRequirements;
         }
 
         private void GenerateRequiredMetadata(ItemSDPModelBase model, ReflectionItem item, List<ReflectionItem> childrenItems = null)
