@@ -87,28 +87,32 @@ namespace ECMA2Yaml
             {
                 Uid = item.Uid,
                 CommentId = item.CommentId,
-                Name = item.Name,
-
-                Assemblies = _store.UWPMode ? null : item.AssemblyInfo?.Select(asm => asm.Name).Distinct().ToList(),
+                Name = item.Name,                
                 DevLangs = item.Signatures?.DevLangs ?? defaultLangList,
 
                 SeeAlso = BuildSeeAlsoList(item.Docs, _store),
                 Summary = item.Docs.Summary,
                 Remarks = item.Docs.Remarks,
                 Examples = item.Docs.Examples,
-                Monikers = item.Monikers
+                Monikers = item.Monikers,
+                Source = _store.UWPMode ? item.SourceDetail.ToSDPSourceDetail() : null
             };
 
             if(_withVersioning)
             {
+                rval.AssembliesWithMoniker = _store.UWPMode ? null : MonikerizeAssemblyStrings(item);
                 rval.AttributesWithMoniker = item.Attributes?.Where(att => att.Visible)
                     .Select(att => new VersionedString() { Value = att.TypeFullName, Monikers = att.Monikers?.ToHashSet() })
                     .ToList().NullIfEmpty();
                 rval.AttributeMonikers = ConverterHelper.ConsolidateVersionedValues(rval.AttributesWithMoniker, item.Monikers);
-                rval.SyntaxWithMoniker = ConverterHelper.BuildVersionedSignatures(item)?.NullIfEmpty();
+                rval.SyntaxWithMoniker = (_store.UWPMode 
+                    ? ConverterHelper.BuildVersionedUWPSignatures(item)
+                    : ConverterHelper.BuildVersionedSignatures(item))
+                    ?.NullIfEmpty();
             }
             else
             {
+                rval.Assemblies = _store.UWPMode ? null : item.AssemblyInfo?.Select(asm => asm.Name).Distinct().ToList();
                 rval.Attributes = item.Attributes?.Where(att => att.Visible).Select(att => att.TypeFullName)
                     .ToList().NullIfEmpty();
                 var rawSignatures = _store.UWPMode ? ConverterHelper.BuildUWPSignatures(item) : ConverterHelper.BuildSignatures(item);
@@ -272,22 +276,20 @@ namespace ECMA2Yaml
             return null;
         }
 
-        private T ConvertParameter<T>(Parameter p, List<TypeParameter> knownTypeParams = null, bool showGenericType = true)
+        private T ConvertParameter<T>(Parameter p, List<TypeParameter> knownTypeParams = null)
             where T : TypeReference, new()
         {
             var isGeneric = knownTypeParams?.Any(tp => tp.Name == p.Type) ?? false;
             return new T()
             {
                 Description = p.Description,
-                Type = isGeneric
-                    ? (showGenericType ? p.Type : "") // should be `p.Type`, tracked in https://ceapex.visualstudio.com/Engineering/_workitems/edit/72695
-                    : TypeStringToTypeMDString(p.OriginalTypeString ?? p.Type, _store)
+                Type = isGeneric ? p.Type : TypeStringToTypeMDString(p.OriginalTypeString ?? p.Type, _store)
             };
         }
 
-        private ParameterReference ConvertNamedParameter(Parameter p, List<TypeParameter> knownTypeParams = null, bool showGenericType = true)
+        private ParameterReference ConvertNamedParameter(Parameter p, List<TypeParameter> knownTypeParams = null)
         {
-            var r = ConvertParameter<ParameterReference>(p, knownTypeParams, showGenericType);
+            var r = ConvertParameter<ParameterReference>(p, knownTypeParams);
             if (_withVersioning)
             {
                 r.NamesWithMoniker = p.VersionedNames;

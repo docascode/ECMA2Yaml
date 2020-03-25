@@ -63,7 +63,7 @@ items:
     parameters:
     - id: i
       type: VersioningTest.D
-      description: "\n        "
+      description: ''
     content.cpp: >-
       public:
 
@@ -95,6 +95,7 @@ items:
   - cpp
   - csharp
   - fsharp
+  - vb
   name: ExtMethodForI(I)
   nameWithType: VersioningExtensions.ExtMethodForI(I)
   fullName: VersioningTest.VersioningExtensions.ExtMethodForI(I)
@@ -108,7 +109,7 @@ items:
     parameters:
     - id: i
       type: VersioningTest.I
-      description: "\n        "
+      description: ''
     content.cpp: >-
       public:
 
@@ -116,6 +117,10 @@ items:
        static void ExtMethodForI(VersioningTest::I ^ i);
     content.csharp: public static void ExtMethodForI (this VersioningTest.I i);
     content.fsharp: 'static member ExtMethodForI : VersioningTest.I -> unit'
+    content.vb: >-
+      <Extension()>
+
+      Public Sub ExtMethodForI (i As I)
   overload: VersioningTest.VersioningExtensions.ExtMethodForI*
   exceptions: []
   modifiers.csharp:

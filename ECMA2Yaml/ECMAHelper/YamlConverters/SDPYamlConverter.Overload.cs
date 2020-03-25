@@ -1,10 +1,7 @@
 ﻿using ECMA2Yaml.Models;
 using ECMA2Yaml.Models.SDP;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ECMA2Yaml
 {
@@ -29,7 +26,26 @@ namespace ECMA2Yaml
                 sdpOverload.NameWithType = members.First().Parent.Name + "." + sdpOverload.Name;
             }
 
-            sdpOverload.Assemblies = sdpOverload.Members.Where(m => m.Assemblies != null).SelectMany(m => m.Assemblies).Distinct().ToList().NullIfEmpty();
+            if (_withVersioning)
+            {
+                sdpOverload.AssembliesWithMoniker = sdpOverload.Members
+                .Where(m => m.AssembliesWithMoniker != null)
+                .SelectMany(m => m.AssembliesWithMoniker)
+                .GroupBy(vs => vs.Value)
+                .Select(g => new VersionedString()
+                {
+                    Value = g.Key,
+                    Monikers = g.Any(v => v.Monikers == null) ? null : g.SelectMany(v => v.Monikers).ToHashSet()
+                }).ToList().NullIfEmpty();
+            }
+            else
+            {
+                sdpOverload.Assemblies = sdpOverload.Members
+                .Where(m => m.Assemblies != null)
+                .SelectMany(m => m.Assemblies)
+                .Distinct().ToList().NullIfEmpty();
+            }
+
             sdpOverload.Namespace = sdpOverload.Members.First().Namespace;
             sdpOverload.DevLangs = sdpOverload.Members.SelectMany(m => m.DevLangs).Distinct().ToList();
             sdpOverload.Monikers = sdpOverload.Members.Where(m => m.Monikers != null).SelectMany(m => m.Monikers).Distinct().ToList();
@@ -38,6 +54,7 @@ namespace ECMA2Yaml
             {
                 m.Namespace = null;
                 m.Assemblies = null;
+                m.AssembliesWithMoniker = null;
                 m.DevLangs = null;
             }
 

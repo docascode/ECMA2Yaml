@@ -4,7 +4,6 @@ members:
 - parameters:
   - namesWithMoniker:
     - value: i
-    description: "\n        "
     type: <xref href="VersioningTest.D?alt=VersioningTest.D&text=D" data-throw-if-not-resolved="True"/>
   uid: VersioningTest.VersioningExtensions.ExtMethodForD(VersioningTest.D)
   commentId: M:VersioningTest.VersioningExtensions.ExtMethodForD(VersioningTest.D)
@@ -42,8 +41,8 @@ namespace: VersioningTest
 name: ExtMethodForD
 fullName: VersioningTest.VersioningExtensions.ExtMethodForD
 nameWithType: VersioningExtensions.ExtMethodForD
-assemblies:
-- CatLibrary
+assembliesWithMoniker:
+- value: CatLibrary.dll
 devLangs:
 - csharp
 - vb

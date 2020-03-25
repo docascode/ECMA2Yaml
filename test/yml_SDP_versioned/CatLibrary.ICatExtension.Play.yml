@@ -29,6 +29,12 @@ members:
   - lang: fsharp
     values:
     - value: 'static member Play : CatLibrary.ICat * string -> unit'
+  - lang: vb
+    values:
+    - value: >-
+        <Extension()>
+
+        Public Sub Play (icat As ICat, toy As String)
   monikers:
   - cat-1.0
   - cat-2.0
@@ -40,10 +46,11 @@ namespace: CatLibrary
 name: Play
 fullName: CatLibrary.ICatExtension.Play
 nameWithType: ICatExtension.Play
-assemblies:
-- CatLibrary
+assembliesWithMoniker:
+- value: CatLibrary.dll
 devLangs:
 - csharp
+- vb
 - cpp
 - fsharp
 monikers:

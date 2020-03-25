@@ -53,6 +53,7 @@ items:
   - cpp
   - csharp
   - fsharp
+  - vb
   name: Play(ICat, String)
   nameWithType: ICatExtension.Play(ICat, String)
   fullName: CatLibrary.ICatExtension.Play(ICat, String)
@@ -77,6 +78,10 @@ items:
        static void Play(CatLibrary::ICat ^ icat, System::String ^ toy);
     content.csharp: public static void Play (this CatLibrary.ICat icat, string toy);
     content.fsharp: 'static member Play : CatLibrary.ICat * string -> unit'
+    content.vb: >-
+      <Extension()>
+
+      Public Sub Play (icat As ICat, toy As String)
   overload: CatLibrary.ICatExtension.Play*
   exceptions: []
   modifiers.csharp:
@@ -97,6 +102,7 @@ items:
   - cpp
   - csharp
   - fsharp
+  - vb
   name: Sleep(ICat, Int64)
   nameWithType: ICatExtension.Sleep(ICat, Int64)
   fullName: CatLibrary.ICatExtension.Sleep(ICat, Int64)
@@ -121,6 +127,10 @@ items:
        static void Sleep(CatLibrary::ICat ^ icat, long hours);
     content.csharp: public static void Sleep (this CatLibrary.ICat icat, long hours);
     content.fsharp: 'static member Sleep : CatLibrary.ICat * int64 -> unit'
+    content.vb: >-
+      <Extension()>
+
+      Public Sub Sleep (icat As ICat, hours As Long)
   overload: CatLibrary.ICatExtension.Sleep*
   exceptions: []
   modifiers.csharp:

@@ -6,7 +6,7 @@ isFlags: true
 fields:
 - uid: CatLibrary.Complex`2.ComplexFlags.None
   commentId: F:CatLibrary.Complex`2.ComplexFlags.None
-  literalValue: ''
+  literalValue: "0"
   name: None
   nameWithType: Complex<T,J>.ComplexFlags.None
   fullName: CatLibrary.Complex<T,J>.ComplexFlags.None
@@ -14,7 +14,7 @@ fields:
   - cat-2.0
 - uid: CatLibrary.Complex`2.ComplexFlags.SkipInitialPreparation
   commentId: F:CatLibrary.Complex`2.ComplexFlags.SkipInitialPreparation
-  literalValue: ''
+  literalValue: "4096"
   name: SkipInitialPreparation
   nameWithType: Complex<T,J>.ComplexFlags.SkipInitialPreparation
   fullName: CatLibrary.Complex<T,J>.ComplexFlags.SkipInitialPreparation
@@ -22,7 +22,7 @@ fields:
   - cat-2.0
 - uid: CatLibrary.Complex`2.ComplexFlags.StickyWrite
   commentId: F:CatLibrary.Complex`2.ComplexFlags.StickyWrite
-  literalValue: ''
+  literalValue: "1"
   name: StickyWrite
   nameWithType: Complex<T,J>.ComplexFlags.StickyWrite
   fullName: CatLibrary.Complex<T,J>.ComplexFlags.StickyWrite
@@ -34,8 +34,8 @@ namespace: CatLibrary
 name: Complex<T,J>.ComplexFlags
 fullName: CatLibrary.Complex<T,J>.ComplexFlags
 nameWithType: CatLibrary.Complex<T,J>.ComplexFlags
-assemblies:
-- CatLibrary
+assembliesWithMoniker:
+- value: CatLibrary.dll
 attributesWithMoniker:
 - value: System.FlagsAttribute
 syntaxWithMoniker:

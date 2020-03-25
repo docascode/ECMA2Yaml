@@ -8,7 +8,15 @@
   <AssemblyInfo>
     <AssemblyName>CatLibrary</AssemblyName>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
   </AssemblyInfo>
+  <AssemblyInfo>
+    <AssemblyName>MRef.Demo</AssemblyName>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <TypeForwardingChain>
+    <TypeForwarding From="CatLibrary" FromVersion="2.0.0.0" To="MRef.Demo" ToVersion="2.0.0.0" FrameworkAlternate="cat-2.0" />
+  </TypeForwardingChain>
   <Base>
     <BaseTypeName>System.Enum</BaseTypeName>
   </Base>
@@ -18,7 +26,7 @@
             </summary>
     <remarks>
       <para>
-            Red/Blue/Yellow can become all color you want.
+            Red/Blue/Yellow/Purple can become all color you want.
             </para>
       <list type="bullet">
         <listItem>
@@ -46,6 +54,11 @@
       <AssemblyInfo>
         <AssemblyName>CatLibrary</AssemblyName>
         <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>MRef.Demo</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>MRef.Demo.Enumeration.ColorType</ReturnType>
@@ -54,6 +67,31 @@
       <Docs>
         <summary>
             blue like river
+            </summary>
+      </Docs>
+    </Member>
+    <Member MemberName="Purple">
+      <MemberSignature Language="C#" Value="Purple" />
+      <MemberSignature Language="ILAsm" Value=".field public static literal valuetype MRef.Demo.Enumeration.ColorType Purple = int32(4)" />
+      <MemberSignature Language="DocId" Value="F:MRef.Demo.Enumeration.ColorType.Purple" />
+      <MemberSignature Language="VB.NET" Value="Purple" />
+      <MemberSignature Language="C++ CLI" Value="Purple" />
+      <MemberSignature Language="F#" Value="Purple = 4" Usage="MRef.Demo.Enumeration.ColorType.Purple" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>MRef.Demo</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>CatLibrary</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>MRef.Demo.Enumeration.ColorType</ReturnType>
+      </ReturnValue>
+      <MemberValue>4</MemberValue>
+      <Docs>
+        <summary>
+            purple rain, purple rain
             </summary>
       </Docs>
     </Member>
@@ -68,6 +106,11 @@
       <AssemblyInfo>
         <AssemblyName>CatLibrary</AssemblyName>
         <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>MRef.Demo</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>MRef.Demo.Enumeration.ColorType</ReturnType>
@@ -90,6 +133,11 @@
       <AssemblyInfo>
         <AssemblyName>CatLibrary</AssemblyName>
         <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>MRef.Demo</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>MRef.Demo.Enumeration.ColorType</ReturnType>

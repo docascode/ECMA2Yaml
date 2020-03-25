@@ -36,8 +36,8 @@
     <member name="M:CatLibrary.Cat`2.#ctor(System.String,System.Int32@,System.String,System.Boolean)">
       <summary>
             It's a complex constructor. The parameter will have some attributes.</summary>
-      <param name="nickName">it's string type.</param>
       <param name="ageNumber">It's an out and ref parameter.</param>
+      <param name="nickName">it's string type.</param>
       <param name="realName">It's an out paramter.</param>
       <param name="isHealthy">It's an in parameter.</param>
     </member>
@@ -129,8 +129,8 @@
     </member>
     <member name="M:CatLibrary.CatException`1.#ctor" />
     <member name="T:CatLibrary.Complex`2">
-      <typeparam name="T"></typeparam>
-      <typeparam name="J"></typeparam>
+      <typeparam name="T" />
+      <typeparam name="J" />
     </member>
     <member name="M:CatLibrary.Complex`2.#ctor" />
     <member name="T:CatLibrary.FakeDelegate`1">
@@ -234,7 +234,7 @@
     <member name="M:CatLibrary.TomFromBaseClass.#ctor(System.Int32)">
       <summary>
             This is a #ctor with parameter</summary>
-      <param name="k"></param>
+      <param name="k" />
     </member>
     <member name="T:MRef.Demo.Enumeration.ColorType">
       <summary>
@@ -257,14 +257,14 @@
     <member name="M:VersioningTest.A.MethodFromClassA(System.String)">
       <summary>
             this method should show up as inherited member in class D only for cat-1.0</summary>
-      <param name="param1"></param>
+      <param name="param1" />
     </member>
     <member name="T:VersioningTest.B" />
     <member name="M:VersioningTest.B.#ctor" />
     <member name="M:VersioningTest.B.MethodFromClassB(System.String)">
       <summary>
             this method should show up as inherited member in class D/F/G/H only for cat-2.0</summary>
-      <param name="param1"></param>
+      <param name="param1" />
     </member>
     <member name="T:VersioningTest.C" />
     <member name="M:VersioningTest.C.#ctor" />
@@ -286,12 +286,12 @@
     <member name="M:VersioningTest.VersioningExtensions.ExtMethodForD(VersioningTest.D)">
       <summary>
             this extension method should show up in class D for all monikers, and in F/G/H for cat-2.0 only.</summary>
-      <param name="i"></param>
+      <param name="i" />
     </member>
     <member name="M:VersioningTest.VersioningExtensions.ExtMethodForI(VersioningTest.I)">
       <summary>
             this extension method should show up in interface <c>I</c>, class <c>C</c> and <c>E</c> for all monikers, and in F/G/H for cat-1.0 only.</summary>
-      <param name="i"></param>
+      <param name="i" />
     </member>
   </members>
 </doc>

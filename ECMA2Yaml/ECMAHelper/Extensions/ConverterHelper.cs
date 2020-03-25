@@ -166,6 +166,40 @@ namespace ECMA2Yaml
             return contents;
         }
 
+        public static List<VersionedSignatureModel> BuildVersionedUWPSignatures(ReflectionItem item)
+        {
+            var contents = new SortedList<string, List<VersionedString>>();
+            if (item.Signatures?.Dict != null)
+            {
+                foreach (var sigPair in item.Signatures.Dict)
+                {
+                    if (Models.ECMADevLangs.OPSMapping.ContainsKey(sigPair.Key))
+                    {
+                        var langAlias = Models.ECMADevLangs.OPSMapping[sigPair.Key];
+                        var sigValues = sigPair.Value;
+                        switch (sigPair.Key)
+                        {
+                            case ECMADevLangs.CSharp:
+                                sigValues.ForEach(vs => vs.Value = UWPCSharpSignatureTransform(vs.Value));
+                                contents[langAlias] = sigValues;
+                                break;
+                            case ECMADevLangs.CPP_CLI:
+                            case ECMADevLangs.CPP_CX:
+                            case ECMADevLangs.CPP_WINRT:
+                                sigValues.ForEach(vs => vs.Value = UWPCPPSignatureTransform(vs.Value));
+                                contents[langAlias] = sigValues;
+                                break;
+                            default:
+                                contents[langAlias] = sigValues;
+                                break;
+                        }
+                    }
+                }
+            }
+
+            return contents.Select(sig => new VersionedSignatureModel() { Lang = sig.Key, Values = sig.Value }).ToList();
+        }
+
         public static HashSet<string> TrimMonikers(HashSet<string> propertyMonikers, HashSet<string> itemMonikers)
         {
             if (itemMonikers != null && propertyMonikers != null)

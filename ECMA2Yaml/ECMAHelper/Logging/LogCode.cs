@@ -13,6 +13,7 @@ namespace ECMA2Yaml
 		ECMA2Yaml_DocId_Duplicated,
 		ECMA2Yaml_DocId_IsNull,
 		ECMA2Yaml_ExceptionTypeNotFound,
+		ECMA2Yaml_ExtraMonikerFoundInMember,
 		ECMA2Yaml_File_LoadFailed,
 		ECMA2Yaml_Framework_NotFound,
 		ECMA2Yaml_InternalError,

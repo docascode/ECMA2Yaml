@@ -1,13 +1,19 @@
 <Type Name="F" FullName="VersioningTest.F">
-  <TypeSignature Language="C#" Value="public class F : VersioningTest.D" />
-  <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit F extends VersioningTest.D" />
+  <TypeSignature Language="C#" Value="public class F : VersioningTest.C" FrameworkAlternate="cat-1.0" />
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit F extends VersioningTest.C" FrameworkAlternate="cat-1.0" />
   <TypeSignature Language="DocId" Value="T:VersioningTest.F" />
-  <TypeSignature Language="VB.NET" Value="Public Class F&#xA;Inherits D" />
-  <TypeSignature Language="C++ CLI" Value="public ref class F : VersioningTest::D" />
-  <TypeSignature Language="F#" Value="type F = class&#xA;    inherit D" />
+  <TypeSignature Language="VB.NET" Value="Public Class F&#xA;Inherits C" FrameworkAlternate="cat-1.0" />
+  <TypeSignature Language="C++ CLI" Value="public ref class F : VersioningTest::C" FrameworkAlternate="cat-1.0" />
+  <TypeSignature Language="F#" Value="type F = class&#xA;    inherit C" FrameworkAlternate="cat-1.0" />
+  <TypeSignature Language="C#" Value="public class F : VersioningTest.D" FrameworkAlternate="cat-2.0" />
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit F extends VersioningTest.D" FrameworkAlternate="cat-2.0" />
+  <TypeSignature Language="VB.NET" Value="Public Class F&#xA;Inherits D" FrameworkAlternate="cat-2.0" />
+  <TypeSignature Language="C++ CLI" Value="public ref class F : VersioningTest::D" FrameworkAlternate="cat-2.0" />
+  <TypeSignature Language="F#" Value="type F = class&#xA;    inherit D" FrameworkAlternate="cat-2.0" />
   <AssemblyInfo>
     <AssemblyName>CatLibrary</AssemblyName>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
   </AssemblyInfo>
   <Base>
     <BaseTypeName>VersioningTest.C</BaseTypeName>
@@ -31,6 +37,7 @@
       <AssemblyInfo>
         <AssemblyName>CatLibrary</AssemblyName>
         <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Parameters />
       <Docs>

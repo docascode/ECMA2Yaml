@@ -69,7 +69,7 @@ items:
     parameters:
     - id: k
       type: System.Int32
-      description: "\n        "
+      description: ''
     content.cpp: >-
       public:
        TomFromBaseClass(int k);

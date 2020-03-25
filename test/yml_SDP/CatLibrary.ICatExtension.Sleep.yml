@@ -24,6 +24,11 @@ members:
     value: public static void Sleep (this CatLibrary.ICat icat, long hours);
   - lang: fsharp
     value: 'static member Sleep : CatLibrary.ICat * int64 -> unit'
+  - lang: vb
+    value: >-
+      <Extension()>
+
+      Public Sub Sleep (icat As ICat, hours As Long)
   monikers:
   - cat-1.0
   - cat-2.0
@@ -39,6 +44,7 @@ assemblies:
 - CatLibrary
 devLangs:
 - csharp
+- vb
 - cpp
 - fsharp
 monikers:

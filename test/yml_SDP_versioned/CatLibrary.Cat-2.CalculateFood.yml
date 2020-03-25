@@ -40,8 +40,8 @@ namespace: CatLibrary
 name: CalculateFood
 fullName: CatLibrary.Cat<T,K>.CalculateFood
 nameWithType: Cat<T,K>.CalculateFood
-assemblies:
-- CatLibrary
+assembliesWithMoniker:
+- value: CatLibrary.dll
 devLangs:
 - csharp
 - vb

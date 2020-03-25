@@ -1,9 +1,7 @@
 ### YamlMime:NetType
 typeParameters:
-- description: ''
-  name: T
-- description: ''
-  name: J
+- name: T
+- name: J
 type: class
 inheritances:
 - <xref href="System.Object" data-throw-if-not-resolved="True"/>

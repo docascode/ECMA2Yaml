@@ -4,7 +4,6 @@ members:
 - parameters:
   - namesWithMoniker:
     - value: param1
-    description: "\n        "
     type: <xref href="System.String?alt=System.String&text=String" data-throw-if-not-resolved="True"/>
   uid: VersioningTest.B.MethodFromClassB(System.String)
   commentId: M:VersioningTest.B.MethodFromClassB(System.String)
@@ -37,8 +36,8 @@ namespace: VersioningTest
 name: MethodFromClassB
 fullName: VersioningTest.B.MethodFromClassB
 nameWithType: B.MethodFromClassB
-assemblies:
-- CatLibrary
+assembliesWithMoniker:
+- value: CatLibrary.dll
 devLangs:
 - csharp
 - vb
