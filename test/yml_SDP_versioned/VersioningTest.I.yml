@@ -13,8 +13,8 @@ namespace: VersioningTest
 name: I
 fullName: VersioningTest.I
 nameWithType: VersioningTest.I
-assemblies:
-- CatLibrary
+assembliesWithMoniker:
+- value: CatLibrary.dll
 syntaxWithMoniker:
 - lang: cpp
   values:

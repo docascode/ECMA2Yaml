@@ -24,8 +24,8 @@ namespace: VersioningTest
 name: C
 fullName: VersioningTest.C
 nameWithType: VersioningTest.C
-assemblies:
-- CatLibrary
+assembliesWithMoniker:
+- value: CatLibrary.dll
 syntaxWithMoniker:
 - lang: cpp
   values:

@@ -40,26 +40,51 @@ namespace: VersioningTest
 name: D
 fullName: VersioningTest.D
 nameWithType: VersioningTest.D
-assemblies:
-- CatLibrary
+assembliesWithMoniker:
+- value: CatLibrary.dll
 syntaxWithMoniker:
 - lang: cpp
   values:
+  - value: 'public ref class D : VersioningTest::A'
+    monikers:
+    - cat-1.0
   - value: 'public ref class D : VersioningTest::B'
+    monikers:
+    - cat-2.0
 - lang: csharp
   values:
+  - value: 'public class D : VersioningTest.A'
+    monikers:
+    - cat-1.0
   - value: 'public class D : VersioningTest.B'
+    monikers:
+    - cat-2.0
 - lang: fsharp
   values:
   - value: >-
       type D = class
+          inherit A
+    monikers:
+    - cat-1.0
+  - value: >-
+      type D = class
           inherit B
+    monikers:
+    - cat-2.0
 - lang: vb
   values:
   - value: >-
       Public Class D
 
+      Inherits A
+    monikers:
+    - cat-1.0
+  - value: >-
+      Public Class D
+
       Inherits B
+    monikers:
+    - cat-2.0
 devLangs:
 - csharp
 - vb

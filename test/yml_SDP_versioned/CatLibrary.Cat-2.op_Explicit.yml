@@ -43,8 +43,8 @@ namespace: CatLibrary
 name: Explicit
 fullName: CatLibrary.Cat<T,K>.Explicit
 nameWithType: Cat<T,K>.Explicit
-assemblies:
-- CatLibrary
+assembliesWithMoniker:
+- value: CatLibrary.dll
 devLangs:
 - csharp
 - vb

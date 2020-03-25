@@ -44,8 +44,8 @@ namespace: CatLibrary
 name: Addition
 fullName: CatLibrary.Cat<T,K>.Addition
 nameWithType: Cat<T,K>.Addition
-assemblies:
-- CatLibrary
+assembliesWithMoniker:
+- value: CatLibrary.dll
 devLangs:
 - csharp
 - vb

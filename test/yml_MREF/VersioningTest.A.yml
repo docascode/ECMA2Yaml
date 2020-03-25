@@ -97,7 +97,7 @@ items:
     parameters:
     - id: param1
       type: System.String
-      description: "\n        "
+      description: ''
     content.cpp: >-
       public:
        void MethodFromClassA(System::String ^ param1);

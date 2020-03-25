@@ -127,6 +127,7 @@ items:
   - cpp
   - csharp
   - fsharp
+  - vb
   name: Eat<Tool>(Tool)
   nameWithType: IAnimal.Eat<Tool>(Tool)
   fullName: CatLibrary.IAnimal.Eat<Tool>(Tool)
@@ -151,6 +152,7 @@ items:
        where Tool : class void Eat(Tool tool);
     content.csharp: 'public void Eat<Tool> (Tool tool) where Tool : class;'
     content.fsharp: "abstract member Eat : 'ool -> unit (requires 'ool : null)"
+    content.vb: Public Sub Eat(Of Tool As Class) (tool As Tool)
   overload: CatLibrary.IAnimal.Eat*
   exceptions: []
   modifiers.csharp:

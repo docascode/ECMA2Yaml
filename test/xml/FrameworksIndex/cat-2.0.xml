@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Framework Name="cat-2.0">
   <Assemblies>
-    <Assembly Name="CatLibrary" Version="1.0.0.0" />
+    <Assembly Name="CatLibrary" Version="2.0.0.0" />
+    <Assembly Name="MRef.Demo" Version="2.0.0.0" />
   </Assemblies>
   <Namespace Name="CatLibrary">
     <Type Name="CatLibrary.Cat`2" Id="T:CatLibrary.Cat`2">
@@ -74,6 +75,7 @@
   <Namespace Name="MRef.Demo.Enumeration">
     <Type Name="MRef.Demo.Enumeration.ColorType" Id="T:MRef.Demo.Enumeration.ColorType">
       <Member Id="F:MRef.Demo.Enumeration.ColorType.Blue" />
+      <Member Id="F:MRef.Demo.Enumeration.ColorType.Purple" />
       <Member Id="F:MRef.Demo.Enumeration.ColorType.Red" />
       <Member Id="F:MRef.Demo.Enumeration.ColorType.Yellow" />
     </Type>

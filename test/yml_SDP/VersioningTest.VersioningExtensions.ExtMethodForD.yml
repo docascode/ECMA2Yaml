@@ -3,7 +3,6 @@ type: method
 members:
 - parameters:
   - name: i
-    description: "\n        "
     type: <xref href="VersioningTest.D?alt=VersioningTest.D&text=D" data-throw-if-not-resolved="True"/>
   uid: VersioningTest.VersioningExtensions.ExtMethodForD(VersioningTest.D)
   commentId: M:VersioningTest.VersioningExtensions.ExtMethodForD(VersioningTest.D)

@@ -82,6 +82,9 @@ foreach($ecmaConfig in $jobs)
     $undocumentedApiReport = Join-Path $outputFolder "UndocAPIReport_${processedGitUrl}_${branch}_${reportId}.xlsx"
     $allArgs += "--undocumentedApiReport"
     $allArgs += "$undocumentedApiReport"
+	$yamlXMLMappingFile = Join-Path $logOutputFolder "build_file_path_to_repo_file_path.mapped.json"
+	$allArgs += "--yamlXMLMappingFile"
+	$allArgs += "$yamlXMLMappingFile"
 
     $fallbackRepoRoot = Join-Path $repositoryRoot _repo.en-us
     $ecmaFallbackSourceXmlFolder = Join-Path $fallbackRepoRoot $ecmaConfig.SourceXmlFolder

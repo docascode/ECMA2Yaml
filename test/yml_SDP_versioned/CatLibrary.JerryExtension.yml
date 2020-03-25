@@ -13,8 +13,8 @@ namespace: CatLibrary
 name: JerryExtension
 fullName: CatLibrary.JerryExtension
 nameWithType: CatLibrary.JerryExtension
-assemblies:
-- CatLibrary
+assembliesWithMoniker:
+- value: CatLibrary.dll
 syntaxWithMoniker:
 - lang: cpp
   values:

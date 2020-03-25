@@ -47,6 +47,10 @@ namespace ECMA2Yaml.Models.SDP
         [YamlMember(Alias = "assemblies")]
         public IEnumerable<string> Assemblies { get; set; }
 
+        [JsonProperty("assembliesWithMoniker")]
+        [YamlMember(Alias = "assembliesWithMoniker")]
+        public IEnumerable<VersionedString> AssembliesWithMoniker { get; set; }
+
         [JsonProperty("attributes")]
         [YamlMember(Alias = "attributes")]
         public IEnumerable<string> Attributes { get; set; }
@@ -126,6 +130,10 @@ namespace ECMA2Yaml.Models.SDP
         [JsonProperty("xamlMemberSyntax")]
         [YamlMember(Alias = "xamlMemberSyntax")]
         public string XamlMemberSyntax { get; set; }
+
+        [JsonProperty("source")]
+        [YamlMember(Alias = "source")]
+        public SourceDetail Source { get; set; }
 
         [JsonProperty("metadata")]
         [YamlMember(Alias = "metadata")]

@@ -18,8 +18,8 @@ namespace: VersioningTest
 name: VersioningExtensions
 fullName: VersioningTest.VersioningExtensions
 nameWithType: VersioningTest.VersioningExtensions
-assemblies:
-- CatLibrary
+assembliesWithMoniker:
+- value: CatLibrary.dll
 syntaxWithMoniker:
 - lang: cpp
   values:

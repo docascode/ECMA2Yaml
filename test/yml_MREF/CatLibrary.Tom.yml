@@ -94,7 +94,7 @@ items:
   namespace: CatLibrary
   summary: This is a Tom Method with complex type as return
   syntax:
-    content: public CatLibrary.Complex<string,CatLibrary.TomFromBaseClass> TomMethod (CatLibrary.Complex<CatLibrary.TomFromBaseClass,CatLibrary.TomFromBaseClass> a, Tuple<string,CatLibrary.Tom> b);
+    content: public CatLibrary.Complex<string,CatLibrary.TomFromBaseClass> TomMethod (CatLibrary.Complex<CatLibrary.TomFromBaseClass,CatLibrary.TomFromBaseClass> a, (string,CatLibrary.Tom) b);
     parameters:
     - id: a
       type: CatLibrary.Complex{CatLibrary.TomFromBaseClass,CatLibrary.TomFromBaseClass}
@@ -108,7 +108,7 @@ items:
     content.cpp: >-
       public:
        CatLibrary::Complex<System::String ^, CatLibrary::TomFromBaseClass ^> ^ TomMethod(CatLibrary::Complex<CatLibrary::TomFromBaseClass ^, CatLibrary::TomFromBaseClass ^> ^ a, Tuple<System::String ^, CatLibrary::Tom ^> ^ b);
-    content.csharp: public CatLibrary.Complex<string,CatLibrary.TomFromBaseClass> TomMethod (CatLibrary.Complex<CatLibrary.TomFromBaseClass,CatLibrary.TomFromBaseClass> a, Tuple<string,CatLibrary.Tom> b);
+    content.csharp: public CatLibrary.Complex<string,CatLibrary.TomFromBaseClass> TomMethod (CatLibrary.Complex<CatLibrary.TomFromBaseClass,CatLibrary.TomFromBaseClass> a, (string,CatLibrary.Tom) b);
     content.fsharp: 'member this.TomMethod : CatLibrary.Complex<CatLibrary.TomFromBaseClass, CatLibrary.TomFromBaseClass> * string * CatLibrary.Tom -> CatLibrary.Complex<string, CatLibrary.TomFromBaseClass>'
     content.vb: Public Function TomMethod (a As Complex(Of TomFromBaseClass, TomFromBaseClass), b As Tuple(Of String, Tom)) As Complex(Of String, TomFromBaseClass)
   overload: CatLibrary.Tom.TomMethod*

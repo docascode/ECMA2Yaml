@@ -10,13 +10,13 @@ typeParameters:
 parameters:
 - name: k
   description: Type K.
-  type: ''
+  type: K
 - name: t
   description: Type T.
-  type: ''
+  type: T
 - name: l
   description: Type L.
-  type: ''
+  type: L
 inheritances:
 - <xref href="System.Delegate" data-throw-if-not-resolved="True"/>
 uid: CatLibrary.MRefDelegate`3

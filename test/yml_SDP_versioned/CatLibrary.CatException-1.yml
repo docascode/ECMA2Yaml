@@ -16,8 +16,8 @@ namespace: CatLibrary
 name: CatException<T>
 fullName: CatLibrary.CatException<T>
 nameWithType: CatLibrary.CatException<T>
-assemblies:
-- CatLibrary
+assembliesWithMoniker:
+- value: CatLibrary.dll
 syntaxWithMoniker:
 - lang: cpp
   values:
