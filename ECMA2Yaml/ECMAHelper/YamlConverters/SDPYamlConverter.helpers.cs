@@ -148,7 +148,7 @@ namespace ECMA2Yaml
                 && t.InheritedMembers.TryGetValue(m.Uid, out inheritanceInfo)
                 && inheritanceInfo.Monikers != null)
             {
-                monikers = monikers.Intersect(inheritanceInfo.Monikers).ToHashSet();
+                monikers = inheritanceInfo.Monikers;
             }
             if (monikers.Any())
             {

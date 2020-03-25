@@ -886,9 +886,11 @@ namespace ECMA2Yaml.Models
 
                 if (t.ItemType == ItemType.Class && !t.Signatures.IsStatic)
                 {
-                    foreach(var inheritanceChain in t.InheritanceChains)
+                    foreach (var inheritanceChain in t.InheritanceChains)
                     {
                         var inheritedMembersById = new Dictionary<string, VersionedString>();
+                        var monikers = new HashSet<string>(inheritanceChain.Monikers);
+                        monikers.IntersectWith(t.Monikers);
                         foreach (var btUid in inheritanceChain.Values)
                         {
                             if (TypesByUid.ContainsKey(btUid))
@@ -904,7 +906,7 @@ namespace ECMA2Yaml.Models
                                             && m.ItemType != ItemType.AttachedEvent
                                             && !m.Signatures.IsStatic)
                                         {
-                                            inheritedMembersById[m.Id] = new VersionedString(inheritanceChain.Monikers, m.Uid);
+                                            inheritedMembersById[m.Id] = new VersionedString(monikers, m.Uid);
                                         }
                                     }
                                 }
@@ -937,10 +939,8 @@ namespace ECMA2Yaml.Models
                                     {
                                         if (inheritedMember.Monikers != null)
                                         {
-                                            foreach (var newMoniker in inheritedMember.Monikers)
-                                            {
-                                                existingInheritedFrom.Monikers.Add(newMoniker);
-                                            }
+                                            existingInheritedFrom.Monikers = new HashSet<string>(existingInheritedFrom.Monikers);
+                                            existingInheritedFrom.Monikers.UnionWith(inheritedMember.Monikers);
                                         }
                                         else
                                         {
