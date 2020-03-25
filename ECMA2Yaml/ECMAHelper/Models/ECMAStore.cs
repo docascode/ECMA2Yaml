@@ -916,7 +916,10 @@ namespace ECMA2Yaml.Models
                         {
                             foreach (var m in t.Members)
                             {
-                                if (inheritedMembersById.ContainsKey(m.Id))
+                                // could be defined in one moniker, but inherited in another moniker
+                                // so we should check both the id and moniker
+                                if (inheritedMembersById.TryGetValue(m.Id, out var inheritedMember)
+                                    && m.Monikers.Overlaps(inheritedMember.Monikers))
                                 {
                                     inheritedMembersById.Remove(m.Id);
                                 }
