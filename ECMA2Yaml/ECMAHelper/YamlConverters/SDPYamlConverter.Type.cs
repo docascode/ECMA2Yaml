@@ -82,7 +82,7 @@ namespace ECMA2Yaml
             }
             if (t.InheritedMembers != null)
             {
-                members.AddRange(t.InheritedMembers.Select(p => p.Value.Value + '.' + p.Key).Select(im => _store.MembersByUid[im]));
+                members.AddRange(t.InheritedMembers.Keys.Select(im => _store.MembersByUid[im]));
             }
             members = members.OrderBy(m => m.DisplayName).ToList();
             if (members.Count > 0)
@@ -90,13 +90,15 @@ namespace ECMA2Yaml
                 var eiis = members.Where(m => m.IsEII).ToList();
                 if (eiis.Count > 0)
                 {
-                    sdpType.EIIs = eiis.Select(m => ConvertTypeMemberLink(t, m)).ToList();
+                    sdpType.EIIs = eiis.Select(m => ConvertTypeMemberLink(t, m))
+                        .Where(m => m != null).ToList();
                 }
                 foreach (var mGroup in members
                     .Where(m => !m.IsEII)
                     .GroupBy(m => m.ItemType))
                 {
-                    var list = mGroup.Select(m => ConvertTypeMemberLink(t, m)).ToList();
+                    var list = mGroup.Select(m => ConvertTypeMemberLink(t, m))
+                        .Where(m => m != null).ToList();
                     switch (mGroup.Key)
                     {
                         case ItemType.Property:
@@ -128,7 +130,8 @@ namespace ECMA2Yaml
             }
             if (t.ExtensionMethods?.Count > 0)
             {
-                sdpType.ExtensionMethods = t.ExtensionMethods.Select(im => ConvertTypeMemberLink(null, _store.MembersByUid[im])).ToList();
+                sdpType.ExtensionMethods = t.ExtensionMethods.Select(im => ConvertTypeMemberLink(null, _store.MembersByUid[im]))
+                    .Where(m => m != null).ToList();
             }
         }
     }

@@ -857,7 +857,7 @@ namespace ECMA2Yaml.Models
                             {
                                 if (m.Name != "Finalize" && m.ItemType != ItemType.Constructor && !m.Signatures.IsStatic)
                                 {
-                                    t.InheritedMembers[m.Id] = new VersionedString(null, inter.Uid);
+                                    t.InheritedMembers[m.Id] = new VersionedString(null, m.Uid);
                                 }
                             }
                         }
@@ -873,6 +873,8 @@ namespace ECMA2Yaml.Models
                         }
                     }
                 }
+                //transform to uid based dictionary too, similar to class inheritance
+                t.InheritedMembers = t.InheritedMembers.ToDictionary(p => p.Value.Value, p => p.Value);
             }
         }
 
@@ -884,9 +886,9 @@ namespace ECMA2Yaml.Models
 
                 if (t.ItemType == ItemType.Class && !t.Signatures.IsStatic)
                 {
-                    t.InheritedMembers = new Dictionary<string, VersionedString>();
                     foreach(var inheritanceChain in t.InheritanceChains)
                     {
+                        var inheritedMembersById = new Dictionary<string, VersionedString>();
                         foreach (var btUid in inheritanceChain.Values)
                         {
                             if (TypesByUid.ContainsKey(btUid))
@@ -902,21 +904,54 @@ namespace ECMA2Yaml.Models
                                             && m.ItemType != ItemType.AttachedEvent
                                             && !m.Signatures.IsStatic)
                                         {
-                                            t.InheritedMembers[m.Id] = new VersionedString(inheritanceChain.Monikers, bt.Uid);
+                                            inheritedMembersById[m.Id] = new VersionedString(inheritanceChain.Monikers, m.Uid);
                                         }
                                     }
                                 }
                             }
                         }
-                    }
-
-                    if (t.Members != null)
-                    {
-                        foreach (var m in t.Members)
+                        if (t.Members != null)
                         {
-                            if (t.InheritedMembers.ContainsKey(m.Id))
+                            foreach (var m in t.Members)
                             {
-                                t.InheritedMembers.Remove(m.Id);
+                                if (inheritedMembersById.ContainsKey(m.Id))
+                                {
+                                    inheritedMembersById.Remove(m.Id);
+                                }
+                            }
+                        }
+
+                        // merge with type level inherited members, which are tracked by uid instead of id.
+                        if (t.InheritedMembers == null)
+                        {
+                            t.InheritedMembers = inheritedMembersById.ToDictionary(p => p.Value.Value, p => p.Value);
+                        }
+                        else
+                        {
+                            foreach (var inheritedMember in inheritedMembersById.Values)
+                            {
+                                if (t.InheritedMembers.TryGetValue(inheritedMember.Value, out var existingInheritedFrom))
+                                {
+                                    //inherited from the same type
+                                    if (existingInheritedFrom.Monikers != null)
+                                    {
+                                        if (inheritedMember.Monikers != null)
+                                        {
+                                            foreach (var newMoniker in inheritedMember.Monikers)
+                                            {
+                                                existingInheritedFrom.Monikers.Add(newMoniker);
+                                            }
+                                        }
+                                        else
+                                        {
+                                            existingInheritedFrom.Monikers = null;
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    t.InheritedMembers[inheritedMember.Value] = inheritedMember;
+                                }
                             }
                         }
                     }
