@@ -167,7 +167,8 @@ namespace ECMA2Yaml
         {
             if (item.VersionedAssemblyInfo == null)
             {
-                return null;
+                //legacy xml, fallback to asseblies without versions
+                return item.AssemblyInfo?.Select(asm => new VersionedString() { Value = asm.Name + ".dll" }).ToList();
             }
             var monikerAssembliesPairs = item.VersionedAssemblyInfo.ValuesPerMoniker
                 .Select(pair => (
