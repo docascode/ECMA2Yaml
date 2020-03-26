@@ -32,19 +32,33 @@ namespace ECMA2Yaml.Models
 
     public class UWPMetadata
     {
+        public static readonly string SDKRequirementsName = "requirement_sdk_names";
+        public static readonly string SDKRequirementsUrl = "requirement_sdk_urls";
+        public static readonly string OSRequirementsName = "requirement_os_names";
+        public static readonly string OSRequirementsMinVersion = "requirement_os_min_versions";
+        public static readonly string DeviceFamilyNames = "deviceFamilies";
+        public static readonly string DeviceFamilyVersions = "deviceFamiliesVersions";
+        public static readonly string ApiContractNames = "apiContracts";
+        public static readonly string ApiContractVersions = "apiContractsVersions";
+        public static readonly string Capabilities = "capabilities";
+        public static readonly string XamlSyntax = "xamlSyntax";
+        public static readonly string XamlMemberSyntax = "xamlMemberSyntax";
+        public static readonly string ContentSourcePath = "contentSourcePath";
+
         public static readonly Dictionary<string, MetadataDataType> Values = new Dictionary<string, MetadataDataType>
         {
-            {"requirement_sdk_names", MetadataDataType.StringArray },
-            {"requirement_sdk_urls", MetadataDataType.StringArray },
-            {"requirement_os_names", MetadataDataType.StringArray },
-            {"requirement_os_min_versions", MetadataDataType.StringArray },
-            {"deviceFamilies", MetadataDataType.StringArray },
-            {"deviceFamiliesVersions", MetadataDataType.StringArray },
-            {"apiContracts", MetadataDataType.StringArray },
-            {"apiContractsVersions", MetadataDataType.StringArray },
-            {"capabilities", MetadataDataType.StringArray },
-            {"xamlMemberSyntax", MetadataDataType.String },
-            {"contentSourcePath", MetadataDataType.String }
+            {ApiContractNames, MetadataDataType.StringArray },
+            {ApiContractVersions, MetadataDataType.StringArray },
+            {Capabilities, MetadataDataType.StringArray },
+            {ContentSourcePath, MetadataDataType.String },
+            {DeviceFamilyNames, MetadataDataType.StringArray },
+            {DeviceFamilyVersions, MetadataDataType.StringArray },
+            {OSRequirementsMinVersion, MetadataDataType.String },
+            {OSRequirementsName, MetadataDataType.String },
+            {XamlMemberSyntax, MetadataDataType.String },
+            {XamlSyntax, MetadataDataType.String },
+            {SDKRequirementsName, MetadataDataType.String },
+            {SDKRequirementsUrl, MetadataDataType.String }
         };
     }
 

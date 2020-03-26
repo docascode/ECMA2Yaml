@@ -26,6 +26,8 @@ ECMA2Yaml.exe <Options>
                                json, used in .NET CI
       --SDP                  SDP mode, generate yamls in the .NET SDP schema
                                format
+      --UWP                  UWP mode, generate yamls in the .NET SDP schema
+                               format with additional UWP properties
       --changeList=VALUE     OPS change list file, ECMA2Yaml will translate xml
                                path to yml path
       --skipPublishFilePath=VALUE

@@ -158,7 +158,98 @@ namespace ECMA2Yaml
                 rval.IsDeprecated = true;
             }
 
+            if (_store.UWPMode)
+            {
+                GenerateUWPRequirements(rval, item);
+            }
+
             return rval;
+        }
+
+        private void GenerateUWPRequirements(ItemSDPModelBase model, ReflectionItem item)
+        {
+            UWPRequirements uwpRequirements = new UWPRequirements();
+
+            if (item.Metadata.TryGetValue(UWPMetadata.DeviceFamilyNames, out object deviceFamilies))
+            {
+                String[] familyNames = (String[])deviceFamilies;
+                List<DeviceFamily> families = new List<DeviceFamily>();
+                if (familyNames.Length > 0 && item.Metadata.TryGetValue(UWPMetadata.DeviceFamilyVersions, out object deviceFamilyVersions))
+                {
+                    String[] familyVersions = (String[])deviceFamilyVersions;
+
+                    if (familyVersions.Length > 0)
+                    {
+                        int minNameVersionPairs = Math.Min(familyNames.Length, familyVersions.Length);
+
+                        for (int i = 0; i < minNameVersionPairs; i++)
+                        {
+                            DeviceFamily df = new DeviceFamily { Name = familyNames[i], Version = familyVersions[i] };
+                            families.Add(df);
+                        }
+                    }
+                }
+
+                if (families.Count > 0)
+                    uwpRequirements.DeviceFamilies = families;
+            }
+            if (item.Metadata.TryGetValue(UWPMetadata.ApiContractNames, out object apiContracts))
+            {
+                String[] apicNames = (String[])apiContracts;
+                List<APIContract> contracts = new List<APIContract>();
+                if (apicNames.Length > 0 && item.Metadata.TryGetValue(UWPMetadata.ApiContractVersions, out object apicVersions))
+                {
+                    String[] contractVersions = (String[])apicVersions;
+
+                    if (contractVersions.Length > 0)
+                    {
+                        int minNameVersionPairs = Math.Min(apicNames.Length, contractVersions.Length);
+
+                        for (int i = 0; i < minNameVersionPairs; i++)
+                        {
+                            APIContract apic = new APIContract { Name = apicNames[i], Version = contractVersions[i] };
+                            contracts.Add(apic);
+                        }
+                    }
+                }
+
+                if (contracts.Count > 0)
+                    uwpRequirements.APIContracts = contracts;
+            }
+            if (item.Metadata.TryGetValue(UWPMetadata.SDKRequirementsName, out object sdkReqName))
+            {
+                SDKRequirements sdkRequirements = new SDKRequirements { Name = (string)sdkReqName };
+                if (item.Metadata.TryGetValue(UWPMetadata.SDKRequirementsUrl, out object sdkReqUrl))
+                {
+                    sdkRequirements.Url = (string)sdkReqUrl;
+                }
+                model.SDKRequirements = sdkRequirements;
+            }
+            if (item.Metadata.TryGetValue(UWPMetadata.OSRequirementsName, out object osReqName))
+            {
+                OSRequirements osRequirements = new OSRequirements { Name = (string)osReqName };
+                if (item.Metadata.TryGetValue(UWPMetadata.OSRequirementsMinVersion, out object osReqMinVer))
+                {
+                    osRequirements.MinVer = (string)osReqMinVer;
+                }
+                model.OSRequirements = osRequirements;
+            }
+            if (item.Metadata.TryGetValue(UWPMetadata.Capabilities, out object capabilities))
+            {
+                model.Capabilities = (IEnumerable<string>)capabilities;
+            }
+            if (item.Metadata.TryGetValue(UWPMetadata.XamlMemberSyntax, out object xamlMemberSyntax))
+            {
+                model.XamlMemberSyntax = (string)xamlMemberSyntax;
+            }
+            if (item.Metadata.TryGetValue(UWPMetadata.XamlSyntax, out object xamlSyntax))
+            {
+                model.XamlSyntax = (string)xamlSyntax;
+            }
+
+            if (uwpRequirements.DeviceFamilies != null
+                || uwpRequirements.APIContracts != null)
+                model.UWPRequirements = uwpRequirements;
         }
 
         private void GenerateRequiredMetadata(ItemSDPModelBase model, ReflectionItem item, List<ReflectionItem> childrenItems = null)
