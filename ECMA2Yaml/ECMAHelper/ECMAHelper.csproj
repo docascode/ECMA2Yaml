@@ -67,7 +67,12 @@
     <Compile Include="Metadata\APIScanGenerator.cs" />
     <Compile Include="Metadata\F1KeywordsGenerator.cs" />
     <Compile Include="Metadata\HelpViewerKeywordsGenerator.cs" />
+    <Compile Include="Models\APIContract.cs" />
     <Compile Include="Models\GitSourceDetail.cs" />
+    <Compile Include="Models\OSRequirements.cs" />
+    <Compile Include="Models\DeviceFamily.cs" />
+    <Compile Include="Models\UWPRequirements.cs" />
+    <Compile Include="Models\SDKRequirements.cs" />
     <Compile Include="Models\SDP\MemberSDPModel.cs" />
     <Compile Include="Models\SDP\OverloadSDPModel.cs" />
     <Compile Include="Models\SDP\Shared\NamespaceTypeLink.cs" />

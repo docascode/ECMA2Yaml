@@ -10,6 +10,11 @@ namespace ECMA2Yaml.Models
     {
         private void MonikerizeAssembly()
         {
+            if (_frameworks.FrameworkAssemblies == null
+                || _frameworks.FrameworkAssemblies.Count == 0)
+            {
+                return; //legacy xml, without any assemblies info in frameworkindex
+            }
             foreach (var ns in _nsList)
             {
                 foreach (var t in ns.Types)

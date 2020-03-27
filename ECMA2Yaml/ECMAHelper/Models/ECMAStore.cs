@@ -752,12 +752,14 @@ namespace ECMA2Yaml.Models
                 ImplementationParentsByUid.Add(childUid, new List<VersionedString>());
             }
             ImplementationParentsByUid[childUid].Add(new VersionedString() { Value = parentUid, Monikers = monikers });
-
             if (!ImplementationChildrenByUid.ContainsKey(parentUid))
             {
                 ImplementationChildrenByUid.Add(parentUid, new List<VersionedString>());
             }
-            ImplementationChildrenByUid[parentUid].Add(new VersionedString() { Value = childUid, Monikers = monikers });
+            if (!ImplementationChildrenByUid[parentUid].Exists(p => p.Value == childUid))
+            {
+                ImplementationChildrenByUid[parentUid].Add(new VersionedString() { Value = childUid, Monikers = monikers });
+            }
         }
 
         private void FillInheritanceImplementationGraph(Type t)
