@@ -165,7 +165,7 @@ namespace ECMA2Yaml
             }
             if (t.ExtensionMethods?.Count > 0)
             {
-                pv.References.AddRange(t.ExtensionMethods.Select(ex => store.MembersByUid[ex].ToReferenceViewModel()));
+                pv.References.AddRange(t.ExtensionMethods.Select(ex => store.MembersByUid[ex.Value].ToReferenceViewModel()));
             }
             if (t.Interfaces?.Count > 0)
             {
@@ -209,7 +209,7 @@ namespace ECMA2Yaml
                 Summary = t.Docs?.Summary,
                 Remarks = t.Docs?.Remarks,
                 Examples = string.IsNullOrEmpty(t.Docs?.Examples) ? null : new List<string> { t.Docs?.Examples },
-                ExtensionMethods = t.ExtensionMethods,
+                ExtensionMethods = t.ExtensionMethods?.Select(ext => ext.Value).ToList(),
                 Attributes = t.Attributes.GetAttributeInfo(store),
                 Modifiers = t.Modifiers,
                 SeeAlsos = t.Docs.BuildSeeAlsoList(store),

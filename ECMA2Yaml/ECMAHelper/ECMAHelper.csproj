@@ -88,6 +88,7 @@
     <Compile Include="Models\SDP\TypeSDPModel.cs" />
     <Compile Include="Models\SDP\NamespaceSDPModel.cs" />
     <Compile Include="Models\VersionedSignatures.cs" />
+    <Compile Include="MoreLinq\MoreEnumerable.DistinctBy.cs" />
     <Compile Include="YamlConverters\SDPYamlConverter.metadata.cs" />
     <Compile Include="YamlConverters\SDPYamlConverter.Overload.cs" />
     <Compile Include="YamlConverters\SDPYamlConverter.Member.cs" />
@@ -166,6 +167,11 @@
     </PackageReference>
     <PackageReference Include="Microsoft.OpenPublishing.LogCodeService.Manager">
       <Version>1.0.3</Version>
+    </PackageReference>
+    <PackageReference Include="MoreLinq.Source.MoreEnumerable.DistinctBy">
+      <Version>1.0.2</Version>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
       <Version>9.0.1</Version>

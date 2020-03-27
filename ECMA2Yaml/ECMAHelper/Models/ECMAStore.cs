@@ -1,4 +1,5 @@
 ﻿using Monodoc.Ecma;
+using MoreLinq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -418,15 +419,114 @@ namespace ECMA2Yaml.Models
 
             foreach (var t in _tList)
             {
-                var exMethodsFromBaseType = CheckAvailableExtensionMethods(t, InheritanceParentsByUid);
-                //var exMethodsFromInterface = CheckAvailableExtensionMethods(t, ImplementationParentsByUid);
-                //var allExMethods = exMethodsFromBaseType.MergeWith(exMethodsFromInterface);
-                if (exMethodsFromBaseType.Count > 0)
+                var exMethodsFromBaseType = CheckAvailableExtensionMethods(t);
+                if (exMethodsFromBaseType?.Count > 0)
                 {
-                    t.ExtensionMethods = exMethodsFromBaseType.Distinct().ToList();
-                    t.ExtensionMethods.Sort();
+                    t.ExtensionMethods = exMethodsFromBaseType;
                 }
             }
+        }
+
+        private List<VersionedString> CheckAvailableExtensionMethods(Type t)
+        {
+            if (t.Uid == "Microsoft.Build.BuildEngine.BuildItemGroupCollection")
+            {
+
+            }
+            var extensionMethods = GetExtensionMethodCandidatesForType(t.Uid);
+            if (t.InheritanceChains != null)
+            {
+                foreach (var inheritanceChain in t.InheritanceChains)
+                {
+                    var extensionsPerChain = inheritanceChain.Values.Select(btUid => GetExtensionMethodCandidatesForType(btUid, inheritanceChain.Monikers))
+                        .Where(exs => exs != null).SelectMany(exs => exs).DistinctBy(ext => ext.Value).ToList();
+                    if (extensionMethods == null)
+                    {
+                        extensionMethods = extensionsPerChain;
+                    }
+                    else
+                    {
+                        // merge extension methods found in different versions
+                        // this is a O(n^2) operation, which is slow, however only a few classes have more than 1 inheritance chain, so we should be ok.
+                        foreach (var extPerChain in extensionsPerChain)
+                        {
+                            var existingExt = extensionMethods.FirstOrDefault(ext => ext.Value == extPerChain.Value);
+                            if (existingExt != null)
+                            {
+                                if (existingExt.Monikers != null)
+                                {
+                                    if (extPerChain.Monikers != null)
+                                    {
+                                        existingExt.Monikers = new HashSet<string>(existingExt.Monikers);
+                                        existingExt.Monikers.UnionWith(extPerChain.Monikers);
+                                    }
+                                    else
+                                    {
+                                        existingExt.Monikers = null;
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                extensionMethods.Add(extPerChain);
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (extensionMethods != null)
+            {
+                foreach(var ext in extensionMethods)
+                {
+                    if (ext.Monikers != null)
+                    {
+                        ext.Monikers = ext.Monikers.Intersect(t.Monikers).ToHashSet();
+                    }
+                }
+                extensionMethods = extensionMethods.DistinctBy(ext => ext.Value)
+                    .OrderBy(ext => ext.Value).ToList();
+            }
+            return extensionMethods;
+
+            List<VersionedString> GetExtensionMethodCandidatesForType(string uid, HashSet<string> monikers = null)
+            {
+                var a = GetExtensionMethodCandidatesForTypeCore(uid, monikers) ?? new List<VersionedString>();
+                if (TypesByUid.TryGetValue(uid, out var type) && type.Interfaces?.Count > 0)
+                {
+                    foreach (var f in type.Interfaces)
+                    {
+                        var interfaceExts = GetExtensionMethodCandidatesForTypeCore(f.ToOuterTypeUid(), monikers);
+                        if (interfaceExts != null)
+                        {
+                            a.AddRange(interfaceExts);
+                        }
+                    }
+                }
+                return a;
+            }
+
+            List<VersionedString> GetExtensionMethodCandidatesForTypeCore(string uid, HashSet<string> monikers = null)
+            {
+                if (ExtensionMethodUidsByTargetUid.Contains(uid))
+                {
+                    var exCandiates = ExtensionMethodUidsByTargetUid[uid].Where(ex =>
+                    {
+                        if (string.IsNullOrEmpty(ex.Uid))
+                        {
+                            return false;
+                        }
+                        HashSet<string> exMonikers = ex.Parent?.Monikers;
+                        return (exMonikers == null && t.Monikers == null) ||
+                               (exMonikers != null && t.Monikers != null && exMonikers.Overlaps(t.Monikers));
+                    });
+
+                    return exCandiates.Select(ex => new VersionedString(monikers, ex.Uid)).ToList();
+                }
+                return null;
+            }
+
+            return extensionMethods;
         }
 
         private List<string> CheckAvailableExtensionMethods(Type t, Dictionary<string, List<VersionedString>> parentDict)

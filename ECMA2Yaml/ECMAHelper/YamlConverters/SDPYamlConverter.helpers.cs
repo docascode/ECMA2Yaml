@@ -162,6 +162,15 @@ namespace ECMA2Yaml
             return null;
         }
 
+        public static TypeMemberLink ConvertTypeMemberLink(VersionedString vs)
+        {
+            return new TypeMemberLink()
+            {
+                Uid = vs.Value,
+                Monikers = vs.Monikers
+            };
+        }
+
         public static NamespaceTypeLink ConvertNamespaceTypeLink(Namespace ns, Models.Type t)
         {
             if (t == null)
