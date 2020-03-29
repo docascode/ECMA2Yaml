@@ -162,12 +162,28 @@ namespace ECMA2Yaml
             return null;
         }
 
-        public static TypeMemberLink ConvertTypeMemberLink(VersionedString vs)
+        public TypeMemberLink ExtensionMethodToTypeMemberLink(Models.Type t, VersionedString vs)
         {
+            HashSet<string> monikers = vs.Monikers;
+            if (monikers == null && _store.MembersByUid.TryGetValue(vs.Value, out var m))
+            {
+                monikers = m.Monikers;
+            }
+            if (monikers != null)
+            {
+                if (monikers.Count > t.Monikers.Count)
+                {
+                    monikers = monikers.Intersect(t.Monikers).ToHashSet();
+                }
+                if (monikers.SetEquals(t.Monikers))
+                {
+                    monikers = null;
+                }
+            }
             return new TypeMemberLink()
             {
                 Uid = vs.Value,
-                Monikers = vs.Monikers
+                Monikers = monikers
             };
         }
 

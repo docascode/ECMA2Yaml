@@ -130,7 +130,7 @@ namespace ECMA2Yaml
             }
             if (t.ExtensionMethods?.Count > 0)
             {
-                sdpType.ExtensionMethods = t.ExtensionMethods.Select(im => ConvertTypeMemberLink(im)).ToList();
+                sdpType.ExtensionMethods = t.ExtensionMethods.Select(im => ExtensionMethodToTypeMemberLink(t, im)).ToList();
             }
         }
     }
