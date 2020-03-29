@@ -175,10 +175,11 @@ namespace ECMA2Yaml
                 {
                     monikers = monikers.Intersect(t.Monikers).ToHashSet();
                 }
-                if (monikers.SetEquals(t.Monikers))
-                {
-                    monikers = null;
-                }
+                //don't move same monikers for now, for less diff
+                //if (monikers.SetEquals(t.Monikers))
+                //{
+                //    monikers = null;
+                //}
             }
             return new TypeMemberLink()
             {
