@@ -436,7 +436,7 @@ namespace ECMA2Yaml.Models
                 {
                     var extensionsPerChain = inheritanceChain.Values.Select(btUid => GetExtensionMethodCandidatesForType(btUid, inheritanceChain.Monikers))
                         .Where(exs => exs != null).SelectMany(exs => exs).DistinctBy(ext => ext.Value).ToList();
-                    if (extensionMethods == null)
+                    if (extensionMethods == null || extensionMethods.Count == 0)
                     {
                         extensionMethods = extensionsPerChain;
                     }
