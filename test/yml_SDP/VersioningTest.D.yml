@@ -20,11 +20,9 @@ methods:
   inheritedFrom: VersioningTest.A
   monikers:
   - cat-1.0
-  - cat-2.0
 - uid: VersioningTest.B.MethodFromClassB(System.String)
   inheritedFrom: VersioningTest.B
   monikers:
-  - cat-1.0
   - cat-2.0
 uid: VersioningTest.D
 commentId: T:VersioningTest.D
