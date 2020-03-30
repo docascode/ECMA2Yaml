@@ -429,10 +429,6 @@ namespace ECMA2Yaml.Models
 
         private List<VersionedString> CheckAvailableExtensionMethods(Type t)
         {
-            if (t.Uid == "Microsoft.Build.BuildEngine.BuildItemGroupCollection")
-            {
-
-            }
             var extensionMethods = GetExtensionMethodCandidatesForType(t.Uid);
             if (t.InheritanceChains != null)
             {
@@ -522,60 +518,6 @@ namespace ECMA2Yaml.Models
                     });
 
                     return exCandiates.Select(ex => new VersionedString(monikers, ex.Uid)).ToList();
-                }
-                return null;
-            }
-
-            return extensionMethods;
-        }
-
-        private List<string> CheckAvailableExtensionMethods(Type t, Dictionary<string, List<VersionedString>> parentDict)
-        {
-            List<string> extensionMethods = new List<string>();
-            Stack<string> uidsToCheck = new Stack<string>();
-            uidsToCheck.Push(t.Uid);
-            while (uidsToCheck.Count > 0)
-            {
-                var uid = uidsToCheck.Pop();
-                if (parentDict.ContainsKey(uid))
-                {
-                    parentDict[uid].ForEach(u => uidsToCheck.Push(u.Value));
-                }
-                var exCandiates = GetExtensionMethodCandidatesForType(uid);
-                if (exCandiates != null)
-                {
-                    extensionMethods.AddRange(exCandiates);
-                }
-                if (TypesByUid.TryGetValue(uid, out var type) && type.Interfaces?.Count > 0)
-                {
-                    foreach(var f in type.Interfaces)
-                    {
-                        exCandiates = GetExtensionMethodCandidatesForType(f.ToOuterTypeUid());
-                        if (exCandiates != null)
-                        {
-                            extensionMethods.AddRange(exCandiates);
-                        }
-                    }
-                }
-            }
-            return extensionMethods;
-
-            List<string> GetExtensionMethodCandidatesForType(string uid)
-            {
-                if (ExtensionMethodUidsByTargetUid.Contains(uid))
-                {
-                    var exCandiates = ExtensionMethodUidsByTargetUid[uid].Where(ex =>
-                    {
-                        if (string.IsNullOrEmpty(ex.Uid))
-                        {
-                            return false;
-                        }
-                        HashSet<string> exMonikers = ex.Parent?.Monikers;
-                        return (exMonikers == null && t.Monikers == null) ||
-                               (exMonikers != null && t.Monikers != null && exMonikers.Intersect(t.Monikers).Any());
-                    });
-
-                    return exCandiates.Select(ex => ex.Uid).ToList();
                 }
                 return null;
             }
