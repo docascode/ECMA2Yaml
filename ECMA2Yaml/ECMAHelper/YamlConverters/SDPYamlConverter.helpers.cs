@@ -165,9 +165,15 @@ namespace ECMA2Yaml
         public TypeMemberLink ExtensionMethodToTypeMemberLink(Models.Type t, VersionedString vs)
         {
             HashSet<string> monikers = vs.Monikers;
-            if (monikers == null && _store.MembersByUid.TryGetValue(vs.Value, out var m))
+            if (_store.MembersByUid.TryGetValue(vs.Value, out var m))
             {
-                monikers = m.Monikers;
+                if (monikers == null)
+                {
+                    monikers = m.Monikers;
+                }
+                else {
+                    monikers = monikers.Intersect(m.Monikers).ToHashSet();
+                }
             }
             if (monikers != null)
             {
