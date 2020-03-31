@@ -187,6 +187,10 @@ namespace ECMA2Yaml
                 //    monikers = null;
                 //}
             }
+            if (monikers != null && monikers.Count == 0)
+            {
+                return null;
+            }
             return new TypeMemberLink()
             {
                 Uid = vs.Value,
