@@ -130,6 +130,8 @@ Boolean isAvailable = scheduleObject.RawSchedule[2, 15, 3];
         [DataTestMethod]
         [DataRow("The is a interface [ISymUnmanagedWriter Interface](~/docs/framework/unmanaged-api/diagnostics/isymunmanagedwriter-interface.md) test"
                 , "The is a interface ISymUnmanagedWriter Interface test")]
+        //[DataRow("The debounce timeout (of type [TimeSpan](/uwp/api/windows.foundation.timespan)) for the GPIO pin."
+        //        , "The debounce timeout (of type TimeSpan) for the GPIO pin.")]
         public void Link_Pattern_Test(string inText, string expected)
         {
             PatternValidate(inText, expected, Constants.Link_Pattern);
@@ -138,6 +140,12 @@ Boolean isAvailable = scheduleObject.RawSchedule[2, 15, 3];
         [DataTestMethod]
         [DataRow("Creates an @Windows.AI.MachineLearning.ImageFeatureValue?text=ImageFeatureValue using the given video frame."
                 , "Creates an ImageFeatureValue using the given video frame.")]
+        [DataRow(@"Creates an instance of @Windows.UI.Composition.Interactions.InteractionTracker?text=InteractionTracker.
+
+        This Create method will instantiate an @Windows.UI.Composition.Interactions.InteractionTracker?text=InteractionTracker. After creating the @Windows.UI.Composition.Interactions.InteractionTracker?text=InteractionTracker setting the properties, attaching a @Windows.UI.Composition.Interactions.VisualInteractionSource?text=VisualInteractionSource, and referencing position or scale in an @Windows.UI.Composition.ExpressionAnimation?text=ExpressionAnimation, active input can drive the @Windows.UI.Composition.ExpressionAnimation?text=ExpressionAnimation."
+                        , @"Creates an instance of InteractionTracker.
+
+        This Create method will instantiate an InteractionTracker. After creating the InteractionTracker setting the properties, attaching a VisualInteractionSource, and referencing position or scale in an ExpressionAnimation, active input can drive the ExpressionAnimation.")]
         public void Link_Pattern1_Test(string inText, string expected)
         {
             PatternValidate(inText, expected, Constants.Link_Pattern1);
