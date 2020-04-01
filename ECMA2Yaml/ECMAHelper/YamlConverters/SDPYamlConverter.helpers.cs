@@ -142,12 +142,24 @@ namespace ECMA2Yaml
             {
                 return null;
             }
-            return new TypeMemberLink()
+            var monikers = m.Monikers;
+            VersionedString inheritanceInfo = null;
+            if (t?.InheritedMembers != null
+                && t.InheritedMembers.TryGetValue(m.Uid, out inheritanceInfo)
+                && inheritanceInfo.Monikers != null)
             {
-                Uid = m.Uid,
-                InheritedFrom = (t != null && m.Parent.Uid != t.Uid) ? m.Parent.Uid : null,
-                Monikers = m.Monikers
-            };
+                monikers = inheritanceInfo.Monikers;
+            }
+            if (monikers.Any())
+            {
+                return new TypeMemberLink()
+                {
+                    Uid = m.Uid,
+                    InheritedFrom = inheritanceInfo != null ? m.Parent.Uid : null,
+                    Monikers = monikers
+                };
+            }
+            return null;
         }
 
         public static NamespaceTypeLink ConvertNamespaceTypeLink(Namespace ns, Models.Type t)
