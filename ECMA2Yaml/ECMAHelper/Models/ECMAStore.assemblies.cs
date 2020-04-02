@@ -71,9 +71,7 @@ namespace ECMA2Yaml.Models
                     }
                     if (assemblies.Count == 0)
                     {
-                        OPSLogger.LogUserWarning(LogCode.ECMA2Yaml_UidAssembly_NotMatched,
-                            LogMessageUtility.FormatMessage(LogCode.ECMA2Yaml_UidAssembly_NotMatched, t.Uid, moniker),
-                            t.SourceFileLocalPath);
+                        OPSLogger.LogUserWarning(LogCode.ECMA2Yaml_UidAssembly_NotMatched, t.SourceFileLocalPath, t.Uid, moniker);
                     }
                     valuesPerMoniker[moniker] = assemblies;
                 }
@@ -92,9 +90,7 @@ namespace ECMA2Yaml.Models
                 }
                 else
                 {
-                    OPSLogger.LogUserWarning(LogCode.ECMA2Yaml_ExtraMonikerFoundInMember,
-                            LogMessageUtility.FormatMessage(LogCode.ECMA2Yaml_ExtraMonikerFoundInMember, moniker, m.Uid),
-                            m.SourceFileLocalPath);
+                    OPSLogger.LogUserWarning(LogCode.ECMA2Yaml_ExtraMonikerFoundInMember, m.SourceFileLocalPath, moniker, m.Uid);
                 }
             }
             m.VersionedAssemblyInfo = new VersionedProperty<AssemblyInfo>(mAssemblies);

@@ -1,39 +1,73 @@
-﻿// **********************************************************************************************************
+﻿
+// **********************************************************************************************************
 // This is an auto generated file and any changes directly applied to this file will be lost in next generation.
 // Please DO NOT modify this file but instead, update .+LogMessage\.json files and/or LogCode.tt.
 // **********************************************************************************************************
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+
 namespace ECMA2Yaml
 {
-    public enum LogCode
+    public class LogCode : LogCodeBase
     {
-        #region ECMA2Yaml
-		ECMA2Yaml_Command_Invalid,
-		ECMA2Yaml_CommentID_ParseFailed,
-		ECMA2Yaml_CommentId_ResolveFailed,
-		ECMA2Yaml_DocId_Duplicated,
-		ECMA2Yaml_DocId_IsNull,
-		ECMA2Yaml_ExceptionTypeNotFound,
-		ECMA2Yaml_ExtraMonikerFoundInMember,
-		ECMA2Yaml_File_LoadFailed,
-		ECMA2Yaml_Framework_NotFound,
-		ECMA2Yaml_InternalError,
-		ECMA2Yaml_MemberGroup_Duplicated,
-		ECMA2Yaml_MemberNameAndSignature_NotUnique,
-		ECMA2Yaml_MonikerToAssembly_Failed,
-		ECMA2Yaml_MonikerToNuget_Failed,
-		ECMA2Yaml_Namespace_LoadFailed,
-		ECMA2Yaml_Namespace_NoTypes,
-		ECMA2Yaml_NotesType_UnKnown,
-		ECMA2Yaml_OverloadMDFile_SaveFailed,
-		ECMA2Yaml_OverwriteMDFile_SaveFailed,
-		ECMA2Yaml_Type_ExternalBaseType,
-		ECMA2Yaml_Type_NotFound,
-		ECMA2Yaml_TypeString_ParseFailed,
-		ECMA2Yaml_Uid_Duplicated,
-		ECMA2Yaml_Uid_NotFound,
-		ECMA2Yaml_UidAssembly_NotMatched,
-		ECMA2Yaml_YamlHeader_ParseFailed,
-		ECMA2Yaml_YamlHeader_ParseFailed_WithException,
+    #region ECMA2Yaml
+		public static readonly LogCode ECMA2Yaml_Uid_Duplicated = new LogCode("ECMA2Yaml_Uid_Duplicated", "Duplicate uid found: {0}");
+		public static readonly LogCode ECMA2Yaml_DocId_Duplicated = new LogCode("ECMA2Yaml_DocId_Duplicated", "Duplicated DocId found: {0}");
+		public static readonly LogCode ECMA2Yaml_MemberGroup_Duplicated = new LogCode("ECMA2Yaml_MemberGroup_Duplicated", "Found duplicated <MemberGroup> {0}");
+		public static readonly LogCode ECMA2Yaml_DocId_IsNull = new LogCode("ECMA2Yaml_DocId_IsNull", "DocId is required for {0}.");
+		public static readonly LogCode ECMA2Yaml_MemberNameAndSignature_NotUnique = new LogCode("ECMA2Yaml_MemberNameAndSignature_NotUnique", "Member {0}'s name and signature is not unique");
+		public static readonly LogCode ECMA2Yaml_Framework_NotFound = new LogCode("ECMA2Yaml_Framework_NotFound", "Unable to find framework info for {0}");
+		public static readonly LogCode ECMA2Yaml_Type_NotFound = new LogCode("ECMA2Yaml_Type_NotFound", "Unable to identify the type of Type {0}");
+		public static readonly LogCode ECMA2Yaml_TypeString_ParseFailed = new LogCode("ECMA2Yaml_TypeString_ParseFailed", "Unable to parse type string {0}");
+		public static readonly LogCode ECMA2Yaml_OverloadMDFile_SaveFailed = new LogCode("ECMA2Yaml_OverloadMDFile_SaveFailed", "Unable to save overload md file for {0}");
+		public static readonly LogCode ECMA2Yaml_OverwriteMDFile_SaveFailed = new LogCode("ECMA2Yaml_OverwriteMDFile_SaveFailed", "Unable to save content overwrite md file for {0}");
+		public static readonly LogCode ECMA2Yaml_CommentID_ParseFailed = new LogCode("ECMA2Yaml_CommentID_ParseFailed", "Unable to parse string as comment id: {0}");
+		public static readonly LogCode ECMA2Yaml_MonikerToNuget_Failed = new LogCode("ECMA2Yaml_MonikerToNuget_Failed", "Unable to load moniker to nuget mapping: {0}");
+		public static readonly LogCode ECMA2Yaml_MonikerToAssembly_Failed = new LogCode("ECMA2Yaml_MonikerToAssembly_Failed", "Unable to load moniker to assembly mapping: {0}");
+		public static readonly LogCode ECMA2Yaml_CommentId_ResolveFailed = new LogCode("ECMA2Yaml_CommentId_ResolveFailed", "Unable to resolve: <InterfaceMember>{0}</InterfaceMember>");
+		public static readonly LogCode ECMA2Yaml_Namespace_LoadFailed = new LogCode("ECMA2Yaml_Namespace_LoadFailed", "Failed to load namespace");
+		public static readonly LogCode ECMA2Yaml_File_LoadFailed = new LogCode("ECMA2Yaml_File_LoadFailed", "Failed to load {0} files, aborting...");
+		public static readonly LogCode ECMA2Yaml_YamlHeader_ParseFailed_WithException = new LogCode("ECMA2Yaml_YamlHeader_ParseFailed_WithException", "Parsing yaml header failed, exception: {0}");
+		public static readonly LogCode ECMA2Yaml_YamlHeader_ParseFailed = new LogCode("ECMA2Yaml_YamlHeader_ParseFailed", "Parsing yaml header failed: {0}");
+		public static readonly LogCode ECMA2Yaml_Uid_NotFound = new LogCode("ECMA2Yaml_Uid_NotFound", "Can't find uid in yaml header: {0}");
+		public static readonly LogCode ECMA2Yaml_NotesType_UnKnown = new LogCode("ECMA2Yaml_NotesType_UnKnown", "Can't recognize additional notes type: {0}");
+		public static readonly LogCode ECMA2Yaml_UidAssembly_NotMatched = new LogCode("ECMA2Yaml_UidAssembly_NotMatched", "{0}'s moniker {1} can't match any assembly.");
+		public static readonly LogCode ECMA2Yaml_ExtraMonikerFoundInMember = new LogCode("ECMA2Yaml_ExtraMonikerFoundInMember", "Moniker {0} exists in member {1} but can't be found in parent type.");
+		public static readonly LogCode ECMA2Yaml_Command_Invalid = new LogCode("ECMA2Yaml_Command_Invalid", "Invalid command line parameter.");
+		public static readonly LogCode ECMA2Yaml_InternalError = new LogCode("ECMA2Yaml_InternalError", "Intenal Several Error");
+		public static readonly LogCode ECMA2Yaml_Namespace_NoTypes = new LogCode("ECMA2Yaml_Namespace_NoTypes", "Namespace {0} has no types");
+		public static readonly LogCode ECMA2Yaml_Type_ExternalBaseType = new LogCode("ECMA2Yaml_Type_ExternalBaseType", "Type {0} has an external base type {1}");
+		public static readonly LogCode ECMA2Yaml_ExceptionTypeNotFound = new LogCode("ECMA2Yaml_ExceptionTypeNotFound", "Referenced exception type not found: {0}");
 		#endregion
+    public LogCode(string code, string msgTemplate)
+        : base(code, msgTemplate)
+    {
+    }
+    }
+
+	public abstract class LogCodeBase
+    {
+        public string Code { get; private set; }
+
+        public string MessageTemplate { get; private set; }
+
+        protected LogCodeBase(string code, string msgTemplate)
+        {
+            Code = code;
+            MessageTemplate = msgTemplate;
+        }
+
+        public override string ToString() => Code;
+
+        public static IEnumerable<T> GetAll<T>() where T : LogCodeBase
+        {
+            var fields = typeof(T).GetFields(BindingFlags.Public |
+                                             BindingFlags.Static |
+                                             BindingFlags.DeclaredOnly);
+
+            return fields.Select(f => f.GetValue(null)).Cast<T>();
+        }
     }
 }
