@@ -8,12 +8,10 @@ inheritances:
 extensionMethods:
 - uid: VersioningTest.VersioningExtensions.ExtMethodForD(VersioningTest.D)
   monikers:
-  - cat-1.0
   - cat-2.0
 - uid: VersioningTest.VersioningExtensions.ExtMethodForI(VersioningTest.I)
   monikers:
   - cat-1.0
-  - cat-2.0
 constructors:
 - uid: VersioningTest.H.#ctor
   monikers:

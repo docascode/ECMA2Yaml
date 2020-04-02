@@ -18,7 +18,7 @@ namespace ECMA2Yaml.Models
         public List<string> Interfaces { get; set; }
         public List<Member> Members { get; set; }
         public List<Member> Overloads { get; set; }
-        public List<string> ExtensionMethods { get; set; }
+        public List<VersionedString> ExtensionMethods { get; set; }
         private static Regex GenericRegex = new Regex("<[^<>]+>", RegexOptions.Compiled);
 
         public override void Build(ECMAStore store)

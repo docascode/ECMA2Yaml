@@ -41,8 +41,8 @@ namespace ECMA2Yaml
 
             ConcurrentBag<Namespace> namespaces = new ConcurrentBag<Namespace>();
             ParallelOptions opt = new ParallelOptions() { MaxDegreeOfParallelism = Environment.ProcessorCount };
-            foreach(var nsFile in ListFiles(sourcePath, Path.Combine(sourcePath, "ns-*.xml")))
-            //Parallel.ForEach(ListFiles(sourcePath, Path.Combine(sourcePath, "ns-*.xml")), opt, nsFile =>
+            //foreach(var nsFile in ListFiles(sourcePath, Path.Combine(sourcePath, "ns-*.xml")))
+            Parallel.ForEach(ListFiles(sourcePath, Path.Combine(sourcePath, "ns-*.xml")), opt, nsFile =>
             {
                 var ns = LoadNamespace(sourcePath, nsFile);
                 if (ns == null)
@@ -61,7 +61,7 @@ namespace ECMA2Yaml
                         FallbackFiles.Add(nsFile.AbsolutePath);
                     }
                 }
-            }
+            });
 
             if (_errorFiles.Count > 0)
             {
