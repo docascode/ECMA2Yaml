@@ -510,15 +510,6 @@ namespace IntellisenseFileGen
                     formatEles.ToList().ForEach(formatEle =>
                     {
                         string cdDataValue = formatEle.Value;
-                        var matches = RegexHelper.GetMatches_All_JustWantedOne(Constants.Link_Pattern1, cdDataValue);
-                        if (matches != null && matches.Length >= 2)
-                        {
-                            for (int i = 0; i < matches.Length; i += 2)
-                            {
-                                cdDataValue = cdDataValue.Replace(matches[i], matches[i + 1]);
-                            }
-                        }
-
                         formatEle.ReplaceWith(System.Net.WebUtility.HtmlDecode(cdDataValue));
                     });
                 }
@@ -734,6 +725,18 @@ namespace IntellisenseFileGen
                     }
                 }
 
+                // Creates an @Windows.AI.MachineLearning.ImageFeatureValue?text=ImageFeatureValue using the given video frame.
+                // => Creates an ImageFeatureValue using the given video frame.
+                matches = RegexHelper.GetMatches_All_JustWantedOne(Constants.Link_Pattern1, content);
+                if (matches != null && matches.Length >= 2)
+                {
+                    for (int i = 0; i < matches.Length; i += 2)
+                    {
+                        content = content.Replace(matches[i], matches[i + 1]);
+                        contentChange = true;
+                    }
+                }
+
                 // **Unix** => Unix
                 // __Unix__ => Unix
                 matches = RegexHelper.GetMatches_All_JustWantedOne(Constants.DoubleSytax_Pattern, content);
@@ -757,7 +760,7 @@ namespace IntellisenseFileGen
                         contentChange = true;
                     }
                 }
-
+                
                 // 2BAD1A8DDD5C4C55A920F73420E93A9B => *
                 for (int i = 0; i < _replaceStringDic.Length - 1; i += 3)
                 {
