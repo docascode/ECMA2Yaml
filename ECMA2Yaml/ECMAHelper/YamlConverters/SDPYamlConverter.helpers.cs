@@ -1,13 +1,10 @@
 ﻿using ECMA2Yaml.Models;
 using ECMA2Yaml.Models.SDP;
 using Monodoc.Ecma;
-using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace ECMA2Yaml
 {
@@ -197,6 +194,58 @@ namespace ECMA2Yaml
                 versionedList.First().Monikers = null;
             }
             return versionedList;
+        }
+
+        public IEnumerable<VersionedString> MonikerizeDerivedClasses(Models.Type t)
+        {
+            //not top level class like System.Object, has children
+            if (t.ItemType == ItemType.Interface
+                && _store.ImplementationChildrenByUid.ContainsKey(t.Uid))
+            {
+                return _store.ImplementationChildrenByUid[t.Uid]
+                    .GroupBy(vs => vs.Value)
+                    .Select(g => new VersionedString()
+                    {
+                        Value = g.Key,
+                        Monikers = ConverterHelper.TrimMonikers(MergeMonikerHashSets(g.Select(gvs => gvs.Monikers).ToArray()), t.Monikers)
+                    });
+            }
+            else if (_store.InheritanceParentsByUid.ContainsKey(t.Uid)
+                && _store.InheritanceParentsByUid[t.Uid]?.Count > 0
+                && _store.InheritanceChildrenByUid.ContainsKey(t.Uid))
+            {
+                return _store.InheritanceChildrenByUid[t.Uid]
+                    .GroupBy(vs => vs.Value)
+                    .Select(g => new VersionedString()
+                    {
+                        Value = g.Key,
+                        Monikers = ConverterHelper.TrimMonikers(MergeMonikerHashSets(g.Select(gvs => gvs.Monikers).ToArray()), t.Monikers)
+                    });
+            }
+            return null;
+        }
+
+        public static HashSet<string> MergeMonikerHashSets(params HashSet<string>[] sets)
+        {
+            HashSet<string> finalSet = null;
+            if (sets != null)
+            {
+                foreach(var set in sets)
+                {
+                    if (set != null)
+                    {
+                        if (finalSet == null)
+                        {
+                            finalSet = new HashSet<string>(set);
+                        }
+                        else
+                        {
+                            finalSet.UnionWith(set);
+                        }
+                    }
+                }
+            }
+            return finalSet;
         }
 
         private static string HtmlEncodeLinkText(string text)
