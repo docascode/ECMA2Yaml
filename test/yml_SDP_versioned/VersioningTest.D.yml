@@ -11,8 +11,10 @@ inheritancesWithMoniker:
   - <xref href="VersioningTest.B?alt=VersioningTest.B&text=B" data-throw-if-not-resolved="True"/>
   monikers:
   - cat-2.0
-derivedClasses:
-- VersioningTest.F
+derivedClassesWithMoniker:
+- value: VersioningTest.F
+  monikers:
+  - cat-2.0
 extensionMethods:
 - uid: VersioningTest.VersioningExtensions.ExtMethodForD(VersioningTest.D)
   monikers:

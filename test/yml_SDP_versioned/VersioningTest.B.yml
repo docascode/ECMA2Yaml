@@ -3,8 +3,10 @@ type: class
 inheritancesWithMoniker:
 - values:
   - <xref href="System.Object" data-throw-if-not-resolved="True"/>
-derivedClasses:
-- VersioningTest.D
+derivedClassesWithMoniker:
+- value: VersioningTest.D
+  monikers:
+  - cat-2.0
 constructors:
 - uid: VersioningTest.B.#ctor
   monikers:

@@ -1,8 +1,8 @@
 ### YamlMime:NetType
 type: interface
-derivedClasses:
-- CatLibrary.Cat`2
-- CatLibrary.ICat
+derivedClassesWithMoniker:
+- value: CatLibrary.Cat`2
+- value: CatLibrary.ICat
 methods:
 - uid: CatLibrary.IAnimal.Eat
   monikers:

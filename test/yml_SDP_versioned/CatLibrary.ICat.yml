@@ -2,8 +2,8 @@
 type: interface
 implements:
 - <xref href="CatLibrary.IAnimal?alt=CatLibrary.IAnimal&text=IAnimal" data-throw-if-not-resolved="True"/>
-derivedClasses:
-- CatLibrary.Cat`2
+derivedClassesWithMoniker:
+- value: CatLibrary.Cat`2
 extensionMethods:
 - uid: CatLibrary.ICatExtension.Play(CatLibrary.ICat,System.String)
   monikers:

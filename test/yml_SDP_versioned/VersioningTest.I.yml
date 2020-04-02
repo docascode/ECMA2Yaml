@@ -1,7 +1,7 @@
 ### YamlMime:NetType
 type: interface
-derivedClasses:
-- VersioningTest.C
+derivedClassesWithMoniker:
+- value: VersioningTest.C
 extensionMethods:
 - uid: VersioningTest.VersioningExtensions.ExtMethodForI(VersioningTest.I)
   monikers:

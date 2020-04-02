@@ -5,9 +5,11 @@ implements:
 inheritancesWithMoniker:
 - values:
   - <xref href="System.Object" data-throw-if-not-resolved="True"/>
-derivedClasses:
-- VersioningTest.E
-- VersioningTest.F
+derivedClassesWithMoniker:
+- value: VersioningTest.E
+- value: VersioningTest.F
+  monikers:
+  - cat-1.0
 extensionMethods:
 - uid: VersioningTest.VersioningExtensions.ExtMethodForI(VersioningTest.I)
   monikers:
