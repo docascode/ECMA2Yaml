@@ -1,9 +1,11 @@
 ### YamlMime:NetDelegate
 parameters:
-- name: pics
+- namesWithMoniker:
+  - value: pics
   description: a name list of pictures.
   type: <xref href="System.Collections.Generic.List`1?alt=System.Collections.Generic.List&text=List" data-throw-if-not-resolved="True"/>&lt;<xref href="System.String?alt=System.String&text=String" data-throw-if-not-resolved="True"/>&gt;
-- name: name
+- namesWithMoniker:
+  - value: name
   description: give out the needed name.
   type: <xref href="System.String?alt=System.String&text=String" data-throw-if-not-resolved="True"/>
 inheritances:
@@ -14,17 +16,21 @@ namespace: CatLibrary
 name: MRefNormalDelegate
 fullName: CatLibrary.MRefNormalDelegate
 nameWithType: CatLibrary.MRefNormalDelegate
-assemblies:
-- CatLibrary
-syntax:
+assembliesWithMoniker:
+- value: CatLibrary.dll
+syntaxWithMoniker:
 - lang: cpp
-  value: public delegate void MRefNormalDelegate(List<System::String ^> ^ pics, [Runtime::InteropServices::Out] System::String ^ % name);
+  values:
+  - value: public delegate void MRefNormalDelegate(List<System::String ^> ^ pics, [Runtime::InteropServices::Out] System::String ^ % name);
 - lang: csharp
-  value: public delegate void MRefNormalDelegate(List<string> pics, out string name);
+  values:
+  - value: public delegate void MRefNormalDelegate(List<string> pics, out string name);
 - lang: fsharp
-  value: type MRefNormalDelegate = delegate of List<string> * string -> unit
+  values:
+  - value: type MRefNormalDelegate = delegate of List<string> * string -> unit
 - lang: vb
-  value: Public Delegate Sub MRefNormalDelegate(pics As List(Of String), ByRef name As String)
+  values:
+  - value: Public Delegate Sub MRefNormalDelegate(pics As List(Of String), ByRef name As String)
 devLangs:
 - csharp
 - vb

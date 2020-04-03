@@ -6,15 +6,18 @@ members:
   name: G()
   fullName: VersioningTest.G.G()
   nameWithType: G.G()
-  syntax:
+  syntaxWithMoniker:
   - lang: cpp
-    value: >-
-      public:
-       G();
+    values:
+    - value: >-
+        public:
+         G();
   - lang: csharp
-    value: public G ();
+    values:
+    - value: public G ();
   - lang: vb
-    value: Public Sub New ()
+    values:
+    - value: Public Sub New ()
   monikers:
   - cat-1.0
   - cat-2.0
@@ -25,8 +28,8 @@ namespace: VersioningTest
 name: G
 fullName: VersioningTest.G.G
 nameWithType: G.G
-assemblies:
-- CatLibrary
+assembliesWithMoniker:
+- value: CatLibrary.dll
 devLangs:
 - csharp
 - vb

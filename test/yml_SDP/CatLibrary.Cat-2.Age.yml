@@ -8,17 +8,21 @@ members:
   name: Age
   fullName: CatLibrary.Cat<T,K>.Age
   nameWithType: Cat<T,K>.Age
-  syntax:
+  syntaxWithMoniker:
   - lang: cpp
-    value: >-
-      protected:
-       property int Age { int get(); void set(int value); };
+    values:
+    - value: >-
+        protected:
+         property int Age { int get(); void set(int value); };
   - lang: csharp
-    value: protected int Age { get; set; }
+    values:
+    - value: protected int Age { get; set; }
   - lang: fsharp
-    value: 'member this.Age : int with get, set'
+    values:
+    - value: 'member this.Age : int with get, set'
   - lang: vb
-    value: Protected Property Age As Integer
+    values:
+    - value: Protected Property Age As Integer
   monikers:
   - cat-1.0
   - cat-2.0
@@ -30,8 +34,8 @@ namespace: CatLibrary
 name: Age
 fullName: CatLibrary.Cat<T,K>.Age
 nameWithType: Cat<T,K>.Age
-assemblies:
-- CatLibrary
+assembliesWithMoniker:
+- value: CatLibrary.dll
 devLangs:
 - csharp
 - vb

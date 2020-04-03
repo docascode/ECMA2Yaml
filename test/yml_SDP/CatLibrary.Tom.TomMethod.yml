@@ -5,10 +5,12 @@ members:
     description: Complex @CatLibrary.TomFromBaseClass
     type: <xref href="CatLibrary.Complex`2?alt=CatLibrary.Complex&text=Complex" data-throw-if-not-resolved="True"/>&lt;<xref href="System.String?alt=System.String&text=String" data-throw-if-not-resolved="True"/>,<xref href="CatLibrary.TomFromBaseClass?alt=CatLibrary.TomFromBaseClass&text=TomFromBaseClass" data-throw-if-not-resolved="True"/>&gt;
   parameters:
-  - name: a
+  - namesWithMoniker:
+    - value: a
     description: A complex input
     type: <xref href="CatLibrary.Complex`2?alt=CatLibrary.Complex&text=Complex" data-throw-if-not-resolved="True"/>&lt;<xref href="CatLibrary.TomFromBaseClass?alt=CatLibrary.TomFromBaseClass&text=TomFromBaseClass" data-throw-if-not-resolved="True"/>,<xref href="CatLibrary.TomFromBaseClass?alt=CatLibrary.TomFromBaseClass&text=TomFromBaseClass" data-throw-if-not-resolved="True"/>&gt;
-  - name: b
+  - namesWithMoniker:
+    - value: b
     description: Another complex input
     type: <xref href="System.Tuple`2?alt=System.Tuple&text=Tuple" data-throw-if-not-resolved="True"/>&lt;<xref href="System.String?alt=System.String&text=String" data-throw-if-not-resolved="True"/>,<xref href="CatLibrary.Tom?alt=CatLibrary.Tom&text=Tom" data-throw-if-not-resolved="True"/>&gt;
   exceptions:
@@ -23,17 +25,21 @@ members:
   name: TomMethod(Complex<TomFromBaseClass,TomFromBaseClass>, Tuple<String,Tom>)
   fullName: CatLibrary.Tom.TomMethod(Complex<TomFromBaseClass,TomFromBaseClass>, Tuple<String,Tom>)
   nameWithType: Tom.TomMethod(Complex<TomFromBaseClass,TomFromBaseClass>, Tuple<String,Tom>)
-  syntax:
+  syntaxWithMoniker:
   - lang: cpp
-    value: >-
-      public:
-       CatLibrary::Complex<System::String ^, CatLibrary::TomFromBaseClass ^> ^ TomMethod(CatLibrary::Complex<CatLibrary::TomFromBaseClass ^, CatLibrary::TomFromBaseClass ^> ^ a, Tuple<System::String ^, CatLibrary::Tom ^> ^ b);
+    values:
+    - value: >-
+        public:
+         CatLibrary::Complex<System::String ^, CatLibrary::TomFromBaseClass ^> ^ TomMethod(CatLibrary::Complex<CatLibrary::TomFromBaseClass ^, CatLibrary::TomFromBaseClass ^> ^ a, Tuple<System::String ^, CatLibrary::Tom ^> ^ b);
   - lang: csharp
-    value: public CatLibrary.Complex<string,CatLibrary.TomFromBaseClass> TomMethod (CatLibrary.Complex<CatLibrary.TomFromBaseClass,CatLibrary.TomFromBaseClass> a, (string,CatLibrary.Tom) b);
+    values:
+    - value: public CatLibrary.Complex<string,CatLibrary.TomFromBaseClass> TomMethod (CatLibrary.Complex<CatLibrary.TomFromBaseClass,CatLibrary.TomFromBaseClass> a, (string,CatLibrary.Tom) b);
   - lang: fsharp
-    value: 'member this.TomMethod : CatLibrary.Complex<CatLibrary.TomFromBaseClass, CatLibrary.TomFromBaseClass> * string * CatLibrary.Tom -> CatLibrary.Complex<string, CatLibrary.TomFromBaseClass>'
+    values:
+    - value: 'member this.TomMethod : CatLibrary.Complex<CatLibrary.TomFromBaseClass, CatLibrary.TomFromBaseClass> * string * CatLibrary.Tom -> CatLibrary.Complex<string, CatLibrary.TomFromBaseClass>'
   - lang: vb
-    value: Public Function TomMethod (a As Complex(Of TomFromBaseClass, TomFromBaseClass), b As Tuple(Of String, Tom)) As Complex(Of String, TomFromBaseClass)
+    values:
+    - value: Public Function TomMethod (a As Complex(Of TomFromBaseClass, TomFromBaseClass), b As Tuple(Of String, Tom)) As Complex(Of String, TomFromBaseClass)
   monikers:
   - cat-1.0
   - cat-2.0
@@ -45,8 +51,8 @@ namespace: CatLibrary
 name: TomMethod
 fullName: CatLibrary.Tom.TomMethod
 nameWithType: Tom.TomMethod
-assemblies:
-- CatLibrary
+assembliesWithMoniker:
+- value: CatLibrary.dll
 devLangs:
 - csharp
 - vb

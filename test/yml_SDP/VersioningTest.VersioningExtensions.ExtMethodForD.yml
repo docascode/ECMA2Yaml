@@ -2,29 +2,34 @@
 type: method
 members:
 - parameters:
-  - name: i
+  - namesWithMoniker:
+    - value: i
     type: <xref href="VersioningTest.D?alt=VersioningTest.D&text=D" data-throw-if-not-resolved="True"/>
   uid: VersioningTest.VersioningExtensions.ExtMethodForD(VersioningTest.D)
   commentId: M:VersioningTest.VersioningExtensions.ExtMethodForD(VersioningTest.D)
   name: ExtMethodForD(D)
   fullName: VersioningTest.VersioningExtensions.ExtMethodForD(D)
   nameWithType: VersioningExtensions.ExtMethodForD(D)
-  syntax:
+  syntaxWithMoniker:
   - lang: cpp
-    value: >-
-      public:
+    values:
+    - value: >-
+        public:
 
-      [System::Runtime::CompilerServices::Extension]
-       static void ExtMethodForD(VersioningTest::D ^ i);
+        [System::Runtime::CompilerServices::Extension]
+         static void ExtMethodForD(VersioningTest::D ^ i);
   - lang: csharp
-    value: public static void ExtMethodForD (this VersioningTest.D i);
+    values:
+    - value: public static void ExtMethodForD (this VersioningTest.D i);
   - lang: fsharp
-    value: 'static member ExtMethodForD : VersioningTest.D -> unit'
+    values:
+    - value: 'static member ExtMethodForD : VersioningTest.D -> unit'
   - lang: vb
-    value: >-
-      <Extension()>
+    values:
+    - value: >-
+        <Extension()>
 
-      Public Sub ExtMethodForD (i As D)
+        Public Sub ExtMethodForD (i As D)
   monikers:
   - cat-1.0
   - cat-2.0
@@ -36,8 +41,8 @@ namespace: VersioningTest
 name: ExtMethodForD
 fullName: VersioningTest.VersioningExtensions.ExtMethodForD
 nameWithType: VersioningExtensions.ExtMethodForD
-assemblies:
-- CatLibrary
+assembliesWithMoniker:
+- value: CatLibrary.dll
 devLangs:
 - csharp
 - vb

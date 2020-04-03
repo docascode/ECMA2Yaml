@@ -8,20 +8,23 @@ members:
   name: ICat.eat
   fullName: CatLibrary.Cat<T,K>.CatLibrary.ICat.eat
   nameWithType: Cat<T,K>.ICat.eat
-  syntax:
+  syntaxWithMoniker:
   - lang: csharp
-    value: event EventHandler CatLibrary.ICat.eat;
+    values:
+    - value: event EventHandler CatLibrary.ICat.eat;
   - lang: fsharp
-    value: 'member this.CatLibrary.ICat.eat : EventHandler '
+    values:
+    - value: 'member this.CatLibrary.ICat.eat : EventHandler '
   - lang: vb
-    value: Custom Event eat As EventHandler Implements CatLibrary.ICat
+    values:
+    - value: Custom Event eat As EventHandler Implements CatLibrary.ICat
   monikers:
   - cat-1.0
   - cat-2.0
   metadata: {}
 namespace: CatLibrary
-assemblies:
-- CatLibrary
+assembliesWithMoniker:
+- value: CatLibrary.dll
 devLangs:
 - csharp
 - vb

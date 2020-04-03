@@ -54,22 +54,26 @@ namespace: CatLibrary
 name: ICat
 fullName: CatLibrary.ICat
 nameWithType: CatLibrary.ICat
-assemblies:
-- CatLibrary
-syntax:
+assembliesWithMoniker:
+- value: CatLibrary.dll
+syntaxWithMoniker:
 - lang: cpp
-  value: 'public interface class ICat : CatLibrary::IAnimal'
+  values:
+  - value: 'public interface class ICat : CatLibrary::IAnimal'
 - lang: csharp
-  value: 'public interface ICat : CatLibrary.IAnimal'
+  values:
+  - value: 'public interface ICat : CatLibrary.IAnimal'
 - lang: fsharp
-  value: >-
-    type ICat = interface
-        interface IAnimal
+  values:
+  - value: >-
+      type ICat = interface
+          interface IAnimal
 - lang: vb
-  value: >-
-    Public Interface ICat
+  values:
+  - value: >-
+      Public Interface ICat
 
-    Implements IAnimal
+      Implements IAnimal
 devLangs:
 - csharp
 - vb

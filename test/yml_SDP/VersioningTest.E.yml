@@ -1,8 +1,9 @@
 ### YamlMime:NetType
 type: class
-inheritances:
-- <xref href="System.Object" data-throw-if-not-resolved="True"/>
-- <xref href="VersioningTest.C?alt=VersioningTest.C&text=C" data-throw-if-not-resolved="True"/>
+inheritancesWithMoniker:
+- values:
+  - <xref href="System.Object" data-throw-if-not-resolved="True"/>
+  - <xref href="VersioningTest.C?alt=VersioningTest.C&text=C" data-throw-if-not-resolved="True"/>
 extensionMethods:
 - uid: VersioningTest.VersioningExtensions.ExtMethodForI(VersioningTest.I)
   monikers:
@@ -19,22 +20,26 @@ namespace: VersioningTest
 name: E
 fullName: VersioningTest.E
 nameWithType: VersioningTest.E
-assemblies:
-- CatLibrary
-syntax:
+assembliesWithMoniker:
+- value: CatLibrary.dll
+syntaxWithMoniker:
 - lang: cpp
-  value: 'public ref class E : VersioningTest::C'
+  values:
+  - value: 'public ref class E : VersioningTest::C'
 - lang: csharp
-  value: 'public class E : VersioningTest.C'
+  values:
+  - value: 'public class E : VersioningTest.C'
 - lang: fsharp
-  value: >-
-    type E = class
-        inherit C
+  values:
+  - value: >-
+      type E = class
+          inherit C
 - lang: vb
-  value: >-
-    Public Class E
+  values:
+  - value: >-
+      Public Class E
 
-    Inherits C
+      Inherits C
 devLangs:
 - csharp
 - vb

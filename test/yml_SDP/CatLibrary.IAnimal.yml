@@ -31,17 +31,21 @@ namespace: CatLibrary
 name: IAnimal
 fullName: CatLibrary.IAnimal
 nameWithType: CatLibrary.IAnimal
-assemblies:
-- CatLibrary
-syntax:
+assembliesWithMoniker:
+- value: CatLibrary.dll
+syntaxWithMoniker:
 - lang: cpp
-  value: public interface class IAnimal
+  values:
+  - value: public interface class IAnimal
 - lang: csharp
-  value: public interface IAnimal
+  values:
+  - value: public interface IAnimal
 - lang: fsharp
-  value: type IAnimal = interface
+  values:
+  - value: type IAnimal = interface
 - lang: vb
-  value: Public Interface IAnimal
+  values:
+  - value: Public Interface IAnimal
 devLangs:
 - csharp
 - vb
