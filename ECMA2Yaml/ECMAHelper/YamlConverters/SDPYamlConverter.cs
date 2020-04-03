@@ -105,17 +105,14 @@ namespace ECMA2Yaml
                     .Select(att => new VersionedString() { Value = att.TypeFullName, Monikers = att.Monikers?.ToHashSet() })
                     .ToList().NullIfEmpty();
                 rval.AttributeMonikers = ConverterHelper.ConsolidateVersionedValues(rval.AttributesWithMoniker, item.Monikers);
-                rval.SyntaxWithMoniker = (_store.UWPMode 
-                    ? ConverterHelper.BuildVersionedUWPSignatures(item)
-                    : ConverterHelper.BuildVersionedSignatures(item))
-                    ?.NullIfEmpty();
+                rval.SyntaxWithMoniker = ConverterHelper.BuildVersionedSignatures(item, uwpMode: _store.UWPMode)?.NullIfEmpty();
             }
             else
             {
                 rval.Assemblies = _store.UWPMode ? null : item.AssemblyInfo?.Select(asm => asm.Name).Distinct().ToList();
                 rval.Attributes = item.Attributes?.Where(att => att.Visible).Select(att => att.TypeFullName)
                     .ToList().NullIfEmpty();
-                var rawSignatures = _store.UWPMode ? ConverterHelper.BuildUWPSignatures(item) : ConverterHelper.BuildSignatures(item);
+                var rawSignatures = ConverterHelper.BuildSignatures(item, uwpMode: _store.UWPMode);
                 rval.Syntax = rawSignatures?.Select(sig => new SignatureModel() { Lang = sig.Key, Value = sig.Value }).ToList();
             }
 

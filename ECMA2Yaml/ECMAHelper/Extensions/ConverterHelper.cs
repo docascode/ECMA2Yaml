@@ -33,7 +33,7 @@ namespace ECMA2Yaml
             {ItemType.AttachedProperty, "attachedproperty"}
         };
 
-        public static SortedList<string, string> BuildSignatures(ReflectionItem item)
+        public static SortedList<string, string> BuildSignatures(ReflectionItem item, bool uwpMode = false)
         {
             var contents = new SortedList<string, string>();
             if (item.Signatures?.Dict != null)
@@ -44,22 +44,29 @@ namespace ECMA2Yaml
                     {
                         var lang = Models.ECMADevLangs.OPSMapping[sigPair.Key];
                         var val = sigPair.Value.LastOrDefault()?.Value;
-                        if (sigPair.Key == ECMADevLangs.CSharp)
+                        switch (sigPair.Key)
                         {
-                            var contentBuilder = new StringBuilder();
-                            if (item.Attributes?.Count > 0)
-                            {
-                                foreach (var att in item.Attributes.Where(attr => attr.Visible))
+                            case ECMADevLangs.CSharp:
+                                var sig = uwpMode ? UWPCSharpSignatureTransform(val) : val;
+                                var contentBuilder = new StringBuilder();
+                                if (item.Attributes?.Count > 0)
                                 {
-                                    contentBuilder.AppendFormat("[{0}]\n", att.Declaration);
+                                    foreach (var att in item.Attributes.Where(attr => attr.Visible))
+                                    {
+                                        contentBuilder.AppendFormat("[{0}]\n", att.Declaration);
+                                    }
                                 }
-                            }
-                            contentBuilder.Append(val);
-                            contents[lang] = contentBuilder.ToString();
-                        }
-                        else
-                        {
-                            contents[lang] = val;
+                                contentBuilder.Append(sig);
+                                contents[lang] = contentBuilder.ToString();
+                                break;
+                            case ECMADevLangs.CPP_CLI:
+                            case ECMADevLangs.CPP_CX:
+                            case ECMADevLangs.CPP_WINRT:
+                                contents[lang] = uwpMode ? UWPCPPSignatureTransform(val) : val;
+                                break;
+                            default:
+                                contents[lang] = val;
+                                break;
                         }
                     }
                 }
@@ -68,7 +75,7 @@ namespace ECMA2Yaml
             return contents;
         }
 
-        public static List<VersionedSignatureModel> BuildVersionedSignatures(ReflectionItem item)
+        public static List<VersionedSignatureModel> BuildVersionedSignatures(ReflectionItem item, bool uwpMode = false)
         {
             var contents = new SortedList<string, List<VersionedString>>();
             if (item.Signatures?.Dict != null)
@@ -80,37 +87,56 @@ namespace ECMA2Yaml
                         var lang = Models.ECMADevLangs.OPSMapping[sigPair.Key];
                         var sigValues = sigPair.Value;
                         var visibleAttrs = item.Attributes?.Where(attr => attr.Visible).ToList();
-                        if (sigPair.Key == ECMADevLangs.CSharp
-                            && visibleAttrs?.Count > 0)
+                        switch (sigPair.Key)
                         {
-                            bool versionedSig = sigValues.Any(v => v.Monikers?.Count > 0) && sigValues.Count > 1;
-                            bool versionedAttr = visibleAttrs.Any(attr => attr.Monikers?.Count > 0);
-                            // devide into 2 cases for better perf, most of the time neither signature nor attributes are versioned
-                            if (!versionedSig && !versionedAttr)
-                            {
-                                contents[lang] = new List<VersionedString>() 
-                                { 
-                                    new VersionedString(null, AttachAttributesToSignature(visibleAttrs, sigValues.First().Value)) 
-                                };
-                            }
-                            else
-                            {
-
-                                contents[lang] = item.Monikers.Select(moniker =>
+                            case ECMADevLangs.CSharp:
+                                if (uwpMode)
                                 {
-                                    var sig = sigValues.FirstOrDefault(s => s.Monikers == null || s.Monikers.Contains(moniker));
-                                    var attrs = visibleAttrs.Where(a => a.Monikers == null || a.Monikers.Contains(moniker)).ToList();
-                                    var combinedSig = AttachAttributesToSignature(attrs, sig?.Value);
-                                    return (moniker, combinedSig);
-                                })
-                                .GroupBy(t => t.combinedSig)
-                                .Select(g => new VersionedString(g.Select(t => t.moniker).ToHashSet(), g.Key))
-                                .ToList();
-                            }
-                        }
-                        else
-                        {
-                            contents[lang] = sigValues;
+                                    sigValues.ForEach(vs => vs.Value = UWPCSharpSignatureTransform(vs.Value));
+                                }
+                                if (visibleAttrs?.Count > 0)
+                                {
+                                    bool versionedSig = sigValues.Count > 1 && sigValues.Any(v => v.Monikers?.Count > 0);
+                                    bool versionedAttr = visibleAttrs.Any(attr => attr.Monikers?.Count > 0);
+                                    // devide into 2 cases for better perf, most of the time neither signature nor attributes are versioned
+                                    if (!versionedSig && !versionedAttr)
+                                    {
+                                        contents[lang] = new List<VersionedString>()
+                                        {
+                                            new VersionedString(null, AttachAttributesToSignature(visibleAttrs, sigValues.First().Value))
+                                        };
+                                    }
+                                    else
+                                    {
+                                        contents[lang] = item.Monikers.Select(moniker =>
+                                        {
+                                            var sig = sigValues.FirstOrDefault(s => s.Monikers == null || s.Monikers.Contains(moniker));
+                                            var attrs = visibleAttrs.Where(a => a.Monikers == null || a.Monikers.Contains(moniker)).ToList();
+                                            var combinedSig = AttachAttributesToSignature(attrs, sig?.Value);
+                                            return (moniker, combinedSig);
+                                        })
+                                        .GroupBy(t => t.combinedSig)
+                                        .Select(g => new VersionedString(g.Select(t => t.moniker).ToHashSet(), g.Key))
+                                        .ToList();
+                                    }
+                                }
+                                else
+                                {
+                                    contents[lang] = sigValues;
+                                }
+                                break;
+                            case ECMADevLangs.CPP_CLI:
+                            case ECMADevLangs.CPP_CX:
+                            case ECMADevLangs.CPP_WINRT:
+                                if (uwpMode)
+                                {
+                                    sigValues.ForEach(vs => vs.Value = UWPCPPSignatureTransform(vs.Value));
+                                }
+                                contents[lang] = sigValues;
+                                break;
+                            default:
+                                contents[lang] = sigValues;
+                                break;
                         }
                     }
                 }
@@ -132,72 +158,6 @@ namespace ECMA2Yaml
             contentBuilder.Append(sig);
 
             return contentBuilder.ToString();
-        }
-
-        public static SortedList<string, string> BuildUWPSignatures(ReflectionItem item)
-        {
-            var contents = new SortedList<string, string>();
-            if (item.Signatures?.Dict != null)
-            {
-                foreach (var sigPair in item.Signatures.Dict)
-                {
-                    if (Models.ECMADevLangs.OPSMapping.ContainsKey(sigPair.Key))
-                    {
-                        var langAlias = Models.ECMADevLangs.OPSMapping[sigPair.Key];
-                        var val = sigPair.Value.LastOrDefault()?.Value;
-                        switch (sigPair.Key)
-                        {
-                            case ECMADevLangs.CSharp:
-                                contents[langAlias] = UWPCSharpSignatureTransform(val);
-                                break;
-                            case ECMADevLangs.CPP_CLI:
-                            case ECMADevLangs.CPP_CX:
-                            case ECMADevLangs.CPP_WINRT:
-                                contents[langAlias] = UWPCPPSignatureTransform(val);
-                                break;
-                            default:
-                                contents[langAlias] = val;
-                                break;
-                        }
-                    }
-                }
-            }
-
-            return contents;
-        }
-
-        public static List<VersionedSignatureModel> BuildVersionedUWPSignatures(ReflectionItem item)
-        {
-            var contents = new SortedList<string, List<VersionedString>>();
-            if (item.Signatures?.Dict != null)
-            {
-                foreach (var sigPair in item.Signatures.Dict)
-                {
-                    if (Models.ECMADevLangs.OPSMapping.ContainsKey(sigPair.Key))
-                    {
-                        var langAlias = Models.ECMADevLangs.OPSMapping[sigPair.Key];
-                        var sigValues = sigPair.Value;
-                        switch (sigPair.Key)
-                        {
-                            case ECMADevLangs.CSharp:
-                                sigValues.ForEach(vs => vs.Value = UWPCSharpSignatureTransform(vs.Value));
-                                contents[langAlias] = sigValues;
-                                break;
-                            case ECMADevLangs.CPP_CLI:
-                            case ECMADevLangs.CPP_CX:
-                            case ECMADevLangs.CPP_WINRT:
-                                sigValues.ForEach(vs => vs.Value = UWPCPPSignatureTransform(vs.Value));
-                                contents[langAlias] = sigValues;
-                                break;
-                            default:
-                                contents[langAlias] = sigValues;
-                                break;
-                        }
-                    }
-                }
-            }
-
-            return contents.Select(sig => new VersionedSignatureModel() { Lang = sig.Key, Values = sig.Value }).ToList();
         }
 
         public static HashSet<string> TrimMonikers(HashSet<string> propertyMonikers, HashSet<string> itemMonikers)
