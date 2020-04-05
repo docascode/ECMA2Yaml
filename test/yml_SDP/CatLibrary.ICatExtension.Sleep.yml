@@ -2,10 +2,12 @@
 type: method
 members:
 - parameters:
-  - name: icat
+  - namesWithMoniker:
+    - value: icat
     description: The type will be extended.
     type: <xref href="CatLibrary.ICat?alt=CatLibrary.ICat&text=ICat" data-throw-if-not-resolved="True"/>
-  - name: hours
+  - namesWithMoniker:
+    - value: hours
     description: The length of sleep.
     type: <xref href="System.Int64?alt=System.Int64&text=Int64" data-throw-if-not-resolved="True"/>
   uid: CatLibrary.ICatExtension.Sleep(CatLibrary.ICat,System.Int64)
@@ -13,22 +15,26 @@ members:
   name: Sleep(ICat, Int64)
   fullName: CatLibrary.ICatExtension.Sleep(ICat, Int64)
   nameWithType: ICatExtension.Sleep(ICat, Int64)
-  syntax:
+  syntaxWithMoniker:
   - lang: cpp
-    value: >-
-      public:
+    values:
+    - value: >-
+        public:
 
-      [System::Runtime::CompilerServices::Extension]
-       static void Sleep(CatLibrary::ICat ^ icat, long hours);
+        [System::Runtime::CompilerServices::Extension]
+         static void Sleep(CatLibrary::ICat ^ icat, long hours);
   - lang: csharp
-    value: public static void Sleep (this CatLibrary.ICat icat, long hours);
+    values:
+    - value: public static void Sleep (this CatLibrary.ICat icat, long hours);
   - lang: fsharp
-    value: 'static member Sleep : CatLibrary.ICat * int64 -> unit'
+    values:
+    - value: 'static member Sleep : CatLibrary.ICat * int64 -> unit'
   - lang: vb
-    value: >-
-      <Extension()>
+    values:
+    - value: >-
+        <Extension()>
 
-      Public Sub Sleep (icat As ICat, hours As Long)
+        Public Sub Sleep (icat As ICat, hours As Long)
   monikers:
   - cat-1.0
   - cat-2.0
@@ -40,8 +46,8 @@ namespace: CatLibrary
 name: Sleep
 fullName: CatLibrary.ICatExtension.Sleep
 nameWithType: ICatExtension.Sleep
-assemblies:
-- CatLibrary
+assembliesWithMoniker:
+- value: CatLibrary.dll
 devLangs:
 - csharp
 - vb

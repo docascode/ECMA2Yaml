@@ -6,15 +6,18 @@ members:
   name: F()
   fullName: VersioningTest.F.F()
   nameWithType: F.F()
-  syntax:
+  syntaxWithMoniker:
   - lang: cpp
-    value: >-
-      public:
-       F();
+    values:
+    - value: >-
+        public:
+         F();
   - lang: csharp
-    value: public F ();
+    values:
+    - value: public F ();
   - lang: vb
-    value: Public Sub New ()
+    values:
+    - value: Public Sub New ()
   monikers:
   - cat-1.0
   - cat-2.0
@@ -25,8 +28,8 @@ namespace: VersioningTest
 name: F
 fullName: VersioningTest.F.F
 nameWithType: F.F
-assemblies:
-- CatLibrary
+assembliesWithMoniker:
+- value: CatLibrary.dll
 devLangs:
 - csharp
 - vb

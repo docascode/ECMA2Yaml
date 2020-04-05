@@ -1,7 +1,8 @@
 ### YamlMime:NetType
 type: class
-inheritances:
-- <xref href="System.Object" data-throw-if-not-resolved="True"/>
+inheritancesWithMoniker:
+- values:
+  - <xref href="System.Object" data-throw-if-not-resolved="True"/>
 derivedClasses:
 - CatLibrary.TomFromBaseClass
 constructors:
@@ -20,17 +21,21 @@ namespace: CatLibrary
 name: Tom
 fullName: CatLibrary.Tom
 nameWithType: CatLibrary.Tom
-assemblies:
-- CatLibrary
-syntax:
+assembliesWithMoniker:
+- value: CatLibrary.dll
+syntaxWithMoniker:
 - lang: cpp
-  value: public ref class Tom
+  values:
+  - value: public ref class Tom
 - lang: csharp
-  value: public class Tom
+  values:
+  - value: public class Tom
 - lang: fsharp
-  value: type Tom = class
+  values:
+  - value: type Tom = class
 - lang: vb
-  value: Public Class Tom
+  values:
+  - value: Public Class Tom
 devLangs:
 - csharp
 - vb

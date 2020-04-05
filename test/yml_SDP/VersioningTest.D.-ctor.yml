@@ -6,15 +6,18 @@ members:
   name: D()
   fullName: VersioningTest.D.D()
   nameWithType: D.D()
-  syntax:
+  syntaxWithMoniker:
   - lang: cpp
-    value: >-
-      public:
-       D();
+    values:
+    - value: >-
+        public:
+         D();
   - lang: csharp
-    value: public D ();
+    values:
+    - value: public D ();
   - lang: vb
-    value: Public Sub New ()
+    values:
+    - value: Public Sub New ()
   monikers:
   - cat-1.0
   - cat-2.0
@@ -25,8 +28,8 @@ namespace: VersioningTest
 name: D
 fullName: VersioningTest.D.D
 nameWithType: D.D
-assemblies:
-- CatLibrary
+assembliesWithMoniker:
+- value: CatLibrary.dll
 devLangs:
 - csharp
 - vb

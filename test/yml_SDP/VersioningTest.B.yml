@@ -1,7 +1,8 @@
 ### YamlMime:NetType
 type: class
-inheritances:
-- <xref href="System.Object" data-throw-if-not-resolved="True"/>
+inheritancesWithMoniker:
+- values:
+  - <xref href="System.Object" data-throw-if-not-resolved="True"/>
 derivedClasses:
 - VersioningTest.D
 constructors:
@@ -20,17 +21,21 @@ namespace: VersioningTest
 name: B
 fullName: VersioningTest.B
 nameWithType: VersioningTest.B
-assemblies:
-- CatLibrary
-syntax:
+assembliesWithMoniker:
+- value: CatLibrary.dll
+syntaxWithMoniker:
 - lang: cpp
-  value: public ref class B
+  values:
+  - value: public ref class B
 - lang: csharp
-  value: public class B
+  values:
+  - value: public class B
 - lang: fsharp
-  value: type B = class
+  values:
+  - value: type B = class
 - lang: vb
-  value: Public Class B
+  values:
+  - value: Public Class B
 devLangs:
 - csharp
 - vb

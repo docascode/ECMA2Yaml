@@ -2,13 +2,16 @@
 type: method
 members:
 - parameters:
-  - name: ownType
+  - namesWithMoniker:
+    - value: ownType
     description: Type come from class define.
     type: T
-  - name: anotherOwnType
+  - namesWithMoniker:
+    - value: anotherOwnType
     description: Type come from class define.
     type: K
-  - name: cheat
+  - namesWithMoniker:
+    - value: cheat
     description: Hint whether this cat has cheat mode.
     type: <xref href="System.Boolean?alt=System.Boolean&text=Boolean" data-throw-if-not-resolved="True"/>
   exceptions:
@@ -19,22 +22,26 @@ members:
   name: Jump(T, K, Boolean)
   fullName: CatLibrary.Cat<T,K>.Jump(T, K, Boolean)
   nameWithType: Cat<T,K>.Jump(T, K, Boolean)
-  attributes:
-  - System.Diagnostics.ConditionalAttribute
-  syntax:
+  attributesWithMoniker:
+  - value: System.Diagnostics.ConditionalAttribute
+  syntaxWithMoniker:
   - lang: cpp
-    value: >-
-      public:
-       void Jump(T ownType, K anotherOwnType, bool % cheat);
+    values:
+    - value: >-
+        public:
+         void Jump(T ownType, K anotherOwnType, bool % cheat);
   - lang: csharp
-    value: >-
-      [System.Diagnostics.Conditional("Debug")]
+    values:
+    - value: >-
+        [System.Diagnostics.Conditional("Debug")]
 
-      public void Jump (T ownType, K anotherOwnType, ref bool cheat);
+        public void Jump (T ownType, K anotherOwnType, ref bool cheat);
   - lang: fsharp
-    value: "member this.Jump : 'T * 'K * bool -> unit"
+    values:
+    - value: "member this.Jump : 'T * 'K * bool -> unit"
   - lang: vb
-    value: Public Sub Jump (ownType As T, anotherOwnType As K, ByRef cheat As Boolean)
+    values:
+    - value: Public Sub Jump (ownType As T, anotherOwnType As K, ByRef cheat As Boolean)
   monikers:
   - cat-1.0
   - cat-2.0
@@ -46,8 +53,8 @@ namespace: CatLibrary
 name: Jump
 fullName: CatLibrary.Cat<T,K>.Jump
 nameWithType: Cat<T,K>.Jump
-assemblies:
-- CatLibrary
+assembliesWithMoniker:
+- value: CatLibrary.dll
 devLangs:
 - csharp
 - vb

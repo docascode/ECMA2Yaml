@@ -2,31 +2,37 @@
 type: method
 members:
 - parameters:
-  - name: jerry
+  - namesWithMoniker:
+    - value: jerry
     type: <xref href="CatLibrary.TomFromBaseClass.Jerry?alt=CatLibrary.TomFromBaseClass.Jerry&text=TomFromBaseClass.Jerry" data-throw-if-not-resolved="True"/>
-  - name: tom
+  - namesWithMoniker:
+    - value: tom
     type: <xref href="CatLibrary.Tom?alt=CatLibrary.Tom&text=Tom" data-throw-if-not-resolved="True"/>
   uid: CatLibrary.JerryExtension.PlayWith(CatLibrary.TomFromBaseClass.Jerry,CatLibrary.Tom)
   commentId: M:CatLibrary.JerryExtension.PlayWith(CatLibrary.TomFromBaseClass.Jerry,CatLibrary.Tom)
   name: PlayWith(TomFromBaseClass+Jerry, Tom)
   fullName: CatLibrary.JerryExtension.PlayWith(TomFromBaseClass+Jerry, Tom)
   nameWithType: JerryExtension.PlayWith(TomFromBaseClass+Jerry, Tom)
-  syntax:
+  syntaxWithMoniker:
   - lang: cpp
-    value: >-
-      public:
+    values:
+    - value: >-
+        public:
 
-      [System::Runtime::CompilerServices::Extension]
-       static void PlayWith(CatLibrary::TomFromBaseClass::Jerry ^ jerry, CatLibrary::Tom ^ tom);
+        [System::Runtime::CompilerServices::Extension]
+         static void PlayWith(CatLibrary::TomFromBaseClass::Jerry ^ jerry, CatLibrary::Tom ^ tom);
   - lang: csharp
-    value: public static void PlayWith (this CatLibrary.TomFromBaseClass.Jerry jerry, CatLibrary.Tom tom);
+    values:
+    - value: public static void PlayWith (this CatLibrary.TomFromBaseClass.Jerry jerry, CatLibrary.Tom tom);
   - lang: fsharp
-    value: 'static member PlayWith : CatLibrary.TomFromBaseClass.Jerry * CatLibrary.Tom -> unit'
+    values:
+    - value: 'static member PlayWith : CatLibrary.TomFromBaseClass.Jerry * CatLibrary.Tom -> unit'
   - lang: vb
-    value: >-
-      <Extension()>
+    values:
+    - value: >-
+        <Extension()>
 
-      Public Sub PlayWith (jerry As TomFromBaseClass.Jerry, tom As Tom)
+        Public Sub PlayWith (jerry As TomFromBaseClass.Jerry, tom As Tom)
   monikers:
   - cat-2.0
   summary: Jerry can play with a Tom.
@@ -37,8 +43,8 @@ namespace: CatLibrary
 name: PlayWith
 fullName: CatLibrary.JerryExtension.PlayWith
 nameWithType: JerryExtension.PlayWith
-assemblies:
-- CatLibrary
+assembliesWithMoniker:
+- value: CatLibrary.dll
 devLangs:
 - csharp
 - vb

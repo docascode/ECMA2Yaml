@@ -2,8 +2,9 @@
 typeParameters:
 - name: T
 type: class
-inheritances:
-- <xref href="System.Exception" data-throw-if-not-resolved="True"/>
+inheritancesWithMoniker:
+- values:
+  - <xref href="System.Exception" data-throw-if-not-resolved="True"/>
 constructors:
 - uid: CatLibrary.CatException`1.#ctor
   monikers:
@@ -15,25 +16,29 @@ namespace: CatLibrary
 name: CatException<T>
 fullName: CatLibrary.CatException<T>
 nameWithType: CatLibrary.CatException<T>
-assemblies:
-- CatLibrary
-syntax:
+assembliesWithMoniker:
+- value: CatLibrary.dll
+syntaxWithMoniker:
 - lang: cpp
-  value: >-
-    generic <typename T>
+  values:
+  - value: >-
+      generic <typename T>
 
-    public ref class CatException : Exception
+      public ref class CatException : Exception
 - lang: csharp
-  value: 'public class CatException<T> : Exception'
+  values:
+  - value: 'public class CatException<T> : Exception'
 - lang: fsharp
-  value: >-
-    type CatException<'T> = class
-        inherit Exception
+  values:
+  - value: >-
+      type CatException<'T> = class
+          inherit Exception
 - lang: vb
-  value: >-
-    Public Class CatException(Of T)
+  values:
+  - value: >-
+      Public Class CatException(Of T)
 
-    Inherits Exception
+      Inherits Exception
 devLangs:
 - csharp
 - vb

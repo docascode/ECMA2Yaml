@@ -1,7 +1,8 @@
 ### YamlMime:NetType
 type: class
-inheritances:
-- <xref href="System.Object" data-throw-if-not-resolved="True"/>
+inheritancesWithMoniker:
+- values:
+  - <xref href="System.Object" data-throw-if-not-resolved="True"/>
 methods:
 - uid: VersioningTest.VersioningExtensions.ExtMethodForD(VersioningTest.D)
   monikers:
@@ -17,17 +18,21 @@ namespace: VersioningTest
 name: VersioningExtensions
 fullName: VersioningTest.VersioningExtensions
 nameWithType: VersioningTest.VersioningExtensions
-assemblies:
-- CatLibrary
-syntax:
+assembliesWithMoniker:
+- value: CatLibrary.dll
+syntaxWithMoniker:
 - lang: cpp
-  value: public ref class VersioningExtensions abstract sealed
+  values:
+  - value: public ref class VersioningExtensions abstract sealed
 - lang: csharp
-  value: public static class VersioningExtensions
+  values:
+  - value: public static class VersioningExtensions
 - lang: fsharp
-  value: type VersioningExtensions = class
+  values:
+  - value: type VersioningExtensions = class
 - lang: vb
-  value: Public Module VersioningExtensions
+  values:
+  - value: Public Module VersioningExtensions
 devLangs:
 - csharp
 - vb
