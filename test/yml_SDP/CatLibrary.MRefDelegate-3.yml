@@ -8,13 +8,16 @@ typeParameters:
 - description: Generic L.
   name: L
 parameters:
-- name: k
+- namesWithMoniker:
+  - value: k
   description: Type K.
   type: K
-- name: t
+- namesWithMoniker:
+  - value: t
   description: Type T.
   type: T
-- name: l
+- namesWithMoniker:
+  - value: l
   description: Type L.
   type: L
 inheritances:
@@ -25,19 +28,23 @@ namespace: CatLibrary
 name: MRefDelegate<K,T,L>
 fullName: CatLibrary.MRefDelegate<K,T,L>
 nameWithType: CatLibrary.MRefDelegate<K,T,L>
-assemblies:
-- CatLibrary
-syntax:
+assembliesWithMoniker:
+- value: CatLibrary.dll
+syntaxWithMoniker:
 - lang: cpp
-  value: >-
-    generic <typename K, typename T, typename L>
-     where K : class, IComparable where T : value class where L : Tom, IEnumerable<long>public delegate void MRefDelegate(K k, T t, L l);
+  values:
+  - value: >-
+      generic <typename K, typename T, typename L>
+       where K : class, IComparable where T : value class where L : Tom, IEnumerable<long>public delegate void MRefDelegate(K k, T t, L l);
 - lang: csharp
-  value: 'public delegate void MRefDelegate<in K,T,L>(K k, T t, L l) where K : class, IComparable where T : struct where L : Tom, IEnumerable<long>;'
+  values:
+  - value: 'public delegate void MRefDelegate<in K,T,L>(K k, T t, L l) where K : class, IComparable where T : struct where L : Tom, IEnumerable<long>;'
 - lang: fsharp
-  value: "type MRefDelegate<'K, 'T, 'L (requires 'K : null and 'K :> IComparable and 'T : struct and 'L :> Tom and 'L :> seq<int64>)> = delegate of 'K * 'T * 'L -> unit"
+  values:
+  - value: "type MRefDelegate<'K, 'T, 'L (requires 'K : null and 'K :> IComparable and 'T : struct and 'L :> Tom and 'L :> seq<int64>)> = delegate of 'K * 'T * 'L -> unit"
 - lang: vb
-  value: Public Delegate Sub MRefDelegate(Of In K, T, L)(k As K, t As T, l As L)
+  values:
+  - value: Public Delegate Sub MRefDelegate(Of In K, T, L)(k As K, t As T, l As L)
 devLangs:
 - csharp
 - vb

@@ -1,7 +1,7 @@
 ### YamlMime:NetType
 type: interface
-derivedClasses:
-- VersioningTest.C
+derivedClassesWithMoniker:
+- value: VersioningTest.C
 extensionMethods:
 - uid: VersioningTest.VersioningExtensions.ExtMethodForI(VersioningTest.I)
   monikers:
@@ -13,17 +13,21 @@ namespace: VersioningTest
 name: I
 fullName: VersioningTest.I
 nameWithType: VersioningTest.I
-assemblies:
-- CatLibrary
-syntax:
+assembliesWithMoniker:
+- value: CatLibrary.dll
+syntaxWithMoniker:
 - lang: cpp
-  value: public interface class I
+  values:
+  - value: public interface class I
 - lang: csharp
-  value: public interface I
+  values:
+  - value: public interface I
 - lang: fsharp
-  value: type I = interface
+  values:
+  - value: type I = interface
 - lang: vb
-  value: Public Interface I
+  values:
+  - value: Public Interface I
 devLangs:
 - csharp
 - vb

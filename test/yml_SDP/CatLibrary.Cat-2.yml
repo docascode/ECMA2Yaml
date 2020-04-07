@@ -8,8 +8,9 @@ type: class
 implements:
 - <xref href="CatLibrary.IAnimal?alt=CatLibrary.IAnimal&text=IAnimal" data-throw-if-not-resolved="True"/>
 - <xref href="CatLibrary.ICat?alt=CatLibrary.ICat&text=ICat" data-throw-if-not-resolved="True"/>
-inheritances:
-- <xref href="System.Object" data-throw-if-not-resolved="True"/>
+inheritancesWithMoniker:
+- values:
+  - <xref href="System.Object" data-throw-if-not-resolved="True"/>
 extensionMethods:
 - uid: CatLibrary.ICatExtension.Play(CatLibrary.ICat,System.String)
   monikers:
@@ -118,30 +119,34 @@ namespace: CatLibrary
 name: Cat<T,K>
 fullName: CatLibrary.Cat<T,K>
 nameWithType: CatLibrary.Cat<T,K>
-assemblies:
-- CatLibrary
-attributes:
-- System.SerializableAttribute
-syntax:
+assembliesWithMoniker:
+- value: CatLibrary.dll
+attributesWithMoniker:
+- value: System.SerializableAttribute
+syntaxWithMoniker:
 - lang: cpp
-  value: >-
-    generic <typename T, typename K>
-     where T : class, gcnew() where K : value classpublic ref class Cat : CatLibrary::ICat
+  values:
+  - value: >-
+      generic <typename T, typename K>
+       where T : class, gcnew() where K : value classpublic ref class Cat : CatLibrary::ICat
 - lang: csharp
-  value: >-
-    [System.Serializable]
+  values:
+  - value: >-
+      [System.Serializable]
 
-    public class Cat<T,K> : CatLibrary.ICat where T : class, new() where K : struct
+      public class Cat<T,K> : CatLibrary.ICat where T : class, new() where K : struct
 - lang: fsharp
-  value: >-
-    type Cat<'T, 'K (requires 'T : null and 'T : (new : unit -> 'T) and 'K : struct)> = class
-        interface ICat
-        interface IAnimal
+  values:
+  - value: >-
+      type Cat<'T, 'K (requires 'T : null and 'T : (new : unit -> 'T) and 'K : struct)> = class
+          interface ICat
+          interface IAnimal
 - lang: vb
-  value: >-
-    Public Class Cat(Of T, K)
+  values:
+  - value: >-
+      Public Class Cat(Of T, K)
 
-    Implements ICat
+      Implements ICat
 devLangs:
 - csharp
 - vb

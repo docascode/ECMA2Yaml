@@ -1,8 +1,9 @@
 ### YamlMime:NetType
 type: class
-inheritances:
-- <xref href="System.Object" data-throw-if-not-resolved="True"/>
-- <xref href="CatLibrary.Tom?alt=CatLibrary.Tom&text=Tom" data-throw-if-not-resolved="True"/>
+inheritancesWithMoniker:
+- values:
+  - <xref href="System.Object" data-throw-if-not-resolved="True"/>
+  - <xref href="CatLibrary.Tom?alt=CatLibrary.Tom&text=Tom" data-throw-if-not-resolved="True"/>
 constructors:
 - uid: CatLibrary.TomFromBaseClass.#ctor(System.Int32)
   monikers:
@@ -20,22 +21,26 @@ namespace: CatLibrary
 name: TomFromBaseClass
 fullName: CatLibrary.TomFromBaseClass
 nameWithType: CatLibrary.TomFromBaseClass
-assemblies:
-- CatLibrary
-syntax:
+assembliesWithMoniker:
+- value: CatLibrary.dll
+syntaxWithMoniker:
 - lang: cpp
-  value: 'public ref class TomFromBaseClass : CatLibrary::Tom'
+  values:
+  - value: 'public ref class TomFromBaseClass : CatLibrary::Tom'
 - lang: csharp
-  value: 'public class TomFromBaseClass : CatLibrary.Tom'
+  values:
+  - value: 'public class TomFromBaseClass : CatLibrary.Tom'
 - lang: fsharp
-  value: >-
-    type TomFromBaseClass = class
-        inherit Tom
+  values:
+  - value: >-
+      type TomFromBaseClass = class
+          inherit Tom
 - lang: vb
-  value: >-
-    Public Class TomFromBaseClass
+  values:
+  - value: >-
+      Public Class TomFromBaseClass
 
-    Inherits Tom
+      Inherits Tom
 devLangs:
 - csharp
 - vb

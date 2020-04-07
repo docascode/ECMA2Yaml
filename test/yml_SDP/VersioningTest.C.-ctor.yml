@@ -6,15 +6,18 @@ members:
   name: C()
   fullName: VersioningTest.C.C()
   nameWithType: C.C()
-  syntax:
+  syntaxWithMoniker:
   - lang: cpp
-    value: >-
-      public:
-       C();
+    values:
+    - value: >-
+        public:
+         C();
   - lang: csharp
-    value: public C ();
+    values:
+    - value: public C ();
   - lang: vb
-    value: Public Sub New ()
+    values:
+    - value: Public Sub New ()
   monikers:
   - cat-1.0
   - cat-2.0
@@ -25,8 +28,8 @@ namespace: VersioningTest
 name: C
 fullName: VersioningTest.C.C
 nameWithType: C.C
-assemblies:
-- CatLibrary
+assembliesWithMoniker:
+- value: CatLibrary.dll
 devLangs:
 - csharp
 - vb

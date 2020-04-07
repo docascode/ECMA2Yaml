@@ -1,10 +1,20 @@
 ### YamlMime:NetType
 type: class
-inheritances:
-- <xref href="System.Object" data-throw-if-not-resolved="True"/>
-- <xref href="VersioningTest.B?alt=VersioningTest.B&text=B" data-throw-if-not-resolved="True"/>
-derivedClasses:
-- VersioningTest.F
+inheritancesWithMoniker:
+- values:
+  - <xref href="System.Object" data-throw-if-not-resolved="True"/>
+  - <xref href="VersioningTest.A?alt=VersioningTest.A&text=A" data-throw-if-not-resolved="True"/>
+  monikers:
+  - cat-1.0
+- values:
+  - <xref href="System.Object" data-throw-if-not-resolved="True"/>
+  - <xref href="VersioningTest.B?alt=VersioningTest.B&text=B" data-throw-if-not-resolved="True"/>
+  monikers:
+  - cat-2.0
+derivedClassesWithMoniker:
+- value: VersioningTest.F
+  monikers:
+  - cat-2.0
 extensionMethods:
 - uid: VersioningTest.VersioningExtensions.ExtMethodForD(VersioningTest.D)
   monikers:
@@ -30,22 +40,51 @@ namespace: VersioningTest
 name: D
 fullName: VersioningTest.D
 nameWithType: VersioningTest.D
-assemblies:
-- CatLibrary
-syntax:
+assembliesWithMoniker:
+- value: CatLibrary.dll
+syntaxWithMoniker:
 - lang: cpp
-  value: 'public ref class D : VersioningTest::B'
+  values:
+  - value: 'public ref class D : VersioningTest::A'
+    monikers:
+    - cat-1.0
+  - value: 'public ref class D : VersioningTest::B'
+    monikers:
+    - cat-2.0
 - lang: csharp
-  value: 'public class D : VersioningTest.B'
+  values:
+  - value: 'public class D : VersioningTest.A'
+    monikers:
+    - cat-1.0
+  - value: 'public class D : VersioningTest.B'
+    monikers:
+    - cat-2.0
 - lang: fsharp
-  value: >-
-    type D = class
-        inherit B
+  values:
+  - value: >-
+      type D = class
+          inherit A
+    monikers:
+    - cat-1.0
+  - value: >-
+      type D = class
+          inherit B
+    monikers:
+    - cat-2.0
 - lang: vb
-  value: >-
-    Public Class D
+  values:
+  - value: >-
+      Public Class D
 
-    Inherits B
+      Inherits A
+    monikers:
+    - cat-1.0
+  - value: >-
+      Public Class D
+
+      Inherits B
+    monikers:
+    - cat-2.0
 devLangs:
 - csharp
 - vb

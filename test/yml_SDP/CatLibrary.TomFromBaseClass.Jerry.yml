@@ -1,7 +1,8 @@
 ### YamlMime:NetType
 type: class
-inheritances:
-- <xref href="System.Object" data-throw-if-not-resolved="True"/>
+inheritancesWithMoniker:
+- values:
+  - <xref href="System.Object" data-throw-if-not-resolved="True"/>
 extensionMethods:
 - uid: CatLibrary.JerryExtension.PlayWith(CatLibrary.TomFromBaseClass.Jerry,CatLibrary.Tom)
   monikers:
@@ -16,17 +17,21 @@ namespace: CatLibrary
 name: TomFromBaseClass.Jerry
 fullName: CatLibrary.TomFromBaseClass.Jerry
 nameWithType: CatLibrary.TomFromBaseClass.Jerry
-assemblies:
-- CatLibrary
-syntax:
+assembliesWithMoniker:
+- value: CatLibrary.dll
+syntaxWithMoniker:
 - lang: cpp
-  value: 'public: ref class TomFromBaseClass::Jerry'
+  values:
+  - value: 'public: ref class TomFromBaseClass::Jerry'
 - lang: csharp
-  value: public class TomFromBaseClass.Jerry
+  values:
+  - value: public class TomFromBaseClass.Jerry
 - lang: fsharp
-  value: type TomFromBaseClass.Jerry = class
+  values:
+  - value: type TomFromBaseClass.Jerry = class
 - lang: vb
-  value: Public Class TomFromBaseClass.Jerry
+  values:
+  - value: Public Class TomFromBaseClass.Jerry
 devLangs:
 - csharp
 - vb

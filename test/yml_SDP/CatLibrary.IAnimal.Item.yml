@@ -5,7 +5,8 @@ members:
     description: Animal name.
     type: <xref href="System.String?alt=System.String&text=String" data-throw-if-not-resolved="True"/>
   parameters:
-  - name: index
+  - namesWithMoniker:
+    - value: index
     description: Animal number.
     type: <xref href="System.Int32?alt=System.Int32&text=Int32" data-throw-if-not-resolved="True"/>
   uid: CatLibrary.IAnimal.Item(System.Int32)
@@ -13,17 +14,21 @@ members:
   name: Item[Int32]
   fullName: CatLibrary.IAnimal.Item[Int32]
   nameWithType: IAnimal.Item[Int32]
-  syntax:
+  syntaxWithMoniker:
   - lang: cpp
-    value: >-
-      public:
-       property System::String ^ default[int] { System::String ^ get(int index); };
+    values:
+    - value: >-
+        public:
+         property System::String ^ default[int] { System::String ^ get(int index); };
   - lang: csharp
-    value: public string this[int index] { get; }
+    values:
+    - value: public string this[int index] { get; }
   - lang: fsharp
-    value: 'member this.Item(int) : string'
+    values:
+    - value: 'member this.Item(int) : string'
   - lang: vb
-    value: Default Public ReadOnly Property Item(index As Integer) As String
+    values:
+    - value: Default Public ReadOnly Property Item(index As Integer) As String
   monikers:
   - cat-1.0
   - cat-2.0
@@ -35,8 +40,8 @@ namespace: CatLibrary
 name: Item[Int32]
 fullName: CatLibrary.IAnimal.Item[Int32]
 nameWithType: IAnimal.Item[Int32]
-assemblies:
-- CatLibrary
+assembliesWithMoniker:
+- value: CatLibrary.dll
 devLangs:
 - csharp
 - vb

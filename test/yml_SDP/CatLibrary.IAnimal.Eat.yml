@@ -6,24 +6,29 @@ members:
   name: Eat()
   fullName: CatLibrary.IAnimal.Eat()
   nameWithType: IAnimal.Eat()
-  syntax:
+  syntaxWithMoniker:
   - lang: cpp
-    value: >-
-      public:
-       void Eat();
+    values:
+    - value: >-
+        public:
+         void Eat();
   - lang: csharp
-    value: public void Eat ();
+    values:
+    - value: public void Eat ();
   - lang: fsharp
-    value: 'abstract member Eat : unit -> unit'
+    values:
+    - value: 'abstract member Eat : unit -> unit'
   - lang: vb
-    value: Public Sub Eat ()
+    values:
+    - value: Public Sub Eat ()
   monikers:
   - cat-1.0
   - cat-2.0
   summary: Animal's eat method.
   metadata: {}
 - parameters:
-  - name: food
+  - namesWithMoniker:
+    - value: food
     description: Food to eat
     type: <xref href="System.String?alt=System.String&text=String" data-throw-if-not-resolved="True"/>
   uid: CatLibrary.IAnimal.Eat(System.String)
@@ -31,17 +36,21 @@ members:
   name: Eat(String)
   fullName: CatLibrary.IAnimal.Eat(String)
   nameWithType: IAnimal.Eat(String)
-  syntax:
+  syntaxWithMoniker:
   - lang: cpp
-    value: >-
-      public:
-       void Eat(System::String ^ food);
+    values:
+    - value: >-
+        public:
+         void Eat(System::String ^ food);
   - lang: csharp
-    value: public void Eat (string food);
+    values:
+    - value: public void Eat (string food);
   - lang: fsharp
-    value: 'abstract member Eat : string -> unit'
+    values:
+    - value: 'abstract member Eat : string -> unit'
   - lang: vb
-    value: Public Sub Eat (food As String)
+    values:
+    - value: Public Sub Eat (food As String)
   monikers:
   - cat-1.0
   - cat-2.0
@@ -51,7 +60,8 @@ members:
   - description: It's a class type.
     name: Tool
   parameters:
-  - name: tool
+  - namesWithMoniker:
+    - value: tool
     description: Tool name.
     type: Tool
   uid: CatLibrary.IAnimal.Eat``1(``0)
@@ -59,19 +69,23 @@ members:
   name: Eat<Tool>(Tool)
   fullName: CatLibrary.IAnimal.Eat<Tool>(Tool)
   nameWithType: IAnimal.Eat<Tool>(Tool)
-  syntax:
+  syntaxWithMoniker:
   - lang: cpp
-    value: >-
-      public:
+    values:
+    - value: >-
+        public:
 
-      generic <typename Tool>
-       where Tool : class void Eat(Tool tool);
+        generic <typename Tool>
+         where Tool : class void Eat(Tool tool);
   - lang: csharp
-    value: 'public void Eat<Tool> (Tool tool) where Tool : class;'
+    values:
+    - value: 'public void Eat<Tool> (Tool tool) where Tool : class;'
   - lang: fsharp
-    value: "abstract member Eat : 'ool -> unit (requires 'ool : null)"
+    values:
+    - value: "abstract member Eat : 'ool -> unit (requires 'ool : null)"
   - lang: vb
-    value: Public Sub Eat(Of Tool As Class) (tool As Tool)
+    values:
+    - value: Public Sub Eat(Of Tool As Class) (tool As Tool)
   monikers:
   - cat-1.0
   - cat-2.0
@@ -83,8 +97,8 @@ namespace: CatLibrary
 name: Eat
 fullName: CatLibrary.IAnimal.Eat
 nameWithType: IAnimal.Eat
-assemblies:
-- CatLibrary
+assembliesWithMoniker:
+- value: CatLibrary.dll
 devLangs:
 - csharp
 - vb
