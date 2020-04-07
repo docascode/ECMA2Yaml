@@ -238,7 +238,7 @@ namespace ECMA2Yaml
         public static SyntaxDetailViewModel ToSyntaxDetailViewModel(this ReflectionItem item, ECMAStore store)
         {
             const string csharp = "C#";
-            var contents = store.UWPMode ? ConverterHelper.BuildUWPSignatures(item) : ConverterHelper.BuildSignatures(item);
+            var contents = ConverterHelper.BuildSignatures(item, uwpMode: store.UWPMode);
 
             var syntax = new SyntaxDetailViewModel()
             {

@@ -4,26 +4,32 @@ members:
 - returns:
     type: <xref href="System.Int32?alt=System.Int32&text=Int32" data-throw-if-not-resolved="True"/>
   parameters:
-  - name: lsr
+  - namesWithMoniker:
+    - value: lsr
     type: <xref href="CatLibrary.Cat`2?alt=CatLibrary.Cat`2&text=Cat%3CT%2CK%3E" data-throw-if-not-resolved="True"/>
-  - name: rsr
+  - namesWithMoniker:
+    - value: rsr
     type: <xref href="System.Int32?alt=System.Int32&text=Int32" data-throw-if-not-resolved="True"/>
   uid: CatLibrary.Cat`2.op_Subtraction(CatLibrary.Cat{`0,`1},System.Int32)
   commentId: M:CatLibrary.Cat`2.op_Subtraction(CatLibrary.Cat{`0,`1},System.Int32)
   name: Subtraction(Cat<T,K>, Int32)
   fullName: CatLibrary.Cat<T,K>.Subtraction(Cat<T,K>, Int32)
   nameWithType: Cat<T,K>.Subtraction(Cat<T,K>, Int32)
-  syntax:
+  syntaxWithMoniker:
   - lang: cpp
-    value: >-
-      public:
-       static int operator -(CatLibrary::Cat<T, K> ^ lsr, int rsr);
+    values:
+    - value: >-
+        public:
+         static int operator -(CatLibrary::Cat<T, K> ^ lsr, int rsr);
   - lang: csharp
-    value: public static int operator - (CatLibrary.Cat<T,K> lsr, int rsr);
+    values:
+    - value: public static int operator - (CatLibrary.Cat<T,K> lsr, int rsr);
   - lang: fsharp
-    value: "static member ( - ) : CatLibrary.Cat<'T, 'K (requires 'T : null and 'T : (new : unit -> 'T) and 'K : struct)> * int -> int"
+    values:
+    - value: "static member ( - ) : CatLibrary.Cat<'T, 'K (requires 'T : null and 'T : (new : unit -> 'T) and 'K : struct)> * int -> int"
   - lang: vb
-    value: Public Shared Operator - (lsr As Cat(Of T, K), rsr As Integer) As Integer
+    values:
+    - value: Public Shared Operator - (lsr As Cat(Of T, K), rsr As Integer) As Integer
   monikers:
   - cat-1.0
   - cat-2.0
@@ -35,8 +41,8 @@ namespace: CatLibrary
 name: Subtraction
 fullName: CatLibrary.Cat<T,K>.Subtraction
 nameWithType: Cat<T,K>.Subtraction
-assemblies:
-- CatLibrary
+assembliesWithMoniker:
+- value: CatLibrary.dll
 devLangs:
 - csharp
 - vb

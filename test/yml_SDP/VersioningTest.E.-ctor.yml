@@ -6,15 +6,18 @@ members:
   name: E()
   fullName: VersioningTest.E.E()
   nameWithType: E.E()
-  syntax:
+  syntaxWithMoniker:
   - lang: cpp
-    value: >-
-      public:
-       E();
+    values:
+    - value: >-
+        public:
+         E();
   - lang: csharp
-    value: public E ();
+    values:
+    - value: public E ();
   - lang: vb
-    value: Public Sub New ()
+    values:
+    - value: Public Sub New ()
   monikers:
   - cat-1.0
   - cat-2.0
@@ -25,8 +28,8 @@ namespace: VersioningTest
 name: E
 fullName: VersioningTest.E.E
 nameWithType: E.E
-assemblies:
-- CatLibrary
+assembliesWithMoniker:
+- value: CatLibrary.dll
 devLangs:
 - csharp
 - vb

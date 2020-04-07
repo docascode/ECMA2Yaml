@@ -1,6 +1,7 @@
 ### YamlMime:NetEnum
-inheritances:
-- <xref href="System.Enum" data-throw-if-not-resolved="True"/>
+inheritancesWithMoniker:
+- values:
+  - <xref href="System.Enum" data-throw-if-not-resolved="True"/>
 fields:
 - uid: MRef.Demo.Enumeration.ColorType.Blue
   commentId: F:MRef.Demo.Enumeration.ColorType.Blue
@@ -47,18 +48,26 @@ namespace: MRef.Demo.Enumeration
 name: ColorType
 fullName: MRef.Demo.Enumeration.ColorType
 nameWithType: MRef.Demo.Enumeration.ColorType
-assemblies:
-- CatLibrary
-- MRef.Demo
-syntax:
+assembliesWithMoniker:
+- value: CatLibrary.dll
+  monikers:
+  - cat-1.0
+- value: MRef.Demo.dll
+  monikers:
+  - cat-2.0
+syntaxWithMoniker:
 - lang: cpp
-  value: public enum class ColorType
+  values:
+  - value: public enum class ColorType
 - lang: csharp
-  value: public enum ColorType
+  values:
+  - value: public enum ColorType
 - lang: fsharp
-  value: 'type ColorType = '
+  values:
+  - value: 'type ColorType = '
 - lang: vb
-  value: Public Enum ColorType
+  values:
+  - value: Public Enum ColorType
 devLangs:
 - csharp
 - vb

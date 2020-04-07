@@ -7,13 +7,16 @@ returns:
   description: Return a fake number to confuse you.
   type: <xref href="System.Int32?alt=System.Int32&text=Int32" data-throw-if-not-resolved="True"/>
 parameters:
-- name: num
+- namesWithMoniker:
+  - value: num
   description: Fake para
   type: <xref href="System.Int64?alt=System.Int64&text=Int64" data-throw-if-not-resolved="True"/>
-- name: name
+- namesWithMoniker:
+  - value: name
   description: Fake para
   type: <xref href="System.String?alt=System.String&text=String" data-throw-if-not-resolved="True"/>
-- name: scores
+- namesWithMoniker:
+  - value: scores
   description: Optional Parameter.
   type: <xref href="System.Object?alt=System.Object&text=Object" data-throw-if-not-resolved="True"/>[]
 inheritances:
@@ -24,20 +27,24 @@ namespace: CatLibrary
 name: FakeDelegate<T>
 fullName: CatLibrary.FakeDelegate<T>
 nameWithType: CatLibrary.FakeDelegate<T>
-assemblies:
-- CatLibrary
-syntax:
+assembliesWithMoniker:
+- value: CatLibrary.dll
+syntaxWithMoniker:
 - lang: cpp
-  value: >-
-    generic <typename T>
+  values:
+  - value: >-
+      generic <typename T>
 
-    public delegate int FakeDelegate(long num, System::String ^ name, ... cli::array <System::Object ^> ^ scores);
+      public delegate int FakeDelegate(long num, System::String ^ name, ... cli::array <System::Object ^> ^ scores);
 - lang: csharp
-  value: public delegate int FakeDelegate<out T>(long num, string name, params object[] scores);
+  values:
+  - value: public delegate int FakeDelegate<out T>(long num, string name, params object[] scores);
 - lang: fsharp
-  value: type FakeDelegate<'T> = delegate of int64 * string * obj[] -> int
+  values:
+  - value: type FakeDelegate<'T> = delegate of int64 * string * obj[] -> int
 - lang: vb
-  value: 'Public Delegate Function FakeDelegate(Of Out T)(num As Long, name As String, ParamArray scores As Object()) As Integer '
+  values:
+  - value: 'Public Delegate Function FakeDelegate(Of Out T)(num As Long, name As String, ParamArray scores As Object()) As Integer '
 devLangs:
 - csharp
 - vb

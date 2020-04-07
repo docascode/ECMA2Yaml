@@ -2,24 +2,29 @@
 type: method
 members:
 - parameters:
-  - name: param1
+  - namesWithMoniker:
+    - value: param1
     type: <xref href="System.String?alt=System.String&text=String" data-throw-if-not-resolved="True"/>
   uid: VersioningTest.B.MethodFromClassB(System.String)
   commentId: M:VersioningTest.B.MethodFromClassB(System.String)
   name: MethodFromClassB(String)
   fullName: VersioningTest.B.MethodFromClassB(String)
   nameWithType: B.MethodFromClassB(String)
-  syntax:
+  syntaxWithMoniker:
   - lang: cpp
-    value: >-
-      public:
-       void MethodFromClassB(System::String ^ param1);
+    values:
+    - value: >-
+        public:
+         void MethodFromClassB(System::String ^ param1);
   - lang: csharp
-    value: public void MethodFromClassB (string param1);
+    values:
+    - value: public void MethodFromClassB (string param1);
   - lang: fsharp
-    value: 'member this.MethodFromClassB : string -> unit'
+    values:
+    - value: 'member this.MethodFromClassB : string -> unit'
   - lang: vb
-    value: Public Sub MethodFromClassB (param1 As String)
+    values:
+    - value: Public Sub MethodFromClassB (param1 As String)
   monikers:
   - cat-1.0
   - cat-2.0
@@ -31,8 +36,8 @@ namespace: VersioningTest
 name: MethodFromClassB
 fullName: VersioningTest.B.MethodFromClassB
 nameWithType: B.MethodFromClassB
-assemblies:
-- CatLibrary
+assembliesWithMoniker:
+- value: CatLibrary.dll
 devLangs:
 - csharp
 - vb

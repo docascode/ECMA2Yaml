@@ -5,7 +5,8 @@ members:
     description: Cat's number.
     type: <xref href="System.Int32?alt=System.Int32&text=Int32" data-throw-if-not-resolved="True"/>
   parameters:
-  - name: a
+  - namesWithMoniker:
+    - value: a
     description: Cat's name.
     type: <xref href="System.String?alt=System.String&text=String" data-throw-if-not-resolved="True"/>
   uid: CatLibrary.Cat`2.Item(System.String)
@@ -13,19 +14,23 @@ members:
   name: Item[String]
   fullName: CatLibrary.Cat<T,K>.Item[String]
   nameWithType: Cat<T,K>.Item[String]
-  syntax:
+  syntaxWithMoniker:
   - lang: cpp
-    value: >-
-      public:  property int default[System::String ^] {  protected:
+    values:
+    - value: >-
+        public:  property int default[System::String ^] {  protected:
 
-      int get(System::String ^ a); public:
-       void set(System::String ^ a, int value); };
+        int get(System::String ^ a); public:
+         void set(System::String ^ a, int value); };
   - lang: csharp
-    value: public int this[string a] { protected get; set; }
+    values:
+    - value: public int this[string a] { protected get; set; }
   - lang: fsharp
-    value: 'member this.Item(string) : int with get, set'
+    values:
+    - value: 'member this.Item(string) : int with get, set'
   - lang: vb
-    value: Default Public Property Item(a As String) As Integer
+    values:
+    - value: Default Public Property Item(a As String) As Integer
   monikers:
   - cat-1.0
   - cat-2.0
@@ -37,8 +42,8 @@ namespace: CatLibrary
 name: Item[String]
 fullName: CatLibrary.Cat<T,K>.Item[String]
 nameWithType: Cat<T,K>.Item[String]
-assemblies:
-- CatLibrary
+assembliesWithMoniker:
+- value: CatLibrary.dll
 devLangs:
 - csharp
 - vb

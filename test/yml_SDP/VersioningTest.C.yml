@@ -2,11 +2,14 @@
 type: class
 implements:
 - <xref href="VersioningTest.I?alt=VersioningTest.I&text=I" data-throw-if-not-resolved="True"/>
-inheritances:
-- <xref href="System.Object" data-throw-if-not-resolved="True"/>
-derivedClasses:
-- VersioningTest.E
-- VersioningTest.F
+inheritancesWithMoniker:
+- values:
+  - <xref href="System.Object" data-throw-if-not-resolved="True"/>
+derivedClassesWithMoniker:
+- value: VersioningTest.E
+- value: VersioningTest.F
+  monikers:
+  - cat-1.0
 extensionMethods:
 - uid: VersioningTest.VersioningExtensions.ExtMethodForI(VersioningTest.I)
   monikers:
@@ -23,22 +26,26 @@ namespace: VersioningTest
 name: C
 fullName: VersioningTest.C
 nameWithType: VersioningTest.C
-assemblies:
-- CatLibrary
-syntax:
+assembliesWithMoniker:
+- value: CatLibrary.dll
+syntaxWithMoniker:
 - lang: cpp
-  value: 'public ref class C : VersioningTest::I'
+  values:
+  - value: 'public ref class C : VersioningTest::I'
 - lang: csharp
-  value: 'public class C : VersioningTest.I'
+  values:
+  - value: 'public class C : VersioningTest.I'
 - lang: fsharp
-  value: >-
-    type C = class
-        interface I
+  values:
+  - value: >-
+      type C = class
+          interface I
 - lang: vb
-  value: >-
-    Public Class C
+  values:
+  - value: >-
+      Public Class C
 
-    Implements I
+      Implements I
 devLangs:
 - csharp
 - vb
