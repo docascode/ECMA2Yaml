@@ -179,7 +179,7 @@ namespace ECMA2Yaml
                 }
                 catch (Exception ex)
                 {
-                    OPSLogger.LogUserError(LogCode.ECMA2Yaml_InternalError, ex.ToString(), typeFile.AbsolutePath);
+                    OPSLogger.LogUserError(LogCode.ECMA2Yaml_InternalError, typeFile.AbsolutePath, ex.ToString());
                     _errorFiles.Add(typeFile.AbsolutePath);
                 }
             }

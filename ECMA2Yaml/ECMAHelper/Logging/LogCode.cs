@@ -36,7 +36,7 @@ namespace ECMA2Yaml
 		public static readonly LogCode ECMA2Yaml_UidAssembly_NotMatched = new LogCode("ECMA2Yaml_UidAssembly_NotMatched", "{0}'s moniker {1} can't match any assembly.");
 		public static readonly LogCode ECMA2Yaml_ExtraMonikerFoundInMember = new LogCode("ECMA2Yaml_ExtraMonikerFoundInMember", "Moniker {0} exists in member {1} but can't be found in parent type.");
 		public static readonly LogCode ECMA2Yaml_Command_Invalid = new LogCode("ECMA2Yaml_Command_Invalid", "Invalid command line parameter.");
-		public static readonly LogCode ECMA2Yaml_InternalError = new LogCode("ECMA2Yaml_InternalError", "Intenal Several Error");
+		public static readonly LogCode ECMA2Yaml_InternalError = new LogCode("ECMA2Yaml_InternalError", "Intenal Several Error: {0}");
 		public static readonly LogCode ECMA2Yaml_Namespace_NoTypes = new LogCode("ECMA2Yaml_Namespace_NoTypes", "Namespace {0} has no types");
 		public static readonly LogCode ECMA2Yaml_Type_ExternalBaseType = new LogCode("ECMA2Yaml_Type_ExternalBaseType", "Type {0} has an external base type {1}");
 		public static readonly LogCode ECMA2Yaml_ExceptionTypeNotFound = new LogCode("ECMA2Yaml_ExceptionTypeNotFound", "Referenced exception type not found: {0}");
