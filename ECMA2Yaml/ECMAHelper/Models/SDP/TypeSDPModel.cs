@@ -44,6 +44,10 @@ namespace ECMA2Yaml.Models.SDP
         [YamlMember(Alias = "derivedClasses")]
         public IEnumerable<string> DerivedClasses { get; set; }
 
+        [JsonProperty("derivedClassesWithMoniker")]
+        [YamlMember(Alias = "derivedClassesWithMoniker")]
+        public IEnumerable<VersionedString> DerivedClassesWithMoniker { get; set; }
+
         [JsonProperty("isNotClsCompliant")]
         [YamlMember(Alias = "isNotClsCompliant")]
         public bool? IsNotClsCompliant { get; set; }

@@ -3,8 +3,8 @@ type: class
 inheritancesWithMoniker:
 - values:
   - <xref href="System.Object" data-throw-if-not-resolved="True"/>
-derivedClasses:
-- CatLibrary.TomFromBaseClass
+derivedClassesWithMoniker:
+- value: CatLibrary.TomFromBaseClass
 constructors:
 - uid: CatLibrary.Tom.#ctor
   monikers:

@@ -27,12 +27,26 @@ namespace ECMA2Yaml
                         chain.Values.Select(uid => UidToTypeMDString(uid, _store)).ToList()
                         )).ToList(),
                     t.Monikers);
+                sdpType.DerivedClassesWithMoniker = MonikerizeDerivedClasses(t);
             }
             else
             {
                 sdpType.Inheritances = t.InheritanceChains?.LastOrDefault()?.Values.Select(uid => UidToTypeMDString(uid, _store))
                 .ToList()
                 .NullIfEmpty();
+
+                //not top level class like System.Object, has children
+                if (t.ItemType == ItemType.Interface
+                    && _store.ImplementationChildrenByUid.ContainsKey(t.Uid))
+                {
+                    sdpType.DerivedClasses = _store.ImplementationChildrenByUid[t.Uid].Select(v => v.Value).ToList();
+                }
+                else if (_store.InheritanceParentsByUid.ContainsKey(t.Uid)
+                    && _store.InheritanceParentsByUid[t.Uid]?.Count > 0
+                    && _store.InheritanceChildrenByUid.ContainsKey(t.Uid))
+                {
+                    sdpType.DerivedClasses = _store.InheritanceChildrenByUid[t.Uid].Select(v => v.Value).ToList();
+                }
             }
             
             sdpType.Implements = t.Interfaces?.Where(i => i != null)
@@ -47,19 +61,6 @@ namespace ECMA2Yaml
                 })
                 .ToList()
                 .NullIfEmpty();
-
-            //not top level class like System.Object, has children
-            if (t.ItemType == ItemType.Interface
-                && _store.ImplementationChildrenByUid.ContainsKey(t.Uid))
-            {
-                sdpType.DerivedClasses = _store.ImplementationChildrenByUid[t.Uid].Select(v => v.Value).ToList();
-            }
-            else if (_store.InheritanceParentsByUid.ContainsKey(t.Uid)
-                && _store.InheritanceParentsByUid[t.Uid]?.Count > 0
-                && _store.InheritanceChildrenByUid.ContainsKey(t.Uid))
-            {
-                sdpType.DerivedClasses = _store.InheritanceChildrenByUid[t.Uid].Select(v => v.Value).ToList();
-            }
 
             if (t.Attributes != null
                 && t.Attributes.Any(attr => attr.Declaration == "System.CLSCompliant(false)"))
