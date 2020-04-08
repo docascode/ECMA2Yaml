@@ -542,6 +542,10 @@ namespace ECMA2Yaml.Models
                     if (!string.IsNullOrEmpty(t.DocId) && _frameworks.DocIdToFrameworkDict.ContainsKey(t.DocId))
                     {
                         t.Monikers = new HashSet<string>(_frameworks.DocIdToFrameworkDict[t.DocId]);
+                        if (t.TypeForwardingChain != null)
+                        {
+                            t.TypeForwardingChain.Build(t.Monikers);
+                        }
                         if (t.BaseTypes?.Count > 0)
                         {
                             //specify monikers for easier calculation
