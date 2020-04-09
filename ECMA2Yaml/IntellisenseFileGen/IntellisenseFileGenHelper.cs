@@ -1,6 +1,6 @@
 ﻿using ECMA2Yaml;
+using ECMA2Yaml.IO;
 using IntellisenseFileGen.Models;
-using Microsoft.OpenPublishing.FileAbstractLayer;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Concurrent;
@@ -20,6 +20,7 @@ namespace IntellisenseFileGen
         static string _outFolder = @"G:\ECMA2Yaml-output\GenerateIntellisense\_intellisense";
         static string _moniker = string.Empty;
         static string _repoRootFolder = string.Empty;
+        static string _fallbackRepoRootFolder = string.Empty;
         static string[] _replaceStringDic = new string[] {
             "1C3C342C96EA43BD96398FAADBD52FF2",@"\\",@"\"
             ,"99AC517E3C8446B48C624569028BE7A2","\\\"","\""
@@ -54,8 +55,8 @@ namespace IntellisenseFileGen
                 // TODO: log error
                 return;
             }
-            _repoRootFolder = ECMALoader.GetRepoRootBySubPath(_xmlDataFolder);
-            _fileAccessor = new FileAccessor(_repoRootFolder);
+            (_repoRootFolder, _fallbackRepoRootFolder) = ECMALoader.GetRepoRootBySubPath(_xmlDataFolder);
+            _fileAccessor = new FileAccessor(_repoRootFolder, _fallbackRepoRootFolder);
 
             WriteLine(string.Format("xml path:'{0}'", _xmlDataFolder));
             WriteLine(string.Format("docset path:'{0}'", _docsetFolder));
@@ -789,9 +790,9 @@ namespace IntellisenseFileGen
             return false;
         }
 
-        static IEnumerable<FileItem> GetFiles(string subFolder, string glob)
+        static IEnumerable<FileItem> GetFiles(string subFolder, string wildCardPattern)
         {
-            return _fileAccessor.ListFiles(new string[] { glob }, subFolder: subFolder);
+            return _fileAccessor.ListFiles(wildCardPattern, subFolder);
         }
 
         static void WriteLine(string format, params object[] args)
