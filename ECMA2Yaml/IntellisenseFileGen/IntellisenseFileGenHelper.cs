@@ -219,7 +219,7 @@ namespace IntellisenseFileGen
         public static List<Models.Type> LoadTypes(ECMA2Yaml.Models.ECMAStore store)
         {
             string xmlFolder = _xmlDataFolder.Replace(_repoRootFolder, "").Trim(Path.DirectorySeparatorChar);
-            var typeFileList = GetFiles(xmlFolder, "**\\*.xml");
+            var typeFileList = _fileAccessor.ListFiles("*.xml", xmlFolder, allDirectories: true);
             ConcurrentBag<Models.Type> typeList = new ConcurrentBag<Models.Type>();
             ParallelOptions opt = new ParallelOptions() { MaxDegreeOfParallelism = Environment.ProcessorCount };
             Parallel.ForEach(typeFileList, opt, typeFile =>
@@ -788,11 +788,6 @@ namespace IntellisenseFileGen
             }
 
             return false;
-        }
-
-        static IEnumerable<FileItem> GetFiles(string subFolder, string wildCardPattern)
-        {
-            return _fileAccessor.ListFiles(wildCardPattern, subFolder);
         }
 
         static void WriteLine(string format, params object[] args)

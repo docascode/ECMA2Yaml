@@ -88,7 +88,7 @@ namespace ECMA2Yaml.IO
                 throw new ArgumentNullException(nameof(wildCardPattern));
             }
 
-            var currentFiles = RealFileAbstractLayer.ListFiles(wildCardPattern, subFolder);
+            var currentFiles = RealFileAbstractLayer.ListFiles(wildCardPattern, subFolder, allDirectories);
 
             if (FallbackFileAbstractLayer != null)
             {
