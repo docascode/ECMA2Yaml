@@ -49,7 +49,7 @@ namespace ECMA2Yaml.IO
                 Path.Combine(RootPath, subFolder ?? string.Empty),
                 wildCardPattern,
                 allDirectories ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly);
-            var filteredFiles = allFiles.Select(f => new FileItem { RelativePath = RelativePath(f, RootPath), AbsolutePath = f });
+            var filteredFiles = allFiles.Select(f => new FileItem { RelativePath = RelativePath(f, RootPath), AbsolutePath = f, IsVirtual = IsVirtual });
             return filteredFiles;
         }
 
