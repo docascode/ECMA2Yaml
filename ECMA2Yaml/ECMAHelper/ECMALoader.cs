@@ -47,11 +47,11 @@ namespace ECMA2Yaml
                 var ns = LoadNamespace(sourcePath, nsFile);
                 if (ns == null)
                 {
-                    OPSLogger.LogUserError(LogCode.ECMA2Yaml_Namespace_LoadFailed, LogMessageUtility.FormatMessage(LogCode.ECMA2Yaml_Namespace_LoadFailed), nsFile.AbsolutePath);
+                    OPSLogger.LogUserError(LogCode.ECMA2Yaml_Namespace_LoadFailed, nsFile.AbsolutePath);
                 }
                 else if (ns.Types == null)
                 {
-                    OPSLogger.LogUserWarning(LogCode.ECMA2Yaml_Namespace_NoTypes, LogMessageUtility.FormatMessage(LogCode.ECMA2Yaml_Namespace_NoTypes, ns.Name), nsFile.AbsolutePath);
+                    OPSLogger.LogUserWarning(LogCode.ECMA2Yaml_Namespace_NoTypes, nsFile.AbsolutePath);
                 }
                 else
                 {
@@ -65,7 +65,7 @@ namespace ECMA2Yaml
 
             if (_errorFiles.Count > 0)
             {
-                OPSLogger.LogUserError(LogCode.ECMA2Yaml_File_LoadFailed, LogMessageUtility.FormatMessage(LogCode.ECMA2Yaml_File_LoadFailed, _errorFiles.Count));
+                OPSLogger.LogUserError(LogCode.ECMA2Yaml_File_LoadFailed, null, _errorFiles.Count);
                 return null;
             }
 
@@ -179,7 +179,7 @@ namespace ECMA2Yaml
                 }
                 catch (Exception ex)
                 {
-                    OPSLogger.LogUserError(LogCode.ECMA2Yaml_InternalError, ex.ToString(), typeFile.AbsolutePath);
+                    OPSLogger.LogUserError(LogCode.ECMA2Yaml_InternalError, typeFile.AbsolutePath, ex.ToString());
                     _errorFiles.Add(typeFile.AbsolutePath);
                 }
             }
@@ -291,7 +291,7 @@ namespace ECMA2Yaml
                     {
                         if (og.Count() > 1)
                         {
-                            OPSLogger.LogUserWarning(LogCode.ECMA2Yaml_MemberGroup_Duplicated, LogMessageUtility.FormatMessage(LogCode.ECMA2Yaml_MemberGroup_Duplicated, og.Key), typeFile.AbsolutePath);
+                            OPSLogger.LogUserWarning(LogCode.ECMA2Yaml_MemberGroup_Duplicated, typeFile.AbsolutePath, og.Key);
                         }
                         og.First().SourceFileLocalPath = typeFile.AbsolutePath;
                         distinctList.Add(og.First());

@@ -152,7 +152,7 @@ namespace ECMA2Yaml
                 }
                 catch (Exception ex)
                 {
-                    OPSLogger.LogUserError(LogCode.ECMA2Yaml_MonikerToNuget_Failed, LogMessageUtility.FormatMessage(LogCode.ECMA2Yaml_MonikerToNuget_Failed, ex.ToString()), file);
+                    OPSLogger.LogUserError(LogCode.ECMA2Yaml_MonikerToNuget_Failed, file, ex);
                     return null;
                 }
             }

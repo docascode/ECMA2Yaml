@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -15,13 +16,15 @@ namespace ECMA2Yaml
 
         private static ConcurrentBag<LogItem> logBag = new ConcurrentBag<LogItem>();
 
-        public static void LogUserError(LogCode code, string message, string file = null)
+        public static void LogUserError(LogCode code, string file, params object[] msgArgs)
         {
+            var message = string.Format(code.MessageTemplate, msgArgs);
             logBag.Add(new LogItem(message, "ECMA2Yaml", file, MessageSeverity.Error, code.ToString(), LogItemType.User));
         }
 
-        public static void LogUserWarning(LogCode code, string message, string file = null)
+        public static void LogUserWarning(LogCode code, string file, params object[] msgArgs)
         {
+            var message = string.Format(code.MessageTemplate, msgArgs);
             logBag.Add(new LogItem(message, "ECMA2Yaml", file, MessageSeverity.Warning, code.ToString(), LogItemType.User));
         }
 
@@ -30,8 +33,9 @@ namespace ECMA2Yaml
             logBag.Add(new LogItem(message, "ECMA2Yaml", file, MessageSeverity.Info, LogItemType.User));
         }
 
-        public static void LogSystemError(LogCode code, string message, string file = null)
+        public static void LogSystemError(LogCode code, string file, params object[] msgArgs)
         {
+            var message = string.Format(code.MessageTemplate, msgArgs);
             logBag.Add(new LogItem(message, "ECMA2Yaml", file, MessageSeverity.Error, code.ToString(), LogItemType.System));
         }
 

@@ -467,7 +467,7 @@ namespace ECMA2Yaml
                     }
                     else
                     {
-                        OPSLogger.LogUserWarning(LogCode.ECMA2Yaml_TypeString_ParseFailed, LogMessageUtility.FormatMessage(LogCode.ECMA2Yaml_TypeString_ParseFailed, typeStr));
+                        OPSLogger.LogUserWarning(LogCode.ECMA2Yaml_TypeString_ParseFailed, null, typeStr);
                     }
                     
                 }
