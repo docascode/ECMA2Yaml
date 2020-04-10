@@ -1,11 +1,9 @@
-﻿using ECMA2Yaml.Models;
-using Microsoft.OpenPublishing.FileAbstractLayer;
+﻿using ECMA2Yaml.IO;
+using ECMA2Yaml.Models;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using Path = System.IO.Path;
@@ -42,7 +40,7 @@ namespace ECMA2Yaml
             ConcurrentBag<Namespace> namespaces = new ConcurrentBag<Namespace>();
             ParallelOptions opt = new ParallelOptions() { MaxDegreeOfParallelism = Environment.ProcessorCount };
             //foreach(var nsFile in ListFiles(sourcePath, Path.Combine(sourcePath, "ns-*.xml")))
-            Parallel.ForEach(ListFiles(sourcePath, Path.Combine(sourcePath, "ns-*.xml")), opt, nsFile =>
+            Parallel.ForEach(ListFiles(sourcePath, "ns-*.xml"), opt, nsFile =>
             {
                 var ns = LoadNamespace(sourcePath, nsFile);
                 if (ns == null)
@@ -162,7 +160,7 @@ namespace ECMA2Yaml
         {
             string nsFolder = Path.Combine(basePath, ns.Name);
             List<Models.Type> types = new List<Models.Type>();
-            foreach (var typeFile in ListFiles(nsFolder, Path.Combine(nsFolder, "*.xml")))
+            foreach (var typeFile in ListFiles(nsFolder, "*.xml"))
             {
                 try
                 {

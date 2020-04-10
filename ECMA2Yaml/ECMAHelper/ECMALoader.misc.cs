@@ -1,16 +1,13 @@
-﻿using ECMA2Yaml.Models;
+﻿using ECMA2Yaml.IO;
+using ECMA2Yaml.Models;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-using System.Collections.Concurrent;
-using System.Text.RegularExpressions;
-using Newtonsoft.Json;
-using Microsoft.OpenPublishing.FileAbstractLayer;
-using Path = System.IO.Path;
 using System.IO;
+using System.Linq;
+using System.Xml.Linq;
+using Path = System.IO.Path;
 
 namespace ECMA2Yaml
 {
@@ -107,7 +104,7 @@ namespace ECMA2Yaml
                 AllFrameworks = new HashSet<string>()
             };
 
-            foreach (var fxFile in ListFiles(frameworkFolder, Path.Combine(frameworkFolder, "*.xml")).OrderBy(f => Path.GetFileNameWithoutExtension(f.AbsolutePath)))
+            foreach (var fxFile in ListFiles(frameworkFolder, "*.xml").OrderBy(f => Path.GetFileNameWithoutExtension(f.AbsolutePath)))
             {
                 XDocument fxDoc = XDocument.Load(fxFile.AbsolutePath);
                 var fxName = fxDoc.Root.Attribute("Name").Value;
@@ -159,9 +156,9 @@ namespace ECMA2Yaml
             return null;
         }
 
-        private IEnumerable<FileItem> ListFiles(string subFolder, string glob)
+        private IEnumerable<FileItem> ListFiles(string subFolder, string wildCardPattern)
         {
-            return _fileAccessor.ListFiles(new string[] { glob }, subFolder: subFolder);
+            return _fileAccessor.ListFiles(wildCardPattern, subFolder);
         }
 
         private List<AssemblyInfo> ParseAssemblyInfo(XElement ele)
@@ -232,7 +229,7 @@ namespace ECMA2Yaml
             return element.Attribute("FrameworkAlternate")?.Value.Split(';').ToHashSet();
         }
 
-        public static string GetRepoRootBySubPath(string path)
+        public static (string, string) GetRepoRootBySubPath(string path)
         {
             while (!string.IsNullOrEmpty(path))
             {
@@ -244,12 +241,18 @@ namespace ECMA2Yaml
                 var repoConfigPath = Path.Combine(path, ".openpublishing.publish.config.json");
                 if (File.Exists(repoConfigPath))
                 {
-                    return path;
+                    string fallbackPath = Path.Combine(path, "_repo.en-us");
+                    if (!Directory.Exists(fallbackPath))
+                    {
+                        fallbackPath = null;
+                    }
+
+                    return (path, fallbackPath);
                 }
 
                 path = Path.GetDirectoryName(path);
             }
-            return null;
+            return (null, null);
         }
     }
 }
