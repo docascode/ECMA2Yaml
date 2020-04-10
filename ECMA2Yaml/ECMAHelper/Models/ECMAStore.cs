@@ -98,12 +98,12 @@ namespace ECMA2Yaml.Models
             {
                 if (string.IsNullOrEmpty(item.DocId))
                 {
-                    OPSLogger.LogUserError(LogCode.ECMA2Yaml_DocId_IsNull, LogMessageUtility.FormatMessage(LogCode.ECMA2Yaml_DocId_IsNull, item.Name), item.SourceFileLocalPath);
+                    OPSLogger.LogUserError(LogCode.ECMA2Yaml_DocId_IsNull, item.SourceFileLocalPath, item.Name);
                 }
                 else if (ItemsByDocId.ContainsKey(item.DocId))
                 {
-                    OPSLogger.LogUserError(LogCode.ECMA2Yaml_DocId_Duplicated, LogMessageUtility.FormatMessage(LogCode.ECMA2Yaml_DocId_Duplicated, item.DocId), item.SourceFileLocalPath);
-                    OPSLogger.LogUserError(LogCode.ECMA2Yaml_DocId_Duplicated, LogMessageUtility.FormatMessage(LogCode.ECMA2Yaml_DocId_Duplicated, item.DocId), ItemsByDocId[item.DocId].SourceFileLocalPath);
+                    OPSLogger.LogUserError(LogCode.ECMA2Yaml_DocId_Duplicated, item.SourceFileLocalPath, item.DocId);
+                    OPSLogger.LogUserError(LogCode.ECMA2Yaml_DocId_Duplicated, ItemsByDocId[item.DocId].SourceFileLocalPath, item.DocId);
                 }
                 else
                 {
@@ -122,7 +122,7 @@ namespace ECMA2Yaml.Models
                 {
                     foreach (var member in group)
                     {
-                        OPSLogger.LogUserWarning(LogCode.ECMA2Yaml_MemberNameAndSignature_NotUnique, LogMessageUtility.FormatMessage(LogCode.ECMA2Yaml_MemberNameAndSignature_NotUnique, member.Name), member.SourceFileLocalPath);
+                        OPSLogger.LogUserWarning(LogCode.ECMA2Yaml_MemberNameAndSignature_NotUnique, member.SourceFileLocalPath, member.Name);
                     }
                 }
             }
@@ -360,7 +360,7 @@ namespace ECMA2Yaml.Models
                             }
                             break;
                         default:
-                            OPSLogger.LogUserWarning(LogCode.ECMA2Yaml_NotesType_UnKnown, LogMessageUtility.FormatMessage(LogCode.ECMA2Yaml_NotesType_UnKnown, note.Key), item.SourceFileLocalPath);
+                            OPSLogger.LogUserWarning(LogCode.ECMA2Yaml_NotesType_UnKnown, item.SourceFileLocalPath, note.Key);
                             break;
                     }
                 }
@@ -570,7 +570,7 @@ namespace ECMA2Yaml.Models
                             }
                             else
                             {
-                                OPSLogger.LogUserError(LogCode.ECMA2Yaml_Framework_NotFound, LogMessageUtility.FormatMessage(LogCode.ECMA2Yaml_Framework_NotFound, m.DocId), m.SourceFileLocalPath);
+                                OPSLogger.LogUserError(LogCode.ECMA2Yaml_Framework_NotFound, m.SourceFileLocalPath, m.DocId);
                             }
                         }
                     }
@@ -1070,7 +1070,7 @@ namespace ECMA2Yaml.Models
                         {
                             if (!TypesByUid.ContainsKey(ex.Uid) && !MembersByUid.ContainsKey(ex.Uid))
                             {
-                                OPSLogger.LogUserWarning(LogCode.ECMA2Yaml_ExceptionTypeNotFound, LogMessageUtility.FormatMessage(LogCode.ECMA2Yaml_ExceptionTypeNotFound, ex.Uid), m.SourceFileLocalPath);
+                                OPSLogger.LogUserWarning(LogCode.ECMA2Yaml_ExceptionTypeNotFound, m.SourceFileLocalPath, ex.Uid);
                             }
                         }
                     }

@@ -61,15 +61,15 @@ namespace ECMA2Yaml
                         }
                         catch (Exception ex)
                         {
-                            OPSLogger.LogUserError(LogCode.ECMA2Yaml_YamlHeader_ParseFailed_WithException, LogMessageUtility.FormatMessage(LogCode.ECMA2Yaml_YamlHeader_ParseFailed_WithException, ex.ToString()), path);
+                            OPSLogger.LogUserError(LogCode.ECMA2Yaml_YamlHeader_ParseFailed_WithException, path, ex);
                         }
                         if (result == null)
                         {
-                            OPSLogger.LogUserError(LogCode.ECMA2Yaml_YamlHeader_ParseFailed, LogMessageUtility.FormatMessage(LogCode.ECMA2Yaml_YamlHeader_ParseFailed, match.Value), path);
+                            OPSLogger.LogUserError(LogCode.ECMA2Yaml_YamlHeader_ParseFailed, path, match.Value);
                         }
                         else if (!result.ContainsKey("uid"))
                         {
-                            OPSLogger.LogUserError(LogCode.ECMA2Yaml_YamlHeader_ParseFailed, LogMessageUtility.FormatMessage(LogCode.ECMA2Yaml_YamlHeader_ParseFailed, match.Value), path);
+                            OPSLogger.LogUserError(LogCode.ECMA2Yaml_YamlHeader_ParseFailed, path, match.Value);
                         }
                         else
                         {
@@ -77,7 +77,7 @@ namespace ECMA2Yaml
                             result.Remove("uid");
                             if (rval.ContainsKey(uid))
                             {
-                                OPSLogger.LogUserWarning(LogCode.ECMA2Yaml_Uid_Duplicated, LogMessageUtility.FormatMessage(LogCode.ECMA2Yaml_Uid_Duplicated, uid), path);
+                                OPSLogger.LogUserWarning(LogCode.ECMA2Yaml_Uid_Duplicated, path, uid);
                             }
                             else
                             {

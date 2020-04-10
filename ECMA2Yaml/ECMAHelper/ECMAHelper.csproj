@@ -66,7 +66,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>LogCode.tt</DependentUpon>
     </Compile>
-    <Compile Include="Logging\LogMessageUtility.cs" />
     <Compile Include="Metadata\APIScanGenerator.cs" />
     <Compile Include="Metadata\F1KeywordsGenerator.cs" />
     <Compile Include="Metadata\HelpViewerKeywordsGenerator.cs" />
@@ -164,9 +163,6 @@
     </PackageReference>
     <PackageReference Include="Microsoft.DocAsCode.YamlSerialization">
       <Version>2.43.2</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.OpenPublishing.LogCodeService.Manager">
-      <Version>1.0.3</Version>
     </PackageReference>
     <PackageReference Include="MoreLinq.Source.MoreEnumerable.DistinctBy">
       <Version>1.0.2</Version>

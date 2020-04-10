@@ -40,7 +40,7 @@ namespace ECMA2Yaml
             catch (Exception ex)
             {
                 WriteLine(ex.ToString());
-                OPSLogger.LogSystemError(LogCode.ECMA2Yaml_InternalError, ex.ToString());
+                OPSLogger.LogSystemError(LogCode.ECMA2Yaml_InternalError, null, ex.ToString());
             }
             finally
             {

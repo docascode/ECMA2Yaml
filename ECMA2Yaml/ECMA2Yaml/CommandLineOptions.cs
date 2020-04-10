@@ -79,7 +79,7 @@ namespace ECMA2Yaml
 
         private void PrintUsage()
         {
-            OPSLogger.LogUserError(LogCode.ECMA2Yaml_Command_Invalid, LogMessageUtility.FormatMessage(LogCode.ECMA2Yaml_Command_Invalid));
+            OPSLogger.LogUserError(LogCode.ECMA2Yaml_Command_Invalid, null);
             Console.WriteLine("Usage: ECMA2Yaml.exe <Options>");
             _options.WriteOptionDescriptions(Console.Out);
         }

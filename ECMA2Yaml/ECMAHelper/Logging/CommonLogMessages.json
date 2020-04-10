@@ -120,7 +120,7 @@
         },
         {
           "log_code": "ECMA2Yaml_InternalError",
-          "message": "Intenal Several Error",
+          "message": "Intenal Several Error: {0}",
           "document_url": ""
         },
         {
