@@ -33,7 +33,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Intellisense", "Intellisens
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{16128EB1-7BA8-497F-AD57-D474F1AA3107}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECMAHelper", "ECMAHelper\ECMAHelper.csproj", "{5EE5A983-5433-4D03-8AB3-C17B742D891B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECMAHelper", "ECMAHelper\ECMAHelper.csproj", "{B5D18314-613F-492A-9564-C9BCD1A183E6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,10 +69,10 @@ Global
 		{9D29E371-F87E-4C20-9C6D-ACA64BFDCE5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9D29E371-F87E-4C20-9C6D-ACA64BFDCE5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9D29E371-F87E-4C20-9C6D-ACA64BFDCE5A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5EE5A983-5433-4D03-8AB3-C17B742D891B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5EE5A983-5433-4D03-8AB3-C17B742D891B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5EE5A983-5433-4D03-8AB3-C17B742D891B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5EE5A983-5433-4D03-8AB3-C17B742D891B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5D18314-613F-492A-9564-C9BCD1A183E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5D18314-613F-492A-9564-C9BCD1A183E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5D18314-613F-492A-9564-C9BCD1A183E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5D18314-613F-492A-9564-C9BCD1A183E6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
