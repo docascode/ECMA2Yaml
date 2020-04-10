@@ -1,11 +1,9 @@
-﻿using ECMA2Yaml.Models;
-using Microsoft.OpenPublishing.FileAbstractLayer;
+﻿using ECMA2Yaml.IO;
+using ECMA2Yaml.Models;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using Path = System.IO.Path;
@@ -38,21 +36,20 @@ namespace ECMA2Yaml
             //var extensionMethods = LoadExtensionMethods(sourcePath);
             var filterStore = LoadFilters(sourcePath);
             var monikerNugetMapping = LoadMonikerPackageMapping(sourcePath);
-            var monikerAssemblyMapping = LoadMonikerAssemblyMapping(sourcePath);
 
             ConcurrentBag<Namespace> namespaces = new ConcurrentBag<Namespace>();
             ParallelOptions opt = new ParallelOptions() { MaxDegreeOfParallelism = Environment.ProcessorCount };
-            foreach(var nsFile in ListFiles(sourcePath, Path.Combine(sourcePath, "ns-*.xml")))
-            //Parallel.ForEach(ListFiles(sourcePath, Path.Combine(sourcePath, "ns-*.xml")), opt, nsFile =>
+            //foreach(var nsFile in ListFiles(sourcePath, Path.Combine(sourcePath, "ns-*.xml")))
+            Parallel.ForEach(ListFiles(sourcePath, "ns-*.xml"), opt, nsFile =>
             {
                 var ns = LoadNamespace(sourcePath, nsFile);
                 if (ns == null)
                 {
-                    OPSLogger.LogUserError(LogCode.ECMA2Yaml_Namespace_LoadFailed, LogMessageUtility.FormatMessage(LogCode.ECMA2Yaml_Namespace_LoadFailed), nsFile.AbsolutePath);
+                    OPSLogger.LogUserError(LogCode.ECMA2Yaml_Namespace_LoadFailed, nsFile.AbsolutePath);
                 }
                 else if (ns.Types == null)
                 {
-                    OPSLogger.LogUserWarning(LogCode.ECMA2Yaml_Namespace_NoTypes, LogMessageUtility.FormatMessage(LogCode.ECMA2Yaml_Namespace_NoTypes, ns.Name), nsFile.AbsolutePath);
+                    OPSLogger.LogUserWarning(LogCode.ECMA2Yaml_Namespace_NoTypes, nsFile.AbsolutePath);
                 }
                 else
                 {
@@ -62,16 +59,16 @@ namespace ECMA2Yaml
                         FallbackFiles.Add(nsFile.AbsolutePath);
                     }
                 }
-            }
+            });
 
             if (_errorFiles.Count > 0)
             {
-                OPSLogger.LogUserError(LogCode.ECMA2Yaml_File_LoadFailed, LogMessageUtility.FormatMessage(LogCode.ECMA2Yaml_File_LoadFailed, _errorFiles.Count));
+                OPSLogger.LogUserError(LogCode.ECMA2Yaml_File_LoadFailed, null, _errorFiles.Count);
                 return null;
             }
 
             var filteredNS = Filter(namespaces, filterStore);
-            var store = new ECMAStore(filteredNS.OrderBy(ns => ns.Name).ToArray(), frameworks, /*extensionMethods,*/ monikerNugetMapping, monikerAssemblyMapping)
+            var store = new ECMAStore(filteredNS.OrderBy(ns => ns.Name).ToArray(), frameworks, monikerNugetMapping)
             {
                 FilterStore = filterStore
             };
@@ -163,7 +160,7 @@ namespace ECMA2Yaml
         {
             string nsFolder = Path.Combine(basePath, ns.Name);
             List<Models.Type> types = new List<Models.Type>();
-            foreach (var typeFile in ListFiles(nsFolder, Path.Combine(nsFolder, "*.xml")))
+            foreach (var typeFile in ListFiles(nsFolder, "*.xml"))
             {
                 try
                 {
@@ -180,7 +177,7 @@ namespace ECMA2Yaml
                 }
                 catch (Exception ex)
                 {
-                    OPSLogger.LogUserError(LogCode.ECMA2Yaml_InternalError, ex.ToString(), typeFile.AbsolutePath);
+                    OPSLogger.LogUserError(LogCode.ECMA2Yaml_InternalError, typeFile.AbsolutePath, ex.ToString());
                     _errorFiles.Add(typeFile.AbsolutePath);
                 }
             }
@@ -253,6 +250,14 @@ namespace ECMA2Yaml
                 t.Attributes = attrs.Elements("Attribute").Select(a => LoadAttribute(a)).ToList();
             }
 
+            //TypeForwardingChain
+            var forwardingChain = tRoot.Element("TypeForwardingChain");
+            if (forwardingChain != null)
+            {
+                var fwds = forwardingChain.Elements("TypeForwarding").Select(fwd => LoadTypeForwarding(fwd)).ToList();
+                t.TypeForwardingChain = new TypeForwardingChain(fwds);
+            }
+
             //Members
             var membersElement = tRoot.Element("Members");
             if (membersElement != null)
@@ -284,7 +289,7 @@ namespace ECMA2Yaml
                     {
                         if (og.Count() > 1)
                         {
-                            OPSLogger.LogUserWarning(LogCode.ECMA2Yaml_MemberGroup_Duplicated, LogMessageUtility.FormatMessage(LogCode.ECMA2Yaml_MemberGroup_Duplicated, og.Key), typeFile.AbsolutePath);
+                            OPSLogger.LogUserWarning(LogCode.ECMA2Yaml_MemberGroup_Duplicated, typeFile.AbsolutePath, og.Key);
                         }
                         og.First().SourceFileLocalPath = typeFile.AbsolutePath;
                         distinctList.Add(og.First());
@@ -446,12 +451,33 @@ namespace ECMA2Yaml
 
         private Member LoadMemberGroup(Models.Type t, XElement mElement)
         {
-            Member m = new Member();
-            m.Parent = t;
-            m.Name = mElement.Attribute("MemberName").Value;
-            m.AssemblyInfo = mElement.Elements("AssemblyInfo")?.SelectMany(a => ParseAssemblyInfo(a)).ToList();
-            m.Docs = LoadDocs(mElement.Element("Docs"));
+            Member m = new Member
+            {
+                Parent = t,
+                Name = mElement.Attribute("MemberName").Value,
+                AssemblyInfo = mElement.Elements("AssemblyInfo")?.SelectMany(a => ParseAssemblyInfo(a)).ToList(),
+                Docs = LoadDocs(mElement.Element("Docs"))
+            };
             return m;
+        }
+
+        private VersionedValue<TypeForwarding> LoadTypeForwarding(XElement fwdElement)
+        {
+            var fwd = new TypeForwarding()
+            {
+                From = new AssemblyInfo()
+                {
+                    Name = fwdElement.Attribute("From")?.Value,
+                    Version = fwdElement.Attribute("FromVersion")?.Value
+                },
+                To = new AssemblyInfo()
+                {
+                    Name = fwdElement.Attribute("To")?.Value,
+                    Version = fwdElement.Attribute("ToVersion")?.Value
+                }
+            };
+            var monikers = LoadFrameworkAlternate(fwdElement);
+            return new VersionedValue<TypeForwarding>(monikers, fwd);
         }
     }
 }

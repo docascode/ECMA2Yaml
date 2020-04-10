@@ -2,7 +2,8 @@
 type: constructor
 members:
 - parameters:
-  - name: color
+  - namesWithMoniker:
+    - value: color
     description: Color of Jerry.
     type: <xref href="MRef.Demo.Enumeration.ColorType?alt=MRef.Demo.Enumeration.ColorType&text=ColorType" data-throw-if-not-resolved="True"/>
   uid: CatLibrary.TomFromBaseClass.Jerry.#ctor(MRef.Demo.Enumeration.ColorType)
@@ -10,17 +11,21 @@ members:
   name: TomFromBaseClass.Jerry(ColorType)
   fullName: CatLibrary.TomFromBaseClass.Jerry.TomFromBaseClass.Jerry(ColorType)
   nameWithType: TomFromBaseClass.Jerry.TomFromBaseClass.Jerry(ColorType)
-  syntax:
+  syntaxWithMoniker:
   - lang: cpp
-    value: >-
-      public:
-       Jerry(MRef::Demo::Enumeration::ColorType color);
+    values:
+    - value: >-
+        public:
+         Jerry(MRef::Demo::Enumeration::ColorType color);
   - lang: csharp
-    value: public Jerry (MRef.Demo.Enumeration.ColorType color);
+    values:
+    - value: public Jerry (MRef.Demo.Enumeration.ColorType color);
   - lang: fsharp
-    value: 'new CatLibrary.TomFromBaseClass.Jerry : MRef.Demo.Enumeration.ColorType -> CatLibrary.TomFromBaseClass.Jerry'
+    values:
+    - value: 'new CatLibrary.TomFromBaseClass.Jerry : MRef.Demo.Enumeration.ColorType -> CatLibrary.TomFromBaseClass.Jerry'
   - lang: vb
-    value: Public Sub New (color As ColorType)
+    values:
+    - value: Public Sub New (color As ColorType)
   monikers:
   - cat-2.0
   summary: Jerry has different <xref data-throw-if-not-resolved="true" uid="MRef.Demo.Enumeration.ColorType"></xref>.
@@ -31,8 +36,8 @@ namespace: CatLibrary
 name: TomFromBaseClass.Jerry
 fullName: CatLibrary.TomFromBaseClass.Jerry.TomFromBaseClass.Jerry
 nameWithType: TomFromBaseClass.Jerry.TomFromBaseClass.Jerry
-assemblies:
-- CatLibrary
+assembliesWithMoniker:
+- value: CatLibrary.dll
 devLangs:
 - csharp
 - vb

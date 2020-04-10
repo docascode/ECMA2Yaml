@@ -8,48 +8,59 @@ members:
   name: CatchJerry()
   fullName: CatLibrary.Cat<T,K>.CatchJerry()
   nameWithType: Cat<T,K>.CatchJerry()
-  syntax:
+  syntaxWithMoniker:
   - lang: cpp
-    value: >-
-      public:
-       virtual void CatchJerry();
+    values:
+    - value: >-
+        public:
+         virtual void CatchJerry();
   - lang: csharp
-    value: public void CatchJerry ();
+    values:
+    - value: public void CatchJerry ();
   - lang: fsharp
-    value: >-
-      abstract member CatchJerry : unit -> unit
+    values:
+    - value: >-
+        abstract member CatchJerry : unit -> unit
 
-      override this.CatchJerry : unit -> unit
+        override this.CatchJerry : unit -> unit
   - lang: vb
-    value: Public Sub CatchJerry ()
+    values:
+    - value: Public Sub CatchJerry ()
   monikers:
   - cat-2.0
   summary: This one can't.
   metadata: {}
 - parameters:
-  - name: force
+  - namesWithMoniker:
+    - value: force
     type: <xref href="System.Boolean?alt=System.Boolean&text=Boolean" data-throw-if-not-resolved="True"/>
   uid: CatLibrary.Cat`2.CatchJerry(System.Boolean)
   commentId: M:CatLibrary.Cat`2.CatchJerry(System.Boolean)
   name: CatchJerry(Boolean)
   fullName: CatLibrary.Cat<T,K>.CatchJerry(Boolean)
   nameWithType: Cat<T,K>.CatchJerry(Boolean)
-  attributes:
-  - System.ObsoleteAttribute
-  syntax:
+  attributesWithMoniker:
+  - value: System.ObsoleteAttribute
+  syntaxWithMoniker:
   - lang: cpp
-    value: >-
-      public:
-       void CatchJerry(bool force);
+    values:
+    - value: >-
+        public:
+         void CatchJerry(bool force);
   - lang: csharp
-    value: >-
-      [System.Obsolete("mark CatchJerry(bool force) as obsolete for testing")]
+    values:
+    - value: >-
+        [System.Obsolete("mark CatchJerry(bool force) as obsolete for testing")]
 
-      public void CatchJerry (bool force);
+        public void CatchJerry (bool force);
+      monikers:
+      - cat-2.0
   - lang: fsharp
-    value: 'member this.CatchJerry : bool -> unit'
+    values:
+    - value: 'member this.CatchJerry : bool -> unit'
   - lang: vb
-    value: Public Sub CatchJerry (force As Boolean)
+    values:
+    - value: Public Sub CatchJerry (force As Boolean)
   monikers:
   - cat-2.0
   isDeprecated: true
@@ -61,8 +72,8 @@ namespace: CatLibrary
 name: CatchJerry
 fullName: CatLibrary.Cat<T,K>.CatchJerry
 nameWithType: Cat<T,K>.CatchJerry
-assemblies:
-- CatLibrary
+assembliesWithMoniker:
+- value: CatLibrary.dll
 devLangs:
 - csharp
 - vb

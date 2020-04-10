@@ -2,10 +2,12 @@
 type: method
 members:
 - parameters:
-  - name: icat
+  - namesWithMoniker:
+    - value: icat
     description: Cat
     type: <xref href="CatLibrary.ICat?alt=CatLibrary.ICat&text=ICat" data-throw-if-not-resolved="True"/>
-  - name: toy
+  - namesWithMoniker:
+    - value: toy
     description: Something to play
     type: <xref href="System.String?alt=System.String&text=String" data-throw-if-not-resolved="True"/>
   uid: CatLibrary.ICatExtension.Play(CatLibrary.ICat,System.String)
@@ -13,22 +15,26 @@ members:
   name: Play(ICat, String)
   fullName: CatLibrary.ICatExtension.Play(ICat, String)
   nameWithType: ICatExtension.Play(ICat, String)
-  syntax:
+  syntaxWithMoniker:
   - lang: cpp
-    value: >-
-      public:
+    values:
+    - value: >-
+        public:
 
-      [System::Runtime::CompilerServices::Extension]
-       static void Play(CatLibrary::ICat ^ icat, System::String ^ toy);
+        [System::Runtime::CompilerServices::Extension]
+         static void Play(CatLibrary::ICat ^ icat, System::String ^ toy);
   - lang: csharp
-    value: public static void Play (this CatLibrary.ICat icat, string toy);
+    values:
+    - value: public static void Play (this CatLibrary.ICat icat, string toy);
   - lang: fsharp
-    value: 'static member Play : CatLibrary.ICat * string -> unit'
+    values:
+    - value: 'static member Play : CatLibrary.ICat * string -> unit'
   - lang: vb
-    value: >-
-      <Extension()>
+    values:
+    - value: >-
+        <Extension()>
 
-      Public Sub Play (icat As ICat, toy As String)
+        Public Sub Play (icat As ICat, toy As String)
   monikers:
   - cat-1.0
   - cat-2.0
@@ -40,8 +46,8 @@ namespace: CatLibrary
 name: Play
 fullName: CatLibrary.ICatExtension.Play
 nameWithType: ICatExtension.Play
-assemblies:
-- CatLibrary
+assembliesWithMoniker:
+- value: CatLibrary.dll
 devLangs:
 - csharp
 - vb

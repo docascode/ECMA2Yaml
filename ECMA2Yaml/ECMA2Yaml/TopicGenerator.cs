@@ -161,11 +161,11 @@ namespace ECMA2Yaml
             }
             if (t.InheritedMembers?.Count > 0)
             {
-                pv.References.AddRange(t.InheritedMembers.Select(p => p.Value + '.' + p.Key).Select(ex => store.MembersByUid[ex].ToReferenceViewModel()));
+                pv.References.AddRange(t.InheritedMembers.Keys.Select(ex => store.MembersByUid[ex].ToReferenceViewModel()));
             }
             if (t.ExtensionMethods?.Count > 0)
             {
-                pv.References.AddRange(t.ExtensionMethods.Select(ex => store.MembersByUid[ex].ToReferenceViewModel()));
+                pv.References.AddRange(t.ExtensionMethods.Select(ex => store.MembersByUid[ex.Value].ToReferenceViewModel()));
             }
             if (t.Interfaces?.Count > 0)
             {
@@ -204,12 +204,12 @@ namespace ECMA2Yaml
                 Implements = t.Interfaces?.Where(i => i != null).Select(i => store.TypesByFullName.ContainsKey(i) ? store.TypesByFullName[i].Uid : i.ToSpecId()).ToList(),
                 Inheritance = t.InheritanceChains?.LastOrDefault()?.Values,
                 AssemblyNameList = store.UWPMode ? null : t.AssemblyInfo.Select(a => a.Name).Distinct().ToList(),
-                InheritedMembers = t.InheritedMembers?.Select(p => p.Value + '.' + p.Key).OrderBy(s => s).ToList(),
+                InheritedMembers = t.InheritedMembers?.Select(p => p.Value.Value).OrderBy(s => s).ToList(),
                 SupportedLanguages = syntax.Contents?.Keys?.ToArray(),
                 Summary = t.Docs?.Summary,
                 Remarks = t.Docs?.Remarks,
                 Examples = string.IsNullOrEmpty(t.Docs?.Examples) ? null : new List<string> { t.Docs?.Examples },
-                ExtensionMethods = t.ExtensionMethods,
+                ExtensionMethods = t.ExtensionMethods?.Select(ext => ext.Value).ToList(),
                 Attributes = t.Attributes.GetAttributeInfo(store),
                 Modifiers = t.Modifiers,
                 SeeAlsos = t.Docs.BuildSeeAlsoList(store),
@@ -238,7 +238,7 @@ namespace ECMA2Yaml
         public static SyntaxDetailViewModel ToSyntaxDetailViewModel(this ReflectionItem item, ECMAStore store)
         {
             const string csharp = "C#";
-            var contents = store.UWPMode ? ConverterHelper.BuildUWPSignatures(item) : ConverterHelper.BuildSignatures(item);
+            var contents = ConverterHelper.BuildSignatures(item, uwpMode: store.UWPMode);
 
             var syntax = new SyntaxDetailViewModel()
             {
@@ -467,7 +467,7 @@ namespace ECMA2Yaml
                     }
                     else
                     {
-                        OPSLogger.LogUserWarning(LogCode.ECMA2Yaml_TypeString_ParseFailed, LogMessageUtility.FormatMessage(LogCode.ECMA2Yaml_TypeString_ParseFailed, typeStr));
+                        OPSLogger.LogUserWarning(LogCode.ECMA2Yaml_TypeString_ParseFailed, null, typeStr);
                     }
                     
                 }

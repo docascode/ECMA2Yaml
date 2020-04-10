@@ -1,21 +1,27 @@
 ### YamlMime:NetType
 type: class
-inheritances:
-- <xref href="System.Object" data-throw-if-not-resolved="True"/>
-- <xref href="VersioningTest.B?alt=VersioningTest.B&text=B" data-throw-if-not-resolved="True"/>
-- <xref href="VersioningTest.D?alt=VersioningTest.D&text=D" data-throw-if-not-resolved="True"/>
-derivedClasses:
-- VersioningTest.G
-- VersioningTest.H
+inheritancesWithMoniker:
+- values:
+  - <xref href="System.Object" data-throw-if-not-resolved="True"/>
+  - <xref href="VersioningTest.C?alt=VersioningTest.C&text=C" data-throw-if-not-resolved="True"/>
+  monikers:
+  - cat-1.0
+- values:
+  - <xref href="System.Object" data-throw-if-not-resolved="True"/>
+  - <xref href="VersioningTest.B?alt=VersioningTest.B&text=B" data-throw-if-not-resolved="True"/>
+  - <xref href="VersioningTest.D?alt=VersioningTest.D&text=D" data-throw-if-not-resolved="True"/>
+  monikers:
+  - cat-2.0
+derivedClassesWithMoniker:
+- value: VersioningTest.G
+- value: VersioningTest.H
 extensionMethods:
 - uid: VersioningTest.VersioningExtensions.ExtMethodForD(VersioningTest.D)
   monikers:
-  - cat-1.0
   - cat-2.0
 - uid: VersioningTest.VersioningExtensions.ExtMethodForI(VersioningTest.I)
   monikers:
   - cat-1.0
-  - cat-2.0
 constructors:
 - uid: VersioningTest.F.#ctor
   monikers:
@@ -25,7 +31,6 @@ methods:
 - uid: VersioningTest.B.MethodFromClassB(System.String)
   inheritedFrom: VersioningTest.B
   monikers:
-  - cat-1.0
   - cat-2.0
 uid: VersioningTest.F
 commentId: T:VersioningTest.F
@@ -33,22 +38,51 @@ namespace: VersioningTest
 name: F
 fullName: VersioningTest.F
 nameWithType: VersioningTest.F
-assemblies:
-- CatLibrary
-syntax:
+assembliesWithMoniker:
+- value: CatLibrary.dll
+syntaxWithMoniker:
 - lang: cpp
-  value: 'public ref class F : VersioningTest::D'
+  values:
+  - value: 'public ref class F : VersioningTest::C'
+    monikers:
+    - cat-1.0
+  - value: 'public ref class F : VersioningTest::D'
+    monikers:
+    - cat-2.0
 - lang: csharp
-  value: 'public class F : VersioningTest.D'
+  values:
+  - value: 'public class F : VersioningTest.C'
+    monikers:
+    - cat-1.0
+  - value: 'public class F : VersioningTest.D'
+    monikers:
+    - cat-2.0
 - lang: fsharp
-  value: >-
-    type F = class
-        inherit D
+  values:
+  - value: >-
+      type F = class
+          inherit C
+    monikers:
+    - cat-1.0
+  - value: >-
+      type F = class
+          inherit D
+    monikers:
+    - cat-2.0
 - lang: vb
-  value: >-
-    Public Class F
+  values:
+  - value: >-
+      Public Class F
 
-    Inherits D
+      Inherits C
+    monikers:
+    - cat-1.0
+  - value: >-
+      Public Class F
+
+      Inherits D
+    monikers:
+    - cat-2.0
 devLangs:
 - csharp
 - vb

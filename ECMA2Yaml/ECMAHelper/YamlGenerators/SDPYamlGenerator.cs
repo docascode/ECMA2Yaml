@@ -126,7 +126,7 @@ namespace ECMA2Yaml
                 item.Uid.TrimEnd('*'),
                 $"{parentUid}.{name}",
                 $"{parentUid}.{name.Split('.').Last()}",
-                $"{parentUid}.{Path.GetRandomFileName()}"
+                $"{parentUid}.{item.Id.GetHashCode()}"
                 );
         }
 

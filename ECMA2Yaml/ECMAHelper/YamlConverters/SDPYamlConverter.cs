@@ -87,9 +87,7 @@ namespace ECMA2Yaml
             {
                 Uid = item.Uid,
                 CommentId = item.CommentId,
-                Name = item.Name,
-
-                Assemblies = _store.UWPMode ? null : item.AssemblyInfo?.Select(asm => asm.Name).Distinct().ToList(),
+                Name = item.Name,                
                 DevLangs = item.Signatures?.DevLangs ?? defaultLangList,
 
                 SeeAlso = BuildSeeAlsoList(item.Docs, _store),
@@ -102,17 +100,19 @@ namespace ECMA2Yaml
 
             if(_withVersioning)
             {
+                rval.AssembliesWithMoniker = _store.UWPMode ? null : MonikerizeAssemblyStrings(item);
                 rval.AttributesWithMoniker = item.Attributes?.Where(att => att.Visible)
                     .Select(att => new VersionedString() { Value = att.TypeFullName, Monikers = att.Monikers?.ToHashSet() })
                     .ToList().NullIfEmpty();
                 rval.AttributeMonikers = ConverterHelper.ConsolidateVersionedValues(rval.AttributesWithMoniker, item.Monikers);
-                rval.SyntaxWithMoniker = ConverterHelper.BuildVersionedSignatures(item)?.NullIfEmpty();
+                rval.SyntaxWithMoniker = ConverterHelper.BuildVersionedSignatures(item, uwpMode: _store.UWPMode)?.NullIfEmpty();
             }
             else
             {
+                rval.Assemblies = _store.UWPMode ? null : item.AssemblyInfo?.Select(asm => asm.Name).Distinct().ToList();
                 rval.Attributes = item.Attributes?.Where(att => att.Visible).Select(att => att.TypeFullName)
                     .ToList().NullIfEmpty();
-                var rawSignatures = _store.UWPMode ? ConverterHelper.BuildUWPSignatures(item) : ConverterHelper.BuildSignatures(item);
+                var rawSignatures = ConverterHelper.BuildSignatures(item, uwpMode: _store.UWPMode);
                 rval.Syntax = rawSignatures?.Select(sig => new SignatureModel() { Lang = sig.Key, Value = sig.Value }).ToList();
             }
 
@@ -155,7 +155,98 @@ namespace ECMA2Yaml
                 rval.IsDeprecated = true;
             }
 
+            if (_store.UWPMode)
+            {
+                GenerateUWPRequirements(rval, item);
+            }
+
             return rval;
+        }
+
+        private void GenerateUWPRequirements(ItemSDPModelBase model, ReflectionItem item)
+        {
+            UWPRequirements uwpRequirements = new UWPRequirements();
+
+            if (item.Metadata.TryGetValue(UWPMetadata.DeviceFamilyNames, out object deviceFamilies))
+            {
+                String[] familyNames = (String[])deviceFamilies;
+                List<DeviceFamily> families = new List<DeviceFamily>();
+                if (familyNames.Length > 0 && item.Metadata.TryGetValue(UWPMetadata.DeviceFamilyVersions, out object deviceFamilyVersions))
+                {
+                    String[] familyVersions = (String[])deviceFamilyVersions;
+
+                    if (familyVersions.Length > 0)
+                    {
+                        int minNameVersionPairs = Math.Min(familyNames.Length, familyVersions.Length);
+
+                        for (int i = 0; i < minNameVersionPairs; i++)
+                        {
+                            DeviceFamily df = new DeviceFamily { Name = familyNames[i], Version = familyVersions[i] };
+                            families.Add(df);
+                        }
+                    }
+                }
+
+                if (families.Count > 0)
+                    uwpRequirements.DeviceFamilies = families;
+            }
+            if (item.Metadata.TryGetValue(UWPMetadata.ApiContractNames, out object apiContracts))
+            {
+                String[] apicNames = (String[])apiContracts;
+                List<APIContract> contracts = new List<APIContract>();
+                if (apicNames.Length > 0 && item.Metadata.TryGetValue(UWPMetadata.ApiContractVersions, out object apicVersions))
+                {
+                    String[] contractVersions = (String[])apicVersions;
+
+                    if (contractVersions.Length > 0)
+                    {
+                        int minNameVersionPairs = Math.Min(apicNames.Length, contractVersions.Length);
+
+                        for (int i = 0; i < minNameVersionPairs; i++)
+                        {
+                            APIContract apic = new APIContract { Name = apicNames[i], Version = contractVersions[i] };
+                            contracts.Add(apic);
+                        }
+                    }
+                }
+
+                if (contracts.Count > 0)
+                    uwpRequirements.APIContracts = contracts;
+            }
+            if (item.Metadata.TryGetValue(UWPMetadata.SDKRequirementsName, out object sdkReqName))
+            {
+                SDKRequirements sdkRequirements = new SDKRequirements { Name = (string)sdkReqName };
+                if (item.Metadata.TryGetValue(UWPMetadata.SDKRequirementsUrl, out object sdkReqUrl))
+                {
+                    sdkRequirements.Url = (string)sdkReqUrl;
+                }
+                model.SDKRequirements = sdkRequirements;
+            }
+            if (item.Metadata.TryGetValue(UWPMetadata.OSRequirementsName, out object osReqName))
+            {
+                OSRequirements osRequirements = new OSRequirements { Name = (string)osReqName };
+                if (item.Metadata.TryGetValue(UWPMetadata.OSRequirementsMinVersion, out object osReqMinVer))
+                {
+                    osRequirements.MinVer = (string)osReqMinVer;
+                }
+                model.OSRequirements = osRequirements;
+            }
+            if (item.Metadata.TryGetValue(UWPMetadata.Capabilities, out object capabilities))
+            {
+                model.Capabilities = (IEnumerable<string>)capabilities;
+            }
+            if (item.Metadata.TryGetValue(UWPMetadata.XamlMemberSyntax, out object xamlMemberSyntax))
+            {
+                model.XamlMemberSyntax = (string)xamlMemberSyntax;
+            }
+            if (item.Metadata.TryGetValue(UWPMetadata.XamlSyntax, out object xamlSyntax))
+            {
+                model.XamlSyntax = (string)xamlSyntax;
+            }
+
+            if (uwpRequirements.DeviceFamilies != null
+                || uwpRequirements.APIContracts != null)
+                model.UWPRequirements = uwpRequirements;
         }
 
         private void GenerateRequiredMetadata(ItemSDPModelBase model, ReflectionItem item, List<ReflectionItem> childrenItems = null)
@@ -185,22 +276,20 @@ namespace ECMA2Yaml
             return null;
         }
 
-        private T ConvertParameter<T>(Parameter p, List<TypeParameter> knownTypeParams = null, bool showGenericType = true)
+        private T ConvertParameter<T>(Parameter p, List<TypeParameter> knownTypeParams = null)
             where T : TypeReference, new()
         {
             var isGeneric = knownTypeParams?.Any(tp => tp.Name == p.Type) ?? false;
             return new T()
             {
                 Description = p.Description,
-                Type = isGeneric
-                    ? (showGenericType ? p.Type : "") // should be `p.Type`, tracked in https://ceapex.visualstudio.com/Engineering/_workitems/edit/72695
-                    : TypeStringToTypeMDString(p.OriginalTypeString ?? p.Type, _store)
+                Type = isGeneric ? p.Type : TypeStringToTypeMDString(p.OriginalTypeString ?? p.Type, _store)
             };
         }
 
-        private ParameterReference ConvertNamedParameter(Parameter p, List<TypeParameter> knownTypeParams = null, bool showGenericType = true)
+        private ParameterReference ConvertNamedParameter(Parameter p, List<TypeParameter> knownTypeParams = null)
         {
-            var r = ConvertParameter<ParameterReference>(p, knownTypeParams, showGenericType);
+            var r = ConvertParameter<ParameterReference>(p, knownTypeParams);
             if (_withVersioning)
             {
                 r.NamesWithMoniker = p.VersionedNames;

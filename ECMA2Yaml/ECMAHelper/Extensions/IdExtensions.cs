@@ -168,7 +168,7 @@ namespace ECMA2Yaml
             var parts = commentId.Split(':');
             if (parts?.Length != 2)
             {
-                OPSLogger.LogUserWarning(LogCode.ECMA2Yaml_CommentID_ParseFailed, LogMessageUtility.FormatMessage(LogCode.ECMA2Yaml_CommentID_ParseFailed, commentId));
+                OPSLogger.LogUserWarning(LogCode.ECMA2Yaml_CommentID_ParseFailed, null, commentId);
                 return (null, null);
             }
 

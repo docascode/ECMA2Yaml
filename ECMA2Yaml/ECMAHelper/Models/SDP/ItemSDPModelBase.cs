@@ -47,6 +47,10 @@ namespace ECMA2Yaml.Models.SDP
         [YamlMember(Alias = "assemblies")]
         public IEnumerable<string> Assemblies { get; set; }
 
+        [JsonProperty("assembliesWithMoniker")]
+        [YamlMember(Alias = "assembliesWithMoniker")]
+        public IEnumerable<VersionedString> AssembliesWithMoniker { get; set; }
+
         [JsonProperty("attributes")]
         [YamlMember(Alias = "attributes")]
         public IEnumerable<string> Attributes { get; set; }
@@ -102,6 +106,30 @@ namespace ECMA2Yaml.Models.SDP
         [JsonProperty("examples")]
         [YamlMember(Alias = "examples")]
         public string Examples { get; set; }
+
+        [JsonProperty("uwpRequirements")]
+        [YamlMember(Alias = "uwpRequirements")]
+        public UWPRequirements UWPRequirements { get; set; }
+
+        [JsonProperty("sdkRequirements")]
+        [YamlMember(Alias = "sdkRequirements")]
+        public SDKRequirements SDKRequirements { get; set; }
+
+        [JsonProperty("osRequirements")]
+        [YamlMember(Alias = "osRequirements")]
+        public OSRequirements OSRequirements { get; set; }
+
+        [JsonProperty("capabilities")]
+        [YamlMember(Alias = "capabilities")]
+        public IEnumerable<string> Capabilities { get; set; }
+
+        [JsonProperty("xamlSyntax")]
+        [YamlMember(Alias = "xamlSyntax")]
+        public string XamlSyntax { get; set; }
+
+        [JsonProperty("xamlMemberSyntax")]
+        [YamlMember(Alias = "xamlMemberSyntax")]
+        public string XamlMemberSyntax { get; set; }
 
         [JsonProperty("source")]
         [YamlMember(Alias = "source")]

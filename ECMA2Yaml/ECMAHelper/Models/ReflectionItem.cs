@@ -62,7 +62,7 @@ namespace ECMA2Yaml.Models
         {
             get
             {
-                if (!string.IsNullOrEmpty(Uid))
+                if (Uid != null)
                 {
 
                     if (Uid.EndsWith("*") && string.IsNullOrEmpty(DocId))

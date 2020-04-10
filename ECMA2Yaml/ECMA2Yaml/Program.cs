@@ -1,6 +1,6 @@
-﻿using Microsoft.DocAsCode.Common;
+﻿using ECMA2Yaml.IO;
+using Microsoft.DocAsCode.Common;
 using Microsoft.DocAsCode.DataContracts.ManagedReference;
-using Microsoft.OpenPublishing.FileAbstractLayer;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Concurrent;
@@ -40,7 +40,7 @@ namespace ECMA2Yaml
             catch (Exception ex)
             {
                 WriteLine(ex.ToString());
-                OPSLogger.LogSystemError(LogCode.ECMA2Yaml_InternalError, ex.ToString());
+                OPSLogger.LogSystemError(LogCode.ECMA2Yaml_InternalError, null, ex.ToString());
             }
             finally
             {
@@ -52,7 +52,7 @@ namespace ECMA2Yaml
         {
             var rootPath = Path.GetFullPath(opt.RepoRootPath ?? opt.SourceFolder);
             var xmlFolder = Path.GetFullPath(opt.SourceFolder).Replace(rootPath, "").Trim(Path.DirectorySeparatorChar);
-            var fileAccessor = new FileAccessor(rootPath);
+            var fileAccessor = new FileAccessor(rootPath, opt.FallbackRepoRoot);
             ECMALoader loader = new ECMALoader(fileAccessor);
             WriteLine("Loading ECMAXML files...");
             var store = loader.LoadFolder(xmlFolder);

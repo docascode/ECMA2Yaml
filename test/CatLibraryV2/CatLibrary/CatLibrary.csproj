@@ -57,6 +57,12 @@
     <Compile Include="Tom.cs" />
     <Compile Include="TomFromBaseClass.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MRef.Demo\MRef.Demo.csproj">
+      <Project>{b755fea1-7598-455e-9a95-ef87920b76fd}</Project>
+      <Name>MRef.Demo</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

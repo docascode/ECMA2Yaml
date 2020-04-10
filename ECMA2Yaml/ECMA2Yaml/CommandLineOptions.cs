@@ -10,6 +10,7 @@ namespace ECMA2Yaml
         public string MetadataFolder = null;
         public string OutputFolder = null;
 
+        public string FallbackRepoRoot = null;
         public string RepoRootPath = null;
         public string RepoUrl = null;
         public string RepoBranch = null;
@@ -49,6 +50,7 @@ namespace ECMA2Yaml
                 { "publicRepoBranch=", "the branch that is public to contributors", s => PublicRepoBranch = s},
                 { "publicRepoUrl=", "the repo that is public to contributors", s => PublicRepoUrl = s},
                 { "repoRoot=", "the local path of the root of the repo", s => RepoRootPath = s},
+                { "fallbackRepoRoot=", "the local path of the root of the fallback repo", s => FallbackRepoRoot = s},
                 { "repoUrl=", "the url of the current repo being processed", s => RepoUrl = s},
                 { "repoBranch=", "the branch of the current repo being processed", s => RepoBranch = s},
                 { "yamlXMLMappingFile=", "Mapping from generated yaml files to source XML files",  s => YamlXMLMappingFile = s },
@@ -65,7 +67,7 @@ namespace ECMA2Yaml
             }
             if (string.IsNullOrEmpty(RepoRootPath))
             {
-                RepoRootPath = ECMALoader.GetRepoRootBySubPath(SourceFolder);
+                (RepoRootPath, FallbackRepoRoot) = ECMALoader.GetRepoRootBySubPath(SourceFolder);
             }
             PublicRepoBranch = PublicRepoBranch ?? RepoBranch;
             PublicRepoUrl = PublicRepoUrl ?? RepoUrl;
@@ -77,7 +79,7 @@ namespace ECMA2Yaml
 
         private void PrintUsage()
         {
-            OPSLogger.LogUserError(LogCode.ECMA2Yaml_Command_Invalid, LogMessageUtility.FormatMessage(LogCode.ECMA2Yaml_Command_Invalid));
+            OPSLogger.LogUserError(LogCode.ECMA2Yaml_Command_Invalid, null);
             Console.WriteLine("Usage: ECMA2Yaml.exe <Options>");
             _options.WriteOptionDescriptions(Console.Out);
         }

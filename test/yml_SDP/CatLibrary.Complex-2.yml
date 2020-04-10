@@ -3,8 +3,9 @@ typeParameters:
 - name: T
 - name: J
 type: class
-inheritances:
-- <xref href="System.Object" data-throw-if-not-resolved="True"/>
+inheritancesWithMoniker:
+- values:
+  - <xref href="System.Object" data-throw-if-not-resolved="True"/>
 constructors:
 - uid: CatLibrary.Complex`2.#ctor
   monikers:
@@ -16,20 +17,24 @@ namespace: CatLibrary
 name: Complex<T,J>
 fullName: CatLibrary.Complex<T,J>
 nameWithType: CatLibrary.Complex<T,J>
-assemblies:
-- CatLibrary
-syntax:
+assembliesWithMoniker:
+- value: CatLibrary.dll
+syntaxWithMoniker:
 - lang: cpp
-  value: >-
-    generic <typename T, typename J>
+  values:
+  - value: >-
+      generic <typename T, typename J>
 
-    public ref class Complex
+      public ref class Complex
 - lang: csharp
-  value: public class Complex<T,J>
+  values:
+  - value: public class Complex<T,J>
 - lang: fsharp
-  value: type Complex<'T, 'J> = class
+  values:
+  - value: type Complex<'T, 'J> = class
 - lang: vb
-  value: Public Class Complex(Of T, J)
+  values:
+  - value: Public Class Complex(Of T, J)
 devLangs:
 - csharp
 - vb

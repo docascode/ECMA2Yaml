@@ -27,12 +27,26 @@ namespace ECMA2Yaml
                         chain.Values.Select(uid => UidToTypeMDString(uid, _store)).ToList()
                         )).ToList(),
                     t.Monikers);
+                sdpType.DerivedClassesWithMoniker = MonikerizeDerivedClasses(t);
             }
             else
             {
                 sdpType.Inheritances = t.InheritanceChains?.LastOrDefault()?.Values.Select(uid => UidToTypeMDString(uid, _store))
                 .ToList()
                 .NullIfEmpty();
+
+                //not top level class like System.Object, has children
+                if (t.ItemType == ItemType.Interface
+                    && _store.ImplementationChildrenByUid.ContainsKey(t.Uid))
+                {
+                    sdpType.DerivedClasses = _store.ImplementationChildrenByUid[t.Uid].Select(v => v.Value).ToList();
+                }
+                else if (_store.InheritanceParentsByUid.ContainsKey(t.Uid)
+                    && _store.InheritanceParentsByUid[t.Uid]?.Count > 0
+                    && _store.InheritanceChildrenByUid.ContainsKey(t.Uid))
+                {
+                    sdpType.DerivedClasses = _store.InheritanceChildrenByUid[t.Uid].Select(v => v.Value).ToList();
+                }
             }
             
             sdpType.Implements = t.Interfaces?.Where(i => i != null)
@@ -47,19 +61,6 @@ namespace ECMA2Yaml
                 })
                 .ToList()
                 .NullIfEmpty();
-
-            //not top level class like System.Object, has children
-            if (t.ItemType == ItemType.Interface
-                && _store.ImplementationChildrenByUid.ContainsKey(t.Uid))
-            {
-                sdpType.DerivedClasses = _store.ImplementationChildrenByUid[t.Uid].Select(v => v.Value).ToList();
-            }
-            else if (_store.InheritanceParentsByUid.ContainsKey(t.Uid)
-                && _store.InheritanceParentsByUid[t.Uid]?.Count > 0
-                && _store.InheritanceChildrenByUid.ContainsKey(t.Uid))
-            {
-                sdpType.DerivedClasses = _store.InheritanceChildrenByUid[t.Uid].Select(v => v.Value).ToList();
-            }
 
             if (t.Attributes != null
                 && t.Attributes.Any(attr => attr.Declaration == "System.CLSCompliant(false)"))
@@ -82,7 +83,7 @@ namespace ECMA2Yaml
             }
             if (t.InheritedMembers != null)
             {
-                members.AddRange(t.InheritedMembers.Select(p => p.Value + '.' + p.Key).Select(im => _store.MembersByUid[im]));
+                members.AddRange(t.InheritedMembers.Keys.Select(im => _store.MembersByUid[im]));
             }
             members = members.OrderBy(m => m.DisplayName).ToList();
             if (members.Count > 0)
@@ -90,13 +91,15 @@ namespace ECMA2Yaml
                 var eiis = members.Where(m => m.IsEII).ToList();
                 if (eiis.Count > 0)
                 {
-                    sdpType.EIIs = eiis.Select(m => ConvertTypeMemberLink(t, m)).ToList();
+                    sdpType.EIIs = eiis.Select(m => ConvertTypeMemberLink(t, m))
+                        .Where(m => m != null).ToList();
                 }
                 foreach (var mGroup in members
                     .Where(m => !m.IsEII)
                     .GroupBy(m => m.ItemType))
                 {
-                    var list = mGroup.Select(m => ConvertTypeMemberLink(t, m)).ToList();
+                    var list = mGroup.Select(m => ConvertTypeMemberLink(t, m))
+                        .Where(m => m != null).ToList();
                     switch (mGroup.Key)
                     {
                         case ItemType.Property:
@@ -128,7 +131,8 @@ namespace ECMA2Yaml
             }
             if (t.ExtensionMethods?.Count > 0)
             {
-                sdpType.ExtensionMethods = t.ExtensionMethods.Select(im => ConvertTypeMemberLink(null, _store.MembersByUid[im])).ToList();
+                sdpType.ExtensionMethods = t.ExtensionMethods.Select(im => ExtensionMethodToTypeMemberLink(t, im))
+                    .Where(ext => ext != null).ToList();
             }
         }
     }

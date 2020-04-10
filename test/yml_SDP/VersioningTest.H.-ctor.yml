@@ -6,15 +6,18 @@ members:
   name: H()
   fullName: VersioningTest.H.H()
   nameWithType: H.H()
-  syntax:
+  syntaxWithMoniker:
   - lang: cpp
-    value: >-
-      public:
-       H();
+    values:
+    - value: >-
+        public:
+         H();
   - lang: csharp
-    value: public H ();
+    values:
+    - value: public H ();
   - lang: vb
-    value: Public Sub New ()
+    values:
+    - value: Public Sub New ()
   monikers:
   - cat-1.0
   - cat-2.0
@@ -25,8 +28,8 @@ namespace: VersioningTest
 name: H
 fullName: VersioningTest.H.H
 nameWithType: H.H
-assemblies:
-- CatLibrary
+assembliesWithMoniker:
+- value: CatLibrary.dll
 devLangs:
 - csharp
 - vb

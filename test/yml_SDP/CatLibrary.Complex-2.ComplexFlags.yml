@@ -1,6 +1,7 @@
 ### YamlMime:NetEnum
-inheritances:
-- <xref href="System.Enum" data-throw-if-not-resolved="True"/>
+inheritancesWithMoniker:
+- values:
+  - <xref href="System.Enum" data-throw-if-not-resolved="True"/>
 isFlags: true
 fields:
 - uid: CatLibrary.Complex`2.ComplexFlags.None
@@ -33,22 +34,26 @@ namespace: CatLibrary
 name: Complex<T,J>.ComplexFlags
 fullName: CatLibrary.Complex<T,J>.ComplexFlags
 nameWithType: CatLibrary.Complex<T,J>.ComplexFlags
-assemblies:
-- CatLibrary
-attributes:
-- System.FlagsAttribute
-syntax:
+assembliesWithMoniker:
+- value: CatLibrary.dll
+attributesWithMoniker:
+- value: System.FlagsAttribute
+syntaxWithMoniker:
 - lang: cpp
-  value: 'public: enum class Complex<T, J>::ComplexFlags'
+  values:
+  - value: 'public: enum class Complex<T, J>::ComplexFlags'
 - lang: csharp
-  value: >-
-    [System.Flags]
+  values:
+  - value: >-
+      [System.Flags]
 
-    public enum Complex<T,J>.ComplexFlags
+      public enum Complex<T,J>.ComplexFlags
 - lang: fsharp
-  value: "type Complex<'T, 'J>.ComplexFlags = "
+  values:
+  - value: "type Complex<'T, 'J>.ComplexFlags = "
 - lang: vb
-  value: Public Enum Complex(Of T, J).ComplexFlags
+  values:
+  - value: Public Enum Complex(Of T, J).ComplexFlags
 devLangs:
 - csharp
 - vb

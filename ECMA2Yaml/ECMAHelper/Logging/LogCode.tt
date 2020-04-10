@@ -1,50 +1,68 @@
 ﻿<#@ template debug="false" hostspecific="true" language="C#" #>
-<#@ assembly name="$(SolutionDir)ECMAHelper\bin\release\Microsoft.OpenPublishing.LogCodeService.Manager.dll" #>
-<#@ assembly name="$(SolutionDir)ECMAHelper\bin\release\Microsoft.OpenPublishing.LogCodeService.DataContracts.dll" #>
-<#@ assembly name="$(SolutionDir)ECMAHelper\bin\release\Microsoft.OpenPublishing.LogCodeService.Common.dll" #>
+<#@ assembly name="System.Core" #>
 <#@ import namespace="System.Collections.Generic"#>
-<#@ import namespace="Microsoft.OpenPublishing.LogCodeService.Manager"#>
-<#@ import namespace="Microsoft.OpenPublishing.LogCodeService.DataContracts"#>
+<#@ import namespace="System.Reflection"#>
+<#@ import namespace="System.Linq"#>
+<#@ import namespace="System.IO"#>
+
+<#@ assembly name="Newtonsoft.Json" #>
+<#@ import namespace="Newtonsoft.Json" #>
+<#@ import namespace="Newtonsoft.Json.Linq" #>
 <#@ output extension=".cs" #>
 // **********************************************************************************************************
 // This is an auto generated file and any changes directly applied to this file will be lost in next generation.
 // Please DO NOT modify this file but instead, update .+LogMessage\.json files and/or LogCode.tt.
 // **********************************************************************************************************
 <#@ output extension=".cs" #>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+
 namespace ECMA2Yaml
 {
-    public enum LogCode
+    public class LogCode : LogCodeBase
     {
-        <#
-	var manager = new LogCodeManager(Host.ResolvePath(@"."), @".+LogMessages\.json$");
-	var categories = new Dictionary<string, List<LogCodeEntity>>();
-    foreach (var logCodeEntity in manager)
-	{
-		if (logCodeEntity.LogCode.Contains("-"))
-		{
-			continue;
-		}
-
-		if (categories.TryGetValue(logCodeEntity.Category, out List<LogCodeEntity> entities))
-		{
-			entities.Add(logCodeEntity);
-		}
-		else
-		{
-			categories.Add(logCodeEntity.Category, new List<LogCodeEntity>(){logCodeEntity});
-		}
-	}
-
-	foreach (var category in categories)
-	{
-		Write($"#region {category.Key}\n");
-		category.Value.Sort( (x, y) => x.LogCode.CompareTo(y.LogCode));
-		foreach (var logCodeEntity in category.Value)
-		{
-			Write($"\t\t{logCodeEntity.LogCode},\n");
-		}
-		Write($"\t\t#endregion\n");
-	}
+    <#
+    var fileName = Path.Combine(Host.ResolvePath(@"."), "CommonLogMessages.json");
+    JObject logCodeDefinitions = JObject.Parse(File.ReadAllText(fileName));
+    foreach(var category in logCodeDefinitions["categories"])
+    {
+        Write($"#region {(string)category["category"]}\n");
+        foreach(var code in category["log_codes"])
+        {
+            Write($"\t\tpublic static readonly LogCode {code["log_code"]} = new LogCode(\"{code["log_code"]}\", \"{code["message"]}\");\n");
+        }
+        Write($"\t\t#endregion\n");
+    }
 #>
+    public LogCode(string code, string msgTemplate)
+        : base(code, msgTemplate)
+    {
+    }
+    }
+
+	public abstract class LogCodeBase
+    {
+        public string Code { get; private set; }
+
+        public string MessageTemplate { get; private set; }
+
+        protected LogCodeBase(string code, string msgTemplate)
+        {
+            Code = code;
+            MessageTemplate = msgTemplate;
+        }
+
+        public override string ToString() => Code;
+
+        public static IEnumerable<T> GetAll<T>() where T : LogCodeBase
+        {
+            var fields = typeof(T).GetFields(BindingFlags.Public |
+                                             BindingFlags.Static |
+                                             BindingFlags.DeclaredOnly);
+
+            return fields.Select(f => f.GetValue(null)).Cast<T>();
+        }
     }
 }

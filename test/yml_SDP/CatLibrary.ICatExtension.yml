@@ -1,7 +1,8 @@
 ### YamlMime:NetType
 type: class
-inheritances:
-- <xref href="System.Object" data-throw-if-not-resolved="True"/>
+inheritancesWithMoniker:
+- values:
+  - <xref href="System.Object" data-throw-if-not-resolved="True"/>
 methods:
 - uid: CatLibrary.ICatExtension.Play(CatLibrary.ICat,System.String)
   monikers:
@@ -17,17 +18,21 @@ namespace: CatLibrary
 name: ICatExtension
 fullName: CatLibrary.ICatExtension
 nameWithType: CatLibrary.ICatExtension
-assemblies:
-- CatLibrary
-syntax:
+assembliesWithMoniker:
+- value: CatLibrary.dll
+syntaxWithMoniker:
 - lang: cpp
-  value: public ref class ICatExtension abstract sealed
+  values:
+  - value: public ref class ICatExtension abstract sealed
 - lang: csharp
-  value: public static class ICatExtension
+  values:
+  - value: public static class ICatExtension
 - lang: fsharp
-  value: type ICatExtension = class
+  values:
+  - value: type ICatExtension = class
 - lang: vb
-  value: Public Module ICatExtension
+  values:
+  - value: Public Module ICatExtension
 devLangs:
 - csharp
 - vb

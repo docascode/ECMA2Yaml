@@ -1,6 +1,7 @@
 ### YamlMime:NetEnum
-inheritances:
-- <xref href="System.Enum" data-throw-if-not-resolved="True"/>
+inheritancesWithMoniker:
+- values:
+  - <xref href="System.Enum" data-throw-if-not-resolved="True"/>
 fields:
 - uid: MRef.Demo.Enumeration.ColorType.Blue
   commentId: F:MRef.Demo.Enumeration.ColorType.Blue
@@ -11,6 +12,15 @@ fields:
   summary: blue like river
   monikers:
   - cat-1.0
+  - cat-2.0
+- uid: MRef.Demo.Enumeration.ColorType.Purple
+  commentId: F:MRef.Demo.Enumeration.ColorType.Purple
+  literalValue: "4"
+  name: Purple
+  nameWithType: ColorType.Purple
+  fullName: MRef.Demo.Enumeration.ColorType.Purple
+  summary: purple rain, purple rain
+  monikers:
   - cat-2.0
 - uid: MRef.Demo.Enumeration.ColorType.Red
   commentId: F:MRef.Demo.Enumeration.ColorType.Red
@@ -38,17 +48,26 @@ namespace: MRef.Demo.Enumeration
 name: ColorType
 fullName: MRef.Demo.Enumeration.ColorType
 nameWithType: MRef.Demo.Enumeration.ColorType
-assemblies:
-- CatLibrary
-syntax:
+assembliesWithMoniker:
+- value: CatLibrary.dll
+  monikers:
+  - cat-1.0
+- value: MRef.Demo.dll
+  monikers:
+  - cat-2.0
+syntaxWithMoniker:
 - lang: cpp
-  value: public enum class ColorType
+  values:
+  - value: public enum class ColorType
 - lang: csharp
-  value: public enum ColorType
+  values:
+  - value: public enum ColorType
 - lang: fsharp
-  value: 'type ColorType = '
+  values:
+  - value: 'type ColorType = '
 - lang: vb
-  value: Public Enum ColorType
+  values:
+  - value: Public Enum ColorType
 devLangs:
 - csharp
 - vb
@@ -63,7 +82,7 @@ seeAlso: >+
 summary: Enumeration ColorType
 remarks: >-
   <p>
-        Red/Blue/Yellow can become all color you want.
+        Red/Blue/Yellow/Purple can become all color you want.
   </p>
 
   <ul></ul>
@@ -74,10 +93,12 @@ metadata:
   api_name:
   - MRef.Demo.Enumeration.ColorType
   - MRef.Demo.Enumeration.ColorType.Blue
+  - MRef.Demo.Enumeration.ColorType.Purple
   - MRef.Demo.Enumeration.ColorType.Red
   - MRef.Demo.Enumeration.ColorType.Yellow
   api_location:
   - CatLibrary.dll
+  - MRef.Demo.dll
   topic_type:
   - apiref
   api_type:
@@ -87,6 +108,8 @@ metadata:
   - MRef::Demo::Enumeration::ColorType
   - MRef.Demo.Enumeration.ColorType.Blue
   - MRef::Demo::Enumeration::ColorType::Blue
+  - MRef.Demo.Enumeration.ColorType.Purple
+  - MRef::Demo::Enumeration::ColorType::Purple
   - MRef.Demo.Enumeration.ColorType.Red
   - MRef::Demo::Enumeration::ColorType::Red
   - MRef.Demo.Enumeration.ColorType.Yellow

@@ -1,16 +1,13 @@
-﻿using ECMA2Yaml.Models;
+﻿using ECMA2Yaml.IO;
+using ECMA2Yaml.Models;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-using System.Collections.Concurrent;
-using System.Text.RegularExpressions;
-using Newtonsoft.Json;
-using Microsoft.OpenPublishing.FileAbstractLayer;
-using Path = System.IO.Path;
 using System.IO;
+using System.Linq;
+using System.Xml.Linq;
+using Path = System.IO.Path;
 
 namespace ECMA2Yaml
 {
@@ -107,7 +104,7 @@ namespace ECMA2Yaml
                 AllFrameworks = new HashSet<string>()
             };
 
-            foreach (var fxFile in ListFiles(frameworkFolder, Path.Combine(frameworkFolder, "*.xml")).OrderBy(f => Path.GetFileNameWithoutExtension(f.AbsolutePath)))
+            foreach (var fxFile in ListFiles(frameworkFolder, "*.xml").OrderBy(f => Path.GetFileNameWithoutExtension(f.AbsolutePath)))
             {
                 XDocument fxDoc = XDocument.Load(fxFile.AbsolutePath);
                 var fxName = fxDoc.Root.Attribute("Name").Value;
@@ -115,7 +112,7 @@ namespace ECMA2Yaml
                 foreach (var nsElement in fxDoc.Root.Elements("Namespace"))
                 {
                     var ns = nsElement.Attribute("Name").Value;
-                    frameworkIndex.DocIdToFrameworkDict.AddWithKey(ns, fxName);
+                    frameworkIndex.DocIdToFrameworkDict.AddWithKey("N:" + ns, fxName);
                     foreach (var tElement in nsElement.Elements("Type"))
                     {
                         var t = tElement.Attribute("Id").Value;
@@ -152,34 +149,16 @@ namespace ECMA2Yaml
                 }
                 catch (Exception ex)
                 {
-                    OPSLogger.LogUserError(LogCode.ECMA2Yaml_MonikerToNuget_Failed, LogMessageUtility.FormatMessage(LogCode.ECMA2Yaml_MonikerToNuget_Failed, ex.ToString()), file);
+                    OPSLogger.LogUserError(LogCode.ECMA2Yaml_MonikerToNuget_Failed, file, ex);
                     return null;
                 }
             }
             return null;
         }
 
-        private Dictionary<string, List<string>> LoadMonikerAssemblyMapping(string folder)
+        private IEnumerable<FileItem> ListFiles(string subFolder, string wildCardPattern)
         {
-            var file = Path.Combine(folder, "_moniker2Assembly.json");
-            if (_fileAccessor.Exists(file))
-            {
-                try
-                {
-                    return JsonConvert.DeserializeObject<Dictionary<string, List<string>>>(_fileAccessor.ReadAllText(file));
-                }
-                catch (Exception ex)
-                {
-                    OPSLogger.LogUserError(LogCode.ECMA2Yaml_MonikerToAssembly_Failed, LogMessageUtility.FormatMessage(LogCode.ECMA2Yaml_MonikerToAssembly_Failed, ex.ToString()), file);
-                    return null;
-                }
-            }
-            return null;
-        }
-
-        private IEnumerable<FileItem> ListFiles(string subFolder, string glob)
-        {
-            return _fileAccessor.ListFiles(new string[] { glob }, subFolder: subFolder);
+            return _fileAccessor.ListFiles(wildCardPattern, subFolder);
         }
 
         private List<AssemblyInfo> ParseAssemblyInfo(XElement ele)
@@ -250,7 +229,7 @@ namespace ECMA2Yaml
             return element.Attribute("FrameworkAlternate")?.Value.Split(';').ToHashSet();
         }
 
-        public static string GetRepoRootBySubPath(string path)
+        public static (string, string) GetRepoRootBySubPath(string path)
         {
             while (!string.IsNullOrEmpty(path))
             {
@@ -262,12 +241,18 @@ namespace ECMA2Yaml
                 var repoConfigPath = Path.Combine(path, ".openpublishing.publish.config.json");
                 if (File.Exists(repoConfigPath))
                 {
-                    return path;
+                    string fallbackPath = Path.Combine(path, "_repo.en-us");
+                    if (!Directory.Exists(fallbackPath))
+                    {
+                        fallbackPath = null;
+                    }
+
+                    return (path, fallbackPath);
                 }
 
                 path = Path.GetDirectoryName(path);
             }
-            return null;
+            return (null, null);
         }
     }
 }

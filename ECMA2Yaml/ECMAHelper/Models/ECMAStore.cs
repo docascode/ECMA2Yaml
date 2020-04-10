@@ -1,4 +1,5 @@
 ﻿using Monodoc.Ecma;
+using MoreLinq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +7,7 @@ using System.Net;
 
 namespace ECMA2Yaml.Models
 {
-    public class ECMAStore
+    public partial class ECMAStore
     {
         public static EcmaUrlParser EcmaParser = new EcmaUrlParser();
         public Dictionary<string, Namespace> Namespaces { get; set; }
@@ -31,13 +32,10 @@ namespace ECMA2Yaml.Models
         private FrameworkIndex _frameworks;
         private List<Member> _extensionMethods;
         private Dictionary<string, string> _monikerNugetMapping;
-        private Dictionary<string, List<string>> _monikerAssemblyMapping;
-        private Dictionary<string, List<string>> _assemblyMonikerMapping;
 
         public ECMAStore(IEnumerable<Namespace> nsList,
             FrameworkIndex frameworks,
-            Dictionary<string, string> monikerNugetMapping = null,
-            Dictionary<string, List<string>> monikerAssemblyMapping = null)
+            Dictionary<string, string> monikerNugetMapping = null)
         {
             typeDescriptorCache = new Dictionary<string, EcmaDesc>();
 
@@ -45,7 +43,6 @@ namespace ECMA2Yaml.Models
             _tList = nsList.SelectMany(ns => ns.Types).ToList();
             _frameworks = frameworks;
             _monikerNugetMapping = monikerNugetMapping;
-            _monikerAssemblyMapping = monikerAssemblyMapping;
 
             InheritanceParentsByUid = new Dictionary<string, List<VersionedString>>();
             InheritanceChildrenByUid = new Dictionary<string, List<VersionedString>>();
@@ -101,12 +98,12 @@ namespace ECMA2Yaml.Models
             {
                 if (string.IsNullOrEmpty(item.DocId))
                 {
-                    OPSLogger.LogUserError(LogCode.ECMA2Yaml_DocId_IsNull, LogMessageUtility.FormatMessage(LogCode.ECMA2Yaml_DocId_IsNull, item.Name), item.SourceFileLocalPath);
+                    OPSLogger.LogUserError(LogCode.ECMA2Yaml_DocId_IsNull, item.SourceFileLocalPath, item.Name);
                 }
                 else if (ItemsByDocId.ContainsKey(item.DocId))
                 {
-                    OPSLogger.LogUserError(LogCode.ECMA2Yaml_DocId_Duplicated, LogMessageUtility.FormatMessage(LogCode.ECMA2Yaml_DocId_Duplicated, item.DocId), item.SourceFileLocalPath);
-                    OPSLogger.LogUserError(LogCode.ECMA2Yaml_DocId_Duplicated, LogMessageUtility.FormatMessage(LogCode.ECMA2Yaml_DocId_Duplicated, item.DocId), ItemsByDocId[item.DocId].SourceFileLocalPath);
+                    OPSLogger.LogUserError(LogCode.ECMA2Yaml_DocId_Duplicated, item.SourceFileLocalPath, item.DocId);
+                    OPSLogger.LogUserError(LogCode.ECMA2Yaml_DocId_Duplicated, ItemsByDocId[item.DocId].SourceFileLocalPath, item.DocId);
                 }
                 else
                 {
@@ -125,7 +122,7 @@ namespace ECMA2Yaml.Models
                 {
                     foreach (var member in group)
                     {
-                        OPSLogger.LogUserWarning(LogCode.ECMA2Yaml_MemberNameAndSignature_NotUnique, LogMessageUtility.FormatMessage(LogCode.ECMA2Yaml_MemberNameAndSignature_NotUnique, member.Name), member.SourceFileLocalPath);
+                        OPSLogger.LogUserWarning(LogCode.ECMA2Yaml_MemberNameAndSignature_NotUnique, member.SourceFileLocalPath, member.Name);
                     }
                 }
             }
@@ -262,11 +259,6 @@ namespace ECMA2Yaml.Models
 
         private void BuildOtherMetadata()
         {
-            if (_monikerAssemblyMapping != null)
-            {
-                _assemblyMonikerMapping = _monikerAssemblyMapping.SelectMany(p => p.Value.Select(v => Tuple.Create(p.Key, v)))
-                    .GroupBy(p => p.Item2).ToDictionary(g => g.Key, g => g.Select(p => p.Item1).ToList());
-            }
             foreach (var ns in _nsList)
             {
                 bool nsInternalOnly = ns.Docs?.InternalOnly ?? false;
@@ -368,7 +360,7 @@ namespace ECMA2Yaml.Models
                             }
                             break;
                         default:
-                            OPSLogger.LogUserWarning(LogCode.ECMA2Yaml_NotesType_UnKnown, LogMessageUtility.FormatMessage(LogCode.ECMA2Yaml_NotesType_UnKnown, note.Key), item.SourceFileLocalPath);
+                            OPSLogger.LogUserWarning(LogCode.ECMA2Yaml_NotesType_UnKnown, item.SourceFileLocalPath, note.Key);
                             break;
                     }
                 }
@@ -377,27 +369,6 @@ namespace ECMA2Yaml.Models
                     || !string.IsNullOrEmpty(notes.Inheritor))
                 {
                     item.Metadata[OPSMetadata.AdditionalNotes] = notes;
-                }
-            }
-        }
-
-        private void BuildAssemblyMonikerMapping(ReflectionItem item)
-        {
-            if (item.VersionedAssemblyInfo != null)
-            {
-                var dict = item.VersionedAssemblyInfo.MonikersPerValue
-                    .GroupBy(p => p.Key.Name)
-                    .OrderBy(p => p.Key)
-                    .ToDictionary(
-                        g => g.Key,
-                        g => {
-                            var monikers = g.SelectMany(p => p.Value).ToList();
-                            monikers.Sort();
-                            return monikers;
-                        });                
-                if (dict.Any())
-                {
-                    item.Metadata[OPSMetadata.AssemblyMonikerMapping] = dict;
                 }
             }
         }
@@ -448,49 +419,90 @@ namespace ECMA2Yaml.Models
 
             foreach (var t in _tList)
             {
-                var exMethodsFromBaseType = CheckAvailableExtensionMethods(t, InheritanceParentsByUid);
-                //var exMethodsFromInterface = CheckAvailableExtensionMethods(t, ImplementationParentsByUid);
-                //var allExMethods = exMethodsFromBaseType.MergeWith(exMethodsFromInterface);
-                if (exMethodsFromBaseType.Count > 0)
+                var exMethodsFromBaseType = CheckAvailableExtensionMethods(t);
+                if (exMethodsFromBaseType?.Count > 0)
                 {
-                    t.ExtensionMethods = exMethodsFromBaseType.Distinct().ToList();
-                    t.ExtensionMethods.Sort();
+                    t.ExtensionMethods = exMethodsFromBaseType;
                 }
             }
         }
 
-        private List<string> CheckAvailableExtensionMethods(Type t, Dictionary<string, List<VersionedString>> parentDict)
+        private List<VersionedString> CheckAvailableExtensionMethods(Type t)
         {
-            List<string> extensionMethods = new List<string>();
-            Stack<string> uidsToCheck = new Stack<string>();
-            uidsToCheck.Push(t.Uid);
-            while (uidsToCheck.Count > 0)
+            var extensionMethods = GetExtensionMethodCandidatesForType(t.Uid);
+            if (t.InheritanceChains != null)
             {
-                var uid = uidsToCheck.Pop();
-                if (parentDict.ContainsKey(uid))
+                foreach (var inheritanceChain in t.InheritanceChains)
                 {
-                    parentDict[uid].ForEach(u => uidsToCheck.Push(u.Value));
-                }
-                var exCandiates = GetExtensionMethodCandidatesForType(uid);
-                if (exCandiates != null)
-                {
-                    extensionMethods.AddRange(exCandiates);
-                }
-                if (TypesByUid.TryGetValue(uid, out var type) && type.Interfaces?.Count > 0)
-                {
-                    foreach(var f in type.Interfaces)
+                    var extensionsPerChain = inheritanceChain.Values.Select(btUid => GetExtensionMethodCandidatesForType(btUid, inheritanceChain.Monikers))
+                        .Where(exs => exs != null).SelectMany(exs => exs).DistinctBy(ext => ext.Value).ToList();
+                    if (extensionMethods == null || extensionMethods.Count == 0)
                     {
-                        exCandiates = GetExtensionMethodCandidatesForType(f.ToOuterTypeUid());
-                        if (exCandiates != null)
+                        extensionMethods = extensionsPerChain;
+                    }
+                    else
+                    {
+                        // merge extension methods found in different versions
+                        // this is a O(n^2) operation, which is slow, however only a few classes have more than 1 inheritance chain, so we should be ok.
+                        foreach (var extPerChain in extensionsPerChain)
                         {
-                            extensionMethods.AddRange(exCandiates);
+                            var existingExt = extensionMethods.FirstOrDefault(ext => ext.Value == extPerChain.Value);
+                            if (existingExt != null)
+                            {
+                                if (existingExt.Monikers != null)
+                                {
+                                    if (extPerChain.Monikers != null)
+                                    {
+                                        existingExt.Monikers = new HashSet<string>(existingExt.Monikers);
+                                        existingExt.Monikers.UnionWith(extPerChain.Monikers);
+                                    }
+                                    else
+                                    {
+                                        existingExt.Monikers = null;
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                extensionMethods.Add(extPerChain);
+                            }
                         }
                     }
                 }
             }
+
+            if (extensionMethods != null)
+            {
+                foreach(var ext in extensionMethods)
+                {
+                    if (ext.Monikers != null)
+                    {
+                        ext.Monikers = ext.Monikers.Intersect(t.Monikers).ToHashSet();
+                    }
+                }
+                extensionMethods = extensionMethods.DistinctBy(ext => ext.Value)
+                    .OrderBy(ext => ext.Value).ToList();
+            }
             return extensionMethods;
 
-            List<string> GetExtensionMethodCandidatesForType(string uid)
+            List<VersionedString> GetExtensionMethodCandidatesForType(string uid, HashSet<string> monikers = null)
+            {
+                var a = GetExtensionMethodCandidatesForTypeCore(uid, monikers) ?? new List<VersionedString>();
+                if (TypesByUid.TryGetValue(uid, out var type) && type.Interfaces?.Count > 0)
+                {
+                    foreach (var f in type.Interfaces)
+                    {
+                        var interfaceExts = GetExtensionMethodCandidatesForTypeCore(f.ToOuterTypeUid(), monikers);
+                        if (interfaceExts != null)
+                        {
+                            a.AddRange(interfaceExts);
+                        }
+                    }
+                }
+                return a;
+            }
+
+            List<VersionedString> GetExtensionMethodCandidatesForTypeCore(string uid, HashSet<string> monikers = null)
             {
                 if (ExtensionMethodUidsByTargetUid.Contains(uid))
                 {
@@ -502,10 +514,10 @@ namespace ECMA2Yaml.Models
                         }
                         HashSet<string> exMonikers = ex.Parent?.Monikers;
                         return (exMonikers == null && t.Monikers == null) ||
-                               (exMonikers != null && t.Monikers != null && exMonikers.Intersect(t.Monikers).Any());
+                               (exMonikers != null && t.Monikers != null && exMonikers.Overlaps(t.Monikers));
                     });
 
-                    return exCandiates.Select(ex => ex.Uid).ToList();
+                    return exCandiates.Select(ex => new VersionedString(monikers, ex.Uid)).ToList();
                 }
                 return null;
             }
@@ -517,25 +529,23 @@ namespace ECMA2Yaml.Models
             {
                 return;
             }
-            if (_monikerAssemblyMapping != null && _monikerAssemblyMapping.Count > 0)
-            {
-                _frameworks.FrameworkAssemblies = _frameworks.FrameworkAssemblies?.ToDictionary(
-                    p => p.Key,
-                    p => p.Value.Where(a => _monikerAssemblyMapping[p.Key].Contains(a.Key)).ToDictionary(purged => purged.Key, purged => purged.Value));
-            }
 
             var allMonikers = _frameworks.AllFrameworks;
             foreach (var ns in _nsList)
             {
-                if (_frameworks.DocIdToFrameworkDict.ContainsKey(ns.Uid))
+                if (_frameworks.DocIdToFrameworkDict.ContainsKey(ns.CommentId))
                 {
-                    ns.Monikers = new HashSet<string>(_frameworks.DocIdToFrameworkDict[ns.Uid]);
+                    ns.Monikers = new HashSet<string>(_frameworks.DocIdToFrameworkDict[ns.CommentId]);
                 }
                 foreach (var t in ns.Types)
                 {
                     if (!string.IsNullOrEmpty(t.DocId) && _frameworks.DocIdToFrameworkDict.ContainsKey(t.DocId))
                     {
                         t.Monikers = new HashSet<string>(_frameworks.DocIdToFrameworkDict[t.DocId]);
+                        if (t.TypeForwardingChain != null)
+                        {
+                            t.TypeForwardingChain.Build(t.Monikers);
+                        }
                         if (t.BaseTypes?.Count > 0)
                         {
                             //specify monikers for easier calculation
@@ -560,7 +570,7 @@ namespace ECMA2Yaml.Models
                             }
                             else
                             {
-                                OPSLogger.LogUserError(LogCode.ECMA2Yaml_Framework_NotFound, LogMessageUtility.FormatMessage(LogCode.ECMA2Yaml_Framework_NotFound, m.DocId), m.SourceFileLocalPath);
+                                OPSLogger.LogUserError(LogCode.ECMA2Yaml_Framework_NotFound, m.SourceFileLocalPath, m.DocId);
                             }
                         }
                     }
@@ -578,76 +588,6 @@ namespace ECMA2Yaml.Models
                         }
                     }
                 }
-            }
-        }
-
-        private void MonikerizeAssembly()
-        {
-            foreach (var ns in _nsList)
-            {
-                foreach (var t in ns.Types)
-                {
-                    if (t.Monikers != null)
-                    {
-                        MonikerizeAssembly(t, t.Monikers);
-                    }
-                    if (t.Members != null)
-                    {
-                        foreach (var m in t.Members.Where(m => !string.IsNullOrEmpty(m.DocId)))
-                        {
-                            if (m.Monikers != null)
-                            {
-                                MonikerizeAssembly(m, m.Monikers);
-                            }
-                        }
-                    }
-                    //special handling for monikers metadata
-                    if (t.Overloads != null)
-                    {
-                        foreach (var ol in t.Overloads)
-                        {
-                            if (ol.Monikers != null)
-                            {
-                                MonikerizeAssembly(ol, ol.Monikers);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        private void MonikerizeAssembly(ReflectionItem item, IEnumerable<string> monikers)
-        {
-            if (_frameworks.FrameworkAssemblies?.Count > 0 && item.AssemblyInfo != null)
-            {
-                var valuesPerMoniker = new Dictionary<string, List<AssemblyInfo>>();
-                foreach (var moniker in monikers)
-                {
-                    var frameworkAssemblies = _frameworks.FrameworkAssemblies[moniker];
-                    var assemblies = item.AssemblyInfo.Where(
-                        itemAsm => frameworkAssemblies.TryGetValue(itemAsm.Name, out var fxAsm) && fxAsm.Version == itemAsm.Version).ToList();
-                    if (assemblies.Count == 0)
-                    {
-                        // due to https://github.com/mono/api-doc-tools/issues/400, sometimes the versions don't match
-                        var fallbackAssemblies = item.AssemblyInfo.Where(
-                            itemAsm => frameworkAssemblies.TryGetValue(itemAsm.Name, out var fxAsm)).ToList();
-                        if (fallbackAssemblies != null)
-                        {
-                            valuesPerMoniker[moniker] = fallbackAssemblies;
-                            OPSLogger.LogUserInfo($"{item.Uid}'s moniker {moniker} can't match any assembly by version, fallback to name matching.");
-                        }
-                        else
-                        {
-                            OPSLogger.LogUserWarning(LogCode.ECMA2Yaml_UidAssembly_NotMatched, LogMessageUtility.FormatMessage(LogCode.ECMA2Yaml_UidAssembly_NotMatched, item.Uid, moniker));
-                        }
-                    }
-                    else
-                    {
-
-                    }
-                    valuesPerMoniker[moniker] = assemblies;
-                }
-                item.VersionedAssemblyInfo = new VersionedProperty<AssemblyInfo>(valuesPerMoniker);
             }
         }
 
@@ -950,7 +890,7 @@ namespace ECMA2Yaml.Models
         {
             if (t.Interfaces?.Count > 0)
             {
-                t.InheritedMembers = new Dictionary<string, string>();
+                t.InheritedMembers = new Dictionary<string, VersionedString>();
                 foreach (var f in t.Interfaces)
                 {
                     var interfaceUid = f.ToOuterTypeUid();
@@ -963,7 +903,7 @@ namespace ECMA2Yaml.Models
                             {
                                 if (m.Name != "Finalize" && m.ItemType != ItemType.Constructor && !m.Signatures.IsStatic)
                                 {
-                                    t.InheritedMembers[m.Id] = inter.Uid;
+                                    t.InheritedMembers[m.Id] = new VersionedString(null, m.Uid);
                                 }
                             }
                         }
@@ -979,6 +919,8 @@ namespace ECMA2Yaml.Models
                         }
                     }
                 }
+                //transform to uid based dictionary too, similar to class inheritance
+                t.InheritedMembers = t.InheritedMembers.ToDictionary(p => p.Value.Value, p => p.Value);
             }
         }
 
@@ -990,9 +932,11 @@ namespace ECMA2Yaml.Models
 
                 if (t.ItemType == ItemType.Class && !t.Signatures.IsStatic)
                 {
-                    t.InheritedMembers = new Dictionary<string, string>();
-                    foreach(var inheritanceChain in t.InheritanceChains)
+                    foreach (var inheritanceChain in t.InheritanceChains)
                     {
+                        var inheritedMembersById = new Dictionary<string, VersionedString>();
+                        var monikers = new HashSet<string>(inheritanceChain.Monikers);
+                        monikers.IntersectWith(t.Monikers);
                         foreach (var btUid in inheritanceChain.Values)
                         {
                             if (TypesByUid.ContainsKey(btUid))
@@ -1008,21 +952,55 @@ namespace ECMA2Yaml.Models
                                             && m.ItemType != ItemType.AttachedEvent
                                             && !m.Signatures.IsStatic)
                                         {
-                                            t.InheritedMembers[m.Id] = bt.Uid;
+                                            inheritedMembersById[m.Id] = new VersionedString(monikers, m.Uid);
                                         }
                                     }
                                 }
                             }
                         }
-                    }
-
-                    if (t.Members != null)
-                    {
-                        foreach (var m in t.Members)
+                        if (t.Members != null)
                         {
-                            if (t.InheritedMembers.ContainsKey(m.Id))
+                            foreach (var m in t.Members)
                             {
-                                t.InheritedMembers.Remove(m.Id);
+                                // could be defined in one moniker, but inherited in another moniker
+                                // so we should check both the id and moniker
+                                if (inheritedMembersById.TryGetValue(m.Id, out var inheritedMember)
+                                    && m.Monikers.Overlaps(inheritedMember.Monikers))
+                                {
+                                    inheritedMembersById.Remove(m.Id);
+                                }
+                            }
+                        }
+
+                        // merge with type level inherited members, which are tracked by uid instead of id.
+                        if (t.InheritedMembers == null)
+                        {
+                            t.InheritedMembers = inheritedMembersById.ToDictionary(p => p.Value.Value, p => p.Value);
+                        }
+                        else
+                        {
+                            foreach (var inheritedMember in inheritedMembersById.Values)
+                            {
+                                if (t.InheritedMembers.TryGetValue(inheritedMember.Value, out var existingInheritedFrom))
+                                {
+                                    //inherited from the same type
+                                    if (existingInheritedFrom.Monikers != null)
+                                    {
+                                        if (inheritedMember.Monikers != null)
+                                        {
+                                            existingInheritedFrom.Monikers = new HashSet<string>(existingInheritedFrom.Monikers);
+                                            existingInheritedFrom.Monikers.UnionWith(inheritedMember.Monikers);
+                                        }
+                                        else
+                                        {
+                                            existingInheritedFrom.Monikers = null;
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    t.InheritedMembers[inheritedMember.Value] = inheritedMember;
+                                }
                             }
                         }
                     }
@@ -1092,7 +1070,7 @@ namespace ECMA2Yaml.Models
                         {
                             if (!TypesByUid.ContainsKey(ex.Uid) && !MembersByUid.ContainsKey(ex.Uid))
                             {
-                                OPSLogger.LogUserWarning(LogCode.ECMA2Yaml_ExceptionTypeNotFound, LogMessageUtility.FormatMessage(LogCode.ECMA2Yaml_ExceptionTypeNotFound, ex.Uid), m.SourceFileLocalPath);
+                                OPSLogger.LogUserWarning(LogCode.ECMA2Yaml_ExceptionTypeNotFound, m.SourceFileLocalPath, ex.Uid);
                             }
                         }
                     }
@@ -1101,43 +1079,6 @@ namespace ECMA2Yaml.Models
             if (t.ReturnValueType != null && t.Docs?.Returns != null)
             {
                 t.ReturnValueType.Description = t.Docs.Returns;
-            }
-        }
-
-        private void FindMissingAssemblyNamesAndVersions()
-        {
-            foreach (var t in _tList)
-            {
-                if (t.AssemblyInfo?.Count > 0 && t.Members?.Count > 0)
-                {
-                    foreach (var m in t.Members)
-                    {
-                        if (m.AssemblyInfo?.Count > 0)
-                        {
-                            foreach (var asm in m.AssemblyInfo)
-                            {
-                                if (string.IsNullOrEmpty(asm.Name) && asm.Version != null)
-                                {
-                                    var fallback = t.AssemblyInfo.FirstOrDefault(ta => ta.Version == asm.Version);
-                                    asm.Name = fallback?.Name;
-                                    OPSLogger.LogUserInfo($"AssemblyName fallback for {m.DocId} to {asm.Name}", m.SourceFileLocalPath);
-                                }
-                            }
-                            // hack for https://github.com/mono/api-doc-tools/issues/399
-                            var missingVersion = m.AssemblyInfo.Where(a => a.Version == null).ToList();
-                            foreach(var asm in missingVersion)
-                            {
-                                var parentFallback = t.AssemblyInfo.Where(a => a.Name == asm.Name).ToList();
-                                if (parentFallback.Count > 0)
-                                {
-                                    m.AssemblyInfo.Remove(asm);
-                                    m.AssemblyInfo.AddRange(parentFallback);
-                                    OPSLogger.LogUserInfo($"AssemblyVersion fallback for {m.DocId}, {asm.Name}", m.SourceFileLocalPath);
-                                }
-                            }
-                        }
-                    }
-                }
             }
         }
 

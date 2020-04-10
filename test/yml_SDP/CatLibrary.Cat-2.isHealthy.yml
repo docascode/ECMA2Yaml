@@ -8,23 +8,37 @@ members:
   name: isHealthy
   fullName: CatLibrary.Cat<T,K>.isHealthy
   nameWithType: Cat<T,K>.isHealthy
-  attributes:
-  - System.ContextStaticAttribute
-  - System.ObsoleteAttribute
-  syntax:
+  attributesWithMoniker:
+  - value: System.ContextStaticAttribute
+  - value: System.ObsoleteAttribute
+    monikers:
+    - cat-2.0
+  syntaxWithMoniker:
   - lang: cpp
-    value: 'public: bool isHealthy;'
+    values:
+    - value: 'public: bool isHealthy;'
   - lang: csharp
-    value: >-
-      [System.ContextStatic]
+    values:
+    - value: >-
+        [System.ContextStatic]
 
-      [System.Obsolete("mark IsHealthy as obsolete for testing")]
+        public bool isHealthy;
+      monikers:
+      - cat-1.0
+    - value: >-
+        [System.ContextStatic]
 
-      public bool isHealthy;
+        [System.Obsolete("mark IsHealthy as obsolete for testing")]
+
+        public bool isHealthy;
+      monikers:
+      - cat-2.0
   - lang: fsharp
-    value: 'val mutable isHealthy : bool'
+    values:
+    - value: 'val mutable isHealthy : bool'
   - lang: vb
-    value: 'Public isHealthy As Boolean '
+    values:
+    - value: 'Public isHealthy As Boolean '
   monikers:
   - cat-1.0
   - cat-2.0
@@ -32,8 +46,8 @@ members:
   summary: Field with attribute.
   metadata: {}
 namespace: CatLibrary
-assemblies:
-- CatLibrary
+assembliesWithMoniker:
+- value: CatLibrary.dll
 devLangs:
 - csharp
 - vb

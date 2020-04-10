@@ -25,7 +25,7 @@ namespace ECMA2Yaml
                 sdpDelegate.Returns = ConvertParameter<TypeReference>(t.ReturnValueType);
             }
 
-            sdpDelegate.Parameters = t.Parameters?.Select(p => ConvertNamedParameter(p, t.TypeParameters, showGenericType: false))
+            sdpDelegate.Parameters = t.Parameters?.Select(p => ConvertNamedParameter(p, t.TypeParameters))
                 .ToList().NullIfEmpty();
 
             if (t.Attributes != null
@@ -37,7 +37,8 @@ namespace ECMA2Yaml
 
             if (t.ExtensionMethods?.Count > 0)
             {
-                sdpDelegate.ExtensionMethods = t.ExtensionMethods.Select(im => ConvertTypeMemberLink(null, _store.MembersByUid[im])).ToList();
+                sdpDelegate.ExtensionMethods = t.ExtensionMethods.Select(im => ExtensionMethodToTypeMemberLink(t, im))
+                    .Where(ext => ext != null).ToList();
             }
 
             return sdpDelegate;

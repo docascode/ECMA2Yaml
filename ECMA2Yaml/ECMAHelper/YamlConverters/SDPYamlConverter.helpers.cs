@@ -1,13 +1,10 @@
 ﻿using ECMA2Yaml.Models;
 using ECMA2Yaml.Models.SDP;
 using Monodoc.Ecma;
-using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace ECMA2Yaml
 {
@@ -59,7 +56,7 @@ namespace ECMA2Yaml
             return $"<xref href=\"{uid}\" data-throw-if-not-resolved=\"True\"/>";
         }
 
-        private static readonly string[] ArrayDimensionSuffix = new string[] {"", "[]", "[,]", "[,,]", "[,,,]" , "[,,,,]", "[,,,,,]" };
+        private static readonly string[] ArrayDimensionSuffix = new string[] { "", "[]", "[,]", "[,,]", "[,,,]", "[,,,,]", "[,,,,,]" };
         public static string DescToTypeMDString(EcmaDesc desc, string parentTypeUid = null, string parentName = null)
         {
             var typeUid = string.IsNullOrEmpty(parentTypeUid) ? desc.ToOuterTypeUid() : (parentTypeUid + "." + desc.ToOuterTypeUid());
@@ -101,7 +98,7 @@ namespace ECMA2Yaml
             {
                 sb.Append($".{DescToTypeMDString(desc.NestedType, typeUid)}");
             }
-            
+
             if (desc.ArrayDimensions != null && desc.ArrayDimensions.Count > 0)
             {
                 foreach (var arr in desc.ArrayDimensions)
@@ -142,11 +139,59 @@ namespace ECMA2Yaml
             {
                 return null;
             }
+            var monikers = m.Monikers;
+            VersionedString inheritanceInfo = null;
+            if (t?.InheritedMembers != null
+                && t.InheritedMembers.TryGetValue(m.Uid, out inheritanceInfo)
+                && inheritanceInfo.Monikers != null)
+            {
+                monikers = inheritanceInfo.Monikers;
+            }
+            if (monikers.Any())
+            {
+                return new TypeMemberLink()
+                {
+                    Uid = m.Uid,
+                    InheritedFrom = inheritanceInfo != null ? m.Parent.Uid : null,
+                    Monikers = monikers
+                };
+            }
+            return null;
+        }
+
+        public TypeMemberLink ExtensionMethodToTypeMemberLink(Models.Type t, VersionedString vs)
+        {
+            HashSet<string> monikers = vs.Monikers;
+            if (_store.MembersByUid.TryGetValue(vs.Value, out var m))
+            {
+                if (monikers == null)
+                {
+                    monikers = m.Monikers;
+                }
+                else {
+                    monikers = monikers.Intersect(m.Monikers).ToHashSet();
+                }
+            }
+            if (monikers != null)
+            {
+                if (monikers.Count > t.Monikers.Count)
+                {
+                    monikers = monikers.Intersect(t.Monikers).ToHashSet();
+                }
+                //don't move same monikers for now, for less diff
+                //if (monikers.SetEquals(t.Monikers))
+                //{
+                //    monikers = null;
+                //}
+            }
+            if (monikers != null && monikers.Count == 0)
+            {
+                return null;
+            }
             return new TypeMemberLink()
             {
-                Uid = m.Uid,
-                InheritedFrom = (t != null && m.Parent.Uid != t.Uid) ? m.Parent.Uid : null,
-                Monikers = m.Monikers
+                Uid = vs.Value,
+                Monikers = monikers
             };
         }
 
@@ -161,6 +206,82 @@ namespace ECMA2Yaml
                 Uid = t.Uid,
                 Monikers = t.Monikers
             };
+        }
+
+        public static IEnumerable<VersionedString> MonikerizeAssemblyStrings(ReflectionItem item)
+        {
+            if (item.VersionedAssemblyInfo == null)
+            {
+                //legacy xml, fallback to asseblies without versions
+                return item.AssemblyInfo?.Select(asm => new VersionedString() { Value = asm.Name + ".dll" }).ToList();
+            }
+            var monikerAssembliesPairs = item.VersionedAssemblyInfo.ValuesPerMoniker
+                .Select(pair => (
+                moniker: pair.Key,
+                asmStr: string.Join(", ", pair.Value.OrderBy(asm => asm.Name).Select(asm => asm.Name + ".dll"))
+                ))
+                .ToList();
+            var versionedList =  monikerAssembliesPairs
+                .GroupBy(p => p.asmStr)
+                .Select(g => new VersionedString() { Value = g.Key, Monikers = g.Select(p => p.moniker).ToHashSet() })
+                .ToList();
+            if (versionedList.Count == 1)
+            {
+                versionedList.First().Monikers = null;
+            }
+            return versionedList;
+        }
+
+        public IEnumerable<VersionedString> MonikerizeDerivedClasses(Models.Type t)
+        {
+            //not top level class like System.Object, has children
+            if (t.ItemType == ItemType.Interface
+                && _store.ImplementationChildrenByUid.ContainsKey(t.Uid))
+            {
+                return _store.ImplementationChildrenByUid[t.Uid]
+                    .GroupBy(vs => vs.Value)
+                    .Select(g => new VersionedString()
+                    {
+                        Value = g.Key,
+                        Monikers = ConverterHelper.TrimMonikers(MergeMonikerHashSets(g.Select(gvs => gvs.Monikers).ToArray()), t.Monikers)
+                    });
+            }
+            else if (_store.InheritanceParentsByUid.ContainsKey(t.Uid)
+                && _store.InheritanceParentsByUid[t.Uid]?.Count > 0
+                && _store.InheritanceChildrenByUid.ContainsKey(t.Uid))
+            {
+                return _store.InheritanceChildrenByUid[t.Uid]
+                    .GroupBy(vs => vs.Value)
+                    .Select(g => new VersionedString()
+                    {
+                        Value = g.Key,
+                        Monikers = ConverterHelper.TrimMonikers(MergeMonikerHashSets(g.Select(gvs => gvs.Monikers).ToArray()), t.Monikers)
+                    });
+            }
+            return null;
+        }
+
+        public static HashSet<string> MergeMonikerHashSets(params HashSet<string>[] sets)
+        {
+            HashSet<string> finalSet = null;
+            if (sets != null)
+            {
+                foreach(var set in sets)
+                {
+                    if (set != null)
+                    {
+                        if (finalSet == null)
+                        {
+                            finalSet = new HashSet<string>(set);
+                        }
+                        else
+                        {
+                            finalSet.UnionWith(set);
+                        }
+                    }
+                }
+            }
+            return finalSet;
         }
 
         private static string HtmlEncodeLinkText(string text)

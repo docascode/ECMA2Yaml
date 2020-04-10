@@ -108,7 +108,11 @@
           "message": "{0}'s moniker {1} can't match any assembly.",
           "document_url": ""
         },
-
+        {
+          "log_code": "ECMA2Yaml_ExtraMonikerFoundInMember",
+          "message": "Moniker {0} exists in member {1} but can't be found in parent type.",
+          "document_url": ""
+        },
         {
           "log_code": "ECMA2Yaml_Command_Invalid",
           "message": "Invalid command line parameter.",
@@ -116,7 +120,7 @@
         },
         {
           "log_code": "ECMA2Yaml_InternalError",
-          "message": "Intenal Several Error",
+          "message": "Intenal Several Error: {0}",
           "document_url": ""
         },
         {

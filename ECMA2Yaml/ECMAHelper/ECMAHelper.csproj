@@ -1,7 +1,7 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>ECMA2Yaml</RootNamespace>
     <AssemblyName>ECMAHelper</AssemblyName>
   </PropertyGroup>
@@ -25,8 +25,6 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.DocAsCode.DataContracts.Common" Version="2.43.2" />
     <PackageReference Include="Microsoft.DocAsCode.YamlSerialization" Version="2.43.2" />
-    <PackageReference Include="Microsoft.OpenPublishing.FileAbstractLayer" Version="1.83.0" />
-    <PackageReference Include="Microsoft.OpenPublishing.LogCodeService.Manager" Version="1.0.3" />
     <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
   </ItemGroup>
 

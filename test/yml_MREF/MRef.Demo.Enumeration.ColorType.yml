@@ -5,6 +5,7 @@ items:
   id: ColorType
   children:
   - MRef.Demo.Enumeration.ColorType.Blue
+  - MRef.Demo.Enumeration.ColorType.Purple
   - MRef.Demo.Enumeration.ColorType.Red
   - MRef.Demo.Enumeration.ColorType.Yellow
   langs:
@@ -18,11 +19,12 @@ items:
   type: Enum
   assemblies:
   - CatLibrary
+  - MRef.Demo
   namespace: MRef.Demo.Enumeration
   summary: Enumeration ColorType
   remarks: >-
     <p>
-          Red/Blue/Yellow can become all color you want.
+          Red/Blue/Yellow/Purple can become all color you want.
     </p>
 
     <ul></ul>
@@ -42,6 +44,7 @@ items:
   _op_AssemblyMonikerMapping:
     CatLibrary:
     - cat-1.0
+    MRef.Demo:
     - cat-2.0
   content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/MRef.Demo.Enumeration/ColorType.xml
   original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/MRef.Demo.Enumeration/ColorType.xml
@@ -61,6 +64,7 @@ items:
   type: Field
   assemblies:
   - CatLibrary
+  - MRef.Demo
   namespace: MRef.Demo.Enumeration
   summary: blue like river
   syntax:
@@ -80,6 +84,40 @@ items:
   content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/MRef.Demo.Enumeration/ColorType.xml
   original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/MRef.Demo.Enumeration/ColorType.xml
   original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/MRef.Demo.Enumeration/ColorType.xml
+- uid: MRef.Demo.Enumeration.ColorType.Purple
+  commentId: F:MRef.Demo.Enumeration.ColorType.Purple
+  id: Purple
+  parent: MRef.Demo.Enumeration.ColorType
+  langs:
+  - cpp
+  - csharp
+  - fsharp
+  - vb
+  name: Purple
+  nameWithType: ColorType.Purple
+  fullName: MRef.Demo.Enumeration.ColorType.Purple
+  type: Field
+  assemblies:
+  - MRef.Demo
+  - CatLibrary
+  namespace: MRef.Demo.Enumeration
+  summary: purple rain, purple rain
+  syntax:
+    content: Purple
+    return:
+      type: MRef.Demo.Enumeration.ColorType
+      description: ''
+    content.cpp: Purple
+    content.csharp: Purple
+    content.fsharp: Purple = 4
+    content.vb: Purple
+  exceptions: []
+  monikers:
+  - cat-2.0
+  literalValue: "4"
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/MRef.Demo.Enumeration/ColorType.xml
+  original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/MRef.Demo.Enumeration/ColorType.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/MRef.Demo.Enumeration/ColorType.xml
 - uid: MRef.Demo.Enumeration.ColorType.Red
   commentId: F:MRef.Demo.Enumeration.ColorType.Red
   id: Red
@@ -95,6 +133,7 @@ items:
   type: Field
   assemblies:
   - CatLibrary
+  - MRef.Demo
   namespace: MRef.Demo.Enumeration
   summary: this color is red
   syntax:
@@ -129,6 +168,7 @@ items:
   type: Field
   assemblies:
   - CatLibrary
+  - MRef.Demo
   namespace: MRef.Demo.Enumeration
   summary: yellow comes from desert
   syntax:
@@ -175,6 +215,13 @@ references:
   name: ColorType
   nameWithType: ColorType
   fullName: MRef.Demo.Enumeration.ColorType
+- uid: MRef.Demo.Enumeration.ColorType.Purple
+  parent: MRef.Demo.Enumeration.ColorType
+  isExternal: false
+  name: Purple
+  nameWithType: ColorType.Purple
+  fullName: MRef.Demo.Enumeration.ColorType.Purple
+  type: field
 - uid: MRef.Demo.Enumeration.ColorType.Red
   parent: MRef.Demo.Enumeration.ColorType
   isExternal: false
