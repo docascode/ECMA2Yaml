@@ -59,8 +59,8 @@
           "document_url": ""
         },
         {
-          "log_code": "ECMA2Yaml_MonikerToNuget_Failed",
-          "message": "Unable to load moniker to nuget mapping: {0}",
+          "log_code": "ECMA2Yaml_PackageInformation_LoadFailed",
+          "message": "Unable to load package information: {0}",
           "document_url": ""
         },
         {

@@ -232,6 +232,30 @@ namespace ECMA2Yaml
             return versionedList;
         }
 
+        public static IEnumerable<VersionedString> MonikerizePackageStrings(ReflectionItem item)
+        {
+            if (item.VersionedAssemblyInfo == null)
+            {
+                return null;
+            }
+
+            var monikerPackagePairs = item.VersionedAssemblyInfo.ValuesPerMoniker
+                .Select(pair => (
+                moniker: pair.Key,
+                pkgStr: string.Join(", ", pair.Value.Select(asm => $"{asm.PackageInfo.Name} v{asm.PackageInfo.Version}").Distinct().OrderBy(str => str))
+                ))
+                .ToList();
+            var versionedList = monikerPackagePairs
+                .GroupBy(p => p.pkgStr)
+                .Select(g => new VersionedString() { Value = g.Key, Monikers = g.Select(p => p.moniker).ToHashSet() })
+                .ToList();
+            if (versionedList.Count == 1)
+            {
+                versionedList.First().Monikers = null;
+            }
+            return versionedList;
+        }
+
         public IEnumerable<VersionedString> MonikerizeDerivedClasses(Models.Type t)
         {
             //not top level class like System.Object, has children

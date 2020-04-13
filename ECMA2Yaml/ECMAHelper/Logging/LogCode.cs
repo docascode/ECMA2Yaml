@@ -24,7 +24,7 @@ namespace ECMA2Yaml
 		public static readonly LogCode ECMA2Yaml_OverloadMDFile_SaveFailed = new LogCode("ECMA2Yaml_OverloadMDFile_SaveFailed", "Unable to save overload md file for {0}");
 		public static readonly LogCode ECMA2Yaml_OverwriteMDFile_SaveFailed = new LogCode("ECMA2Yaml_OverwriteMDFile_SaveFailed", "Unable to save content overwrite md file for {0}");
 		public static readonly LogCode ECMA2Yaml_CommentID_ParseFailed = new LogCode("ECMA2Yaml_CommentID_ParseFailed", "Unable to parse string as comment id: {0}");
-		public static readonly LogCode ECMA2Yaml_MonikerToNuget_Failed = new LogCode("ECMA2Yaml_MonikerToNuget_Failed", "Unable to load moniker to nuget mapping: {0}");
+		public static readonly LogCode ECMA2Yaml_PackageInformation_LoadFailed = new LogCode("ECMA2Yaml_PackageInformation_LoadFailed", "Unable to load package information: {0}");
 		public static readonly LogCode ECMA2Yaml_MonikerToAssembly_Failed = new LogCode("ECMA2Yaml_MonikerToAssembly_Failed", "Unable to load moniker to assembly mapping: {0}");
 		public static readonly LogCode ECMA2Yaml_CommentId_ResolveFailed = new LogCode("ECMA2Yaml_CommentId_ResolveFailed", "Unable to resolve: <InterfaceMember>{0}</InterfaceMember>");
 		public static readonly LogCode ECMA2Yaml_Namespace_LoadFailed = new LogCode("ECMA2Yaml_Namespace_LoadFailed", "Failed to load namespace");

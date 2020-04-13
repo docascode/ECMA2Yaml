@@ -31,18 +31,18 @@ namespace ECMA2Yaml.Models
         private IEnumerable<Type> _tList;
         private FrameworkIndex _frameworks;
         private List<Member> _extensionMethods;
-        private Dictionary<string, string> _monikerNugetMapping;
+        private PackageInfomarionMapping _packageInfomarionMapping;
 
         public ECMAStore(IEnumerable<Namespace> nsList,
             FrameworkIndex frameworks,
-            Dictionary<string, string> monikerNugetMapping = null)
+            PackageInfomarionMapping packageInfomarionMapping)
         {
             typeDescriptorCache = new Dictionary<string, EcmaDesc>();
 
             _nsList = nsList;
             _tList = nsList.SelectMany(ns => ns.Types).ToList();
             _frameworks = frameworks;
-            _monikerNugetMapping = monikerNugetMapping;
+            _packageInfomarionMapping = packageInfomarionMapping;
 
             InheritanceParentsByUid = new Dictionary<string, List<VersionedString>>();
             InheritanceChildrenByUid = new Dictionary<string, List<VersionedString>>();
@@ -270,22 +270,6 @@ namespace ECMA2Yaml.Models
                 if (nsInternalOnly)
                 {
                     ns.Metadata[OPSMetadata.InternalOnly] = nsInternalOnly;
-                }
-                if (_monikerNugetMapping != null && ns.Monikers != null)
-                {
-                    var monikers = ns.Monikers as IEnumerable<string>;
-                    List<string> packages = new List<string>();
-                    foreach (var moniker in monikers)
-                    {
-                        if (_monikerNugetMapping.ContainsKey(moniker))
-                        {
-                            packages.Add(_monikerNugetMapping[moniker]);
-                        }
-                    }
-                    if (packages.Count > 0)
-                    {
-                        ns.Metadata[OPSMetadata.NugetPackageNames] = packages.ToArray();
-                    }
                 }
                 foreach (var t in ns.Types)
                 {
