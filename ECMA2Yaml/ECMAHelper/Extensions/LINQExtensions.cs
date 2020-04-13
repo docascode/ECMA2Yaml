@@ -60,5 +60,20 @@ namespace ECMA2Yaml
             }
             return left;
         }
+
+        /// <summary>
+        /// we only need this for netstandard 2.0, so make it internal.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="source"></param>
+        /// <returns></returns>
+        internal static HashSet<T> ToHashSet<T>(this IEnumerable<T> source)
+        {
+            if (source == null)
+            {
+                return null;
+            }
+            return new HashSet<T>(source);
+        }
     }
 }
