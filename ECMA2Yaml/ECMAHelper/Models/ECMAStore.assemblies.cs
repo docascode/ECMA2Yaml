@@ -86,7 +86,10 @@ namespace ECMA2Yaml.Models
             {
                 foreach (var assemblyInfo in assemblies)
                 {
-                    assemblyInfo.PackageInfo = _packageInfomarionMapping[moniker][assemblyInfo.Name];
+                    if (_packageInfomarionMapping[moniker].ContainsKey(assemblyInfo.Name))
+                    {
+                        assemblyInfo.PackageInfo = _packageInfomarionMapping[moniker][assemblyInfo.Name];
+                    }
                 }
             }
         }

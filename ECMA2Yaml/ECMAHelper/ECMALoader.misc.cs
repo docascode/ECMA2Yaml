@@ -143,7 +143,7 @@ namespace ECMA2Yaml
             var pkgInfoDir = Path.Combine(folder, "PackageInformation");
             var pkgInfoMapping = new PackageInfomarionMapping();
 
-            foreach (var file in ListFiles(pkgInfoDir, Path.Combine(pkgInfoDir, "*.json")))
+            foreach (var file in ListFiles(pkgInfoDir, "*.json"))
             {
                 try
                 {

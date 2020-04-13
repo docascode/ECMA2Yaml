@@ -242,8 +242,13 @@ namespace ECMA2Yaml
             var monikerPackagePairs = item.VersionedAssemblyInfo.ValuesPerMoniker
                 .Select(pair => (
                 moniker: pair.Key,
-                pkgStr: string.Join(", ", pair.Value.Select(asm => $"{asm.PackageInfo.Name} v{asm.PackageInfo.Version}").Distinct().OrderBy(str => str))
+                pkgStr: string.Join(", ", pair.Value.Select(asm => asm.PackageInfo)
+                                                    .Where(pkg => pkg != null)
+                                                    .Select(pkg => $"{pkg.Name} v{pkg.Version}")
+                                                    .Distinct()
+                                                    .OrderBy(str => str))
                 ))
+                .Where(pair => pair.pkgStr != "")
                 .ToList();
             var versionedList = monikerPackagePairs
                 .GroupBy(p => p.pkgStr)
@@ -253,7 +258,7 @@ namespace ECMA2Yaml
             {
                 versionedList.First().Monikers = null;
             }
-            return versionedList;
+            return versionedList.Count == 0 ? null : versionedList;
         }
 
         public IEnumerable<VersionedString> MonikerizeDerivedClasses(Models.Type t)
