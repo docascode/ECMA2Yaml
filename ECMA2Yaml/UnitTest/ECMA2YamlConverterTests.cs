@@ -13,9 +13,8 @@ namespace UnitTest
         [TestMethod]
         public void ECMA2YamlConverter_HappyPath()
         {
-            string repoPath = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(TestContext.TestDir)));
-            string xmlDirectory = Path.Combine(repoPath, "test\\xml");
-            string outputDirectory = Path.Combine(repoPath, "test\\_yml_UnitTests_ECMA2YamlConverter_HappyPath");
+            string xmlDirectory = Path.GetFullPath("..\\..\\..\\..\\test\\xml");
+            string outputDirectory = Path.GetFullPath("..\\..\\..\\..\\test\\_yml_UnitTests_ECMA2YamlConverter_HappyPath");
             string fallbackXmlDirectory = null;
             string logFilePath = null;
             string logContentBaseDirectory = null;
