@@ -73,24 +73,9 @@ namespace ECMA2Yaml.Models
                     {
                         OPSLogger.LogUserWarning(LogCode.ECMA2Yaml_UidAssembly_NotMatched, t.SourceFileLocalPath, t.Uid, moniker);
                     }
-                    SetPackageInformation(assemblies, moniker);
                     valuesPerMoniker[moniker] = assemblies;
                 }
                 t.VersionedAssemblyInfo = new VersionedProperty<AssemblyInfo>(valuesPerMoniker);
-            }
-        }
-
-        private void SetPackageInformation(List<AssemblyInfo> assemblies, string moniker)
-        {
-            if (_packageInfomarionMapping != null && _packageInfomarionMapping.ContainsKey(moniker))
-            {
-                foreach (var assemblyInfo in assemblies)
-                {
-                    if (_packageInfomarionMapping[moniker].ContainsKey(assemblyInfo.Name))
-                    {
-                        assemblyInfo.PackageInfo = _packageInfomarionMapping[moniker][assemblyInfo.Name];
-                    }
-                }
             }
         }
 
@@ -101,7 +86,6 @@ namespace ECMA2Yaml.Models
             {
                 if (typeAssemblies.TryGetValue(moniker, out var assemblies))
                 {
-                    SetPackageInformation(assemblies, moniker);
                     mAssemblies[moniker] = assemblies;
                 }
                 else

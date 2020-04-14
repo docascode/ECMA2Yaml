@@ -232,7 +232,7 @@ namespace ECMA2Yaml
             return versionedList;
         }
 
-        public static IEnumerable<VersionedString> MonikerizePackageStrings(ReflectionItem item)
+        public static IEnumerable<VersionedString> MonikerizePackageStrings(ReflectionItem item, PackageInformationMapping pkgInfoMapping)
         {
             if (item.VersionedAssemblyInfo == null)
             {
@@ -242,9 +242,8 @@ namespace ECMA2Yaml
             var monikerPackagePairs = item.VersionedAssemblyInfo.ValuesPerMoniker
                 .Select(pair => (
                 moniker: pair.Key,
-                pkgStr: string.Join(", ", pair.Value.Select(asm => asm.PackageInfo)
-                                                    .Where(pkg => pkg != null)
-                                                    .Select(pkg => $"{pkg.Name} v{pkg.Version}")
+                pkgStr: string.Join(", ", pair.Value.Select(asm => pkgInfoMapping.TryGetPackageDisplayString(pair.Key, asm.Name))
+                                                    .Where(str => str != null)
                                                     .Distinct()
                                                     .OrderBy(str => str))
                 ))

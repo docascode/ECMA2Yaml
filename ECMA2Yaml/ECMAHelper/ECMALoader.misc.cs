@@ -138,16 +138,16 @@ namespace ECMA2Yaml
             return frameworkIndex;
         }
 
-        private PackageInfomarionMapping LoadPackageInfomarionMapping(string folder)
+        private PackageInformationMapping LoadPackageInformationMapping(string folder)
         {
             var pkgInfoDir = Path.Combine(folder, "PackageInformation");
-            var pkgInfoMapping = new PackageInfomarionMapping();
+            var pkgInfoMapping = new PackageInformationMapping();
 
             foreach (var file in ListFiles(pkgInfoDir, "*.json"))
             {
                 try
                 {
-                    var mapping = JsonConvert.DeserializeObject<PackageInfomarionMapping>(_fileAccessor.ReadAllText(file.AbsolutePath));
+                    var mapping = JsonConvert.DeserializeObject<PackageInformationMapping>(_fileAccessor.ReadAllText(file.AbsolutePath));
                     pkgInfoMapping.Merge(mapping);
                 }
                 catch (Exception ex)

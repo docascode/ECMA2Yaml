@@ -24,6 +24,7 @@ namespace ECMA2Yaml.Models
         public FilterStore FilterStore { get; set; }
         public bool StrictMode { get; set; }
         public bool UWPMode { get; set; }
+        public PackageInformationMapping PkgInfoMapping { get; set; }
 
         private static Dictionary<string, EcmaDesc> typeDescriptorCache;
 
@@ -31,18 +32,14 @@ namespace ECMA2Yaml.Models
         private IEnumerable<Type> _tList;
         private FrameworkIndex _frameworks;
         private List<Member> _extensionMethods;
-        private PackageInfomarionMapping _packageInfomarionMapping;
 
-        public ECMAStore(IEnumerable<Namespace> nsList,
-            FrameworkIndex frameworks,
-            PackageInfomarionMapping packageInfomarionMapping)
+        public ECMAStore(IEnumerable<Namespace> nsList, FrameworkIndex frameworks)
         {
             typeDescriptorCache = new Dictionary<string, EcmaDesc>();
 
             _nsList = nsList;
             _tList = nsList.SelectMany(ns => ns.Types).ToList();
             _frameworks = frameworks;
-            _packageInfomarionMapping = packageInfomarionMapping;
 
             InheritanceParentsByUid = new Dictionary<string, List<VersionedString>>();
             InheritanceChildrenByUid = new Dictionary<string, List<VersionedString>>();

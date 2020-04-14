@@ -101,7 +101,7 @@ namespace ECMA2Yaml
             if(_withVersioning)
             {
                 rval.AssembliesWithMoniker = _store.UWPMode ? null : MonikerizeAssemblyStrings(item);
-                rval.PackagesWithMoniker = _store.UWPMode ? null : MonikerizePackageStrings(item);
+                rval.PackagesWithMoniker = _store.UWPMode ? null : MonikerizePackageStrings(item, _store.PkgInfoMapping);
                 rval.AttributesWithMoniker = item.Attributes?.Where(att => att.Visible)
                     .Select(att => new VersionedString() { Value = att.TypeFullName, Monikers = att.Monikers?.ToHashSet() })
                     .ToList().NullIfEmpty();

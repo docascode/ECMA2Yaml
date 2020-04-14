@@ -10,7 +10,6 @@ namespace ECMA2Yaml.Models
     {
         public string Name { get; set; }
         public string Version { get; set; }
-        public PackageInfomarion PackageInfo { get; set; }
 
         public override bool Equals(object obj)
         {

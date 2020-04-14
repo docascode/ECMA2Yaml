@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ECMA2Yaml.Models
 {
-    public class PackageInfomarion
+    public class PackageInformation
     {
         public string Name { get; set; }
 
@@ -18,9 +18,9 @@ namespace ECMA2Yaml.Models
     // moniker1
     //   |__ assembly1 => package1
     //   |__ assembly2 => package2
-    public class PackageInfomarionMapping : Dictionary<string, Dictionary<string, PackageInfomarion>>
+    public class PackageInformationMapping : Dictionary<string, Dictionary<string, PackageInformation>>
     {
-        public PackageInfomarionMapping Merge(PackageInfomarionMapping pkgInfoMapping)
+        public PackageInformationMapping Merge(PackageInformationMapping pkgInfoMapping)
         {
             foreach (var kvp in pkgInfoMapping)
             {
@@ -31,6 +31,20 @@ namespace ECMA2Yaml.Models
             }
 
             return this;
+        }
+
+        public string TryGetPackageDisplayString(string moniker, string assemblyName)
+        {
+            if(!string.IsNullOrEmpty(moniker) && !string.IsNullOrEmpty(assemblyName))
+            {
+                if(this.ContainsKey(moniker) && this[moniker].ContainsKey(assemblyName))
+                {
+                    var package = this[moniker][assemblyName];
+                    return $"{package.Name} v{package.Version}";
+                }
+            }
+
+            return null;
         }
     }
 }
