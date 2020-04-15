@@ -16,6 +16,7 @@ build_script:
 - diffIntellisense.bat
 test: Auto
 on_success:
+- cd ECMA2Yaml
 - pack.bat %APPVEYOR_BUILD_VERSION%
 
 for:
