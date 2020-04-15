@@ -4,6 +4,14 @@ inheritancesWithMoniker:
 - values:
   - <xref href="System.Object" data-throw-if-not-resolved="True"/>
   - <xref href="CatLibrary.Tom?alt=CatLibrary.Tom&text=Tom" data-throw-if-not-resolved="True"/>
+  monikers:
+  - cat-1.0
+- values:
+  - <xref href="System.Object" data-throw-if-not-resolved="True"/>
+  - <xref href="CatLibrary.Complex`2?alt=CatLibrary.Complex`2&text=Complex%3CT%2CJ%3E" data-throw-if-not-resolved="True"/>
+  - <xref href="CatLibrary.Tom?alt=CatLibrary.Tom&text=Tom" data-throw-if-not-resolved="True"/>
+  monikers:
+  - cat-2.0
 constructors:
 - uid: CatLibrary.TomFromBaseClass.#ctor(System.Int32)
   monikers:

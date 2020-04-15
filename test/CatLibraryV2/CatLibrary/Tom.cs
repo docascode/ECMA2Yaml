@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace CatLibrary
 {
     /// <summary>
     /// Tom class is only inherit from Object. Not any member inside itself.
     /// </summary>
-    public class Tom
+    public class Tom : Complex<Cat<Tom, Guid>, IEnumerable<string>>
     {
         /// <summary>
         /// This is a Tom Method with complex type as return

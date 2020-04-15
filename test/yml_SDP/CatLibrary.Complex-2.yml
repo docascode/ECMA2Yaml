@@ -6,6 +6,10 @@ type: class
 inheritancesWithMoniker:
 - values:
   - <xref href="System.Object" data-throw-if-not-resolved="True"/>
+derivedClassesWithMoniker:
+- value: CatLibrary.Tom
+  monikers:
+  - cat-2.0
 constructors:
 - uid: CatLibrary.Complex`2.#ctor
   monikers:
