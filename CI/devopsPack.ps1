@@ -17,5 +17,5 @@ if ($revision -ne '') {
     nuget pack $repoRoot\ECMA2Yaml\ECMA2Yaml\Nuget\ECMA2Yaml.nuspec -outputdirectory _nuget\ECMA2Yaml -version $version -Prop Configuration=Release
     nuget pack $repoRoot\ECMA2Yaml\ECMAHelper\ECMAHelper.csproj -outputdirectory _nuget\ECMAHelper -version $version -Prop Configuration=Release
     Write-Host "##vso[build.addbuildtag]$version"
-    Write-Host "##vso[task.setvariable variable=NeedNugetPush;]true"
+    Write-Host "##vso[task.setvariable variable=NeedNugetPush;]Yes"
 }
