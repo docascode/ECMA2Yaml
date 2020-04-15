@@ -20,13 +20,19 @@ items:
   namespace: CatLibrary
   summary: Tom class is only inherit from Object. Not any member inside itself.
   syntax:
-    content: public class Tom
-    content.cpp: public ref class Tom
-    content.csharp: public class Tom
-    content.fsharp: type Tom = class
-    content.vb: Public Class Tom
+    content: 'public class Tom : CatLibrary.Complex<CatLibrary.Cat<CatLibrary.Tom,Guid>,System.Collections.Generic.IEnumerable<string>>'
+    content.cpp: 'public ref class Tom : CatLibrary::Complex<CatLibrary::Cat<CatLibrary::Tom ^, Guid> ^, System::Collections::Generic::IEnumerable<System::String ^> ^>'
+    content.csharp: 'public class Tom : CatLibrary.Complex<CatLibrary.Cat<CatLibrary.Tom,Guid>,System.Collections.Generic.IEnumerable<string>>'
+    content.fsharp: >-
+      type Tom = class
+          inherit Complex<Cat<Tom, Guid>, seq<string>>
+    content.vb: >-
+      Public Class Tom
+
+      Inherits Complex(Of Cat(Of Tom, Guid), IEnumerable(Of String))
   inheritance:
   - System.Object
+  - CatLibrary.Complex`2
   derivedClasses:
   - CatLibrary.TomFromBaseClass
   implements: []
@@ -144,6 +150,87 @@ references:
   name: Object
   nameWithType: Object
   fullName: System.Object
+- uid: CatLibrary.Complex`2
+  name: Complex<T,J>
+  nameWithType: Complex<T,J>
+  fullName: CatLibrary.Complex<T,J>
+- uid: CatLibrary.Cat`2
+  name: Cat<T,K>
+  nameWithType: Cat<T,K>
+  fullName: CatLibrary.Cat<T,K>
+- uid: CatLibrary.Tom
+  name: Tom
+  nameWithType: Tom
+  fullName: CatLibrary.Tom
+- uid: System.Guid
+  isExternal: true
+  name: Guid
+  nameWithType: Guid
+  fullName: System.Guid
+- uid: System.Collections.Generic.IEnumerable`1
+  isExternal: true
+  name: IEnumerable
+  nameWithType: IEnumerable
+  fullName: System.Collections.Generic.IEnumerable
+- uid: System.String
+  isExternal: true
+  name: String
+  nameWithType: String
+  fullName: System.String
+- uid: CatLibrary.Complex{CatLibrary.Cat{CatLibrary.Tom,System.Guid},System.Collections.Generic.IEnumerable{System.String}}
+  parent: CatLibrary
+  name: Complex<Cat<Tom,Guid>,IEnumerable<String>>
+  nameWithType: Complex<Cat<Tom,Guid>,IEnumerable<String>>
+  fullName: CatLibrary.Complex<CatLibrary.Cat<CatLibrary.Tom,System.Guid>,System.Collections.Generic.IEnumerable<System.String>>
+  spec.csharp:
+  - uid: CatLibrary.Complex`2
+    name: Complex
+    nameWithType: Complex
+    fullName: CatLibrary.Complex
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: CatLibrary.Cat`2
+    name: Cat
+    nameWithType: Cat
+    fullName: CatLibrary.Cat
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: CatLibrary.Tom
+    name: Tom
+    nameWithType: Tom
+    fullName: CatLibrary.Tom
+  - name: ','
+    nameWithType: ','
+    fullName: ','
+  - uid: System.Guid
+    name: Guid
+    nameWithType: Guid
+    fullName: System.Guid
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: ','
+    nameWithType: ','
+    fullName: ','
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
 - uid: System.NotImplementedException
   isExternal: true
   name: System.NotImplementedException
@@ -172,15 +259,6 @@ references:
   nameWithType: Tom.TomMethod(Complex<TomFromBaseClass,TomFromBaseClass>, Tuple<String,Tom>)
   fullName: CatLibrary.Tom.TomMethod(Complex<TomFromBaseClass,TomFromBaseClass>, Tuple<String,Tom>)
   type: method
-- uid: CatLibrary.Complex`2
-  name: Complex<T,J>
-  nameWithType: Complex<T,J>
-  fullName: CatLibrary.Complex<T,J>
-- uid: System.String
-  isExternal: true
-  name: String
-  nameWithType: String
-  fullName: System.String
 - uid: CatLibrary.TomFromBaseClass
   name: TomFromBaseClass
   nameWithType: TomFromBaseClass
@@ -244,10 +322,6 @@ references:
   name: Tuple
   nameWithType: Tuple
   fullName: System.Tuple
-- uid: CatLibrary.Tom
-  name: Tom
-  nameWithType: Tom
-  fullName: CatLibrary.Tom
 - uid: System.Tuple{System.String,CatLibrary.Tom}
   parent: System
   name: Tuple<String,Tom>

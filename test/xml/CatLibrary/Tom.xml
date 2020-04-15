@@ -1,10 +1,15 @@
 <Type Name="Tom" FullName="CatLibrary.Tom">
-  <TypeSignature Language="C#" Value="public class Tom" />
-  <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit Tom extends System.Object" />
+  <TypeSignature Language="C#" Value="public class Tom" FrameworkAlternate="cat-1.0" />
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit Tom extends System.Object" FrameworkAlternate="cat-1.0" />
   <TypeSignature Language="DocId" Value="T:CatLibrary.Tom" />
-  <TypeSignature Language="VB.NET" Value="Public Class Tom" />
-  <TypeSignature Language="C++ CLI" Value="public ref class Tom" />
-  <TypeSignature Language="F#" Value="type Tom = class" />
+  <TypeSignature Language="VB.NET" Value="Public Class Tom" FrameworkAlternate="cat-1.0" />
+  <TypeSignature Language="C++ CLI" Value="public ref class Tom" FrameworkAlternate="cat-1.0" />
+  <TypeSignature Language="F#" Value="type Tom = class" FrameworkAlternate="cat-1.0" />
+  <TypeSignature Language="C#" Value="public class Tom : CatLibrary.Complex&lt;CatLibrary.Cat&lt;CatLibrary.Tom,Guid&gt;,System.Collections.Generic.IEnumerable&lt;string&gt;&gt;" FrameworkAlternate="cat-2.0" />
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit Tom extends CatLibrary.Complex`2&lt;class CatLibrary.Cat`2&lt;class CatLibrary.Tom, valuetype System.Guid&gt;, class System.Collections.Generic.IEnumerable`1&lt;string&gt;&gt;" FrameworkAlternate="cat-2.0" />
+  <TypeSignature Language="VB.NET" Value="Public Class Tom&#xA;Inherits Complex(Of Cat(Of Tom, Guid), IEnumerable(Of String))" FrameworkAlternate="cat-2.0" />
+  <TypeSignature Language="C++ CLI" Value="public ref class Tom : CatLibrary::Complex&lt;CatLibrary::Cat&lt;CatLibrary::Tom ^, Guid&gt; ^, System::Collections::Generic::IEnumerable&lt;System::String ^&gt; ^&gt;" FrameworkAlternate="cat-2.0" />
+  <TypeSignature Language="F#" Value="type Tom = class&#xA;    inherit Complex&lt;Cat&lt;Tom, Guid&gt;, seq&lt;string&gt;&gt;" FrameworkAlternate="cat-2.0" />
   <AssemblyInfo>
     <AssemblyName>CatLibrary</AssemblyName>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
@@ -12,6 +17,11 @@
   </AssemblyInfo>
   <Base>
     <BaseTypeName>System.Object</BaseTypeName>
+    <BaseTypeName FrameworkAlternate="cat-2.0">CatLibrary.Complex&lt;CatLibrary.Cat&lt;CatLibrary.Tom,System.Guid&gt;,System.Collections.Generic.IEnumerable&lt;System.String&gt;&gt;</BaseTypeName>
+    <BaseTypeArguments>
+      <BaseTypeArgument TypeParamName="T">CatLibrary.Cat&lt;CatLibrary.Tom,System.Guid&gt;</BaseTypeArgument>
+      <BaseTypeArgument TypeParamName="J">System.Collections.Generic.IEnumerable&lt;System.String&gt;</BaseTypeArgument>
+    </BaseTypeArguments>
   </Base>
   <Interfaces />
   <Docs>
