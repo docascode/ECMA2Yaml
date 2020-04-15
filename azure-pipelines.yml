@@ -32,13 +32,9 @@ steps:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
-- task: BatchScript@1
+- task: PowerShell@2
   inputs:
-    filename: 'CI/diffYaml.bat'
-
-- task: BatchScript@1
-  inputs:
-    filename: 'CI/diffIntellisense.bat'
+    filePath: 'CI/devopsIntTest.ps1'
 
 - task: PowerShell@2
   inputs:

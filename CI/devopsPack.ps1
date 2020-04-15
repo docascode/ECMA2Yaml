@@ -11,7 +11,7 @@ if (("$(Build.Reason)" -eq "Manual" -or "$(Build.Reason)" -eq "IndividualCI") `
     $revision = '1.1.$commitCount.$(Build.BuildNumber)'
     Write-Host "release"
 }
-if ($revision -neq '') {
+if ($revision -ne '') {
     md _nuget
     nuget pack ..\ECMA2Yaml\ECMA2Yaml\Nuget\ECMA2Yaml.nuspec -outputdirectory _nuget -version $revision -Prop Configuration=Release
     nuget pack ..\ECMA2Yaml\ECMAHelper\ECMAHelper.csproj -outputdirectory _nuget -version $revision -Prop Configuration=Release
