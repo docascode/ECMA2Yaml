@@ -2,7 +2,7 @@
 type: class
 inheritancesWithMoniker:
 - values:
-  - <xref href="System.Object" data-throw-if-not-resolved="True"/>
+  - <xref href="System.Object?alt=System.Object&text=Object" data-throw-if-not-resolved="True"/>
   - <xref href="CatLibrary.Tom?alt=CatLibrary.Tom&text=Tom" data-throw-if-not-resolved="True"/>
 constructors:
 - uid: CatLibrary.TomFromBaseClass.#ctor(System.Int32)

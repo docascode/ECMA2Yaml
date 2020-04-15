@@ -4,7 +4,7 @@ implements:
 - <xref href="VersioningTest.I?alt=VersioningTest.I&text=I" data-throw-if-not-resolved="True"/>
 inheritancesWithMoniker:
 - values:
-  - <xref href="System.Object" data-throw-if-not-resolved="True"/>
+  - <xref href="System.Object?alt=System.Object&text=Object" data-throw-if-not-resolved="True"/>
 derivedClassesWithMoniker:
 - value: VersioningTest.E
 - value: VersioningTest.F

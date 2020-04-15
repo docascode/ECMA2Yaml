@@ -2,7 +2,7 @@
 type: class
 inheritancesWithMoniker:
 - values:
-  - <xref href="System.Object" data-throw-if-not-resolved="True"/>
+  - <xref href="System.Object?alt=System.Object&text=Object" data-throw-if-not-resolved="True"/>
   - <xref href="VersioningTest.C?alt=VersioningTest.C&text=C" data-throw-if-not-resolved="True"/>
 extensionMethods:
 - uid: VersioningTest.VersioningExtensions.ExtMethodForI(VersioningTest.I)

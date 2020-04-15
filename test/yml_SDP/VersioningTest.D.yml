@@ -2,12 +2,12 @@
 type: class
 inheritancesWithMoniker:
 - values:
-  - <xref href="System.Object" data-throw-if-not-resolved="True"/>
+  - <xref href="System.Object?alt=System.Object&text=Object" data-throw-if-not-resolved="True"/>
   - <xref href="VersioningTest.A?alt=VersioningTest.A&text=A" data-throw-if-not-resolved="True"/>
   monikers:
   - cat-1.0
 - values:
-  - <xref href="System.Object" data-throw-if-not-resolved="True"/>
+  - <xref href="System.Object?alt=System.Object&text=Object" data-throw-if-not-resolved="True"/>
   - <xref href="VersioningTest.B?alt=VersioningTest.B&text=B" data-throw-if-not-resolved="True"/>
   monikers:
   - cat-2.0

@@ -20,13 +20,14 @@ namespace ECMA2Yaml
 
             if (_withVersioning)
             {
+                Type child = t;
                 sdpType.InheritancesWithMoniker = ConverterHelper.TrimMonikers(
                     t.InheritanceChains?.Select(
                     chain => new VersionedCollection<string>(
                         chain.Monikers,
-                        chain.Values.Select(uid => UidToTypeMDString(uid, _store)).ToList()
-                        )).ToList(),
-                    t.Monikers);
+                        GetInheritChainMDStringList(chain.Values,t)
+                    )).ToList(),
+                t.Monikers);
                 sdpType.DerivedClassesWithMoniker = MonikerizeDerivedClasses(t);
             }
             else
@@ -48,7 +49,7 @@ namespace ECMA2Yaml
                     sdpType.DerivedClasses = _store.InheritanceChildrenByUid[t.Uid].Select(v => v.Value).ToList();
                 }
             }
-            
+
             sdpType.Implements = t.Interfaces?.Where(i => i != null)
                 .Select(i => TypeStringToTypeMDString(i, _store))
                 .ToList()
@@ -72,6 +73,48 @@ namespace ECMA2Yaml
             PopulateTypeChildren(t, sdpType);
 
             return sdpType;
+        }
+
+        private List<string> GetInheritChainMDStringList(List<string> inheritanceChains, Type current)
+        {
+            List<string> mdStringList = new List<string>();
+            Type children = null;
+            string parentUid = string.Empty;
+            string childrenUid = string.Empty;
+            string typeStr = string.Empty;
+            string typeMDStr = string.Empty;
+            int i = 0;
+            for (; i < inheritanceChains.Count-1; i++)
+            {
+                parentUid = inheritanceChains[i];
+                childrenUid = inheritanceChains[i+1];
+                children = _store.TypesByUid[childrenUid];
+
+                typeStr = GetParentTypeStringFromChildren(children, parentUid);
+                typeMDStr = TypeStringToTypeMDString(typeStr, _store);
+                mdStringList.Add(typeMDStr);
+            }
+
+            parentUid = inheritanceChains[i];
+            children = current;
+            typeStr = GetParentTypeStringFromChildren(children, parentUid);
+            typeMDStr = TypeStringToTypeMDString(typeStr, _store);
+            mdStringList.Add(typeMDStr);
+
+            return mdStringList;
+        }
+
+        private string GetParentTypeStringFromChildren(Type children, string parentUid)
+        {
+            var find = children.BaseTypes.Where(p => p.Uid == parentUid).FirstOrDefault();
+            if (find != null)
+            {
+                return find.Name;
+            }
+            else
+            {
+                return string.Empty;
+            }
         }
 
         private void PopulateTypeChildren(Type t, TypeSDPModel sdpType)
