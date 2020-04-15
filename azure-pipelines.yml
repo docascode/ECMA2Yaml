@@ -18,24 +18,55 @@ steps:
 - task: NuGetToolInstaller@1
 
 - task: NuGetCommand@2
+  displayName: Nuget Restore Solution
   inputs:
     restoreSolution: '$(solution)'
 
 - task: VSBuild@1
+  displayName: Build Solution
   inputs:
     solution: '$(solution)'
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
 - task: VSTest@2
+  displayName: Run Unit Tests in Solution
   inputs:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
 - task: PowerShell@2
+  displayName: Run Integration Tests
   inputs:
     filePath: 'CI/devopsIntTest.ps1'
 
 - task: PowerShell@2
+  displayName: Nuget Pack
   inputs:
     filePath: 'CI/devopsPack.ps1'
+
+# Publish Nuget Package
+- task: DotNetCoreCLI@2
+  displayName: Nuget Publish ECMA2Yaml
+  condition: and(succeeded(), and(eq(variables['NeedNugetPush'], 'true'), eq(variables['NugetVersionType'], 'prerelease')))
+  inputs:
+    command: 'push'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/_nuget/ECMA2Yaml/*.nupkg'
+    nuGetFeedType: 'external'
+    publishFeedCredentials: 'AzureDevOps.Artifacts.docs-build-v2-ppe'
+- task: DotNetCoreCLI@2
+  displayName: Nuget Publish ECMA2Yaml
+  condition: and(succeeded(), and(eq(variables['NeedNugetPush'], 'true'), eq(variables['NugetVersionType'], 'release')))
+  inputs:
+    command: 'push'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/_nuget/ECMA2Yaml/*.nupkg'
+    nuGetFeedType: 'external'
+    publishFeedCredentials: 'AzureDevOps.Artifacts.docs-build-v2-prod'
+- task: DotNetCoreCLI@2
+  displayName: Nuget Publish ECMAHelper
+  condition: and(succeeded(), eq(variables['NeedNugetPush'], 'true'))
+  inputs:
+    command: 'push'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/_nuget/ECMAHelper/*.nupkg'
+    nuGetFeedType: 'external'
+    publishFeedCredentials: 'docs-public-packages'
