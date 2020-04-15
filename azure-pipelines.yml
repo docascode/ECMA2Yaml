@@ -1,0 +1,72 @@
+trigger:
+- master
+- develop
+
+pr:
+- develop
+- master
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  solution: '**/*.sln'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+
+steps:
+- task: NuGetToolInstaller@1
+
+- task: NuGetCommand@2
+  displayName: Nuget Restore
+  inputs:
+    restoreSolution: '$(solution)'
+
+- task: VSBuild@1
+  displayName: Build
+  inputs:
+    solution: '$(solution)'
+    platform: '$(buildPlatform)'
+    configuration: '$(buildConfiguration)'
+
+- task: VSTest@2
+  displayName: Unit Tests
+  inputs:
+    platform: '$(buildPlatform)'
+    configuration: '$(buildConfiguration)'
+
+- task: PowerShell@2
+  displayName: Integration Tests
+  inputs:
+    filePath: 'CI/devopsIntTest.ps1'
+
+- task: PowerShell@2
+  displayName: Nuget Pack
+  inputs:
+    filePath: 'CI/devopsPack.ps1'
+
+# Publish Nuget Package
+- task: DotNetCoreCLI@2
+  displayName: Nuget Publish ECMA2Yaml PPE
+  condition: and(succeeded(), and(eq(variables['NeedNugetPush'], 'Yes'), eq(variables['NugetVersionType'], 'prerelease')))
+  inputs:
+    command: 'push'
+    packagesToPush: '$(Build.SourcesDirectory)/_nuget/ECMA2Yaml/*.nupkg'
+    nuGetFeedType: 'external'
+    publishFeedCredentials: 'AzureDevOps.Artifacts.docs-build-v2-ppe'
+- task: DotNetCoreCLI@2
+  displayName: Nuget Publish ECMA2Yaml
+  condition: and(succeeded(), and(eq(variables['NeedNugetPush'], 'Yes'), eq(variables['NugetVersionType'], 'release')))
+  inputs:
+    command: 'push'
+    packagesToPush: '$(Build.SourcesDirectory)/_nuget/ECMA2Yaml/*.nupkg'
+    nuGetFeedType: 'external'
+    publishFeedCredentials: 'AzureDevOps.Artifacts.docs-build-v2-prod'
+- task: DotNetCoreCLI@2
+  displayName: Nuget Publish ECMAHelper
+  condition: and(succeeded(), eq(variables['NeedNugetPush'], 'Yes'))
+  inputs:
+    command: 'push'
+    packagesToPush: '$(Build.SourcesDirectory)/_nuget/ECMAHelper/*.nupkg'
+    nuGetFeedType: 'external'
+    publishFeedCredentials: 'docs-public-packages'
