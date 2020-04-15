@@ -257,7 +257,7 @@ namespace ECMA2Yaml
             {
                 versionedList.First().Monikers = null;
             }
-            return versionedList.Count == 0 ? null : versionedList;
+            return versionedList.NullIfEmpty();
         }
 
         public IEnumerable<VersionedString> MonikerizeDerivedClasses(Models.Type t)

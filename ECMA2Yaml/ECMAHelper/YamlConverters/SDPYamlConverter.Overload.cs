@@ -37,6 +37,16 @@ namespace ECMA2Yaml
                     Value = g.Key,
                     Monikers = g.Any(v => v.Monikers == null) ? null : g.SelectMany(v => v.Monikers).ToHashSet()
                 }).ToList().NullIfEmpty();
+
+                sdpOverload.PackagesWithMoniker = sdpOverload.Members
+                .Where(m => m.PackagesWithMoniker != null)
+                .SelectMany(m => m.PackagesWithMoniker)
+                .GroupBy(vp => vp.Value)
+                .Select(g => new VersionedString()
+                {
+                    Value = g.Key,
+                    Monikers = g.Any(v => v.Monikers == null) ? null : g.SelectMany(v => v.Monikers).ToHashSet()
+                }).ToList().NullIfEmpty();
             }
             else
             {
@@ -55,6 +65,7 @@ namespace ECMA2Yaml
                 m.Namespace = null;
                 m.Assemblies = null;
                 m.AssembliesWithMoniker = null;
+                m.PackagesWithMoniker = null;
                 m.DevLangs = null;
             }
 
