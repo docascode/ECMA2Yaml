@@ -31,3 +31,26 @@ steps:
   inputs:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
+
+- task: BatchScript@1
+  inputs:
+    filename: 'diffYaml.bat'
+
+- task: BatchScript@1
+  inputs:
+    filename: 'diffIntellisense.bat'
+
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: |
+      # Write your PowerShell commands here.
+      
+      Write-Host "Hello World"
+      
+      if ($(Build.Reason) -eq "PullRequest" -or $env:BUILD_SOURCEBRANCH -eq 'refs/heads/develop') {
+          Write-Host "prerelease"
+      }
+      else if ($(Build.Reason) -eq "Manual" -or $(Build.Reason) -eq "IndividualCI") {
+          Write-Host "release"
+      }
