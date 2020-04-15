@@ -12,13 +12,11 @@ build_script:
 - echo %MYGETFEED%
 - nuget restore ./ECMA2Yaml/ECMA2Yaml.sln
 - msbuild ./ECMA2Yaml/ECMA2Yaml.sln /p:Configuration=Release
-- diffYaml.bat
-- diffIntellisense.bat
+- ./CI/diffYaml.bat
+- ./CI/diffIntellisense.bat
 test: Auto
 on_success:
-- cd ECMA2Yaml
-- pack.bat %APPVEYOR_BUILD_VERSION%
-- nugetPush.bat
+- ./CI/pack.bat %APPVEYOR_BUILD_VERSION%
 
 for:
 -
