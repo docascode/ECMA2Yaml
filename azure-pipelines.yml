@@ -47,7 +47,7 @@ steps:
 
 # Publish Nuget Package
 - task: DotNetCoreCLI@2
-  displayName: Nuget Publish ECMA2Yaml
+  displayName: Nuget Publish ECMA2Yaml PPE
   condition: and(succeeded(), and(eq(variables['NeedNugetPush'], 'Yes'), eq(variables['NugetVersionType'], 'prerelease')))
   inputs:
     command: 'push'
