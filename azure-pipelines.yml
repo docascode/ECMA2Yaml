@@ -44,13 +44,12 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      # Write your PowerShell commands here.
+      $revision = ""
       
-      Write-Host "Hello World"
-      
-      if ($(Build.Reason) -eq "PullRequest" -or $env:BUILD_SOURCEBRANCH -eq 'refs/heads/develop') {
+      if ("$(Build.Reason)" -eq "PullRequest" -or "$env:BUILD_SOURCEBRANCH" -eq 'refs/heads/develop') {
           Write-Host "prerelease"
       }
-      else if ($(Build.Reason) -eq "Manual" -or $(Build.Reason) -eq "IndividualCI") {
+      if (("$(Build.Reason)" -eq "Manual" -or "$(Build.Reason)" -eq "IndividualCI")
+          -and "$env:BUILD_SOURCEBRANCH" -eq 'refs/heads/devops') {
           Write-Host "release"
       }
