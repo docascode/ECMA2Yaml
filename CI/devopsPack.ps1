@@ -4,12 +4,12 @@ $version = ''
 $repoRoot = $($MyInvocation.MyCommand.Definition) | Split-Path | Split-Path
 
 if ("$env:BUILD_REASON" -eq "PullRequest" -or "$env:BUILD_SOURCEBRANCH" -eq 'refs/heads/develop') {
-    $version = '1.1.$commitCount.$env:BUILD_BUILDNUMBER-beta'
+    $version = "1.1.$commitCount.$env:BUILD_BUILDNUMBER-beta"
     Write-Host "##vso[task.setvariable variable=NugetVersionType;]prerelease"
 }
 if (("$env:BUILD_REASON" -eq "Manual" -or "$env:BUILD_REASON" -eq "IndividualCI") `
     -and "$env:BUILD_SOURCEBRANCH" -eq 'refs/heads/master') {
-    $version = '1.1.$commitCount.$env:BUILD_BUILDNUMBER'
+    $version = "1.1.$commitCount.$env:BUILD_BUILDNUMBER"
     Write-Host "##vso[task.setvariable variable=NugetVersionType;]release"
 }
 if ($version -ne '') {
