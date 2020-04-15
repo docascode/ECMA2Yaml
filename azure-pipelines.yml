@@ -51,7 +51,7 @@ steps:
   condition: and(succeeded(), and(eq(variables['NeedNugetPush'], 'Yes'), eq(variables['NugetVersionType'], 'prerelease')))
   inputs:
     command: 'push'
-    packagesToPush: '$(Build.ArtifactStagingDirectory)/_nuget/ECMA2Yaml/*.nupkg'
+    packagesToPush: '$(Build.Build.SourcesDirectory)/_nuget/ECMA2Yaml/*.nupkg'
     nuGetFeedType: 'external'
     publishFeedCredentials: 'AzureDevOps.Artifacts.docs-build-v2-ppe'
 - task: DotNetCoreCLI@2
@@ -59,7 +59,7 @@ steps:
   condition: and(succeeded(), and(eq(variables['NeedNugetPush'], 'Yes'), eq(variables['NugetVersionType'], 'release')))
   inputs:
     command: 'push'
-    packagesToPush: '$(Build.ArtifactStagingDirectory)/_nuget/ECMA2Yaml/*.nupkg'
+    packagesToPush: '$(Build.Build.SourcesDirectory)/_nuget/ECMA2Yaml/*.nupkg'
     nuGetFeedType: 'external'
     publishFeedCredentials: 'AzureDevOps.Artifacts.docs-build-v2-prod'
 - task: DotNetCoreCLI@2
@@ -67,6 +67,6 @@ steps:
   condition: and(succeeded(), eq(variables['NeedNugetPush'], 'Yes'))
   inputs:
     command: 'push'
-    packagesToPush: '$(Build.ArtifactStagingDirectory)/_nuget/ECMAHelper/*.nupkg'
+    packagesToPush: '$(Build.Build.SourcesDirectory)/_nuget/ECMAHelper/*.nupkg'
     nuGetFeedType: 'external'
     publishFeedCredentials: 'docs-public-packages'
