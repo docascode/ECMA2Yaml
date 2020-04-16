@@ -24,6 +24,7 @@ namespace ECMA2Yaml.Models
         public FilterStore FilterStore { get; set; }
         public bool StrictMode { get; set; }
         public bool UWPMode { get; set; }
+        public PackageInformationMapping PkgInfoMapping { get; set; }
 
         private static Dictionary<string, EcmaDesc> typeDescriptorCache;
 
@@ -31,18 +32,14 @@ namespace ECMA2Yaml.Models
         private IEnumerable<Type> _tList;
         private FrameworkIndex _frameworks;
         private List<Member> _extensionMethods;
-        private Dictionary<string, string> _monikerNugetMapping;
 
-        public ECMAStore(IEnumerable<Namespace> nsList,
-            FrameworkIndex frameworks,
-            Dictionary<string, string> monikerNugetMapping = null)
+        public ECMAStore(IEnumerable<Namespace> nsList, FrameworkIndex frameworks)
         {
             typeDescriptorCache = new Dictionary<string, EcmaDesc>();
 
             _nsList = nsList;
             _tList = nsList.SelectMany(ns => ns.Types).ToList();
             _frameworks = frameworks;
-            _monikerNugetMapping = monikerNugetMapping;
 
             InheritanceParentsByUid = new Dictionary<string, List<VersionedString>>();
             InheritanceChildrenByUid = new Dictionary<string, List<VersionedString>>();
@@ -270,22 +267,6 @@ namespace ECMA2Yaml.Models
                 if (nsInternalOnly)
                 {
                     ns.Metadata[OPSMetadata.InternalOnly] = nsInternalOnly;
-                }
-                if (_monikerNugetMapping != null && ns.Monikers != null)
-                {
-                    var monikers = ns.Monikers as IEnumerable<string>;
-                    List<string> packages = new List<string>();
-                    foreach (var moniker in monikers)
-                    {
-                        if (_monikerNugetMapping.ContainsKey(moniker))
-                        {
-                            packages.Add(_monikerNugetMapping[moniker]);
-                        }
-                    }
-                    if (packages.Count > 0)
-                    {
-                        ns.Metadata[OPSMetadata.NugetPackageNames] = packages.ToArray();
-                    }
                 }
                 foreach (var t in ns.Types)
                 {

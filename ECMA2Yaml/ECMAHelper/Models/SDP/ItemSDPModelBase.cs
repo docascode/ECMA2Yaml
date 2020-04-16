@@ -51,6 +51,10 @@ namespace ECMA2Yaml.Models.SDP
         [YamlMember(Alias = "assembliesWithMoniker")]
         public IEnumerable<VersionedString> AssembliesWithMoniker { get; set; }
 
+        [JsonProperty("packagesWithMoniker")]
+        [YamlMember(Alias = "packagesWithMoniker")]
+        public IEnumerable<VersionedString> PackagesWithMoniker { get; set; }
+
         [JsonProperty("attributes")]
         [YamlMember(Alias = "attributes")]
         public IEnumerable<string> Attributes { get; set; }

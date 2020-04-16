@@ -138,22 +138,24 @@ namespace ECMA2Yaml
             return frameworkIndex;
         }
 
-        private Dictionary<string, string> LoadMonikerPackageMapping(string folder)
+        private PackageInformationMapping LoadPackageInformationMapping(string folder)
         {
-            var file = Path.Combine(folder, "_moniker2nuget.json");
-            if (_fileAccessor.Exists(file))
+            var pkgInfoDir = Path.Combine(folder, "PackageInformation");
+            var pkgInfoMapping = new PackageInformationMapping();
+
+            foreach (var file in ListFiles(pkgInfoDir, "*.json"))
             {
                 try
                 {
-                    return JsonConvert.DeserializeObject<Dictionary<string, string>>(_fileAccessor.ReadAllText(file));
+                    var mapping = JsonConvert.DeserializeObject<PackageInformationMapping>(_fileAccessor.ReadAllText(file.AbsolutePath));
+                    pkgInfoMapping.Merge(mapping);
                 }
                 catch (Exception ex)
                 {
-                    OPSLogger.LogUserError(LogCode.ECMA2Yaml_MonikerToNuget_Failed, file, ex);
-                    return null;
+                    OPSLogger.LogUserError(LogCode.ECMA2Yaml_PackageInformation_LoadFailed, file.AbsolutePath, ex);
                 }
             }
-            return null;
+            return pkgInfoMapping;
         }
 
         private IEnumerable<FileItem> ListFiles(string subFolder, string wildCardPattern)
