@@ -40,10 +40,18 @@ steps:
   inputs:
     filePath: 'CI/devopsIntTest.ps1'
 
+# Pack ECMA2Yaml
 - task: PowerShell@2
   displayName: Nuget Pack
   inputs:
     filePath: 'CI/devopsPack.ps1'
+
+# Pack ECMAHelper
+- task: MSBuild@1
+  inputs:
+    solution: 'ECMA2Yaml\ECMAHelper\ECMAHelper.csproj'
+    configuration: 'Release'
+    msbuildArguments: '-t:pack -p:PackageOutputPath=_nuget\ECMAHelper -p:PackageVersion=$CurrentPackageVersion'
 
 # Publish Nuget Package
 - task: DotNetCoreCLI@2

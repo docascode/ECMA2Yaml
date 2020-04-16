@@ -23,4 +23,5 @@ if ($version -ne '') {
     msbuild -t:pack $repoRoot\ECMA2Yaml\ECMAHelper\ECMAHelper.csproj -p:PackageOutputPath=_nuget\ECMAHelper -p:PackageVersion=$version -p:Configuration=Release
     Write-Host "##vso[build.addbuildtag]$version"
     Write-Host "##vso[task.setvariable variable=NeedNugetPush;]Yes"
+    Write-Host "##vso[task.setvariable variable=CurrentPackageVersion;]$version"
 }
