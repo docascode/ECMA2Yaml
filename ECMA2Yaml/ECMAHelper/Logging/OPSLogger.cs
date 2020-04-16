@@ -13,30 +13,35 @@ namespace ECMA2Yaml
     public class OPSLogger
     {
         public static string PathTrimPrefix = "";
+        public static Action<LogItem> WriteLogCallback = null;
 
         private static ConcurrentBag<LogItem> logBag = new ConcurrentBag<LogItem>();
 
         public static void LogUserError(LogCode code, string file, params object[] msgArgs)
         {
             var message = string.Format(code.MessageTemplate, msgArgs);
-            logBag.Add(new LogItem(message, "ECMA2Yaml", file, MessageSeverity.Error, code.ToString(), LogItemType.User));
+            file = TranslateFilePath(file);
+            WriteLog(new LogItem(message, "ECMA2Yaml", file, MessageSeverity.Error, code.ToString(), LogItemType.User));
         }
 
         public static void LogUserWarning(LogCode code, string file, params object[] msgArgs)
         {
             var message = string.Format(code.MessageTemplate, msgArgs);
-            logBag.Add(new LogItem(message, "ECMA2Yaml", file, MessageSeverity.Warning, code.ToString(), LogItemType.User));
+            file = TranslateFilePath(file);
+            WriteLog(new LogItem(message, "ECMA2Yaml", file, MessageSeverity.Warning, code.ToString(), LogItemType.User));
         }
 
         public static void LogUserInfo(string message, string file = null)
         {
-            logBag.Add(new LogItem(message, "ECMA2Yaml", file, MessageSeverity.Info, LogItemType.User));
+            file = TranslateFilePath(file);
+            WriteLog(new LogItem(message, "ECMA2Yaml", file, MessageSeverity.Info, LogItemType.User));
         }
 
         public static void LogSystemError(LogCode code, string file, params object[] msgArgs)
         {
             var message = string.Format(code.MessageTemplate, msgArgs);
-            logBag.Add(new LogItem(message, "ECMA2Yaml", file, MessageSeverity.Error, code.ToString(), LogItemType.System));
+            file = TranslateFilePath(file);
+            WriteLog(new LogItem(message, "ECMA2Yaml", file, MessageSeverity.Error, code.ToString(), LogItemType.System));
         }
 
         public static void Flush(string filePath)
@@ -46,10 +51,6 @@ namespace ECMA2Yaml
                 StringBuilder sb = new StringBuilder();
                 foreach(var log in logBag.ToArray())
                 {
-                    if (!string.IsNullOrEmpty(log.File) && !string.IsNullOrEmpty(PathTrimPrefix))
-                    {
-                        log.File = log.File.Replace(PathTrimPrefix, "");
-                    }
                     var logStr = JsonConvert.SerializeObject(log);
                     sb.AppendLine(logStr);
                     if (log.MessageSeverity == MessageSeverity.Error)
@@ -59,6 +60,27 @@ namespace ECMA2Yaml
                     }
                 }
                 File.AppendAllText(filePath, sb.ToString());
+            }
+        }
+
+        private static string TranslateFilePath(string file)
+        {
+            if (string.IsNullOrEmpty(PathTrimPrefix) || string.IsNullOrEmpty(file))
+            {
+                return file;
+            }
+            return file.Replace(PathTrimPrefix, "");
+        }
+
+        private static void WriteLog(LogItem logItem)
+        {
+            if (WriteLogCallback != null)
+            {
+                WriteLogCallback(logItem);
+            }
+            else
+            {
+                logBag.Add(logItem);
             }
         }
     }

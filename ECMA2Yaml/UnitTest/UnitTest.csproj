@@ -52,6 +52,7 @@
     <Compile Include="MarkdownTests.cs" />
     <Compile Include="EcmaDescTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ECMA2YamlConverterTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

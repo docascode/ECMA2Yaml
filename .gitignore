@@ -257,9 +257,7 @@ ECMA2Yaml/_nuget/
 ECMA2Yaml/MigrationBackup/
 test/_bin/
 test/frameworks
-test/yml_MREF_After
-test/yml_SDP_After
-test/yml_SDP_versioned_After
-test/intellisense_After
+test/_yml_*
+test/_intellisense_After
 XmlYamlMapping.json
 log.json
