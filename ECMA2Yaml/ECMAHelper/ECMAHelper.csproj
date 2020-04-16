@@ -4,6 +4,11 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>ECMA2Yaml</RootNamespace>
     <AssemblyName>ECMAHelper</AssemblyName>
+    <PackageId>Microsoft.DocAsCode.ECMAHelper</PackageId>
+    <Authors>tianzh;shujia;terryjin;marj;Dave.Wilson</Authors>
+    <Description>Docs internal lib to load and convert ECMAXML documents.</Description>
+    <PackageTags>ECMAXML;.NET</PackageTags>
+    <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);PackMonoDocDll</TargetsForTfmSpecificBuildOutput>
   </PropertyGroup>
 
   <ItemGroup>
@@ -12,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Logging\LogCode.tt">
+    <Content Include="Logging\LogCode.tt" Pack="false">
       <LastGenOutput>LogCode.cs</LastGenOutput>
       <Generator>TextTemplatingFileGenerator</Generator>
     </Content>
@@ -26,6 +31,10 @@
     <PackageReference Include="Microsoft.DocAsCode.DataContracts.Common" Version="2.43.2" />
     <PackageReference Include="Microsoft.DocAsCode.YamlSerialization" Version="2.43.2" />
     <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
+    <PackageReference Include="NuGet.Build.Tasks.Pack" Version="5.5.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
@@ -44,7 +53,7 @@
 
   <ItemGroup>
     <None Update="Logging\CommonLogMessages.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 
@@ -52,4 +61,12 @@
     <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
   </ItemGroup>
 
+  <Target Name="PackMonoDocDll">
+    <ItemGroup>
+      <BuildOutputInPackage Include="$(OutputPath)monodoc.dll">
+        <TargetPath></TargetPath>
+      </BuildOutputInPackage>
+    </ItemGroup>
+  </Target>
+  
 </Project>

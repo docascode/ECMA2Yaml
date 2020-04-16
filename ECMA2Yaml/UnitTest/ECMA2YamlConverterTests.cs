@@ -15,11 +15,7 @@ namespace UnitTest
         {
             string xmlDirectory = Path.GetFullPath("..\\..\\..\\..\\test\\xml");
             string outputDirectory = Path.GetFullPath("..\\..\\..\\..\\test\\_yml_UnitTests_ECMA2YamlConverter_HappyPath");
-            string fallbackXmlDirectory = null;
-            string logFilePath = null;
-            string logContentBaseDirectory = null;
-            string sourceMapFilePath = null;
-            ECMA2YamlConverter.Run(xmlDirectory, outputDirectory);
+            ECMA2YamlConverter.Run(xmlDirectory, outputDirectory, logWriter: item => Console.WriteLine(item.ToString()));
         }
     }
 }

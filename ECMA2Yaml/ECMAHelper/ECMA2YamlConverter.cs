@@ -14,7 +14,7 @@ namespace ECMA2Yaml
             string xmlDirectory,
             string outputDirectory,
             string fallbackXmlDirectory = null,
-            string logFilePath = null,
+            Action<LogItem> logWriter = null,
             string logContentBaseDirectory = null,
             string sourceMapFilePath = null,
             ECMA2YamlRepoConfig config = null)
@@ -31,49 +31,38 @@ namespace ECMA2Yaml
             {
                 OPSLogger.PathTrimPrefix = logContentBaseDirectory;
             }
-
-            try
+            if (logWriter != null)
             {
-                var fileAccessor = new FileAccessor(xmlDirectory, fallbackXmlDirectory);
-                ECMALoader loader = new ECMALoader(fileAccessor);
-                Console.WriteLine("Loading ECMAXML files...");
-                var store = loader.LoadFolder("");
-                if (store == null)
-                {
-                    return;
-                }
-
-                Console.WriteLine("Building loaded files...");
-                store.StrictMode = true;
-                store.UWPMode = config?.UWP ?? false;
-                store.Build();
-
-                var xmlYamlFileMapping = SDPYamlGenerator.Generate(store, outputDirectory, flatten: config?.Flatten ?? true, withVersioning: true);
-                if (!string.IsNullOrEmpty(sourceMapFilePath))
-                {
-                    var translatedMapping = xmlYamlFileMapping.ToDictionary(
-                        p => FileAbstractLayer.RelativePath(p.Key, sourceMapFilePath),
-                        p => p.Value.Select(path => FileAbstractLayer.RelativePath(path, sourceMapFilePath)).ToList()
-                        );
-                    var json = JsonConvert.SerializeObject(translatedMapping);
-                    File.WriteAllText(sourceMapFilePath, json);
-                }
-
-                var toc = SDPTOCGenerator.Generate(store);
-                YamlUtility.Serialize(Path.Combine(outputDirectory, "toc.yml"), toc, YamlMime.TableOfContent);
+                OPSLogger.WriteLogCallback = logWriter;
             }
-            catch (Exception ex)
+
+            var fileAccessor = new FileAccessor(xmlDirectory, fallbackXmlDirectory);
+            ECMALoader loader = new ECMALoader(fileAccessor);
+            Console.WriteLine("Loading ECMAXML files...");
+            var store = loader.LoadFolder("");
+            if (store == null)
             {
-                OPSLogger.LogSystemError(LogCode.ECMA2Yaml_InternalError, null, ex.ToString());
-                throw;
+                return;
             }
-            finally
+
+            Console.WriteLine("Building loaded files...");
+            store.StrictMode = true;
+            store.UWPMode = config?.UWP ?? false;
+            store.Build();
+
+            var xmlYamlFileMapping = SDPYamlGenerator.Generate(store, outputDirectory, flatten: config?.Flatten ?? true, withVersioning: true);
+            if (!string.IsNullOrEmpty(sourceMapFilePath))
             {
-                if (!string.IsNullOrEmpty(logFilePath))
-                {
-                    OPSLogger.Flush(logFilePath);
-                }
+                var translatedMapping = xmlYamlFileMapping.ToDictionary(
+                    p => FileAbstractLayer.RelativePath(p.Key, sourceMapFilePath),
+                    p => p.Value.Select(path => FileAbstractLayer.RelativePath(path, sourceMapFilePath)).ToList()
+                    );
+                var json = JsonConvert.SerializeObject(translatedMapping);
+                File.WriteAllText(sourceMapFilePath, json);
             }
+
+            var toc = SDPTOCGenerator.Generate(store);
+            YamlUtility.Serialize(Path.Combine(outputDirectory, "toc.yml"), toc, YamlMime.TableOfContent);
         }
     }
 }
