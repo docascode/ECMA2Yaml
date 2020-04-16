@@ -33,6 +33,8 @@ items:
     content.vb: Public Class Complex(Of T, J)
   inheritance:
   - System.Object
+  derivedClasses:
+  - CatLibrary.Tom
   implements: []
   inheritedMembers: []
   modifiers.csharp:
@@ -115,3 +117,11 @@ references:
   original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Complex`2.xml
   original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Complex`2.xml
   type: constructor
+- uid: CatLibrary.Tom
+  commentId: T:CatLibrary.Tom
+  parent: CatLibrary
+  isExternal: false
+  name: Tom
+  nameWithType: CatLibrary.Tom
+  fullName: CatLibrary.Tom
+  type: class

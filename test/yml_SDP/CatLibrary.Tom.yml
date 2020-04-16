@@ -3,6 +3,13 @@ type: class
 inheritancesWithMoniker:
 - values:
   - <xref href="System.Object?alt=System.Object&text=Object" data-throw-if-not-resolved="True"/>
+  monikers:
+  - cat-1.0
+- values:
+  - <xref href="System.Object?alt=System.Object&text=Object" data-throw-if-not-resolved="True"/>
+  - <xref href="CatLibrary.Complex`2?alt=CatLibrary.Complex&text=Complex" data-throw-if-not-resolved="True"/>&lt;<xref href="CatLibrary.Cat`2?alt=CatLibrary.Cat&text=Cat" data-throw-if-not-resolved="True"/>&lt;<xref href="CatLibrary.Tom?alt=CatLibrary.Tom&text=Tom" data-throw-if-not-resolved="True"/>,<xref href="System.Guid?alt=System.Guid&text=Guid" data-throw-if-not-resolved="True"/>&gt;,<xref href="System.Collections.Generic.IEnumerable`1?alt=System.Collections.Generic.IEnumerable&text=IEnumerable" data-throw-if-not-resolved="True"/>&lt;<xref href="System.String?alt=System.String&text=String" data-throw-if-not-resolved="True"/>&gt;&gt;
+  monikers:
+  - cat-2.0
 derivedClassesWithMoniker:
 - value: CatLibrary.TomFromBaseClass
 constructors:
@@ -27,15 +34,40 @@ syntaxWithMoniker:
 - lang: cpp
   values:
   - value: public ref class Tom
+    monikers:
+    - cat-1.0
+  - value: 'public ref class Tom : CatLibrary::Complex<CatLibrary::Cat<CatLibrary::Tom ^, Guid> ^, System::Collections::Generic::IEnumerable<System::String ^> ^>'
+    monikers:
+    - cat-2.0
 - lang: csharp
   values:
   - value: public class Tom
+    monikers:
+    - cat-1.0
+  - value: 'public class Tom : CatLibrary.Complex<CatLibrary.Cat<CatLibrary.Tom,Guid>,System.Collections.Generic.IEnumerable<string>>'
+    monikers:
+    - cat-2.0
 - lang: fsharp
   values:
   - value: type Tom = class
+    monikers:
+    - cat-1.0
+  - value: >-
+      type Tom = class
+          inherit Complex<Cat<Tom, Guid>, seq<string>>
+    monikers:
+    - cat-2.0
 - lang: vb
   values:
   - value: Public Class Tom
+    monikers:
+    - cat-1.0
+  - value: >-
+      Public Class Tom
+
+      Inherits Complex(Of Cat(Of Tom, Guid), IEnumerable(Of String))
+    monikers:
+    - cat-2.0
 devLangs:
 - csharp
 - vb
