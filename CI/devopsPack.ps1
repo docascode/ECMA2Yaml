@@ -3,11 +3,16 @@ $commitCount = & { git rev-list --count HEAD }
 $version = ''
 $repoRoot = $($MyInvocation.MyCommand.Definition) | Split-Path | Split-Path
 
-if ("$env:BUILD_REASON" -eq "PullRequest" -or "$env:BUILD_SOURCEBRANCH" -eq 'refs/heads/develop') {
+if ("$env:BUILD_REASON" -eq "PullRequest") {
+    $version = "0.0.1-alpha-pr-$env:SYSTEM_PULLREQUEST_PULLREQUESTNUMBER"
+    Write-Host "##vso[task.setvariable variable=NugetVersionType;]prerelease"
+}
+elseif (("$env:BUILD_REASON" -eq "Manual" -or "$env:BUILD_REASON" -eq "IndividualCI") `
+    -and "$env:BUILD_SOURCEBRANCH" -eq 'refs/heads/develop') {
     $version = "1.1.$commitCount-beta$env:BUILD_BUILDNUMBER"
     Write-Host "##vso[task.setvariable variable=NugetVersionType;]prerelease"
 }
-if (("$env:BUILD_REASON" -eq "Manual" -or "$env:BUILD_REASON" -eq "IndividualCI") `
+elseif (("$env:BUILD_REASON" -eq "Manual" -or "$env:BUILD_REASON" -eq "IndividualCI") `
     -and "$env:BUILD_SOURCEBRANCH" -eq 'refs/heads/master') {
     $version = "1.1.$commitCount"
     Write-Host "##vso[task.setvariable variable=NugetVersionType;]release"
