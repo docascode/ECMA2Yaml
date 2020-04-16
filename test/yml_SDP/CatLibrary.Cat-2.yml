@@ -10,7 +10,7 @@ implements:
 - <xref href="CatLibrary.ICat?alt=CatLibrary.ICat&text=ICat" data-throw-if-not-resolved="True"/>
 inheritancesWithMoniker:
 - values:
-  - <xref href="System.Object" data-throw-if-not-resolved="True"/>
+  - <xref href="System.Object?alt=System.Object&text=Object" data-throw-if-not-resolved="True"/>
 extensionMethods:
 - uid: CatLibrary.ICatExtension.Play(CatLibrary.ICat,System.String)
   monikers:
