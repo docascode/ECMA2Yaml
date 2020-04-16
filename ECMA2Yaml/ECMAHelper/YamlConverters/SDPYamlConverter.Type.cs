@@ -78,7 +78,7 @@ namespace ECMA2Yaml
         private List<string> GetInheritChainMDStringList(List<string> inheritanceChains, Type current)
         {
             List<string> mdStringList = new List<string>();
-            Type children = null;
+            Type child = null;
             string parentUid = string.Empty;
             string childrenUid = string.Empty;
             string typeStr = string.Empty;
@@ -88,32 +88,30 @@ namespace ECMA2Yaml
             {
                 parentUid = inheritanceChains[i];
                 childrenUid = inheritanceChains[i+1];
-                children = _store.TypesByUid[childrenUid];
+                child = _store.TypesByUid[childrenUid];
 
-                typeStr = GetParentTypeStringFromChildren(children, parentUid);
-                typeMDStr = TypeStringToTypeMDString(typeStr, _store);
+                typeMDStr = GetParentTypeStringFromChild(child, parentUid);
                 mdStringList.Add(typeMDStr);
             }
 
             parentUid = inheritanceChains[i];
-            children = current;
-            typeStr = GetParentTypeStringFromChildren(children, parentUid);
-            typeMDStr = TypeStringToTypeMDString(typeStr, _store);
+            child = current;
+            typeMDStr = GetParentTypeStringFromChild(child, parentUid);
             mdStringList.Add(typeMDStr);
 
             return mdStringList;
         }
 
-        private string GetParentTypeStringFromChildren(Type children, string parentUid)
+        private string GetParentTypeStringFromChild(Type children, string parentUid)
         {
             var find = children.BaseTypes.Where(p => p.Uid == parentUid).FirstOrDefault();
             if (find != null)
             {
-                return find.Name;
+                return TypeStringToTypeMDString(find.Name, _store);
             }
             else
             {
-                return string.Empty;
+                return UidToTypeMDString(parentUid, _store);
             }
         }
 
