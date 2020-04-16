@@ -52,7 +52,7 @@ steps:
   inputs:
     solution: 'ECMA2Yaml\ECMAHelper\ECMAHelper.csproj'
     configuration: 'Release'
-    msbuildArguments: '-t:pack -p:PackageOutputPath=_nuget\ECMAHelper -p:PackageVersion=$(CurrentPackageVersion)'
+    msbuildArguments: '-t:pack -p:PackageOutputPath=$(Build.SourcesDirectory)\_nuget\ECMAHelper -p:PackageVersion=$(CurrentPackageVersion)'
 
 # Publish Nuget Package
 - task: DotNetCoreCLI@2
