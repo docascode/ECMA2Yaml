@@ -55,7 +55,7 @@ namespace ECMA2Yaml
                     sb.AppendLine(logStr);
                     if (log.MessageSeverity == MessageSeverity.Error)
                     {
-                        Console.Error.WriteLine(logStr);
+                        Console.WriteLine(logStr);
                         Environment.ExitCode = -1;
                     }
                 }
