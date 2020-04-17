@@ -28,25 +28,13 @@ namespace ECMA2Yaml
 
             if (_withVersioning)
             {
-                sdpOverload.AssembliesWithMoniker = sdpOverload.Members
-                .Where(m => m.AssembliesWithMoniker != null)
-                .SelectMany(m => m.AssembliesWithMoniker)
-                .GroupBy(vs => vs.Value)
-                .Select(g => new VersionedString()
+                if (!_store.UWPMode)
                 {
-                    Value = g.Key,
-                    Monikers = g.Any(v => v.Monikers == null) ? null : g.SelectMany(v => v.Monikers).ToHashSet()
-                }).ToList().NullIfEmpty();
-
-                sdpOverload.PackagesWithMoniker = sdpOverload.Members
-                .Where(m => m.PackagesWithMoniker != null)
-                .SelectMany(m => m.PackagesWithMoniker)
-                .GroupBy(vp => vp.Value)
-                .Select(g => new VersionedString()
-                {
-                    Value = g.Key,
-                    Monikers = g.Any(v => v.Monikers == null) ? null : g.SelectMany(v => v.Monikers).ToHashSet()
-                }).ToList().NullIfEmpty();
+                    sdpOverload.AssembliesWithMoniker = overload == null ? sdpOverload.Members.First().AssembliesWithMoniker
+                        : MonikerizeAssemblyStrings(overload);
+                    sdpOverload.PackagesWithMoniker = overload == null ? sdpOverload.Members.First().PackagesWithMoniker
+                        : MonikerizePackageStrings(overload, _store.PkgInfoMapping);
+                }
             }
             else
             {
