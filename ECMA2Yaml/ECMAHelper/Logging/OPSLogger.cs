@@ -14,6 +14,7 @@ namespace ECMA2Yaml
     {
         public static string PathTrimPrefix = "";
         public static Action<LogItem> WriteLogCallback = null;
+        public static bool ErrorLogged { get; private set; }
 
         private static ConcurrentBag<LogItem> logBag = new ConcurrentBag<LogItem>();
 
@@ -74,6 +75,10 @@ namespace ECMA2Yaml
 
         private static void WriteLog(LogItem logItem)
         {
+            if (logItem.MessageSeverity == MessageSeverity.Error)
+            {
+                ErrorLogged = true;
+            }
             if (WriteLogCallback != null)
             {
                 WriteLogCallback(logItem);

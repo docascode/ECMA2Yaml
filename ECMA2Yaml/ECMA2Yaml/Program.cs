@@ -65,6 +65,11 @@ namespace ECMA2Yaml
 
             WriteLine("Building loaded files...");
             store.Build();
+            if (OPSLogger.ErrorLogged)
+            {
+                return;
+            }
+
             if (!string.IsNullOrEmpty(opt.RepoRootPath)
                 && !string.IsNullOrEmpty(opt.PublicRepoUrl)
                 && !string.IsNullOrEmpty(opt.PublicRepoBranch)
