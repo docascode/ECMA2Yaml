@@ -37,6 +37,12 @@ namespace ECMA2Yaml
             var filterStore = LoadFilters(sourcePath);
             var pkgInfoMapping = LoadPackageInformationMapping(sourcePath);
 
+            if (frameworks == null || frameworks.DocIdToFrameworkDict.Count == 0)
+            {
+                OPSLogger.LogUserError(LogCode.ECMA2Yaml_Framework_NotFound, null, "any API, please check your FrameworkIndex folder");
+                return null;
+            }
+
             ConcurrentBag<Namespace> namespaces = new ConcurrentBag<Namespace>();
             ParallelOptions opt = new ParallelOptions() { MaxDegreeOfParallelism = Environment.ProcessorCount };
             //foreach(var nsFile in ListFiles(sourcePath, Path.Combine(sourcePath, "ns-*.xml")))
