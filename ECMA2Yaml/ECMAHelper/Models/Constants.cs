@@ -28,6 +28,8 @@ namespace ECMA2Yaml.Models
 
         public static readonly string SDP_op_articleFileGitUrl = "_op_articleFileGitUrl";
         public static readonly string SDP_op_overwriteFileGitUrl = "_op_overwriteFileGitUrl";
+
+        public static readonly string V3TOCSplitItemsBy = "splitItemsBy";
     }
 
     public class UWPMetadata
