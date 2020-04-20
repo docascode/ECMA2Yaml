@@ -45,6 +45,8 @@ fullName: CatLibrary.JerryExtension.PlayWith
 nameWithType: JerryExtension.PlayWith
 assembliesWithMoniker:
 - value: CatLibrary.dll
+packagesWithMoniker:
+- value: Pet v1.0.0
 devLangs:
 - csharp
 - vb

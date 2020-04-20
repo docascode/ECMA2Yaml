@@ -42,6 +42,13 @@ fullName: CatLibrary.IAnimal.Item[Int32]
 nameWithType: IAnimal.Item[Int32]
 assembliesWithMoniker:
 - value: CatLibrary.dll
+packagesWithMoniker:
+- value: Animal v1.0.0
+  monikers:
+  - cat-1.0
+- value: Pet v1.0.0
+  monikers:
+  - cat-2.0
 devLangs:
 - csharp
 - vb

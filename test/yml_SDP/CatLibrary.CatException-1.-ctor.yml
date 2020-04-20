@@ -30,6 +30,13 @@ fullName: CatLibrary.CatException<T>.CatException
 nameWithType: CatException<T>.CatException<T>
 assembliesWithMoniker:
 - value: CatLibrary.dll
+packagesWithMoniker:
+- value: Animal v1.0.0
+  monikers:
+  - cat-1.0
+- value: Pet v1.0.0
+  monikers:
+  - cat-2.0
 devLangs:
 - csharp
 - vb

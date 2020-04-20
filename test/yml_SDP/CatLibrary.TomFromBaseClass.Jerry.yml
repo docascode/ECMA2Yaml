@@ -19,6 +19,8 @@ fullName: CatLibrary.TomFromBaseClass.Jerry
 nameWithType: CatLibrary.TomFromBaseClass.Jerry
 assembliesWithMoniker:
 - value: CatLibrary.dll
+packagesWithMoniker:
+- value: Pet v1.0.0
 syntaxWithMoniker:
 - lang: cpp
   values:

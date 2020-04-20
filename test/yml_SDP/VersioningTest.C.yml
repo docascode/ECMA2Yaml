@@ -28,6 +28,13 @@ fullName: VersioningTest.C
 nameWithType: VersioningTest.C
 assembliesWithMoniker:
 - value: CatLibrary.dll
+packagesWithMoniker:
+- value: Animal v1.0.0
+  monikers:
+  - cat-1.0
+- value: Pet v1.0.0
+  monikers:
+  - cat-2.0
 syntaxWithMoniker:
 - lang: cpp
   values:

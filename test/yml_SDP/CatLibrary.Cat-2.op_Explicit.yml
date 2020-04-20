@@ -45,6 +45,13 @@ fullName: CatLibrary.Cat<T,K>.Explicit
 nameWithType: Cat<T,K>.Explicit
 assembliesWithMoniker:
 - value: CatLibrary.dll
+packagesWithMoniker:
+- value: Animal v1.0.0
+  monikers:
+  - cat-1.0
+- value: Pet v1.0.0
+  monikers:
+  - cat-2.0
 devLangs:
 - csharp
 - vb

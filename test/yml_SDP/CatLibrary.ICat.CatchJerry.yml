@@ -33,6 +33,8 @@ fullName: CatLibrary.ICat.CatchJerry
 nameWithType: ICat.CatchJerry
 assembliesWithMoniker:
 - value: CatLibrary.dll
+packagesWithMoniker:
+- value: Pet v1.0.0
 devLangs:
 - csharp
 - vb

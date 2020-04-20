@@ -36,6 +36,8 @@ fullName: CatLibrary.Complex<T,J>.ComplexFlags
 nameWithType: CatLibrary.Complex<T,J>.ComplexFlags
 assembliesWithMoniker:
 - value: CatLibrary.dll
+packagesWithMoniker:
+- value: Pet v1.0.0
 attributesWithMoniker:
 - value: System.FlagsAttribute
 syntaxWithMoniker:
