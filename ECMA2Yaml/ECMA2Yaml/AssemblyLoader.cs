@@ -24,7 +24,7 @@ namespace ECMA2Yaml
                     var asm = Assembly.ReflectionOnlyLoadFrom(dll);
                     isFacade = !asm.DefinedTypes.Any();
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     //don't do any thing, real facade dll won't cause this error
                 }
@@ -42,7 +42,7 @@ namespace ECMA2Yaml
             {
                 return Assembly.ReflectionOnlyLoad(args.Name);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 var dllName = string.Format("{0}\\{1}.dll", currectFolder, args.Name.Split(',')[0]);
                 if (File.Exists(dllName))
