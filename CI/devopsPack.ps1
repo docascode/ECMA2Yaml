@@ -1,4 +1,3 @@
-$revision = ""
 $commitCount = & { git rev-list --count HEAD }
 $version = ''
 $repoRoot = $($MyInvocation.MyCommand.Definition) | Split-Path | Split-Path
