@@ -38,6 +38,8 @@ fullName: CatLibrary.TomFromBaseClass.Jerry.TomFromBaseClass.Jerry
 nameWithType: TomFromBaseClass.Jerry.TomFromBaseClass.Jerry
 assembliesWithMoniker:
 - value: CatLibrary.dll
+packagesWithMoniker:
+- value: Pet v1.0.0
 devLangs:
 - csharp
 - vb

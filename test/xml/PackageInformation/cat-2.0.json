@@ -1,0 +1,14 @@
+{
+    "cat-2.0": {
+        "CatLibrary": {
+            "Name": "Pet",
+            "Version": "1.0.0",
+            "Feed": "https://api.nuget.org/v3/index.json"
+        },
+        "MRef.Demo": {
+            "Name": "Pet",
+            "Version": "1.0.0",
+            "Feed": "https://api.nuget.org/v3/index.json"
+        }
+    }
+}
