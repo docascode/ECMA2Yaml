@@ -6,6 +6,8 @@ pr:
 - develop
 - master
 
+name: $(Date:yyyyMMdd)-$(Rev:r)
+
 pool:
   vmImage: 'windows-latest'
 
