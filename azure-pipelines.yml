@@ -1,6 +1,7 @@
 trigger:
 - master
 - develop
+- v3
 
 pr:
 - develop
