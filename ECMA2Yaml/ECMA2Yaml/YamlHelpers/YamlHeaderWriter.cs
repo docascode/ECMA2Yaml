@@ -1,16 +1,12 @@
-﻿using ECMA2Yaml;
-using ECMA2Yaml.Models;
-using Microsoft.DocAsCode.Common;
+﻿using ECMA2Yaml.Models;
 using Microsoft.DocAsCode.Common.EntityMergers;
 using Microsoft.DocAsCode.DataContracts.Common;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using YamlDotNet.Serialization;
+using YamlUtility = ECMA2Yaml.YamlHelpers.YamlUtility;
 
 namespace ECMA2Yaml
 {

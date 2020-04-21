@@ -10,6 +10,8 @@ namespace ECMA2Yaml.Models.SDP
 {
     public class DelegateSDPModel : ItemSDPModelBase
     {
+        [JsonIgnore]
+        [YamlIgnore]
         public override string YamlMime { get; } = "YamlMime:NetDelegate";
 
         [JsonProperty("typeParameters")]

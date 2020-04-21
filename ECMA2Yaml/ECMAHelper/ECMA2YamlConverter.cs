@@ -1,5 +1,5 @@
 ﻿using ECMA2Yaml.IO;
-using Microsoft.DocAsCode.Common;
+using ECMA2Yaml.YamlHelpers;
 using Newtonsoft.Json;
 using System;
 using System.IO;
@@ -62,7 +62,7 @@ namespace ECMA2Yaml
             }
 
             var toc = SDPTOCGenerator.Generate(store);
-            YamlUtility.Serialize(Path.Combine(outputDirectory, "toc.yml"), toc, YamlMime.TableOfContent);
+            YamlUtility.Serialize(Path.Combine(outputDirectory, "toc.yml"), toc, "TableOfContent");
         }
     }
 }

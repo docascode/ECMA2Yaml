@@ -1,5 +1,5 @@
 ﻿using ECMA2Yaml.Models;
-using Microsoft.DocAsCode.DataContracts.Common;
+using ECMA2Yaml.Models.SDP;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,11 +10,11 @@ namespace ECMA2Yaml
 {
     public static class SDPTOCGenerator
     {
-        public static TocRootViewModel Generate(ECMAStore store)
+        public static TOCRootYamlModel Generate(ECMAStore store)
         {
-            TocRootViewModel toc = new TocRootViewModel()
+            TOCRootYamlModel toc = new TOCRootYamlModel()
             {
-                Items = new TocViewModel()
+                Items = new List<TOCNodeYamlModel>()
             };
 
             foreach (var ns in store.Namespaces.Values)
@@ -28,24 +28,24 @@ namespace ECMA2Yaml
             return toc;
         }
 
-        private static TocItemViewModel GenerateTocItemForNamespace(Namespace ns)
+        private static TOCNodeYamlModel GenerateTocItemForNamespace(Namespace ns)
         {
-            var nsToc = new TocItemViewModel()
+            var nsToc = new TOCNodeYamlModel()
             {
                 Uid = string.IsNullOrEmpty(ns.Uid) ? null : ns.Uid,
                 Name = string.IsNullOrEmpty(ns.Name) ? "global" : ns.Name,
-                Items = new TocViewModel(ns.Types.Select(t => GenerateTocItemForType(t)).ToList())
+                Items = new List<TOCNodeYamlModel>(ns.Types.Select(t => GenerateTocItemForType(t)).ToList())
             };
             if (ns.Monikers?.Count > 0)
             {
-                nsToc.Metadata[OPSMetadata.Monikers] = ns.Monikers.ToArray();
+                nsToc.Monikers = ns.Monikers.ToArray();
             }
             return nsToc;
         }
 
-        private static TocItemViewModel GenerateTocItemForType(Models.Type t)
+        private static TOCNodeYamlModel GenerateTocItemForType(Models.Type t)
         {
-            var tToc = new TocItemViewModel()
+            var tToc = new TOCNodeYamlModel()
             {
                 Uid = t.Uid,
                 Name = t.Name,
@@ -53,12 +53,12 @@ namespace ECMA2Yaml
             };
             if (t.Monikers?.Count > 0)
             {
-                tToc.Metadata[OPSMetadata.Monikers] = t.Monikers.ToArray();
+                tToc.Monikers = t.Monikers.ToArray();
             }
             return tToc;
         }
 
-        private static TocViewModel GenerateTocItemsForMembers(Models.Type t)
+        private static List<TOCNodeYamlModel> GenerateTocItemsForMembers(Models.Type t)
         {
             if (t.Members == null
                 || t.Members.Count == 0
@@ -67,37 +67,37 @@ namespace ECMA2Yaml
                 return null;
             }
 
-            TocViewModel items = new TocViewModel();
+            var items = new List<TOCNodeYamlModel>();
             foreach(var olGroup in t.Members.Where(m => m.Overload != null).GroupBy(m => m.Overload))
             {
                 var ol = t.Overloads.FirstOrDefault(o => o.Uid == olGroup.Key);
-                var tocEntry = new TocItemViewModel()
+                var tocEntry = new TOCNodeYamlModel()
                 {
                     Uid = ol.Uid,
                     Name = ol.DisplayName
                 };
-                tocEntry.Metadata["type"] = ol.ItemType.ToString();
+                tocEntry.Type = ol.ItemType.ToString();
                 if ((ol.ItemType == ItemType.Method|| ol.ItemType == ItemType.Property) && olGroup.First().IsEII)
                 {
-                    tocEntry.Metadata["isEii"] = true;
+                    tocEntry.IsEII = true;
                 }
                 if (IsNeedAddMonikers(t.Monikers, ol.Monikers))
                 {
-                    tocEntry.Metadata[OPSMetadata.Monikers] = ol.Monikers.ToArray();
+                    tocEntry.Monikers = ol.Monikers.ToArray();
                 }
                 items.Add(tocEntry);
             }
             foreach (var m in t.Members.Where(m => m.Overload == null))
             {
-                var tocEntry = new TocItemViewModel()
+                var tocEntry = new TOCNodeYamlModel()
                 {
                     Uid = m.Uid,
                     Name = m.DisplayName
                 };
-                tocEntry.Metadata["type"] = m.ItemType.ToString();
+                tocEntry.Type = m.ItemType.ToString();
                 if (IsNeedAddMonikers(t.Monikers, m.Monikers))
                 {
-                    tocEntry.Metadata[OPSMetadata.Monikers] = m.Monikers.ToArray();
+                    tocEntry.Monikers = m.Monikers.ToArray();
                 }
                 items.Add(tocEntry);
             }
