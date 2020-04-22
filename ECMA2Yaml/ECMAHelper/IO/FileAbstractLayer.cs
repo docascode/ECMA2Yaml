@@ -91,11 +91,20 @@ namespace ECMA2Yaml.IO
             path = Path.GetFullPath(path);
             relativeTo = Path.GetFullPath(relativeTo);
 
-            if (!path.StartsWith(relativeTo))
+            if (path.StartsWith(relativeTo))
             {
-                throw new ArgumentException("path is not sub directory from rootPath.");
+                return path.Remove(0, relativeTo.Length).TrimStart(new[] { '\\', '/' });
             }
-            return path.Remove(0, relativeTo.Length).TrimStart(new[] { '\\', '/' });
+            else
+            {
+                if (!relativeTo.EndsWith("\\"))
+                    relativeTo += "\\";
+                Uri baseUri = new Uri(relativeTo);
+                Uri fullUri = new Uri(path);
+                Uri relativeUri = baseUri.MakeRelativeUri(fullUri);
+                // Uri's use forward slashes so convert back to backward slashes
+                return relativeUri.ToString().Replace("/", "\\");
+            }
         }
     }
 }
