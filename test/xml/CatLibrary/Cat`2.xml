@@ -107,6 +107,20 @@
   </Docs>
   <Members>
     <Member MemberName=".ctor">
+      <Metadata>
+        <Meta Name="requirement_sdk_names" Value="Cat SDK" />
+        <Meta Name="requirement_sdk_urls" Value="https://www.bing.com/images/search?q=cats" />
+        <Meta Name="requirement_os_names" Value="Windows 10" />
+        <Meta Name="requirement_os_min_versions" Value="10.0.10240.0" />
+        <Meta Name="apiContracts" Value="CatLibrary.HuntContract" />
+        <Meta Name="apiContractsVersions" Value="6.0" />
+        <Meta Name="apiContracts" Value="CatLibrary.SleepContract" />
+        <Meta Name="apiContractsVersions" Value="1.0" />
+        <Meta Name="deviceFamilies" Value="Windws 10, version 1803" />
+        <Meta Name="deviceFamiliesVersions" Value="10.0.17134.0" />
+        <Meta Name="deviceFamilies" Value="Windows Desktop" />
+        <Meta Name="deviceFamiliesVersions" Value="10.0.10240.0" />
+      </Metadata>
       <MemberSignature Language="C#" Value="public Cat ();" />
       <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor() cil managed" />
       <MemberSignature Language="DocId" Value="M:CatLibrary.Cat`2.#ctor" />
@@ -202,9 +216,19 @@
         <Meta Name="ms.contentlocale" Value="zh-CN" />
         <Meta Name="ms.lasthandoff" Value="08/15/2019" />
         <Meta Name="ms.locfileid" Value="69262388" />
-        <Meta Name="apiContracts" Value="Win10" />
-        <Meta Name="apiContracts" Value="Win10 build 1" />
-        <Meta Name="apiContracts" Value="Win10 build 2" />
+        <Meta Name="xamlMemberSyntax" Value="&lt;Cat Age=&quot;...&quot; /&gt;" />
+        <Meta Name="requirement_sdk_names" Value="Cat SDK" />
+        <Meta Name="requirement_sdk_urls" Value="https://www.bing.com/images/search?q=cats" />
+        <Meta Name="requirement_os_names" Value="Windows 10" />
+        <Meta Name="requirement_os_min_versions" Value="10.0.10240.0" />
+        <Meta Name="apiContracts" Value="CatLibrary.HuntContract" />
+        <Meta Name="apiContractsVersions" Value="6.0" />
+        <Meta Name="apiContracts" Value="CatLibrary.SleepContract" />
+        <Meta Name="apiContractsVersions" Value="1.0" />
+        <Meta Name="deviceFamilies" Value="Windws 10, version 1803" />
+        <Meta Name="deviceFamiliesVersions" Value="10.0.17134.0" />
+        <Meta Name="deviceFamilies" Value="Windows Desktop" />
+        <Meta Name="deviceFamiliesVersions" Value="10.0.10240.0" />
       </Metadata>
       <MemberSignature Language="C#" Value="protected int Age { get; set; }" />
       <MemberSignature Language="ILAsm" Value=".property instance int32 Age" />
@@ -588,6 +612,20 @@
       </Docs>
     </Member>
     <Member MemberName="Jump">
+      <Metadata>
+        <Meta Name="requirement_sdk_names" Value="Cat SDK" />
+        <Meta Name="requirement_sdk_urls" Value="https://www.bing.com/images/search?q=cats" />
+        <Meta Name="requirement_os_names" Value="Windows 10" />
+        <Meta Name="requirement_os_min_versions" Value="10.0.10240.0" />
+        <Meta Name="apiContracts" Value="CatLibrary.HuntContract" />
+        <Meta Name="apiContractsVersions" Value="6.0" />
+        <Meta Name="apiContracts" Value="CatLibrary.SleepContract" />
+        <Meta Name="apiContractsVersions" Value="1.0" />
+        <Meta Name="deviceFamilies" Value="Windws 10, version 1803" />
+        <Meta Name="deviceFamiliesVersions" Value="10.0.17134.0" />
+        <Meta Name="deviceFamilies" Value="Windows Desktop" />
+        <Meta Name="deviceFamiliesVersions" Value="10.0.10240.0" />
+      </Metadata>
       <MemberSignature Language="C#" Value="public void Jump (T ownType, K anotherOwnType, ref bool cheat);" />
       <MemberSignature Language="ILAsm" Value=".method public hidebysig instance void Jump(!T ownType, !K anotherOwnType, bool&amp; cheat) cil managed" />
       <MemberSignature Language="DocId" Value="M:CatLibrary.Cat`2.Jump(`0,`1,System.Boolean@)" />
@@ -652,6 +690,20 @@
       </Docs>
     </Member>
     <Member MemberName="op_Addition">
+      <Metadata>
+        <Meta Name="requirement_sdk_names" Value="Cat SDK" />
+        <Meta Name="requirement_sdk_urls" Value="https://www.bing.com/images/search?q=cats" />
+        <Meta Name="requirement_os_names" Value="Windows 10" />
+        <Meta Name="requirement_os_min_versions" Value="10.0.10240.0" />
+        <Meta Name="apiContracts" Value="CatLibrary.HuntContract" />
+        <Meta Name="apiContractsVersions" Value="6.0" />
+        <Meta Name="apiContracts" Value="CatLibrary.SleepContract" />
+        <Meta Name="apiContractsVersions" Value="1.0" />
+        <Meta Name="deviceFamilies" Value="Windws 10, version 1803" />
+        <Meta Name="deviceFamiliesVersions" Value="10.0.17134.0" />
+        <Meta Name="deviceFamilies" Value="Windows Desktop" />
+        <Meta Name="deviceFamiliesVersions" Value="10.0.10240.0" />
+      </Metadata>
       <MemberSignature Language="C#" Value="public static int operator + (CatLibrary.Cat&lt;T,K&gt; lsr, int rsr);" />
       <MemberSignature Language="ILAsm" Value=".method public static hidebysig specialname int32 op_Addition(class CatLibrary.Cat`2&lt;!T, !K&gt; lsr, int32 rsr) cil managed" />
       <MemberSignature Language="DocId" Value="M:CatLibrary.Cat`2.op_Addition(CatLibrary.Cat{`0,`1},System.Int32)" />

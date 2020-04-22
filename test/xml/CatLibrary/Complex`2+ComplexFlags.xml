@@ -1,4 +1,18 @@
 <Type Name="Complex&lt;T,J&gt;+ComplexFlags" FullName="CatLibrary.Complex&lt;T,J&gt;+ComplexFlags">
+  <Metadata>
+    <Meta Name="requirement_sdk_names" Value="Cat SDK" />
+    <Meta Name="requirement_sdk_urls" Value="https://www.bing.com/images/search?q=cats" />
+    <Meta Name="requirement_os_names" Value="Windows 10" />
+    <Meta Name="requirement_os_min_versions" Value="10.0.10240.0" />
+    <Meta Name="apiContracts" Value="CatLibrary.HuntContract" />
+    <Meta Name="apiContractsVersions" Value="6.0" />
+    <Meta Name="apiContracts" Value="CatLibrary.SleepContract" />
+    <Meta Name="apiContractsVersions" Value="1.0" />
+    <Meta Name="deviceFamilies" Value="Windws 10, version 1803" />
+    <Meta Name="deviceFamiliesVersions" Value="10.0.17134.0" />
+    <Meta Name="deviceFamilies" Value="Windows Desktop" />
+    <Meta Name="deviceFamiliesVersions" Value="10.0.10240.0" />
+  </Metadata>
   <TypeSignature Language="C#" Value="public enum Complex&lt;T,J&gt;.ComplexFlags" />
   <TypeSignature Language="ILAsm" Value=".class nested public auto ansi sealed Complex`2/ComplexFlags&lt;T, J&gt; extends System.Enum" />
   <TypeSignature Language="DocId" Value="T:CatLibrary.Complex`2.ComplexFlags" />
