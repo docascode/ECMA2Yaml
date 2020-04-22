@@ -203,7 +203,7 @@ namespace ECMA2Yaml
                 Syntax = syntax,
                 Implements = t.Interfaces?.Where(i => i != null).Select(i => store.TypesByFullName.ContainsKey(i) ? store.TypesByFullName[i].Uid : i.ToSpecId()).ToList(),
                 Inheritance = t.InheritanceChains?.LastOrDefault()?.Values,
-                AssemblyNameList = store.UWPMode ? null : t.AssemblyInfo.Select(a => a.Name).Distinct().ToList(),
+                AssemblyNameList = store.UWPMode && !store.DemoMode ? null : t.AssemblyInfo.Select(a => a.Name).Distinct().ToList(),
                 InheritedMembers = t.InheritedMembers?.Select(p => p.Value.Value).OrderBy(s => s).ToList(),
                 SupportedLanguages = syntax.Contents?.Keys?.ToArray(),
                 Summary = t.Docs?.Summary,
@@ -238,7 +238,7 @@ namespace ECMA2Yaml
         public static SyntaxDetailViewModel ToSyntaxDetailViewModel(this ReflectionItem item, ECMAStore store)
         {
             const string csharp = "C#";
-            var contents = ConverterHelper.BuildSignatures(item, uwpMode: store.UWPMode);
+            var contents = ConverterHelper.BuildSignatures(item, uwpMode: store.UWPMode && !store.DemoMode);
 
             var syntax = new SyntaxDetailViewModel()
             {
@@ -271,7 +271,7 @@ namespace ECMA2Yaml
                 FullName = m.FullDisplayName,
                 Parent = m.Parent.Uid,
                 Type = m.ItemType.ToMemberType(),
-                AssemblyNameList = store.UWPMode ? null : m.AssemblyInfo.Select(a => a.Name).Distinct().ToList(),
+                AssemblyNameList = store.UWPMode && !store.DemoMode ? null : m.AssemblyInfo.Select(a => a.Name).Distinct().ToList(),
                 NamespaceName = t.Parent.Name,
                 Overload = m.Overload,
                 Syntax = syntax,

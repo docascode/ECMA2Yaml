@@ -28,7 +28,7 @@ namespace ECMA2Yaml
 
             if (_withVersioning)
             {
-                if (!_store.UWPMode)
+                if (!_store.UWPMode || _store.DemoMode)
                 {
                     sdpOverload.AssembliesWithMoniker = overload == null ? sdpOverload.Members.First().AssembliesWithMoniker
                         : MonikerizeAssemblyStrings(overload);
