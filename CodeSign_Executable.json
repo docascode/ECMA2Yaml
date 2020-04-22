@@ -4,10 +4,9 @@
   "SignBatches": [
     {
       "MatchedPath": [
-        "DROP\\*.ps1",
-        "DROP\\*.exe",
-        "DROP\\*.dll",
-        "Libraries\\MsBuildDebuggerProject\\*.ps1"
+        "*.ps1",
+        "*.exe",
+        "*.dll"
       ],
       "SigningInfo": {
         "Operations": [
