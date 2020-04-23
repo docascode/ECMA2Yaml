@@ -13,9 +13,15 @@ namespace UnitTest
         [TestMethod]
         public void ECMA2YamlConverter_HappyPath()
         {
-            string xmlDirectory = Path.GetFullPath("..\\..\\..\\..\\test\\xml");
-            string outputDirectory = Path.GetFullPath("..\\..\\..\\..\\test\\_yml_UnitTests_ECMA2YamlConverter_HappyPath");
-            ECMA2YamlConverter.Run(xmlDirectory, outputDirectory, logWriter: item => Console.WriteLine(item.ToString()));
+            string testDirectory = Path.GetFullPath("..\\..\\..\\..\\test");
+            string xmlDirectory = Path.Combine(testDirectory, "xml");
+            string outputDirectory = Path.Combine(testDirectory, "_yml_UnitTests_ECMA2YamlConverter_HappyPath");
+            string sourceMapFilePath = Path.Combine(testDirectory, "_yml_UnitTests_ECMA2YamlConverter_HappyPath\\.sourcemap.json");
+            ECMA2YamlConverter.Run(
+                xmlDirectory,
+                outputDirectory,
+                logWriter: item => Console.WriteLine(item.ToString()),
+                sourceMapFilePath: sourceMapFilePath);
         }
     }
 }

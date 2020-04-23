@@ -49,7 +49,7 @@ namespace ECMA2Yaml.IO
                 Path.Combine(RootPath, subFolder ?? string.Empty),
                 wildCardPattern,
                 allDirectories ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly);
-            var filteredFiles = allFiles.Select(f => new FileItem { RelativePath = RelativePath(f, RootPath), AbsolutePath = f, IsVirtual = IsVirtual });
+            var filteredFiles = allFiles.Select(f => new FileItem { RelativePath = RelativePath(f, RootPath, false), AbsolutePath = f, IsVirtual = IsVirtual });
             return filteredFiles;
         }
 
@@ -86,7 +86,7 @@ namespace ECMA2Yaml.IO
             return File.OpenWrite(filePath);
         }
 
-        public static string RelativePath(string path, string relativeTo)
+        public static string RelativePath(string path, string relativeTo, bool relativeToFile)
         {
             path = Path.GetFullPath(path);
             relativeTo = Path.GetFullPath(relativeTo);
@@ -97,8 +97,10 @@ namespace ECMA2Yaml.IO
             }
             else
             {
-                if (!relativeTo.EndsWith("\\"))
+                if (!relativeToFile)
+                {
                     relativeTo += "\\";
+                }
                 Uri baseUri = new Uri(relativeTo);
                 Uri fullUri = new Uri(path);
                 Uri relativeUri = baseUri.MakeRelativeUri(fullUri);

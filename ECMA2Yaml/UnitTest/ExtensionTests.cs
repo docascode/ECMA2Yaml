@@ -89,15 +89,16 @@ namespace UnitTest
         }
 
         [DataTestMethod]
-        [DataRow("Bar", "Foo", "..\\Bar")]
-        [DataRow("C:\\Bar", "C:\\Foo", "..\\Bar")]
-        [DataRow("C:\\Foo\\Bar", "C:\\Foo", "Bar")]
-        [DataRow("C:\\Bar\\Bar", "C:\\Foo\\Bar", "..\\..\\Bar\\Bar")]
-        [DataRow("Bar.txt", "Foo", "..\\Bar.txt")]
-        [DataRow("Bar", "Foo.txt", "..\\Bar")]
-        public void FileAbstractLayer_RelativePath_Test(string path, string relativeTo, string expected)
+        [DataRow("Bar", "Foo", false, "..\\Bar")]
+        [DataRow("C:\\Bar", "C:\\Foo", false, "..\\Bar")]
+        [DataRow("C:\\Foo\\Bar", "C:\\Foo", false, "Bar")]
+        [DataRow("C:\\Bar\\Bar", "C:\\Foo\\Bar", false, "..\\..\\Bar\\Bar")]
+        [DataRow("Bar.txt", "Foo", false, "..\\Bar.txt")]
+        [DataRow("Bar", "Foo.txt", true, "Bar")]
+        [DataRow("C:\\Bar", "C:\\Foo.txt", true, "Bar")]
+        public void FileAbstractLayer_RelativePath_Test(string path, string relativeTo, bool relativeToFile, string expected)
         {
-            var result = FileAbstractLayer.RelativePath(path, relativeTo);
+            var result = FileAbstractLayer.RelativePath(path, relativeTo, relativeToFile);
             Assert.AreEqual<string>(expected, result);
         }
     }
