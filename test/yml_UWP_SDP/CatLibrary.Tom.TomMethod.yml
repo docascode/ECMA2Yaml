@@ -1,0 +1,99 @@
+### YamlMime:NetMember
+type: method
+members:
+- returns:
+    description: Complex @CatLibrary.TomFromBaseClass
+    type: <xref href="CatLibrary.Complex`2?alt=CatLibrary.Complex&text=Complex" data-throw-if-not-resolved="True"/>&lt;<xref href="System.String?alt=System.String&text=String" data-throw-if-not-resolved="True"/>,<xref href="CatLibrary.TomFromBaseClass?alt=CatLibrary.TomFromBaseClass&text=TomFromBaseClass" data-throw-if-not-resolved="True"/>&gt;
+  parameters:
+  - namesWithMoniker:
+    - value: a
+    description: A complex input
+    type: <xref href="CatLibrary.Complex`2?alt=CatLibrary.Complex&text=Complex" data-throw-if-not-resolved="True"/>&lt;<xref href="CatLibrary.TomFromBaseClass?alt=CatLibrary.TomFromBaseClass&text=TomFromBaseClass" data-throw-if-not-resolved="True"/>,<xref href="CatLibrary.TomFromBaseClass?alt=CatLibrary.TomFromBaseClass&text=TomFromBaseClass" data-throw-if-not-resolved="True"/>&gt;
+  - namesWithMoniker:
+    - value: b
+    description: Another complex input
+    type: <xref href="System.Tuple`2?alt=System.Tuple&text=Tuple" data-throw-if-not-resolved="True"/>&lt;<xref href="System.String?alt=System.String&text=String" data-throw-if-not-resolved="True"/>,<xref href="CatLibrary.Tom?alt=CatLibrary.Tom&text=Tom" data-throw-if-not-resolved="True"/>&gt;
+  exceptions:
+  - description: This is not implemented
+    type: <xref href="System.NotImplementedException" data-throw-if-not-resolved="True"/>
+  - description: This is the exception to be thrown when implemented
+    type: <xref href="System.ArgumentException" data-throw-if-not-resolved="True"/>
+  - description: This is the exception in current documentation
+    type: <xref href="CatLibrary.CatException`1?alt=CatLibrary.CatException`1&text=CatException%3CT%3E" data-throw-if-not-resolved="True"/>
+  uid: CatLibrary.Tom.TomMethod(CatLibrary.Complex{CatLibrary.TomFromBaseClass,CatLibrary.TomFromBaseClass},System.Tuple{System.String,CatLibrary.Tom})
+  commentId: M:CatLibrary.Tom.TomMethod(CatLibrary.Complex{CatLibrary.TomFromBaseClass,CatLibrary.TomFromBaseClass},System.Tuple{System.String,CatLibrary.Tom})
+  name: TomMethod(Complex<TomFromBaseClass,TomFromBaseClass>, Tuple<String,Tom>)
+  fullName: CatLibrary.Tom.TomMethod(Complex<TomFromBaseClass,TomFromBaseClass>, Tuple<String,Tom>)
+  nameWithType: Tom.TomMethod(Complex<TomFromBaseClass,TomFromBaseClass>, Tuple<String,Tom>)
+  syntaxWithMoniker:
+  - lang: cpp
+    values:
+    - value: >-
+        public:
+         CatLibrary::Complex<System::String ^, CatLibrary::TomFromBaseClass ^> ^ TomMethod(CatLibrary::Complex<CatLibrary::TomFromBaseClass ^, CatLibrary::TomFromBaseClass ^> ^ a, Tuple<System::String ^, CatLibrary::Tom ^> ^ b);
+  - lang: csharp
+    values:
+    - value: public CatLibrary.Complex<string,CatLibrary.TomFromBaseClass> TomMethod(CatLibrary.Complex<CatLibrary.TomFromBaseClass,CatLibrary.TomFromBaseClass> a,(string,CatLibrary.Tom) b);
+  - lang: fsharp
+    values:
+    - value: 'member this.TomMethod : CatLibrary.Complex<CatLibrary.TomFromBaseClass, CatLibrary.TomFromBaseClass> * string * CatLibrary.Tom -> CatLibrary.Complex<string, CatLibrary.TomFromBaseClass>'
+  - lang: vb
+    values:
+    - value: Public Function TomMethod (a As Complex(Of TomFromBaseClass, TomFromBaseClass), b As Tuple(Of String, Tom)) As Complex(Of String, TomFromBaseClass)
+  monikers:
+  - cat-1.0
+  - cat-2.0
+  summary: This is a Tom Method with complex type as return
+  uwpRequirements:
+    deviceFamilies:
+    - name: Windws 10, version 1803
+      version: 10.0.17134.0
+    - name: Windows Desktop
+      version: 10.0.10240.0
+    apiContracts:
+    - name: CatLibrary.HuntContract
+      version: "6.0"
+    - name: CatLibrary.SleepContract
+      version: "1.0"
+  sdkRequirements:
+    name: Cat SDK
+    url: https://www.bing.com/images/search?q=cats
+  osRequirements:
+    name: Windows 10
+    minVersion: 10.0.10240.0
+  xamlMemberSyntax: <Tom method="TomMethod(...)"/>
+  metadata: {}
+uid: CatLibrary.Tom.TomMethod*
+commentId: Overload:CatLibrary.Tom.TomMethod
+namespace: CatLibrary
+name: TomMethod
+fullName: CatLibrary.Tom.TomMethod
+nameWithType: Tom.TomMethod
+devLangs:
+- csharp
+- vb
+- cpp
+- fsharp
+monikers:
+- cat-1.0
+- cat-2.0
+metadata:
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Tom.xml
+  _op_overwriteFileGitUrl: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Tom.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Tom.xml
+  api_name:
+  - CatLibrary.Tom.TomMethod
+  api_location:
+  - CatLibrary.dll
+  topic_type:
+  - apiref
+  api_type:
+  - Assembly
+  f1_keywords:
+  - CatLibrary.Tom.TomMethod
+  - CatLibrary::Tom::TomMethod
+  helpviewer_keywords:
+  - Tom.TomMethod method [.NET]
+  - TomMethod method [.NET], class Tom
+  - Tom.TomMethod(Complex<TomFromBaseClass,TomFromBaseClass>, Tuple<String,Tom>) method [.NET]
+  - TomMethod(Complex<TomFromBaseClass,TomFromBaseClass>, Tuple<String,Tom>) method [.NET], class Tom

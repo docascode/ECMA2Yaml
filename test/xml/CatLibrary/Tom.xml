@@ -3,7 +3,7 @@
     <Meta Name="capabilities" Value="scratch" />
     <Meta Name="capabilities" Value="climb" />
     <Meta Name="capabilities" Value="sleep" />
-    <Meta Name="xamlMemberSyntax" Value="&lt;Tom .../&gt;" />
+    <Meta Name="xamlSyntax" Value="&lt;Tom .../&gt;" />
     <Meta Name="requirement_sdk_names" Value="Cat SDK" />
     <Meta Name="requirement_sdk_urls" Value="https://www.bing.com/images/search?q=cats" />
     <Meta Name="requirement_os_names" Value="Windows 10" />

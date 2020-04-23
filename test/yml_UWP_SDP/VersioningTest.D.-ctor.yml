@@ -1,0 +1,55 @@
+### YamlMime:NetMember
+type: constructor
+members:
+- uid: VersioningTest.D.#ctor
+  commentId: M:VersioningTest.D.#ctor
+  name: D()
+  fullName: VersioningTest.D.D()
+  nameWithType: D.D()
+  syntaxWithMoniker:
+  - lang: cpp
+    values:
+    - value: >-
+        public:
+         D();
+  - lang: csharp
+    values:
+    - value: public D();
+  - lang: vb
+    values:
+    - value: Public Sub New ()
+  monikers:
+  - cat-1.0
+  - cat-2.0
+  metadata: {}
+uid: VersioningTest.D.#ctor*
+commentId: Overload:VersioningTest.D.#ctor
+namespace: VersioningTest
+name: D
+fullName: VersioningTest.D.D
+nameWithType: D.D
+devLangs:
+- csharp
+- vb
+- cpp
+monikers:
+- cat-1.0
+- cat-2.0
+metadata:
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/D.xml
+  _op_overwriteFileGitUrl: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/D.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/D.xml
+  api_name:
+  - VersioningTest.D..ctor
+  api_location:
+  - CatLibrary.dll
+  topic_type:
+  - apiref
+  api_type:
+  - Assembly
+  f1_keywords:
+  - VersioningTest.D.#ctor
+  - VersioningTest::D::#ctor
+  helpviewer_keywords:
+  - D class [.NET], constructors
+  - D() class [.NET], constructors

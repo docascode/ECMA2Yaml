@@ -1,0 +1,74 @@
+### YamlMime:NetMember
+type: property
+members:
+- returns:
+    description: Cat's name.
+    type: <xref href="System.String?alt=System.String&text=String" data-throw-if-not-resolved="True"/>
+  parameters:
+  - namesWithMoniker:
+    - value: a
+    description: Cat's number.
+    type: <xref href="System.Int32?alt=System.Int32&text=Int32" data-throw-if-not-resolved="True"/>
+  implements:
+  - <xref href="CatLibrary.IAnimal.Item(System.Int32)?alt=CatLibrary.IAnimal.Item(System.Int32)&text=Item%5BInt32%5D" data-throw-if-not-resolved="True"/>
+  uid: CatLibrary.Cat`2.CatLibrary#IAnimal#Item(System.Int32)
+  commentId: P:CatLibrary.Cat`2.CatLibrary#IAnimal#Item(System.Int32)
+  name: IAnimal.Item[Int32]
+  fullName: CatLibrary.Cat<T,K>.CatLibrary.IAnimal.Item[Int32]
+  nameWithType: Cat<T,K>.IAnimal.Item[Int32]
+  syntaxWithMoniker:
+  - lang: cpp
+    values:
+    - value: property System::String ^ Item[int] { System::String ^ get(int a); };
+  - lang: csharp
+    values:
+    - value: string Item[int a] { get; }
+  - lang: fsharp
+    values:
+    - value: 'member this.CatLibrary.IAnimal.Item(int) : string'
+  - lang: vb
+    values:
+    - value: " ReadOnly Property Item(a As Integer) As String Implements IAnimal.Item"
+  monikers:
+  - cat-1.0
+  - cat-2.0
+  summary: EII index.
+  metadata: {}
+uid: CatLibrary.Cat`2.CatLibrary#IAnimal#Item*
+commentId: Overload:CatLibrary.Cat`2.CatLibrary#IAnimal#Item
+namespace: CatLibrary
+name: IAnimal.Item[Int32]
+fullName: CatLibrary.Cat<T,K>.CatLibrary.IAnimal.Item[Int32]
+nameWithType: Cat<T,K>.IAnimal.Item[Int32]
+devLangs:
+- csharp
+- vb
+- cpp
+- fsharp
+monikers:
+- cat-1.0
+- cat-2.0
+metadata:
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  _op_overwriteFileGitUrl: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  ms.openlocfilehash: 77d1b2a652c118438281090f72ac4caa93feec1a
+  ms.sourcegitcommit: 055a4a82a0b08bfbdc21bd1347fb71f7fe2c099e
+  ms.translationtype: MT
+  ms.contentlocale: zh-CN
+  ms.lasthandoff: 08/15/2019
+  ms.locfileid: "69262388"
+  api_name:
+  - CatLibrary.Cat`2.CatLibrary.IAnimal.Item
+  - CatLibrary.Cat`2.CatLibrary.IAnimal.get_Item
+  api_location:
+  - CatLibrary.dll
+  topic_type:
+  - apiref
+  api_type:
+  - Assembly
+  f1_keywords:
+  - CatLibrary.Cat`2.CatLibrary#IAnimal#Item
+  - CatLibrary::Cat`2::CatLibrary#IAnimal#Item
+  helpviewer_keywords:
+  - IAnimal.Item[Int32] explicitly implemented property [.NET]

@@ -1,0 +1,53 @@
+### YamlMime:NetType
+type: class
+inheritancesWithMoniker:
+- values:
+  - <xref href="System.Object?alt=System.Object&text=Object" data-throw-if-not-resolved="True"/>
+methods:
+- uid: CatLibrary.JerryExtension.PlayWith(CatLibrary.TomFromBaseClass.Jerry,CatLibrary.Tom)
+  monikers:
+  - cat-2.0
+uid: CatLibrary.JerryExtension
+commentId: T:CatLibrary.JerryExtension
+namespace: CatLibrary
+name: JerryExtension
+fullName: CatLibrary.JerryExtension
+nameWithType: CatLibrary.JerryExtension
+syntaxWithMoniker:
+- lang: cpp
+  values:
+  - value: public ref class JerryExtension abstract sealed
+- lang: csharp
+  values:
+  - value: public static class JerryExtension
+- lang: fsharp
+  values:
+  - value: type JerryExtension = class
+- lang: vb
+  values:
+  - value: Public Module JerryExtension
+devLangs:
+- csharp
+- vb
+- cpp
+- fsharp
+monikers:
+- cat-2.0
+summary: This class extends <xref data-throw-if-not-resolved="true" uid="CatLibrary.TomFromBaseClass.Jerry"></xref>.
+metadata:
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/JerryExtension.xml
+  _op_overwriteFileGitUrl: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/JerryExtension.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/JerryExtension.xml
+  api_name:
+  - CatLibrary.JerryExtension
+  api_location:
+  - CatLibrary.dll
+  topic_type:
+  - apiref
+  api_type:
+  - Assembly
+  f1_keywords:
+  - CatLibrary.JerryExtension
+  - CatLibrary::JerryExtension
+  helpviewer_keywords:
+  - CatLibrary.JerryExtension class [.NET]
