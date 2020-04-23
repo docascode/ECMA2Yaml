@@ -51,6 +51,7 @@ items:
     - uid: CatLibrary.Cat`2.CatLibrary#IAnimal#Item*
       name: IAnimal.Item[Int32]
       type: Property
+      isEii: true
     - uid: CatLibrary.Cat`2.isHealthy
       name: isHealthy
       type: Field
