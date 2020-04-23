@@ -100,8 +100,8 @@ namespace ECMA2Yaml
 
             if(_withVersioning)
             {
-                rval.AssembliesWithMoniker = _store.UWPMode? null : MonikerizeAssemblyStrings(item);
-                rval.PackagesWithMoniker = _store.UWPMode? null : MonikerizePackageStrings(item, _store.PkgInfoMapping);
+                rval.AssembliesWithMoniker = _store.UWPMode ? null : MonikerizeAssemblyStrings(item);
+                rval.PackagesWithMoniker = _store.UWPMode ? null : MonikerizePackageStrings(item, _store.PkgInfoMapping);
                 rval.AttributesWithMoniker = item.Attributes?.Where(att => att.Visible)
                     .Select(att => new VersionedString() { Value = att.TypeFullName, Monikers = att.Monikers?.ToHashSet() })
                     .ToList().NullIfEmpty();
@@ -110,7 +110,7 @@ namespace ECMA2Yaml
             }
             else
             {
-                rval.Assemblies = _store.UWPMode? null : item.AssemblyInfo?.Select(asm => asm.Name).Distinct().ToList();
+                rval.Assemblies = _store.UWPMode ? null : item.AssemblyInfo?.Select(asm => asm.Name).Distinct().ToList();
                 rval.Attributes = item.Attributes?.Where(att => att.Visible).Select(att => att.TypeFullName)
                     .ToList().NullIfEmpty();
                 var rawSignatures = ConverterHelper.BuildSignatures(item, uwpMode: _store.UWPMode);

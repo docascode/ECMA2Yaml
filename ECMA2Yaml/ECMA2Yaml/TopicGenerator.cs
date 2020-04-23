@@ -271,7 +271,7 @@ namespace ECMA2Yaml
                 FullName = m.FullDisplayName,
                 Parent = m.Parent.Uid,
                 Type = m.ItemType.ToMemberType(),
-                AssemblyNameList = store.UWPMode? null : m.AssemblyInfo.Select(a => a.Name).Distinct().ToList(),
+                AssemblyNameList = store.UWPMode ? null : m.AssemblyInfo.Select(a => a.Name).Distinct().ToList(),
                 NamespaceName = t.Parent.Name,
                 Overload = m.Overload,
                 Syntax = syntax,
