@@ -1,0 +1,63 @@
+### YamlMime:NetMember
+type: constructor
+members:
+- parameters:
+  - namesWithMoniker:
+    - value: color
+    description: Color of Jerry.
+    type: <xref href="MRef.Demo.Enumeration.ColorType?alt=MRef.Demo.Enumeration.ColorType&text=ColorType" data-throw-if-not-resolved="True"/>
+  uid: CatLibrary.TomFromBaseClass.Jerry.#ctor(MRef.Demo.Enumeration.ColorType)
+  commentId: M:CatLibrary.TomFromBaseClass.Jerry.#ctor(MRef.Demo.Enumeration.ColorType)
+  name: TomFromBaseClass.Jerry(ColorType)
+  fullName: CatLibrary.TomFromBaseClass.Jerry.TomFromBaseClass.Jerry(ColorType)
+  nameWithType: TomFromBaseClass.Jerry.TomFromBaseClass.Jerry(ColorType)
+  syntaxWithMoniker:
+  - lang: cpp
+    values:
+    - value: >-
+        public:
+         Jerry(ColorType color);
+  - lang: csharp
+    values:
+    - value: public Jerry(ColorType color);
+  - lang: fsharp
+    values:
+    - value: 'new CatLibrary.TomFromBaseClass.Jerry : MRef.Demo.Enumeration.ColorType -> CatLibrary.TomFromBaseClass.Jerry'
+  - lang: vb
+    values:
+    - value: Public Sub New (color As ColorType)
+  monikers:
+  - cat-2.0
+  summary: Jerry has different <xref data-throw-if-not-resolved="true" uid="MRef.Demo.Enumeration.ColorType"></xref>.
+  metadata: {}
+uid: CatLibrary.TomFromBaseClass.Jerry.#ctor*
+commentId: Overload:CatLibrary.TomFromBaseClass.Jerry.#ctor
+namespace: CatLibrary
+name: TomFromBaseClass.Jerry
+fullName: CatLibrary.TomFromBaseClass.Jerry.TomFromBaseClass.Jerry
+nameWithType: TomFromBaseClass.Jerry.TomFromBaseClass.Jerry
+devLangs:
+- csharp
+- vb
+- cpp
+- fsharp
+monikers:
+- cat-2.0
+metadata:
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/TomFromBaseClass+Jerry.xml
+  _op_overwriteFileGitUrl: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/TomFromBaseClass+Jerry.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/TomFromBaseClass+Jerry.xml
+  api_name:
+  - CatLibrary.TomFromBaseClass.Jerry..ctor
+  api_location:
+  - CatLibrary.dll
+  topic_type:
+  - apiref
+  api_type:
+  - Assembly
+  f1_keywords:
+  - CatLibrary.TomFromBaseClass.Jerry.#ctor
+  - CatLibrary::TomFromBaseClass::Jerry::#ctor
+  helpviewer_keywords:
+  - TomFromBaseClass.Jerry class [.NET], constructors
+  - TomFromBaseClass.Jerry(ColorType) class [.NET], constructors

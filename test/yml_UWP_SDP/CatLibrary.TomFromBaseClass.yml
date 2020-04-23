@@ -1,0 +1,75 @@
+### YamlMime:NetType
+type: class
+inheritancesWithMoniker:
+- values:
+  - <xref href="System.Object?alt=System.Object&text=Object" data-throw-if-not-resolved="True"/>
+  - <xref href="CatLibrary.Tom?alt=CatLibrary.Tom&text=Tom" data-throw-if-not-resolved="True"/>
+  monikers:
+  - cat-1.0
+- values:
+  - <xref href="System.Object?alt=System.Object&text=Object" data-throw-if-not-resolved="True"/>
+  - <xref href="CatLibrary.Complex`2?alt=CatLibrary.Complex&text=Complex" data-throw-if-not-resolved="True"/>&lt;<xref href="CatLibrary.Cat`2?alt=CatLibrary.Cat&text=Cat" data-throw-if-not-resolved="True"/>&lt;<xref href="CatLibrary.Tom?alt=CatLibrary.Tom&text=Tom" data-throw-if-not-resolved="True"/>,<xref href="System.Guid?alt=System.Guid&text=Guid" data-throw-if-not-resolved="True"/>&gt;,<xref href="System.Collections.Generic.IEnumerable`1?alt=System.Collections.Generic.IEnumerable&text=IEnumerable" data-throw-if-not-resolved="True"/>&lt;<xref href="System.String?alt=System.String&text=String" data-throw-if-not-resolved="True"/>&gt;&gt;
+  - <xref href="CatLibrary.Tom?alt=CatLibrary.Tom&text=Tom" data-throw-if-not-resolved="True"/>
+  monikers:
+  - cat-2.0
+constructors:
+- uid: CatLibrary.TomFromBaseClass.#ctor(System.Int32)
+  monikers:
+  - cat-1.0
+  - cat-2.0
+methods:
+- uid: CatLibrary.Tom.TomMethod(CatLibrary.Complex{CatLibrary.TomFromBaseClass,CatLibrary.TomFromBaseClass},System.Tuple{System.String,CatLibrary.Tom})
+  inheritedFrom: CatLibrary.Tom
+  monikers:
+  - cat-1.0
+  - cat-2.0
+uid: CatLibrary.TomFromBaseClass
+commentId: T:CatLibrary.TomFromBaseClass
+namespace: CatLibrary
+name: TomFromBaseClass
+fullName: CatLibrary.TomFromBaseClass
+nameWithType: CatLibrary.TomFromBaseClass
+syntaxWithMoniker:
+- lang: cpp
+  values:
+  - value: 'public ref class TomFromBaseClass : CatLibrary::Tom'
+- lang: csharp
+  values:
+  - value: 'public class TomFromBaseClass : CatLibrary.Tom'
+- lang: fsharp
+  values:
+  - value: >-
+      type TomFromBaseClass = class
+          inherit Tom
+- lang: vb
+  values:
+  - value: >-
+      Public Class TomFromBaseClass
+
+      Inherits Tom
+devLangs:
+- csharp
+- vb
+- cpp
+- fsharp
+monikers:
+- cat-1.0
+- cat-2.0
+summary: '*TomFromBaseClass* inherits from @CatLibrary.Tom'
+metadata:
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/TomFromBaseClass.xml
+  _op_overwriteFileGitUrl: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/TomFromBaseClass.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/TomFromBaseClass.xml
+  api_name:
+  - CatLibrary.TomFromBaseClass
+  api_location:
+  - CatLibrary.dll
+  topic_type:
+  - apiref
+  api_type:
+  - Assembly
+  f1_keywords:
+  - CatLibrary.TomFromBaseClass
+  - CatLibrary::TomFromBaseClass
+  helpviewer_keywords:
+  - CatLibrary.TomFromBaseClass class [.NET]

@@ -42,6 +42,14 @@ steps:
   inputs:
     filePath: 'CI/devopsIntTest.ps1'
 
+# Publish Artifacts for debug
+- task: PublishPipelineArtifact@1
+  displayName: 'Publish Pipeline Artifact'
+  inputs:
+    targetPath: 'test'
+    artifact: test
+  condition: succeededOrFailed()
+
 - task: EsrpCodeSigning@1
   displayName: Sign exe, dll and powershell files
   inputs:

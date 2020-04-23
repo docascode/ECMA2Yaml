@@ -1,4 +1,18 @@
 <Type Name="FakeDelegate&lt;T&gt;" FullName="CatLibrary.FakeDelegate&lt;T&gt;">
+  <Metadata>
+    <Meta Name="requirement_sdk_names" Value="Cat SDK" />
+    <Meta Name="requirement_sdk_urls" Value="https://www.bing.com/images/search?q=cats" />
+    <Meta Name="requirement_os_names" Value="Windows 10" />
+    <Meta Name="requirement_os_min_versions" Value="10.0.10240.0" />
+    <Meta Name="apiContracts" Value="CatLibrary.HuntContract" />
+    <Meta Name="apiContractsVersions" Value="6.0" />
+    <Meta Name="apiContracts" Value="CatLibrary.SleepContract" />
+    <Meta Name="apiContractsVersions" Value="1.0" />
+    <Meta Name="deviceFamilies" Value="Windws 10, version 1803" />
+    <Meta Name="deviceFamiliesVersions" Value="10.0.17134.0" />
+    <Meta Name="deviceFamilies" Value="Windows Desktop" />
+    <Meta Name="deviceFamiliesVersions" Value="10.0.10240.0" />
+  </Metadata>
   <TypeSignature Language="C#" Value="public delegate int FakeDelegate&lt;out T&gt;(long num, string name, params object[] scores);" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi sealed FakeDelegate`1&lt;+ T&gt; extends System.MulticastDelegate" />
   <TypeSignature Language="DocId" Value="T:CatLibrary.FakeDelegate`1" />

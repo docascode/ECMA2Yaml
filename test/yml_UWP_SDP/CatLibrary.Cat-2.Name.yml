@@ -1,0 +1,71 @@
+### YamlMime:NetMember
+type: property
+members:
+- returns:
+    type: <xref href="System.String?alt=System.String&text=String" data-throw-if-not-resolved="True"/>
+  implements:
+  - <xref href="CatLibrary.IAnimal.Name?alt=CatLibrary.IAnimal.Name&text=Name" data-throw-if-not-resolved="True"/>
+  uid: CatLibrary.Cat`2.Name
+  commentId: P:CatLibrary.Cat`2.Name
+  name: Name
+  fullName: CatLibrary.Cat<T,K>.Name
+  nameWithType: Cat<T,K>.Name
+  syntaxWithMoniker:
+  - lang: cpp
+    values:
+    - value: >-
+        public:
+         property System::String ^ Name { System::String ^ get(); };
+  - lang: csharp
+    values:
+    - value: public string Name { get; }
+  - lang: fsharp
+    values:
+    - value: 'member this.Name : string'
+  - lang: vb
+    values:
+    - value: Public ReadOnly Property Name As String
+  monikers:
+  - cat-1.0
+  - cat-2.0
+  summary: EII property.
+  metadata: {}
+uid: CatLibrary.Cat`2.Name*
+commentId: Overload:CatLibrary.Cat`2.Name
+namespace: CatLibrary
+name: Name
+fullName: CatLibrary.Cat<T,K>.Name
+nameWithType: Cat<T,K>.Name
+devLangs:
+- csharp
+- vb
+- cpp
+- fsharp
+monikers:
+- cat-1.0
+- cat-2.0
+metadata:
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  _op_overwriteFileGitUrl: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  ms.openlocfilehash: 77d1b2a652c118438281090f72ac4caa93feec1a
+  ms.sourcegitcommit: 055a4a82a0b08bfbdc21bd1347fb71f7fe2c099e
+  ms.translationtype: MT
+  ms.contentlocale: zh-CN
+  ms.lasthandoff: 08/15/2019
+  ms.locfileid: "69262388"
+  api_name:
+  - CatLibrary.Cat`2.Name
+  - CatLibrary.Cat`2.get_Name
+  api_location:
+  - CatLibrary.dll
+  topic_type:
+  - apiref
+  api_type:
+  - Assembly
+  f1_keywords:
+  - CatLibrary.Cat`2.Name
+  - CatLibrary::Cat`2::Name
+  helpviewer_keywords:
+  - Cat<T,K>.Name property [.NET]
+  - Name property [.NET], class Cat<T,K>

@@ -1,0 +1,80 @@
+### YamlMime:NetMember
+type: operator
+members:
+- returns:
+    description: Advanced class type of cat.
+    type: <xref href="CatLibrary.Tom?alt=CatLibrary.Tom&text=Tom" data-throw-if-not-resolved="True"/>
+  parameters:
+  - namesWithMoniker:
+    - value: src
+    description: Instance of this class.
+    type: <xref href="CatLibrary.Cat`2?alt=CatLibrary.Cat`2&text=Cat%3CT%2CK%3E" data-throw-if-not-resolved="True"/>
+  uid: CatLibrary.Cat`2.op_Explicit(CatLibrary.Cat{`0,`1})~CatLibrary.Tom
+  commentId: M:CatLibrary.Cat`2.op_Explicit(CatLibrary.Cat{`0,`1})~CatLibrary.Tom
+  name: Explicit(Cat<T,K> to Tom)
+  fullName: CatLibrary.Cat<T,K>.Explicit(Cat<T,K> to Tom)
+  nameWithType: Cat<T,K>.Explicit(Cat<T,K> to Tom)
+  syntaxWithMoniker:
+  - lang: cpp
+    values:
+    - value: >-
+        public:
+         static explicit operator CatLibrary::Tom ^(CatLibrary::Cat<T, K> ^ src);
+  - lang: csharp
+    values:
+    - value: public static explicit operator CatLibrary.Tom(CatLibrary.Cat<T,K> src);
+  - lang: fsharp
+    values:
+    - value: "static member op_Explicit : CatLibrary.Cat<'T, 'K (requires 'T : null and 'T : (new : unit -> 'T) and 'K : struct)> -> CatLibrary.Tom"
+  - lang: vb
+    values:
+    - value: Public Shared Narrowing Operator CType (src As Cat(Of T, K)) As Tom
+  monikers:
+  - cat-1.0
+  - cat-2.0
+  summary: >-
+    Expilicit operator of this class.
+
+    <p>It means this cat can evolve to change to Tom. Tom and Jerry.</p>
+  metadata: {}
+uid: CatLibrary.Cat`2.op_Explicit*
+commentId: Overload:CatLibrary.Cat`2.op_Explicit
+namespace: CatLibrary
+name: Explicit
+fullName: CatLibrary.Cat<T,K>.Explicit
+nameWithType: Cat<T,K>.Explicit
+devLangs:
+- csharp
+- vb
+- cpp
+- fsharp
+monikers:
+- cat-1.0
+- cat-2.0
+metadata:
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  _op_overwriteFileGitUrl: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  ms.openlocfilehash: 77d1b2a652c118438281090f72ac4caa93feec1a
+  ms.sourcegitcommit: 055a4a82a0b08bfbdc21bd1347fb71f7fe2c099e
+  ms.translationtype: MT
+  ms.contentlocale: zh-CN
+  ms.lasthandoff: 08/15/2019
+  ms.locfileid: "69262388"
+  api_name:
+  - CatLibrary.Cat`2.Explicit
+  - CatLibrary.Cat`2.op_Explicit
+  api_location:
+  - CatLibrary.dll
+  topic_type:
+  - apiref
+  api_type:
+  - Assembly
+  f1_keywords:
+  - CatLibrary.Cat`2.op_Explicit
+  - CatLibrary::Cat`2::op_Explicit
+  helpviewer_keywords:
+  - Cat<T,K>.Explicit operator [.NET]
+  - Explicit operator [.NET], class Cat<T,K>
+  - Cat<T,K>.Explicit(Cat<T,K> to Tom) operator [.NET]
+  - Explicit(Cat<T,K> to Tom) operator [.NET], class Cat<T,K>
