@@ -46,7 +46,7 @@ steps:
 - task: PublishPipelineArtifact@1
   displayName: 'Publish Pipeline Artifact'
   inputs:
-    targetPath: '$(Pipeline.Workspace)\test'
+    targetPath: 'test'
     artifact: test
   condition: succeededOrFailed()
 
