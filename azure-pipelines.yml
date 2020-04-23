@@ -50,6 +50,17 @@ steps:
     artifact: test
   condition: succeededOrFailed()
 
+- task: EsrpCodeSigning@1
+  displayName: Sign exe, dll and powershell files
+  inputs:
+    ConnectedServiceName: 'CodeSigning-APEX'
+    FolderPath: '$(System.DefaultWorkingDirectory)'
+    signType: 'batchSigning'
+    batchSignPolicyFile: 'CodeSign_Executable.json'
+    SessionTimeout: '60'
+    MaxConcurrency: '100'
+    MaxRetryAttempts: '5'
+
 # Pack ECMA2Yaml
 - task: PowerShell@2
   displayName: Nuget Pack ECMA2Yaml

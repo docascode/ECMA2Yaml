@@ -77,7 +77,7 @@ namespace ECMA2Yaml
                     Name = ol.DisplayName
                 };
                 tocEntry.Metadata["type"] = ol.ItemType.ToString();
-                if (ol.ItemType == ItemType.Method && olGroup.First().IsEII)
+                if ((ol.ItemType == ItemType.Method|| ol.ItemType == ItemType.Property) && olGroup.First().IsEII)
                 {
                     tocEntry.Metadata["isEii"] = true;
                 }
