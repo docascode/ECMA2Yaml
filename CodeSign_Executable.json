@@ -28,7 +28,11 @@
               },
               {
                 "parameterName": "TimeStamp",
-                "parameterValue": "/t \"http://ts2048.gtm.microsoft.com/TSS/AuthenticodeTS\""
+                "parameterValue": "/tr \"http://rfc3161.gtm.corp.microsoft.com/TSS/HttpTspServer\" /td sha256"
+              },
+              {
+                "parameterName": "FileDigest",
+                "parameterValue": "/fd \"SHA256\""
               }
             ],
             "ToolName": "sign",
