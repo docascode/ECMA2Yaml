@@ -95,25 +95,25 @@ namespace ECMA2Yaml
                 Remarks = item.Docs.Remarks,
                 Examples = item.Docs.Examples,
                 Monikers = item.Monikers,
-                Source = _store.UWPMode ? item.SourceDetail.ToSDPSourceDetail() : null
+                Source = _store.UWPMode || _store.DemoMode ? item.SourceDetail.ToSDPSourceDetail() : null
             };
 
             if(_withVersioning)
             {
-                rval.AssembliesWithMoniker = _store.UWPMode && !_store.DemoMode ? null : MonikerizeAssemblyStrings(item);
-                rval.PackagesWithMoniker = _store.UWPMode && !_store.DemoMode ? null : MonikerizePackageStrings(item, _store.PkgInfoMapping);
+                rval.AssembliesWithMoniker = _store.UWPMode? null : MonikerizeAssemblyStrings(item);
+                rval.PackagesWithMoniker = _store.UWPMode? null : MonikerizePackageStrings(item, _store.PkgInfoMapping);
                 rval.AttributesWithMoniker = item.Attributes?.Where(att => att.Visible)
                     .Select(att => new VersionedString() { Value = att.TypeFullName, Monikers = att.Monikers?.ToHashSet() })
                     .ToList().NullIfEmpty();
                 rval.AttributeMonikers = ConverterHelper.ConsolidateVersionedValues(rval.AttributesWithMoniker, item.Monikers);
-                rval.SyntaxWithMoniker = ConverterHelper.BuildVersionedSignatures(item, uwpMode: _store.UWPMode && !_store.DemoMode)?.NullIfEmpty();
+                rval.SyntaxWithMoniker = ConverterHelper.BuildVersionedSignatures(item, uwpMode: _store.UWPMode)?.NullIfEmpty();
             }
             else
             {
-                rval.Assemblies = _store.UWPMode && !_store.DemoMode ? null : item.AssemblyInfo?.Select(asm => asm.Name).Distinct().ToList();
+                rval.Assemblies = _store.UWPMode? null : item.AssemblyInfo?.Select(asm => asm.Name).Distinct().ToList();
                 rval.Attributes = item.Attributes?.Where(att => att.Visible).Select(att => att.TypeFullName)
                     .ToList().NullIfEmpty();
-                var rawSignatures = ConverterHelper.BuildSignatures(item, uwpMode: _store.UWPMode && !_store.DemoMode);
+                var rawSignatures = ConverterHelper.BuildSignatures(item, uwpMode: _store.UWPMode);
                 rval.Syntax = rawSignatures?.Select(sig => new SignatureModel() { Lang = sig.Key, Value = sig.Value }).ToList();
             }
 
@@ -156,7 +156,7 @@ namespace ECMA2Yaml
                 rval.IsDeprecated = true;
             }
 
-            if (_store.UWPMode)
+            if (_store.UWPMode || _store.DemoMode)
             {
                 GenerateUWPRequirements(rval, item);
             }

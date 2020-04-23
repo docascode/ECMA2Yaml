@@ -122,7 +122,7 @@ namespace ECMA2Yaml.Models
             }
 
             //special handling for compatibility in UWP legacy MD content
-            if (store.UWPMode && !store.DemoMode && DocId != null)
+            if (store.UWPMode && DocId != null)
             {
                 var pos1 = Id.IndexOf('(');
                 var pos2 = DocId.IndexOf('(');

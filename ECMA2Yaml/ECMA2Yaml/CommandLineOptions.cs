@@ -74,7 +74,7 @@ namespace ECMA2Yaml
             if (DemoMode)
             {
                 SDPMode = true;
-                UWPMode = true;
+                UWPMode = false;
             }
             PublicRepoBranch = PublicRepoBranch ?? RepoBranch;
             PublicRepoUrl = PublicRepoUrl ?? RepoUrl;
