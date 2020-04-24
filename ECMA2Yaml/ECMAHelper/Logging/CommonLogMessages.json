@@ -5,7 +5,7 @@
       "log_codes": [
         {
           "log_code": "ECMA2Yaml_SDP_MigrationNeeded",
-          "message": "This repo/docset is not SDP-enabled. Please contact apidocs-team@service.microsoft.com to enable SDP on this repo",
+          "message": "This repo/docset is not SDP-enabled. Please contact apidocs-team@service.microsoft.com to enable SDP on this repo.",
           "document_url": ""
         },
         {

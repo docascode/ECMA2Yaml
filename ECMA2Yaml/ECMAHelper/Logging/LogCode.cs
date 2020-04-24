@@ -13,7 +13,7 @@ namespace ECMA2Yaml
     public class LogCode : LogCodeBase
     {
     #region ECMA2Yaml
-		public static readonly LogCode ECMA2Yaml_SDP_MigrationNeeded = new LogCode("ECMA2Yaml_SDP_MigrationNeeded", "This repo/docset is not SDP-enabled. Please contact apidocs-team@service.microsoft.com to enable SDP on this repo");
+		public static readonly LogCode ECMA2Yaml_SDP_MigrationNeeded = new LogCode("ECMA2Yaml_SDP_MigrationNeeded", "This repo/docset is not SDP-enabled. Please contact apidocs-team@service.microsoft.com to enable SDP on this repo.");
 		public static readonly LogCode ECMA2Yaml_Uid_Duplicated = new LogCode("ECMA2Yaml_Uid_Duplicated", "Duplicate uid found: {0}");
 		public static readonly LogCode ECMA2Yaml_DocId_Duplicated = new LogCode("ECMA2Yaml_DocId_Duplicated", "Duplicated DocId found: {0}");
 		public static readonly LogCode ECMA2Yaml_MemberGroup_Duplicated = new LogCode("ECMA2Yaml_MemberGroup_Duplicated", "Found duplicated <MemberGroup> {0}");
