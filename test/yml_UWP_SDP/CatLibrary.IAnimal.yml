@@ -59,14 +59,12 @@ metadata:
   original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/IAnimal.xml
   api_name:
   - CatLibrary.IAnimal
-  api_location:
-  - CatLibrary.dll
+  f1_keywords:
+  - CatLibrary.IAnimal
+  - CatLibrary::IAnimal
   topic_type:
   - apiref
   api_type:
   - Assembly
-  f1_keywords:
-  - CatLibrary.IAnimal
-  - CatLibrary::IAnimal
   helpviewer_keywords:
   - CatLibrary.IAnimal interface [.NET]

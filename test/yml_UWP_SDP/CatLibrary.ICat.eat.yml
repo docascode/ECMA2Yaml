@@ -43,15 +43,13 @@ metadata:
   - CatLibrary.ICat.eat
   - CatLibrary.ICat.add_eat
   - CatLibrary.ICat.remove_eat
-  api_location:
-  - CatLibrary.dll
+  f1_keywords:
+  - CatLibrary.ICat.eat
+  - CatLibrary::ICat::eat
   topic_type:
   - apiref
   api_type:
   - Assembly
-  f1_keywords:
-  - CatLibrary.ICat.eat
-  - CatLibrary::ICat::eat
   helpviewer_keywords:
   - ICat.eat event [.NET]
   - eat event [.NET], interface ICat

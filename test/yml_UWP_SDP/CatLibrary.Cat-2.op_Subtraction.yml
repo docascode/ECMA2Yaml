@@ -62,15 +62,13 @@ metadata:
   api_name:
   - CatLibrary.Cat`2.Subtraction
   - CatLibrary.Cat`2.op_Subtraction
-  api_location:
-  - CatLibrary.dll
+  f1_keywords:
+  - CatLibrary.Cat`2.op_Subtraction
+  - CatLibrary::Cat`2::op_Subtraction
   topic_type:
   - apiref
   api_type:
   - Assembly
-  f1_keywords:
-  - CatLibrary.Cat`2.op_Subtraction
-  - CatLibrary::Cat`2::op_Subtraction
   helpviewer_keywords:
   - Cat<T,K>.Subtraction operator [.NET]
   - Subtraction operator [.NET], class Cat<T,K>

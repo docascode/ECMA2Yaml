@@ -41,15 +41,13 @@ metadata:
   original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/H.xml
   api_name:
   - VersioningTest.H..ctor
-  api_location:
-  - CatLibrary.dll
+  f1_keywords:
+  - VersioningTest.H.#ctor
+  - VersioningTest::H::#ctor
   topic_type:
   - apiref
   api_type:
   - Assembly
-  f1_keywords:
-  - VersioningTest.H.#ctor
-  - VersioningTest::H::#ctor
   helpviewer_keywords:
   - H class [.NET], constructors
   - H() class [.NET], constructors

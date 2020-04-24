@@ -64,15 +64,13 @@ metadata:
   api_name:
   - CatLibrary.Cat`2.Explicit
   - CatLibrary.Cat`2.op_Explicit
-  api_location:
-  - CatLibrary.dll
+  f1_keywords:
+  - CatLibrary.Cat`2.op_Explicit
+  - CatLibrary::Cat`2::op_Explicit
   topic_type:
   - apiref
   api_type:
   - Assembly
-  f1_keywords:
-  - CatLibrary.Cat`2.op_Explicit
-  - CatLibrary::Cat`2::op_Explicit
   helpviewer_keywords:
   - Cat<T,K>.Explicit operator [.NET]
   - Explicit operator [.NET], class Cat<T,K>

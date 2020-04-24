@@ -44,15 +44,13 @@ metadata:
   original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/ICat.xml
   api_name:
   - CatLibrary.ICat.CatchJerry
-  api_location:
-  - CatLibrary.dll
+  f1_keywords:
+  - CatLibrary.ICat.CatchJerry
+  - CatLibrary::ICat::CatchJerry
   topic_type:
   - apiref
   api_type:
   - Assembly
-  f1_keywords:
-  - CatLibrary.ICat.CatchJerry
-  - CatLibrary::ICat::CatchJerry
   helpviewer_keywords:
   - ICat.CatchJerry method [.NET]
   - CatchJerry method [.NET], interface ICat

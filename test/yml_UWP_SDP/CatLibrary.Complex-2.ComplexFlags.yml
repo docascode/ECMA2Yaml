@@ -85,12 +85,6 @@ metadata:
   - CatLibrary.Complex`2.ComplexFlags.None
   - CatLibrary.Complex`2.ComplexFlags.SkipInitialPreparation
   - CatLibrary.Complex`2.ComplexFlags.StickyWrite
-  api_location:
-  - CatLibrary.dll
-  topic_type:
-  - apiref
-  api_type:
-  - Assembly
   f1_keywords:
   - CatLibrary.Complex`2.ComplexFlags
   - CatLibrary::Complex`2::ComplexFlags
@@ -100,5 +94,9 @@ metadata:
   - CatLibrary::Complex`2::ComplexFlags::SkipInitialPreparation
   - CatLibrary.Complex`2.ComplexFlags.StickyWrite
   - CatLibrary::Complex`2::ComplexFlags::StickyWrite
+  topic_type:
+  - apiref
+  api_type:
+  - Assembly
   helpviewer_keywords:
   - CatLibrary.Complex<T,J>.ComplexFlags enum [.NET]

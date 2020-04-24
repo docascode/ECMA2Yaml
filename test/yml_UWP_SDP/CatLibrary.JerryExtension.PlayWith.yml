@@ -56,15 +56,13 @@ metadata:
   original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/JerryExtension.xml
   api_name:
   - CatLibrary.JerryExtension.PlayWith
-  api_location:
-  - CatLibrary.dll
+  f1_keywords:
+  - CatLibrary.JerryExtension.PlayWith
+  - CatLibrary::JerryExtension::PlayWith
   topic_type:
   - apiref
   api_type:
   - Assembly
-  f1_keywords:
-  - CatLibrary.JerryExtension.PlayWith
-  - CatLibrary::JerryExtension::PlayWith
   helpviewer_keywords:
   - JerryExtension.PlayWith method [.NET]
   - PlayWith method [.NET], class JerryExtension

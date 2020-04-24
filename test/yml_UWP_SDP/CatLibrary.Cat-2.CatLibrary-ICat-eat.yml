@@ -44,14 +44,12 @@ metadata:
   - CatLibrary.Cat`2.CatLibrary.ICat.eat
   - CatLibrary.Cat`2.CatLibrary.ICat.add_eat
   - CatLibrary.Cat`2.CatLibrary.ICat.remove_eat
-  api_location:
-  - CatLibrary.dll
+  f1_keywords:
+  - CatLibrary.Cat`2.CatLibrary#ICat#eat
+  - CatLibrary::Cat`2::CatLibrary#ICat#eat
   topic_type:
   - apiref
   api_type:
   - Assembly
-  f1_keywords:
-  - CatLibrary.Cat`2.CatLibrary#ICat#eat
-  - CatLibrary::Cat`2::CatLibrary#ICat#eat
   helpviewer_keywords:
   - ICat.eat explicitly implemented event [.NET]
