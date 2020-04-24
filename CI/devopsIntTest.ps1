@@ -14,8 +14,8 @@ else {
     Write-Host "Done testing intellisense..."
 }
 
-& "$repoRoot/ECMA2Yaml/ECMA2Yaml/bin/Release/ECMA2Yaml.exe" -s $repoRoot\test\xml -o $repoRoot\test\yml_SDP_After --SDP -f --repoRoot $repoRoot\\ --repoBranch master --repoUrl https://github.com/docascode/ECMA2Yaml
-& "$repoRoot/ECMA2Yaml/DiffFiles/bin/Release/DiffFiles.exe" -o $repoRoot\test\yml_SDP -n $repoRoot\test\yml_SDP_After -l $repoRoot\test --Path
+& "$repoRoot/ECMA2Yaml/ECMA2Yaml/bin/Release/ECMA2Yaml.exe" -s $repoRoot\test\xml -o $repoRoot\test\_yml_SDP_After --SDP -f --repoRoot $repoRoot\\ --repoBranch master --repoUrl https://github.com/docascode/ECMA2Yaml
+& "$repoRoot/ECMA2Yaml/DiffFiles/bin/Release/DiffFiles.exe" -o $repoRoot\test\yml_SDP -n $repoRoot\test\_yml_SDP_After -l $repoRoot\test --Path
 if ($LASTEXITCODE -ne 0)
 {
     Write-Error "Diff found for SDP yml."

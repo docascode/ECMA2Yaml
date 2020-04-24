@@ -24,7 +24,6 @@ namespace ECMA2Yaml
                     toc.Items.Add(GenerateTocItemForNamespace(ns));
                 }
             }
-            toc.Metadata[OPSMetadata.V3TOCSplitItemsBy] = nameof(TocItemViewModel.Name).ToLower();
             return toc;
         }
 
