@@ -10,7 +10,7 @@ namespace ECMA2Yaml.YamlHelpers
     public class StringQuotingEmitter : ChainedEventEmitter
     {
         // Patterns from https://yaml.org/spec/1.2/spec.html#id2804356
-        private static Regex quotedRegex = new Regex("^(null|[tT]rue|[fF]alse|-?(0|[1-9][0-9]*)(\\.[0-9]*)?([eE][-+]?[0-9]+)?)?$", RegexOptions.Compiled);
+        private static Regex quotedRegex = new Regex("^([nN]ull|[tT]rue|[fF]alse|-?(0|[1-9][0-9]*)(\\.[0-9]*)?([eE][-+]?[0-9]+)?)?$", RegexOptions.Compiled);
         public StringQuotingEmitter(IEventEmitter next) : base(next) { }
         public override void Emit(ScalarEventInfo eventInfo, IEmitter emitter)
         {
