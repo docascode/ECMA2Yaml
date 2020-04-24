@@ -48,6 +48,7 @@ namespace ECMA2Yaml
             sdpOverload.DevLangs = sdpOverload.Members.SelectMany(m => m.DevLangs).Distinct().ToList();
             sdpOverload.Monikers = sdpOverload.Members.Where(m => m.Monikers != null).SelectMany(m => m.Monikers).Distinct().ToList();
 
+            bool isFirstFlag = true;
             foreach (var m in sdpOverload.Members)
             {
                 m.Namespace = null;
@@ -55,6 +56,16 @@ namespace ECMA2Yaml
                 m.AssembliesWithMoniker = null;
                 m.PackagesWithMoniker = null;
                 m.DevLangs = null;
+
+                //One group members keep only one thread safety info on first member
+                if (!isFirstFlag)
+                {
+                    m.ThreadSafety = null;
+                }
+                else
+                {
+                    isFirstFlag = false;
+                }
             }
 
             GenerateRequiredMetadata(sdpOverload, overload ?? members.First(), members.Cast<ReflectionItem>().ToList());
