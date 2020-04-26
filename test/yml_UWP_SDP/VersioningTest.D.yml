@@ -108,3 +108,6 @@ metadata:
   - VersioningTest::D
   helpviewer_keywords:
   - VersioningTest.D class [.NET]
+  monikers:
+  - cat-1.0
+  - cat-2.0

@@ -62,3 +62,6 @@ metadata:
   helpviewer_keywords:
   - TomFromBaseClass class [.NET], constructors
   - TomFromBaseClass(Int32) class [.NET], constructors
+  monikers:
+  - cat-1.0
+  - cat-2.0

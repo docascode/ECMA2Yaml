@@ -61,3 +61,6 @@ metadata:
   - VersioningTest::A
   helpviewer_keywords:
   - VersioningTest.A class [.NET]
+  monikers:
+  - cat-1.0
+  - cat-2.0

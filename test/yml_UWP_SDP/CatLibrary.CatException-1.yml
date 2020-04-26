@@ -62,3 +62,6 @@ metadata:
   - CatLibrary::CatException`1
   helpviewer_keywords:
   - CatLibrary.CatException<T> class [.NET]
+  monikers:
+  - cat-1.0
+  - cat-2.0

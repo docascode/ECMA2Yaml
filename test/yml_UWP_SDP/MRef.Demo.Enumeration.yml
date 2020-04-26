@@ -22,3 +22,6 @@ metadata:
   - MRef::Demo::Enumeration
   helpviewer_keywords:
   - MRef.Demo.Enumeration namespace [.NET]
+  monikers:
+  - cat-1.0
+  - cat-2.0

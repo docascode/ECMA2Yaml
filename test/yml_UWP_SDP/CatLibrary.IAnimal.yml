@@ -70,3 +70,6 @@ metadata:
   - CatLibrary::IAnimal
   helpviewer_keywords:
   - CatLibrary.IAnimal interface [.NET]
+  monikers:
+  - cat-1.0
+  - cat-2.0

@@ -74,3 +74,6 @@ metadata:
   - CalculateFood method [.NET], class Cat<T,K>
   - Cat<T,K>.CalculateFood(DateTime) method [.NET]
   - CalculateFood(DateTime) method [.NET], class Cat<T,K>
+  monikers:
+  - cat-1.0
+  - cat-2.0

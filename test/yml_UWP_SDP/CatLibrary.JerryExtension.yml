@@ -51,3 +51,5 @@ metadata:
   - CatLibrary::JerryExtension
   helpviewer_keywords:
   - CatLibrary.JerryExtension class [.NET]
+  monikers:
+  - cat-2.0

@@ -78,3 +78,6 @@ metadata:
   - Explicit operator [.NET], class Cat<T,K>
   - Cat<T,K>.Explicit(Cat<T,K> to Tom) operator [.NET]
   - Explicit(Cat<T,K> to Tom) operator [.NET], class Cat<T,K>
+  monikers:
+  - cat-1.0
+  - cat-2.0

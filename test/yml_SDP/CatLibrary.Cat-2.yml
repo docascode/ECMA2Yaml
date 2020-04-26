@@ -209,3 +209,6 @@ metadata:
   - CatLibrary::Cat`2
   helpviewer_keywords:
   - CatLibrary.Cat<T,K> class [.NET]
+  monikers:
+  - cat-1.0
+  - cat-2.0

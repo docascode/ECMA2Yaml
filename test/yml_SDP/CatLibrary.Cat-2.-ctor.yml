@@ -198,3 +198,6 @@ metadata:
   - Cat<T,K>() class [.NET], constructors
   - Cat<T,K>(T) class [.NET], constructors
   - Cat<T,K>(String, Int32, String, Boolean) class [.NET], constructors
+  monikers:
+  - cat-1.0
+  - cat-2.0

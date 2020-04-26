@@ -58,3 +58,6 @@ metadata:
   - VersioningTest
   helpviewer_keywords:
   - VersioningTest namespace [.NET]
+  monikers:
+  - cat-1.0
+  - cat-2.0

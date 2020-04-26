@@ -76,3 +76,6 @@ metadata:
   - Subtraction operator [.NET], class Cat<T,K>
   - Cat<T,K>.Subtraction(Cat<T,K>, Int32) operator [.NET]
   - Subtraction(Cat<T,K>, Int32) operator [.NET], class Cat<T,K>
+  monikers:
+  - cat-1.0
+  - cat-2.0

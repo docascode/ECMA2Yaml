@@ -55,3 +55,5 @@ metadata:
   - CatLibrary::TomFromBaseClass::Jerry
   helpviewer_keywords:
   - CatLibrary.TomFromBaseClass.Jerry class [.NET]
+  monikers:
+  - cat-2.0

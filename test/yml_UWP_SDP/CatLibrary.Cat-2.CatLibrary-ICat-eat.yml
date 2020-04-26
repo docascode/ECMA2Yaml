@@ -55,3 +55,6 @@ metadata:
   - CatLibrary::Cat`2::CatLibrary#ICat#eat
   helpviewer_keywords:
   - ICat.eat explicitly implemented event [.NET]
+  monikers:
+  - cat-1.0
+  - cat-2.0

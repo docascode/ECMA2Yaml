@@ -259,6 +259,15 @@ namespace ECMA2Yaml
             }
             F1KeywordsGenerator.Generate(model, item, childrenItems);
             HelpViewerKeywordsGenerator.Generate(model, item, childrenItems);
+            
+            // Per V3 requirement, we need to put page level monikers in metadata node.
+            // To make it compatible with V2 and existing template code, we choose to duplicate this meta in both root level and metadata node
+            if (model is OverloadSDPModel
+                || model is TypeSDPModel
+                || model is NamespaceSDPModel)
+            {
+                model.Metadata[OPSMetadata.Monikers] = model.Monikers;
+            }
         }
 
         private IEnumerable<TypeParameterSDPModel> ConvertTypeParameters(ReflectionItem item)

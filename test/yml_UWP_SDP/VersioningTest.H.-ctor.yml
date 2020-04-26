@@ -53,3 +53,6 @@ metadata:
   helpviewer_keywords:
   - H class [.NET], constructors
   - H() class [.NET], constructors
+  monikers:
+  - cat-1.0
+  - cat-2.0

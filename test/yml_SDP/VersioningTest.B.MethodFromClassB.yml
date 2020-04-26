@@ -73,3 +73,6 @@ metadata:
   - MethodFromClassB method [.NET], class B
   - B.MethodFromClassB(String) method [.NET]
   - MethodFromClassB(String) method [.NET], class B
+  monikers:
+  - cat-1.0
+  - cat-2.0

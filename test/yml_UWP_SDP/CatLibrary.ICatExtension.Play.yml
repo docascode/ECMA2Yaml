@@ -74,3 +74,6 @@ metadata:
   - Play method [.NET], class ICatExtension
   - ICatExtension.Play(ICat, String) extension method [.NET]
   - Play(ICat, String) extension method [.NET], class ICatExtension
+  monikers:
+  - cat-1.0
+  - cat-2.0

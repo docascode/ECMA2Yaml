@@ -56,3 +56,6 @@ metadata:
   - VersioningTest::VersioningExtensions
   helpviewer_keywords:
   - VersioningTest.VersioningExtensions class [.NET]
+  monikers:
+  - cat-1.0
+  - cat-2.0

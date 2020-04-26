@@ -62,3 +62,6 @@ metadata:
   - CatLibrary::Complex`2
   helpviewer_keywords:
   - CatLibrary.Complex<T,J> class [.NET]
+  monikers:
+  - cat-1.0
+  - cat-2.0

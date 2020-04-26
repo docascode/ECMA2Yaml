@@ -142,3 +142,6 @@ metadata:
   - IAnimal.Eat(String) explicitly implemented method [.NET]
   - IAnimal.Eat() explicitly implemented method [.NET]
   - IAnimal.Eat<Tool>(Tool) explicitly implemented method [.NET]
+  monikers:
+  - cat-1.0
+  - cat-2.0
