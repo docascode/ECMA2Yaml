@@ -67,9 +67,15 @@ namespace ECMA2Yaml
                 PrintUsage();
                 return false;
             }
+
+            (var repoRootPath, var fallbackRepoRoot) = ECMALoader.GetRepoRootBySubPath(SourceFolder);
             if (string.IsNullOrEmpty(RepoRootPath))
             {
-                (RepoRootPath, FallbackRepoRoot) = ECMALoader.GetRepoRootBySubPath(SourceFolder);
+                RepoRootPath = repoRootPath;
+            }
+            if (string.IsNullOrEmpty(FallbackRepoRoot))
+            {
+                FallbackRepoRoot = fallbackRepoRoot;
             }
             if (DemoMode)
             {
