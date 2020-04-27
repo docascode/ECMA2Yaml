@@ -48,14 +48,12 @@ metadata:
   - CatLibrary.MRefNormalDelegate.Invoke
   - CatLibrary.MRefNormalDelegate.BeginInvoke
   - CatLibrary.MRefNormalDelegate.EndInvoke
-  api_location:
-  - CatLibrary.dll
+  f1_keywords:
+  - CatLibrary.MRefNormalDelegate
+  - CatLibrary::MRefNormalDelegate
   topic_type:
   - apiref
   api_type:
   - Assembly
-  f1_keywords:
-  - CatLibrary.MRefNormalDelegate
-  - CatLibrary::MRefNormalDelegate
   helpviewer_keywords:
   - CatLibrary.MRefNormalDelegate delegate [.NET]

@@ -57,15 +57,13 @@ metadata:
   api_name:
   - CatLibrary.Cat`2.Name
   - CatLibrary.Cat`2.get_Name
-  api_location:
-  - CatLibrary.dll
+  f1_keywords:
+  - CatLibrary.Cat`2.Name
+  - CatLibrary::Cat`2::Name
   topic_type:
   - apiref
   api_type:
   - Assembly
-  f1_keywords:
-  - CatLibrary.Cat`2.Name
-  - CatLibrary::Cat`2::Name
   helpviewer_keywords:
   - Cat<T,K>.Name property [.NET]
   - Name property [.NET], class Cat<T,K>

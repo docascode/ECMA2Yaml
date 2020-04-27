@@ -64,15 +64,13 @@ metadata:
   - CatLibrary.Cat`2.Item
   - CatLibrary.Cat`2.get_Item
   - CatLibrary.Cat`2.set_Item
-  api_location:
-  - CatLibrary.dll
+  f1_keywords:
+  - CatLibrary.Cat`2.Item
+  - CatLibrary::Cat`2::Item
   topic_type:
   - apiref
   api_type:
   - Assembly
-  f1_keywords:
-  - CatLibrary.Cat`2.Item
-  - CatLibrary::Cat`2::Item
   helpviewer_keywords:
   - Cat<T,K>.Item[String] property [.NET]
   - Item[String] property [.NET], class Cat<T,K>

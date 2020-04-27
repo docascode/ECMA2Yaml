@@ -41,15 +41,13 @@ metadata:
   original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/CatException`1.xml
   api_name:
   - CatLibrary.CatException`1..ctor
-  api_location:
-  - CatLibrary.dll
+  f1_keywords:
+  - CatLibrary.CatException`1.#ctor
+  - CatLibrary::CatException`1::#ctor
   topic_type:
   - apiref
   api_type:
   - Assembly
-  f1_keywords:
-  - CatLibrary.CatException`1.#ctor
-  - CatLibrary::CatException`1::#ctor
   helpviewer_keywords:
   - CatException<T> class [.NET], constructors
   - CatException<T>() class [.NET], constructors

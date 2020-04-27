@@ -79,14 +79,12 @@ metadata:
   - CatLibrary.FakeDelegate`1.Invoke
   - CatLibrary.FakeDelegate`1.BeginInvoke
   - CatLibrary.FakeDelegate`1.EndInvoke
-  api_location:
-  - CatLibrary.dll
+  f1_keywords:
+  - CatLibrary.FakeDelegate`1
+  - CatLibrary::FakeDelegate`1
   topic_type:
   - apiref
   api_type:
   - Assembly
-  f1_keywords:
-  - CatLibrary.FakeDelegate`1
-  - CatLibrary::FakeDelegate`1
   helpviewer_keywords:
   - CatLibrary.FakeDelegate<T> delegate [.NET]

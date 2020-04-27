@@ -103,14 +103,12 @@ metadata:
   original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Tom.xml
   api_name:
   - CatLibrary.Tom
-  api_location:
-  - CatLibrary.dll
+  f1_keywords:
+  - CatLibrary.Tom
+  - CatLibrary::Tom
   topic_type:
   - apiref
   api_type:
   - Assembly
-  f1_keywords:
-  - CatLibrary.Tom
-  - CatLibrary::Tom
   helpviewer_keywords:
   - CatLibrary.Tom class [.NET]

@@ -63,15 +63,13 @@ metadata:
   ms.locfileid: "69262388"
   api_name:
   - CatLibrary.Cat`2.GetTailLength
-  api_location:
-  - CatLibrary.dll
+  f1_keywords:
+  - CatLibrary.Cat`2.GetTailLength
+  - CatLibrary::Cat`2::GetTailLength
   topic_type:
   - apiref
   api_type:
   - Assembly
-  f1_keywords:
-  - CatLibrary.Cat`2.GetTailLength
-  - CatLibrary::Cat`2::GetTailLength
   helpviewer_keywords:
   - Cat<T,K>.GetTailLength method [.NET]
   - GetTailLength method [.NET], class Cat<T,K>

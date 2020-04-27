@@ -60,15 +60,13 @@ metadata:
   original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/ICatExtension.xml
   api_name:
   - CatLibrary.ICatExtension.Play
-  api_location:
-  - CatLibrary.dll
+  f1_keywords:
+  - CatLibrary.ICatExtension.Play
+  - CatLibrary::ICatExtension::Play
   topic_type:
   - apiref
   api_type:
   - Assembly
-  f1_keywords:
-  - CatLibrary.ICatExtension.Play
-  - CatLibrary::ICatExtension::Play
   helpviewer_keywords:
   - ICatExtension.Play method [.NET]
   - Play method [.NET], class ICatExtension
