@@ -82,3 +82,6 @@ metadata:
   - CatLibrary::MRefDelegate`3
   helpviewer_keywords:
   - CatLibrary.MRefDelegate<K,T,L> delegate [.NET]
+  monikers:
+  - cat-1.0
+  - cat-2.0

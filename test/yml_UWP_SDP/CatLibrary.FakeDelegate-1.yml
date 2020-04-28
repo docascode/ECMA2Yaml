@@ -90,3 +90,6 @@ metadata:
   - CatLibrary::FakeDelegate`1
   helpviewer_keywords:
   - CatLibrary.FakeDelegate<T> delegate [.NET]
+  monikers:
+  - cat-1.0
+  - cat-2.0

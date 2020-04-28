@@ -109,3 +109,6 @@ metadata:
   - MRef::Demo::Enumeration::ColorType::Yellow
   helpviewer_keywords:
   - MRef.Demo.Enumeration.ColorType enum [.NET]
+  monikers:
+  - cat-1.0
+  - cat-2.0

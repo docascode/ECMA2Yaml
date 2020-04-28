@@ -264,7 +264,9 @@ namespace ECMA2Yaml
             // To make it compatible with V2 and existing template code, we choose to duplicate this meta in both root level and metadata node
             if (model is OverloadSDPModel
                 || model is TypeSDPModel
-                || model is NamespaceSDPModel)
+                || model is NamespaceSDPModel
+                || model is EnumSDPModel
+                || model is DelegateSDPModel)
             {
                 model.Metadata[OPSMetadata.Monikers] = model.Monikers;
             }

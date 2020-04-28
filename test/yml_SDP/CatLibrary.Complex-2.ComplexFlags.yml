@@ -89,3 +89,5 @@ metadata:
   - CatLibrary::Complex`2::ComplexFlags::StickyWrite
   helpviewer_keywords:
   - CatLibrary.Complex<T,J>.ComplexFlags enum [.NET]
+  monikers:
+  - cat-2.0
