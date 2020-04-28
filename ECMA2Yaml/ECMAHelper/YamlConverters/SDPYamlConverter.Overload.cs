@@ -48,6 +48,15 @@ namespace ECMA2Yaml
             sdpOverload.DevLangs = sdpOverload.Members.SelectMany(m => m.DevLangs).Distinct().ToList();
             sdpOverload.Monikers = sdpOverload.Members.Where(m => m.Monikers != null).SelectMany(m => m.Monikers).Distinct().ToList();
 
+            bool resetMemberThreadSafety = false;
+            // One group members keep only one thread safety info
+            var withThreadSafetyMembers = sdpOverload.Members.Where(p => p.ThreadSafety != null).ToList();
+            if (sdpOverload != null && withThreadSafetyMembers.Count() > 1)
+            {
+                sdpOverload.ThreadSafety = withThreadSafetyMembers.First().ThreadSafety;
+                resetMemberThreadSafety = true;
+            }
+
             foreach (var m in sdpOverload.Members)
             {
                 m.Namespace = null;
@@ -55,6 +64,11 @@ namespace ECMA2Yaml
                 m.AssembliesWithMoniker = null;
                 m.PackagesWithMoniker = null;
                 m.DevLangs = null;
+
+                if (resetMemberThreadSafety && m.ThreadSafety != null)
+                {
+                    m.ThreadSafety = null;
+                }
             }
 
             GenerateRequiredMetadata(sdpOverload, overload ?? members.First(), members.Cast<ReflectionItem>().ToList());
