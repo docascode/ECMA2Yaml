@@ -1,0 +1,67 @@
+### YamlMime:NetMember
+type: property
+members:
+- returns:
+    description: Animal name.
+    type: <xref href="System.String?alt=System.String&text=String" data-throw-if-not-resolved="True"/>
+  parameters:
+  - namesWithMoniker:
+    - value: index
+    description: Animal number.
+    type: <xref href="System.Int32?alt=System.Int32&text=Int32" data-throw-if-not-resolved="True"/>
+  uid: CatLibrary.IAnimal.Item(System.Int32)
+  commentId: P:CatLibrary.IAnimal.Item(System.Int32)
+  name: Item[Int32]
+  fullName: CatLibrary.IAnimal.Item[Int32]
+  nameWithType: IAnimal.Item[Int32]
+  syntaxWithMoniker:
+  - lang: cpp
+    values:
+    - value: >-
+        public:
+         property System::String ^ default[int] { System::String ^ get(int index); };
+  - lang: csharp
+    values:
+    - value: public string this[int index] { get; }
+  - lang: fsharp
+    values:
+    - value: 'member this.Item(int) : string'
+  - lang: vb
+    values:
+    - value: Default Public ReadOnly Property Item(index As Integer) As String
+  monikers:
+  - cat-1.0
+  - cat-2.0
+  summary: Return specific number animal's name.
+  metadata: {}
+uid: CatLibrary.IAnimal.Item*
+commentId: Overload:CatLibrary.IAnimal.Item
+namespace: CatLibrary
+name: Item[Int32]
+fullName: CatLibrary.IAnimal.Item[Int32]
+nameWithType: IAnimal.Item[Int32]
+devLangs:
+- csharp
+- vb
+- cpp
+- fsharp
+monikers:
+- cat-1.0
+- cat-2.0
+metadata:
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/IAnimal.xml
+  _op_overwriteFileGitUrl: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/IAnimal.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/IAnimal.xml
+  api_name:
+  - CatLibrary.IAnimal.Item
+  - CatLibrary.IAnimal.get_Item
+  f1_keywords:
+  - CatLibrary.IAnimal.Item
+  - CatLibrary::IAnimal::Item
+  topic_type:
+  - apiref
+  api_type:
+  - Assembly
+  helpviewer_keywords:
+  - IAnimal.Item[Int32] property [.NET]
+  - Item[Int32] property [.NET], interface IAnimal

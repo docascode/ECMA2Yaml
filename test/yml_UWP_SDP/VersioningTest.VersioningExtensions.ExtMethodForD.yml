@@ -1,0 +1,69 @@
+### YamlMime:NetMember
+type: method
+members:
+- parameters:
+  - namesWithMoniker:
+    - value: i
+    type: <xref href="VersioningTest.D?alt=VersioningTest.D&text=D" data-throw-if-not-resolved="True"/>
+  uid: VersioningTest.VersioningExtensions.ExtMethodForD(VersioningTest.D)
+  commentId: M:VersioningTest.VersioningExtensions.ExtMethodForD(VersioningTest.D)
+  name: ExtMethodForD(D)
+  fullName: VersioningTest.VersioningExtensions.ExtMethodForD(D)
+  nameWithType: VersioningExtensions.ExtMethodForD(D)
+  syntaxWithMoniker:
+  - lang: cpp
+    values:
+    - value: >-
+        public:
+
+        [Extension]
+         static void ExtMethodForD(VersioningTest::D ^ i);
+  - lang: csharp
+    values:
+    - value: public static void ExtMethodForD(this VersioningTest.D i);
+  - lang: fsharp
+    values:
+    - value: 'static member ExtMethodForD : VersioningTest.D -> unit'
+  - lang: vb
+    values:
+    - value: >-
+        <Extension()>
+
+        Public Sub ExtMethodForD (i As D)
+  monikers:
+  - cat-1.0
+  - cat-2.0
+  summary: this extension method should show up in class `D` for all monikers, and in `F/G/H` for `cat-2.0` only.
+  metadata: {}
+uid: VersioningTest.VersioningExtensions.ExtMethodForD*
+commentId: Overload:VersioningTest.VersioningExtensions.ExtMethodForD
+namespace: VersioningTest
+name: ExtMethodForD
+fullName: VersioningTest.VersioningExtensions.ExtMethodForD
+nameWithType: VersioningExtensions.ExtMethodForD
+devLangs:
+- csharp
+- vb
+- cpp
+- fsharp
+monikers:
+- cat-1.0
+- cat-2.0
+metadata:
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/VersioningExtensions.xml
+  _op_overwriteFileGitUrl: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/VersioningExtensions.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/VersioningExtensions.xml
+  api_name:
+  - VersioningTest.VersioningExtensions.ExtMethodForD
+  f1_keywords:
+  - VersioningTest.VersioningExtensions.ExtMethodForD
+  - VersioningTest::VersioningExtensions::ExtMethodForD
+  topic_type:
+  - apiref
+  api_type:
+  - Assembly
+  helpviewer_keywords:
+  - VersioningExtensions.ExtMethodForD method [.NET]
+  - ExtMethodForD method [.NET], class VersioningExtensions
+  - VersioningExtensions.ExtMethodForD(D) extension method [.NET]
+  - ExtMethodForD(D) extension method [.NET], class VersioningExtensions

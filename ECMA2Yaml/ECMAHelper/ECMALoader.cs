@@ -37,12 +37,6 @@ namespace ECMA2Yaml
             var filterStore = LoadFilters(sourcePath);
             var pkgInfoMapping = LoadPackageInformationMapping(sourcePath);
 
-            if (frameworks == null || frameworks.DocIdToFrameworkDict.Count == 0)
-            {
-                OPSLogger.LogUserError(LogCode.ECMA2Yaml_Framework_NotFound, null, "any API, please check your FrameworkIndex folder");
-                return null;
-            }
-
             ConcurrentBag<Namespace> namespaces = new ConcurrentBag<Namespace>();
             ParallelOptions opt = new ParallelOptions() { MaxDegreeOfParallelism = Environment.ProcessorCount };
             //foreach(var nsFile in ListFiles(sourcePath, Path.Combine(sourcePath, "ns-*.xml")))
@@ -72,8 +66,13 @@ namespace ECMA2Yaml
                 OPSLogger.LogUserError(LogCode.ECMA2Yaml_File_LoadFailed, null, _errorFiles.Count);
                 return null;
             }
-
             var filteredNS = Filter(namespaces, filterStore);
+            if (filteredNS.Count > 0 && 
+                (frameworks == null || frameworks.DocIdToFrameworkDict.Count == 0))
+            {
+                OPSLogger.LogUserError(LogCode.ECMA2Yaml_Framework_NotFound, null, "any API, please check your FrameworkIndex folder");
+                return null;
+            }
             var store = new ECMAStore(filteredNS.OrderBy(ns => ns.Name).ToArray(), frameworks)
             {
                 FilterStore = filterStore,

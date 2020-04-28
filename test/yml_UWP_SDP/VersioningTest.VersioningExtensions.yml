@@ -1,0 +1,56 @@
+### YamlMime:NetType
+type: class
+inheritancesWithMoniker:
+- values:
+  - <xref href="System.Object?alt=System.Object&text=Object" data-throw-if-not-resolved="True"/>
+methods:
+- uid: VersioningTest.VersioningExtensions.ExtMethodForD(VersioningTest.D)
+  monikers:
+  - cat-1.0
+  - cat-2.0
+- uid: VersioningTest.VersioningExtensions.ExtMethodForI(VersioningTest.I)
+  monikers:
+  - cat-1.0
+  - cat-2.0
+uid: VersioningTest.VersioningExtensions
+commentId: T:VersioningTest.VersioningExtensions
+namespace: VersioningTest
+name: VersioningExtensions
+fullName: VersioningTest.VersioningExtensions
+nameWithType: VersioningTest.VersioningExtensions
+syntaxWithMoniker:
+- lang: cpp
+  values:
+  - value: public ref class VersioningExtensions abstract sealed
+- lang: csharp
+  values:
+  - value: public static class VersioningExtensions
+- lang: fsharp
+  values:
+  - value: type VersioningExtensions = class
+- lang: vb
+  values:
+  - value: Public Module VersioningExtensions
+devLangs:
+- csharp
+- vb
+- cpp
+- fsharp
+monikers:
+- cat-1.0
+- cat-2.0
+metadata:
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/VersioningExtensions.xml
+  _op_overwriteFileGitUrl: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/VersioningExtensions.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/VersioningExtensions.xml
+  api_name:
+  - VersioningTest.VersioningExtensions
+  f1_keywords:
+  - VersioningTest.VersioningExtensions
+  - VersioningTest::VersioningExtensions
+  topic_type:
+  - apiref
+  api_type:
+  - Assembly
+  helpviewer_keywords:
+  - VersioningTest.VersioningExtensions class [.NET]

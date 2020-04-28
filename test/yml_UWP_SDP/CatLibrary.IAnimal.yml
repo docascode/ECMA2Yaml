@@ -1,0 +1,70 @@
+### YamlMime:NetType
+type: interface
+derivedClassesWithMoniker:
+- value: CatLibrary.Cat`2
+- value: CatLibrary.ICat
+methods:
+- uid: CatLibrary.IAnimal.Eat
+  monikers:
+  - cat-1.0
+  - cat-2.0
+- uid: CatLibrary.IAnimal.Eat(System.String)
+  monikers:
+  - cat-1.0
+  - cat-2.0
+- uid: CatLibrary.IAnimal.Eat``1(``0)
+  monikers:
+  - cat-1.0
+  - cat-2.0
+properties:
+- uid: CatLibrary.IAnimal.Item(System.Int32)
+  monikers:
+  - cat-1.0
+  - cat-2.0
+- uid: CatLibrary.IAnimal.Name
+  monikers:
+  - cat-1.0
+  - cat-2.0
+uid: CatLibrary.IAnimal
+commentId: T:CatLibrary.IAnimal
+namespace: CatLibrary
+name: IAnimal
+fullName: CatLibrary.IAnimal
+nameWithType: CatLibrary.IAnimal
+syntaxWithMoniker:
+- lang: cpp
+  values:
+  - value: public interface class IAnimal
+- lang: csharp
+  values:
+  - value: public interface IAnimal
+- lang: fsharp
+  values:
+  - value: type IAnimal = interface
+- lang: vb
+  values:
+  - value: Public Interface IAnimal
+devLangs:
+- csharp
+- vb
+- cpp
+- fsharp
+monikers:
+- cat-1.0
+- cat-2.0
+summary: This is <strong>basic</strong> interface of all animal.
+metadata:
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/IAnimal.xml
+  _op_overwriteFileGitUrl: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/IAnimal.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/IAnimal.xml
+  api_name:
+  - CatLibrary.IAnimal
+  f1_keywords:
+  - CatLibrary.IAnimal
+  - CatLibrary::IAnimal
+  topic_type:
+  - apiref
+  api_type:
+  - Assembly
+  helpviewer_keywords:
+  - CatLibrary.IAnimal interface [.NET]

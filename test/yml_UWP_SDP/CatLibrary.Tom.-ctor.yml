@@ -1,0 +1,53 @@
+### YamlMime:NetMember
+type: constructor
+members:
+- uid: CatLibrary.Tom.#ctor
+  commentId: M:CatLibrary.Tom.#ctor
+  name: Tom()
+  fullName: CatLibrary.Tom.Tom()
+  nameWithType: Tom.Tom()
+  syntaxWithMoniker:
+  - lang: cpp
+    values:
+    - value: >-
+        public:
+         Tom();
+  - lang: csharp
+    values:
+    - value: public Tom();
+  - lang: vb
+    values:
+    - value: Public Sub New ()
+  monikers:
+  - cat-1.0
+  - cat-2.0
+  metadata: {}
+uid: CatLibrary.Tom.#ctor*
+commentId: Overload:CatLibrary.Tom.#ctor
+namespace: CatLibrary
+name: Tom
+fullName: CatLibrary.Tom.Tom
+nameWithType: Tom.Tom
+devLangs:
+- csharp
+- vb
+- cpp
+monikers:
+- cat-1.0
+- cat-2.0
+metadata:
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Tom.xml
+  _op_overwriteFileGitUrl: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Tom.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Tom.xml
+  api_name:
+  - CatLibrary.Tom..ctor
+  f1_keywords:
+  - CatLibrary.Tom.#ctor
+  - CatLibrary::Tom::#ctor
+  topic_type:
+  - apiref
+  api_type:
+  - Assembly
+  helpviewer_keywords:
+  - Tom class [.NET], constructors
+  - Tom() class [.NET], constructors

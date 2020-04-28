@@ -42,6 +42,27 @@ items:
   monikers:
   - cat-1.0
   - cat-2.0
+  capabilities:
+  - scratch
+  - climb
+  - sleep
+  xamlSyntax: <Tom .../>
+  requirement_sdk_names: Cat SDK
+  requirement_sdk_urls: https://www.bing.com/images/search?q=cats
+  requirement_os_names: Windows 10
+  requirement_os_min_versions: 10.0.10240.0
+  apiContracts:
+  - CatLibrary.HuntContract
+  - CatLibrary.SleepContract
+  apiContractsVersions:
+  - "6.0"
+  - "1.0"
+  deviceFamilies:
+  - Windws 10, version 1803
+  - Windows Desktop
+  deviceFamiliesVersions:
+  - 10.0.17134.0
+  - 10.0.10240.0
   _op_AssemblyMonikerMapping:
     CatLibrary:
     - cat-1.0
@@ -133,6 +154,23 @@ items:
   monikers:
   - cat-1.0
   - cat-2.0
+  xamlMemberSyntax: <Tom method="TomMethod(...)"/>
+  requirement_sdk_names: Cat SDK
+  requirement_sdk_urls: https://www.bing.com/images/search?q=cats
+  requirement_os_names: Windows 10
+  requirement_os_min_versions: 10.0.10240.0
+  apiContracts:
+  - CatLibrary.HuntContract
+  - CatLibrary.SleepContract
+  apiContractsVersions:
+  - "6.0"
+  - "1.0"
+  deviceFamilies:
+  - Windws 10, version 1803
+  - Windows Desktop
+  deviceFamiliesVersions:
+  - 10.0.17134.0
+  - 10.0.10240.0
   content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Tom.xml
   original_content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Tom.xml
   original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Tom.xml

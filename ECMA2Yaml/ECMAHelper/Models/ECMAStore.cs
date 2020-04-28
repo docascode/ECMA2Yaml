@@ -24,6 +24,7 @@ namespace ECMA2Yaml.Models
         public FilterStore FilterStore { get; set; }
         public bool StrictMode { get; set; }
         public bool UWPMode { get; set; }
+        public bool DemoMode { get; set; }
         public PackageInformationMapping PkgInfoMapping { get; set; }
 
         private static Dictionary<string, EcmaDesc> typeDescriptorCache;

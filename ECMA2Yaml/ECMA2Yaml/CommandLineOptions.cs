@@ -27,6 +27,7 @@ namespace ECMA2Yaml
         public bool MapMode = false;
         public bool SDPMode = false;
         public bool UWPMode = false;
+        public bool DemoMode = false;
         public bool Versioning = true;
         List<string> Extras = null;
         OptionSet _options = null;
@@ -43,6 +44,7 @@ namespace ECMA2Yaml
                 { "mapFolder", "folder mapping mode, maps assemblies in folder to json, used in .NET CI",  s => MapMode = s != null },
                 { "SDP", "SDP mode, generate yamls in the .NET SDP schema format",  s => SDPMode = s != null },
                 { "UWP", "UWP mode, special treatment for UWP pipeline",  s => UWPMode = s != null },
+                { "demo", "demo mode, only for generating test yamls, do not set --SDP or --UWP together with this option.",  s => DemoMode = s != null },
                 { "NoVersioning", "No-Versioning mode, don't output property-level versioning data",  s => Versioning = false },
                 { "changeList=", "OPS change list file, ECMA2Yaml will translate xml path to yml path",  s => ChangeListFiles.Add(s)},
                 { "skipPublishFilePath=", "Pass a file to OPS to let it know which files should skip publish",  s => SkipPublishFilePath = s.NormalizePath()},
@@ -65,9 +67,20 @@ namespace ECMA2Yaml
                 PrintUsage();
                 return false;
             }
+
+            (var repoRootPath, var fallbackRepoRoot) = ECMALoader.GetRepoRootBySubPath(SourceFolder);
             if (string.IsNullOrEmpty(RepoRootPath))
             {
-                (RepoRootPath, FallbackRepoRoot) = ECMALoader.GetRepoRootBySubPath(SourceFolder);
+                RepoRootPath = repoRootPath;
+            }
+            if (string.IsNullOrEmpty(FallbackRepoRoot))
+            {
+                FallbackRepoRoot = fallbackRepoRoot;
+            }
+            if (DemoMode)
+            {
+                SDPMode = true;
+                UWPMode = false;
             }
             PublicRepoBranch = PublicRepoBranch ?? RepoBranch;
             PublicRepoUrl = PublicRepoUrl ?? RepoUrl;

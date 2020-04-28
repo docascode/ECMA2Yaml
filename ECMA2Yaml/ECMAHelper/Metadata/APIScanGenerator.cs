@@ -26,10 +26,10 @@ namespace ECMA2Yaml
             { ItemType.AttachedEvent, item => GenerateMemberApiNames(item, ".", ".add_", ".remove_") },
         };
 
-        private const string APISCAN_APINAME = "api_name";
-        private const string APISCAN_APILOCATION = "api_location";
-        private const string APISCAN_TOPICTYPE = "topic_type";
-        private const string APISCAN_APITYPE = "api_type";
+        public const string APISCAN_APINAME = "api_name";
+        public const string APISCAN_APILOCATION = "api_location";
+        public const string APISCAN_TOPICTYPE = "topic_type";
+        public const string APISCAN_APITYPE = "api_type";
 
         public static void Generate(ItemSDPModelBase model, ReflectionItem item)
         {

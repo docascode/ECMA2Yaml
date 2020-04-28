@@ -1,0 +1,64 @@
+### YamlMime:NetMember
+type: method
+members:
+- parameters:
+  - namesWithMoniker:
+    - value: param1
+    type: <xref href="System.String?alt=System.String&text=String" data-throw-if-not-resolved="True"/>
+  uid: VersioningTest.B.MethodFromClassB(System.String)
+  commentId: M:VersioningTest.B.MethodFromClassB(System.String)
+  name: MethodFromClassB(String)
+  fullName: VersioningTest.B.MethodFromClassB(String)
+  nameWithType: B.MethodFromClassB(String)
+  syntaxWithMoniker:
+  - lang: cpp
+    values:
+    - value: >-
+        public:
+         void MethodFromClassB(System::String ^ param1);
+  - lang: csharp
+    values:
+    - value: public void MethodFromClassB(string param1);
+  - lang: fsharp
+    values:
+    - value: 'member this.MethodFromClassB : string -> unit'
+  - lang: vb
+    values:
+    - value: Public Sub MethodFromClassB (param1 As String)
+  monikers:
+  - cat-1.0
+  - cat-2.0
+  summary: this method should show up as inherited member in class `D/F/G/H` only for `cat-2.0`
+  metadata: {}
+uid: VersioningTest.B.MethodFromClassB*
+commentId: Overload:VersioningTest.B.MethodFromClassB
+namespace: VersioningTest
+name: MethodFromClassB
+fullName: VersioningTest.B.MethodFromClassB
+nameWithType: B.MethodFromClassB
+devLangs:
+- csharp
+- vb
+- cpp
+- fsharp
+monikers:
+- cat-1.0
+- cat-2.0
+metadata:
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/B.xml
+  _op_overwriteFileGitUrl: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/B.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/B.xml
+  api_name:
+  - VersioningTest.B.MethodFromClassB
+  f1_keywords:
+  - VersioningTest.B.MethodFromClassB
+  - VersioningTest::B::MethodFromClassB
+  topic_type:
+  - apiref
+  api_type:
+  - Assembly
+  helpviewer_keywords:
+  - B.MethodFromClassB method [.NET]
+  - MethodFromClassB method [.NET], class B
+  - B.MethodFromClassB(String) method [.NET]
+  - MethodFromClassB(String) method [.NET], class B

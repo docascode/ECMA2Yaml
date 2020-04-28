@@ -1,0 +1,53 @@
+### YamlMime:NetMember
+type: constructor
+members:
+- uid: CatLibrary.Complex`2.#ctor
+  commentId: M:CatLibrary.Complex`2.#ctor
+  name: Complex<T,J>()
+  fullName: CatLibrary.Complex<T,J>.Complex<T,J>()
+  nameWithType: Complex<T,J>.Complex<T,J>()
+  syntaxWithMoniker:
+  - lang: cpp
+    values:
+    - value: >-
+        public:
+         Complex();
+  - lang: csharp
+    values:
+    - value: public Complex();
+  - lang: vb
+    values:
+    - value: Public Sub New ()
+  monikers:
+  - cat-1.0
+  - cat-2.0
+  metadata: {}
+uid: CatLibrary.Complex`2.#ctor*
+commentId: Overload:CatLibrary.Complex`2.#ctor
+namespace: CatLibrary
+name: Complex<T,J>
+fullName: CatLibrary.Complex<T,J>.Complex
+nameWithType: Complex<T,J>.Complex<T,J>
+devLangs:
+- csharp
+- vb
+- cpp
+monikers:
+- cat-1.0
+- cat-2.0
+metadata:
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Complex`2.xml
+  _op_overwriteFileGitUrl: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Complex`2.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Complex`2.xml
+  api_name:
+  - CatLibrary.Complex`2..ctor
+  f1_keywords:
+  - CatLibrary.Complex`2.#ctor
+  - CatLibrary::Complex`2::#ctor
+  topic_type:
+  - apiref
+  api_type:
+  - Assembly
+  helpviewer_keywords:
+  - Complex<T,J> class [.NET], constructors
+  - Complex<T,J>() class [.NET], constructors

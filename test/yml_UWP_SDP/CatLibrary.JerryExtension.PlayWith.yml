@@ -1,0 +1,70 @@
+### YamlMime:NetMember
+type: method
+members:
+- parameters:
+  - namesWithMoniker:
+    - value: jerry
+    type: <xref href="CatLibrary.TomFromBaseClass.Jerry?alt=CatLibrary.TomFromBaseClass.Jerry&text=TomFromBaseClass.Jerry" data-throw-if-not-resolved="True"/>
+  - namesWithMoniker:
+    - value: tom
+    type: <xref href="CatLibrary.Tom?alt=CatLibrary.Tom&text=Tom" data-throw-if-not-resolved="True"/>
+  uid: CatLibrary.JerryExtension.PlayWith(CatLibrary.TomFromBaseClass.Jerry,CatLibrary.Tom)
+  commentId: M:CatLibrary.JerryExtension.PlayWith(CatLibrary.TomFromBaseClass.Jerry,CatLibrary.Tom)
+  name: PlayWith(TomFromBaseClass+Jerry, Tom)
+  fullName: CatLibrary.JerryExtension.PlayWith(TomFromBaseClass+Jerry, Tom)
+  nameWithType: JerryExtension.PlayWith(TomFromBaseClass+Jerry, Tom)
+  syntaxWithMoniker:
+  - lang: cpp
+    values:
+    - value: >-
+        public:
+
+        [Extension]
+         static void PlayWith(Jerry ^ jerry, CatLibrary::Tom ^ tom);
+  - lang: csharp
+    values:
+    - value: public static void PlayWith(this Jerry jerry, CatLibrary.Tom tom);
+  - lang: fsharp
+    values:
+    - value: 'static member PlayWith : CatLibrary.TomFromBaseClass.Jerry * CatLibrary.Tom -> unit'
+  - lang: vb
+    values:
+    - value: >-
+        <Extension()>
+
+        Public Sub PlayWith (jerry As TomFromBaseClass.Jerry, tom As Tom)
+  monikers:
+  - cat-2.0
+  summary: Jerry can play with a Tom.
+  metadata: {}
+uid: CatLibrary.JerryExtension.PlayWith*
+commentId: Overload:CatLibrary.JerryExtension.PlayWith
+namespace: CatLibrary
+name: PlayWith
+fullName: CatLibrary.JerryExtension.PlayWith
+nameWithType: JerryExtension.PlayWith
+devLangs:
+- csharp
+- vb
+- cpp
+- fsharp
+monikers:
+- cat-2.0
+metadata:
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/JerryExtension.xml
+  _op_overwriteFileGitUrl: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/JerryExtension.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/JerryExtension.xml
+  api_name:
+  - CatLibrary.JerryExtension.PlayWith
+  f1_keywords:
+  - CatLibrary.JerryExtension.PlayWith
+  - CatLibrary::JerryExtension::PlayWith
+  topic_type:
+  - apiref
+  api_type:
+  - Assembly
+  helpviewer_keywords:
+  - JerryExtension.PlayWith method [.NET]
+  - PlayWith method [.NET], class JerryExtension
+  - JerryExtension.PlayWith(TomFromBaseClass+Jerry, Tom) extension method [.NET]
+  - PlayWith(TomFromBaseClass+Jerry, Tom) extension method [.NET], class JerryExtension

@@ -1,0 +1,131 @@
+### YamlMime:NetMember
+type: method
+members:
+- uid: CatLibrary.IAnimal.Eat
+  commentId: M:CatLibrary.IAnimal.Eat
+  name: Eat()
+  fullName: CatLibrary.IAnimal.Eat()
+  nameWithType: IAnimal.Eat()
+  syntaxWithMoniker:
+  - lang: cpp
+    values:
+    - value: >-
+        public:
+         void Eat();
+  - lang: csharp
+    values:
+    - value: public void Eat();
+  - lang: fsharp
+    values:
+    - value: 'abstract member Eat : unit -> unit'
+  - lang: vb
+    values:
+    - value: Public Sub Eat ()
+  monikers:
+  - cat-1.0
+  - cat-2.0
+  summary: Animal's eat method.
+  metadata: {}
+- parameters:
+  - namesWithMoniker:
+    - value: food
+    description: Food to eat
+    type: <xref href="System.String?alt=System.String&text=String" data-throw-if-not-resolved="True"/>
+  uid: CatLibrary.IAnimal.Eat(System.String)
+  commentId: M:CatLibrary.IAnimal.Eat(System.String)
+  name: Eat(String)
+  fullName: CatLibrary.IAnimal.Eat(String)
+  nameWithType: IAnimal.Eat(String)
+  syntaxWithMoniker:
+  - lang: cpp
+    values:
+    - value: >-
+        public:
+         void Eat(System::String ^ food);
+  - lang: csharp
+    values:
+    - value: public void Eat(string food);
+  - lang: fsharp
+    values:
+    - value: 'abstract member Eat : string -> unit'
+  - lang: vb
+    values:
+    - value: Public Sub Eat (food As String)
+  monikers:
+  - cat-1.0
+  - cat-2.0
+  summary: Feed the animal with some food
+  metadata: {}
+- typeParameters:
+  - description: It's a class type.
+    name: Tool
+  parameters:
+  - namesWithMoniker:
+    - value: tool
+    description: Tool name.
+    type: Tool
+  uid: CatLibrary.IAnimal.Eat``1(``0)
+  commentId: M:CatLibrary.IAnimal.Eat``1(``0)
+  name: Eat<Tool>(Tool)
+  fullName: CatLibrary.IAnimal.Eat<Tool>(Tool)
+  nameWithType: IAnimal.Eat<Tool>(Tool)
+  syntaxWithMoniker:
+  - lang: cpp
+    values:
+    - value: >-
+        public:
+
+        generic <typename Tool>
+         where Tool : class void Eat(Tool tool);
+  - lang: csharp
+    values:
+    - value: 'public void Eat<Tool>(Tool tool) where Tool : class;'
+  - lang: fsharp
+    values:
+    - value: "abstract member Eat : 'ool -> unit (requires 'ool : null)"
+  - lang: vb
+    values:
+    - value: Public Sub Eat(Of Tool As Class) (tool As Tool)
+  monikers:
+  - cat-1.0
+  - cat-2.0
+  summary: Overload method of eat. This define the animal eat by which tool.
+  metadata: {}
+uid: CatLibrary.IAnimal.Eat*
+commentId: Overload:CatLibrary.IAnimal.Eat
+namespace: CatLibrary
+name: Eat
+fullName: CatLibrary.IAnimal.Eat
+nameWithType: IAnimal.Eat
+devLangs:
+- csharp
+- vb
+- cpp
+- fsharp
+monikers:
+- cat-1.0
+- cat-2.0
+metadata:
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/IAnimal.xml
+  _op_overwriteFileGitUrl: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/IAnimal.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/IAnimal.xml
+  api_name:
+  - CatLibrary.IAnimal.Eat
+  f1_keywords:
+  - CatLibrary.IAnimal.Eat
+  - CatLibrary::IAnimal::Eat
+  - CatLibrary.IAnimal.Eat``1
+  - CatLibrary::IAnimal::Eat``1
+  topic_type:
+  - apiref
+  api_type:
+  - Assembly
+  helpviewer_keywords:
+  - IAnimal.Eat method [.NET]
+  - Eat method [.NET], interface IAnimal
+  - IAnimal.Eat() method [.NET]
+  - Eat() method [.NET], interface IAnimal
+  - IAnimal.Eat(String) method [.NET]
+  - Eat(String) method [.NET], interface IAnimal
+  - IAnimal.Eat<Tool>(Tool) method [.NET]
+  - Eat<Tool>(Tool) method [.NET], interface IAnimal

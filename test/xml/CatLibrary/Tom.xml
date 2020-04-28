@@ -1,4 +1,22 @@
 <Type Name="Tom" FullName="CatLibrary.Tom">
+  <Metadata>
+    <Meta Name="capabilities" Value="scratch" />
+    <Meta Name="capabilities" Value="climb" />
+    <Meta Name="capabilities" Value="sleep" />
+    <Meta Name="xamlSyntax" Value="&lt;Tom .../&gt;" />
+    <Meta Name="requirement_sdk_names" Value="Cat SDK" />
+    <Meta Name="requirement_sdk_urls" Value="https://www.bing.com/images/search?q=cats" />
+    <Meta Name="requirement_os_names" Value="Windows 10" />
+    <Meta Name="requirement_os_min_versions" Value="10.0.10240.0" />
+    <Meta Name="apiContracts" Value="CatLibrary.HuntContract" />
+    <Meta Name="apiContractsVersions" Value="6.0" />
+    <Meta Name="apiContracts" Value="CatLibrary.SleepContract" />
+    <Meta Name="apiContractsVersions" Value="1.0" />
+    <Meta Name="deviceFamilies" Value="Windws 10, version 1803" />
+    <Meta Name="deviceFamiliesVersions" Value="10.0.17134.0" />
+    <Meta Name="deviceFamilies" Value="Windows Desktop" />
+    <Meta Name="deviceFamiliesVersions" Value="10.0.10240.0" />
+  </Metadata>
   <TypeSignature Language="C#" Value="public class Tom" FrameworkAlternate="cat-1.0" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit Tom extends System.Object" FrameworkAlternate="cat-1.0" />
   <TypeSignature Language="DocId" Value="T:CatLibrary.Tom" />
@@ -50,6 +68,21 @@
       </Docs>
     </Member>
     <Member MemberName="TomMethod">
+      <Metadata>
+        <Meta Name="xamlMemberSyntax" Value="&lt;Tom method=&quot;TomMethod(...)&quot;/&gt;" />
+        <Meta Name="requirement_sdk_names" Value="Cat SDK" />
+        <Meta Name="requirement_sdk_urls" Value="https://www.bing.com/images/search?q=cats" />
+        <Meta Name="requirement_os_names" Value="Windows 10" />
+        <Meta Name="requirement_os_min_versions" Value="10.0.10240.0" />
+        <Meta Name="apiContracts" Value="CatLibrary.HuntContract" />
+        <Meta Name="apiContractsVersions" Value="6.0" />
+        <Meta Name="apiContracts" Value="CatLibrary.SleepContract" />
+        <Meta Name="apiContractsVersions" Value="1.0" />
+        <Meta Name="deviceFamilies" Value="Windws 10, version 1803" />
+        <Meta Name="deviceFamiliesVersions" Value="10.0.17134.0" />
+        <Meta Name="deviceFamilies" Value="Windows Desktop" />
+        <Meta Name="deviceFamiliesVersions" Value="10.0.10240.0" />
+      </Metadata>
       <MemberSignature Language="C#" Value="public CatLibrary.Complex&lt;string,CatLibrary.TomFromBaseClass&gt; TomMethod (CatLibrary.Complex&lt;CatLibrary.TomFromBaseClass,CatLibrary.TomFromBaseClass&gt; a, (string,CatLibrary.Tom) b);" />
       <MemberSignature Language="ILAsm" Value=".method public hidebysig instance class CatLibrary.Complex`2&lt;string, class CatLibrary.TomFromBaseClass&gt; TomMethod(class CatLibrary.Complex`2&lt;class CatLibrary.TomFromBaseClass, class CatLibrary.TomFromBaseClass&gt; a, class System.Tuple`2&lt;string, class CatLibrary.Tom&gt; b) cil managed" />
       <MemberSignature Language="DocId" Value="M:CatLibrary.Tom.TomMethod(CatLibrary.Complex{CatLibrary.TomFromBaseClass,CatLibrary.TomFromBaseClass},System.Tuple{System.String,CatLibrary.Tom})" />

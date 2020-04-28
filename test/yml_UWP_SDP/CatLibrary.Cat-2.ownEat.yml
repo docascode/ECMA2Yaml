@@ -1,0 +1,61 @@
+### YamlMime:NetMember
+type: event
+members:
+- uid: CatLibrary.Cat`2.ownEat
+  commentId: E:CatLibrary.Cat`2.ownEat
+  name: ownEat
+  fullName: CatLibrary.Cat<T,K>.ownEat
+  nameWithType: Cat<T,K>.ownEat
+  syntaxWithMoniker:
+  - lang: cpp
+    values:
+    - value: >-
+        public:
+         event EventHandler ^ ownEat;
+  - lang: csharp
+    values:
+    - value: public event EventHandler ownEat;
+  - lang: fsharp
+    values:
+    - value: 'member this.ownEat : EventHandler '
+  - lang: vb
+    values:
+    - value: 'Public Event ownEat As EventHandler '
+  monikers:
+  - cat-1.0
+  - cat-2.0
+  summary: Eat event of this cat
+  metadata: {}
+namespace: CatLibrary
+devLangs:
+- csharp
+- vb
+- cpp
+- fsharp
+monikers:
+- cat-1.0
+- cat-2.0
+metadata:
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  _op_overwriteFileGitUrl: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
+  ms.openlocfilehash: 77d1b2a652c118438281090f72ac4caa93feec1a
+  ms.sourcegitcommit: 055a4a82a0b08bfbdc21bd1347fb71f7fe2c099e
+  ms.translationtype: MT
+  ms.contentlocale: zh-CN
+  ms.lasthandoff: 08/15/2019
+  ms.locfileid: "69262388"
+  api_name:
+  - CatLibrary.Cat`2.ownEat
+  - CatLibrary.Cat`2.add_ownEat
+  - CatLibrary.Cat`2.remove_ownEat
+  f1_keywords:
+  - CatLibrary.Cat`2.ownEat
+  - CatLibrary::Cat`2::ownEat
+  topic_type:
+  - apiref
+  api_type:
+  - Assembly
+  helpviewer_keywords:
+  - Cat<T,K>.ownEat event [.NET]
+  - ownEat event [.NET], class Cat<T,K>

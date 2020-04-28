@@ -1,0 +1,90 @@
+### YamlMime:NetDelegate
+typeParameters:
+- description: Fake para
+  name: T
+  isCovariant: true
+returns:
+  description: Return a fake number to confuse you.
+  type: <xref href="System.Int32?alt=System.Int32&text=Int32" data-throw-if-not-resolved="True"/>
+parameters:
+- namesWithMoniker:
+  - value: num
+  description: Fake para
+  type: <xref href="System.Int64?alt=System.Int64&text=Int64" data-throw-if-not-resolved="True"/>
+- namesWithMoniker:
+  - value: name
+  description: Fake para
+  type: <xref href="System.String?alt=System.String&text=String" data-throw-if-not-resolved="True"/>
+- namesWithMoniker:
+  - value: scores
+  description: Optional Parameter.
+  type: <xref href="System.Object?alt=System.Object&text=Object" data-throw-if-not-resolved="True"/>[]
+inheritances:
+- <xref href="System.Delegate" data-throw-if-not-resolved="True"/>
+uid: CatLibrary.FakeDelegate`1
+commentId: T:CatLibrary.FakeDelegate`1
+namespace: CatLibrary
+name: FakeDelegate<T>
+fullName: CatLibrary.FakeDelegate<T>
+nameWithType: CatLibrary.FakeDelegate<T>
+syntaxWithMoniker:
+- lang: cpp
+  values:
+  - value: >-
+      generic <typename T>
+
+      public delegate int FakeDelegate(long num, System::String ^ name, ... cli::array <System::Object ^> ^ scores);
+- lang: csharp
+  values:
+  - value: public delegate int FakeDelegate<out T>(long num, string name, params object[] scores);
+- lang: fsharp
+  values:
+  - value: type FakeDelegate<'T> = delegate of int64 * string * obj[] -> int
+- lang: vb
+  values:
+  - value: 'Public Delegate Function FakeDelegate(Of Out T)(num As Long, name As String, ParamArray scores As Object()) As Integer '
+devLangs:
+- csharp
+- vb
+- cpp
+- fsharp
+monikers:
+- cat-1.0
+- cat-2.0
+summary: Fake delegate
+uwpRequirements:
+  deviceFamilies:
+  - name: Windws 10, version 1803
+    version: 10.0.17134.0
+  - name: Windows Desktop
+    version: 10.0.10240.0
+  apiContracts:
+  - name: CatLibrary.HuntContract
+    version: "6.0"
+  - name: CatLibrary.SleepContract
+    version: "1.0"
+sdkRequirements:
+  name: Cat SDK
+  url: https://www.bing.com/images/search?q=cats
+osRequirements:
+  name: Windows 10
+  minVersion: 10.0.10240.0
+metadata:
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/FakeDelegate`1.xml
+  _op_overwriteFileGitUrl: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/FakeDelegate`1.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/FakeDelegate`1.xml
+  api_name:
+  - CatLibrary.FakeDelegate`1
+  - CatLibrary.FakeDelegate`1..ctor
+  - CatLibrary.FakeDelegate`1.Invoke
+  - CatLibrary.FakeDelegate`1.BeginInvoke
+  - CatLibrary.FakeDelegate`1.EndInvoke
+  f1_keywords:
+  - CatLibrary.FakeDelegate`1
+  - CatLibrary::FakeDelegate`1
+  topic_type:
+  - apiref
+  api_type:
+  - Assembly
+  helpviewer_keywords:
+  - CatLibrary.FakeDelegate<T> delegate [.NET]

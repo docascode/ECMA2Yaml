@@ -1,0 +1,98 @@
+### YamlMime:NetType
+type: interface
+implements:
+- <xref href="CatLibrary.IAnimal?alt=CatLibrary.IAnimal&text=IAnimal" data-throw-if-not-resolved="True"/>
+derivedClassesWithMoniker:
+- value: CatLibrary.Cat`2
+extensionMethods:
+- uid: CatLibrary.ICatExtension.Play(CatLibrary.ICat,System.String)
+  monikers:
+  - cat-1.0
+  - cat-2.0
+- uid: CatLibrary.ICatExtension.Sleep(CatLibrary.ICat,System.Int64)
+  monikers:
+  - cat-1.0
+  - cat-2.0
+methods:
+- uid: CatLibrary.ICat.CatchJerry
+  monikers:
+  - cat-2.0
+- uid: CatLibrary.IAnimal.Eat
+  inheritedFrom: CatLibrary.IAnimal
+  monikers:
+  - cat-1.0
+  - cat-2.0
+- uid: CatLibrary.IAnimal.Eat(System.String)
+  inheritedFrom: CatLibrary.IAnimal
+  monikers:
+  - cat-1.0
+  - cat-2.0
+- uid: CatLibrary.IAnimal.Eat``1(``0)
+  inheritedFrom: CatLibrary.IAnimal
+  monikers:
+  - cat-1.0
+  - cat-2.0
+properties:
+- uid: CatLibrary.IAnimal.Item(System.Int32)
+  inheritedFrom: CatLibrary.IAnimal
+  monikers:
+  - cat-1.0
+  - cat-2.0
+- uid: CatLibrary.IAnimal.Name
+  inheritedFrom: CatLibrary.IAnimal
+  monikers:
+  - cat-1.0
+  - cat-2.0
+events:
+- uid: CatLibrary.ICat.eat
+  monikers:
+  - cat-1.0
+  - cat-2.0
+uid: CatLibrary.ICat
+commentId: T:CatLibrary.ICat
+namespace: CatLibrary
+name: ICat
+fullName: CatLibrary.ICat
+nameWithType: CatLibrary.ICat
+syntaxWithMoniker:
+- lang: cpp
+  values:
+  - value: 'public interface class ICat : CatLibrary::IAnimal'
+- lang: csharp
+  values:
+  - value: 'public interface ICat : CatLibrary.IAnimal'
+- lang: fsharp
+  values:
+  - value: >-
+      type ICat = interface
+          interface IAnimal
+- lang: vb
+  values:
+  - value: >-
+      Public Interface ICat
+
+      Implements IAnimal
+devLangs:
+- csharp
+- vb
+- cpp
+- fsharp
+monikers:
+- cat-1.0
+- cat-2.0
+summary: Cat's interface
+metadata:
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/ICat.xml
+  _op_overwriteFileGitUrl: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/ICat.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/ICat.xml
+  api_name:
+  - CatLibrary.ICat
+  f1_keywords:
+  - CatLibrary.ICat
+  - CatLibrary::ICat
+  topic_type:
+  - apiref
+  api_type:
+  - Assembly
+  helpviewer_keywords:
+  - CatLibrary.ICat interface [.NET]

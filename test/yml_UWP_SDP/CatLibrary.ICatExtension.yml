@@ -1,0 +1,60 @@
+### YamlMime:NetType
+type: class
+inheritancesWithMoniker:
+- values:
+  - <xref href="System.Object?alt=System.Object&text=Object" data-throw-if-not-resolved="True"/>
+methods:
+- uid: CatLibrary.ICatExtension.Play(CatLibrary.ICat,System.String)
+  monikers:
+  - cat-1.0
+  - cat-2.0
+- uid: CatLibrary.ICatExtension.Sleep(CatLibrary.ICat,System.Int64)
+  monikers:
+  - cat-1.0
+  - cat-2.0
+uid: CatLibrary.ICatExtension
+commentId: T:CatLibrary.ICatExtension
+namespace: CatLibrary
+name: ICatExtension
+fullName: CatLibrary.ICatExtension
+nameWithType: CatLibrary.ICatExtension
+syntaxWithMoniker:
+- lang: cpp
+  values:
+  - value: public ref class ICatExtension abstract sealed
+- lang: csharp
+  values:
+  - value: public static class ICatExtension
+- lang: fsharp
+  values:
+  - value: type ICatExtension = class
+- lang: vb
+  values:
+  - value: Public Module ICatExtension
+devLangs:
+- csharp
+- vb
+- cpp
+- fsharp
+monikers:
+- cat-1.0
+- cat-2.0
+summary: >-
+  It's the class that contains ICat interface's extension method.
+
+  <p>This class must be <strong>public</strong> and <strong>static</strong>.</p><p>Also it shouldn't be a geneic class</p>
+metadata:
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/ICatExtension.xml
+  _op_overwriteFileGitUrl: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/ICatExtension.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/ICatExtension.xml
+  api_name:
+  - CatLibrary.ICatExtension
+  f1_keywords:
+  - CatLibrary.ICatExtension
+  - CatLibrary::ICatExtension
+  topic_type:
+  - apiref
+  api_type:
+  - Assembly
+  helpviewer_keywords:
+  - CatLibrary.ICatExtension class [.NET]
