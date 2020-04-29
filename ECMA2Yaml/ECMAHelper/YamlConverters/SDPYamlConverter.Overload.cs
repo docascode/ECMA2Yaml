@@ -10,7 +10,7 @@ namespace ECMA2Yaml
         public OverloadSDPModel FormatOverload(Member overload, List<Member> members)
         {
             var sdpOverload = new OverloadSDPModel()
-            {
+            { 
                 Uid = overload?.Uid,
                 CommentId = overload?.CommentId,
                 Name = overload?.DisplayName,
@@ -51,9 +51,13 @@ namespace ECMA2Yaml
             bool resetMemberThreadSafety = false;
             // One group members keep only one thread safety info
             var withThreadSafetyMembers = sdpOverload.Members.Where(p => p.ThreadSafety != null).ToList();
-            if (sdpOverload != null && withThreadSafetyMembers.Count() > 0)
+            if (sdpOverload != null &&  overload?.Docs?.ThreadSafetyInfo != null)
             {
-                sdpOverload.ThreadSafety = withThreadSafetyMembers.First().ThreadSafety;
+                sdpOverload.ThreadSafety = new Models.SDP.ThreadSafety {
+                     CustomizedContent= overload.Docs.ThreadSafetyInfo.CustomContent,
+                     IsSupported = overload.Docs.ThreadSafetyInfo.Supported,
+                     MemberScope= overload.Docs.ThreadSafetyInfo.MemberScope
+                };
                 resetMemberThreadSafety = true;
             }
 
