@@ -4,6 +4,11 @@
       "category": "ECMA2Yaml",
       "log_codes": [
         {
+          "log_code": "ECMA2Yaml_SDP_MigrationNeeded",
+          "message": "This repo/docset is not SDP-enabled. Please contact apidocs-team@service.microsoft.com to enable SDP on this repo.",
+          "document_url": ""
+        },
+        {
           "log_code": "ECMA2Yaml_Uid_Duplicated",
           "message": "Duplicate uid found: {0}",
           "document_url": ""
