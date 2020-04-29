@@ -51,7 +51,7 @@ namespace ECMA2Yaml
             bool resetMemberThreadSafety = false;
             // One group members keep only one thread safety info
             var withThreadSafetyMembers = sdpOverload.Members.Where(p => p.ThreadSafety != null).ToList();
-            if (sdpOverload != null && withThreadSafetyMembers.Count() > 1)
+            if (sdpOverload != null && withThreadSafetyMembers.Count() > 0)
             {
                 sdpOverload.ThreadSafety = withThreadSafetyMembers.First().ThreadSafety;
                 resetMemberThreadSafety = true;
