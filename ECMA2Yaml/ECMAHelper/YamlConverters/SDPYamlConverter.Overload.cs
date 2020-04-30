@@ -53,11 +53,7 @@ namespace ECMA2Yaml
             var withThreadSafetyMembers = sdpOverload.Members.Where(p => p.ThreadSafety != null).ToList();
             if (sdpOverload != null &&  overload?.Docs?.ThreadSafetyInfo != null)
             {
-                sdpOverload.ThreadSafety = new Models.SDP.ThreadSafety {
-                     CustomizedContent= overload.Docs.ThreadSafetyInfo.CustomContent,
-                     IsSupported = overload.Docs.ThreadSafetyInfo.Supported,
-                     MemberScope= overload.Docs.ThreadSafetyInfo.MemberScope
-                };
+                sdpOverload.ThreadSafety = ConvertThreadSafety(overload);
                 resetMemberThreadSafety = true;
             }
 
