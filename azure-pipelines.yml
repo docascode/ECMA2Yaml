@@ -54,7 +54,7 @@ steps:
   displayName: Sign exe, dll and powershell files
   inputs:
     ConnectedServiceName: 'CodeSigning-APEX'
-    FolderPath: '$(System.DefaultWorkingDirectory)'
+    FolderPath: '$(System.DefaultWorkingDirectory)/ECMA2Yaml'
     signType: 'batchSigning'
     batchSignPolicyFile: 'CodeSign_Executable.json'
     SessionTimeout: '60'
