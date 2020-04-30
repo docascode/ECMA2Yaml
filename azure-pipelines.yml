@@ -58,7 +58,7 @@ steps:
     signType: 'batchSigning'
     batchSignPolicyFile: 'CodeSign_Executable.json'
     SessionTimeout: '60'
-    MaxConcurrency: '100'
+    MaxConcurrency: '50'
     MaxRetryAttempts: '5'
 
 # Pack ECMA2Yaml
