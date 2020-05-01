@@ -17,14 +17,35 @@ namespace ECMA2Yaml
             sdpDelegate.TypeParameters = ConvertTypeParameters(t);
             sdpDelegate.Inheritances = t.InheritanceChains?.LastOrDefault().Values.Select(uid => UidToTypeMDString(uid, _store)).ToList();
 
-            if (t.ReturnValueType != null
-                && !string.IsNullOrEmpty(t.ReturnValueType.Type)
-                && t.ReturnValueType.Type != "System.Void"
-                && t.ItemType != ItemType.Event)
+            if (t.ReturnValueType != null && t.ItemType != ItemType.Event)
             {
-                sdpDelegate.Returns = ConvertParameter<TypeReference>(t.ReturnValueType);
-            }
+                var returns = t.ReturnValueType;
 
+                if (returns.VersionedTypes.Count() == 1)
+                {
+                    var oneReturn = returns.VersionedTypes.First();
+                    if (oneReturn != null
+                    && !string.IsNullOrWhiteSpace(oneReturn.Value)
+                    && oneReturn.Value != "System.Void")
+                    {
+                        sdpDelegate.Returns = new TypeReference()
+                        {
+                            Type = oneReturn.Value,
+                            Description = returns.Description
+                        };
+                    }
+                }
+                else
+                {
+                    var r = returns.VersionedTypes
+                        .Where(v => !string.IsNullOrWhiteSpace(v.Value) && v.Value != "System.Void");
+                    if (r.Any())
+                    {
+                        sdpDelegate.ReturnsWithMoniker = returns;
+                    }
+                }
+            }
+            
             sdpDelegate.Parameters = t.Parameters?.Select(p => ConvertNamedParameter(p, t.TypeParameters))
                 .ToList().NullIfEmpty();
 

@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using ECMA2Yaml.Models.SDP;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,23 @@ namespace ECMA2Yaml.Models
         public VersionedString(HashSet<string> monikers, string value) : base(monikers, value)
         {
         }
+    }
+
+    public class VersionedReturnType : VersionedString
+    {
+        public string RefType { get; set; }
+        public VersionedReturnType() { }
+        public VersionedReturnType(HashSet<string> monikers, string value, string reftype) : base(monikers, value)
+        {
+            RefType = reftype;
+        }
+    }
+
+    public class VersionedTypeReference : VersionedValue<TypeReference>
+    {
+        public VersionedTypeReference() { }
+
+        public VersionedTypeReference(HashSet<string> monikers, TypeReference typeRef) : base(monikers, typeRef) { }
     }
 
     public class VersionedValue<T>

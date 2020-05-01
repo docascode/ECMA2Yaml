@@ -83,7 +83,7 @@ namespace ECMA2Yaml.Models
         }
         public List<TypeParameter> TypeParameters { get; set; }
         public List<Parameter> Parameters { get; set; }
-        public Parameter ReturnValueType { get; set; }
+        public ReturnValue ReturnValueType { get; set; }
         public VersionedSignatures Signatures { get; set; }
         public List<ECMAAttribute> Attributes { get; set; }
         public ReflectionItem Parent { get; set; }

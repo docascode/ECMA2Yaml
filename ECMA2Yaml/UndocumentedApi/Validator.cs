@@ -33,13 +33,12 @@ namespace ECMA2Yaml.UndocumentedApi
 
         public static ValidationResult ValidateReturnValue(ReflectionItem item)
         {
-            if (item.ReturnValueType == null
-                || string.IsNullOrEmpty(item.ReturnValueType.Type)
-                || item.ReturnValueType.Type == "System.Void"
-                || item.ItemType == ItemType.Event)
-            {
+            if (item.ReturnValueType == null 
+                || item.ItemType == ItemType.Event
+                || item.ReturnValueType.VersionedTypes.Any(r => 
+                        string.IsNullOrWhiteSpace(r.Value)
+                        || r.Value == "System.Void"))
                 return ValidationResult.NA;
-            }
 
             var result = ValidateSimpleString(item.Docs.Returns, ReturnsLengthRequirement);
 
