@@ -4,9 +4,11 @@
   "SignBatches": [
     {
       "MatchedPath": [
-        "*.ps1",
-        "*.exe",
-        "*.dll"
+        "ECMA2Yaml/bin/release/*.dll",
+        "ECMA2Yaml/bin/release/*.exe",
+        "IntellisenseFileGen/bin/Release/*.exe",
+        "ECMA2Yaml/Nuget/*.ps1",
+        "ECMAHelper/bin/Release/*.dll"
       ],
       "SigningInfo": {
         "Operations": [
