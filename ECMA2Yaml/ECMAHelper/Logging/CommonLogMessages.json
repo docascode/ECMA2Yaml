@@ -142,6 +142,11 @@
           "log_code": "ECMA2Yaml_ExceptionTypeNotFound",
           "message": "Referenced exception type not found: {0}",
           "document_url": ""
+        },
+        {
+          "log_code": "ECMA2Yaml_CrefTypePrefixedMissing",
+          "message": "Cref is not prefixed with type (T:): {0}",
+          "document_url": ""
         }
       ]
     }

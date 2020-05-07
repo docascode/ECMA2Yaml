@@ -246,11 +246,26 @@ namespace ECMA2Yaml
         private TypedContent GetTypedContent(XElement ele)
         {
             var cref = ele.Attribute("cref").Value;
+            string uid = cref.Substring(cref.IndexOf(':') + 1).Replace('+', '.');
+
+            // Bug 211134: Ci should throw warning if exception cref is not prefixed with type (T:)
+            if (cref.IndexOf(':') > 0)
+            {
+                string prefixed = cref.Substring(0, cref.IndexOf(':'));
+                if(prefixed != "T")
+                {
+                    OPSLogger.LogUserWarning(LogCode.ECMA2Yaml_CrefTypePrefixedMissing, null, uid);
+                }
+            }
+            else
+            {
+                OPSLogger.LogUserWarning(LogCode.ECMA2Yaml_CrefTypePrefixedMissing, null, uid);
+            }
             return new TypedContent
             {
                 CommentId = cref,
                 Description = NormalizeDocsElement(GetInnerXml(ele)),
-                Uid = cref.Substring(cref.IndexOf(':') + 1).Replace('+', '.')
+                Uid = uid
             };
         }
 
