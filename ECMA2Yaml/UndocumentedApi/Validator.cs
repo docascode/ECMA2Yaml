@@ -8,14 +8,30 @@ using System.Threading.Tasks;
 
 namespace ECMA2Yaml.UndocumentedApi
 {
-    public static class Validator
+    public class DotnetDocValidator : Validator
     {
-        public static readonly HashSet<string> UnderDocStrings = new HashSet<string>() { "tbd", "to be supplied", "add content here", "to be added", "to be added." };
-        public const int SummaryLengthRequirement = 30;
-        public const int ParametersLengthRequirement = 10;
-        public const int ReturnsLengthRequirement = 10;
+        public override HashSet<string> UnderDocStrings => new HashSet<string>() { "tbd", "to be supplied", "add content here", "to be added", "to be added." };
+        public override int SummaryLengthRequirement => 30;
+        public override int ParametersLengthRequirement => 10;
+        public override int ReturnsLengthRequirement => 10;
+    }
 
-        public static Dictionary<FieldType, ValidationResult> ValidateItem(ReflectionItem item)
+    public class UWPDocValidator : Validator
+    {
+        public override HashSet<string> UnderDocStrings => new HashSet<string>() { "tbd" };
+        public override int SummaryLengthRequirement => 1;
+        public override int ParametersLengthRequirement => 1;
+        public override int ReturnsLengthRequirement => 1;
+    }
+
+    public abstract class Validator
+    {
+        public virtual HashSet<string> UnderDocStrings { get; }
+        public virtual int SummaryLengthRequirement { get; }
+        public virtual int ParametersLengthRequirement { get; }
+        public virtual int ReturnsLengthRequirement { get; }
+
+        public Dictionary<FieldType, ValidationResult> ValidateItem(ReflectionItem item)
         {
             return new Dictionary<FieldType, ValidationResult>()
             {
@@ -26,12 +42,12 @@ namespace ECMA2Yaml.UndocumentedApi
             };
         }
 
-        public static ValidationResult ValidateSummary(ReflectionItem item)
+        public ValidationResult ValidateSummary(ReflectionItem item)
         {
             return ValidateSimpleString(item.Docs.Summary, SummaryLengthRequirement);
         }
 
-        public static ValidationResult ValidateReturnValue(ReflectionItem item)
+        public ValidationResult ValidateReturnValue(ReflectionItem item)
         {
             if (item.ReturnValueType == null
                 || string.IsNullOrEmpty(item.ReturnValueType.Type)
@@ -54,7 +70,7 @@ namespace ECMA2Yaml.UndocumentedApi
             }
         }
 
-        public static ValidationResult ValidateParameters(ReflectionItem item)
+        public ValidationResult ValidateParameters(ReflectionItem item)
         {
             if (item.Parameters == null || item.Parameters.Count == 0)
             {
@@ -75,7 +91,7 @@ namespace ECMA2Yaml.UndocumentedApi
             return ValidationResult.Present;
         }
 
-        public static ValidationResult ValidateTypeParameters(ReflectionItem item)
+        public ValidationResult ValidateTypeParameters(ReflectionItem item)
         {
             if (item.TypeParameters == null || item.TypeParameters.Count == 0)
             {
@@ -96,7 +112,7 @@ namespace ECMA2Yaml.UndocumentedApi
             return ValidationResult.Present;
         }
 
-        private static ValidationResult ValidateSimpleString(string str, int lengthRequirement)
+        private ValidationResult ValidateSimpleString(string str, int lengthRequirement)
         {
             if (string.IsNullOrWhiteSpace(str))
             {
@@ -109,7 +125,7 @@ namespace ECMA2Yaml.UndocumentedApi
             return ValidationResult.Present;
         }
 
-        private static bool IsUnderDoc(string str, int lengthRequirement)
+        private bool IsUnderDoc(string str, int lengthRequirement)
         {
             return UnderDocStrings.Contains(str.ToLower()) || str.Length < lengthRequirement;
         }
