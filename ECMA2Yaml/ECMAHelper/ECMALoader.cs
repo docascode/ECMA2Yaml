@@ -154,7 +154,7 @@ namespace ECMA2Yaml
             Namespace ns = new Namespace();
             ns.Id = ns.Name = nsDoc.Root.Attribute("Name").Value;
             ns.Types = LoadTypes(basePath, ns);
-            ns.Docs = LoadDocs(nsDoc.Root.Element("Docs"));
+            ns.Docs = LoadDocs(nsDoc.Root.Element("Docs"), nsFile.AbsolutePath);
             ns.SourceFileLocalPath = nsFile.AbsolutePath;
             ns.ItemType = ItemType.Namespace;
             // Metadata
@@ -305,7 +305,7 @@ namespace ECMA2Yaml
             }
 
             //Docs
-            t.Docs = LoadDocs(tRoot.Element("Docs"));
+            t.Docs = LoadDocs(tRoot.Element("Docs"), typeFile.AbsolutePath);
 
             //MemberType
             t.ItemType = InferTypeOfType(t);
@@ -448,7 +448,7 @@ namespace ECMA2Yaml
             }
 
             //Docs
-            m.Docs = LoadDocs(mElement.Element("Docs"));
+            m.Docs = LoadDocs(mElement.Element("Docs"),t.SourceFileLocalPath);
 
             LoadMetadata(m, mElement);
 
@@ -462,7 +462,7 @@ namespace ECMA2Yaml
                 Parent = t,
                 Name = mElement.Attribute("MemberName").Value,
                 AssemblyInfo = mElement.Elements("AssemblyInfo")?.SelectMany(a => ParseAssemblyInfo(a)).ToList(),
-                Docs = LoadDocs(mElement.Element("Docs"))
+                Docs = LoadDocs(mElement.Element("Docs"), t.SourceFileLocalPath)
             };
             return m;
         }

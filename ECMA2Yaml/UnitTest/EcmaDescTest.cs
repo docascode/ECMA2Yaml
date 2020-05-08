@@ -152,8 +152,9 @@ namespace UnitTest
         public void TestXmlIndent()
         {
             ECMALoader loader = new ECMALoader(null);
-            XElement element = XElement.Load(@"e:\mdoc\docs.xml");
-            var docs = loader.LoadDocs(element);
+            string xmlFile = @"e:\mdoc\docs.xml";
+            XElement element = XElement.Load(xmlFile);
+            var docs = loader.LoadDocs(element, xmlFile);
         }
     }
 }
