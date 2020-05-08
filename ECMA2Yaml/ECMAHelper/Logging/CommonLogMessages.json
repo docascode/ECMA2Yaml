@@ -144,8 +144,8 @@
           "document_url": ""
         },
         {
-          "log_code": "ECMA2Yaml_CrefTypePrefixedMissing",
-          "message": "Cref is not prefixed with type (T:): {0}",
+          "log_code": "ECMA2Yaml_CrefTypePrefixMissing",
+          "message": "Invalid cref format ({0}) detected in {1}",
           "document_url": ""
         }
       ]
