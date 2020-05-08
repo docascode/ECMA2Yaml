@@ -105,7 +105,7 @@ namespace ECMA2Yaml.IO
                 Uri fullUri = new Uri(path);
                 Uri relativeUri = baseUri.MakeRelativeUri(fullUri);
                 // Uri's use forward slashes so convert back to backward slashes
-                return relativeUri.ToString().Replace("/", "\\");
+                return relativeUri.ToString().Replace("/", "\\").Replace("%60", "`");
             }
         }
     }
