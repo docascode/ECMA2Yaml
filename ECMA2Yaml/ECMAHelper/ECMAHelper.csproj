@@ -9,6 +9,7 @@
     <Description>Docs internal lib to load and convert ECMAXML documents.</Description>
     <PackageTags>ECMAXML;.NET</PackageTags>
     <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);PackMonoDocDll</TargetsForTfmSpecificBuildOutput>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>

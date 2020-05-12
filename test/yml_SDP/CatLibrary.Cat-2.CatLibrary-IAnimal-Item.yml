@@ -13,9 +13,9 @@ members:
   - <xref href="CatLibrary.IAnimal.Item(System.Int32)?alt=CatLibrary.IAnimal.Item(System.Int32)&text=Item%5BInt32%5D" data-throw-if-not-resolved="True"/>
   uid: CatLibrary.Cat`2.CatLibrary#IAnimal#Item(System.Int32)
   commentId: P:CatLibrary.Cat`2.CatLibrary#IAnimal#Item(System.Int32)
-  name: IAnimal.Item[Int32]
-  fullName: CatLibrary.Cat<T,K>.CatLibrary.IAnimal.Item[Int32]
-  nameWithType: Cat<T,K>.IAnimal.Item[Int32]
+  name: IAnimal.Item
+  fullName: CatLibrary.Cat<T,K>.CatLibrary.IAnimal.Item
+  nameWithType: Cat<T,K>.IAnimal.Item
   syntaxWithMoniker:
   - lang: cpp
     values:

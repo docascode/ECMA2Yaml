@@ -39,7 +39,12 @@ namespace ECMA2Yaml
                     {
                         fileMapping.TryAdd(ns.Value.SourceFileLocalPath, new List<string> { nsFileName });
                     }
-                    YamlUtility.Serialize(nsFileName, nsPage, nsPage.YamlMime);
+                    try { 
+                        YamlUtility.Serialize(nsFileName, nsPage, nsPage.YamlMime);
+                    }
+                    catch (Exception ex)
+                    {
+                    }
                 }
 
                 if (!flatten && !Directory.Exists(nsFolder))
@@ -53,8 +58,12 @@ namespace ECMA2Yaml
                     {
                         var tFileName = Path.Combine(flatten ? outputFolder : nsFolder, t.Uid.Replace('`', '-') + ".yml");
                         var ymlFiles = new List<string>() { tFileName };
-                        YamlUtility.Serialize(tFileName, typePage, typePage.YamlMime);
-
+                        try { 
+                            YamlUtility.Serialize(tFileName, typePage, typePage.YamlMime);
+                        }
+                        catch (Exception ex)
+                        {
+                        }
                         if (t.Members != null)
                         {
                             foreach (var m in t.Members)
@@ -65,7 +74,13 @@ namespace ECMA2Yaml
                                     fileName = GetUniqueFileNameWithSuffix(fileName, existingFileNames) +".yml";
                                     var path = Path.Combine(flatten ? outputFolder : nsFolder, fileName);
                                     ymlFiles.Add(path);
-                                    YamlUtility.Serialize(path, mPage, mPage.YamlMime);
+                                    try
+                                    {
+                                        YamlUtility.Serialize(path, mPage, mPage.YamlMime);
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                    }
                                 }
                             }
 
@@ -79,7 +94,12 @@ namespace ECMA2Yaml
                                         fileName = GetUniqueFileNameWithSuffix(fileName, existingFileNames) + ".yml";
                                         var path = Path.Combine(flatten ? outputFolder : nsFolder, fileName);
                                         ymlFiles.Add(path);
-                                        YamlUtility.Serialize(path, mPage, mPage.YamlMime);
+                                        try { 
+                                            YamlUtility.Serialize(path, mPage, mPage.YamlMime);
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                        }
                                     }
                                 }
                             }
