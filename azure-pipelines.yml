@@ -56,11 +56,11 @@ steps:
     ConnectedServiceName: 'CodeSigning-APEX'
     FolderPath: '$(System.DefaultWorkingDirectory)/ECMA2Yaml'
     Pattern: |
-      ECMA2Yaml\**\*.dll
-      ECMA2Yaml\**\*.exe
-      IntellisenseFileGen\**\*.exe
+      ECMA2Yaml\bin\Release\**\*.dll
+      ECMA2Yaml\bin\Release\**\*.exe
+      IntellisenseFileGen\bin\Release\**\*.exe
       ECMA2Yaml\Nuget\*.ps1
-      ECMAHelper\**\*.dll
+      ECMAHelper\bin\Release\**\*.dll
     UseMinimatch: true
     signConfigType: inlineSignParams
     inlineOperation: |
