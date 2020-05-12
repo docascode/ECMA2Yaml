@@ -1106,8 +1106,7 @@ namespace ECMA2Yaml.Models
             return _frameworks;
         }
 
-        //private static readonly Regex indexerRegex = new Regex(@"\[.*?\]$", RegexOptions.Compiled);
-        private static string RemoveindexerFromPropertyName(string str)
+        private string RemoveindexerFromPropertyName(string str)
         {
             if (string.IsNullOrEmpty(str))
             {
