@@ -14,8 +14,8 @@ namespace ECMA2Yaml
             {
                 Uid = overload?.Uid,
                 CommentId = overload?.CommentId,
-                Name = overload?.DisplayName,
-                FullName = overload?.FullDisplayName,
+                Name = RemoveindexerFromPropertyName(overload?.DisplayName),
+                FullName = RemoveindexerFromPropertyName(overload?.FullDisplayName),
                 Summary = overload?.Docs?.Summary,
                 Remarks = overload?.Docs?.Remarks,
                 Examples = overload?.Docs?.Examples,
@@ -69,13 +69,6 @@ namespace ECMA2Yaml
                 if (resetMemberThreadSafety && m.ThreadSafety != null)
                 {
                     m.ThreadSafety = null;
-                }
-
-                if (overload != null && overload.ItemType == ItemType.Property)
-                {
-                    m.Name = RemoveindexerFromPropertyName(m.Name);
-                    m.NameWithType = RemoveindexerFromPropertyName(m.NameWithType);
-                    m.FullName = RemoveindexerFromPropertyName(m.FullName);
                 }
             }
 
