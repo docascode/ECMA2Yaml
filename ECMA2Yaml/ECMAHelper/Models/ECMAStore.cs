@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Text.RegularExpressions;
 
 namespace ECMA2Yaml.Models
 {
@@ -637,8 +638,8 @@ namespace ECMA2Yaml.Models
                     }
                     overloads[id].Id = id;
                     overloads[id].ItemType = m.ItemType;
-                    overloads[id].DisplayName = m.ItemType == ItemType.Constructor ? t.Name : TrimDisplayName(m.DisplayName);
-                    overloads[id].FullDisplayName = overloads[id].FullDisplayName ?? TrimDisplayName(m.FullDisplayName);
+                    overloads[id].DisplayName = RemoveindexerFromPropertyName(m.ItemType == ItemType.Constructor ? t.Name : TrimDisplayName(m.DisplayName));
+                    overloads[id].FullDisplayName = RemoveindexerFromPropertyName(overloads[id].FullDisplayName ?? TrimDisplayName(m.FullDisplayName));
                     overloads[id].SourceFileLocalPath = m.SourceFileLocalPath;
 
                     if (overloads[id].Modifiers == null)
@@ -1097,6 +1098,16 @@ namespace ECMA2Yaml.Models
         public FrameworkIndex GetFrameworkIndex()
         {
             return _frameworks;
+        }
+
+        private static readonly Regex indexerRegex = new Regex(@"\[.*?\]$", RegexOptions.Compiled);
+        private static string RemoveindexerFromPropertyName(string str)
+        {
+            if (string.IsNullOrEmpty(str))
+            {
+                return str;
+            }
+            return indexerRegex.Replace(str, "[]");
         }
     }
 }
