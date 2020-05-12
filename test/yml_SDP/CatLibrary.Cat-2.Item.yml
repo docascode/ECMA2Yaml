@@ -11,9 +11,9 @@ members:
     type: <xref href="System.String?alt=System.String&text=String" data-throw-if-not-resolved="True"/>
   uid: CatLibrary.Cat`2.Item(System.String)
   commentId: P:CatLibrary.Cat`2.Item(System.String)
-  name: Item[String]
-  fullName: CatLibrary.Cat<T,K>.Item[String]
-  nameWithType: Cat<T,K>.Item[String]
+  name: Item
+  fullName: CatLibrary.Cat<T,K>.Item
+  nameWithType: Cat<T,K>.Item
   syntaxWithMoniker:
   - lang: cpp
     values:

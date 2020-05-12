@@ -11,9 +11,9 @@ members:
     type: <xref href="System.Int32?alt=System.Int32&text=Int32" data-throw-if-not-resolved="True"/>
   uid: CatLibrary.IAnimal.Item(System.Int32)
   commentId: P:CatLibrary.IAnimal.Item(System.Int32)
-  name: Item[Int32]
-  fullName: CatLibrary.IAnimal.Item[Int32]
-  nameWithType: IAnimal.Item[Int32]
+  name: Item
+  fullName: CatLibrary.IAnimal.Item
+  nameWithType: IAnimal.Item
   syntaxWithMoniker:
   - lang: cpp
     values:

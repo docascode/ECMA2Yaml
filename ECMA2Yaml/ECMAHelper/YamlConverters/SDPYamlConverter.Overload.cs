@@ -2,6 +2,7 @@
 using ECMA2Yaml.Models.SDP;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace ECMA2Yaml
 {
@@ -10,7 +11,7 @@ namespace ECMA2Yaml
         public OverloadSDPModel FormatOverload(Member overload, List<Member> members)
         {
             var sdpOverload = new OverloadSDPModel()
-            { 
+            {
                 Uid = overload?.Uid,
                 CommentId = overload?.CommentId,
                 Name = overload?.DisplayName,
@@ -51,7 +52,7 @@ namespace ECMA2Yaml
             bool resetMemberThreadSafety = false;
             // One group members keep only one thread safety info
             var withThreadSafetyMembers = sdpOverload.Members.Where(p => p.ThreadSafety != null).ToList();
-            if (sdpOverload != null &&  overload?.Docs?.ThreadSafetyInfo != null)
+            if (sdpOverload != null && overload?.Docs?.ThreadSafetyInfo != null)
             {
                 sdpOverload.ThreadSafety = ConvertThreadSafety(overload);
                 resetMemberThreadSafety = true;
@@ -69,11 +70,28 @@ namespace ECMA2Yaml
                 {
                     m.ThreadSafety = null;
                 }
+
+                if (overload != null && overload.ItemType == ItemType.Property)
+                {
+                    m.Name = RemoveindexerFromPropertyName(m.Name);
+                    m.NameWithType = RemoveindexerFromPropertyName(m.NameWithType);
+                    m.FullName = RemoveindexerFromPropertyName(m.FullName);
+                }
             }
 
             GenerateRequiredMetadata(sdpOverload, overload ?? members.First(), members.Cast<ReflectionItem>().ToList());
 
             return sdpOverload;
+        }
+
+        private static readonly Regex indexerRegex = new Regex(@"\[.*?\]$", RegexOptions.Compiled);
+        private static string RemoveindexerFromPropertyName(string str)
+        {
+            if (string.IsNullOrEmpty(str))
+            {
+                return str;
+            }
+            return indexerRegex.Replace(str, "");
         }
     }
 }
