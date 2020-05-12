@@ -55,8 +55,57 @@ steps:
   inputs:
     ConnectedServiceName: 'CodeSigning-APEX'
     FolderPath: '$(System.DefaultWorkingDirectory)/ECMA2Yaml'
-    signType: 'batchSigning'
-    batchSignPolicyFile: 'CodeSign_Executable.json'
+    Pattern: |
+        ECMA2Yaml\bin\release\**\*.dll
+        ECMA2Yaml\bin\release\**\*.exe
+        IntellisenseFileGen\bin\Release\**\*.exe
+        ECMA2Yaml\Nuget\*.ps1
+        ECMAHelper\bin\Release\**\*.dll
+    UseMinimatch: true
+    signConfigType: inlineSignParams
+    inlineOperation: |
+     [
+        {
+          "KeyCode": "CP-230856",
+          "OperationSetCode": "SigntoolSign",
+          "parameters": [
+            {
+              "parameterName": "OpusName",
+              "parameterValue": "Microsoft"
+            },
+            {
+              "parameterName": "OpusInfo",
+              "parameterValue": "http://www.microsoft.com"
+            },
+            {
+              "parameterName": "PageHash",
+              "parameterValue": "/NPH"
+            },
+            {
+              "parameterName": "TimeStamp",
+              "parameterValue": "/tr \"http://rfc3161.gtm.corp.microsoft.com/TSS/HttpTspServer\" /td sha256"
+            },
+            {
+              "parameterName": "FileDigest",
+              "parameterValue": "/fd \"SHA256\""
+            }
+          ],
+          "ToolName": "sign",
+          "ToolVersion": "1.0"
+        },
+        {
+          "KeyCode": "CP-230856",
+          "OperationSetCode": "SigntoolVerify",
+          "Parameters": [
+            {
+              "parameterName": "VerifyAll",
+              "parameterValue": "/all"
+            }
+          ],
+          "ToolName": "sign",
+          "ToolVersion": "1.0"
+        }
+      ]
     SessionTimeout: '60'
     MaxConcurrency: '50'
     MaxRetryAttempts: '5'
