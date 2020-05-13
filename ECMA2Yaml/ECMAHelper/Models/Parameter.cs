@@ -65,10 +65,15 @@ namespace ECMA2Yaml.Models
         }
     }
 
-    public class Parameter : ParameterBase
+    public class Parameter : ParameterBase, IEquatable<Parameter>
     {
         public string Type { get; set; }
         public string OriginalTypeString { get; set; }
+
+        public bool Equals(Parameter other)
+        {
+            return other != null && other.Type == this.Type && other.OriginalTypeString == this.OriginalTypeString;        
+        }
 
         public override void LoadFromXElement(XElement p)
         {

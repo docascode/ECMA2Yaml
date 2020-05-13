@@ -21,12 +21,44 @@ namespace ECMA2Yaml
                 .ToList().NullIfEmpty();
 
             var knowTypeParams = m.Parent.TypeParameters.ConcatList(m.TypeParameters);
-            if (m.ReturnValueType != null
-                && !string.IsNullOrEmpty(m.ReturnValueType.Type)
-                && m.ReturnValueType.Type != "System.Void"
-                && m.ItemType != ItemType.Event)
+
+            if (m.ReturnValueType != null && m.ItemType != ItemType.Event)
             {
-                sdpMember.Returns = ConvertParameter<TypeReference>(m.ReturnValueType, knowTypeParams);
+                var returns = m.ReturnValueType;
+
+
+                if (returns.VersionedTypes.Count() == 1 )
+                {
+                    var oneReturn = returns.VersionedTypes.First();
+                    if (oneReturn != null
+                    && !string.IsNullOrEmpty(oneReturn.Value)
+                    && oneReturn.Value != "System.Void")
+                    {
+                        sdpMember.Returns = new TypeReference()
+                        {
+                            Description = returns.Description,
+                            Type = SDPYamlConverter.TypeStringToTypeMDString(oneReturn.Value, _store)
+                        };
+                    }
+                }
+                else
+                {
+                    var r = returns.VersionedTypes
+                        .Where(v => !string.IsNullOrWhiteSpace(v.Value) && v.Value != "System.Void").ToArray();
+                    if (r.Any())
+                    {
+                        foreach (var t in returns.VersionedTypes)
+                        {
+                            t.Value = SDPYamlConverter.TypeStringToTypeMDString(t.Value, _store);
+                        }
+                        var returnType = new ReturnValue
+                        {
+                            VersionedTypes = r,
+                            Description = returns.Description
+                        };
+                        sdpMember.ReturnsWithMoniker = returnType;
+                    }
+                }
             }
 
             sdpMember.Parameters = m.Parameters?.Select(p => ConvertNamedParameter(p, knowTypeParams))

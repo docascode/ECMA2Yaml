@@ -175,11 +175,12 @@ namespace ECMA2Yaml
             {
                 pv.References.AddRange(tItem.DerivedClasses.Select(c => store.TypesByUid[c].ToReferenceViewModel()));
             }
-            if (t.ReturnValueType != null
-                && !string.IsNullOrEmpty(t.ReturnValueType.Type)
-                && t.ReturnValueType.Type != "System.Void")
+
+            if (t.ReturnValueType != null 
+                && !t.ReturnValueType.VersionedTypes.Any(r => string.IsNullOrWhiteSpace(r.Value) || r.Value == "System.Void"))
             {
-                pv.References.AddRange(GenerateReferencesByTypeString(t.ReturnValueType.Type, store));
+                var refs = t.ReturnValueType.VersionedTypes.SelectMany(r => GenerateReferencesByTypeString(r.Value, store));
+                pv.References.AddRange(refs);
             }
             pv.References = pv.References.DistinctBy(r => r.Uid).ToList();
 
@@ -247,14 +248,25 @@ namespace ECMA2Yaml
                 Parameters = item.Parameters?.Select(p => p.ToApiParameter(store))?.ToList(),
                 TypeParameters = item.TypeParameters?.Select(tp => tp.ToApiParameter(store))?.ToList()
             };
-            if (item.ReturnValueType != null
-                && !string.IsNullOrEmpty(item.ReturnValueType.Type)
-                && item.ReturnValueType.Type != "System.Void"
-                && item.ItemType != ItemType.Event)
-            {
-                syntax.Return = item.ReturnValueType.ToApiParameter(store);
-            }
+
+            AddReturnValueToSyntaxDetailViewModel(item.ReturnValueType, store, syntax);
             return syntax;
+        }
+
+        private static void AddReturnValueToSyntaxDetailViewModel(ReturnValue returnType, ECMAStore store, SyntaxDetailViewModel syntax)
+        {
+            if (returnType != null)
+            {
+                foreach (var p in returnType.VersionedTypes.Where(p => !string.IsNullOrEmpty(p.Value) && p.Value != "System.Void"))
+                {
+                    ApiParameter api = new ApiParameter()
+                    {
+                        Type = p.Value,
+                        Description = returnType.Description
+                    };
+                    syntax.Return = api;
+                }
+            }
         }
 
         public static ItemViewModel ToItemViewModel(this Member m, ECMAStore store)
@@ -354,18 +366,25 @@ namespace ECMA2Yaml
                 m.ToReferenceViewModel()
             };
 
-            if (m.ReturnValueType != null && !string.IsNullOrEmpty(m.ReturnValueType.Type) && m.ReturnValueType.Type != "System.Void")
-            {
-                var reference = GenerateReferencesByTypeString(m.ReturnValueType.Type, store, m.ReturnValueType.OriginalTypeString);
-                if (reference != null)
-                {
-                    refs.AddRange(reference);
-                }
-            }
+            AddReturnValueToReferenceViewModel(m.ReturnValueType, refs, store);
 
             refs.AddRange(m.GenerateReferencesFromParameters(store));
 
             return refs;
+        }
+        private static void AddReturnValueToReferenceViewModel(ReturnValue returnType, List<ReferenceViewModel> refs, ECMAStore store)
+        {
+            if (returnType != null)
+            {
+                foreach (var p in returnType.VersionedTypes.Where(p => !string.IsNullOrEmpty(p.Value) && p.Value != "System.Void"))
+                {
+                    var reference = GenerateReferencesByTypeString(p.Value, store, p.Value);
+                    if (reference != null)
+                    {
+                        refs.AddRange(reference);
+                    }
+                }
+            }
         }
 
         public static List<ReferenceViewModel> GenerateReferencesFromParameters(this ReflectionItem item, ECMAStore store)

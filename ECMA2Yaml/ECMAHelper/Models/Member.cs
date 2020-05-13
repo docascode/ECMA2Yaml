@@ -54,7 +54,9 @@ namespace ECMA2Yaml.Models
             {
                 if (Name == "op_Explicit" || Name == "op_Implicit")
                 {
-                    paramPart = string.Format("({0} to {1})", Parameters.First().Type.ToDisplayName(), ReturnValueType.Type.ToDisplayName());
+                    var rtype = ReturnValueType.VersionedTypes.First().Value.ToDisplayName();
+
+                    paramPart = string.Format("({0} to {1})", Parameters.First().Type.ToDisplayName(), rtype);
                 }
                 else if (IsIndexer)
                 {
@@ -106,9 +108,12 @@ namespace ECMA2Yaml.Models
                 {
                     var typeParamsOnType = Parent.TypeParameters?.Select(tp => tp.Name).ToList();
                     var typeParamsOnMember = TypeParameters?.Select(tp => tp.Name).ToList();
+
+                    var rtype = ReturnValueType.VersionedTypes.First().Value;
+
                     Id += string.Format("({0})~{1}",
                         Parameters.First().Type.ToSpecId(typeParamsOnType, typeParamsOnMember),
-                        ReturnValueType.Type.ToSpecId(typeParamsOnType, typeParamsOnMember));
+                        rtype.ToSpecId(typeParamsOnType, typeParamsOnMember));
                 }
                 //spec is wrong, no need to treat indexer specially, so comment this part out
                 //else if (MemberType == MemberType.Property && Signatures.ContainsKey("C#") && Signatures["C#"].Contains("["))

@@ -233,10 +233,7 @@ namespace ECMA2Yaml
             var rvalElement = tRoot.Element("ReturnValue");
             if (rvalElement != null)
             {
-                t.ReturnValueType = new Parameter()
-                {
-                    Type = rvalElement.Element("ReturnType")?.Value
-                };
+                t.ReturnValueType = MonikerizeReturnValue(rvalElement);
             }
 
             //BaseTypeName
@@ -426,22 +423,10 @@ namespace ECMA2Yaml
                 m.Attributes = attrs.Elements("Attribute").Select(a => LoadAttribute(a)).ToList();
             }
 
-            var returnTypeStr = mElement.Element("ReturnValue")?.Element("ReturnType")?.Value;
-            if (returnTypeStr != null)
-            {
-                var returnType = new Parameter()
-                {
-                    Type = returnTypeStr,
-                    OriginalTypeString = returnTypeStr
-                };
-                if (returnType.Type.EndsWith("&"))
-                {
-                    returnType.Type = returnType.Type.TrimEnd('&');
-                    returnType.RefType = "ref";
-                }
-                returnType.Type = returnType.Type.Replace('+', '.');
-                m.ReturnValueType = returnType;
-            }
+            // Load monikerized return type data
+            var returnValueElement = mElement.Element("ReturnValue");
+
+            m.ReturnValueType = MonikerizeReturnValue(returnValueElement);
 
             var implements = mElement.Element("Implements");
             if (implements != null)
@@ -455,6 +440,31 @@ namespace ECMA2Yaml
             LoadMetadata(m, mElement);
 
             return m;
+        }
+
+        public static ReturnValue MonikerizeReturnValue(XElement returnValueElement)
+        {
+            var returnTypes = returnValueElement?.Elements("ReturnType").Select(r => new { ReturnType = r.Value, Monikers = ECMALoader.LoadFrameworkAlternate(r) });
+            if (returnTypes == null || !returnTypes.Any()) return null;
+
+            Func<VersionedReturnType, VersionedReturnType> toParam = s =>
+            {
+                var returnType = s;
+                if (returnType.Value.EndsWith("&"))
+                {
+                    returnType.Value = returnType.Value.TrimEnd('&');
+                    returnType.RefType = "ref";
+                }
+                returnType.Value = returnType.Value.Replace('+', '.');
+                return returnType;
+            };
+            var returns = returnTypes.Select(r => new VersionedReturnType
+            {
+                Value = r.ReturnType,
+                Monikers = r.Monikers
+            }).Select(toParam);
+
+            return new ReturnValue() { VersionedTypes = returns.ToArray() };
         }
 
         private Member LoadMemberGroup(Models.Type t, XElement mElement)

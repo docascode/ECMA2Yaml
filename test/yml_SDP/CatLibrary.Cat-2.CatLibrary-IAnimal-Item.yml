@@ -37,9 +37,9 @@ members:
 uid: CatLibrary.Cat`2.CatLibrary#IAnimal#Item*
 commentId: Overload:CatLibrary.Cat`2.CatLibrary#IAnimal#Item
 namespace: CatLibrary
-name: IAnimal.Item[Int32]
-fullName: CatLibrary.Cat<T,K>.CatLibrary.IAnimal.Item[Int32]
-nameWithType: Cat<T,K>.IAnimal.Item[Int32]
+name: IAnimal.Item[]
+fullName: CatLibrary.Cat<T,K>.CatLibrary.IAnimal.Item[]
+nameWithType: Cat<T,K>.IAnimal.Item[]
 assembliesWithMoniker:
 - value: CatLibrary.dll
 packagesWithMoniker:
