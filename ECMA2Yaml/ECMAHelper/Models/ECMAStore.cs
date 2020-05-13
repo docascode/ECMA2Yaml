@@ -1115,7 +1115,7 @@ namespace ECMA2Yaml.Models
 
             if (str.Contains("[") && str.Contains("]"))
             {
-                str = str.Substring(0, str.LastIndexOf('['));
+                str = str.Substring(0, str.IndexOf('['));
                 str += "[]";
             }
 
