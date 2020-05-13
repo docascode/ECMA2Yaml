@@ -29,6 +29,10 @@ namespace ECMA2Yaml
                     )).ToList(),
                 t.Monikers);
                 sdpType.DerivedClassesWithMoniker = MonikerizeDerivedClasses(t);
+                sdpType.ImplementsWithMoniker = t.Interfaces?.Where(i => i != null && i.Value != null)
+                    .Select(i => new VersionedString(i.Monikers, TypeStringToTypeMDString(i.Value, _store)))
+                    .ToList()
+                    .NullIfEmpty();
             }
             else
             {
@@ -48,12 +52,12 @@ namespace ECMA2Yaml
                 {
                     sdpType.DerivedClasses = _store.InheritanceChildrenByUid[t.Uid].Select(v => v.Value).ToList();
                 }
+                sdpType.Implements = t.Interfaces?.Where(i => i != null && i.Value != null)
+                    .Select(i => TypeStringToTypeMDString(i.Value, _store))
+                    .ToList()
+                    .NullIfEmpty();
             }
 
-            sdpType.Implements = t.Interfaces?.Where(i => i != null)
-                .Select(i => TypeStringToTypeMDString(i, _store))
-                .ToList()
-                .NullIfEmpty();
             sdpType.Permissions = t.Docs.Permissions?.Select(
                 p => new TypeReference()
                 {

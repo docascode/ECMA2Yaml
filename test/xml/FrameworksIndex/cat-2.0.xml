@@ -91,6 +91,7 @@
     </Type>
     <Type Name="VersioningTest.C" Id="T:VersioningTest.C">
       <Member Id="M:VersioningTest.C.#ctor" />
+      <Member Id="M:VersioningTest.C.MethodForI" />
     </Type>
     <Type Name="VersioningTest.D" Id="T:VersioningTest.D">
       <Member Id="M:VersioningTest.D.#ctor" />
@@ -107,10 +108,12 @@
     <Type Name="VersioningTest.H" Id="T:VersioningTest.H">
       <Member Id="M:VersioningTest.H.#ctor" />
     </Type>
-    <Type Name="VersioningTest.I" Id="T:VersioningTest.I" />
+    <Type Name="VersioningTest.I2" Id="T:VersioningTest.I2">
+      <Member Id="M:VersioningTest.I2.MethodForI" />
+    </Type>
     <Type Name="VersioningTest.VersioningExtensions" Id="T:VersioningTest.VersioningExtensions">
       <Member Id="M:VersioningTest.VersioningExtensions.ExtMethodForD(VersioningTest.D)" />
-      <Member Id="M:VersioningTest.VersioningExtensions.ExtMethodForI(VersioningTest.I)" />
+      <Member Id="M:VersioningTest.VersioningExtensions.ExtMethodForI(VersioningTest.I2)" />
     </Type>
   </Namespace>
 </Framework>

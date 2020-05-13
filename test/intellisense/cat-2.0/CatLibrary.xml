@@ -291,6 +291,10 @@
     </member>
     <member name="T:VersioningTest.C" />
     <member name="M:VersioningTest.C.#ctor" />
+    <member name="M:VersioningTest.C.MethodForI">
+      <summary>
+            This method was moved from I1 to I2.</summary>
+    </member>
     <member name="T:VersioningTest.D" />
     <member name="M:VersioningTest.D.#ctor" />
     <member name="T:VersioningTest.E" />
@@ -304,14 +308,18 @@
     <member name="M:VersioningTest.G.#ctor" />
     <member name="T:VersioningTest.H" />
     <member name="M:VersioningTest.H.#ctor" />
-    <member name="T:VersioningTest.I" />
+    <member name="T:VersioningTest.I2" />
+    <member name="M:VersioningTest.I2.MethodForI">
+      <summary>
+            This method was moved from I1 to I2.</summary>
+    </member>
     <member name="T:VersioningTest.VersioningExtensions" />
     <member name="M:VersioningTest.VersioningExtensions.ExtMethodForD(VersioningTest.D)">
       <summary>
             this extension method should show up in class D for all monikers, and in F/G/H for cat-2.0 only.</summary>
       <param name="i" />
     </member>
-    <member name="M:VersioningTest.VersioningExtensions.ExtMethodForI(VersioningTest.I)">
+    <member name="M:VersioningTest.VersioningExtensions.ExtMethodForI(VersioningTest.I2)">
       <summary>
             this extension method should show up in interface <c>I</c>, class <c>C</c> and <c>E</c> for all monikers, and in F/G/H for cat-1.0 only.</summary>
       <param name="i" />

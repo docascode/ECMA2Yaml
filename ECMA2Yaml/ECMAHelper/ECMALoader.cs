@@ -246,7 +246,9 @@ namespace ECMA2Yaml
             var interfacesElement = tRoot.Element("Interfaces");
             if (interfacesElement != null)
             {
-                t.Interfaces = interfacesElement.Elements("Interface").Select(i => i?.Element("InterfaceName")?.Value).ToList();
+                t.Interfaces = interfacesElement.Elements("Interface")
+                    .Select(i => new VersionedString(LoadFrameworkAlternate(i), i?.Element("InterfaceName")?.Value))
+                    .ToList();
             }
 
             //Attributes
@@ -444,7 +446,7 @@ namespace ECMA2Yaml
             var implements = mElement.Element("Implements");
             if (implements != null)
             {
-                m.Implements = implements.Elements("InterfaceMember")?.Select(ele => ele.Value).ToList();
+                m.Implements = implements.Elements("InterfaceMember")?.Select(ele => new VersionedString(LoadFrameworkAlternate(ele), ele.Value)).ToList();
             }
 
             //Docs

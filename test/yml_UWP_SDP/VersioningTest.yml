@@ -37,9 +37,11 @@ classes:
   - cat-1.0
   - cat-2.0
 interfaces:
-- uid: VersioningTest.I
+- uid: VersioningTest.I1
   monikers:
   - cat-1.0
+- uid: VersioningTest.I2
+  monikers:
   - cat-2.0
 uid: VersioningTest
 commentId: N:VersioningTest

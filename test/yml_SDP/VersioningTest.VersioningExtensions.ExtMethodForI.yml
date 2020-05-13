@@ -4,12 +4,12 @@ members:
 - parameters:
   - namesWithMoniker:
     - value: i
-    type: <xref href="VersioningTest.I?alt=VersioningTest.I&text=I" data-throw-if-not-resolved="True"/>
-  uid: VersioningTest.VersioningExtensions.ExtMethodForI(VersioningTest.I)
-  commentId: M:VersioningTest.VersioningExtensions.ExtMethodForI(VersioningTest.I)
-  name: ExtMethodForI(I)
-  fullName: VersioningTest.VersioningExtensions.ExtMethodForI(I)
-  nameWithType: VersioningExtensions.ExtMethodForI(I)
+    type: <xref href="VersioningTest.I1?alt=VersioningTest.I1&text=I1" data-throw-if-not-resolved="True"/>
+  uid: VersioningTest.VersioningExtensions.ExtMethodForI(VersioningTest.I1)
+  commentId: M:VersioningTest.VersioningExtensions.ExtMethodForI(VersioningTest.I1)
+  name: ExtMethodForI(I1)
+  fullName: VersioningTest.VersioningExtensions.ExtMethodForI(I1)
+  nameWithType: VersioningExtensions.ExtMethodForI(I1)
   syntaxWithMoniker:
   - lang: cpp
     values:
@@ -17,21 +17,53 @@ members:
         public:
 
         [System::Runtime::CompilerServices::Extension]
-         static void ExtMethodForI(VersioningTest::I ^ i);
+         static void ExtMethodForI(VersioningTest::I1 ^ i);
   - lang: csharp
     values:
-    - value: public static void ExtMethodForI (this VersioningTest.I i);
+    - value: public static void ExtMethodForI (this VersioningTest.I1 i);
   - lang: fsharp
     values:
-    - value: 'static member ExtMethodForI : VersioningTest.I -> unit'
+    - value: 'static member ExtMethodForI : VersioningTest.I1 -> unit'
   - lang: vb
     values:
     - value: >-
         <Extension()>
 
-        Public Sub ExtMethodForI (i As I)
+        Public Sub ExtMethodForI (i As I1)
   monikers:
   - cat-1.0
+  summary: this extension method should show up in interface <code data-dev-comment-type="c">I</code>, class <code data-dev-comment-type="c">C</code> and <code data-dev-comment-type="c">E</code> for all monikers, and in `F/G/H` for `cat-1.0` only.
+  metadata: {}
+- parameters:
+  - namesWithMoniker:
+    - value: i
+    type: <xref href="VersioningTest.I2?alt=VersioningTest.I2&text=I2" data-throw-if-not-resolved="True"/>
+  uid: VersioningTest.VersioningExtensions.ExtMethodForI(VersioningTest.I2)
+  commentId: M:VersioningTest.VersioningExtensions.ExtMethodForI(VersioningTest.I2)
+  name: ExtMethodForI(I2)
+  fullName: VersioningTest.VersioningExtensions.ExtMethodForI(I2)
+  nameWithType: VersioningExtensions.ExtMethodForI(I2)
+  syntaxWithMoniker:
+  - lang: cpp
+    values:
+    - value: >-
+        public:
+
+        [System::Runtime::CompilerServices::Extension]
+         static void ExtMethodForI(VersioningTest::I2 ^ i);
+  - lang: csharp
+    values:
+    - value: public static void ExtMethodForI (this VersioningTest.I2 i);
+  - lang: fsharp
+    values:
+    - value: 'static member ExtMethodForI : VersioningTest.I2 -> unit'
+  - lang: vb
+    values:
+    - value: >-
+        <Extension()>
+
+        Public Sub ExtMethodForI (i As I2)
+  monikers:
   - cat-2.0
   summary: this extension method should show up in interface <code data-dev-comment-type="c">I</code>, class <code data-dev-comment-type="c">C</code> and <code data-dev-comment-type="c">E</code> for all monikers, and in `F/G/H` for `cat-1.0` only.
   metadata: {}
@@ -76,5 +108,7 @@ metadata:
   helpviewer_keywords:
   - VersioningExtensions.ExtMethodForI method [.NET]
   - ExtMethodForI method [.NET], class VersioningExtensions
-  - VersioningExtensions.ExtMethodForI(I) extension method [.NET]
-  - ExtMethodForI(I) extension method [.NET], class VersioningExtensions
+  - VersioningExtensions.ExtMethodForI(I1) extension method [.NET]
+  - ExtMethodForI(I1) extension method [.NET], class VersioningExtensions
+  - VersioningExtensions.ExtMethodForI(I2) extension method [.NET]
+  - ExtMethodForI(I2) extension method [.NET], class VersioningExtensions

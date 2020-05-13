@@ -1,0 +1,81 @@
+### YamlMime:NetMember
+type: method
+members:
+- implementsWithMoniker:
+  - value: <xref href="VersioningTest.I1.MethodForI?alt=VersioningTest.I1.MethodForI&text=MethodForI()" data-throw-if-not-resolved="True"/>
+    monikers:
+    - cat-1.0
+  - value: <xref href="VersioningTest.I2.MethodForI?alt=VersioningTest.I2.MethodForI&text=MethodForI()" data-throw-if-not-resolved="True"/>
+    monikers:
+    - cat-2.0
+  uid: VersioningTest.C.MethodForI
+  commentId: M:VersioningTest.C.MethodForI
+  name: MethodForI()
+  fullName: VersioningTest.C.MethodForI()
+  nameWithType: C.MethodForI()
+  syntaxWithMoniker:
+  - lang: cpp
+    values:
+    - value: >-
+        public:
+         virtual void MethodForI();
+  - lang: csharp
+    values:
+    - value: public void MethodForI ();
+  - lang: fsharp
+    values:
+    - value: >-
+        abstract member MethodForI : unit -> unit
+
+        override this.MethodForI : unit -> unit
+  - lang: vb
+    values:
+    - value: Public Sub MethodForI ()
+  monikers:
+  - cat-1.0
+  - cat-2.0
+  summary: This method was moved from I1 to I2.
+  metadata: {}
+uid: VersioningTest.C.MethodForI*
+commentId: Overload:VersioningTest.C.MethodForI
+namespace: VersioningTest
+name: MethodForI
+fullName: VersioningTest.C.MethodForI
+nameWithType: C.MethodForI
+assembliesWithMoniker:
+- value: CatLibrary.dll
+packagesWithMoniker:
+- value: Animal v1.0.0
+  monikers:
+  - cat-1.0
+- value: Pet v1.0.0
+  monikers:
+  - cat-2.0
+devLangs:
+- csharp
+- vb
+- cpp
+- fsharp
+monikers:
+- cat-1.0
+- cat-2.0
+metadata:
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/C.xml
+  _op_overwriteFileGitUrl: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/C.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/C.xml
+  api_name:
+  - VersioningTest.C.MethodForI
+  api_location:
+  - CatLibrary.dll
+  topic_type:
+  - apiref
+  api_type:
+  - Assembly
+  f1_keywords:
+  - VersioningTest.C.MethodForI
+  - VersioningTest::C::MethodForI
+  helpviewer_keywords:
+  - C.MethodForI method [.NET]
+  - MethodForI method [.NET], class C
+  - C.MethodForI() method [.NET]
+  - MethodForI() method [.NET], class C

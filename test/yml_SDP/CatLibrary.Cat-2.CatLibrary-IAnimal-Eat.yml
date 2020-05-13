@@ -6,8 +6,8 @@ members:
     - value: food
     description: Food to eat
     type: <xref href="System.String?alt=System.String&text=String" data-throw-if-not-resolved="True"/>
-  implements:
-  - <xref href="CatLibrary.IAnimal.Eat(System.String)?alt=CatLibrary.IAnimal.Eat(System.String)&text=Eat(String)" data-throw-if-not-resolved="True"/>
+  implementsWithMoniker:
+  - value: <xref href="CatLibrary.IAnimal.Eat(System.String)?alt=CatLibrary.IAnimal.Eat(System.String)&text=Eat(String)" data-throw-if-not-resolved="True"/>
   uid: CatLibrary.Cat`2.CatLibrary#IAnimal#Eat(System.String)
   commentId: M:CatLibrary.Cat`2.CatLibrary#IAnimal#Eat(System.String)
   name: IAnimal.Eat(String)
@@ -34,8 +34,8 @@ members:
   - cat-2.0
   summary: Implementation of Eat(food)
   metadata: {}
-- implements:
-  - <xref href="CatLibrary.IAnimal.Eat?alt=CatLibrary.IAnimal.Eat&text=Eat()" data-throw-if-not-resolved="True"/>
+- implementsWithMoniker:
+  - value: <xref href="CatLibrary.IAnimal.Eat?alt=CatLibrary.IAnimal.Eat&text=Eat()" data-throw-if-not-resolved="True"/>
   uid: CatLibrary.Cat`2.CatLibrary#IAnimal#Eat
   commentId: M:CatLibrary.Cat`2.CatLibrary#IAnimal#Eat
   name: IAnimal.Eat()
@@ -70,8 +70,8 @@ members:
     - value: a
     description: Tool name.
     type: Tool
-  implements:
-  - <xref href="CatLibrary.IAnimal.Eat``1(``0)?alt=CatLibrary.IAnimal.Eat``1(``0)&text=Eat%3CTool%3E(Tool)" data-throw-if-not-resolved="True"/>
+  implementsWithMoniker:
+  - value: <xref href="CatLibrary.IAnimal.Eat``1(``0)?alt=CatLibrary.IAnimal.Eat``1(``0)&text=Eat%3CTool%3E(Tool)" data-throw-if-not-resolved="True"/>
   uid: CatLibrary.Cat`2.CatLibrary#IAnimal#Eat``1(``0)
   commentId: M:CatLibrary.Cat`2.CatLibrary#IAnimal#Eat``1(``0)
   name: IAnimal.Eat<Tool>(Tool)

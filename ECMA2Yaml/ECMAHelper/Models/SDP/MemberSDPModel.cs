@@ -40,6 +40,10 @@ namespace ECMA2Yaml.Models.SDP
         [YamlMember(Alias = "implements")]
         public IEnumerable<string> Implements { get; set; }
 
+        [JsonProperty("implementsWithMoniker")]
+        [YamlMember(Alias = "implementsWithMoniker")]
+        public IEnumerable<VersionedString> ImplementsWithMoniker { get; set; }
+
         [JsonProperty("isNotClsCompliant")]
         [YamlMember(Alias = "isNotClsCompliant")]
         public bool? IsNotClsCompliant { get; set; }

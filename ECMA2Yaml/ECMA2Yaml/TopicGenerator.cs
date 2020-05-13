@@ -169,7 +169,7 @@ namespace ECMA2Yaml
             }
             if (t.Interfaces?.Count > 0)
             {
-                pv.References.AddRange(t.Interfaces.SelectMany(i => GenerateReferencesByTypeString(i, store)));
+                pv.References.AddRange(t.Interfaces.SelectMany(i => GenerateReferencesByTypeString(i.Value, store)));
             }
             if (tItem.DerivedClasses?.Count > 0)
             {
@@ -201,7 +201,7 @@ namespace ECMA2Yaml
                 NamespaceName = t.Parent.Name,
                 Children = t.Members?.Select(m => m.Uid).ToList(),
                 Syntax = syntax,
-                Implements = t.Interfaces?.Where(i => i != null).Select(i => store.TypesByFullName.ContainsKey(i) ? store.TypesByFullName[i].Uid : i.ToSpecId()).ToList(),
+                Implements = t.Interfaces?.Where(i => i != null).Select(i => store.TypesByFullName.ContainsKey(i.Value) ? store.TypesByFullName[i.Value].Uid : i.Value.ToSpecId()).ToList(),
                 Inheritance = t.InheritanceChains?.LastOrDefault()?.Values,
                 AssemblyNameList = store.UWPMode ? null : t.AssemblyInfo.Select(a => a.Name).Distinct().ToList(),
                 InheritedMembers = t.InheritedMembers?.Select(p => p.Value.Value).OrderBy(s => s).ToList(),
@@ -287,7 +287,7 @@ namespace ECMA2Yaml
                 SeeAlsos = m.Docs.BuildSeeAlsoList(store),
                 Source = m.SourceDetail.ToSourceDetail()
             };
-            var implements = m.Implements?.Select(commentId => commentId.ResolveCommentId(store)?.Uid)?.Where(uid => uid != null)?.ToList();
+            var implements = m.Implements?.Select(impl => impl.Value.ResolveCommentId(store)?.Uid)?.Where(uid => uid != null)?.ToList();
             if (implements?.Count > 0)
             {
                 item.Implements = implements;

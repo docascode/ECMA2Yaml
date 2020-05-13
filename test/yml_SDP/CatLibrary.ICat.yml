@@ -1,7 +1,7 @@
 ### YamlMime:NetType
 type: interface
-implements:
-- <xref href="CatLibrary.IAnimal?alt=CatLibrary.IAnimal&text=IAnimal" data-throw-if-not-resolved="True"/>
+implementsWithMoniker:
+- value: <xref href="CatLibrary.IAnimal?alt=CatLibrary.IAnimal&text=IAnimal" data-throw-if-not-resolved="True"/>
 derivedClassesWithMoniker:
 - value: CatLibrary.Cat`2
 extensionMethods:
