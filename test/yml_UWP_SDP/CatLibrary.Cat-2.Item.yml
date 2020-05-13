@@ -39,9 +39,9 @@ members:
 uid: CatLibrary.Cat`2.Item*
 commentId: Overload:CatLibrary.Cat`2.Item
 namespace: CatLibrary
-name: Item[String]
-fullName: CatLibrary.Cat<T,K>.Item[String]
-nameWithType: Cat<T,K>.Item[String]
+name: Item[]
+fullName: CatLibrary.Cat<T,K>.Item[]
+nameWithType: Cat<T,K>.Item[]
 devLangs:
 - csharp
 - vb
