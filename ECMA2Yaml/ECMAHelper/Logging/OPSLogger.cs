@@ -35,7 +35,7 @@ namespace ECMA2Yaml
         public static void LogUserInfo(string message, string file = null)
         {
             file = TranslateFilePath(file);
-            WriteLog(new LogItem(message, "ECMA2Yaml", file, MessageSeverity.Info, LogItemType.User));
+            WriteLog(new LogItem(message, "ECMA2Yaml", file, MessageSeverity.Info, LogCode.ECMA2Yaml_Info.ToString(), LogItemType.User));
         }
 
         public static void LogSystemError(LogCode code, string file, params object[] msgArgs)
