@@ -11,6 +11,7 @@ namespace ECMA2Yaml.UndocumentedApi
     public class DotnetDocValidator : Validator
     {
         public override HashSet<string> UnderDocStrings => new HashSet<string>() { "tbd", "to be supplied", "add content here", "to be added", "to be added." };
+        public override HashSet<string> MissingStrings => new HashSet<string>() { };
         public override int SummaryLengthRequirement => 30;
         public override int ParametersLengthRequirement => 10;
         public override int ReturnsLengthRequirement => 10;
@@ -18,7 +19,8 @@ namespace ECMA2Yaml.UndocumentedApi
 
     public class UWPDocValidator : Validator
     {
-        public override HashSet<string> UnderDocStrings => new HashSet<string>() { "tbd" };
+        public override HashSet<string> UnderDocStrings => new HashSet<string>() { };
+        public override HashSet<string> MissingStrings => new HashSet<string>() { "tbd" };
         public override int SummaryLengthRequirement => 1;
         public override int ParametersLengthRequirement => 1;
         public override int ReturnsLengthRequirement => 1;
@@ -27,6 +29,7 @@ namespace ECMA2Yaml.UndocumentedApi
     public abstract class Validator
     {
         public virtual HashSet<string> UnderDocStrings { get; }
+        public virtual HashSet<string> MissingStrings { get; }
         public virtual int SummaryLengthRequirement { get; }
         public virtual int ParametersLengthRequirement { get; }
         public virtual int ReturnsLengthRequirement { get; }
@@ -114,7 +117,7 @@ namespace ECMA2Yaml.UndocumentedApi
 
         private ValidationResult ValidateSimpleString(string str, int lengthRequirement)
         {
-            if (string.IsNullOrWhiteSpace(str))
+            if (IsMissing(str))
             {
                 return ValidationResult.Missing;
             }
@@ -128,6 +131,11 @@ namespace ECMA2Yaml.UndocumentedApi
         private bool IsUnderDoc(string str, int lengthRequirement)
         {
             return UnderDocStrings.Contains(str.ToLower()) || str.Length < lengthRequirement;
+        }
+
+        private bool IsMissing(string str)
+        {
+            return string.IsNullOrWhiteSpace(str) || MissingStrings.Contains(str.ToLower());
         }
     }
 }
