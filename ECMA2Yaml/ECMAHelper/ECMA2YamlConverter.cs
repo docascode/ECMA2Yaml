@@ -30,7 +30,7 @@ namespace ECMA2Yaml
             }
             if (!string.IsNullOrEmpty(logContentBaseDirectory))
             {
-                OPSLogger.PathTrimPrefix = logContentBaseDirectory.NormalizePath();
+                OPSLogger.PathTrimPrefix = logContentBaseDirectory.NormalizePath().AppendDirectorySeparator();
             }
             if (logWriter != null)
             {
