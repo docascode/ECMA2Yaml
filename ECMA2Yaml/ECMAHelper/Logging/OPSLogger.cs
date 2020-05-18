@@ -70,7 +70,7 @@ namespace ECMA2Yaml
             {
                 return file;
             }
-            return file.Replace(PathTrimPrefix, "");
+            return file.NormalizePath().Replace(PathTrimPrefix, "");
         }
 
         private static void WriteLog(LogItem logItem)

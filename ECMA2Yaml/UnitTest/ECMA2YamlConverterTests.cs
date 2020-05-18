@@ -21,6 +21,7 @@ namespace UnitTest
                 xmlDirectory,
                 outputDirectory,
                 logWriter: item => Console.WriteLine(item.ToString()),
+                logContentBaseDirectory: testDirectory,
                 sourceMapFilePath: sourceMapFilePath);
         }
     }
