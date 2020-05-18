@@ -37,9 +37,9 @@ members:
 uid: CatLibrary.IAnimal.Item*
 commentId: Overload:CatLibrary.IAnimal.Item
 namespace: CatLibrary
-name: Item[Int32]
-fullName: CatLibrary.IAnimal.Item[Int32]
-nameWithType: IAnimal.Item[Int32]
+name: Item[]
+fullName: CatLibrary.IAnimal.Item[]
+nameWithType: IAnimal.Item[]
 devLangs:
 - csharp
 - vb
@@ -55,15 +55,13 @@ metadata:
   api_name:
   - CatLibrary.IAnimal.Item
   - CatLibrary.IAnimal.get_Item
-  api_location:
-  - CatLibrary.dll
+  f1_keywords:
+  - CatLibrary.IAnimal.Item
+  - CatLibrary::IAnimal::Item
   topic_type:
   - apiref
   api_type:
   - Assembly
-  f1_keywords:
-  - CatLibrary.IAnimal.Item
-  - CatLibrary::IAnimal::Item
   helpviewer_keywords:
   - IAnimal.Item[Int32] property [.NET]
   - Item[Int32] property [.NET], interface IAnimal

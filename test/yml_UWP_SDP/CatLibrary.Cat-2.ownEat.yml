@@ -49,15 +49,13 @@ metadata:
   - CatLibrary.Cat`2.ownEat
   - CatLibrary.Cat`2.add_ownEat
   - CatLibrary.Cat`2.remove_ownEat
-  api_location:
-  - CatLibrary.dll
+  f1_keywords:
+  - CatLibrary.Cat`2.ownEat
+  - CatLibrary::Cat`2::ownEat
   topic_type:
   - apiref
   api_type:
   - Assembly
-  f1_keywords:
-  - CatLibrary.Cat`2.ownEat
-  - CatLibrary::Cat`2::ownEat
   helpviewer_keywords:
   - Cat<T,K>.ownEat event [.NET]
   - ownEat event [.NET], class Cat<T,K>

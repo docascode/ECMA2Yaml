@@ -66,15 +66,13 @@ metadata:
   ms.locfileid: "69262388"
   api_name:
   - CatLibrary.Cat`2.isHealthy
-  api_location:
-  - CatLibrary.dll
+  f1_keywords:
+  - CatLibrary.Cat`2.isHealthy
+  - CatLibrary::Cat`2::isHealthy
   topic_type:
   - apiref
   api_type:
   - Assembly
-  f1_keywords:
-  - CatLibrary.Cat`2.isHealthy
-  - CatLibrary::Cat`2::isHealthy
   helpviewer_keywords:
   - Cat<T,K>.isHealthy field [.NET]
   - isHealthy field [.NET], class Cat<T,K>

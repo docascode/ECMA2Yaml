@@ -50,15 +50,13 @@ metadata:
   original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/TomFromBaseClass.xml
   api_name:
   - CatLibrary.TomFromBaseClass..ctor
-  api_location:
-  - CatLibrary.dll
+  f1_keywords:
+  - CatLibrary.TomFromBaseClass.#ctor
+  - CatLibrary::TomFromBaseClass::#ctor
   topic_type:
   - apiref
   api_type:
   - Assembly
-  f1_keywords:
-  - CatLibrary.TomFromBaseClass.#ctor
-  - CatLibrary::TomFromBaseClass::#ctor
   helpviewer_keywords:
   - TomFromBaseClass class [.NET], constructors
   - TomFromBaseClass(Int32) class [.NET], constructors

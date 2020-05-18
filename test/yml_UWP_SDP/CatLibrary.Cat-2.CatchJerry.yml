@@ -91,15 +91,13 @@ metadata:
   ms.locfileid: "69262388"
   api_name:
   - CatLibrary.Cat`2.CatchJerry
-  api_location:
-  - CatLibrary.dll
+  f1_keywords:
+  - CatLibrary.Cat`2.CatchJerry
+  - CatLibrary::Cat`2::CatchJerry
   topic_type:
   - apiref
   api_type:
   - Assembly
-  f1_keywords:
-  - CatLibrary.Cat`2.CatchJerry
-  - CatLibrary::Cat`2::CatchJerry
   helpviewer_keywords:
   - Cat<T,K>.CatchJerry method [.NET]
   - CatchJerry method [.NET], class Cat<T,K>

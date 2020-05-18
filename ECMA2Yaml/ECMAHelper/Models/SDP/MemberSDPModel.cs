@@ -22,6 +22,10 @@ namespace ECMA2Yaml.Models.SDP
         [YamlMember(Alias = "returns")]
         public TypeReference Returns { get; set; }
 
+        [JsonProperty("returnsWithMoniker")]
+        [YamlMember(Alias = "returnsWithMoniker")]
+        public ReturnValue ReturnsWithMoniker { get; set; }
+
         [JsonProperty("parameters")]
         [YamlMember(Alias = "parameters")]
         public IEnumerable<ParameterReference> Parameters { get; set; }

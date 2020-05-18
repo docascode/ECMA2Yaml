@@ -60,15 +60,13 @@ metadata:
   original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/ICatExtension.xml
   api_name:
   - CatLibrary.ICatExtension.Sleep
-  api_location:
-  - CatLibrary.dll
+  f1_keywords:
+  - CatLibrary.ICatExtension.Sleep
+  - CatLibrary::ICatExtension::Sleep
   topic_type:
   - apiref
   api_type:
   - Assembly
-  f1_keywords:
-  - CatLibrary.ICatExtension.Sleep
-  - CatLibrary::ICatExtension::Sleep
   helpviewer_keywords:
   - ICatExtension.Sleep method [.NET]
   - Sleep method [.NET], class ICatExtension

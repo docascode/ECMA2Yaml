@@ -82,15 +82,13 @@ metadata:
   api_name:
   - CatLibrary.Cat`2.Addition
   - CatLibrary.Cat`2.op_Addition
-  api_location:
-  - CatLibrary.dll
+  f1_keywords:
+  - CatLibrary.Cat`2.op_Addition
+  - CatLibrary::Cat`2::op_Addition
   topic_type:
   - apiref
   api_type:
   - Assembly
-  f1_keywords:
-  - CatLibrary.Cat`2.op_Addition
-  - CatLibrary::Cat`2::op_Addition
   helpviewer_keywords:
   - Cat<T,K>.Addition operator [.NET]
   - Addition operator [.NET], class Cat<T,K>

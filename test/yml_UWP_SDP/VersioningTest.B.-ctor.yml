@@ -41,15 +41,13 @@ metadata:
   original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/B.xml
   api_name:
   - VersioningTest.B..ctor
-  api_location:
-  - CatLibrary.dll
+  f1_keywords:
+  - VersioningTest.B.#ctor
+  - VersioningTest::B::#ctor
   topic_type:
   - apiref
   api_type:
   - Assembly
-  f1_keywords:
-  - VersioningTest.B.#ctor
-  - VersioningTest::B::#ctor
   helpviewer_keywords:
   - B class [.NET], constructors
   - B() class [.NET], constructors

@@ -193,15 +193,13 @@ metadata:
   ms.locfileid: "69262388"
   api_name:
   - CatLibrary.Cat`2
-  api_location:
-  - CatLibrary.dll
+  f1_keywords:
+  - CatLibrary.Cat`2
+  - CatLibrary::Cat`2
   topic_type:
   - apiref
   api_type:
   - Assembly
-  f1_keywords:
-  - CatLibrary.Cat`2
-  - CatLibrary::Cat`2
   helpviewer_keywords:
   - CatLibrary.Cat<T,K> class [.NET]
   monikers:

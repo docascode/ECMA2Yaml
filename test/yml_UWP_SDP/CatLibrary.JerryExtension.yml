@@ -40,15 +40,13 @@ metadata:
   original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/JerryExtension.xml
   api_name:
   - CatLibrary.JerryExtension
-  api_location:
-  - CatLibrary.dll
+  f1_keywords:
+  - CatLibrary.JerryExtension
+  - CatLibrary::JerryExtension
   topic_type:
   - apiref
   api_type:
   - Assembly
-  f1_keywords:
-  - CatLibrary.JerryExtension
-  - CatLibrary::JerryExtension
   helpviewer_keywords:
   - CatLibrary.JerryExtension class [.NET]
   monikers:

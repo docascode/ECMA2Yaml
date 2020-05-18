@@ -50,15 +50,13 @@ metadata:
   original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/B.xml
   api_name:
   - VersioningTest.B
-  api_location:
-  - CatLibrary.dll
+  f1_keywords:
+  - VersioningTest.B
+  - VersioningTest::B
   topic_type:
   - apiref
   api_type:
   - Assembly
-  f1_keywords:
-  - VersioningTest.B
-  - VersioningTest::B
   helpviewer_keywords:
   - VersioningTest.B class [.NET]
   monikers:

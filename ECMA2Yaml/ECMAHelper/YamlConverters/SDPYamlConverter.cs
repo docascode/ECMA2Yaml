@@ -256,6 +256,10 @@ namespace ECMA2Yaml
             if (item.ItemType != ItemType.Namespace)
             {
                 ApiScanGenerator.Generate(model, item);
+                if (_store.UWPMode)
+                {
+                    model.Metadata?.Remove(ApiScanGenerator.APISCAN_APILOCATION);
+                }
             }
             F1KeywordsGenerator.Generate(model, item, childrenItems);
             HelpViewerKeywordsGenerator.Generate(model, item, childrenItems);

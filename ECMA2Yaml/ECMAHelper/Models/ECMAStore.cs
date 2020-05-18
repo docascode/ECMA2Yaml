@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Text.RegularExpressions;
 
 namespace ECMA2Yaml.Models
 {
@@ -641,6 +642,12 @@ namespace ECMA2Yaml.Models
                     overloads[id].FullDisplayName = overloads[id].FullDisplayName ?? TrimDisplayName(m.FullDisplayName);
                     overloads[id].SourceFileLocalPath = m.SourceFileLocalPath;
 
+                    if (overloads[id].ItemType == ItemType.Property)
+                    {
+                        overloads[id].DisplayName = RemoveindexerFromPropertyName(overloads[id].DisplayName);
+                        overloads[id].FullDisplayName = RemoveindexerFromPropertyName(overloads[id].FullDisplayName);
+                    }
+
                     if (overloads[id].Modifiers == null)
                     {
                         overloads[id].Modifiers = new SortedList<string, List<string>>();
@@ -1097,6 +1104,22 @@ namespace ECMA2Yaml.Models
         public FrameworkIndex GetFrameworkIndex()
         {
             return _frameworks;
+        }
+
+        private string RemoveindexerFromPropertyName(string str)
+        {
+            if (string.IsNullOrEmpty(str))
+            {
+                return str;
+            }
+
+            if (str.Contains("[") && str.Contains("]"))
+            {
+                str = str.Substring(0, str.IndexOf('['));
+                str += "[]";
+            }
+
+            return str;
         }
     }
 }

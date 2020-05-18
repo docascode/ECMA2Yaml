@@ -23,7 +23,7 @@ namespace ECMA2Yaml
             return dElement2;
         }
 
-        public Docs LoadDocs(XElement dElement)
+        public Docs LoadDocs(XElement dElement,string filePath)
         {
             dElement = TransformDocs(dElement);
             if (dElement == null)
@@ -100,8 +100,8 @@ namespace ECMA2Yaml
                 Examples = examplesText,
                 AltMemberCommentIds = dElement.Elements("altmember")?.Select(alt => alt.Attribute("cref").Value).ToList(),
                 Related = related,
-                Exceptions = dElement.Elements("exception")?.Select(el => GetTypedContent(el)).ToList(),
-                Permissions = dElement.Elements("permission")?.Select(el => GetTypedContent(el)).ToList(),
+                Exceptions = dElement.Elements("exception")?.Select(el => GetTypedContent(el, filePath)).ToList(),
+                Permissions = dElement.Elements("permission")?.Select(el => GetTypedContent(el, filePath)).ToList(),
                 Parameters = dElement.Elements("param")?.Where(p => !string.IsNullOrEmpty(p.Attribute("name").Value)).ToDictionary(p => p.Attribute("name").Value, p => NormalizeDocsElement(p)),
                 TypeParameters = dElement.Elements("typeparam")?.Where(p => !string.IsNullOrEmpty(p.Attribute("name").Value)).ToDictionary(p => p.Attribute("name").Value, p => NormalizeDocsElement(GetInnerXml(p))),
                 AdditionalNotes = additionalNotes,
@@ -243,9 +243,15 @@ namespace ECMA2Yaml
             return tags;
         }
 
-        private TypedContent GetTypedContent(XElement ele)
+        private TypedContent GetTypedContent(XElement ele, string filePath)
         {
             var cref = ele.Attribute("cref").Value;
+
+            // Bug 211134: Ci should throw warning if exception cref is not prefixed with type (T:)
+            if (cref.IndexOf(':') <= 0)
+            {
+                OPSLogger.LogUserWarning(LogCode.ECMA2Yaml_CrefTypePrefixMissing, filePath, cref, filePath);
+            }
             return new TypedContent
             {
                 CommentId = cref,

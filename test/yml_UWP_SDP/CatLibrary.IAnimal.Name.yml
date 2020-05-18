@@ -49,15 +49,13 @@ metadata:
   api_name:
   - CatLibrary.IAnimal.Name
   - CatLibrary.IAnimal.get_Name
-  api_location:
-  - CatLibrary.dll
+  f1_keywords:
+  - CatLibrary.IAnimal.Name
+  - CatLibrary::IAnimal::Name
   topic_type:
   - apiref
   api_type:
   - Assembly
-  f1_keywords:
-  - CatLibrary.IAnimal.Name
-  - CatLibrary::IAnimal::Name
   helpviewer_keywords:
   - IAnimal.Name property [.NET]
   - Name property [.NET], interface IAnimal

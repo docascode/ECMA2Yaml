@@ -50,7 +50,7 @@ namespace ECMA2Yaml
                 Name = t.Name,
                 Items = GenerateTocItemsForMembers(t)
             };
-            if (t.Monikers?.Count > 0)
+            if (IsNeedAddMonikers(t.Parent.Monikers, t.Monikers))
             {
                 tToc.Monikers = t.Monikers.ToArray();
             }

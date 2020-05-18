@@ -89,13 +89,6 @@ metadata:
   - MRef.Demo.Enumeration.ColorType.Purple
   - MRef.Demo.Enumeration.ColorType.Red
   - MRef.Demo.Enumeration.ColorType.Yellow
-  api_location:
-  - CatLibrary.dll
-  - MRef.Demo.dll
-  topic_type:
-  - apiref
-  api_type:
-  - Assembly
   f1_keywords:
   - MRef.Demo.Enumeration.ColorType
   - MRef::Demo::Enumeration::ColorType
@@ -107,6 +100,10 @@ metadata:
   - MRef::Demo::Enumeration::ColorType::Red
   - MRef.Demo.Enumeration.ColorType.Yellow
   - MRef::Demo::Enumeration::ColorType::Yellow
+  topic_type:
+  - apiref
+  api_type:
+  - Assembly
   helpviewer_keywords:
   - MRef.Demo.Enumeration.ColorType enum [.NET]
   monikers:

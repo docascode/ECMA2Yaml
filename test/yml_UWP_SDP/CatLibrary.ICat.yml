@@ -87,15 +87,13 @@ metadata:
   original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/ICat.xml
   api_name:
   - CatLibrary.ICat
-  api_location:
-  - CatLibrary.dll
+  f1_keywords:
+  - CatLibrary.ICat
+  - CatLibrary::ICat
   topic_type:
   - apiref
   api_type:
   - Assembly
-  f1_keywords:
-  - CatLibrary.ICat
-  - CatLibrary::ICat
   helpviewer_keywords:
   - CatLibrary.ICat interface [.NET]
   monikers:
