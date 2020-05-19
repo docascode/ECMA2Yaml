@@ -953,10 +953,13 @@ namespace ECMA2Yaml.Models
                             {
                                 // could be defined in one moniker, but inherited in another moniker
                                 // so we should check both the id and moniker
-                                if (inheritedMembersById.TryGetValue(m.Id, out var inheritedMember)
-                                    && m.Monikers.Overlaps(inheritedMember.Monikers))
+                                if (inheritedMembersById.TryGetValue(m.Id, out var inheritedMember))
                                 {
-                                    inheritedMembersById.Remove(m.Id);
+                                    inheritedMember.Monikers.RemoveWhere(m.Monikers.Contains);
+                                    if(inheritedMember.Monikers.Count == 0)
+                                    {
+                                        inheritedMembersById.Remove(m.Id);
+                                    }
                                 }
                             }
                         }
