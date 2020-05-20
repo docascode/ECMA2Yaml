@@ -213,7 +213,7 @@ namespace ECMA2Yaml
             if (item.VersionedAssemblyInfo == null)
             {
                 //legacy xml, fallback to asseblies without versions
-                return item.AssemblyInfo?.Select(asm => new VersionedString() { Value = asm.Name + ".dll" }).ToList();
+                return item.AssemblyInfo?.Select(asm => new VersionedString() { Value = asm.Name + ".dll" }).ToList().NullIfEmpty();
             }
             var monikerAssembliesPairs = item.VersionedAssemblyInfo.ValuesPerMoniker
                 .Select(pair => (
@@ -229,7 +229,7 @@ namespace ECMA2Yaml
             {
                 versionedList.First().Monikers = null;
             }
-            return versionedList;
+            return versionedList.NullIfEmpty();
         }
 
         public static IEnumerable<VersionedString> MonikerizePackageStrings(ReflectionItem item, PackageInformationMapping pkgInfoMapping)
