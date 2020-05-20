@@ -33,6 +33,7 @@ namespace ECMA2Yaml
                     .Select(i => new VersionedString(i.Monikers, TypeStringToTypeMDString(i.Value, _store)))
                     .ToList()
                     .NullIfEmpty();
+                sdpType.ImplementsMonikers = ConverterHelper.ConsolidateVersionedValues(sdpType.ImplementsWithMoniker, t.Monikers);
             }
             else
             {

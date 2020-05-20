@@ -19,6 +19,7 @@ namespace ECMA2Yaml
             sdpMember.ImplementsWithMoniker = m.Implements?.Select(impl => new VersionedString(impl.Monikers, DocIdToTypeMDString(impl.Value, _store)))
                 .Where(impl => impl.Value != null)
                 .ToList().NullIfEmpty();
+            sdpMember.ImplementsMonikers = ConverterHelper.ConsolidateVersionedValues(sdpMember.ImplementsWithMoniker, m.Monikers);
 
             var knowTypeParams = m.Parent.TypeParameters.ConcatList(m.TypeParameters);
 
