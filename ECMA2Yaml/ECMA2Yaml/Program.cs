@@ -31,7 +31,7 @@ namespace ECMA2Yaml
                     {
                         MapFolder(opt);
                     }
-                    else if (!opt.SDPMode && !opt.UWPMode)
+                    else if (!opt.SDPMode)
                     {
                         OPSLogger.LogUserError(LogCode.ECMA2Yaml_SDP_MigrationNeeded, ".openpublishing.publish.config.json");
                     }
