@@ -17,9 +17,20 @@ namespace ECMA2Yaml.UndocumentedApi
         const string _complianceSheetName = "Compliance";
         const string _underDocSheetName = "UnderDoc";
 
+        private static Validator _validator;
+
         public static void GenerateReport(ECMAStore store, string reportFilePath, string branch = null)
         {
-            List<ReportItem> items = new List<ReportItem>();
+            if (store.UWPMode)
+            {
+                _validator = new UWPDocValidator();
+            }
+            else
+            {
+                _validator = new DotnetDocValidator();
+            }
+
+            List <ReportItem> items = new List<ReportItem>();
             items.AddRange(store.Namespaces.Values.Where(ns => !string.IsNullOrEmpty(ns.Uid)).Select(ns => ValidateItem(ns, branch)));
             items.AddRange(store.TypesByUid.Values.Select(t => ValidateItem(t, branch)));
             items.AddRange(store.MembersByUid.Values.Select(m => ValidateItem(m, branch)));
@@ -190,7 +201,7 @@ namespace ECMA2Yaml.UndocumentedApi
                 DocId = item.DocId,
                 ItemType = item.ItemType.ToString(),
                 Name = item.Name,
-                Results = Validator.ValidateItem(item),
+                Results = _validator.ValidateItem(item),
                 SourceFilePath = item.Metadata.ContainsKey(OPSMetadata.RefSkeletionUrl) ? item.Metadata[OPSMetadata.RefSkeletionUrl] as string: item.SourceFileLocalPath,
                 Monikers = item.Monikers
             };
