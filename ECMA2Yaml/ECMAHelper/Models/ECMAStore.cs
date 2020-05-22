@@ -475,7 +475,7 @@ namespace ECMA2Yaml.Models
                 {
                     foreach (var f in type.Interfaces)
                     {
-                        var interfaceExts = GetExtensionMethodCandidatesForTypeCore(f.ToOuterTypeUid(), monikers);
+                        var interfaceExts = GetExtensionMethodCandidatesForTypeCore(f.Value.ToOuterTypeUid(), f.Monikers ?? monikers);
                         if (interfaceExts != null)
                         {
                             a.AddRange(interfaceExts);
@@ -780,19 +780,20 @@ namespace ECMA2Yaml.Models
             InheritanceChildrenByUid[parentUid].Add(new VersionedString() { Value = childUid, Monikers = monikers });
         }
 
-        private void AddImplementMapping(string childUid, string parentUid, HashSet<string> monikers = null)
+        private void AddImplementMapping(string childUid, VersionedString parent)
         {
+            var parentUid = parent.Value.ToOuterTypeUid();
             if (!ImplementationParentsByUid.ContainsKey(childUid))
             {
                 ImplementationParentsByUid.Add(childUid, new List<VersionedString>());
             }
-            ImplementationParentsByUid[childUid].Add(new VersionedString() { Value = parentUid, Monikers = monikers });
+            ImplementationParentsByUid[childUid].Add(new VersionedString() { Value = parentUid, Monikers = parent.Monikers });
 
             if (!ImplementationChildrenByUid.ContainsKey(parentUid))
             {
                 ImplementationChildrenByUid.Add(parentUid, new List<VersionedString>());
             }
-            ImplementationChildrenByUid[parentUid].Add(new VersionedString() { Value = childUid, Monikers = monikers });
+            ImplementationChildrenByUid[parentUid].Add(new VersionedString() { Value = childUid, Monikers = parent.Monikers });
         }
 
         private void FillInheritanceImplementationGraph(Type t)
@@ -801,7 +802,7 @@ namespace ECMA2Yaml.Models
             {
                 foreach (var f in t.Interfaces)
                 {
-                    AddImplementMapping(t.Uid, f.ToOuterTypeUid());
+                    AddImplementMapping(t.Uid, f);
                 }
             }
             if (t.BaseTypes != null)
@@ -882,7 +883,7 @@ namespace ECMA2Yaml.Models
                 t.InheritedMembers = new Dictionary<string, VersionedString>();
                 foreach (var f in t.Interfaces)
                 {
-                    var interfaceUid = f.ToOuterTypeUid();
+                    var interfaceUid = f.Value.ToOuterTypeUid();
 
                     if (TypesByUid.TryGetValue(interfaceUid, out Type inter))
                     {
@@ -892,7 +893,7 @@ namespace ECMA2Yaml.Models
                             {
                                 if (m.Name != "Finalize" && m.ItemType != ItemType.Constructor && !m.Signatures.IsStatic)
                                 {
-                                    t.InheritedMembers[m.Id] = new VersionedString(null, m.Uid);
+                                    t.InheritedMembers[m.Id] = new VersionedString(f.Monikers, m.Uid);
                                 }
                             }
                         }

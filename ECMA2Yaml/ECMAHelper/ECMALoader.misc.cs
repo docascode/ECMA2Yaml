@@ -186,7 +186,6 @@ namespace ECMA2Yaml
             };
         }
 
-
         private void LoadMetadata(ReflectionItem item, XElement rootElement)
         {
             var metadataElement = rootElement.Element("Metadata");
@@ -229,6 +228,11 @@ namespace ECMA2Yaml
         public static HashSet<string> LoadFrameworkAlternate(XElement element)
         {
             return element.Attribute("FrameworkAlternate")?.Value.Split(';').ToHashSet();
+        }
+
+        public static VersionedString LoadMonikerizedValue(XElement element)
+        {
+            return new VersionedString(LoadFrameworkAlternate(element), element.Value);
         }
 
         public static (string, string) GetRepoRootBySubPath(string path)

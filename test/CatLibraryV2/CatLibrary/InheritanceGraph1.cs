@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 /// m1: moniker 1, aka. cat-1.0
 /// m2: moniker 2, aka. cat-2.0
 /// Inheritance graph:
-/// I       A         B
-///  \       \       /
-///   \       \(m1) /(m2)
-///    \       \   /
-///     C        D
-///    / \      /
-///   /   \(m1)/(m2)
-///  E     \  /
+/// I1(m1)    A         B
+///  \         \       /
+///   \  I2(m2) \(m1) /(m2)
+///    \ /       \   /
+///     C          D
+///    / \       /
+///   /   \(m1) /(m2)
+///  E     \   /
 ///          F
 ///         / \
 ///        G   H
@@ -40,7 +40,16 @@ namespace VersioningTest
         public void MethodFromClassB(string param1) { }
     }
 
-    public class C : I { }
+    public class C : I2
+    {
+        /// <summary>
+        /// This method was moved from I1 to I2.
+        /// </summary>
+        public void MethodForI()
+        {
+            throw new NotImplementedException();
+        }
+    }
 
     public class D : B { }
 
@@ -55,15 +64,21 @@ namespace VersioningTest
 
     public class H : F { }
 
-    public interface I { }
+    public interface I2
+    {
+        /// <summary>
+        /// This method was moved from I1 to I2.
+        /// </summary>
+        void MethodForI();
+    }
 
     public static class VersioningExtensions
     {
         /// <summary>
-        /// this extension method should show up in interface <c>I</c>, class <c>C</c> and <c>E</c> for all monikers, and in `F/G/H` for `cat-1.0` only.
+        /// this extension method should show up in interface <c>I2</c>, class <c>C</c> and <c>E</c> for all monikers, and in `F/G/H` for `cat-2.0` only.
         /// </summary>
         /// <param name="i"></param>
-        public static void ExtMethodForI(this I i)
+        public static void ExtMethodForI(this I2 i)
         {
 
         }
