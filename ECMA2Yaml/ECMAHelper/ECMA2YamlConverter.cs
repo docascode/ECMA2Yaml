@@ -58,7 +58,7 @@ namespace ECMA2Yaml
             }
 
             var toc = SDPTOCGenerator.Generate(store);
-            YamlUtility.Serialize(Path.Combine(outputDirectory, "toc.yml"), toc, "TableOfContent");
+            YamlUtility.Serialize(Path.Combine(outputDirectory, "toc.yml"), toc, "YamlMime:TableOfContent");
         }
 
         private static void WriteYamlXMLFileMap(string sourceMapFilePath, IDictionary<string, List<string>> xmlYamlFileMap)

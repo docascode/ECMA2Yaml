@@ -24,7 +24,6 @@ namespace ECMA2Yaml
         public List<string> ChangeListFiles = new List<string>();
         public bool Flatten = false;
         public bool StrictMode = false;
-        public bool MapMode = false;
         public bool SDPMode = false;
         public bool UWPMode = false;
         public bool DemoMode = false;
@@ -41,7 +40,6 @@ namespace ECMA2Yaml
                 { "l|log=", "the log file path.", l => LogFilePath = l.NormalizePath() },
                 { "f|flatten", "to put all ymls in output root and not keep original folder structure.", f => Flatten = f != null },
                 { "strict", "strict mode, means that any unresolved type reference will cause a warning",  s => StrictMode = s != null },
-                { "mapFolder", "folder mapping mode, maps assemblies in folder to json, used in .NET CI",  s => MapMode = s != null },
                 { "SDP", "SDP mode, generate yamls in the .NET SDP schema format",  s => SDPMode = s != null },
                 { "UWP", "UWP mode, special treatment for UWP pipeline",  s => UWPMode = s != null },
                 { "demo", "demo mode, only for generating test yamls, do not set --SDP or --UWP together with this option.",  s => DemoMode = s != null },
