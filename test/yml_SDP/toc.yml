@@ -184,6 +184,9 @@ items:
     - uid: VersioningTest.C.#ctor*
       name: C
       type: Constructor
+    - uid: VersioningTest.C.MethodForI*
+      name: MethodForI
+      type: Method
   - uid: VersioningTest.D
     name: D
     items:
@@ -214,8 +217,22 @@ items:
     - uid: VersioningTest.H.#ctor*
       name: H
       type: Constructor
-  - uid: VersioningTest.I
-    name: I
+  - uid: VersioningTest.I1
+    name: I1
+    items:
+    - uid: VersioningTest.I1.MethodForI*
+      name: MethodForI
+      type: Method
+    monikers:
+    - cat-1.0
+  - uid: VersioningTest.I2
+    name: I2
+    items:
+    - uid: VersioningTest.I2.MethodForI*
+      name: MethodForI
+      type: Method
+    monikers:
+    - cat-2.0
   - uid: VersioningTest.VersioningExtensions
     name: VersioningExtensions
     items:

@@ -243,7 +243,9 @@ namespace ECMA2Yaml
             var interfacesElement = tRoot.Element("Interfaces");
             if (interfacesElement != null)
             {
-                t.Interfaces = interfacesElement.Elements("Interface").Select(i => i?.Element("InterfaceName")?.Value).ToList();
+                t.Interfaces = interfacesElement.Elements("Interface")
+                    .Select(i => new VersionedString(LoadFrameworkAlternate(i), i?.Element("InterfaceName")?.Value))
+                    .ToList();
             }
 
             //Attributes
@@ -429,7 +431,7 @@ namespace ECMA2Yaml
             var implements = mElement.Element("Implements");
             if (implements != null)
             {
-                m.Implements = implements.Elements("InterfaceMember")?.Select(ele => ele.Value).ToList();
+                m.Implements = implements.Elements("InterfaceMember")?.Select(LoadMonikerizedValue).ToList();
             }
 
             //Docs
@@ -442,7 +444,7 @@ namespace ECMA2Yaml
 
         public static ReturnValue MonikerizeReturnValue(XElement returnValueElement)
         {
-            var returnTypes = returnValueElement?.Elements("ReturnType").Select(r => new { ReturnType = r.Value, Monikers = ECMALoader.LoadFrameworkAlternate(r) });
+            var returnTypes = returnValueElement?.Elements("ReturnType").Select(r => new { ReturnType = r.Value, Monikers = LoadFrameworkAlternate(r) });
             if (returnTypes == null || !returnTypes.Any()) return null;
 
             Func<VersionedReturnType, VersionedReturnType> toParam = s =>

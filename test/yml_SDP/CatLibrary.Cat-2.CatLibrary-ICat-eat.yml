@@ -1,8 +1,8 @@
 ### YamlMime:NetMember
 type: event
 members:
-- implements:
-  - <xref href="CatLibrary.ICat.eat?alt=CatLibrary.ICat.eat&text=eat" data-throw-if-not-resolved="True"/>
+- implementsWithMoniker:
+  - value: <xref href="CatLibrary.ICat.eat?alt=CatLibrary.ICat.eat&text=eat" data-throw-if-not-resolved="True"/>
   uid: CatLibrary.Cat`2.CatLibrary#ICat#eat
   commentId: E:CatLibrary.Cat`2.CatLibrary#ICat#eat
   name: ICat.eat

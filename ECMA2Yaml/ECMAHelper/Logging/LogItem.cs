@@ -107,42 +107,9 @@ namespace ECMA2Yaml
             string source,
             string file,
             MessageSeverity messageSeverity,
-            LogItemType logItemType)
-            : this(message, source, file, null, DateTime.UtcNow, messageSeverity, null, logItemType)
-        {
-        }
-
-        public LogItem(
-            string message,
-            string source,
-            string file,
-            int line,
-            MessageSeverity messageSeverity,
-            LogItemType logItemType)
-            : this(message, source, file, line, DateTime.UtcNow, messageSeverity, null, logItemType)
-        {
-        }
-
-        public LogItem(
-            string message,
-            string source,
-            string file,
-            MessageSeverity messageSeverity,
             string code,
             LogItemType logItemType)
             : this(message, source, file, null, DateTime.UtcNow, messageSeverity, code, logItemType)
-        {
-        }
-
-        public LogItem(
-            string message,
-            string source,
-            string file,
-            int line,
-            MessageSeverity messageSeverity,
-            string errorCode,
-            LogItemType logItemType)
-            : this(message, source, file, line, DateTime.UtcNow, messageSeverity, errorCode, logItemType)
         {
         }
 

@@ -5,9 +5,9 @@ typeParameters:
 - description: This type is a struct type, class type can't be used for this parameter.
   name: K
 type: class
-implements:
-- <xref href="CatLibrary.IAnimal?alt=CatLibrary.IAnimal&text=IAnimal" data-throw-if-not-resolved="True"/>
-- <xref href="CatLibrary.ICat?alt=CatLibrary.ICat&text=ICat" data-throw-if-not-resolved="True"/>
+implementsWithMoniker:
+- value: <xref href="CatLibrary.IAnimal?alt=CatLibrary.IAnimal&text=IAnimal" data-throw-if-not-resolved="True"/>
+- value: <xref href="CatLibrary.ICat?alt=CatLibrary.ICat&text=ICat" data-throw-if-not-resolved="True"/>
 inheritancesWithMoniker:
 - values:
   - <xref href="System.Object?alt=System.Object&text=Object" data-throw-if-not-resolved="True"/>

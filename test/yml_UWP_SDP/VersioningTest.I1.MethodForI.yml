@@ -1,0 +1,58 @@
+### YamlMime:NetMember
+type: method
+members:
+- uid: VersioningTest.I1.MethodForI
+  commentId: M:VersioningTest.I1.MethodForI
+  name: MethodForI()
+  fullName: VersioningTest.I1.MethodForI()
+  nameWithType: I1.MethodForI()
+  syntaxWithMoniker:
+  - lang: cpp
+    values:
+    - value: >-
+        public:
+         void MethodForI();
+  - lang: csharp
+    values:
+    - value: public void MethodForI();
+  - lang: fsharp
+    values:
+    - value: 'abstract member MethodForI : unit -> unit'
+  - lang: vb
+    values:
+    - value: Public Sub MethodForI ()
+  monikers:
+  - cat-1.0
+  summary: This method was moved from I1 to I2.
+  metadata: {}
+uid: VersioningTest.I1.MethodForI*
+commentId: Overload:VersioningTest.I1.MethodForI
+namespace: VersioningTest
+name: MethodForI
+fullName: VersioningTest.I1.MethodForI
+nameWithType: I1.MethodForI
+devLangs:
+- csharp
+- vb
+- cpp
+- fsharp
+monikers:
+- cat-1.0
+metadata:
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/I1.xml
+  _op_overwriteFileGitUrl: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/I1.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/I1.xml
+  api_name:
+  - VersioningTest.I1.MethodForI
+  f1_keywords:
+  - VersioningTest.I1.MethodForI
+  - VersioningTest::I1::MethodForI
+  topic_type:
+  - apiref
+  api_type:
+  - Assembly
+  helpviewer_keywords:
+  - I1.MethodForI method [.NET]
+  - MethodForI method [.NET], interface I1
+  - I1.MethodForI() method [.NET]
+  - MethodForI() method [.NET], interface I1

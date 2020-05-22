@@ -36,6 +36,11 @@ namespace ECMA2Yaml
             string examplesText = null;
             if (remarksText != null)
             {
+                if (remarksText.Contains("</format>"))
+                {
+                    Console.WriteLine(filePath);
+                    Console.WriteLine(remarksText);
+                }
                 remarksText = remarksText.Replace("## Remarks", "").Trim();
                 if (remarksText.Contains("## Examples"))
                 {

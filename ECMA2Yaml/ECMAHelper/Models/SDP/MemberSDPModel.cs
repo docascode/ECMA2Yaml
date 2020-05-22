@@ -42,9 +42,16 @@ namespace ECMA2Yaml.Models.SDP
         [YamlMember(Alias = "exceptions")]
         public IEnumerable<TypeReference> Exceptions { get; set; }
 
-        [JsonProperty("implements")]
-        [YamlMember(Alias = "implements")]
-        public IEnumerable<string> Implements { get; set; }
+        [JsonProperty("implementsWithMoniker")]
+        [YamlMember(Alias = "implementsWithMoniker")]
+        public IEnumerable<VersionedString> ImplementsWithMoniker { get; set; }
+
+        /// <summary>
+        /// A collection of all monikers that apply to this member's implements.
+        /// </summary>
+        [JsonProperty("implementsMonikers")]
+        [YamlMember(Alias = "implementsMonikers")]
+        public IEnumerable<string> ImplementsMonikers { get; set; }
 
         [JsonProperty("isNotClsCompliant")]
         [YamlMember(Alias = "isNotClsCompliant")]
