@@ -32,7 +32,7 @@ members:
         Public Sub ExtMethodForI (i As I1)
   monikers:
   - cat-1.0
-  summary: this extension method should show up in interface <code data-dev-comment-type="c">I</code>, class <code data-dev-comment-type="c">C</code> and <code data-dev-comment-type="c">E</code> for all monikers, and in `F/G/H` for `cat-1.0` only.
+  summary: this extension method should show up in interface <code data-dev-comment-type="c">I1</code>, class <code data-dev-comment-type="c">C</code> and <code data-dev-comment-type="c">E</code> for all monikers, and in `F/G/H` for `cat-1.0` only.
   metadata: {}
 - parameters:
   - namesWithMoniker:
@@ -65,7 +65,7 @@ members:
         Public Sub ExtMethodForI (i As I2)
   monikers:
   - cat-2.0
-  summary: this extension method should show up in interface <code data-dev-comment-type="c">I</code>, class <code data-dev-comment-type="c">C</code> and <code data-dev-comment-type="c">E</code> for all monikers, and in `F/G/H` for `cat-1.0` only.
+  summary: this extension method should show up in interface <code data-dev-comment-type="c">I2</code>, class <code data-dev-comment-type="c">C</code> and <code data-dev-comment-type="c">E</code> for all monikers, and in `F/G/H` for `cat-2.0` only.
   metadata: {}
 uid: VersioningTest.VersioningExtensions.ExtMethodForI*
 commentId: Overload:VersioningTest.VersioningExtensions.ExtMethodForI

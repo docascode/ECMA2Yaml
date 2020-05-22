@@ -75,7 +75,7 @@ namespace VersioningTest
     public static class VersioningExtensions
     {
         /// <summary>
-        /// this extension method should show up in interface <c>I</c>, class <c>C</c> and <c>E</c> for all monikers, and in `F/G/H` for `cat-1.0` only.
+        /// this extension method should show up in interface <c>I1</c>, class <c>C</c> and <c>E</c> for all monikers, and in `F/G/H` for `cat-1.0` only.
         /// </summary>
         /// <param name="i"></param>
         public static void ExtMethodForI(this I1 i)

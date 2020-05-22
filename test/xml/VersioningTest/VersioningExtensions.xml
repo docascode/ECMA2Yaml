@@ -67,7 +67,7 @@
       <Docs>
         <param name="i" />
         <summary>
-            this extension method should show up in interface <c>I</c>, class <c>C</c> and <c>E</c> for all monikers, and in `F/G/H` for `cat-1.0` only.
+            this extension method should show up in interface <c>I1</c>, class <c>C</c> and <c>E</c> for all monikers, and in `F/G/H` for `cat-1.0` only.
             </summary>
         <remarks>To be added.</remarks>
       </Docs>
@@ -93,7 +93,7 @@
       <Docs>
         <param name="i" />
         <summary>
-            this extension method should show up in interface <c>I</c>, class <c>C</c> and <c>E</c> for all monikers, and in `F/G/H` for `cat-1.0` only.
+            this extension method should show up in interface <c>I2</c>, class <c>C</c> and <c>E</c> for all monikers, and in `F/G/H` for `cat-2.0` only.
             </summary>
         <remarks>To be added.</remarks>
       </Docs>
