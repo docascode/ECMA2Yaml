@@ -51,3 +51,5 @@ metadata:
   - Assembly
   helpviewer_keywords:
   - VersioningTest.I2 interface [.NET]
+  monikers:
+  - cat-2.0
