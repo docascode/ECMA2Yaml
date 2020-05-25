@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29319.158
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.705
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECMA2Yaml", "ECMA2Yaml\ECMA2Yaml.csproj", "{5BDDF3B5-4F08-4DCD-B472-F04BE1076B44}"
 EndProject
@@ -34,6 +34,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Intellisense", "Intellisense", "{485719A0-F910-40F0-8FDF-D98D5F41C757}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{16128EB1-7BA8-497F-AD57-D474F1AA3107}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSDNUrlPatch", "MSDNUrlPatch\MSDNUrlPatch.csproj", "{B5854964-4143-4912-8DA0-E81A2C3A6A0C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -73,6 +75,10 @@ Global
 		{9D29E371-F87E-4C20-9C6D-ACA64BFDCE5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9D29E371-F87E-4C20-9C6D-ACA64BFDCE5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9D29E371-F87E-4C20-9C6D-ACA64BFDCE5A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5854964-4143-4912-8DA0-E81A2C3A6A0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5854964-4143-4912-8DA0-E81A2C3A6A0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5854964-4143-4912-8DA0-E81A2C3A6A0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5854964-4143-4912-8DA0-E81A2C3A6A0C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
