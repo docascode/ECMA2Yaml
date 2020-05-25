@@ -22,6 +22,7 @@ namespace MSDNUrlPatch
         Regex _redirectedFromRegex = new Regex(@"(redirectedfrom=\w*)", RegexOptions.Compiled);
         const string _redirectedKey = "redirectedfrom";
         const string _msdnUrlDomain = "msdn.microsoft.com";
+        static HttpClient _client = new HttpClient();
 
         Dictionary<string, string> UrlDic = new Dictionary<string, string>();   // <msdn url,docs url>
         List<string> logMessages = new List<string>();
@@ -228,7 +229,7 @@ namespace MSDNUrlPatch
             if (redirectUrl.IndexOf(_redirectedKey) > 0)
             {
                 newUrl = _redirectedFromRegex.Replace(newUrl, "");
-                newUrl = newUrl.Replace("&&","&").Replace("?&","?").TrimEnd('?');
+                newUrl = newUrl.Replace("&&","&").Replace("?&","?").TrimEnd('&').TrimEnd('?');
 
                 if (_isLogVerbose)
                 {
@@ -243,8 +244,7 @@ namespace MSDNUrlPatch
         {
             try
             {
-                HttpClient client = new HttpClient();
-                var response = await client.GetAsync(msdnUrl);
+                var response = await _client.GetAsync(msdnUrl);
 
                 if (response.StatusCode == HttpStatusCode.OK)
                 {
