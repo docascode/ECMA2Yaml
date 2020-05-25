@@ -258,8 +258,8 @@ namespace MSDNUrlPatch
                     {
                         if (_isLogVerbose)
                         {
-                            //string message = string.Format("Success to request msdn url: {0}, redirect url: {1}", msdnUrl, response.RequestMessage.RequestUri.OriginalString);
-                            //logMessages.Add(message);
+                            string message = string.Format("Success to request msdn url: {0}, redirect url: {1}", msdnUrl, response.RequestMessage.RequestUri.OriginalString);
+                            logMessages.Add(message);
                         }
 
                         return response.RequestMessage.RequestUri.OriginalString;
