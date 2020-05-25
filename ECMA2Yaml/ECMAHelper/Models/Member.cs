@@ -24,7 +24,7 @@ namespace ECMA2Yaml.Models
                     && Signatures.Dict[ECMADevLangs.CSharp].Any(s => s.Value.Contains("["));
             }
         }
-        public List<string> Implements { get; set; }
+        public List<VersionedString> Implements { get; set; }
         public bool IsEII
         {
             get

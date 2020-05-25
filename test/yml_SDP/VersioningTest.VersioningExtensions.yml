@@ -8,9 +8,11 @@ methods:
   monikers:
   - cat-1.0
   - cat-2.0
-- uid: VersioningTest.VersioningExtensions.ExtMethodForI(VersioningTest.I)
+- uid: VersioningTest.VersioningExtensions.ExtMethodForI(VersioningTest.I1)
   monikers:
   - cat-1.0
+- uid: VersioningTest.VersioningExtensions.ExtMethodForI(VersioningTest.I2)
+  monikers:
   - cat-2.0
 uid: VersioningTest.VersioningExtensions
 commentId: T:VersioningTest.VersioningExtensions

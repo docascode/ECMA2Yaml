@@ -18,15 +18,22 @@ extensionMethods:
 - uid: VersioningTest.VersioningExtensions.ExtMethodForD(VersioningTest.D)
   monikers:
   - cat-2.0
-- uid: VersioningTest.VersioningExtensions.ExtMethodForI(VersioningTest.I)
+- uid: VersioningTest.VersioningExtensions.ExtMethodForI(VersioningTest.I1)
   monikers:
   - cat-1.0
+- uid: VersioningTest.VersioningExtensions.ExtMethodForI(VersioningTest.I2)
+  monikers:
+  - cat-2.0
 constructors:
 - uid: VersioningTest.H.#ctor
   monikers:
   - cat-1.0
   - cat-2.0
 methods:
+- uid: VersioningTest.C.MethodForI
+  inheritedFrom: VersioningTest.C
+  monikers:
+  - cat-1.0
 - uid: VersioningTest.B.MethodFromClassB(System.String)
   inheritedFrom: VersioningTest.B
   monikers:

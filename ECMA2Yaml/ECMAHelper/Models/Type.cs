@@ -15,7 +15,7 @@ namespace ECMA2Yaml.Models
         public TypeForwardingChain TypeForwardingChain { get; set; }
         public Dictionary<string, VersionedString> InheritedMembers { get; set; }
         public List<string> IsA { get; set; }
-        public List<string> Interfaces { get; set; }
+        public List<VersionedString> Interfaces { get; set; }
         public List<Member> Members { get; set; }
         public List<Member> Overloads { get; set; }
         public List<VersionedString> ExtensionMethods { get; set; }

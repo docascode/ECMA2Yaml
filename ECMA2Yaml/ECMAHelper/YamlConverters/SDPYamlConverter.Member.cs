@@ -16,9 +16,10 @@ namespace ECMA2Yaml
 
             sdpMember.TypeParameters = ConvertTypeParameters(m);
             sdpMember.ThreadSafety = ConvertThreadSafety(m);
-            sdpMember.Implements = m.Implements?.Select(commentId => DocIdToTypeMDString(commentId, _store))
-                .Where(str => str != null)
+            sdpMember.ImplementsWithMoniker = m.Implements?.Select(impl => new VersionedString(impl.Monikers, DocIdToTypeMDString(impl.Value, _store)))
+                .Where(impl => impl.Value != null)
                 .ToList().NullIfEmpty();
+            sdpMember.ImplementsMonikers = ConverterHelper.ConsolidateVersionedValues(sdpMember.ImplementsWithMoniker, m.Monikers);
 
             var knowTypeParams = m.Parent.TypeParameters.ConcatList(m.TypeParameters);
 

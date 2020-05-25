@@ -1,8 +1,8 @@
 ### YamlMime:NetMember
 type: method
 members:
-- implements:
-  - <xref href="CatLibrary.ICat.CatchJerry?alt=CatLibrary.ICat.CatchJerry&text=CatchJerry()" data-throw-if-not-resolved="True"/>
+- implementsWithMoniker:
+  - value: <xref href="CatLibrary.ICat.CatchJerry?alt=CatLibrary.ICat.CatchJerry&text=CatchJerry()" data-throw-if-not-resolved="True"/>
   uid: CatLibrary.Cat`2.CatchJerry
   commentId: M:CatLibrary.Cat`2.CatchJerry
   name: CatchJerry()

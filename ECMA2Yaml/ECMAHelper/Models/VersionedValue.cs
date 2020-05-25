@@ -30,13 +30,6 @@ namespace ECMA2Yaml.Models
         }
     }
 
-    public class VersionedTypeReference : VersionedValue<TypeReference>
-    {
-        public VersionedTypeReference() { }
-
-        public VersionedTypeReference(HashSet<string> monikers, TypeReference typeRef) : base(monikers, typeRef) { }
-    }
-
     public class VersionedValue<T>
     {
         [JsonProperty("value")]

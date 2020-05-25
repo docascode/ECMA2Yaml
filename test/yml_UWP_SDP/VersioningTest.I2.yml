@@ -1,0 +1,53 @@
+### YamlMime:NetType
+type: interface
+derivedClassesWithMoniker:
+- value: VersioningTest.C
+extensionMethods:
+- uid: VersioningTest.VersioningExtensions.ExtMethodForI(VersioningTest.I2)
+  monikers:
+  - cat-2.0
+methods:
+- uid: VersioningTest.I2.MethodForI
+  monikers:
+  - cat-2.0
+uid: VersioningTest.I2
+commentId: T:VersioningTest.I2
+namespace: VersioningTest
+name: I2
+fullName: VersioningTest.I2
+nameWithType: VersioningTest.I2
+syntaxWithMoniker:
+- lang: cpp
+  values:
+  - value: public interface class I2
+- lang: csharp
+  values:
+  - value: public interface I2
+- lang: fsharp
+  values:
+  - value: type I2 = interface
+- lang: vb
+  values:
+  - value: Public Interface I2
+devLangs:
+- csharp
+- vb
+- cpp
+- fsharp
+monikers:
+- cat-2.0
+metadata:
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/I2.xml
+  _op_overwriteFileGitUrl: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/I2.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/VersioningTest/I2.xml
+  api_name:
+  - VersioningTest.I2
+  f1_keywords:
+  - VersioningTest.I2
+  - VersioningTest::I2
+  topic_type:
+  - apiref
+  api_type:
+  - Assembly
+  helpviewer_keywords:
+  - VersioningTest.I2 interface [.NET]
