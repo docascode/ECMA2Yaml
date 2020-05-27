@@ -140,3 +140,6 @@ metadata:
   - Eat(String) method [.NET], interface IAnimal
   - IAnimal.Eat<Tool>(Tool) method [.NET]
   - Eat<Tool>(Tool) method [.NET], interface IAnimal
+  monikers:
+  - cat-1.0
+  - cat-2.0

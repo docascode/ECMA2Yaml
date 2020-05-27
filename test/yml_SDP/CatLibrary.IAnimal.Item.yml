@@ -76,3 +76,6 @@ metadata:
   helpviewer_keywords:
   - IAnimal.Item[Int32] property [.NET]
   - Item[Int32] property [.NET], interface IAnimal
+  monikers:
+  - cat-1.0
+  - cat-2.0

@@ -100,3 +100,5 @@ metadata:
   - Assembly
   helpviewer_keywords:
   - CatLibrary.Complex<T,J>.ComplexFlags enum [.NET]
+  monikers:
+  - cat-2.0

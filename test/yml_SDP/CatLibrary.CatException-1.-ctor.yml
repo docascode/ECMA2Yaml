@@ -62,3 +62,6 @@ metadata:
   helpviewer_keywords:
   - CatException<T> class [.NET], constructors
   - CatException<T>() class [.NET], constructors
+  monikers:
+  - cat-1.0
+  - cat-2.0

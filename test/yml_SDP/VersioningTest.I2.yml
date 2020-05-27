@@ -57,3 +57,5 @@ metadata:
   - VersioningTest::I2
   helpviewer_keywords:
   - VersioningTest.I2 interface [.NET]
+  monikers:
+  - cat-2.0

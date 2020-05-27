@@ -105,3 +105,5 @@ metadata:
   - CatchJerry() method [.NET], class Cat<T,K>
   - Cat<T,K>.CatchJerry(Boolean) method [.NET]
   - CatchJerry(Boolean) method [.NET], class Cat<T,K>
+  monikers:
+  - cat-2.0

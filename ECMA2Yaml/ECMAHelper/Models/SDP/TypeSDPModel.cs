@@ -10,6 +10,8 @@ namespace ECMA2Yaml.Models.SDP
 {
     public class TypeSDPModel : ItemSDPModelBase
     {
+        [JsonIgnore]
+        [YamlIgnore]
         public override string YamlMime { get; } = "YamlMime:NetType";
 
         [JsonProperty("typeParameters")]

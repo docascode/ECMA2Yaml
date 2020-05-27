@@ -58,3 +58,6 @@ metadata:
   - Assembly
   helpviewer_keywords:
   - CatLibrary.ICatExtension class [.NET]
+  monikers:
+  - cat-1.0
+  - cat-2.0

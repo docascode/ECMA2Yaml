@@ -88,3 +88,6 @@ metadata:
   - TomMethod method [.NET], class Tom
   - Tom.TomMethod(Complex<TomFromBaseClass,TomFromBaseClass>, Tuple<String,Tom>) method [.NET]
   - TomMethod(Complex<TomFromBaseClass,TomFromBaseClass>, Tuple<String,Tom>) method [.NET], class Tom
+  monikers:
+  - cat-1.0
+  - cat-2.0

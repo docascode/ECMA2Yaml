@@ -57,3 +57,6 @@ metadata:
   - Assembly
   helpviewer_keywords:
   - CatLibrary.MRefNormalDelegate delegate [.NET]
+  monikers:
+  - cat-1.0
+  - cat-2.0

@@ -18,7 +18,7 @@ namespace DiffFiles
 
             if (opt.Parse(args))
             {
-                _logFileFullName = Path.Combine(opt.LogPath, string.Format("compare_result_{0:yyyyMMddHHmm}.log", DateTime.Now));
+                _logFileFullName = Path.Combine(opt.LogPath, string.Format("compare_result_{0:yyyyMMddHHmmss}.log", DateTime.Now));
 
                 ConsoleLog(string.Format("Path1: '{0}'", opt.OldPath));
                 ConsoleLog(string.Format("Path2: '{0}'", opt.NewPath));

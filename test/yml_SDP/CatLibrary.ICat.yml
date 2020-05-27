@@ -107,3 +107,6 @@ metadata:
   - CatLibrary::ICat
   helpviewer_keywords:
   - CatLibrary.ICat interface [.NET]
+  monikers:
+  - cat-1.0
+  - cat-2.0

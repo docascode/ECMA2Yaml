@@ -53,3 +53,6 @@ metadata:
   - Assembly
   helpviewer_keywords:
   - ICat.eat explicitly implemented event [.NET]
+  monikers:
+  - cat-1.0
+  - cat-2.0

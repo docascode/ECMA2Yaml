@@ -104,3 +104,6 @@ metadata:
   - Assembly
   helpviewer_keywords:
   - VersioningTest.C class [.NET]
+  monikers:
+  - cat-1.0
+  - cat-2.0

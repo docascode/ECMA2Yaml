@@ -68,3 +68,5 @@ metadata:
   - PlayWith method [.NET], class JerryExtension
   - JerryExtension.PlayWith(TomFromBaseClass+Jerry, Tom) extension method [.NET]
   - PlayWith(TomFromBaseClass+Jerry, Tom) extension method [.NET], class JerryExtension
+  monikers:
+  - cat-2.0

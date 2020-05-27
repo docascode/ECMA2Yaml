@@ -16,7 +16,7 @@ members:
   syntaxWithMoniker:
   - lang: cpp
     values:
-    - value: " virtual void CatLibrary.IAnimal.Eat(System::String ^ food) = Eat;"
+    - value: ' virtual void CatLibrary.IAnimal.Eat(System::String ^ food) = Eat;'
   - lang: csharp
     values:
     - value: void IAnimal.Eat(string food);
@@ -44,7 +44,7 @@ members:
   syntaxWithMoniker:
   - lang: cpp
     values:
-    - value: " virtual void CatLibrary.IAnimal.Eat() = Eat;"
+    - value: ' virtual void CatLibrary.IAnimal.Eat() = Eat;'
   - lang: csharp
     values:
     - value: void IAnimal.Eat();
@@ -140,3 +140,6 @@ metadata:
   - IAnimal.Eat(String) explicitly implemented method [.NET]
   - IAnimal.Eat() explicitly implemented method [.NET]
   - IAnimal.Eat<Tool>(Tool) explicitly implemented method [.NET]
+  monikers:
+  - cat-1.0
+  - cat-2.0

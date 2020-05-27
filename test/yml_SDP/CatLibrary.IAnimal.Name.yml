@@ -70,3 +70,6 @@ metadata:
   helpviewer_keywords:
   - IAnimal.Name property [.NET]
   - Name property [.NET], interface IAnimal
+  monikers:
+  - cat-1.0
+  - cat-2.0

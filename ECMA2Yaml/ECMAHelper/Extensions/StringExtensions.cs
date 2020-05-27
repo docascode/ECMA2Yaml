@@ -10,7 +10,7 @@ namespace ECMA2Yaml
 
         public static string NormalizePath(this string path)
         {
-            if (path == null) return path;
+            if (string.IsNullOrEmpty(path)) return path;
 
             char otherSepChar = '/';
 
@@ -21,6 +21,15 @@ namespace ECMA2Yaml
                 path = path.Replace(otherSepChar, DirectorySeparatorChar);
 
             return path;
+        }
+
+        public static string AppendDirectorySeparator(this string path)
+        {
+            if (string.IsNullOrEmpty(path)) return path;
+
+            if (path.Last() == DirectorySeparatorChar) return path;
+
+            return path + DirectorySeparatorChar;
         }
     }
 }

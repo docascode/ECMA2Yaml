@@ -62,3 +62,5 @@ metadata:
   - MethodForI method [.NET], interface I2
   - I2.MethodForI() method [.NET]
   - MethodForI() method [.NET], interface I2
+  monikers:
+  - cat-2.0
