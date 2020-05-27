@@ -1,7 +1,6 @@
 trigger:
 - master
 - develop
-- v3
 
 pr:
 - develop
@@ -144,7 +143,7 @@ steps:
     publishFeedCredentials: 'AzureDevOps.Artifacts.docs-build-v2-prod'
 - task: DotNetCoreCLI@2
   displayName: Nuget Publish ECMAHelper
-  condition: and(succeeded(), eq(variables['ECMAHelperNugetPush'], 'Yes'))
+  condition: and(succeeded(), eq(variables['ECMA2YamlNugetPush'], 'Yes'))
   inputs:
     command: 'push'
     packagesToPush: '$(Build.SourcesDirectory)/_nuget/ECMAHelper/*.nupkg'

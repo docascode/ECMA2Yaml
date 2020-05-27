@@ -14,12 +14,6 @@ elseif (("$env:BUILD_REASON" -eq "Manual" -or "$env:BUILD_REASON" -eq "Individua
     Write-Host "##vso[task.setvariable variable=NugetVersionType;]prerelease"
 }
 elseif (("$env:BUILD_REASON" -eq "Manual" -or "$env:BUILD_REASON" -eq "IndividualCI") `
-    -and "$env:BUILD_SOURCEBRANCH" -eq 'refs/heads/v3') {
-    $version = "1.1.$commitCount-alpha$env:BUILD_BUILDNUMBER"
-    Write-Host "##vso[task.setvariable variable=NugetVersionType;]prerelease"
-    Write-Host "##vso[task.setvariable variable=ECMAHelperNugetPush;]Yes"
-}
-elseif (("$env:BUILD_REASON" -eq "Manual" -or "$env:BUILD_REASON" -eq "IndividualCI") `
     -and "$env:BUILD_SOURCEBRANCH" -eq 'refs/heads/master') {
     $version = "1.1.$commitCount"
     Write-Host "##vso[task.setvariable variable=ECMA2YamlNugetPush;]Yes"
