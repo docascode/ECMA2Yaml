@@ -282,9 +282,13 @@ namespace MSDNUrlPatch
             }
 
             // If url is internal url, need remove base url, just keep relative part
+            // But if url is equal base url, just keep this url, no need keep relative path, just like: https://docs.microsoft.com/en-us/
             if (!string.IsNullOrEmpty(_baseUrl) && newUrl.StartsWith(_baseUrl))
             {
-                newUrl = newUrl.Replace(_baseUrl, "");
+                if (!_baseUrl.TrimEnd('/').Equals(_baseUrl))
+                {
+                    newUrl = newUrl.Replace(_baseUrl, "");
+                }
             }
 
             return newUrl;
