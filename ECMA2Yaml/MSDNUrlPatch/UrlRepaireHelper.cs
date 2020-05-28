@@ -1,6 +1,7 @@
 ﻿using ECMA2Yaml.IO;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -17,23 +18,35 @@ namespace MSDNUrlPatch
         string _sourceFolder = string.Empty;
         string _logPath = string.Empty;
         string _repoRootFolder = string.Empty;
+        string _baseUrl = "https://docs.microsoft.com/en-us";
         FileAccessor _fileAccessor;
         Regex _msdnUrlRegex = new Regex(@"(https?://msdn.microsoft.com[\w-./?%&=]*)", RegexOptions.Compiled);
         Regex _redirectedFromRegex = new Regex(@"(redirectedfrom=\w*)", RegexOptions.Compiled);
         const string _redirectedKey = "redirectedfrom";
         const string _msdnUrlDomain = "msdn.microsoft.com";
+        const string _noNeedRepairKeyWord = "NoNeed";
         static HttpClient _client = new HttpClient();
+        static object _lockObj = new object();
+        static int _batchSize = 100;
 
         Dictionary<string, string> UrlDic = new Dictionary<string, string>();   // <msdn url,docs url>
         List<string> logMessages = new List<string>();
 
-        public void Start(string sourceFolder, string logPath, bool isLogVerbose)
+        public void Start(CommandLineOptions option)
         {
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
+
             try
             {
-                _sourceFolder = sourceFolder;
-                _logPath = logPath;
-                _isLogVerbose = isLogVerbose;
+                _sourceFolder = option.SourceFolder;
+                _logPath = option.LogFilePath;
+                _isLogVerbose = option.LogVerbose;
+                _baseUrl = option.BaseUrl;
+                if (option.BatchSize > 0)
+                {
+                    _batchSize = option.BatchSize;
+                }
 
                 _fileAccessor = new FileAccessor(_sourceFolder, null);
                 RepaireAll();
@@ -44,10 +57,12 @@ namespace MSDNUrlPatch
             }
             finally
             {
-                if (logMessages.Count() > 0)
-                {
-                    File.AppendAllLines(_logPath, logMessages);
-                }
+                sw.Stop();
+                string message = string.Format("Total run {0:F1} mins", sw.ElapsedMilliseconds / (1000 * 60));
+                logMessages.Add(message);
+
+                WriteLine(message);
+                File.AppendAllLines(_logPath, logMessages);
             }
         }
 
@@ -71,7 +86,7 @@ namespace MSDNUrlPatch
             });
 
             var allNeedRepaireUrls = msdnUrlList.Distinct().Where(p => !string.IsNullOrEmpty(p)).ToList();
-            string message = string.Format("Have {0} msdn urls in {1} xml files need to be repaired", allNeedRepaireUrls.Count(), needRepaireXmlFileList.Count());
+            string message = string.Format("Found {0} msdn urls in {1} xml files.", allNeedRepaireUrls.Count(), needRepaireXmlFileList.Count());
             WriteLine(message);
             logMessages.Add(message);
 
@@ -90,6 +105,10 @@ namespace MSDNUrlPatch
                     UrlDic[msdnUrl] = docsUrl;
                 }
             });
+
+            message = string.Format("Have {0} msdn urls need to be repaired.", UrlDic.Where(p => !string.IsNullOrEmpty(p.Value) && p.Value != _noNeedRepairKeyWord).Count());
+            WriteLine(message);
+            logMessages.Add(message);
 
             // 4. Replace msdn url with docs url in xml file
             Parallel.ForEach(needRepaireXmlFileList, opt, xmlFile =>
@@ -130,6 +149,14 @@ namespace MSDNUrlPatch
 
         public void RepairFile(string xmlFile)
         {
+            lock (_lockObj)
+            {
+                if (_batchSize <= 0)
+                {
+                    return;
+                }
+            }
+
             string fileText = File.ReadAllText(xmlFile);
             bool isChange = false;
 
@@ -165,15 +192,25 @@ namespace MSDNUrlPatch
                     }
                     else
                     {
-                        fileText = fileText.Replace(url, docsUrl);
-                        isChange = true;
+                        if (docsUrl != _noNeedRepairKeyWord)
+                        {
+                            fileText = fileText.Replace(url, docsUrl);
+                            isChange = true;
+                        }
                     }
                 }
             }
 
             if (isChange)
             {
-                File.WriteAllText(xmlFile, fileText);
+                lock (_lockObj)
+                {
+                    if (_batchSize > 0)
+                    {
+                        File.WriteAllText(xmlFile, fileText);
+                        _batchSize--;
+                    }
+                }
             }
         }
 
@@ -182,9 +219,13 @@ namespace MSDNUrlPatch
             if (IsMSDNUrl(msdnUrl))
             {
                 string redirectUrl = GetRedirectUrl(msdnUrl).Result;
-                if (IsDocsUrl(redirectUrl))
+                if (IsNeedRepaire(redirectUrl))
                 {
                     return RemoveUnusePartFromRedirectUrl(redirectUrl);
+                }
+                else
+                {
+                    return _noNeedRepairKeyWord;
                 }
             }
 
@@ -206,19 +247,21 @@ namespace MSDNUrlPatch
             return false;
         }
 
-        public bool IsDocsUrl(string url)
+        // If the redirected link starts with "/previous-versions/" or contains "?view=xxx", we won't replace them.
+        public bool IsNeedRepaire(string url)
         {
             if (string.IsNullOrEmpty(url))
             {
                 return false;
             }
 
-            // Not all msdn urls are redirect to docs url
-            // Demo: https://msdn.microsoft.com/library/ms533714.aspx --> https://developer.mozilla.org/en-US/docs/Web/API/Document
-            //if (url.ToLower().IndexOf("docs.microsoft.com") > 0)
-            //{
-            //    return true;
-            //}
+            if (url.Contains("/previous-versions/") || url.Contains("?view="))
+            {
+                string message = string.Format("'{0}' contains '/previous-versions/' or '?view=', don't need be processed.", url);
+                logMessages.Add(message);
+
+                return false;
+            }
 
             return true;
         }
@@ -226,15 +269,22 @@ namespace MSDNUrlPatch
         public string RemoveUnusePartFromRedirectUrl(string redirectUrl)
         {
             string newUrl = redirectUrl.ToLower();
+            // remove redirectedfrom parameter(redirectedfrom=MSDN) from url
             if (redirectUrl.IndexOf(_redirectedKey) > 0)
             {
                 newUrl = _redirectedFromRegex.Replace(newUrl, "");
-                newUrl = newUrl.Replace("&&","&").Replace("?&","?").TrimEnd('&').TrimEnd('?');
+                newUrl = newUrl.Replace("&&", "&").Replace("?&", "?").TrimEnd('&').TrimEnd('?');
 
                 if (_isLogVerbose)
                 {
                     logMessages.Add(string.Format("Redirect url: {0}, new url:{1}", redirectUrl, newUrl));
                 }
+            }
+
+            // If url is internal url, need remove base url, just keep relative part
+            if (!string.IsNullOrEmpty(_baseUrl) && newUrl.StartsWith(_baseUrl))
+            {
+                newUrl = newUrl.Replace(_baseUrl, "");
             }
 
             return newUrl;
@@ -262,7 +312,7 @@ namespace MSDNUrlPatch
                             logMessages.Add(message);
                         }
 
-                        return response.RequestMessage.RequestUri.OriginalString;
+                        return response.RequestMessage.RequestUri.OriginalString.ToLower();
                     }
                 }
                 else

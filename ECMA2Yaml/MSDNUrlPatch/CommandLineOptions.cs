@@ -12,6 +12,8 @@ namespace MSDNUrlPatch
         public string SourceFolder { get; set; }
         public string LogFilePath { get; set; }
         public bool LogVerbose { get; set; }
+        public string BaseUrl { get; set; }
+        public int BatchSize { get; set; }
 
         List<string> Extras = null;
         OptionSet _options = null;
@@ -21,6 +23,8 @@ namespace MSDNUrlPatch
             _options = new OptionSet {
                 { "s|source=", "[Required] the folder path containing the ECMAXML files.", s => SourceFolder = s },
                 { "l|log=", "[Required] the log file path.",  l => LogFilePath = l },
+                { "batchsize=", "[Required] how many files can be processed in one batch.",  l => BatchSize = int.Parse(l) },
+                { "b|baseurl=", "Base url",  l => BaseUrl = l },
                 { "Ver", "Log verbose",  s => LogVerbose = s != null },
             };
         }
