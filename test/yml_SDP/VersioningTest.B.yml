@@ -70,3 +70,6 @@ metadata:
   - VersioningTest::B
   helpviewer_keywords:
   - VersioningTest.B class [.NET]
+  monikers:
+  - cat-1.0
+  - cat-2.0

@@ -28,7 +28,7 @@ members:
     - value: 'member this.CatLibrary.IAnimal.Item(int) : string'
   - lang: vb
     values:
-    - value: " ReadOnly Property Item(a As Integer) As String Implements IAnimal.Item"
+    - value: ' ReadOnly Property Item(a As Integer) As String Implements IAnimal.Item'
   monikers:
   - cat-1.0
   - cat-2.0
@@ -81,3 +81,6 @@ metadata:
   - CatLibrary::Cat`2::CatLibrary#IAnimal#Item
   helpviewer_keywords:
   - IAnimal.Item[Int32] explicitly implemented property [.NET]
+  monikers:
+  - cat-1.0
+  - cat-2.0

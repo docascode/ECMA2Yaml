@@ -10,6 +10,8 @@ namespace ECMA2Yaml.Models.SDP
 {
     public class OverloadSDPModel : ItemSDPModelBase
     {
+        [JsonIgnore]
+        [YamlIgnore]
         public override string YamlMime => "YamlMime:NetMember";
 
         [JsonProperty("type")]

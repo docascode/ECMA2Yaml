@@ -1,9 +1,9 @@
-﻿using Microsoft.DocAsCode.Common;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Linq;
+using ECMA2Yaml.YamlHelpers;
 
 namespace ECMA2Yaml
 {

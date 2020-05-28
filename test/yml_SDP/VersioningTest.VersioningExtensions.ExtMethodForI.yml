@@ -112,3 +112,6 @@ metadata:
   - ExtMethodForI(I1) extension method [.NET], class VersioningExtensions
   - VersioningExtensions.ExtMethodForI(I2) extension method [.NET]
   - ExtMethodForI(I2) extension method [.NET], class VersioningExtensions
+  monikers:
+  - cat-1.0
+  - cat-2.0

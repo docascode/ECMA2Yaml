@@ -112,3 +112,6 @@ metadata:
   - Assembly
   helpviewer_keywords:
   - CatLibrary.Tom class [.NET]
+  monikers:
+  - cat-1.0
+  - cat-2.0

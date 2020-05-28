@@ -1,6 +1,4 @@
-﻿using ECMA2Yaml;
-using ECMA2Yaml.Models;
-using Microsoft.DocAsCode.Common;
+﻿using ECMA2Yaml.Models;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -8,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using YamlUtility = ECMA2Yaml.YamlHelpers.YamlUtility;
 
 namespace ECMA2Yaml
 {
@@ -21,6 +20,11 @@ namespace ECMA2Yaml
             bool withVersioning)
         {
             WriteLine("Generating SDP Yaml models...");
+
+            if (!Directory.Exists(outputFolder))
+            {
+                Directory.CreateDirectory(outputFolder);
+            }
 
             var sdpConverter = new SDPYamlConverter(store, withVersioning);
             sdpConverter.Convert();
@@ -140,7 +144,7 @@ namespace ECMA2Yaml
                 }
             }
 
-            throw new Exception($"All the file name candidates {fileNames.ToDelimitedString()} exceed the maximum allowed file name length {MaximumFileNameLength}");
+            throw new Exception($"All the file name candidates {string.Join(",", fileNames)} exceed the maximum allowed file name length {MaximumFileNameLength}");
         }
     }
 }

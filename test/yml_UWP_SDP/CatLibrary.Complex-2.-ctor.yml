@@ -51,3 +51,6 @@ metadata:
   helpviewer_keywords:
   - Complex<T,J> class [.NET], constructors
   - Complex<T,J>() class [.NET], constructors
+  monikers:
+  - cat-1.0
+  - cat-2.0

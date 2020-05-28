@@ -79,3 +79,6 @@ metadata:
   - MethodForI method [.NET], class C
   - C.MethodForI() method [.NET]
   - MethodForI() method [.NET], class C
+  monikers:
+  - cat-1.0
+  - cat-2.0

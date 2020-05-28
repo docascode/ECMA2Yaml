@@ -59,3 +59,5 @@ metadata:
   helpviewer_keywords:
   - TomFromBaseClass.Jerry class [.NET], constructors
   - TomFromBaseClass.Jerry(ColorType) class [.NET], constructors
+  monikers:
+  - cat-2.0

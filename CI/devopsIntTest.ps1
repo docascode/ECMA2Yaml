@@ -14,18 +14,6 @@ else {
     Write-Host "Done testing intellisense..."
 }
 
-<#
-& "$repoRoot/ECMA2Yaml/ECMA2Yaml/bin/Release/ECMA2Yaml.exe" -s $repoRoot\test\xml -o $repoRoot\test\_yml_MREF_After -f --repoRoot $repoRoot\\ --repoBranch master --repoUrl https://github.com/docascode/ECMA2Yaml
-& "$repoRoot/ECMA2Yaml/DiffFiles/bin/Release/DiffFiles.exe" -o $repoRoot\test\yml_MREF -n $repoRoot\test\_yml_MREF_After -l $repoRoot\test --Path
-if ($LASTEXITCODE -ne 0)
-{
-    Write-Error "Diff found for MREF yml."
-}
-else {
-    Write-Host "Done testing MREF yml..."
-}
-#>
-
 & "$repoRoot/ECMA2Yaml/ECMA2Yaml/bin/Release/ECMA2Yaml.exe" -s $repoRoot\test\xml -o $repoRoot\test\_yml_SDP_After --SDP -f --repoRoot $repoRoot\\ --repoBranch master --repoUrl https://github.com/docascode/ECMA2Yaml
 & "$repoRoot/ECMA2Yaml/DiffFiles/bin/Release/DiffFiles.exe" -o $repoRoot\test\yml_SDP -n $repoRoot\test\_yml_SDP_After -l $repoRoot\test --Path
 if ($LASTEXITCODE -ne 0)

@@ -123,3 +123,6 @@ metadata:
   - VersioningTest::F
   helpviewer_keywords:
   - VersioningTest.F class [.NET]
+  monikers:
+  - cat-1.0
+  - cat-2.0

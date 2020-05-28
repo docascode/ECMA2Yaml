@@ -1,7 +1,8 @@
 ﻿using ECMA2Yaml.IO;
-using Microsoft.DocAsCode.Common;
+using ECMA2Yaml.YamlHelpers;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using FileAbstractLayer = ECMA2Yaml.IO.FileAbstractLayer;
@@ -29,7 +30,7 @@ namespace ECMA2Yaml
             }
             if (!string.IsNullOrEmpty(logContentBaseDirectory))
             {
-                OPSLogger.PathTrimPrefix = logContentBaseDirectory;
+                OPSLogger.PathTrimPrefix = logContentBaseDirectory.NormalizePath().AppendDirectorySeparator();
             }
             if (logWriter != null)
             {
@@ -53,16 +54,31 @@ namespace ECMA2Yaml
             var xmlYamlFileMapping = SDPYamlGenerator.Generate(store, outputDirectory, flatten: config?.Flatten ?? true, withVersioning: true);
             if (!string.IsNullOrEmpty(sourceMapFilePath))
             {
-                var translatedMapping = xmlYamlFileMapping.ToDictionary(
-                    p => FileAbstractLayer.RelativePath(p.Key, sourceMapFilePath),
-                    p => p.Value.Select(path => FileAbstractLayer.RelativePath(path, sourceMapFilePath)).ToList()
-                    );
-                var json = JsonConvert.SerializeObject(translatedMapping);
-                File.WriteAllText(sourceMapFilePath, json);
+                WriteYamlXMLFileMap(sourceMapFilePath, xmlYamlFileMapping);
             }
 
             var toc = SDPTOCGenerator.Generate(store);
-            YamlUtility.Serialize(Path.Combine(outputDirectory, "toc.yml"), toc, YamlMime.TableOfContent);
+            YamlUtility.Serialize(Path.Combine(outputDirectory, "toc.yml"), toc, "YamlMime:TableOfContent");
+        }
+
+        private static void WriteYamlXMLFileMap(string sourceMapFilePath, IDictionary<string, List<string>> xmlYamlFileMap)
+        {
+            if (!string.IsNullOrEmpty(sourceMapFilePath))
+            {
+                var yamlXMLMapping = new Dictionary<string, string>();
+
+                foreach (var singleXMLMapping in xmlYamlFileMap)
+                {
+                    var xmlFilePath = FileAbstractLayer.RelativePath(singleXMLMapping.Key, sourceMapFilePath, true);
+                    foreach (var yamlFile in singleXMLMapping.Value)
+                    {
+                        var mapKey = FileAbstractLayer.RelativePath(yamlFile, sourceMapFilePath, true);
+                        yamlXMLMapping[mapKey] = xmlFilePath;
+                    }
+                }
+                var json = JsonConvert.SerializeObject(new { files = yamlXMLMapping }, Formatting.Indented);
+                File.WriteAllText(sourceMapFilePath, json);
+            }
         }
     }
 }

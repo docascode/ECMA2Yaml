@@ -64,3 +64,6 @@ metadata:
   helpviewer_keywords:
   - ICat.eat event [.NET]
   - eat event [.NET], interface ICat
+  monikers:
+  - cat-1.0
+  - cat-2.0

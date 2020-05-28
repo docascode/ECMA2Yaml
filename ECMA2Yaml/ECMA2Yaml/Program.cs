@@ -1,5 +1,5 @@
 ﻿using ECMA2Yaml.IO;
-using Microsoft.DocAsCode.Common;
+using ECMA2Yaml.YamlHelpers;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Concurrent;
@@ -92,14 +92,14 @@ namespace ECMA2Yaml
 
             if (!string.IsNullOrEmpty(opt.UndocumentedApiReport))
             {
-                UndocumentedApi.ReportGenerator.GenerateReport(store, opt.UndocumentedApiReport.BackSlashToForwardSlash(), opt.RepoBranch);
+                UndocumentedApi.ReportGenerator.GenerateReport(store, opt.UndocumentedApiReport.NormalizePath(), opt.RepoBranch);
             }
 
             IDictionary<string, List<string>> xmlYamlFileMapping = null;
             if (opt.SDPMode)
             {
                 xmlYamlFileMapping = SDPYamlGenerator.Generate(store, opt.OutputFolder, opt.Flatten, opt.Versioning);
-                YamlUtility.Serialize(Path.Combine(opt.OutputFolder, "toc.yml"), SDPTOCGenerator.Generate(store), YamlMime.TableOfContent);
+                YamlUtility.Serialize(Path.Combine(opt.OutputFolder, "toc.yml"), SDPTOCGenerator.Generate(store), "YamlMime:TableOfContent");
             }
 
             //Translate change list
@@ -122,14 +122,16 @@ namespace ECMA2Yaml
                 List<string> list = new List<string>();
                 if (File.Exists(opt.SkipPublishFilePath))
                 {
-                    list = JsonUtility.Deserialize<List<string>>(opt.SkipPublishFilePath);
+                    var jsonContent = File.ReadAllText(opt.SkipPublishFilePath);
+                    list = JsonConvert.DeserializeObject<List<string>>(jsonContent);
                     WriteLine("Read {0} entries in {1}.", list.Count, opt.SkipPublishFilePath);
                 }
                 list.AddRange(loader.FallbackFiles
                     .Where(path => xmlYamlFileMapping.ContainsKey(path))
                     .SelectMany(path => xmlYamlFileMapping[path].Select(p => p.Replace(opt.RepoRootPath, "").TrimStart('\\')))
                     );
-                JsonUtility.Serialize(opt.SkipPublishFilePath, list, Newtonsoft.Json.Formatting.Indented);
+                var jsonText = JsonConvert.SerializeObject(list, Formatting.Indented);
+                File.WriteAllText(opt.SkipPublishFilePath, jsonText);
                 WriteLine("Write {0} entries to {1}.", list.Count, opt.SkipPublishFilePath);
             }
 
@@ -174,7 +176,8 @@ namespace ECMA2Yaml
                         yamlXMLMapping[mapKey] = xmlFilePath;
                     }
                 }
-                JsonUtility.Serialize(fileMapPath, yamlXMLMapping, Formatting.Indented);
+                var jsonText = JsonConvert.SerializeObject(yamlXMLMapping, Formatting.Indented);
+                File.WriteAllText(fileMapPath, jsonText);
             }
         }
 

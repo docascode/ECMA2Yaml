@@ -49,7 +49,7 @@ namespace ECMA2Yaml.IO
                 Path.Combine(RootPath, subFolder ?? string.Empty),
                 wildCardPattern,
                 allDirectories ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly);
-            var filteredFiles = allFiles.Select(f => new FileItem { RelativePath = RelativePath(f, RootPath), AbsolutePath = f, IsVirtual = IsVirtual });
+            var filteredFiles = allFiles.Select(f => new FileItem { RelativePath = RelativePath(f, RootPath, false), AbsolutePath = f, IsVirtual = IsVirtual });
             return filteredFiles;
         }
 
@@ -86,16 +86,27 @@ namespace ECMA2Yaml.IO
             return File.OpenWrite(filePath);
         }
 
-        public static string RelativePath(string path, string relativeTo)
+        public static string RelativePath(string path, string relativeTo, bool relativeToFile)
         {
             path = Path.GetFullPath(path);
             relativeTo = Path.GetFullPath(relativeTo);
 
-            if (!path.StartsWith(relativeTo))
+            if (path.StartsWith(relativeTo))
             {
-                throw new ArgumentException("path is not sub directory from rootPath.");
+                return path.Remove(0, relativeTo.Length).TrimStart(new[] { '\\', '/' });
             }
-            return path.Remove(0, relativeTo.Length).TrimStart(new[] { '\\', '/' });
+            else
+            {
+                if (!relativeToFile)
+                {
+                    relativeTo += "\\";
+                }
+                Uri baseUri = new Uri(relativeTo);
+                Uri fullUri = new Uri(path);
+                Uri relativeUri = baseUri.MakeRelativeUri(fullUri);
+                // Uri's use forward slashes so convert back to backward slashes
+                return relativeUri.ToString().Replace("/", "\\").Replace("%60", "`");
+            }
         }
     }
 }

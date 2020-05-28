@@ -49,3 +49,5 @@ metadata:
   - Assembly
   helpviewer_keywords:
   - CatLibrary.JerryExtension class [.NET]
+  monikers:
+  - cat-2.0

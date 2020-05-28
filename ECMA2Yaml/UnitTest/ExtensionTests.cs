@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ECMA2Yaml;
+using ECMA2Yaml.IO;
 
 namespace UnitTest
 {
@@ -85,6 +86,20 @@ namespace UnitTest
 
             // this should not throw an exception
             Assert.IsNull(aNullString.NormalizePath());
+        }
+
+        [DataTestMethod]
+        [DataRow("Bar", "Foo", false, "..\\Bar")]
+        [DataRow("C:\\Bar", "C:\\Foo", false, "..\\Bar")]
+        [DataRow("C:\\Foo\\Bar", "C:\\Foo", false, "Bar")]
+        [DataRow("C:\\Bar\\Bar", "C:\\Foo\\Bar", false, "..\\..\\Bar\\Bar")]
+        [DataRow("Bar.txt", "Foo", false, "..\\Bar.txt")]
+        [DataRow("Bar", "Foo.txt", true, "Bar")]
+        [DataRow("C:\\Bar", "C:\\Foo.txt", true, "Bar")]
+        public void FileAbstractLayer_RelativePath_Test(string path, string relativeTo, bool relativeToFile, string expected)
+        {
+            var result = FileAbstractLayer.RelativePath(path, relativeTo, relativeToFile);
+            Assert.AreEqual<string>(expected, result);
         }
     }
 }

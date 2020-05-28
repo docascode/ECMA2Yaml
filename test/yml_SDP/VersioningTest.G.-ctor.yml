@@ -62,3 +62,6 @@ metadata:
   helpviewer_keywords:
   - G class [.NET], constructors
   - G() class [.NET], constructors
+  monikers:
+  - cat-1.0
+  - cat-2.0
