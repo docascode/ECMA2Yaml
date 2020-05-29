@@ -12,7 +12,7 @@ using System.Xml.Linq;
 
 namespace MSDNUrlPatch
 {
-    public class UrlRepaireHelper
+    public class UrlRepairHelper
     {
         bool _isLogVerbose = false;
         string _sourceFolder = string.Empty;
@@ -49,7 +49,7 @@ namespace MSDNUrlPatch
                 }
 
                 _fileAccessor = new FileAccessor(_sourceFolder, null);
-                RepaireAll();
+                RepairAll();
             }
             catch (Exception ex)
             {
@@ -66,10 +66,10 @@ namespace MSDNUrlPatch
             }
         }
 
-        public void RepaireAll()
+        public void RepairAll()
         {
             var allXmlFileList = _fileAccessor.ListFiles("*.xml", _sourceFolder, allDirectories: true);
-            List<string> needRepaireXmlFileList = new List<string>();
+            List<string> needRepairXmlFileList = new List<string>();
             List<string> msdnUrlList = new List<string>();
 
             ParallelOptions opt = new ParallelOptions() { MaxDegreeOfParallelism = Environment.ProcessorCount };
@@ -80,24 +80,24 @@ namespace MSDNUrlPatch
                 var msdnUrls = LoadMSDNUrls(xmlFile.AbsolutePath);
                 if (msdnUrls.Count() > 0)
                 {
-                    needRepaireXmlFileList.Add(xmlFile.AbsolutePath);
+                    needRepairXmlFileList.Add(xmlFile.AbsolutePath);
                     msdnUrlList.AddRange(msdnUrls);
                 }
             });
 
-            var allNeedRepaireUrls = msdnUrlList.Distinct().Where(p => !string.IsNullOrEmpty(p)).ToList();
-            string message = string.Format("Found {0} msdn urls in {1} xml files.", allNeedRepaireUrls.Count(), needRepaireXmlFileList.Count());
+            var allNeedRepairUrls = msdnUrlList.Distinct().Where(p => !string.IsNullOrEmpty(p)).ToList();
+            string message = string.Format("Found {0} msdn urls in {1} xml files.", allNeedRepairUrls.Count(), needRepairXmlFileList.Count());
             WriteLine(message);
             logMessages.Add(message);
 
             // 2. Set msdn urls dic with initial value
-            allNeedRepaireUrls.ForEach(url =>
+            allNeedRepairUrls.ForEach(url =>
             {
                 UrlDic.Add(url, null);
             });
 
             // 3. Get docs url of msdn url
-            Parallel.ForEach(allNeedRepaireUrls, opt, msdnUrl =>
+            Parallel.ForEach(allNeedRepairUrls, opt, msdnUrl =>
             {
                 string docsUrl = GetDocsUrl(msdnUrl);
                 if (!string.IsNullOrEmpty(docsUrl))
@@ -111,7 +111,7 @@ namespace MSDNUrlPatch
             logMessages.Add(message);
 
             // 4. Replace msdn url with docs url in xml file
-            Parallel.ForEach(needRepaireXmlFileList, opt, xmlFile =>
+            Parallel.ForEach(needRepairXmlFileList, opt, xmlFile =>
             {
                 RepairFile(xmlFile);
             });
@@ -219,7 +219,7 @@ namespace MSDNUrlPatch
             if (IsMSDNUrl(msdnUrl))
             {
                 string redirectUrl = GetRedirectUrl(msdnUrl).Result;
-                if (IsNeedRepaire(redirectUrl))
+                if (IsNeedRepair(redirectUrl))
                 {
                     return RemoveUnusePartFromRedirectUrl(redirectUrl);
                 }
@@ -248,7 +248,7 @@ namespace MSDNUrlPatch
         }
 
         // If the redirected link starts with "/previous-versions/" or contains "?view=xxx", we won't replace them.
-        public bool IsNeedRepaire(string url)
+        public bool IsNeedRepair(string url)
         {
             if (string.IsNullOrEmpty(url))
             {

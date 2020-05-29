@@ -13,7 +13,7 @@ namespace MSDNUrlPatch
             var opt = new CommandLineOptions();
             if (opt.Parse(args))
             {
-                new UrlRepaireHelper().Start(opt);
+                new UrlRepairHelper().Start(opt);
             }
         }
     }

@@ -26,7 +26,7 @@ namespace UnitTest
                     , "https://docs1.microsoft.com/en-us/visualstudio/msbuild/aspnetcompiler-task?view1=vs-2015")]
         public void RemoveRedirectFromPart_Test(string inText, string expected)
         {
-            var newUrl = new UrlRepaireHelper().RemoveUnusePartFromRedirectUrl(inText);
+            var newUrl = new UrlRepairHelper().RemoveUnusePartFromRedirectUrl(inText);
             Assert.AreEqual(expected, newUrl);
         }
     }
