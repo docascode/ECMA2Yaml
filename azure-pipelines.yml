@@ -66,7 +66,7 @@ steps:
     inlineOperation: |
      [
         {
-          "KeyCode": "CP-230856",
+          "KeyCode": "CP-236167",
           "OperationSetCode": "SigntoolSign",
           "parameters": [
             {
@@ -94,7 +94,7 @@ steps:
           "ToolVersion": "1.0"
         },
         {
-          "KeyCode": "CP-230856",
+          "KeyCode": "CP-236167",
           "OperationSetCode": "SigntoolVerify",
           "Parameters": [
             {
