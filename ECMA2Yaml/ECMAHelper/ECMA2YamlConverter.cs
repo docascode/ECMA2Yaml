@@ -15,6 +15,7 @@ namespace ECMA2Yaml
             string xmlDirectory,
             string outputDirectory,
             string fallbackXmlDirectory = null,
+            string fallbackOutputDirectory = null,
             Action<LogItem> logWriter = null,
             string logContentBaseDirectory = null,
             string sourceMapFilePath = null,
@@ -27,6 +28,11 @@ namespace ECMA2Yaml
             if (outputDirectory == null)
             {
                 throw new ArgumentNullException(outputDirectory);
+            }
+            if (!string.IsNullOrEmpty(fallbackXmlDirectory) && string.IsNullOrEmpty(fallbackOutputDirectory))
+            {
+                throw new ArgumentNullException(fallbackOutputDirectory,
+                    $"{nameof(fallbackOutputDirectory)} cannot be empty if {nameof(fallbackXmlDirectory)} is present.");
             }
             if (!string.IsNullOrEmpty(logContentBaseDirectory))
             {
@@ -52,6 +58,25 @@ namespace ECMA2Yaml
             store.Build();
 
             var xmlYamlFileMapping = SDPYamlGenerator.Generate(store, outputDirectory, flatten: config?.Flatten ?? true, withVersioning: true);
+            if (loader.FallbackFiles != null && loader.FallbackFiles.Any() && !string.IsNullOrEmpty(fallbackOutputDirectory))
+            {
+                if (!Directory.Exists(fallbackOutputDirectory))
+                {
+                    Directory.CreateDirectory(fallbackOutputDirectory);
+                }
+                foreach (var fallbackFile in loader.FallbackFiles)
+                {
+                    if (xmlYamlFileMapping.TryGetValue(fallbackFile, out var originalYamls))
+                    {
+                        foreach(var originalYaml in originalYamls)
+                        {
+                            var newYaml = originalYaml.Replace(outputDirectory, fallbackOutputDirectory);
+                            File.Move(originalYaml, newYaml);
+                        }
+                        xmlYamlFileMapping.Remove(fallbackFile);
+                    }
+                }
+            }
             if (!string.IsNullOrEmpty(sourceMapFilePath))
             {
                 WriteYamlXMLFileMap(sourceMapFilePath, xmlYamlFileMapping);
