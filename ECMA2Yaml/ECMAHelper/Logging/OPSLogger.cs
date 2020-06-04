@@ -13,6 +13,7 @@ namespace ECMA2Yaml
     public class OPSLogger
     {
         public static string PathTrimPrefix = "";
+        public static string FallbackPathTrimPrefix = "";
         public static Action<LogItem> WriteLogCallback = null;
         public static bool ErrorLogged { get; private set; }
 
@@ -70,7 +71,7 @@ namespace ECMA2Yaml
             {
                 return file;
             }
-            return file.NormalizePath().Replace(PathTrimPrefix, "");
+            return file.NormalizePath().Replace(PathTrimPrefix, "").Replace(FallbackPathTrimPrefix, "_repo.en-us" + Path.DirectorySeparatorChar);
         }
 
         private static void WriteLog(LogItem logItem)

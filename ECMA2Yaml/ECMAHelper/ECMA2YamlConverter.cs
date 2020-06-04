@@ -38,6 +38,10 @@ namespace ECMA2Yaml
             {
                 OPSLogger.PathTrimPrefix = logContentBaseDirectory.NormalizePath().AppendDirectorySeparator();
             }
+            if (!string.IsNullOrEmpty(fallbackXmlDirectory))
+            {
+                OPSLogger.FallbackPathTrimPrefix = fallbackXmlDirectory.NormalizePath().AppendDirectorySeparator();
+            }
             if (logWriter != null)
             {
                 OPSLogger.WriteLogCallback = logWriter;
