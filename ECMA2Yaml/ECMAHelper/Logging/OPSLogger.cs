@@ -71,7 +71,16 @@ namespace ECMA2Yaml
             {
                 return file;
             }
-            return file.NormalizePath().Replace(PathTrimPrefix, "").Replace(FallbackPathTrimPrefix, "_repo.en-us" + Path.DirectorySeparatorChar);
+            file = file.NormalizePath();
+            if (!string.IsNullOrEmpty(PathTrimPrefix))
+            {
+                file = file.Replace(PathTrimPrefix, "");
+            }
+            if (!string.IsNullOrEmpty(FallbackPathTrimPrefix))
+            {
+                file = file.Replace(FallbackPathTrimPrefix, "_repo.en-us" + Path.DirectorySeparatorChar);
+            }
+            return file;
         }
 
         private static void WriteLog(LogItem logItem)

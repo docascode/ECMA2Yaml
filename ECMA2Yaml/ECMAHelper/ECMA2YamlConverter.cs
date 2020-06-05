@@ -75,7 +75,8 @@ namespace ECMA2Yaml
                         foreach(var originalYaml in originalYamls)
                         {
                             var newYaml = originalYaml.Replace(outputDirectory, fallbackOutputDirectory);
-                            File.Move(originalYaml, newYaml);
+                            File.Copy(originalYaml, newYaml, overwrite: true);
+                            File.Delete(originalYaml);
                         }
                         xmlYamlFileMapping.Remove(fallbackFile);
                     }
