@@ -25,14 +25,25 @@ namespace ECMA2Yaml
             {
                 throw new ArgumentNullException(xmlDirectory);
             }
+            if (!Directory.Exists(xmlDirectory))
+            {
+                throw new DirectoryNotFoundException($"{nameof(xmlDirectory)} {xmlDirectory} does not exist.");
+            }
             if (outputDirectory == null)
             {
                 throw new ArgumentNullException(outputDirectory);
             }
-            if (!string.IsNullOrEmpty(fallbackXmlDirectory) && string.IsNullOrEmpty(fallbackOutputDirectory))
+            if (!string.IsNullOrEmpty(fallbackXmlDirectory))
             {
-                throw new ArgumentNullException(fallbackOutputDirectory,
-                    $"{nameof(fallbackOutputDirectory)} cannot be empty if {nameof(fallbackXmlDirectory)} is present.");
+                if (!Directory.Exists(fallbackXmlDirectory))
+                {
+                    throw new DirectoryNotFoundException($"{nameof(fallbackXmlDirectory)} {fallbackXmlDirectory} does not exist.");
+                }
+                if (string.IsNullOrEmpty(fallbackOutputDirectory))
+                {
+                    throw new ArgumentNullException(fallbackOutputDirectory,
+                        $"{nameof(fallbackOutputDirectory)} cannot be empty if {nameof(fallbackXmlDirectory)} is present.");
+                }
             }
             if (!string.IsNullOrEmpty(logContentBaseDirectory))
             {
