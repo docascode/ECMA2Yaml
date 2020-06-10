@@ -15,6 +15,7 @@ namespace ECMA2Yaml
             string xmlDirectory,
             string outputDirectory,
             string fallbackXmlDirectory = null,
+            string fallbackOutputDirectory = null,
             Action<LogItem> logWriter = null,
             string logContentBaseDirectory = null,
             string sourceMapFilePath = null,
@@ -24,13 +25,33 @@ namespace ECMA2Yaml
             {
                 throw new ArgumentNullException(xmlDirectory);
             }
+            if (!Directory.Exists(xmlDirectory))
+            {
+                throw new DirectoryNotFoundException($"{nameof(xmlDirectory)} {xmlDirectory} does not exist.");
+            }
             if (outputDirectory == null)
             {
                 throw new ArgumentNullException(outputDirectory);
             }
+            if (!string.IsNullOrEmpty(fallbackXmlDirectory))
+            {
+                if (!Directory.Exists(fallbackXmlDirectory))
+                {
+                    throw new DirectoryNotFoundException($"{nameof(fallbackXmlDirectory)} {fallbackXmlDirectory} does not exist.");
+                }
+                if (string.IsNullOrEmpty(fallbackOutputDirectory))
+                {
+                    throw new ArgumentNullException(fallbackOutputDirectory,
+                        $"{nameof(fallbackOutputDirectory)} cannot be empty if {nameof(fallbackXmlDirectory)} is present.");
+                }
+            }
             if (!string.IsNullOrEmpty(logContentBaseDirectory))
             {
                 OPSLogger.PathTrimPrefix = logContentBaseDirectory.NormalizePath().AppendDirectorySeparator();
+            }
+            if (!string.IsNullOrEmpty(fallbackXmlDirectory))
+            {
+                OPSLogger.FallbackPathTrimPrefix = fallbackXmlDirectory.NormalizePath().AppendDirectorySeparator();
             }
             if (logWriter != null)
             {
@@ -52,6 +73,26 @@ namespace ECMA2Yaml
             store.Build();
 
             var xmlYamlFileMapping = SDPYamlGenerator.Generate(store, outputDirectory, flatten: config?.Flatten ?? true, withVersioning: true);
+            if (loader.FallbackFiles != null && loader.FallbackFiles.Any() && !string.IsNullOrEmpty(fallbackOutputDirectory))
+            {
+                if (!Directory.Exists(fallbackOutputDirectory))
+                {
+                    Directory.CreateDirectory(fallbackOutputDirectory);
+                }
+                foreach (var fallbackFile in loader.FallbackFiles)
+                {
+                    if (xmlYamlFileMapping.TryGetValue(fallbackFile, out var originalYamls))
+                    {
+                        foreach(var originalYaml in originalYamls)
+                        {
+                            var newYaml = originalYaml.Replace(outputDirectory, fallbackOutputDirectory);
+                            File.Copy(originalYaml, newYaml, overwrite: true);
+                            File.Delete(originalYaml);
+                        }
+                        xmlYamlFileMapping.Remove(fallbackFile);
+                    }
+                }
+            }
             if (!string.IsNullOrEmpty(sourceMapFilePath))
             {
                 WriteYamlXMLFileMap(sourceMapFilePath, xmlYamlFileMapping);
