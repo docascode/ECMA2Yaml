@@ -4,8 +4,8 @@
 
 |            | Build Status  |  Package   |
 | ---------- | ------------- | ---------- |
-| **master** |[![Build Status](https://dev.azure.com/ceapex/Engineering/_apis/build/status/docascode.ECMA2Yaml?branchName=master)](https://dev.azure.com/ceapex/Engineering/_build/latest?definitionId=1954&branchName=master) |[![Microsoft.DocAsCode.ECMA2Yaml package in docs-build-v2-prod feed in Azure Artifacts](https://docfx.feeds.visualstudio.com/2600ccab-749a-4eeb-8147-15225a64c13f/_apis/public/Packaging/Feeds/becb03e3-6c68-44ab-88e0-b6deb8f55729/Packages/ecb7a791-5e1d-44a3-af3d-1672253b90db/Badge)](https://docfx.visualstudio.com/docfx/_packaging?_a=package&feed=becb03e3-6c68-44ab-88e0-b6deb8f55729&package=ecb7a791-5e1d-44a3-af3d-1672253b90db&preferRelease=true) |
-|  **develop**   |[![Build Status](https://dev.azure.com/ceapex/Engineering/_apis/build/status/docascode.ECMA2Yaml?branchName=develop)](https://dev.azure.com/ceapex/Engineering/_build/latest?definitionId=1954&branchName=develop) |[![MyGet](https://img.shields.io/myget/op-dev/vpre/Microsoft.DocAsCode.ECMA2Yaml.svg?label=myget)](https://www.myget.org/feed/op-dev/package/nuget/Microsoft.DocAsCode.ECMA2Yaml)
+| **master** |[![Build Status](https://dev.azure.com/ceapex/Engineering/_apis/build/status/docascode.ECMA2Yaml?branchName=master)](https://dev.azure.com/ceapex/Engineering/_build?definitionId=1954) |[![Microsoft.DocAsCode.ECMA2Yaml package in docs-build-v2-prod feed in Azure Artifacts](https://docfx.feeds.visualstudio.com/2600ccab-749a-4eeb-8147-15225a64c13f/_apis/public/Packaging/Feeds/becb03e3-6c68-44ab-88e0-b6deb8f55729/Packages/ecb7a791-5e1d-44a3-af3d-1672253b90db/Badge)](https://docfx.visualstudio.com/docfx/_packaging?_a=package&feed=becb03e3-6c68-44ab-88e0-b6deb8f55729&package=ecb7a791-5e1d-44a3-af3d-1672253b90db&preferRelease=true) |
+| **develop** |[![Build Status](https://dev.azure.com/ceapex/Engineering/_apis/build/status/docascode.ECMA2Yaml?branchName=develop)](https://dev.azure.com/ceapex/Engineering/_build?definitionId=1954) |
 
 ## Usage
 ```
