@@ -19,6 +19,7 @@ namespace MSDNUrlPatch
         string _logPath = string.Empty;
         string _repoRootFolder = string.Empty;
         string _baseUrl = "https://docs.microsoft.com/en-us";
+        string _fileExtension = "";
         FileAccessor _fileAccessor;
         Regex _msdnUrlRegex = new Regex(@"(https?://msdn.microsoft.com[\w-./?%&=]*)", RegexOptions.Compiled);
         Regex _redirectedFromRegex = new Regex(@"(redirectedfrom=\w*)", RegexOptions.Compiled);
@@ -32,23 +33,26 @@ namespace MSDNUrlPatch
         Dictionary<string, string> UrlDic = new Dictionary<string, string>();   // <msdn url,docs url>
         List<string> logMessages = new List<string>();
 
-        public void Start(CommandLineOptions option)
+        public UrlRepairHelper(CommandLineOptions option)
+        {
+            _sourceFolder = option.SourceFolder;
+            _logPath = option.LogFilePath;
+            _isLogVerbose = option.LogVerbose;
+            _baseUrl = option.BaseUrl;
+            _fileExtension = option.FileExtension;
+            if (option.BatchSize > 0)
+            {
+                _batchSize = option.BatchSize;
+            }
+        }
+
+        public void Start()
         {
             Stopwatch sw = new Stopwatch();
             sw.Start();
 
             try
             {
-                _sourceFolder = option.SourceFolder;
-                _logPath = option.LogFilePath;
-                _isLogVerbose = option.LogVerbose;
-                _baseUrl = option.BaseUrl;
-                if (option.BatchSize > 0)
-                {
-                    _batchSize = option.BatchSize;
-                }
-
-                _fileAccessor = new FileAccessor(_sourceFolder, null);
                 RepairAll();
             }
             catch (Exception ex)
@@ -68,7 +72,8 @@ namespace MSDNUrlPatch
 
         public void RepairAll()
         {
-            var allXmlFileList = _fileAccessor.ListFiles("*.xml", _sourceFolder, allDirectories: true);
+            _fileAccessor = new FileAccessor(_sourceFolder, null);
+            var allXmlFileList = _fileAccessor.ListFiles("*." + _fileExtension, _sourceFolder, allDirectories: true);
             List<string> needRepairXmlFileList = new List<string>();
             List<string> msdnUrlList = new List<string>();
 
@@ -86,7 +91,7 @@ namespace MSDNUrlPatch
             });
 
             var allNeedRepairUrls = msdnUrlList.Distinct().Where(p => !string.IsNullOrEmpty(p)).ToList();
-            string message = string.Format("Found {0} msdn urls in {1} xml files.", allNeedRepairUrls.Count(), needRepairXmlFileList.Count());
+            string message = string.Format("Found {0} msdn urls in {1} {2} files.", allNeedRepairUrls.Count(), needRepairXmlFileList.Count(), _fileExtension);
             WriteLine(message);
             logMessages.Add(message);
 
@@ -181,8 +186,12 @@ namespace MSDNUrlPatch
                 }
             }
 
+            // TODO: How to process follow case
+            // <NavigateUrl>https://msdn.microsoft.com/library/bfbb433f-7ab6-417a-90f0-71443d76bcb3<NavigateUrl/> <NavigateUrl>https://msdn.microsoft.com/library<NavigateUrl/> 
+
             if (oldUrlList != null && oldUrlList.Count > 0)
             {
+                oldUrlList = oldUrlList.OrderByDescending(u => u.Length).ToList();
                 foreach (string url in oldUrlList)
                 {
                     string docsUrl = UrlDic[url];
@@ -247,7 +256,7 @@ namespace MSDNUrlPatch
             return false;
         }
 
-        // If the redirected link starts with "/previous-versions/" or contains "?view=xxx", we won't replace them.
+        // If the redirected link starts with "/previous-versions/" or contains "view=xxx", we won't replace them.
         public bool IsNeedRepair(string url)
         {
             if (string.IsNullOrEmpty(url))
@@ -255,9 +264,16 @@ namespace MSDNUrlPatch
                 return false;
             }
 
-            if (url.Contains("/previous-versions/") || url.Contains("?view="))
+            return IsNeedRepair_DotnetApiDocs(url);
+        }
+
+
+        // If the redirected link starts with "/previous-versions/" or contains "view=xxx", we won't replace them.
+        public bool IsNeedRepair_DotnetApiDocs(string url)
+        {
+            if (url.Contains("/previous-versions/") || url.Contains("?view=") || url.Contains("&view="))
             {
-                string message = string.Format("'{0}' contains '/previous-versions/' or '?view=', don't need be processed.", url);
+                string message = string.Format("'{0}' contains '/previous-versions/' or 'view=', don't need be processed.", url);
                 logMessages.Add(message);
 
                 return false;
@@ -285,7 +301,7 @@ namespace MSDNUrlPatch
             // But if url is equal base url, just keep this url, no need keep relative path, just like: https://docs.microsoft.com/en-us/
             if (!string.IsNullOrEmpty(_baseUrl) && newUrl.StartsWith(_baseUrl))
             {
-                if (!_baseUrl.TrimEnd('/').Equals(_baseUrl))
+                if (!newUrl.TrimEnd('/').Equals(_baseUrl))
                 {
                     newUrl = newUrl.Replace(_baseUrl, "");
                 }
