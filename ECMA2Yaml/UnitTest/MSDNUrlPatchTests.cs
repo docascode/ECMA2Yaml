@@ -26,7 +26,17 @@ namespace UnitTest
                     , "https://docs1.microsoft.com/en-us/visualstudio/msbuild/aspnetcompiler-task?view1=vs-2015")]
         public void RemoveRedirectFromPart_Test(string inText, string expected)
         {
-            var newUrl = new UrlRepairHelper().RemoveUnusePartFromRedirectUrl(inText);
+            CommandLineOptions option = new CommandLineOptions();
+            var newUrl = new UrlRepairHelper(option).RemoveUnusePartFromRedirectUrl(inText);
+            Assert.AreEqual(expected, newUrl);
+        }
+
+        [DataTestMethod]
+        [DataRow("https://msdn.microsoft.com/library/30d5cc6d-b11e-4ff8-a51c-c58020eb41f9", "NoNeed")]
+        public void GetDocsUrl_Test(string inText, string expected)
+        {
+            CommandLineOptions option = new CommandLineOptions() { BaseUrl = "https://docs.microsoft.com/en-us" };
+            var newUrl = new UrlRepairHelper(option).GetDocsUrl(inText);
             Assert.AreEqual(expected, newUrl);
         }
     }
