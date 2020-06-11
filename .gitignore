@@ -256,6 +256,7 @@ paket-files/
 ECMA2Yaml/_nuget/
 ECMA2Yaml/MigrationBackup/
 test/_bin/
+test/xml/index.xml
 test/frameworks
 test/_yml_*
 test/_intellisense_After
