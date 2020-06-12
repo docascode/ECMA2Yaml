@@ -13,6 +13,7 @@ namespace CatLibrary
     /// <para>this class is a template class. It has two Generic parameter. they are: <typeparamref name="T"/> and <typeparamref name="K"/>.</para>
     /// <para>The extension method of this class can refer to <see cref="ICatExtension"/> class</para>
     /// </summary>
+    /// <seealso cref="T:CatLibrary.Cat.ICat"/>
     /// <example>
     /// <para>Here's example of how to create an instance of this class. As T is limited with <c>class</c> and K is limited with <c>struct</c>.</para>
     /// <code language="c#">

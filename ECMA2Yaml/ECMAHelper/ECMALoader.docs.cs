@@ -103,7 +103,7 @@ namespace ECMA2Yaml
                 Summary = NormalizeDocsElement(dElement.Element("summary")),
                 Remarks = remarksText,
                 Examples = examplesText,
-                AltMemberCommentIds = dElement.Elements("altmember")?.Select(alt => alt.Attribute("cref").Value).ToList(),
+                AltMemberCommentIds = MergeAltmemberAndSeealsoToAltMemberCommentsIds(dElement),//dElement.Elements("altmember")?.Select(alt => alt.Attribute("cref").Value).ToList(),
                 Related = related,
                 Exceptions = dElement.Elements("exception")?.Select(el => GetTypedContent(el, filePath)).ToList(),
                 Permissions = dElement.Elements("permission")?.Select(el => GetTypedContent(el, filePath)).ToList(),
@@ -117,6 +117,18 @@ namespace ECMA2Yaml
                 AltCompliant = dElement.Element("altCompliant")?.Attribute("cref")?.Value,
                 InternalOnly = dElement.Element("forInternalUseOnly") != null
             };
+        }
+
+        /// <summary>
+        /// merge altmember and seealso to seeAlso of yml file.
+        /// </summary>
+        /// <param name="dElement">a Xlement</param>
+        /// <returns>List<string></returns>
+        private static List<string> MergeAltmemberAndSeealsoToAltMemberCommentsIds(XElement dElement)
+        {
+            var ids = dElement.Elements("altmember")?.Select(alt => alt.Attribute("cref").Value).ToList();
+            ids.AddRange(dElement.Elements("seealso")?.Select(alt => alt.Attribute("cref").Value).ToList());
+            return ids;
         }
 
         /// <summary>Downgrades markdown headers from 1 - 5. So a `#` becomes `##`, but `######` (ie. h6) remains the same.</summary>

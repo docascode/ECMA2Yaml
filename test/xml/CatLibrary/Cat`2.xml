@@ -1,16 +1,4 @@
 <Type Name="Cat&lt;T,K&gt;" FullName="CatLibrary.Cat&lt;T,K&gt;">
-  <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="77d1b2a652c118438281090f72ac4caa93feec1a" />
-    <Meta Name="ms.sourcegitcommit" Value="055a4a82a0b08bfbdc21bd1347fb71f7fe2c099e" />
-    <Meta Name="ms.translationtype" Value="MT" />
-    <Meta Name="ms.contentlocale" Value="zh-CN" />
-    <Meta Name="ms.lasthandoff" Value="08/15/2019" />
-    <Meta Name="ms.locfileid" Value="69262388" />
-    <Meta Name="apiContracts" Value="Win10" />
-    <Meta Name="apiContracts" Value="Win10 build 1" />
-    <Meta Name="apiContracts" Value="Win10 build 2" />
-    <Meta Name="contentSourcePath" Value="aaa\bbb.md" />
-  </Metadata>
   <TypeSignature Language="C#" Value="public class Cat&lt;T,K&gt; : CatLibrary.ICat where T : class, new() where K : struct" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi serializable beforefieldinit Cat`2&lt;class .ctor T, struct .ctor (class System.ValueType) K&gt; extends System.Object implements class CatLibrary.IAnimal, class CatLibrary.ICat" />
   <TypeSignature Language="DocId" Value="T:CatLibrary.Cat`2" />
@@ -92,6 +80,7 @@
           <b>Extension Methods</b>. The extension methods not definition in this class, but we can find it!</listItem>
       </list>
     </remarks>
+    <seealso cref="T:CatLibrary.Cat.ICat" />
     <example>
       <para>Here's example of how to create an instance of this class. As T is limited with <c>class</c> and K is limited with <c>struct</c>.</para>
       <code language="c#">
@@ -107,20 +96,6 @@
   </Docs>
   <Members>
     <Member MemberName=".ctor">
-      <Metadata>
-        <Meta Name="requirement_sdk_names" Value="Cat SDK" />
-        <Meta Name="requirement_sdk_urls" Value="https://www.bing.com/images/search?q=cats" />
-        <Meta Name="requirement_os_names" Value="Windows 10" />
-        <Meta Name="requirement_os_min_versions" Value="10.0.10240.0" />
-        <Meta Name="apiContracts" Value="CatLibrary.HuntContract" />
-        <Meta Name="apiContractsVersions" Value="6.0" />
-        <Meta Name="apiContracts" Value="CatLibrary.SleepContract" />
-        <Meta Name="apiContractsVersions" Value="1.0" />
-        <Meta Name="deviceFamilies" Value="Windws 10, version 1803" />
-        <Meta Name="deviceFamiliesVersions" Value="10.0.17134.0" />
-        <Meta Name="deviceFamilies" Value="Windows Desktop" />
-        <Meta Name="deviceFamiliesVersions" Value="10.0.10240.0" />
-      </Metadata>
       <MemberSignature Language="C#" Value="public Cat ();" />
       <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor() cil managed" />
       <MemberSignature Language="DocId" Value="M:CatLibrary.Cat`2.#ctor" />
@@ -209,27 +184,6 @@
       </Docs>
     </Member>
     <Member MemberName="Age">
-      <Metadata>
-        <Meta Name="ms.openlocfilehash" Value="77d1b2a652c118438281090f72ac4caa93feec1a" />
-        <Meta Name="ms.sourcegitcommit" Value="055a4a82a0b08bfbdc21bd1347fb71f7fe2c099e" />
-        <Meta Name="ms.translationtype" Value="MT" />
-        <Meta Name="ms.contentlocale" Value="zh-CN" />
-        <Meta Name="ms.lasthandoff" Value="08/15/2019" />
-        <Meta Name="ms.locfileid" Value="69262388" />
-        <Meta Name="xamlMemberSyntax" Value="&lt;Cat Age=&quot;...&quot; /&gt;" />
-        <Meta Name="requirement_sdk_names" Value="Cat SDK" />
-        <Meta Name="requirement_sdk_urls" Value="https://www.bing.com/images/search?q=cats" />
-        <Meta Name="requirement_os_names" Value="Windows 10" />
-        <Meta Name="requirement_os_min_versions" Value="10.0.10240.0" />
-        <Meta Name="apiContracts" Value="CatLibrary.HuntContract" />
-        <Meta Name="apiContractsVersions" Value="6.0" />
-        <Meta Name="apiContracts" Value="CatLibrary.SleepContract" />
-        <Meta Name="apiContractsVersions" Value="1.0" />
-        <Meta Name="deviceFamilies" Value="Windws 10, version 1803" />
-        <Meta Name="deviceFamiliesVersions" Value="10.0.17134.0" />
-        <Meta Name="deviceFamilies" Value="Windows Desktop" />
-        <Meta Name="deviceFamiliesVersions" Value="10.0.10240.0" />
-      </Metadata>
       <MemberSignature Language="C#" Value="protected int Age { get; set; }" />
       <MemberSignature Language="ILAsm" Value=".property instance int32 Age" />
       <MemberSignature Language="DocId" Value="P:CatLibrary.Cat`2.Age" />
@@ -294,7 +248,6 @@
       </Implements>
       <AssemblyInfo>
         <AssemblyName>CatLibrary</AssemblyName>
-        <AssemblyVersion>1.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -318,7 +271,6 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>CatLibrary</AssemblyName>
-        <AssemblyVersion>1.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
@@ -612,20 +564,6 @@
       </Docs>
     </Member>
     <Member MemberName="Jump">
-      <Metadata>
-        <Meta Name="requirement_sdk_names" Value="Cat SDK" />
-        <Meta Name="requirement_sdk_urls" Value="https://www.bing.com/images/search?q=cats" />
-        <Meta Name="requirement_os_names" Value="Windows 10" />
-        <Meta Name="requirement_os_min_versions" Value="10.0.10240.0" />
-        <Meta Name="apiContracts" Value="CatLibrary.HuntContract" />
-        <Meta Name="apiContractsVersions" Value="6.0" />
-        <Meta Name="apiContracts" Value="CatLibrary.SleepContract" />
-        <Meta Name="apiContractsVersions" Value="1.0" />
-        <Meta Name="deviceFamilies" Value="Windws 10, version 1803" />
-        <Meta Name="deviceFamiliesVersions" Value="10.0.17134.0" />
-        <Meta Name="deviceFamilies" Value="Windows Desktop" />
-        <Meta Name="deviceFamiliesVersions" Value="10.0.10240.0" />
-      </Metadata>
       <MemberSignature Language="C#" Value="public void Jump (T ownType, K anotherOwnType, ref bool cheat);" />
       <MemberSignature Language="ILAsm" Value=".method public hidebysig instance void Jump(!T ownType, !K anotherOwnType, bool&amp; cheat) cil managed" />
       <MemberSignature Language="DocId" Value="M:CatLibrary.Cat`2.Jump(`0,`1,System.Boolean@)" />
@@ -690,20 +628,6 @@
       </Docs>
     </Member>
     <Member MemberName="op_Addition">
-      <Metadata>
-        <Meta Name="requirement_sdk_names" Value="Cat SDK" />
-        <Meta Name="requirement_sdk_urls" Value="https://www.bing.com/images/search?q=cats" />
-        <Meta Name="requirement_os_names" Value="Windows 10" />
-        <Meta Name="requirement_os_min_versions" Value="10.0.10240.0" />
-        <Meta Name="apiContracts" Value="CatLibrary.HuntContract" />
-        <Meta Name="apiContractsVersions" Value="6.0" />
-        <Meta Name="apiContracts" Value="CatLibrary.SleepContract" />
-        <Meta Name="apiContractsVersions" Value="1.0" />
-        <Meta Name="deviceFamilies" Value="Windws 10, version 1803" />
-        <Meta Name="deviceFamiliesVersions" Value="10.0.17134.0" />
-        <Meta Name="deviceFamilies" Value="Windows Desktop" />
-        <Meta Name="deviceFamiliesVersions" Value="10.0.10240.0" />
-      </Metadata>
       <MemberSignature Language="C#" Value="public static int operator + (CatLibrary.Cat&lt;T,K&gt; lsr, int rsr);" />
       <MemberSignature Language="ILAsm" Value=".method public static hidebysig specialname int32 op_Addition(class CatLibrary.Cat`2&lt;!T, !K&gt; lsr, int32 rsr) cil managed" />
       <MemberSignature Language="DocId" Value="M:CatLibrary.Cat`2.op_Addition(CatLibrary.Cat{`0,`1},System.Int32)" />
