@@ -189,10 +189,6 @@ examples: >-
   </code></pre>
 
   <p>As you see, here we bring in <strong>pointer</strong> so we need to add <code data-dev-comment-type="languageKeyword">unsafe</code> keyword.</p>
-source:
-  path: /aaa/bbb.md
-  branch: master
-  repo: https://github.com/docascode/ECMA2Yaml
 metadata:
   content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
   _op_overwriteFileGitUrl: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
