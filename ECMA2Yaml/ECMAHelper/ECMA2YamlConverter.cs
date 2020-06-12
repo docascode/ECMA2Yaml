@@ -99,7 +99,7 @@ namespace ECMA2Yaml
             }
 
             var toc = SDPTOCGenerator.Generate(store);
-            var tocOutputDirectory = string.IsNullOrEmpty(config.BatchId) ? outputDirectory : Path.Combine(outputDirectory, config.BatchId);
+            var tocOutputDirectory = string.IsNullOrEmpty(config?.BatchId) ? outputDirectory : Path.Combine(outputDirectory, config.BatchId);
             if (!Directory.Exists(tocOutputDirectory))
             {
                 Directory.CreateDirectory(tocOutputDirectory);
