@@ -24,7 +24,7 @@ namespace ECMA2Yaml
                 sdpType.InheritancesWithMoniker = ConverterHelper.TrimMonikers(
                     t.InheritanceChains?.Select(
                     chain => new VersionedCollection<string>(
-                        chain.Monikers,
+                        chain.Monikers?.NullIfEmpty(),
                         GetInheritChainMDStringList(chain.Values,t)
                     )).ToList(),
                 t.Monikers);

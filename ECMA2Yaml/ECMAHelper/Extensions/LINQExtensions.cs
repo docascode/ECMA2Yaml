@@ -35,6 +35,15 @@ namespace ECMA2Yaml
             return list;
         }
 
+        public static HashSet<T> NullIfEmpty<T>(this HashSet<T> list)
+        {
+            if (list == null || !list.Any())
+            {
+                return null;
+            }
+            return list;
+        }
+
         public static List<T> MergeWith<T>(this List<T> left, List<T> right)
         {
             if (left == null)
