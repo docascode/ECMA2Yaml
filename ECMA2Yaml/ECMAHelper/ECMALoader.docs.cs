@@ -126,8 +126,8 @@ namespace ECMA2Yaml
         /// <returns>List<string></returns>
         private static List<string> MergeAltmemberAndSeealsoToAltMemberCommentsIds(XElement dElement)
         {
-            var ids = dElement.Elements("altmember")?.Select(alt => alt.Attribute("cref").Value).ToList();
-            ids.AddRange(dElement.Elements("seealso")?.Select(alt => alt.Attribute("cref").Value).ToList());
+            var ids = dElement.Elements("altmember").Select(alt => alt.Attribute("cref").Value).ToList();
+            ids.ConcatList(dElement.Elements("seealso").Select(alt => alt.Attribute("cref").Value).ToList());
             return ids;
         }
 
