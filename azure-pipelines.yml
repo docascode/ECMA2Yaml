@@ -59,6 +59,7 @@ steps:
       ECMA2Yaml\bin\Release\**\*.dll
       ECMA2Yaml\bin\Release\**\*.exe
       IntellisenseFileGen\bin\Release\**\*.exe
+      MSDNUrlPatch\bin\Release\**\*.exe
       ECMA2Yaml\Nuget\*.ps1
       ECMAHelper\bin\Release\**\*.dll
     UseMinimatch: true
