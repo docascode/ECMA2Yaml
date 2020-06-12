@@ -19,10 +19,7 @@
     <BaseTypeName>System.Object</BaseTypeName>
   </Base>
   <Interfaces>
-    <Interface FrameworkAlternate="cat-1.0">
-      <InterfaceName>VersioningTest.I1</InterfaceName>
-    </Interface>
-    <Interface FrameworkAlternate="cat-2.0">
+    <Interface>
       <InterfaceName>VersioningTest.I2</InterfaceName>
     </Interface>
   </Interfaces>
@@ -58,8 +55,8 @@
       <MemberSignature Language="F#" Value="abstract member MethodForI : unit -&gt; unit&#xA;override this.MethodForI : unit -&gt; unit" Usage="c.MethodForI " />
       <MemberType>Method</MemberType>
       <Implements>
-        <InterfaceMember FrameworkAlternate="cat-1.0">M:VersioningTest.I1.MethodForI</InterfaceMember>
-        <InterfaceMember FrameworkAlternate="cat-2.0">M:VersioningTest.I2.MethodForI</InterfaceMember>
+        <InterfaceMember>M:VersioningTest.I1.MethodForI</InterfaceMember>
+        <InterfaceMember>M:VersioningTest.I2.MethodForI</InterfaceMember>
       </Implements>
       <AssemblyInfo>
         <AssemblyName>CatLibrary</AssemblyName>

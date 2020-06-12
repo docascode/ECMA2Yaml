@@ -18,12 +18,6 @@ extensionMethods:
 - uid: VersioningTest.VersioningExtensions.ExtMethodForD(VersioningTest.D)
   monikers:
   - cat-2.0
-- uid: VersioningTest.VersioningExtensions.ExtMethodForI(VersioningTest.I1)
-  monikers:
-  - cat-1.0
-- uid: VersioningTest.VersioningExtensions.ExtMethodForI(VersioningTest.I2)
-  monikers:
-  - cat-2.0
 constructors:
 - uid: VersioningTest.G.#ctor
   monikers:

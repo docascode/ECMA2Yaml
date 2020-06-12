@@ -92,7 +92,7 @@
           <b>Extension Methods</b>. The extension methods not definition in this class, but we can find it!</listItem>
       </list>
     </remarks>
-    <seealso cref="T:CatLibrary.Cat.ICat" />
+    <altmember cref="T:CatLibrary.Cat.ICat" />
     <example>
       <para>Here's example of how to create an instance of this class. As T is limited with <c>class</c> and K is limited with <c>struct</c>.</para>
       <code language="c#">

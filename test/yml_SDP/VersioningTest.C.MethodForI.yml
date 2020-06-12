@@ -3,11 +3,7 @@ type: method
 members:
 - implementsWithMoniker:
   - value: <xref href="VersioningTest.I1.MethodForI?alt=VersioningTest.I1.MethodForI&text=MethodForI()" data-throw-if-not-resolved="True"/>
-    monikers:
-    - cat-1.0
   - value: <xref href="VersioningTest.I2.MethodForI?alt=VersioningTest.I2.MethodForI&text=MethodForI()" data-throw-if-not-resolved="True"/>
-    monikers:
-    - cat-2.0
   uid: VersioningTest.C.MethodForI
   commentId: M:VersioningTest.C.MethodForI
   name: MethodForI()
