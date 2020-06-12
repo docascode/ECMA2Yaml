@@ -7,6 +7,9 @@ namespace ECMA2Yaml
 {
     public class ECMA2YamlRepoConfig
     {
+        [JsonProperty("id")]
+        public string BatchId { get; set; }
+
         [JsonProperty("SourceXmlFolder")]
         public string SourceXmlFolder { get; set; }
 

@@ -99,7 +99,12 @@ namespace ECMA2Yaml
             }
 
             var toc = SDPTOCGenerator.Generate(store);
-            YamlUtility.Serialize(Path.Combine(outputDirectory, "toc.yml"), toc, "YamlMime:TableOfContent");
+            var tocOutputDirectory = string.IsNullOrEmpty(config?.BatchId) ? outputDirectory : Path.Combine(outputDirectory, config.BatchId);
+            if (!Directory.Exists(tocOutputDirectory))
+            {
+                Directory.CreateDirectory(tocOutputDirectory);
+            }
+            YamlUtility.Serialize(Path.Combine(tocOutputDirectory, "toc.yml"), toc, "YamlMime:TableOfContent");
         }
 
         private static void WriteYamlXMLFileMap(string sourceMapFilePath, IDictionary<string, List<string>> xmlYamlFileMap)
