@@ -44,6 +44,60 @@ namespace ECMA2Yaml
             {
                 yield return uid.Replace(".", "::");
             }
+
+            /*for example
+             * Current keywords: System.Collections.Generic.Dictionary`2.KeyCollection.Enumerator       
+             *                   System::Collections::Generic::Dictionary`2::KeyCollection::Enumerator
+             * Keywords to add: System.Collections.Generic.Dictionary.Keycollection.Enumerator
+             */
+            var specificIndex = uid.IndexOf('`');
+            if (specificIndex != -1)
+            {
+                var nextIndex = uid.IndexOf(".", specificIndex);
+                if (nextIndex != -1)
+                {
+                    yield return uid.Remove(specificIndex, nextIndex - specificIndex);
+                }
+                else
+                {
+                    yield return uid.Remove(specificIndex);
+                }
+            }
+
+            /*for type page and member page
+             * for example
+             * Current keywords(type page and member page):  System.String
+             * Keywords to add: String
+             */
+            var lastindex = uid.LastIndexOf(".");
+            if (lastindex != -1)
+                yield return uid.Substring(lastindex + 1);
+
+            /*for member page
+             *Current keywords(member page): System.Collections.Generic.Dictionary.Keycollection.Enumerator
+             * Keywords to add: Keycollection.Enumerator
+             *                  Keycollection::Enumerator
+             */
+            switch (item.ItemType)
+            {
+                case ItemType.Enum:
+                case ItemType.Class:
+                case ItemType.Interface:
+                case ItemType.Struct:
+                case ItemType.Delegate:
+                    break;
+                default:
+                    if (lastindex > 0)
+                    {
+                        var penultimateindex = uid.LastIndexOf(".", lastindex - 1);
+                        if (penultimateindex != -1)
+                            uid= uid.Substring(penultimateindex + 1);
+                        yield return uid;
+                        yield return uid.Replace(".", "::");
+                    }
+
+                    break;
+            }
         }
     }
 }
