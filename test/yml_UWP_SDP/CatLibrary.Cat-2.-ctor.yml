@@ -195,6 +195,10 @@ metadata:
   f1_keywords:
   - CatLibrary.Cat`2.#ctor
   - CatLibrary::Cat`2::#ctor
+  - CatLibrary.Cat.#ctor
+  - '#ctor'
+  - Cat`2.#ctor
+  - Cat`2::#ctor
   topic_type:
   - apiref
   api_type:

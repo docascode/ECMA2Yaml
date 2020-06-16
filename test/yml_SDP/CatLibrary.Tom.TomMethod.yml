@@ -83,6 +83,9 @@ metadata:
   f1_keywords:
   - CatLibrary.Tom.TomMethod
   - CatLibrary::Tom::TomMethod
+  - TomMethod
+  - Tom.TomMethod
+  - Tom::TomMethod
   helpviewer_keywords:
   - Tom.TomMethod method [.NET]
   - TomMethod method [.NET], class Tom

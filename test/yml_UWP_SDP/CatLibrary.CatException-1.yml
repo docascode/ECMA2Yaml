@@ -54,6 +54,8 @@ metadata:
   f1_keywords:
   - CatLibrary.CatException`1
   - CatLibrary::CatException`1
+  - CatLibrary.CatException
+  - CatException`1
   topic_type:
   - apiref
   api_type:

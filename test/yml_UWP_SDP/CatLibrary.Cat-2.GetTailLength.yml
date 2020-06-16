@@ -66,6 +66,10 @@ metadata:
   f1_keywords:
   - CatLibrary.Cat`2.GetTailLength
   - CatLibrary::Cat`2::GetTailLength
+  - CatLibrary.Cat.GetTailLength
+  - GetTailLength
+  - Cat`2.GetTailLength
+  - Cat`2::GetTailLength
   topic_type:
   - apiref
   api_type:

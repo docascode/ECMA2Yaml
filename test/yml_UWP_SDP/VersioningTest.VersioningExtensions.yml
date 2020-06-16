@@ -50,6 +50,7 @@ metadata:
   f1_keywords:
   - VersioningTest.VersioningExtensions
   - VersioningTest::VersioningExtensions
+  - VersioningExtensions
   topic_type:
   - apiref
   api_type:

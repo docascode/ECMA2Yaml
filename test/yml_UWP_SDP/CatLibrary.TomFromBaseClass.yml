@@ -65,6 +65,7 @@ metadata:
   f1_keywords:
   - CatLibrary.TomFromBaseClass
   - CatLibrary::TomFromBaseClass
+  - TomFromBaseClass
   topic_type:
   - apiref
   api_type:

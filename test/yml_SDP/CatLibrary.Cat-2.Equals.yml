@@ -78,6 +78,10 @@ metadata:
   f1_keywords:
   - CatLibrary.Cat`2.Equals
   - CatLibrary::Cat`2::Equals
+  - CatLibrary.Cat.Equals
+  - Equals
+  - Cat`2.Equals
+  - Cat`2::Equals
   helpviewer_keywords:
   - Cat<T,K>.Equals method [.NET]
   - Equals method [.NET], class Cat<T,K>

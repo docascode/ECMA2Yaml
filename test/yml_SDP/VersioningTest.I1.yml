@@ -55,6 +55,7 @@ metadata:
   f1_keywords:
   - VersioningTest.I1
   - VersioningTest::I1
+  - I1
   helpviewer_keywords:
   - VersioningTest.I1 interface [.NET]
   monikers:

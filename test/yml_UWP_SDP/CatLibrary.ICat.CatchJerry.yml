@@ -47,6 +47,9 @@ metadata:
   f1_keywords:
   - CatLibrary.ICat.CatchJerry
   - CatLibrary::ICat::CatchJerry
+  - CatchJerry
+  - ICat.CatchJerry
+  - ICat::CatchJerry
   topic_type:
   - apiref
   api_type:

@@ -129,8 +129,14 @@ metadata:
   f1_keywords:
   - CatLibrary.IAnimal.Eat
   - CatLibrary::IAnimal::Eat
+  - Eat
+  - IAnimal.Eat
+  - IAnimal::Eat
   - CatLibrary.IAnimal.Eat``1
   - CatLibrary::IAnimal::Eat``1
+  - Eat``1
+  - IAnimal.Eat``1
+  - IAnimal::Eat``1
   helpviewer_keywords:
   - IAnimal.Eat method [.NET]
   - Eat method [.NET], interface IAnimal

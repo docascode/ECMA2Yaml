@@ -67,6 +67,10 @@ metadata:
   f1_keywords:
   - CatLibrary.Cat`2.Item
   - CatLibrary::Cat`2::Item
+  - CatLibrary.Cat.Item
+  - Item
+  - Cat`2.Item
+  - Cat`2::Item
   topic_type:
   - apiref
   api_type:

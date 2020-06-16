@@ -67,6 +67,10 @@ metadata:
   f1_keywords:
   - CatLibrary.Cat`2.op_Explicit
   - CatLibrary::Cat`2::op_Explicit
+  - CatLibrary.Cat.op_Explicit
+  - op_Explicit
+  - Cat`2.op_Explicit
+  - Cat`2::op_Explicit
   topic_type:
   - apiref
   api_type:

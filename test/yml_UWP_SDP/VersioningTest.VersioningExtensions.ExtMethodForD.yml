@@ -58,6 +58,9 @@ metadata:
   f1_keywords:
   - VersioningTest.VersioningExtensions.ExtMethodForD
   - VersioningTest::VersioningExtensions::ExtMethodForD
+  - ExtMethodForD
+  - VersioningExtensions.ExtMethodForD
+  - VersioningExtensions::ExtMethodForD
   topic_type:
   - apiref
   api_type:

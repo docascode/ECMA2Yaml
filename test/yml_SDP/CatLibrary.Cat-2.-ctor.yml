@@ -193,6 +193,10 @@ metadata:
   f1_keywords:
   - CatLibrary.Cat`2.#ctor
   - CatLibrary::Cat`2::#ctor
+  - CatLibrary.Cat.#ctor
+  - '#ctor'
+  - Cat`2.#ctor
+  - Cat`2::#ctor
   helpviewer_keywords:
   - Cat<T,K> class [.NET], constructors
   - Cat<T,K>() class [.NET], constructors

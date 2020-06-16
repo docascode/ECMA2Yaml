@@ -68,6 +68,9 @@ metadata:
   f1_keywords:
   - VersioningTest.A.MethodFromClassA
   - VersioningTest::A::MethodFromClassA
+  - MethodFromClassA
+  - A.MethodFromClassA
+  - A::MethodFromClassA
   helpviewer_keywords:
   - A.MethodFromClassA method [.NET]
   - MethodFromClassA method [.NET], class A

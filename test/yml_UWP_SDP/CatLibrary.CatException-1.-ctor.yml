@@ -44,6 +44,10 @@ metadata:
   f1_keywords:
   - CatLibrary.CatException`1.#ctor
   - CatLibrary::CatException`1::#ctor
+  - CatLibrary.CatException.#ctor
+  - '#ctor'
+  - CatException`1.#ctor
+  - CatException`1::#ctor
   topic_type:
   - apiref
   api_type:

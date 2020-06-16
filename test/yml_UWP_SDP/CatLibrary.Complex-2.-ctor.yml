@@ -44,6 +44,10 @@ metadata:
   f1_keywords:
   - CatLibrary.Complex`2.#ctor
   - CatLibrary::Complex`2::#ctor
+  - CatLibrary.Complex.#ctor
+  - '#ctor'
+  - Complex`2.#ctor
+  - Complex`2::#ctor
   topic_type:
   - apiref
   api_type:

@@ -57,6 +57,9 @@ metadata:
   f1_keywords:
   - VersioningTest.I1.MethodForI
   - VersioningTest::I1::MethodForI
+  - MethodForI
+  - I1.MethodForI
+  - I1::MethodForI
   helpviewer_keywords:
   - I1.MethodForI method [.NET]
   - MethodForI method [.NET], interface I1

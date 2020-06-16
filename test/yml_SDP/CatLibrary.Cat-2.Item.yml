@@ -82,6 +82,10 @@ metadata:
   f1_keywords:
   - CatLibrary.Cat`2.Item
   - CatLibrary::Cat`2::Item
+  - CatLibrary.Cat.Item
+  - Item
+  - Cat`2.Item
+  - Cat`2::Item
   helpviewer_keywords:
   - Cat<T,K>.Item[String] property [.NET]
   - Item[String] property [.NET], class Cat<T,K>

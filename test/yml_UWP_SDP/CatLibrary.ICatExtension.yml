@@ -52,6 +52,7 @@ metadata:
   f1_keywords:
   - CatLibrary.ICatExtension
   - CatLibrary::ICatExtension
+  - ICatExtension
   topic_type:
   - apiref
   api_type:

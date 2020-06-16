@@ -144,8 +144,16 @@ metadata:
   f1_keywords:
   - CatLibrary.Cat`2.CatLibrary#IAnimal#Eat
   - CatLibrary::Cat`2::CatLibrary#IAnimal#Eat
+  - CatLibrary.Cat.CatLibrary#IAnimal#Eat
+  - CatLibrary#IAnimal#Eat
+  - Cat`2.CatLibrary#IAnimal#Eat
+  - Cat`2::CatLibrary#IAnimal#Eat
   - CatLibrary.Cat`2.CatLibrary#IAnimal#Eat``1
   - CatLibrary::Cat`2::CatLibrary#IAnimal#Eat``1
+  - CatLibrary.Cat.CatLibrary#IAnimal#Eat``1
+  - CatLibrary#IAnimal#Eat``1
+  - Cat`2.CatLibrary#IAnimal#Eat``1
+  - Cat`2::CatLibrary#IAnimal#Eat``1
   helpviewer_keywords:
   - IAnimal.Eat explicitly implemented method [.NET]
   - IAnimal.Eat(String) explicitly implemented method [.NET]

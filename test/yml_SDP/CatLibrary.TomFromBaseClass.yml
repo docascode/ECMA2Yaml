@@ -80,6 +80,7 @@ metadata:
   f1_keywords:
   - CatLibrary.TomFromBaseClass
   - CatLibrary::TomFromBaseClass
+  - TomFromBaseClass
   helpviewer_keywords:
   - CatLibrary.TomFromBaseClass class [.NET]
   monikers:

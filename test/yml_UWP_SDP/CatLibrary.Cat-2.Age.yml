@@ -77,6 +77,10 @@ metadata:
   f1_keywords:
   - CatLibrary.Cat`2.Age
   - CatLibrary::Cat`2::Age
+  - CatLibrary.Cat.Age
+  - Age
+  - Cat`2.Age
+  - Cat`2::Age
   topic_type:
   - apiref
   api_type:

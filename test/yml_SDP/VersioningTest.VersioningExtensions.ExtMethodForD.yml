@@ -73,6 +73,9 @@ metadata:
   f1_keywords:
   - VersioningTest.VersioningExtensions.ExtMethodForD
   - VersioningTest::VersioningExtensions::ExtMethodForD
+  - ExtMethodForD
+  - VersioningExtensions.ExtMethodForD
+  - VersioningExtensions::ExtMethodForD
   helpviewer_keywords:
   - VersioningExtensions.ExtMethodForD method [.NET]
   - ExtMethodForD method [.NET], class VersioningExtensions

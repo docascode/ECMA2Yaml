@@ -80,6 +80,8 @@ metadata:
   f1_keywords:
   - CatLibrary.FakeDelegate`1
   - CatLibrary::FakeDelegate`1
+  - CatLibrary.FakeDelegate
+  - FakeDelegate`1
   helpviewer_keywords:
   - CatLibrary.FakeDelegate<T> delegate [.NET]
   monikers:

@@ -199,6 +199,8 @@ metadata:
   f1_keywords:
   - CatLibrary.Cat`2
   - CatLibrary::Cat`2
+  - CatLibrary.Cat
+  - Cat`2
   topic_type:
   - apiref
   api_type:

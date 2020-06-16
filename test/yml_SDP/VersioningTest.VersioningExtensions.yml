@@ -65,6 +65,7 @@ metadata:
   f1_keywords:
   - VersioningTest.VersioningExtensions
   - VersioningTest::VersioningExtensions
+  - VersioningExtensions
   helpviewer_keywords:
   - VersioningTest.VersioningExtensions class [.NET]
   monikers:

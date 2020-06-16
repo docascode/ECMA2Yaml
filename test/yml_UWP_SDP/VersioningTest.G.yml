@@ -79,6 +79,7 @@ metadata:
   f1_keywords:
   - VersioningTest.G
   - VersioningTest::G
+  - G
   topic_type:
   - apiref
   api_type:

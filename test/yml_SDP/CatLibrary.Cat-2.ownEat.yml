@@ -67,6 +67,10 @@ metadata:
   f1_keywords:
   - CatLibrary.Cat`2.ownEat
   - CatLibrary::Cat`2::ownEat
+  - CatLibrary.Cat.ownEat
+  - ownEat
+  - Cat`2.ownEat
+  - Cat`2::ownEat
   helpviewer_keywords:
   - Cat<T,K>.ownEat event [.NET]
   - ownEat event [.NET], class Cat<T,K>

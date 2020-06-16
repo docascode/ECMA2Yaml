@@ -47,6 +47,10 @@ metadata:
   f1_keywords:
   - CatLibrary.Cat`2.CatLibrary#ICat#eat
   - CatLibrary::Cat`2::CatLibrary#ICat#eat
+  - CatLibrary.Cat.CatLibrary#ICat#eat
+  - CatLibrary#ICat#eat
+  - Cat`2.CatLibrary#ICat#eat
+  - Cat`2::CatLibrary#ICat#eat
   topic_type:
   - apiref
   api_type:

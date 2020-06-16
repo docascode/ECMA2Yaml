@@ -63,6 +63,10 @@ metadata:
   f1_keywords:
   - CatLibrary.Cat`2.CalculateFood
   - CatLibrary::Cat`2::CalculateFood
+  - CatLibrary.Cat.CalculateFood
+  - CalculateFood
+  - Cat`2.CalculateFood
+  - Cat`2::CalculateFood
   topic_type:
   - apiref
   api_type:

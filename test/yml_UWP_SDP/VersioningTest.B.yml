@@ -53,6 +53,7 @@ metadata:
   f1_keywords:
   - VersioningTest.B
   - VersioningTest::B
+  - B
   topic_type:
   - apiref
   api_type:

@@ -69,6 +69,8 @@ metadata:
   f1_keywords:
   - CatLibrary.CatException`1
   - CatLibrary::CatException`1
+  - CatLibrary.CatException
+  - CatException`1
   helpviewer_keywords:
   - CatLibrary.CatException<T> class [.NET]
   monikers:

@@ -44,6 +44,9 @@ metadata:
   f1_keywords:
   - CatLibrary.Tom.#ctor
   - CatLibrary::Tom::#ctor
+  - '#ctor'
+  - Tom.#ctor
+  - Tom::#ctor
   topic_type:
   - apiref
   api_type:

@@ -57,6 +57,7 @@ metadata:
   f1_keywords:
   - CatLibrary.TomFromBaseClass.Jerry
   - CatLibrary::TomFromBaseClass::Jerry
+  - Jerry
   helpviewer_keywords:
   - CatLibrary.TomFromBaseClass.Jerry class [.NET]
   monikers:

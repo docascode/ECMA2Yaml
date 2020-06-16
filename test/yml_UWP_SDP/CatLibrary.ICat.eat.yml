@@ -46,6 +46,9 @@ metadata:
   f1_keywords:
   - CatLibrary.ICat.eat
   - CatLibrary::ICat::eat
+  - eat
+  - ICat.eat
+  - ICat::eat
   topic_type:
   - apiref
   api_type:

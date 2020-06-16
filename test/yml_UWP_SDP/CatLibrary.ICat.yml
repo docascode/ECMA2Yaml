@@ -90,6 +90,7 @@ metadata:
   f1_keywords:
   - CatLibrary.ICat
   - CatLibrary::ICat
+  - ICat
   topic_type:
   - apiref
   api_type:

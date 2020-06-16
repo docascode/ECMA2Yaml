@@ -64,6 +64,10 @@ metadata:
   f1_keywords:
   - CatLibrary.Cat`2.CatLibrary#IAnimal#Item
   - CatLibrary::Cat`2::CatLibrary#IAnimal#Item
+  - CatLibrary.Cat.CatLibrary#IAnimal#Item
+  - CatLibrary#IAnimal#Item
+  - Cat`2.CatLibrary#IAnimal#Item
+  - Cat`2::CatLibrary#IAnimal#Item
   topic_type:
   - apiref
   api_type:

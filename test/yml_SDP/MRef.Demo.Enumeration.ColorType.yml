@@ -113,14 +113,27 @@ metadata:
   f1_keywords:
   - MRef.Demo.Enumeration.ColorType
   - MRef::Demo::Enumeration::ColorType
+  - ColorType
   - MRef.Demo.Enumeration.ColorType.Blue
   - MRef::Demo::Enumeration::ColorType::Blue
+  - Blue
+  - ColorType.Blue
+  - ColorType::Blue
   - MRef.Demo.Enumeration.ColorType.Purple
   - MRef::Demo::Enumeration::ColorType::Purple
+  - Purple
+  - ColorType.Purple
+  - ColorType::Purple
   - MRef.Demo.Enumeration.ColorType.Red
   - MRef::Demo::Enumeration::ColorType::Red
+  - Red
+  - ColorType.Red
+  - ColorType::Red
   - MRef.Demo.Enumeration.ColorType.Yellow
   - MRef::Demo::Enumeration::ColorType::Yellow
+  - Yellow
+  - ColorType.Yellow
+  - ColorType::Yellow
   helpviewer_keywords:
   - MRef.Demo.Enumeration.ColorType enum [.NET]
   monikers:

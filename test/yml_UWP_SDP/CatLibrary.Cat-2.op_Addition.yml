@@ -85,6 +85,10 @@ metadata:
   f1_keywords:
   - CatLibrary.Cat`2.op_Addition
   - CatLibrary::Cat`2::op_Addition
+  - CatLibrary.Cat.op_Addition
+  - op_Addition
+  - Cat`2.op_Addition
+  - Cat`2::op_Addition
   topic_type:
   - apiref
   api_type:

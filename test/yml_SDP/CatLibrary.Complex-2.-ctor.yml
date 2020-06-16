@@ -59,6 +59,10 @@ metadata:
   f1_keywords:
   - CatLibrary.Complex`2.#ctor
   - CatLibrary::Complex`2::#ctor
+  - CatLibrary.Complex.#ctor
+  - '#ctor'
+  - Complex`2.#ctor
+  - Complex`2::#ctor
   helpviewer_keywords:
   - Complex<T,J> class [.NET], constructors
   - Complex<T,J>() class [.NET], constructors

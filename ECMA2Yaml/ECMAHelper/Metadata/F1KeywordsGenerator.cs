@@ -78,6 +78,12 @@ namespace ECMA2Yaml
              * Keywords to add: Keycollection.Enumerator
              *                  Keycollection::Enumerator
              */
+
+            if (SubStringCount(uid, ".") < 2)
+            {
+                yield break;
+            }
+
             switch (item.ItemType)
             {
                 case ItemType.Enum:
@@ -98,6 +104,24 @@ namespace ECMA2Yaml
 
                     break;
             }
+        }
+
+        /// <summary>
+        /// Count the number of substring in a string.
+        /// </summary>
+        /// <param name="str"> string </param>
+        /// <param name="subString">sub string</param>
+        /// <returns>return number of occurrences</returns>
+        private static int SubStringCount(string str, string subString)
+        {
+            if (str.Contains(subString))
+            {
+                string strReplaced = str.Replace(subString, "");
+
+                return (str.Length - strReplaced.Length) / subString.Length;
+            }
+
+            return 0;
         }
     }
 }
