@@ -75,11 +75,11 @@ namespace ECMA2Yaml
 
             /*for member page
              *Current keywords(member page): System.Collections.Generic.Dictionary.Keycollection.Enumerator
-             * Keywords to add: Keycollection.Enumerator
-             *                  Keycollection::Enumerator
+             *Keywords to add: Keycollection.Enumerator
+             *                 Keycollection::Enumerator
              */
 
-            if (SubStringCount(uid, ".") < 2)
+            if (uid.Count(c => c == '.') < 2)
             {
                 yield break;
             }
@@ -96,32 +96,15 @@ namespace ECMA2Yaml
                     if (lastindex > 0)
                     {
                         var penultimateindex = uid.LastIndexOf(".", lastindex - 1);
+                        var tempuid = uid;
                         if (penultimateindex != -1)
-                            uid= uid.Substring(penultimateindex + 1);
-                        yield return uid;
-                        yield return uid.Replace(".", "::");
+                            tempuid = tempuid.Substring(penultimateindex + 1);
+                        yield return tempuid;
+                        yield return tempuid.Replace(".", "::");
                     }
 
                     break;
             }
-        }
-
-        /// <summary>
-        /// Count the number of substring in a string.
-        /// </summary>
-        /// <param name="str"> string </param>
-        /// <param name="subString">sub string</param>
-        /// <returns>return number of occurrences</returns>
-        private static int SubStringCount(string str, string subString)
-        {
-            if (str.Contains(subString))
-            {
-                string strReplaced = str.Replace(subString, "");
-
-                return (str.Length - strReplaced.Length) / subString.Length;
-            }
-
-            return 0;
         }
     }
 }
