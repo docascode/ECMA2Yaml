@@ -63,6 +63,10 @@ metadata:
   f1_keywords:
   - CatLibrary.Cat`2.Equals
   - CatLibrary::Cat`2::Equals
+  - CatLibrary.Cat.Equals
+  - Equals
+  - Cat`2.Equals
+  - Cat`2::Equals
   topic_type:
   - apiref
   api_type:

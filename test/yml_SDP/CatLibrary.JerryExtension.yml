@@ -53,6 +53,7 @@ metadata:
   f1_keywords:
   - CatLibrary.JerryExtension
   - CatLibrary::JerryExtension
+  - JerryExtension
   helpviewer_keywords:
   - CatLibrary.JerryExtension class [.NET]
   monikers:

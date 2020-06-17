@@ -52,6 +52,9 @@ metadata:
   f1_keywords:
   - CatLibrary.TomFromBaseClass.Jerry.#ctor
   - CatLibrary::TomFromBaseClass::Jerry::#ctor
+  - '#ctor'
+  - Jerry.#ctor
+  - Jerry::#ctor
   topic_type:
   - apiref
   api_type:

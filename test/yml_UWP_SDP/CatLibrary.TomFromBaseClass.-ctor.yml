@@ -53,6 +53,9 @@ metadata:
   f1_keywords:
   - CatLibrary.TomFromBaseClass.#ctor
   - CatLibrary::TomFromBaseClass::#ctor
+  - '#ctor'
+  - TomFromBaseClass.#ctor
+  - TomFromBaseClass::#ctor
   topic_type:
   - apiref
   api_type:

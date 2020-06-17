@@ -69,6 +69,9 @@ metadata:
   f1_keywords:
   - CatLibrary.JerryExtension.PlayWith
   - CatLibrary::JerryExtension::PlayWith
+  - PlayWith
+  - JerryExtension.PlayWith
+  - JerryExtension::PlayWith
   helpviewer_keywords:
   - JerryExtension.PlayWith method [.NET]
   - PlayWith method [.NET], class JerryExtension

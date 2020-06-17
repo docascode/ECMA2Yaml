@@ -74,6 +74,9 @@ metadata:
   f1_keywords:
   - VersioningTest.C.MethodForI
   - VersioningTest::C::MethodForI
+  - MethodForI
+  - C.MethodForI
+  - C::MethodForI
   helpviewer_keywords:
   - C.MethodForI method [.NET]
   - MethodForI method [.NET], class C

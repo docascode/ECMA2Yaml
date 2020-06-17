@@ -94,6 +94,7 @@ metadata:
   f1_keywords:
   - VersioningTest.G
   - VersioningTest::G
+  - G
   helpviewer_keywords:
   - VersioningTest.G class [.NET]
   monikers:

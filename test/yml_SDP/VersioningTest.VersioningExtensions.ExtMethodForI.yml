@@ -105,6 +105,9 @@ metadata:
   f1_keywords:
   - VersioningTest.VersioningExtensions.ExtMethodForI
   - VersioningTest::VersioningExtensions::ExtMethodForI
+  - ExtMethodForI
+  - VersioningExtensions.ExtMethodForI
+  - VersioningExtensions::ExtMethodForI
   helpviewer_keywords:
   - VersioningExtensions.ExtMethodForI method [.NET]
   - ExtMethodForI method [.NET], class VersioningExtensions

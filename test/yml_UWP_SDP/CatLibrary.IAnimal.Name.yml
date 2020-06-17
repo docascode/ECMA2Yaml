@@ -52,6 +52,9 @@ metadata:
   f1_keywords:
   - CatLibrary.IAnimal.Name
   - CatLibrary::IAnimal::Name
+  - Name
+  - IAnimal.Name
+  - IAnimal::Name
   topic_type:
   - apiref
   api_type:

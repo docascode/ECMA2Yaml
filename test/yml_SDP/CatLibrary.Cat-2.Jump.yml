@@ -91,6 +91,10 @@ metadata:
   f1_keywords:
   - CatLibrary.Cat`2.Jump
   - CatLibrary::Cat`2::Jump
+  - CatLibrary.Cat.Jump
+  - Jump
+  - Cat`2.Jump
+  - Cat`2::Jump
   helpviewer_keywords:
   - Cat<T,K>.Jump method [.NET]
   - Jump method [.NET], class Cat<T,K>

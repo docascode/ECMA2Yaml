@@ -65,6 +65,10 @@ metadata:
   f1_keywords:
   - CatLibrary.Cat`2.op_Subtraction
   - CatLibrary::Cat`2::op_Subtraction
+  - CatLibrary.Cat.op_Subtraction
+  - op_Subtraction
+  - Cat`2.op_Subtraction
+  - Cat`2::op_Subtraction
   topic_type:
   - apiref
   api_type:

@@ -63,6 +63,9 @@ metadata:
   f1_keywords:
   - CatLibrary.ICatExtension.Play
   - CatLibrary::ICatExtension::Play
+  - Play
+  - ICatExtension.Play
+  - ICatExtension::Play
   topic_type:
   - apiref
   api_type:

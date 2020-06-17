@@ -106,6 +106,7 @@ metadata:
   f1_keywords:
   - CatLibrary.Tom
   - CatLibrary::Tom
+  - Tom
   topic_type:
   - apiref
   api_type:

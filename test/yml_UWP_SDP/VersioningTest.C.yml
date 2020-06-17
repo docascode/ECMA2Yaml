@@ -98,6 +98,7 @@ metadata:
   f1_keywords:
   - VersioningTest.C
   - VersioningTest::C
+  - C
   topic_type:
   - apiref
   api_type:

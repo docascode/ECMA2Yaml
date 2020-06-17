@@ -100,6 +100,7 @@ metadata:
   f1_keywords:
   - VersioningTest.D
   - VersioningTest::D
+  - D
   topic_type:
   - apiref
   api_type:

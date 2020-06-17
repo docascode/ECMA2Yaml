@@ -80,6 +80,8 @@ metadata:
   f1_keywords:
   - CatLibrary.MRefDelegate`3
   - CatLibrary::MRefDelegate`3
+  - CatLibrary.MRefDelegate
+  - MRefDelegate`3
   helpviewer_keywords:
   - CatLibrary.MRefDelegate<K,T,L> delegate [.NET]
   monikers:

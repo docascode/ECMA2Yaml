@@ -62,6 +62,9 @@ metadata:
   f1_keywords:
   - CatLibrary.TomFromBaseClass.Jerry.#ctor
   - CatLibrary::TomFromBaseClass::Jerry::#ctor
+  - '#ctor'
+  - Jerry.#ctor
+  - Jerry::#ctor
   helpviewer_keywords:
   - TomFromBaseClass.Jerry class [.NET], constructors
   - TomFromBaseClass.Jerry(ColorType) class [.NET], constructors

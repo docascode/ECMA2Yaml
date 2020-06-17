@@ -59,6 +59,9 @@ metadata:
   f1_keywords:
   - VersioningTest.G.#ctor
   - VersioningTest::G::#ctor
+  - '#ctor'
+  - G.#ctor
+  - G::#ctor
   helpviewer_keywords:
   - G class [.NET], constructors
   - G() class [.NET], constructors

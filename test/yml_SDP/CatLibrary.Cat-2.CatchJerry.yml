@@ -104,6 +104,10 @@ metadata:
   f1_keywords:
   - CatLibrary.Cat`2.CatchJerry
   - CatLibrary::Cat`2::CatchJerry
+  - CatLibrary.Cat.CatchJerry
+  - CatchJerry
+  - Cat`2.CatchJerry
+  - Cat`2::CatchJerry
   helpviewer_keywords:
   - Cat<T,K>.CatchJerry method [.NET]
   - CatchJerry method [.NET], class Cat<T,K>

@@ -78,6 +78,9 @@ metadata:
   f1_keywords:
   - CatLibrary.ICatExtension.Play
   - CatLibrary::ICatExtension::Play
+  - Play
+  - ICatExtension.Play
+  - ICatExtension::Play
   helpviewer_keywords:
   - ICatExtension.Play method [.NET]
   - Play method [.NET], class ICatExtension

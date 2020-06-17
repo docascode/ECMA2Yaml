@@ -105,6 +105,7 @@ metadata:
   f1_keywords:
   - CatLibrary.ICat
   - CatLibrary::ICat
+  - ICat
   helpviewer_keywords:
   - CatLibrary.ICat interface [.NET]
   monikers:

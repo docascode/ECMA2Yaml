@@ -79,6 +79,10 @@ metadata:
   f1_keywords:
   - CatLibrary.Cat`2.CatLibrary#IAnimal#Item
   - CatLibrary::Cat`2::CatLibrary#IAnimal#Item
+  - CatLibrary.Cat.CatLibrary#IAnimal#Item
+  - CatLibrary#IAnimal#Item
+  - Cat`2.CatLibrary#IAnimal#Item
+  - Cat`2::CatLibrary#IAnimal#Item
   helpviewer_keywords:
   - IAnimal.Item[Int32] explicitly implemented property [.NET]
   monikers:

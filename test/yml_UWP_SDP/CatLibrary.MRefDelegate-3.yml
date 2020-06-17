@@ -65,6 +65,8 @@ metadata:
   f1_keywords:
   - CatLibrary.MRefDelegate`3
   - CatLibrary::MRefDelegate`3
+  - CatLibrary.MRefDelegate
+  - MRefDelegate`3
   topic_type:
   - apiref
   api_type:

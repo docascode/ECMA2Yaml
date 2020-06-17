@@ -59,6 +59,9 @@ metadata:
   f1_keywords:
   - CatLibrary.Tom.#ctor
   - CatLibrary::Tom::#ctor
+  - '#ctor'
+  - Tom.#ctor
+  - Tom::#ctor
   helpviewer_keywords:
   - Tom class [.NET], constructors
   - Tom() class [.NET], constructors

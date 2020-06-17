@@ -44,6 +44,9 @@ metadata:
   f1_keywords:
   - VersioningTest.F.#ctor
   - VersioningTest::F::#ctor
+  - '#ctor'
+  - F.#ctor
+  - F::#ctor
   topic_type:
   - apiref
   api_type:

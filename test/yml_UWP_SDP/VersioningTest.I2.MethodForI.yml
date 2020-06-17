@@ -47,6 +47,9 @@ metadata:
   f1_keywords:
   - VersioningTest.I2.MethodForI
   - VersioningTest::I2::MethodForI
+  - MethodForI
+  - I2.MethodForI
+  - I2::MethodForI
   topic_type:
   - apiref
   api_type:

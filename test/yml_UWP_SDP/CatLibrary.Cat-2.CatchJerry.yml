@@ -94,6 +94,10 @@ metadata:
   f1_keywords:
   - CatLibrary.Cat`2.CatchJerry
   - CatLibrary::Cat`2::CatchJerry
+  - CatLibrary.Cat.CatchJerry
+  - CatchJerry
+  - Cat`2.CatchJerry
+  - Cat`2::CatchJerry
   topic_type:
   - apiref
   api_type:

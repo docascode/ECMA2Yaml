@@ -62,6 +62,10 @@ metadata:
   f1_keywords:
   - CatLibrary.Cat`2.CatLibrary#ICat#eat
   - CatLibrary::Cat`2::CatLibrary#ICat#eat
+  - CatLibrary.Cat.CatLibrary#ICat#eat
+  - CatLibrary#ICat#eat
+  - Cat`2.CatLibrary#ICat#eat
+  - Cat`2::CatLibrary#ICat#eat
   helpviewer_keywords:
   - ICat.eat explicitly implemented event [.NET]
   monikers:

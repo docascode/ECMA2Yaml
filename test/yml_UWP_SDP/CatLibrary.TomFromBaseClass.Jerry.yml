@@ -47,6 +47,7 @@ metadata:
   f1_keywords:
   - CatLibrary.TomFromBaseClass.Jerry
   - CatLibrary::TomFromBaseClass::Jerry
+  - Jerry
   topic_type:
   - apiref
   api_type:

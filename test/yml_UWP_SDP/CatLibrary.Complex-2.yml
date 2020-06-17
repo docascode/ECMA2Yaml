@@ -54,6 +54,8 @@ metadata:
   f1_keywords:
   - CatLibrary.Complex`2
   - CatLibrary::Complex`2
+  - CatLibrary.Complex
+  - Complex`2
   topic_type:
   - apiref
   api_type:

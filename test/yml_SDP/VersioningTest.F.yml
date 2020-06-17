@@ -121,6 +121,7 @@ metadata:
   f1_keywords:
   - VersioningTest.F
   - VersioningTest::F
+  - F
   helpviewer_keywords:
   - VersioningTest.F class [.NET]
   monikers:

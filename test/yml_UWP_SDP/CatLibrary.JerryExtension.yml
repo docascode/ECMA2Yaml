@@ -43,6 +43,7 @@ metadata:
   f1_keywords:
   - CatLibrary.JerryExtension
   - CatLibrary::JerryExtension
+  - JerryExtension
   topic_type:
   - apiref
   api_type:

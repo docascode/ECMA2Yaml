@@ -66,6 +66,7 @@ metadata:
   f1_keywords:
   - CatLibrary.MRefNormalDelegate
   - CatLibrary::MRefNormalDelegate
+  - MRefNormalDelegate
   helpviewer_keywords:
   - CatLibrary.MRefNormalDelegate delegate [.NET]
   monikers:

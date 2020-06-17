@@ -20,6 +20,9 @@ metadata:
   f1_keywords:
   - MRef.Demo.Enumeration
   - MRef::Demo::Enumeration
+  - Enumeration
+  - Demo.Enumeration
+  - Demo::Enumeration
   helpviewer_keywords:
   - MRef.Demo.Enumeration namespace [.NET]
   monikers:

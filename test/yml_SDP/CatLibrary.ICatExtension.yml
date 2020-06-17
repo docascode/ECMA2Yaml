@@ -67,6 +67,7 @@ metadata:
   f1_keywords:
   - CatLibrary.ICatExtension
   - CatLibrary::ICatExtension
+  - ICatExtension
   helpviewer_keywords:
   - CatLibrary.ICatExtension class [.NET]
   monikers:

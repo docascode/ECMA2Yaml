@@ -78,6 +78,7 @@ metadata:
   f1_keywords:
   - VersioningTest.E
   - VersioningTest::E
+  - E
   helpviewer_keywords:
   - VersioningTest.E class [.NET]
   monikers:

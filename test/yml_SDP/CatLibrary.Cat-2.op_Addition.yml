@@ -83,6 +83,10 @@ metadata:
   f1_keywords:
   - CatLibrary.Cat`2.op_Addition
   - CatLibrary::Cat`2::op_Addition
+  - CatLibrary.Cat.op_Addition
+  - op_Addition
+  - Cat`2.op_Addition
+  - Cat`2::op_Addition
   helpviewer_keywords:
   - Cat<T,K>.Addition operator [.NET]
   - Addition operator [.NET], class Cat<T,K>

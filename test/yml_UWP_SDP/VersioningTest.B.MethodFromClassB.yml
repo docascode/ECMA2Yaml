@@ -53,6 +53,9 @@ metadata:
   f1_keywords:
   - VersioningTest.B.MethodFromClassB
   - VersioningTest::B::MethodFromClassB
+  - MethodFromClassB
+  - B.MethodFromClassB
+  - B::MethodFromClassB
   topic_type:
   - apiref
   api_type:

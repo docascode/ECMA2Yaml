@@ -68,6 +68,7 @@ metadata:
   f1_keywords:
   - VersioningTest.B
   - VersioningTest::B
+  - B
   helpviewer_keywords:
   - VersioningTest.B class [.NET]
   monikers:

@@ -86,6 +86,9 @@ metadata:
   f1_keywords:
   - CatLibrary.Tom.TomMethod
   - CatLibrary::Tom::TomMethod
+  - TomMethod
+  - Tom.TomMethod
+  - Tom::TomMethod
   topic_type:
   - apiref
   api_type:

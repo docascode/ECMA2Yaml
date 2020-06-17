@@ -63,6 +63,9 @@ metadata:
   f1_keywords:
   - CatLibrary.ICatExtension.Sleep
   - CatLibrary::ICatExtension::Sleep
+  - Sleep
+  - ICatExtension.Sleep
+  - ICatExtension::Sleep
   topic_type:
   - apiref
   api_type:
