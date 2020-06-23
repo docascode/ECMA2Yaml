@@ -55,7 +55,7 @@ namespace ECMA2Yaml.Models
                 var valuesPerMoniker = new Dictionary<string, List<AssemblyInfo>>();
                 foreach (var moniker in t.Monikers)
                 {
-                    if (!_frameworks.FrameworkAssemblies.ContainsKey(moniker))
+                    if (_frameworks.FrameworkAssemblies.ContainsKey(moniker))
                     {
                         var frameworkAssemblies = _frameworks.FrameworkAssemblies[moniker];
                         var assemblies = t.AssemblyInfo.Where(
