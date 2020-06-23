@@ -79,6 +79,11 @@
           "document_url": ""
         },
         {
+          "log_code": "ECMA2Yaml_Moniker_EmptyAssembly",
+          "message": "{0} have empty assembly.",
+          "document_url": ""
+        },
+        {
           "log_code": "ECMA2Yaml_CommentId_ResolveFailed",
           "message": "Unable to resolve: <InterfaceMember>{0}</InterfaceMember>",
           "document_url": ""

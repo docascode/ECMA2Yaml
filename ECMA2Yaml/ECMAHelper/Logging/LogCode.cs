@@ -28,6 +28,7 @@ namespace ECMA2Yaml
 		public static readonly LogCode ECMA2Yaml_CommentID_ParseFailed = new LogCode("ECMA2Yaml_CommentID_ParseFailed", "Unable to parse string as comment id: {0}");
 		public static readonly LogCode ECMA2Yaml_PackageInformation_LoadFailed = new LogCode("ECMA2Yaml_PackageInformation_LoadFailed", "Unable to load package information: {0}");
 		public static readonly LogCode ECMA2Yaml_MonikerToAssembly_Failed = new LogCode("ECMA2Yaml_MonikerToAssembly_Failed", "Unable to load moniker to assembly mapping: {0}");
+		public static readonly LogCode ECMA2Yaml_Moniker_EmptyAssembly = new LogCode("ECMA2Yaml_Moniker_EmptyAssembly", "{0} have empty assembly.");
 		public static readonly LogCode ECMA2Yaml_CommentId_ResolveFailed = new LogCode("ECMA2Yaml_CommentId_ResolveFailed", "Unable to resolve: <InterfaceMember>{0}</InterfaceMember>");
 		public static readonly LogCode ECMA2Yaml_Namespace_LoadFailed = new LogCode("ECMA2Yaml_Namespace_LoadFailed", "Failed to load namespace");
 		public static readonly LogCode ECMA2Yaml_File_LoadFailed = new LogCode("ECMA2Yaml_File_LoadFailed", "Failed to load {0} files, aborting...");
