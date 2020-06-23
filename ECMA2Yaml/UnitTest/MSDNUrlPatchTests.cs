@@ -24,6 +24,8 @@ namespace UnitTest
                     , "https://docs.microsoft.com/en-us/visualstudio/msbuild/aspnetcompiler-task?view1=vs-2015")]
         [DataRow("https://docs1.microsoft.com/en-us/visualstudio/msbuild/aspnetcompiler-task?view1=vs-2015&redirectedfrom=MSDN"
                     , "https://docs1.microsoft.com/en-us/visualstudio/msbuild/aspnetcompiler-task?view1=vs-2015")]
+        [DataRow(@"https://docs.microsoft.com/en-us/windows/win32/seccng/cng-token-binding-functions\(v=vs.85\).aspx"
+                    , "https://docs.microsoft.com/en-us/windows/win32/seccng/cng-token-binding-functions")]
         public void RemoveRedirectFromPart_Test(string inText, string expected)
         {
             CommandLineOptions option = new CommandLineOptions();

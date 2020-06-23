@@ -23,6 +23,7 @@ namespace MSDNUrlPatch
         FileAccessor _fileAccessor;
         Regex _msdnUrlRegex = new Regex(@"(https?://msdn.microsoft.com[\w-./?%&=]*)", RegexOptions.Compiled);
         Regex _redirectedFromRegex = new Regex(@"(redirectedfrom=\w*)", RegexOptions.Compiled);
+        Regex _versionUrlRegex = new Regex(@"\\\(v=.*\).aspx", RegexOptions.Compiled);
         const string _redirectedKey = "redirectedfrom";
         const string _msdnUrlDomain = "msdn.microsoft.com";
         const string _noNeedRepairKeyWord = "NoNeed";
@@ -256,15 +257,20 @@ namespace MSDNUrlPatch
             return false;
         }
 
-        // If the redirected link starts with "/previous-versions/" or contains "view=xxx", we won't replace them.
-        public bool IsNeedRepair(string url)
+        public bool IsNeedRepair(string redirectUrl)
         {
-            if (string.IsNullOrEmpty(url))
+            if (string.IsNullOrEmpty(redirectUrl))
             {
                 return false;
             }
 
-            return IsNeedRepair_DotnetApiDocs(url);
+            // Don't replace msdn links with different msdn links (the F# content still hasn't migrated)
+            if (IsMSDNUrl(redirectUrl))
+            {
+                return false;
+            }
+
+            return IsNeedRepair_DotnetApiDocs(redirectUrl);
         }
 
 
@@ -305,6 +311,13 @@ namespace MSDNUrlPatch
                 {
                     newUrl = newUrl.Replace(_baseUrl, "");
                 }
+            }
+
+            //  There are a couple of links that have a version extension that is being kept when the link is updated to docs, 
+            //  The version should be removed.The extension looks like this for example: \(v=vs.85\).aspx
+            if (newUrl.Contains(@"\).aspx"))
+            {
+                newUrl = _versionUrlRegex.Replace(newUrl, "");
             }
 
             return newUrl;
