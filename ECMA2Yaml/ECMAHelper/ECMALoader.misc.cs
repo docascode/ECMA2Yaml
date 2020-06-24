@@ -134,6 +134,10 @@ namespace ECMA2Yaml
                 {
                     frameworkIndex.FrameworkAssemblies.Add(fxName, assemblyNodes.ToDictionary(a => a.Name, a => a));
                 }
+                else
+                {
+                    OPSLogger.LogUserWarning(LogCode.ECMA2Yaml_Moniker_EmptyAssembly, null, fxFile.AbsolutePath);
+                }
             }
             return frameworkIndex;
         }

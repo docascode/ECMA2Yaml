@@ -55,25 +55,28 @@ namespace ECMA2Yaml.Models
                 var valuesPerMoniker = new Dictionary<string, List<AssemblyInfo>>();
                 foreach (var moniker in t.Monikers)
                 {
-                    var frameworkAssemblies = _frameworks.FrameworkAssemblies[moniker];
-                    var assemblies = t.AssemblyInfo.Where(
-                        itemAsm => frameworkAssemblies.TryGetValue(itemAsm.Name, out var fxAsm) && fxAsm.Version == itemAsm.Version).ToList();
-                    if (t.TypeForwardingChain?.TypeForwardingsPerMoniker != null
-                        && t.TypeForwardingChain.TypeForwardingsPerMoniker.TryGetValue(moniker, out var fwdList) == true)
+                    if (_frameworks.FrameworkAssemblies.ContainsKey(moniker))
                     {
-                        foreach (var fwd in fwdList)
+                        var frameworkAssemblies = _frameworks.FrameworkAssemblies[moniker];
+                        var assemblies = t.AssemblyInfo.Where(
+                            itemAsm => frameworkAssemblies.TryGetValue(itemAsm.Name, out var fxAsm) && fxAsm.Version == itemAsm.Version).ToList();
+                        if (t.TypeForwardingChain?.TypeForwardingsPerMoniker != null
+                            && t.TypeForwardingChain.TypeForwardingsPerMoniker.TryGetValue(moniker, out var fwdList) == true)
                         {
-                            if (assemblies.Contains(fwd.From) && assemblies.Contains(fwd.To))
+                            foreach (var fwd in fwdList)
                             {
-                                assemblies.Remove(fwd.From);
+                                if (assemblies.Contains(fwd.From) && assemblies.Contains(fwd.To))
+                                {
+                                    assemblies.Remove(fwd.From);
+                                }
                             }
                         }
+                        if (assemblies.Count == 0)
+                        {
+                            OPSLogger.LogUserWarning(LogCode.ECMA2Yaml_UidAssembly_NotMatched, t.SourceFileLocalPath, t.Uid, moniker);
+                        }
+                        valuesPerMoniker[moniker] = assemblies;
                     }
-                    if (assemblies.Count == 0)
-                    {
-                        OPSLogger.LogUserWarning(LogCode.ECMA2Yaml_UidAssembly_NotMatched, t.SourceFileLocalPath, t.Uid, moniker);
-                    }
-                    valuesPerMoniker[moniker] = assemblies;
                 }
                 t.VersionedAssemblyInfo = new VersionedProperty<AssemblyInfo>(valuesPerMoniker);
             }
