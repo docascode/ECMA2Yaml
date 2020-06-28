@@ -22,13 +22,14 @@ namespace MSDNUrlPatch
         string _fileExtension = "";
         FileAccessor _fileAccessor;
         Regex _msdnUrlRegex = new Regex(@"(https?://msdn.microsoft.com[\w-./?%&=]*)", RegexOptions.Compiled);
+        Regex _linkRegex = new Regex(@"\[.*?\]\(([^\s,]*)\)", RegexOptions.Compiled);
+        Regex _link1Regex = new Regex("\"(https?://msdn.microsoft.com.*)\"", RegexOptions.Compiled);
         Regex _redirectedFromRegex = new Regex(@"(redirectedfrom=\w*)", RegexOptions.Compiled);
         Regex _versionUrlRegex = new Regex(@"\\\(v=.*\).aspx", RegexOptions.Compiled);
         const string _redirectedKey = "redirectedfrom";
-        const string _msdnUrlDomain = "msdn.microsoft.com";
         const string _noNeedRepairKeyWord = "NoNeed";
+        const string _userAgent = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Safari/537.36";
         static HttpClient _client = new HttpClient();
-        static object _lockObj = new object();
         static int _batchSize = 100;
 
         Dictionary<string, string> UrlDic = new Dictionary<string, string>();   // <msdn url,docs url>
@@ -36,6 +37,7 @@ namespace MSDNUrlPatch
 
         public UrlRepairHelper(CommandLineOptions option)
         {
+            _client.DefaultRequestHeaders.Add("User-Agent", _userAgent);
             _sourceFolder = option.SourceFolder;
             _logPath = option.LogFilePath;
             _isLogVerbose = option.LogVerbose;
@@ -74,63 +76,85 @@ namespace MSDNUrlPatch
         public void RepairAll()
         {
             _fileAccessor = new FileAccessor(_sourceFolder, null);
-            var allXmlFileList = _fileAccessor.ListFiles("*." + _fileExtension, _sourceFolder, allDirectories: true);
+            var allXmlFileList = _fileAccessor.ListFiles("*." + _fileExtension, _sourceFolder, allDirectories: true).ToList();
             List<string> needRepairXmlFileList = new List<string>();
             List<string> msdnUrlList = new List<string>();
 
-            ParallelOptions opt = new ParallelOptions() { MaxDegreeOfParallelism = Environment.ProcessorCount };
-
-            // 1. Load msdn urls
-            Parallel.ForEach(allXmlFileList, opt, xmlFile =>
+            int modifyFileCounter = 0;
+            for (int i = 0; i < allXmlFileList.Count(); i++)
             {
-                var msdnUrls = LoadMSDNUrls(xmlFile.AbsolutePath);
-                if (msdnUrls.Count() > 0)
+                var xmlFile = allXmlFileList[i];
+                if (RepairFile(xmlFile.AbsolutePath))
                 {
-                    needRepairXmlFileList.Add(xmlFile.AbsolutePath);
-                    msdnUrlList.AddRange(msdnUrls);
+                    modifyFileCounter++;
                 }
-            });
-
-            var allNeedRepairUrls = msdnUrlList.Distinct().Where(p => !string.IsNullOrEmpty(p)).ToList();
-            string message = string.Format("Found {0} msdn urls in {1} {2} files.", allNeedRepairUrls.Count(), needRepairXmlFileList.Count(), _fileExtension);
-            WriteLine(message);
-            logMessages.Add(message);
-
-            // 2. Set msdn urls dic with initial value
-            allNeedRepairUrls.ForEach(url =>
-            {
-                UrlDic.Add(url, null);
-            });
-
-            // 3. Get docs url of msdn url
-            Parallel.ForEach(allNeedRepairUrls, opt, msdnUrl =>
-            {
-                string docsUrl = GetDocsUrl(msdnUrl);
-                if (!string.IsNullOrEmpty(docsUrl))
+                if (modifyFileCounter >= _batchSize)
                 {
-                    UrlDic[msdnUrl] = docsUrl;
+                    break;
                 }
-            });
-
-            message = string.Format("Have {0} msdn urls need to be repaired.", UrlDic.Where(p => !string.IsNullOrEmpty(p.Value) && p.Value != _noNeedRepairKeyWord).Count());
-            WriteLine(message);
-            logMessages.Add(message);
-
-            // 4. Replace msdn url with docs url in xml file
-            Parallel.ForEach(needRepairXmlFileList, opt, xmlFile =>
-            {
-                RepairFile(xmlFile);
-            });
+            }
 
             WriteLine("Repair done.");
         }
 
-        public List<string> LoadMSDNUrls(string xmlFile)
+        public bool RepairFile(string xmlFile)
         {
-            List<string> msdnUrlList = new List<string>();
-
             string fileText = File.ReadAllText(xmlFile);
-            var matches = _msdnUrlRegex.Matches(fileText);
+            bool isChange = false;
+
+            List<string> oldUrlList = GetMSDNUrls(fileText);
+
+            // TODO: How to process follow case
+            // <NavigateUrl>https://msdn.microsoft.com/library/bfbb433f-7ab6-417a-90f0-71443d76bcb3<NavigateUrl/> <NavigateUrl>https://msdn.microsoft.com/library<NavigateUrl/> 
+
+            if (oldUrlList != null && oldUrlList.Count > 0)
+            {
+                oldUrlList = oldUrlList.OrderByDescending(u => u.Length).ToList();
+                foreach (string url in oldUrlList)
+                {
+                    string docsUrl = string.Empty;
+                    if (!UrlDic.ContainsKey(url))
+                    {
+                        docsUrl = GetDocsUrl(url);
+                        UrlDic[url] = docsUrl;
+                    }
+                    else
+                    {
+                        docsUrl = UrlDic[url];
+                    }
+
+                    if (string.IsNullOrEmpty(docsUrl))
+                    {
+                        logMessages.Add(string.Format("Can't repair msdn url {0} into file {1}", url, xmlFile));
+                    }
+                    else
+                    {
+                        if (docsUrl != _noNeedRepairKeyWord)
+                        {
+                            fileText = fileText.Replace(url, docsUrl);
+                            isChange = true;
+                        }
+                    }
+                }
+            }
+
+            if (isChange)
+            {
+                File.WriteAllText(xmlFile, fileText);
+                Console.WriteLine($"{xmlFile} update done.");
+                return true;
+            }
+
+            return false;
+        }
+
+        public List<string> GetMSDNUrls(string fileText)
+        {
+            List<string> oldUrlList = new List<string>();
+
+            // 1. Get Link markdown url like
+            // [Global Assembly Cache Tool (Gacutil.exe)](https://msdn.microsoft.com/library/ex0ss12c(VS.80).aspx)
+            var matches = _linkRegex.Matches(fileText);
             if (matches != null && matches.Count > 0)
             {
                 foreach (Match match in matches)
@@ -141,33 +165,43 @@ namespace MSDNUrlPatch
                         for (int i = 1; i < groups.Count; i++)
                         {
                             string url = groups[i].Value.TrimEnd('.');
-                            if (!UrlDic.ContainsKey(url))
+                            if (oldUrlList.IndexOf(url) < 0 && IsMSDNUrl(url))
                             {
-                                msdnUrlList.Add(url);
+                                oldUrlList.Add(url);
+                                // Replace it with "" in case it been found twice time in following step
+                                fileText = fileText.Replace(url, "");
                             }
                         }
                     }
                 }
             }
 
-            return msdnUrlList;
-        }
-
-        public void RepairFile(string xmlFile)
-        {
-            lock (_lockObj)
+            // 2. Get link like
+            // <a href="https://msdn.microsoft.com/library/windows/desktop/bb968803(v=vs.85).aspx">Event Tracing</a>
+            matches = _link1Regex.Matches(fileText);
+            if (matches != null && matches.Count > 0)
             {
-                if (_batchSize <= 0)
+                foreach (Match match in matches)
                 {
-                    return;
+                    if (match.Groups != null)
+                    {
+                        var groups = match.Groups;
+                        for (int i = 1; i < groups.Count; i++)
+                        {
+                            string url = groups[i].Value.TrimEnd('.');
+                            if (oldUrlList.IndexOf(url) < 0)
+                            {
+                                oldUrlList.Add(url);
+                                // Replace it with "" in case it been found twice time in following step
+                                fileText = fileText.Replace(url, "");
+                            }
+                        }
+                    }
                 }
             }
 
-            string fileText = File.ReadAllText(xmlFile);
-            bool isChange = false;
-
-            List<string> oldUrlList = new List<string>();
-            var matches = _msdnUrlRegex.Matches(fileText);
+            // 3. Get msdn url for left part
+            matches = _msdnUrlRegex.Matches(fileText);
             if (matches != null && matches.Count > 0)
             {
                 foreach (Match match in matches)
@@ -187,41 +221,7 @@ namespace MSDNUrlPatch
                 }
             }
 
-            // TODO: How to process follow case
-            // <NavigateUrl>https://msdn.microsoft.com/library/bfbb433f-7ab6-417a-90f0-71443d76bcb3<NavigateUrl/> <NavigateUrl>https://msdn.microsoft.com/library<NavigateUrl/> 
-
-            if (oldUrlList != null && oldUrlList.Count > 0)
-            {
-                oldUrlList = oldUrlList.OrderByDescending(u => u.Length).ToList();
-                foreach (string url in oldUrlList)
-                {
-                    string docsUrl = UrlDic[url];
-                    if (string.IsNullOrEmpty(docsUrl))
-                    {
-                        logMessages.Add(string.Format("Can't repair msdn url {0} into file {1}", url, xmlFile));
-                    }
-                    else
-                    {
-                        if (docsUrl != _noNeedRepairKeyWord)
-                        {
-                            fileText = fileText.Replace(url, docsUrl);
-                            isChange = true;
-                        }
-                    }
-                }
-            }
-
-            if (isChange)
-            {
-                lock (_lockObj)
-                {
-                    if (_batchSize > 0)
-                    {
-                        File.WriteAllText(xmlFile, fileText);
-                        _batchSize--;
-                    }
-                }
-            }
+            return oldUrlList;
         }
 
         public string GetDocsUrl(string msdnUrl)
@@ -249,7 +249,7 @@ namespace MSDNUrlPatch
                 return false;
             }
 
-            if (url.ToLower().IndexOf(_msdnUrlDomain) > 0)
+            if(_msdnUrlRegex.IsMatch(url))
             {
                 return true;
             }
@@ -272,7 +272,6 @@ namespace MSDNUrlPatch
 
             return IsNeedRepair_DotnetApiDocs(redirectUrl);
         }
-
 
         // If the redirected link starts with "/previous-versions/" or contains "view=xxx", we won't replace them.
         public bool IsNeedRepair_DotnetApiDocs(string url)
