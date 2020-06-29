@@ -34,12 +34,21 @@ namespace UnitTest
         }
 
         [DataTestMethod]
-        [DataRow("https://msdn.microsoft.com/library/30d5cc6d-b11e-4ff8-a51c-c58020eb41f9", "NoNeed")]
+        [DataRow("https://msdn.microsoft.com/library/ex0ss12c(VS.80).aspx", "NoNeed")]
         public void GetDocsUrl_Test(string inText, string expected)
         {
             CommandLineOptions option = new CommandLineOptions() { BaseUrl = "https://docs.microsoft.com/en-us" };
             var newUrl = new UrlRepairHelper(option).GetDocsUrl(inText);
             Assert.AreEqual(expected, newUrl);
+        }
+
+        [DataTestMethod]
+        [DataRow("- [WinHttp](https://msdn.microsoft.com/library/windows/desktop/aa382925(v=vs.85).aspx) logs")]
+        public void GetMSDNUrls_Test(string fileText)
+        {
+            CommandLineOptions option = new CommandLineOptions() { BaseUrl = "https://docs.microsoft.com/en-us" };
+            var urls = new UrlRepairHelper(option).GetMSDNUrls(fileText);
+            Assert.AreEqual(1, urls.Count());
         }
     }
 }
