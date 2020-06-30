@@ -1,0 +1,79 @@
+### YamlMime:NetType
+type: class
+inheritancesWithMoniker:
+- values:
+  - <xref href="System.Attribute?alt=System.Attribute&text=Attribute" data-throw-if-not-resolved="True"/>
+constructors:
+- uid: CatLibrary.DocAttribute.#ctor(System.String)
+  monikers:
+  - cat-1.0
+  - cat-2.0
+uid: CatLibrary.DocAttribute
+commentId: T:CatLibrary.DocAttribute
+namespace: CatLibrary
+name: DocAttribute
+fullName: CatLibrary.DocAttribute
+nameWithType: CatLibrary.DocAttribute
+assembliesWithMoniker:
+- value: CatLibrary.dll
+packagesWithMoniker:
+- value: Animal v1.0.0
+  monikers:
+  - cat-1.0
+- value: Pet v1.0.0
+  monikers:
+  - cat-2.0
+attributesWithMoniker:
+- value: System.AttributeUsageAttribute
+syntaxWithMoniker:
+- lang: cpp
+  values:
+  - value: 'public ref class DocAttribute : Attribute'
+- lang: csharp
+  values:
+  - value: >-
+      [System.AttributeUsage(System.AttributeTargets.All)]
+
+      public class DocAttribute : Attribute
+- lang: fsharp
+  values:
+  - value: >-
+      [<System.AttributeUsage(System.AttributeTargets.All)>]
+
+      type DocAttribute = class
+          inherit Attribute
+- lang: vb
+  values:
+  - value: >-
+      Public Class DocAttribute
+
+      Inherits Attribute
+devLangs:
+- csharp
+- vb
+- cpp
+- fsharp
+monikers:
+- cat-1.0
+- cat-2.0
+metadata:
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/DocAttribute.xml
+  _op_overwriteFileGitUrl: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/DocAttribute.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/DocAttribute.xml
+  api_name:
+  - CatLibrary.DocAttribute
+  api_location:
+  - CatLibrary.dll
+  topic_type:
+  - apiref
+  api_type:
+  - Assembly
+  f1_keywords:
+  - CatLibrary.DocAttribute
+  - CatLibrary::DocAttribute
+  - DocAttribute
+  helpviewer_keywords:
+  - CatLibrary.DocAttribute class [.NET]
+  monikers:
+  - cat-1.0
+  - cat-2.0

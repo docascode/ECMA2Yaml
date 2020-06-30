@@ -221,11 +221,33 @@ namespace ECMA2Yaml
 
         private ECMAAttribute LoadAttribute(XElement attrElement)
         {
+            var attributeNames = attrElement.Elements("AttributeName");
+            string declaration = null;
+            var namesPerLanguage = new Dictionary<string, string>();
+            foreach (var attrName in attributeNames)
+            {
+                var lang = attrName.Attribute("Language")?.Value;
+                switch(lang)
+                {
+                    case null:
+                        declaration = attrName.Value;
+                        namesPerLanguage[ECMADevLangs.CSharp] = $"[{attrName.Value}]";
+                        break;
+                    case ECMADevLangs.CSharp:
+                        declaration = attrName.Value.Trim(new char[] { '[', ']' });
+                        namesPerLanguage[ECMADevLangs.CSharp] = attrName.Value;
+                        break;
+                    default:
+                        namesPerLanguage.Add(lang, attrName.Value);
+                        break;
+                }
+            }
             return new ECMAAttribute()
             {
-                Declaration = attrElement.Element("AttributeName").Value,
+                Declaration = declaration,
                 Visible = true,
-                Monikers = LoadFrameworkAlternate(attrElement)
+                Monikers = LoadFrameworkAlternate(attrElement),
+                NamesPerLanguage = namesPerLanguage
             };
         }
 

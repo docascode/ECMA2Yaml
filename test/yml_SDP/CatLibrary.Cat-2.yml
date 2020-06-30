@@ -145,6 +145,8 @@ syntaxWithMoniker:
 - lang: fsharp
   values:
   - value: >-
+      [<System.Serializable>]
+
       type Cat<'T, 'K (requires 'T : null and 'T : (new : unit -> 'T) and 'K : struct)> = class
           interface ICat
           interface IAnimal

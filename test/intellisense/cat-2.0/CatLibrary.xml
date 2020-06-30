@@ -149,6 +149,10 @@
     <member name="F:CatLibrary.Complex`2.ComplexFlags.None" />
     <member name="F:CatLibrary.Complex`2.ComplexFlags.SkipInitialPreparation" />
     <member name="F:CatLibrary.Complex`2.ComplexFlags.StickyWrite" />
+    <member name="T:CatLibrary.DocAttribute" />
+    <member name="M:CatLibrary.DocAttribute.#ctor(System.String)">
+      <param name="docs" />
+    </member>
     <member name="T:CatLibrary.FakeDelegate`1">
       <summary>
             Fake delegate</summary>

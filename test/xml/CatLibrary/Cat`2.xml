@@ -28,6 +28,12 @@
         <ParameterAttribute>DefaultConstructorConstraint</ParameterAttribute>
         <ParameterAttribute>ReferenceTypeConstraint</ParameterAttribute>
       </Constraints>
+      <Attributes>
+        <Attribute>
+          <AttributeName Language="C#">[CatLibrary.Doc("T is a class")]</AttributeName>
+          <AttributeName Language="F#">[&lt;CatLibrary.Doc("T is a class")&gt;]</AttributeName>
+        </Attribute>
+      </Attributes>
     </TypeParameter>
     <TypeParameter Name="K">
       <Constraints>
@@ -35,6 +41,12 @@
         <ParameterAttribute>NotNullableValueTypeConstraint</ParameterAttribute>
         <BaseTypeName>System.ValueType</BaseTypeName>
       </Constraints>
+      <Attributes>
+        <Attribute FrameworkAlternate="cat-2.0">
+          <AttributeName Language="C#">[CatLibrary.Doc("K is a struct")]</AttributeName>
+          <AttributeName Language="F#">[&lt;CatLibrary.Doc("K is a struct")&gt;]</AttributeName>
+        </Attribute>
+      </Attributes>
     </TypeParameter>
   </TypeParameters>
   <Base>
@@ -50,7 +62,8 @@
   </Interfaces>
   <Attributes>
     <Attribute>
-      <AttributeName>System.Serializable</AttributeName>
+      <AttributeName Language="C#">[System.Serializable]</AttributeName>
+      <AttributeName Language="F#">[&lt;System.Serializable&gt;]</AttributeName>
     </Attribute>
   </Attributes>
   <Docs>
@@ -92,7 +105,7 @@
           <b>Extension Methods</b>. The extension methods not definition in this class, but we can find it!</listItem>
       </list>
     </remarks>
-    <seealso cref="T:CatLibrary.ICat" />
+    <altmember cref="T:CatLibrary.ICat" />
     <example>
       <para>Here's example of how to create an instance of this class. As T is limited with <c>class</c> and K is limited with <c>struct</c>.</para>
       <code language="c#">
@@ -324,7 +337,8 @@
       </AssemblyInfo>
       <Attributes>
         <Attribute FrameworkAlternate="cat-2.0">
-          <AttributeName>System.Obsolete("mark CatchJerry(bool force) as obsolete for testing")</AttributeName>
+          <AttributeName Language="C#">[System.Obsolete("mark CatchJerry(bool force) as obsolete for testing")]</AttributeName>
+          <AttributeName Language="F#">[&lt;System.Obsolete("mark CatchJerry(bool force) as obsolete for testing")&gt;]</AttributeName>
         </Attribute>
       </Attributes>
       <ReturnValue>
@@ -537,7 +551,8 @@
         <Parameter Name="parameters" Type="System.Object[]">
           <Attributes>
             <Attribute FrameworkAlternate="cat-1.0">
-              <AttributeName>System.ParamArray</AttributeName>
+              <AttributeName Language="C#">[System.ParamArray]</AttributeName>
+              <AttributeName Language="F#">[&lt;System.ParamArray&gt;]</AttributeName>
             </Attribute>
           </Attributes>
         </Parameter>
@@ -568,10 +583,12 @@
       </AssemblyInfo>
       <Attributes>
         <Attribute>
-          <AttributeName>System.ContextStatic</AttributeName>
+          <AttributeName Language="C#">[System.ContextStatic]</AttributeName>
+          <AttributeName Language="F#">[&lt;System.ContextStatic&gt;]</AttributeName>
         </Attribute>
         <Attribute FrameworkAlternate="cat-2.0">
-          <AttributeName>System.Obsolete("mark IsHealthy as obsolete for testing")</AttributeName>
+          <AttributeName Language="C#">[System.Obsolete("mark IsHealthy as obsolete for testing")]</AttributeName>
+          <AttributeName Language="F#">[&lt;System.Obsolete("mark IsHealthy as obsolete for testing")&gt;]</AttributeName>
         </Attribute>
       </Attributes>
       <ReturnValue>
@@ -641,7 +658,8 @@
       </AssemblyInfo>
       <Attributes>
         <Attribute>
-          <AttributeName>System.Diagnostics.Conditional("Debug")</AttributeName>
+          <AttributeName Language="C#">[System.Diagnostics.Conditional("Debug")]</AttributeName>
+          <AttributeName Language="F#">[&lt;System.Diagnostics.Conditional("Debug")&gt;]</AttributeName>
         </Attribute>
       </Attributes>
       <ReturnValue>

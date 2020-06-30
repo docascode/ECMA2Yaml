@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attributes.cs" />
     <Compile Include="Cat.cs" />
     <Compile Include="CatException.cs" />
     <Compile Include="ColorType.cs" />
