@@ -63,7 +63,10 @@ members:
     - value: Public Sub CatchJerry (force As Boolean)
   monikers:
   - cat-2.0
-  isDeprecated: true
+  obsoleteMessagesWithMoniker:
+  - value: ""
+    monikers:
+    - cat-2.0
   summary: If you force it, maybe it can.
   metadata: {}
 uid: CatLibrary.Cat`2.CatchJerry*
