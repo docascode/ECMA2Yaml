@@ -38,7 +38,10 @@ members:
         public void Jump (T ownType, K anotherOwnType, ref bool cheat);
   - lang: fsharp
     values:
-    - value: "member this.Jump : 'T * 'K * bool -> unit"
+    - value: >-
+        [<System.Diagnostics.Conditional("Debug")>]
+
+        member this.Jump : 'T * 'K * bool -> unit
   - lang: vb
     values:
     - value: Public Sub Jump (ownType As T, anotherOwnType As K, ByRef cheat As Boolean)

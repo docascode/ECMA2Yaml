@@ -12,5 +12,6 @@ namespace ECMA2Yaml.Models
         public string Declaration { get; set; }
         public bool Visible { get; set; }
         public HashSet<string> Monikers { get; set; }
+        public Dictionary<string, string> NamesPerLanguage { get; set; }
     }
 }

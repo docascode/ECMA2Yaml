@@ -40,6 +40,9 @@
       <Member Id="F:CatLibrary.Complex`2.ComplexFlags.SkipInitialPreparation" />
       <Member Id="F:CatLibrary.Complex`2.ComplexFlags.StickyWrite" />
     </Type>
+    <Type Name="CatLibrary.DocAttribute" Id="T:CatLibrary.DocAttribute">
+      <Member Id="M:CatLibrary.DocAttribute.#ctor(System.String)" />
+    </Type>
     <Type Name="CatLibrary.FakeDelegate`1" Id="T:CatLibrary.FakeDelegate`1" />
     <Type Name="CatLibrary.IAnimal" Id="T:CatLibrary.IAnimal">
       <Member Id="M:CatLibrary.IAnimal.Eat" />

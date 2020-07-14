@@ -77,6 +77,12 @@ items:
     - uid: CatLibrary.Complex`2.#ctor*
       name: Complex<T,J>
       type: Constructor
+  - uid: CatLibrary.DocAttribute
+    name: DocAttribute
+    items:
+    - uid: CatLibrary.DocAttribute.#ctor*
+      name: DocAttribute
+      type: Constructor
   - uid: CatLibrary.FakeDelegate`1
     name: FakeDelegate<T>
   - uid: CatLibrary.IAnimal

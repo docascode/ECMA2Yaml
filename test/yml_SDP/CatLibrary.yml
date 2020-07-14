@@ -25,6 +25,10 @@ classes:
   monikers:
   - cat-1.0
   - cat-2.0
+- uid: CatLibrary.DocAttribute
+  monikers:
+  - cat-1.0
+  - cat-2.0
 - uid: CatLibrary.ICatExtension
   monikers:
   - cat-1.0

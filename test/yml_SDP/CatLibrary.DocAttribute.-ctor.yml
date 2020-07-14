@@ -1,0 +1,79 @@
+### YamlMime:NetMember
+type: constructor
+members:
+- parameters:
+  - namesWithMoniker:
+    - value: docs
+    type: <xref href="System.String?alt=System.String&text=String" data-throw-if-not-resolved="True"/>
+  uid: CatLibrary.DocAttribute.#ctor(System.String)
+  commentId: M:CatLibrary.DocAttribute.#ctor(System.String)
+  name: DocAttribute(String)
+  fullName: CatLibrary.DocAttribute.DocAttribute(String)
+  nameWithType: DocAttribute.DocAttribute(String)
+  syntaxWithMoniker:
+  - lang: cpp
+    values:
+    - value: >-
+        public:
+         DocAttribute(System::String ^ docs);
+  - lang: csharp
+    values:
+    - value: public DocAttribute (string docs);
+  - lang: fsharp
+    values:
+    - value: 'new CatLibrary.DocAttribute : string -> CatLibrary.DocAttribute'
+  - lang: vb
+    values:
+    - value: Public Sub New (docs As String)
+  monikers:
+  - cat-1.0
+  - cat-2.0
+  remarks: <code data-dev-comment-type="c">C:Mono.DocTest.DocAttribute(System.String)</code>
+  metadata: {}
+uid: CatLibrary.DocAttribute.#ctor*
+commentId: Overload:CatLibrary.DocAttribute.#ctor
+namespace: CatLibrary
+name: DocAttribute
+fullName: CatLibrary.DocAttribute.DocAttribute
+nameWithType: DocAttribute.DocAttribute
+assembliesWithMoniker:
+- value: CatLibrary.dll
+packagesWithMoniker:
+- value: Animal v1.0.0
+  monikers:
+  - cat-1.0
+- value: Pet v1.0.0
+  monikers:
+  - cat-2.0
+devLangs:
+- csharp
+- vb
+- cpp
+- fsharp
+monikers:
+- cat-1.0
+- cat-2.0
+metadata:
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/DocAttribute.xml
+  _op_overwriteFileGitUrl: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/DocAttribute.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/DocAttribute.xml
+  api_name:
+  - CatLibrary.DocAttribute..ctor
+  api_location:
+  - CatLibrary.dll
+  topic_type:
+  - apiref
+  api_type:
+  - Assembly
+  f1_keywords:
+  - CatLibrary.DocAttribute.#ctor
+  - CatLibrary::DocAttribute::#ctor
+  - '#ctor'
+  - DocAttribute.#ctor
+  - DocAttribute::#ctor
+  helpviewer_keywords:
+  - DocAttribute class [.NET], constructors
+  - DocAttribute(String) class [.NET], constructors
+  monikers:
+  - cat-1.0
+  - cat-2.0

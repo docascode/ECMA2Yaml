@@ -80,49 +80,21 @@ namespace ECMA2Yaml
             var contents = new SortedList<string, List<VersionedString>>();
             if (item.Signatures?.Dict != null)
             {
+                var visibleAttrs = item.Attributes?.Where(attr => attr.Visible).ToList();
                 foreach (var sigPair in item.Signatures.Dict)
                 {
+                    var attrsForThisLang = visibleAttrs?.Where(attr => attr.NamesPerLanguage?.ContainsKey(sigPair.Key) == true).ToList();
                     if (Models.ECMADevLangs.OPSMapping.ContainsKey(sigPair.Key))
                     {
                         var lang = Models.ECMADevLangs.OPSMapping[sigPair.Key];
                         var sigValues = sigPair.Value;
-                        var visibleAttrs = item.Attributes?.Where(attr => attr.Visible).ToList();
+                        
                         switch (sigPair.Key)
                         {
                             case ECMADevLangs.CSharp:
                                 if (uwpMode)
                                 {
                                     sigValues.ForEach(vs => vs.Value = UWPCSharpSignatureTransform(vs.Value));
-                                }
-                                if (visibleAttrs?.Count > 0)
-                                {
-                                    bool versionedSig = sigValues.Count > 1 && sigValues.Any(v => v.Monikers?.Count > 0);
-                                    bool versionedAttr = visibleAttrs.Any(attr => attr.Monikers?.Count > 0);
-                                    // devide into 2 cases for better perf, most of the time neither signature nor attributes are versioned
-                                    if (!versionedSig && !versionedAttr)
-                                    {
-                                        contents[lang] = new List<VersionedString>()
-                                        {
-                                            new VersionedString(null, AttachAttributesToSignature(visibleAttrs, sigValues.First().Value))
-                                        };
-                                    }
-                                    else
-                                    {
-                                        contents[lang] = item.Monikers.Select(moniker =>
-                                        {
-                                            var sig = sigValues.FirstOrDefault(s => s.Monikers == null || s.Monikers.Contains(moniker));
-                                            var attrs = visibleAttrs.Where(a => a.Monikers == null || a.Monikers.Contains(moniker)).ToList();
-                                            var combinedSig = AttachAttributesToSignature(attrs, sig?.Value);
-                                            return (moniker, combinedSig);
-                                        })
-                                        .GroupBy(t => t.combinedSig)
-                                        .Select(g => new VersionedString(g.Select(t => t.moniker).ToHashSet(), g.Key))
-                                        .ToList();
-                                    }
-                                }
-                                else
-                                {
-                                    contents[lang] = sigValues;
                                 }
                                 break;
                             case ECMADevLangs.CPP_CLI:
@@ -132,11 +104,37 @@ namespace ECMA2Yaml
                                 {
                                     sigValues.ForEach(vs => vs.Value = UWPCPPSignatureTransform(vs.Value));
                                 }
-                                contents[lang] = sigValues;
                                 break;
-                            default:
-                                contents[lang] = sigValues;
-                                break;
+                        }
+                        if (attrsForThisLang?.Count > 0)
+                        {
+                            bool versionedSig = sigValues.Count > 1 && sigValues.Any(v => v.Monikers?.Count > 0);
+                            bool versionedAttr = attrsForThisLang.Any(attr => attr.Monikers?.Count > 0);
+                            // devide into 2 cases for better perf, most of the time neither signature nor attributes are versioned
+                            if (!versionedSig && !versionedAttr)
+                            {
+                                contents[lang] = new List<VersionedString>()
+                                        {
+                                            new VersionedString(null, AttachAttributesToSignature(attrsForThisLang, sigValues.First().Value, sigPair.Key))
+                                        };
+                            }
+                            else
+                            {
+                                contents[lang] = item.Monikers.Select(moniker =>
+                                {
+                                    var sig = sigValues.FirstOrDefault(s => s.Monikers == null || s.Monikers.Contains(moniker));
+                                    var attrs = attrsForThisLang.Where(a => a.Monikers == null || a.Monikers.Contains(moniker)).ToList();
+                                    var combinedSig = AttachAttributesToSignature(attrs, sig?.Value, sigPair.Key);
+                                    return (moniker, combinedSig);
+                                })
+                                .GroupBy(t => t.combinedSig)
+                                .Select(g => new VersionedString(g.Select(t => t.moniker).ToHashSet(), g.Key))
+                                .ToList();
+                            }
+                        }
+                        else
+                        {
+                            contents[lang] = sigValues;
                         }
                     }
                 }
@@ -145,14 +143,20 @@ namespace ECMA2Yaml
             return contents.Select(sig => new VersionedSignatureModel() { Lang = sig.Key, Values = sig.Value }).ToList();
         }
 
-        private static string AttachAttributesToSignature(IEnumerable<ECMAAttribute> attrs, string sig)
+        private static string AttachAttributesToSignature(List<ECMAAttribute> attrs, string sig, string lang)
         {
-            var contentBuilder = new StringBuilder();
-            if (attrs?.Any() == true)
+            if (attrs == null
+                || attrs.Count == 0 
+                || attrs.Count(attr => attr.NamesPerLanguage?.ContainsKey(lang) == true) == 0)
             {
-                foreach (var att in attrs)
+                return sig;
+            }
+            var contentBuilder = new StringBuilder();
+            foreach (var att in attrs)
+            {
+                if (att.NamesPerLanguage.TryGetValue(lang, out string name))
                 {
-                    contentBuilder.AppendFormat("[{0}]\n", att.Declaration);
+                    contentBuilder.AppendFormat("{0}\n", name);
                 }
             }
             contentBuilder.Append(sig);

@@ -1,0 +1,53 @@
+<Type Name="DocAttribute" FullName="CatLibrary.DocAttribute">
+  <TypeSignature Language="C#" Value="public class DocAttribute : Attribute" />
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit DocAttribute extends System.Attribute" />
+  <TypeSignature Language="DocId" Value="T:CatLibrary.DocAttribute" />
+  <TypeSignature Language="VB.NET" Value="Public Class DocAttribute&#xA;Inherits Attribute" />
+  <TypeSignature Language="C++ CLI" Value="public ref class DocAttribute : Attribute" />
+  <TypeSignature Language="F#" Value="type DocAttribute = class&#xA;    inherit Attribute" />
+  <AssemblyInfo>
+    <AssemblyName>CatLibrary</AssemblyName>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>System.Attribute</BaseTypeName>
+  </Base>
+  <Interfaces />
+  <Attributes>
+    <Attribute>
+      <AttributeName Language="C#">[System.AttributeUsage(System.AttributeTargets.All)]</AttributeName>
+      <AttributeName Language="F#">[&lt;System.AttributeUsage(System.AttributeTargets.All)&gt;]</AttributeName>
+    </Attribute>
+  </Attributes>
+  <Docs>
+    <summary>To be added.</summary>
+    <remarks>To be added.</remarks>
+  </Docs>
+  <Members>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public DocAttribute (string docs);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(string docs) cil managed" />
+      <MemberSignature Language="DocId" Value="M:CatLibrary.DocAttribute.#ctor(System.String)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New (docs As String)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; DocAttribute(System::String ^ docs);" />
+      <MemberSignature Language="F#" Value="new CatLibrary.DocAttribute : string -&gt; CatLibrary.DocAttribute" Usage="new CatLibrary.DocAttribute docs" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>CatLibrary</AssemblyName>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="docs" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="docs">To be added.</param>
+        <summary>To be added.</summary>
+        <remarks>
+          <c>C:Mono.DocTest.DocAttribute(System.String)</c>
+        </remarks>
+      </Docs>
+    </Member>
+  </Members>
+</Type>

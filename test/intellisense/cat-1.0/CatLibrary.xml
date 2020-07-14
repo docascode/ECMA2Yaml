@@ -133,6 +133,10 @@
       <typeparam name="J" />
     </member>
     <member name="M:CatLibrary.Complex`2.#ctor" />
+    <member name="T:CatLibrary.DocAttribute" />
+    <member name="M:CatLibrary.DocAttribute.#ctor(System.String)">
+      <param name="docs" />
+    </member>
     <member name="T:CatLibrary.FakeDelegate`1">
       <summary>
             Fake delegate</summary>
