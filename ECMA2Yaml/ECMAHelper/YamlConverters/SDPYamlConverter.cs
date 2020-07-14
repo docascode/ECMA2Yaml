@@ -151,9 +151,16 @@ namespace ECMA2Yaml
                 rval.AdditionalNotes = (AdditionalNotes)notes;
             }
 
-            if (item.Attributes != null && item.Attributes.Any(attr => attr.TypeFullName == "System.ObsoleteAttribute"))
+            if (item.Attributes != null)
             {
-                rval.IsDeprecated = true;
+                rval.ObsoleteMessagesWithMoniker = item.Attributes
+                    .Where(attr => attr.TypeFullName == "System.ObsoleteAttribute")
+                    .Select(attr => new VersionedString() 
+                    { 
+                        Value = "",
+                        Monikers = attr.Monikers
+                    })
+                    .ToList().NullIfEmpty();
             }
 
             if (_store.UWPMode || _store.DemoMode)

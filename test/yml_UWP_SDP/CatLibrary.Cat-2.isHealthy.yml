@@ -42,7 +42,10 @@ members:
   monikers:
   - cat-1.0
   - cat-2.0
-  isDeprecated: true
+  obsoleteMessagesWithMoniker:
+  - value: ""
+    monikers:
+    - cat-2.0
   summary: Field with attribute.
   metadata: {}
 namespace: CatLibrary

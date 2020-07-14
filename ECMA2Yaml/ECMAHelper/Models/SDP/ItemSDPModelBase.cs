@@ -91,6 +91,10 @@ namespace ECMA2Yaml.Models.SDP
         [YamlMember(Alias = "isDeprecated")]
         public bool IsDeprecated { get; set; }
 
+        [JsonProperty("obsoleteMessagesWithMoniker")]
+        [YamlMember(Alias = "obsoleteMessagesWithMoniker")]
+        public IEnumerable<VersionedString> ObsoleteMessagesWithMoniker { get; set; }
+
         [JsonProperty("isInternalOnly")]
         [YamlMember(Alias = "isInternalOnly")]
         public bool IsInternalOnly { get; set; }
