@@ -214,12 +214,12 @@ namespace ECMA2Yaml
 
         public static IEnumerable<string> ConsolidateVersionedValues(IEnumerable<VersionedString> vals, HashSet<string> pageMonikers)
         {
-            if (vals == null || vals.Any(v => v.Monikers == null))
+            if (vals == null)
             { 
                 return null;
             }
             HashSet<string> allMonikers = new HashSet<string>();
-            foreach(var val in vals)
+            foreach(var val in vals.Where(v => v.Monikers != null))
             {
                 allMonikers.UnionWith(val.Monikers);
                 if (val.Monikers.SetEquals(pageMonikers))
@@ -227,7 +227,39 @@ namespace ECMA2Yaml
                     val.Monikers = null;
                 }
             }
+            if (vals.Any(v => v.Monikers == null))
+            {
+                return null;
+            }
             return allMonikers.SetEquals(pageMonikers) ? null : allMonikers;
+        }
+
+        /// <summary>
+        /// [AttributeA("value1")]
+        /// [AttributeA("value2")]
+        /// [AttributeA("value3")]
+        /// A method can have same attribute assigned to it multiple times, we need to distinct the final attribute type list.
+        /// </summary>
+        /// <param name="versionedList"></param>
+        /// <returns></returns>
+        public static IEnumerable<VersionedString> DistinctVersionedString(this IEnumerable<VersionedString> versionedList)
+        {
+            if (versionedList == null)
+            {
+                return null;
+            }
+            return versionedList.GroupBy(vs => vs.Value).Select(g =>
+            {
+                if (g.Count() == 1)
+                {
+                    return g.First();
+                }
+                return new VersionedString()
+                {
+                    Value = g.Key,
+                    Monikers = g.SelectMany(vs => vs.Monikers ?? Enumerable.Empty<string>()).ToHashSet().NullIfEmpty()
+                };
+            });
         }
 
         private static readonly Regex CSharpSignatureLongNameRegex = new Regex("\\w+(\\.\\w+){2,}", RegexOptions.Compiled);
