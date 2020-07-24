@@ -68,7 +68,6 @@ namespace ECMA2Yaml
             }
 
             Console.WriteLine("Building loaded files...");
-            store.StrictMode = true;
             store.UWPMode = config?.UWP ?? false;
             store.Build();
 
