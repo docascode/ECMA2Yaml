@@ -1,7 +1,9 @@
 ### YamlMime:NetMember
 type: event
 members:
-- uid: CatLibrary.ICat.eat
+- returns:
+    type: <xref href="System.EventHandler?alt=System.EventHandler&text=EventHandler" data-throw-if-not-resolved="True"/>
+  uid: CatLibrary.ICat.eat
   commentId: E:CatLibrary.ICat.eat
   name: eat
   fullName: CatLibrary.ICat.eat
