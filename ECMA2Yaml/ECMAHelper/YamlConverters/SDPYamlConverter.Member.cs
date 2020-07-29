@@ -23,7 +23,7 @@ namespace ECMA2Yaml
 
             var knowTypeParams = m.Parent.TypeParameters.ConcatList(m.TypeParameters);
 
-            if (m.ReturnValueType != null && m.ItemType != ItemType.Event)
+            if (m.ReturnValueType != null)
             {
                 var returns = m.ReturnValueType;
 
