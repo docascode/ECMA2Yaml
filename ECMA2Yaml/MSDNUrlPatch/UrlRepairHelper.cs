@@ -27,7 +27,7 @@ namespace MSDNUrlPatch
 
         FileAccessor _fileAccessor;
         Regex _msdnUrlRegex = new Regex(@"(https?://msdn.microsoft.com[\w-./?%&=]*)", RegexOptions.Compiled);
-        Regex _linkRegex = new Regex(@"\[.*?\]\(([^\s]*)\)", RegexOptions.Compiled);
+        Regex _linkRegex = new Regex(@"\[.*?\]\(([^\s,]*)\)", RegexOptions.Compiled);
         Regex _link1Regex = new Regex("\"(https?://msdn.microsoft.com.*)\"", RegexOptions.Compiled);
         Regex _redirectedFromRegex = new Regex(@"(redirectedfrom=\w*)", RegexOptions.Compiled);
         Regex _versionUrlRegex = new Regex(@"\\\(v=.*\).aspx", RegexOptions.Compiled);
