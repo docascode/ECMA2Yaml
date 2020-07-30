@@ -6,8 +6,10 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Xml;
 using System.Xml.Linq;
 
 namespace MSDNUrlPatch
@@ -15,14 +17,17 @@ namespace MSDNUrlPatch
     public class UrlRepairHelper
     {
         bool _isLogVerbose = false;
+        bool _isFixPreVersions = false;
+        bool _isFixFixedVersions = false;
         string _sourceFolder = string.Empty;
         string _logPath = string.Empty;
         string _repoRootFolder = string.Empty;
         string _baseUrl = "https://docs.microsoft.com/en-us";
         string _fileExtension = "";
+
         FileAccessor _fileAccessor;
         Regex _msdnUrlRegex = new Regex(@"(https?://msdn.microsoft.com[\w-./?%&=]*)", RegexOptions.Compiled);
-        Regex _linkRegex = new Regex(@"\[.*?\]\(([^\s,]*)\)", RegexOptions.Compiled);
+        Regex _linkRegex = new Regex(@"\[.*?\]\(([^\s]*)\)", RegexOptions.Compiled);
         Regex _link1Regex = new Regex("\"(https?://msdn.microsoft.com.*)\"", RegexOptions.Compiled);
         Regex _redirectedFromRegex = new Regex(@"(redirectedfrom=\w*)", RegexOptions.Compiled);
         Regex _versionUrlRegex = new Regex(@"\\\(v=.*\).aspx", RegexOptions.Compiled);
@@ -43,6 +48,9 @@ namespace MSDNUrlPatch
             _isLogVerbose = option.LogVerbose;
             _baseUrl = option.BaseUrl;
             _fileExtension = option.FileExtension;
+            _isFixPreVersions = option.PreVersions;
+            _isFixFixedVersions = option.FixedVersions;
+
             if (option.BatchSize > 0)
             {
                 _batchSize = option.BatchSize;
@@ -97,42 +105,38 @@ namespace MSDNUrlPatch
             WriteLine("Repair done.");
         }
 
-        public bool RepairFile(string xmlFile)
+        public bool RepairFile(string filePath)
         {
-            string fileText = File.ReadAllText(xmlFile);
+            if (filePath.ToLower().EndsWith(".xml"))
+            {
+                return RepairXmlFile(filePath);
+            }
+            else
+            {
+                return RepairNonXmlFile(filePath);
+            }
+        }
+
+        public bool RepairNonXmlFile(string filePath)
+        {
             bool isChange = false;
 
-            List<string> oldUrlList = GetMSDNUrls(fileText);
-
-            // TODO: How to process follow case
-            // <NavigateUrl>https://msdn.microsoft.com/library/bfbb433f-7ab6-417a-90f0-71443d76bcb3<NavigateUrl/> <NavigateUrl>https://msdn.microsoft.com/library<NavigateUrl/> 
-
-            if (oldUrlList != null && oldUrlList.Count > 0)
+            string[] lines = File.ReadAllLines(filePath);
+            if (lines != null && lines.Length > 0)
             {
-                oldUrlList = oldUrlList.OrderByDescending(u => u.Length).ToList();
-                foreach (string url in oldUrlList)
+                for (int i = 0; i < lines.Length; i++)
                 {
-                    string docsUrl = string.Empty;
-                    if (!UrlDic.ContainsKey(url))
+                    string l = lines[i];
+                    if (!string.IsNullOrEmpty(l))
                     {
-                        docsUrl = GetDocsUrl(url);
-                        UrlDic[url] = docsUrl;
-                    }
-                    else
-                    {
-                        docsUrl = UrlDic[url];
-                    }
-
-                    if (string.IsNullOrEmpty(docsUrl))
-                    {
-                        logMessages.Add(string.Format("Can't repair msdn url {0} into file {1}", url, xmlFile));
-                    }
-                    else
-                    {
-                        if (docsUrl != _noNeedRepairKeyWord)
+                        string newContent = RepairString(l, filePath);
+                        if (!l.Equals(newContent))
                         {
-                            fileText = fileText.Replace(url, docsUrl);
-                            isChange = true;
+                            lines[i] = newContent;
+                            if (!isChange)
+                            {
+                                isChange = true;
+                            }
                         }
                     }
                 }
@@ -140,21 +144,127 @@ namespace MSDNUrlPatch
 
             if (isChange)
             {
-                File.WriteAllText(xmlFile, fileText);
-                Console.WriteLine($"{xmlFile} update done.");
+                File.WriteAllLines(filePath, lines);
+                Console.WriteLine($"{filePath} update done.");
                 return true;
             }
 
             return false;
         }
 
-        public List<string> GetMSDNUrls(string fileText)
+        public bool RepairXmlFile(string filePath)
         {
-            List<string> oldUrlList = new List<string>();
+            bool isChange = false;
+            XDocument xmlDoc = XDocument.Load(filePath);
+            var child = xmlDoc.Nodes();
+            if (child != null && child.Count() > 0)
+            {
+                foreach (var e in child)
+                {
+                    if (RepairXElement((e as XElement), filePath))
+                    {
+                        isChange = true;
+                    }
+                }
+            }
+            if (isChange)
+            {
+                SaveXmlFile(xmlDoc, filePath);
+                Console.WriteLine($"{filePath} update done.");
+                return true;
+            }
+
+            return false;
+        }
+
+        private bool RepairXElement(XElement ele, string filePath)
+        {
+            bool isChange = false;
+
+            if (ele != null)
+            {
+                var child = ele.Nodes();
+                if (child != null && child.Count() > 0)
+                {
+                    foreach (var e in child)
+                    {
+                        if (e.NodeType == System.Xml.XmlNodeType.Text)
+                        {
+                            if (RepairXText((e as XText), filePath) && isChange == false)
+                            {
+                                isChange = true;
+                            }
+                        }
+                        else if (e.NodeType == System.Xml.XmlNodeType.Element)
+                        {
+                            if (RepairXElement((e as XElement), filePath) && isChange == false)
+                            {
+                                isChange = true;
+                            }
+                        }
+                    }
+                }
+
+                var attributes = ele.Attributes();
+                if (attributes != null && attributes.Count() > 0)
+                {
+                    foreach (var attr in attributes)
+                    {
+                        if (RepairXAttribute(attr, filePath) && isChange == false)
+                        {
+                            isChange = true;
+                        }
+                    }
+                }
+            }
+
+            return isChange;
+        }
+
+        public bool RepairXText(XText xText, string filePath)
+        {
+            string content = xText.Value;
+            string newContent = RepairString(content, filePath);
+
+            if (!content.Equals(newContent))
+            {
+                xText.Value = newContent;
+                return true;
+            }
+
+            return false;
+        }
+
+        public bool RepairXAttribute(XAttribute attr, string filePath)
+        {
+            string content = attr.Value;
+            string newContent = RepairString(content, filePath);
+
+            if (!content.Equals(newContent))
+            {
+                attr.Value = newContent;
+                return true;
+            }
+
+            return false;
+        }
+
+        public string RepairString(string inputText, string filePath)
+        {
+            if (inputText.Length < 18)
+            {
+                return inputText;
+            }
+
+            // Fix issue 2 in bug https://dev.azure.com/ceapex/Engineering/_workitems/edit/267076
+            if (inputText.Contains("ms:mtpsurl:"))
+            {
+                return inputText;
+            }
 
             // 1. Get Link markdown url like
             // [Global Assembly Cache Tool (Gacutil.exe)](https://msdn.microsoft.com/library/ex0ss12c(VS.80).aspx)
-            var matches = _linkRegex.Matches(fileText);
+            var matches = _linkRegex.Matches(inputText);
             if (matches != null && matches.Count > 0)
             {
                 foreach (Match match in matches)
@@ -162,14 +272,33 @@ namespace MSDNUrlPatch
                     if (match.Groups != null)
                     {
                         var groups = match.Groups;
+                        string linkString = groups[0].Value.ToString();
                         for (int i = 1; i < groups.Count; i++)
                         {
-                            string url = groups[i].Value.TrimEnd('.');
-                            if (oldUrlList.IndexOf(url) < 0 && IsMSDNUrl(url))
+                            string partialChar = string.Empty;
+                            string oldUrl = groups[i].Value.TrimEnd('.');
+                            oldUrl = PreProcessMSDNUrl(oldUrl,out partialChar);
+                            string docsUrl = GetNewUrl(oldUrl);
+                            if (string.IsNullOrEmpty(docsUrl))
                             {
-                                oldUrlList.Add(url);
-                                // Replace it with "" in case it been found twice time in following step
-                                fileText = fileText.Replace(url, "");
+                                logMessages.Add(string.Format("Can't repair msdn url {0} into file {1}", oldUrl, filePath));
+                            }
+                            else
+                            {
+                                if (docsUrl != _noNeedRepairKeyWord)
+                                {
+                                    // inputText = _linkRegex.Replace(inputText, docsUrl);
+                                    // Fix issue 1 in bug https://dev.azure.com/ceapex/Engineering/_workitems/edit/267076
+                                    
+                                    if (!string.IsNullOrEmpty(_baseUrl) && !docsUrl.StartsWith("http"))
+                                    {
+                                        inputText = inputText.Replace(linkString, $"<{_baseUrl}{docsUrl}>{partialChar}");
+                                    }
+                                    else
+                                    {
+                                        inputText = inputText.Replace(linkString, $"<{docsUrl}>{partialChar}");
+                                    }
+                                }
                             }
                         }
                     }
@@ -178,7 +307,7 @@ namespace MSDNUrlPatch
 
             // 2. Get link like
             // <a href="https://msdn.microsoft.com/library/windows/desktop/bb968803(v=vs.85).aspx">Event Tracing</a>
-            matches = _link1Regex.Matches(fileText);
+            matches = _link1Regex.Matches(inputText);
             if (matches != null && matches.Count > 0)
             {
                 foreach (Match match in matches)
@@ -188,12 +317,18 @@ namespace MSDNUrlPatch
                         var groups = match.Groups;
                         for (int i = 1; i < groups.Count; i++)
                         {
-                            string url = groups[i].Value.TrimEnd('.');
-                            if (oldUrlList.IndexOf(url) < 0)
+                            string oldUrl = groups[i].Value.TrimEnd('.');
+                            string docsUrl = GetNewUrl(oldUrl);
+                            if (string.IsNullOrEmpty(docsUrl))
                             {
-                                oldUrlList.Add(url);
-                                // Replace it with "" in case it been found twice time in following step
-                                fileText = fileText.Replace(url, "");
+                                logMessages.Add(string.Format("Can't repair msdn url {0} into file {1}", oldUrl, filePath));
+                            }
+                            else
+                            {
+                                if (docsUrl != _noNeedRepairKeyWord)
+                                {
+                                    inputText = _link1Regex.Replace(inputText, docsUrl);
+                                }
                             }
                         }
                     }
@@ -201,7 +336,7 @@ namespace MSDNUrlPatch
             }
 
             // 3. Get msdn url for left part
-            matches = _msdnUrlRegex.Matches(fileText);
+            matches = _msdnUrlRegex.Matches(inputText);
             if (matches != null && matches.Count > 0)
             {
                 foreach (Match match in matches)
@@ -211,23 +346,53 @@ namespace MSDNUrlPatch
                         var groups = match.Groups;
                         for (int i = 1; i < groups.Count; i++)
                         {
-                            string url = groups[i].Value.TrimEnd('.');
-                            if (oldUrlList.IndexOf(url) < 0)
+                            string oldUrl = groups[i].Value.TrimEnd('.');
+                            string docsUrl = GetNewUrl(oldUrl);
+                            if (string.IsNullOrEmpty(docsUrl))
                             {
-                                oldUrlList.Add(url);
+                                logMessages.Add(string.Format("Can't repair msdn url {0} into file {1}", oldUrl, filePath));
+                            }
+                            else
+                            {
+                                if (docsUrl != _noNeedRepairKeyWord)
+                                {
+                                    inputText = _msdnUrlRegex.Replace(inputText, docsUrl);
+                                }
                             }
                         }
                     }
                 }
             }
 
-            return oldUrlList;
+            return inputText;
+        }
+
+        public string GetNewUrl(string oldUrl)
+        {
+            string docsUrl = string.Empty;
+            if (!UrlDic.ContainsKey(oldUrl))
+            {
+                docsUrl = GetDocsUrl(oldUrl);
+                UrlDic[oldUrl] = docsUrl;
+            }
+            else
+            {
+                docsUrl = UrlDic[oldUrl];
+            }
+
+            return docsUrl;
         }
 
         public string GetDocsUrl(string msdnUrl)
         {
             if (IsMSDNUrl(msdnUrl))
             {
+                // fix issue 1 in bug https://dev.azure.com/ceapex/Engineering/_workitems/edit/245894
+                if (msdnUrl.EndsWith("msdn.microsoft.com"))
+                {
+                    return "https://docs.microsoft.com";
+                }
+
                 string redirectUrl = GetRedirectUrl(msdnUrl).Result;
                 if (IsNeedRepair(redirectUrl))
                 {
@@ -249,7 +414,7 @@ namespace MSDNUrlPatch
                 return false;
             }
 
-            if(_msdnUrlRegex.IsMatch(url))
+            if (_msdnUrlRegex.IsMatch(url))
             {
                 return true;
             }
@@ -276,9 +441,17 @@ namespace MSDNUrlPatch
         // If the redirected link starts with "/previous-versions/" or contains "view=xxx", we won't replace them.
         public bool IsNeedRepair_DotnetApiDocs(string url)
         {
-            if (url.Contains("/previous-versions/") || url.Contains("?view=") || url.Contains("&view="))
+            if (url.Contains("/previous-versions/") && !_isFixPreVersions)
             {
-                string message = string.Format("'{0}' contains '/previous-versions/' or 'view=', don't need be processed.", url);
+                string message = string.Format("'{0}' contains '/previous-versions/', don't need be processed.", url);
+                logMessages.Add(message);
+
+                return false;
+            }
+
+            if ((url.Contains("?view=") || url.Contains("&view=")) && !_isFixFixedVersions)
+            {
+                string message = string.Format("'{0}' contains 'view=', don't need be processed.", url);
                 logMessages.Add(message);
 
                 return false;
@@ -366,6 +539,59 @@ namespace MSDNUrlPatch
         {
             string timestamp = string.Format("[{0}]", DateTime.Now.ToString());
             Console.WriteLine(timestamp + string.Format(format, args));
+        }
+
+        public void SaveXmlFile(XDocument xmlDoc, string xmlFilePath)
+        {
+            var fileEncoding = GetEncoding(xmlFilePath);
+            XmlWriterSettings xws = new XmlWriterSettings
+            {
+                Indent = true,
+                OmitXmlDeclaration = true,
+                Encoding = fileEncoding
+            };
+            using (XmlWriter xw = XmlWriter.Create(xmlFilePath, xws))
+            {
+                xmlDoc.Save(xw);
+            }
+        }
+
+        private Encoding GetEncoding(string filename)
+        {
+            // This is a direct quote from MSDN:  
+            // The CurrentEncoding value can be different after the first
+            // call to any Read method of StreamReader, since encoding
+            // autodetection is not done until the first call to a Read method.
+
+            using (var reader = new StreamReader(filename, Encoding.Default, true))
+            {
+                if (reader.Peek() >= 0) // you need this!
+                    reader.Read();
+
+                return reader.CurrentEncoding;
+            }
+        }
+
+        private string PreProcessMSDNUrl(string url, out string partialChar)
+        {
+            if (string.IsNullOrEmpty(url))
+            {
+                partialChar = "";
+                return url;
+            }
+
+            // for _linkRegex, can't handle multiple ')' chars in one line, need to trim end it.
+            // like: (see docs at [https://msdn.microsoft.com/library/1d3t3c61.aspx](https://msdn.microsoft.com/library/1d3t3c61.aspx))
+            // => https://msdn.microsoft.com/library/1d3t3c61.aspx)
+            if (url.EndsWith(")") && !url.Contains("("))
+            {
+                partialChar = ")";
+                url = url.TrimEnd(')');
+                return url;
+            }
+
+            partialChar = "";
+            return url;
         }
     }
 }
