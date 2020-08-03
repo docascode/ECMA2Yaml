@@ -1,9 +1,10 @@
 ### YamlMime:NetMember
 type: method
 members:
-- returns:
+- returnsWithMoniker:
+    type:
+    - value: <xref href="System.Collections.Generic.Dictionary`2?alt=System.Collections.Generic.Dictionary&text=Dictionary" data-throw-if-not-resolved="True"/>&lt;<xref href="System.String?alt=System.String&text=String" data-throw-if-not-resolved="True"/>,<xref href="System.Collections.Generic.List`1?alt=System.Collections.Generic.List&text=List" data-throw-if-not-resolved="True"/>&lt;<xref href="System.Int32?alt=System.Int32&text=Int32" data-throw-if-not-resolved="True"/>&gt;&gt;
     description: It's a relationship map of different kind food.
-    type: <xref href="System.Collections.Generic.Dictionary`2?alt=System.Collections.Generic.Dictionary&text=Dictionary" data-throw-if-not-resolved="True"/>&lt;<xref href="System.String?alt=System.String&text=String" data-throw-if-not-resolved="True"/>,<xref href="System.Collections.Generic.List`1?alt=System.Collections.Generic.List&text=List" data-throw-if-not-resolved="True"/>&lt;<xref href="System.Int32?alt=System.Int32&text=Int32" data-throw-if-not-resolved="True"/>&gt;&gt;
   parameters:
   - namesWithMoniker:
     - value: date

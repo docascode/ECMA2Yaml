@@ -3,9 +3,10 @@ typeParameters:
 - description: Fake para
   name: T
   isCovariant: true
-returns:
+returnsWithMoniker:
+  type:
+  - value: <xref href="System.Int32?alt=System.Int32&text=Int32" data-throw-if-not-resolved="True"/>
   description: Return a fake number to confuse you.
-  type: <xref href="System.Int32?alt=System.Int32&text=Int32" data-throw-if-not-resolved="True"/>
 parameters:
 - namesWithMoniker:
   - value: num

@@ -1,9 +1,10 @@
 ### YamlMime:NetMember
 type: method
 members:
-- returns:
+- returnsWithMoniker:
+    type:
+    - value: <xref href="CatLibrary.Complex`2?alt=CatLibrary.Complex&text=Complex" data-throw-if-not-resolved="True"/>&lt;<xref href="System.String?alt=System.String&text=String" data-throw-if-not-resolved="True"/>,<xref href="CatLibrary.TomFromBaseClass?alt=CatLibrary.TomFromBaseClass&text=TomFromBaseClass" data-throw-if-not-resolved="True"/>&gt;
     description: Complex @CatLibrary.TomFromBaseClass
-    type: <xref href="CatLibrary.Complex`2?alt=CatLibrary.Complex&text=Complex" data-throw-if-not-resolved="True"/>&lt;<xref href="System.String?alt=System.String&text=String" data-throw-if-not-resolved="True"/>,<xref href="CatLibrary.TomFromBaseClass?alt=CatLibrary.TomFromBaseClass&text=TomFromBaseClass" data-throw-if-not-resolved="True"/>&gt;
   parameters:
   - namesWithMoniker:
     - value: a

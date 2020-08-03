@@ -1,9 +1,10 @@
 ### YamlMime:NetMember
 type: method
 members:
-- returns:
+- returnsWithMoniker:
+    type:
+    - value: <xref href="System.Boolean?alt=System.Boolean&text=Boolean" data-throw-if-not-resolved="True"/>
     description: The return value tell you whehter the compare operation is successful.
-    type: <xref href="System.Boolean?alt=System.Boolean&text=Boolean" data-throw-if-not-resolved="True"/>
   parameters:
   - namesWithMoniker:
     - value: obj

@@ -17,40 +17,21 @@ namespace ECMA2Yaml
             sdpDelegate.TypeParameters = ConvertTypeParameters(t);
             sdpDelegate.Inheritances = t.InheritanceChains?.LastOrDefault().Values.Select(uid => UidToTypeMDString(uid, _store)).ToList();
 
-            if (t.ReturnValueType != null && t.ItemType != ItemType.Event)
+            if (t.ReturnValueType != null)
             {
                 var returns = t.ReturnValueType;
-
-                if (returns.VersionedTypes.Count() == 1)
+                var r = returns.VersionedTypes
+                    .Where(v => !string.IsNullOrWhiteSpace(v.Value) && v.Value != "System.Void");
+                if (r.Any())
                 {
-                    var oneReturn = returns.VersionedTypes.First();
-                    if (oneReturn != null
-                    && !string.IsNullOrWhiteSpace(oneReturn.Value)
-                    && oneReturn.Value != "System.Void")
+                    foreach (var vt in returns.VersionedTypes)
                     {
-                        sdpDelegate.Returns = new TypeReference()
-                        {
-                            Type = SDPYamlConverter.TypeStringToTypeMDString(oneReturn.Value, _store),
-                            
-                            Description = returns.Description
-                        };
+                        vt.Value = SDPYamlConverter.TypeStringToTypeMDString(vt.Value, _store);
                     }
-                }
-                else
-                {
-                    var r = returns.VersionedTypes
-                        .Where(v => !string.IsNullOrWhiteSpace(v.Value) && v.Value != "System.Void");
-                    if (r.Any())
-                    {
-                        foreach (var vt in returns.VersionedTypes)
-                        {
-                            vt.Value = SDPYamlConverter.TypeStringToTypeMDString(vt.Value, _store);
-                        }
-                        sdpDelegate.ReturnsWithMoniker = returns;
-                    }
+                    sdpDelegate.ReturnsWithMoniker = returns;
                 }
             }
-            
+
             sdpDelegate.Parameters = t.Parameters?.Select(p => ConvertNamedParameter(p, t.TypeParameters))
                 .ToList().NullIfEmpty();
 

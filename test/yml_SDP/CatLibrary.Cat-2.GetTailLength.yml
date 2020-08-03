@@ -1,9 +1,10 @@
 ### YamlMime:NetMember
 type: method
 members:
-- returns:
+- returnsWithMoniker:
+    type:
+    - value: <xref href="System.Int64?alt=System.Int64&text=Int64" data-throw-if-not-resolved="True"/>
     description: Return cat tail's length.
-    type: <xref href="System.Int64?alt=System.Int64&text=Int64" data-throw-if-not-resolved="True"/>
   parameters:
   - namesWithMoniker:
     - value: catName

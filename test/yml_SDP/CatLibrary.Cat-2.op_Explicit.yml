@@ -1,9 +1,10 @@
 ### YamlMime:NetMember
 type: operator
 members:
-- returns:
+- returnsWithMoniker:
+    type:
+    - value: <xref href="CatLibrary.Tom?alt=CatLibrary.Tom&text=Tom" data-throw-if-not-resolved="True"/>
     description: Advanced class type of cat.
-    type: <xref href="CatLibrary.Tom?alt=CatLibrary.Tom&text=Tom" data-throw-if-not-resolved="True"/>
   parameters:
   - namesWithMoniker:
     - value: src

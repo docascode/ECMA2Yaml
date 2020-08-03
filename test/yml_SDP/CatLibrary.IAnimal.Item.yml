@@ -1,9 +1,10 @@
 ### YamlMime:NetMember
 type: property
 members:
-- returns:
+- returnsWithMoniker:
+    type:
+    - value: <xref href="System.String?alt=System.String&text=String" data-throw-if-not-resolved="True"/>
     description: Animal name.
-    type: <xref href="System.String?alt=System.String&text=String" data-throw-if-not-resolved="True"/>
   parameters:
   - namesWithMoniker:
     - value: index

@@ -1,8 +1,9 @@
 ### YamlMime:NetMember
 type: field
 members:
-- returns:
-    type: <xref href="System.Boolean?alt=System.Boolean&text=Boolean" data-throw-if-not-resolved="True"/>
+- returnsWithMoniker:
+    type:
+    - value: <xref href="System.Boolean?alt=System.Boolean&text=Boolean" data-throw-if-not-resolved="True"/>
   uid: CatLibrary.Cat`2.isHealthy
   commentId: F:CatLibrary.Cat`2.isHealthy
   name: isHealthy

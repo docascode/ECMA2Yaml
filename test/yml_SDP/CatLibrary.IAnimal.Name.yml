@@ -1,8 +1,9 @@
 ### YamlMime:NetMember
 type: property
 members:
-- returns:
-    type: <xref href="System.String?alt=System.String&text=String" data-throw-if-not-resolved="True"/>
+- returnsWithMoniker:
+    type:
+    - value: <xref href="System.String?alt=System.String&text=String" data-throw-if-not-resolved="True"/>
   uid: CatLibrary.IAnimal.Name
   commentId: P:CatLibrary.IAnimal.Name
   name: Name
