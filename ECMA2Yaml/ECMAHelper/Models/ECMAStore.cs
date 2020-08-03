@@ -1082,27 +1082,35 @@ namespace ECMA2Yaml.Models
             {
                 return value;
             }
+            if (string.IsNullOrEmpty(typeString))
+            {
+                return null;
+            }
+            if (!typeString.StartsWith("T:"))
+            {
+                typeString = "T:" + typeString;
+            }
 
             EcmaDesc desc = null;
             try
             {
-                if (typeString != null && typeString.EndsWith("*"))
+                if (typeString.EndsWith("*"))
                 {
-                    if (EcmaParser.TryParse("T:" + typeString.TrimEnd('*'), out desc))
+                    if (EcmaParser.TryParse(typeString.TrimEnd('*'), out desc))
                     {
                         desc.DescModifier = EcmaDesc.Mod.Pointer;
                         typeDescriptorCache.Add(typeString, desc);
                     }
                 }
-                else if (typeString != null && typeString.EndsWith("&"))
+                else if (typeString.EndsWith("&"))
                 {
-                    if (EcmaParser.TryParse("T:" + typeString.TrimEnd('&'), out desc))
+                    if (EcmaParser.TryParse(typeString.TrimEnd('&'), out desc))
                     {
                         desc.DescModifier = EcmaDesc.Mod.Ref;
                         typeDescriptorCache.Add(typeString, desc);
                     }
                 }
-                else if (EcmaParser.TryParse("T:" + typeString, out desc))
+                else if (EcmaParser.TryParse(typeString, out desc))
                 {
                     typeDescriptorCache.Add(typeString, desc);
                 }
