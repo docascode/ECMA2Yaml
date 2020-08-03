@@ -19,7 +19,7 @@ namespace ECMA2Yaml.Models
         public bool IsPublishSealedClass 
         { 
             get => Dict.ContainsKey(ECMADevLangs.CSharp)
-                && Dict[ECMADevLangs.CSharp].Any(s => s.Value.StartsWith("public sealed class")); 
+                && Dict[ECMADevLangs.CSharp].All(s => s.Value.StartsWith("public sealed class")); 
         }
 
         public bool IsProtected
@@ -36,6 +36,11 @@ namespace ECMA2Yaml.Models
         {
             get => CombinedModifiers.TryGetValue(csharp, out var list) && list.Contains("static");
         }
+        public bool IsContainMoniker(string moniker)
+        { 
+            var versionedStringS=Dict[ECMADevLangs.CSharp].Where(s => s.Value.StartsWith("public sealed class"));
+            return versionedStringS.Any(p=>p.Monikers.Contains(moniker));
+        } 
 
         public VersionedSignatures(IEnumerable<XElement> sigElements, ItemType? itemType = null)
         {

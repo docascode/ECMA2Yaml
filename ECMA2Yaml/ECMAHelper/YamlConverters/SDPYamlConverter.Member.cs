@@ -14,6 +14,14 @@ namespace ECMA2Yaml
         {
             var sdpMember = InitWithBasicProperties<MemberSDPModel>(m);
 
+            //Filter out moniker of members that are in public sealed class;
+            sdpMember.Monikers = sdpMember.Monikers.Where(p =>
+            {
+                var versionedStrings = m.Signatures.Dict[ECMADevLangs.CSharp]?.Where(s => s.Value.StartsWith("public sealed class"));
+                var bl = versionedStrings.Any(q => q.Monikers.Contains(p));
+                return !bl;
+            });
+
             sdpMember.TypeParameters = ConvertTypeParameters(m);
             sdpMember.ThreadSafety = ConvertThreadSafety(m);
             sdpMember.ImplementsWithMoniker = m.Implements?.Select(impl => new VersionedString(impl.Monikers, DocIdToTypeMDString(impl.Value, _store)))
