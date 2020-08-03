@@ -26,39 +26,20 @@ namespace ECMA2Yaml
             if (m.ReturnValueType != null)
             {
                 var returns = m.ReturnValueType;
-
-
-                if (returns.VersionedTypes.Count() == 1 )
+                var r = returns.VersionedTypes
+                       .Where(v => !string.IsNullOrWhiteSpace(v.Value) && v.Value != "System.Void").ToArray();
+                if (r.Any())
                 {
-                    var oneReturn = returns.VersionedTypes.First();
-                    if (oneReturn != null
-                    && !string.IsNullOrEmpty(oneReturn.Value)
-                    && oneReturn.Value != "System.Void")
+                    foreach (var t in returns.VersionedTypes)
                     {
-                        sdpMember.Returns = new TypeReference()
-                        {
-                            Description = returns.Description,
-                            Type = SDPYamlConverter.TypeStringToTypeMDString(oneReturn.Value, _store)
-                        };
+                        t.Value = SDPYamlConverter.TypeStringToTypeMDString(t.Value, _store);
                     }
-                }
-                else
-                {
-                    var r = returns.VersionedTypes
-                        .Where(v => !string.IsNullOrWhiteSpace(v.Value) && v.Value != "System.Void").ToArray();
-                    if (r.Any())
+                    var returnType = new ReturnValue
                     {
-                        foreach (var t in returns.VersionedTypes)
-                        {
-                            t.Value = SDPYamlConverter.TypeStringToTypeMDString(t.Value, _store);
-                        }
-                        var returnType = new ReturnValue
-                        {
-                            VersionedTypes = r,
-                            Description = returns.Description
-                        };
-                        sdpMember.ReturnsWithMoniker = returnType;
-                    }
+                        VersionedTypes = r,
+                        Description = returns.Description
+                    };
+                    sdpMember.ReturnsWithMoniker = returnType;
                 }
             }
 
