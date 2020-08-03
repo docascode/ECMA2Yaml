@@ -15,6 +15,8 @@ namespace MSDNUrlPatch
         public string BaseUrl { get; set; }
         public int BatchSize { get; set; }
         public string FileExtension { get; set; }
+        public bool PreVersions { get; set; }
+        public bool FixedVersions { get; set; }
 
         List<string> Extras = null;
         OptionSet _options = null;
@@ -28,6 +30,8 @@ namespace MSDNUrlPatch
                 { "fileExtension=", "[Required] processed file extension name.",  l => FileExtension = l },    
                 { "b|baseurl=", "Base url",  l => BaseUrl = l },
                 { "Ver", "Log verbose",  s => LogVerbose = s != null },
+                { "preVersions", "Is url contains 'previous-versions' need fix",  s => PreVersions = s != null },
+                { "fixedVersions", "Is url contains 'view=' need fix",  s => FixedVersions = s != null },
             };
         }
 

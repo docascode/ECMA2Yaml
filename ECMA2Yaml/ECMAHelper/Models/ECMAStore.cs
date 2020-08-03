@@ -1078,30 +1078,46 @@ namespace ECMA2Yaml.Models
 
         public static EcmaDesc GetOrAddTypeDescriptor(string typeString)
         {
-            EcmaDesc desc;
-            if (typeDescriptorCache.ContainsKey(typeString))
+            if (typeDescriptorCache.TryGetValue(typeString, out var value))
             {
-                desc = typeDescriptorCache[typeString];
+                return value;
             }
-            else if (typeString != null && typeString.EndsWith("*"))
+            if (string.IsNullOrEmpty(typeString))
             {
-                if (EcmaParser.TryParse("T:" + typeString.TrimEnd('*'), out desc))
+                return null;
+            }
+            if (!typeString.StartsWith("T:"))
+            {
+                typeString = "T:" + typeString;
+            }
+
+            EcmaDesc desc = null;
+            try
+            {
+                if (typeString.EndsWith("*"))
                 {
-                    desc.DescModifier = EcmaDesc.Mod.Pointer;
+                    if (EcmaParser.TryParse(typeString.TrimEnd('*'), out desc))
+                    {
+                        desc.DescModifier = EcmaDesc.Mod.Pointer;
+                        typeDescriptorCache.Add(typeString, desc);
+                    }
+                }
+                else if (typeString.EndsWith("&"))
+                {
+                    if (EcmaParser.TryParse(typeString.TrimEnd('&'), out desc))
+                    {
+                        desc.DescModifier = EcmaDesc.Mod.Ref;
+                        typeDescriptorCache.Add(typeString, desc);
+                    }
+                }
+                else if (EcmaParser.TryParse(typeString, out desc))
+                {
                     typeDescriptorCache.Add(typeString, desc);
                 }
             }
-            else if (typeString != null && typeString.EndsWith("&"))
+            catch(Exception)
             {
-                if (EcmaParser.TryParse("T:" + typeString.TrimEnd('&'), out desc))
-                {
-                    desc.DescModifier = EcmaDesc.Mod.Ref;
-                    typeDescriptorCache.Add(typeString, desc);
-                }
-            }
-            else if (EcmaParser.TryParse("T:" + typeString, out desc))
-            {
-                typeDescriptorCache.Add(typeString, desc);
+                OPSLogger.LogUserWarning(LogCode.ECMA2Yaml_CommentID_ParseFailed, null, typeString);
             }
             return desc;
         }

@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using ECMA2Yaml.IO;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Concurrent;
@@ -74,7 +75,14 @@ namespace ECMA2Yaml
             file = file.NormalizePath();
             if (!string.IsNullOrEmpty(PathTrimPrefix))
             {
-                file = file.Replace(PathTrimPrefix, "");
+                if (file.StartsWith(PathTrimPrefix))
+                {
+                    file = file.Replace(PathTrimPrefix, ""); 
+                }
+                else
+                {
+                    file = FileAbstractLayer.RelativePath(file, PathTrimPrefix, false);
+                }
             }
             if (!string.IsNullOrEmpty(FallbackPathTrimPrefix))
             {

@@ -128,6 +128,7 @@ namespace ECMA2Yaml
                                     return (moniker, combinedSig);
                                 })
                                 .GroupBy(t => t.combinedSig)
+                                .Where(g => !string.IsNullOrEmpty(g.Key))
                                 .Select(g => new VersionedString(g.Select(t => t.moniker).ToHashSet(), g.Key))
                                 .ToList();
                             }
@@ -145,7 +146,8 @@ namespace ECMA2Yaml
 
         private static string AttachAttributesToSignature(List<ECMAAttribute> attrs, string sig, string lang)
         {
-            if (attrs == null
+            if (string.IsNullOrEmpty(sig)
+                || attrs == null
                 || attrs.Count == 0 
                 || attrs.Count(attr => attr.NamesPerLanguage?.ContainsKey(lang) == true) == 0)
             {
