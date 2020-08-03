@@ -97,7 +97,7 @@ namespace ECMA2Yaml.IO
             }
             else
             {
-                if (!relativeToFile)
+                if (!relativeToFile && !relativeTo.EndsWith("\\"))
                 {
                     relativeTo += "\\";
                 }

@@ -20,8 +20,8 @@ namespace UnitTest
             ECMA2YamlConverter.Run(
                 xmlDirectory,
                 outputDirectory,
-                logWriter: item => Console.WriteLine(item.ToString()),
-                logContentBaseDirectory: testDirectory,
+                logWriter: item => Console.WriteLine(item.File),
+                logContentBaseDirectory: testDirectory + "\\abc",
                 sourceMapFilePath: sourceMapFilePath);
         }
     }
