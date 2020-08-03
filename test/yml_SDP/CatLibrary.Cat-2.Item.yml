@@ -1,9 +1,10 @@
 ### YamlMime:NetMember
 type: property
 members:
-- returns:
+- returnsWithMoniker:
+    type:
+    - value: <xref href="System.Int32?alt=System.Int32&text=Int32" data-throw-if-not-resolved="True"/>
     description: Cat's number.
-    type: <xref href="System.Int32?alt=System.Int32&text=Int32" data-throw-if-not-resolved="True"/>
   parameters:
   - namesWithMoniker:
     - value: a

@@ -1,8 +1,9 @@
 ### YamlMime:NetMember
 type: event
 members:
-- returns:
-    type: <xref href="System.EventHandler?alt=System.EventHandler&text=EventHandler" data-throw-if-not-resolved="True"/>
+- returnsWithMoniker:
+    type:
+    - value: <xref href="System.EventHandler?alt=System.EventHandler&text=EventHandler" data-throw-if-not-resolved="True"/>
   uid: CatLibrary.ICat.eat
   commentId: E:CatLibrary.ICat.eat
   name: eat
