@@ -58,7 +58,7 @@ namespace CatLibrary
     /// </list>
     /// </remarks>
     [Serializable]
-    public class Cat<[Doc("T is a class")] T, K> : ICat
+    public sealed class Cat<[Doc("T is a class")] T, K> : ICat
         where T : class, new()
         where K : struct
     {

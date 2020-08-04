@@ -555,7 +555,7 @@ namespace ECMA2Yaml.Models
                                     //Filter out moniker of members that are in public sealed class;
                                     m.Monikers = m.Monikers.Where(p =>
                                     {
-                                        var versionedStrings = m.Parent.Signatures.Dict[ECMADevLangs.CSharp]?.Where(s => s.Value.StartsWith("public sealed class"));
+                                        var versionedStrings = m.Parent.Signatures.GetPublishSealedClasses();
                                         var bl = versionedStrings.Any(q => q.Monikers.Contains(p));
                                         return !bl;
                                     }).ToHashSet();

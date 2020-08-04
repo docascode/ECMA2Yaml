@@ -25,7 +25,6 @@ members:
     values:
     - value: Protected Property Age As Integer
   monikers:
-  - cat-1.0
   - cat-2.0
   summary: Hint cat's age.
   uwpRequirements:
@@ -59,7 +58,6 @@ devLangs:
 - cpp
 - fsharp
 monikers:
-- cat-1.0
 - cat-2.0
 metadata:
   content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Cat`2.xml
@@ -90,5 +88,4 @@ metadata:
   - Cat<T,K>.Age property [.NET]
   - Age property [.NET], class Cat<T,K>
   monikers:
-  - cat-1.0
   - cat-2.0
