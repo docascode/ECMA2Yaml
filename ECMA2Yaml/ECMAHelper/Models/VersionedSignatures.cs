@@ -19,7 +19,7 @@ namespace ECMA2Yaml.Models
         public bool IsPublishSealedClass 
         { 
             get => Dict.ContainsKey(ECMADevLangs.CSharp)
-                && Dict[ECMADevLangs.CSharp].Any(s => s.Value.StartsWith("public sealed class")); 
+                && Dict[ECMADevLangs.CSharp].All(s => s.Value.StartsWith("public sealed class")); 
         }
 
         public bool IsProtected

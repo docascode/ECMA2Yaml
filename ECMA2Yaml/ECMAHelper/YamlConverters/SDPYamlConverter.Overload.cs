@@ -19,7 +19,7 @@ namespace ECMA2Yaml
                 Remarks = overload?.Docs?.Remarks,
                 Examples = overload?.Docs?.Examples,
                 Type = members.First().ItemType.ToString().ToLower(),
-                Members = members.Select(m => FormatSingleMember(m)).ToList()
+                Members = members.Select(m => FormatSingleMember(m))?.Where(n=>n!=null)?.ToList()
             };
             if (overload != null)
             {
