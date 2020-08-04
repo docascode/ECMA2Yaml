@@ -550,6 +550,15 @@ namespace ECMA2Yaml.Models
                             if (_frameworks.DocIdToFrameworkDict.ContainsKey(m.DocId))
                             {
                                 m.Monikers = new HashSet<string>(_frameworks.DocIdToFrameworkDict[m.DocId]);
+
+                                //Filter out moniker of members that are in public sealed class;
+                                m.Monikers = m.Monikers.Where(p =>
+                                {
+                                    var versionedStrings = m.Signatures.Dict[ECMADevLangs.CSharp]?.Where(s => s.Value.StartsWith("public sealed class"));
+                                    var bl = versionedStrings.Any(q => q.Monikers.Contains(p));
+                                    return !bl;
+                                })?.ToHashSet();
+
                             }
                             else
                             {
