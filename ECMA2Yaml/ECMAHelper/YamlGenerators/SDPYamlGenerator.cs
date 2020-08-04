@@ -1,4 +1,5 @@
 ﻿using ECMA2Yaml.Models;
+using ECMA2Yaml.YamlHelpers;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -130,7 +131,7 @@ namespace ECMA2Yaml
                 item.Uid.TrimEnd('*'),
                 $"{parentUid}.{name}",
                 $"{parentUid}.{name.Split('.').Last()}",
-                $"{parentUid}.{item.Id.GetHashCode()}"
+                $"{parentUid}.{item.Id.GetDeterministicHashCode()}"
                 );
         }
 
