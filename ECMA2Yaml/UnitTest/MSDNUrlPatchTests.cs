@@ -35,13 +35,16 @@ namespace UnitTest
 
         [DataTestMethod]
         [DataRow(@"https://msdn.microsoft.com/library/e5ae402f-6dda-4732-bbe8-77296630f675"
-                    , "/previous-versions/h846e9b3(v=vs.110)",true)]
+                    , "/previous-versions/h846e9b3(v=vs.110)", true)]
         [DataRow(@"https://msdn.microsoft.com/library/e5ae402f-6dda-4732-bbe8-77296630f675"
                     , "NoNeed", false)]
         public void PreVersions_Switch_Test(string inText, string expected, bool isPreVersions)
         {
             CommandLineOptions option = new CommandLineOptions() { BaseUrl = "https://docs.microsoft.com/en-us", PreVersions=isPreVersions };
-            var newUrl = new UrlRepairHelper(option).GetDocsUrl(inText);
+            var urlRepairHelper = new UrlRepairHelper(option);
+            urlRepairHelper.MockTestData("https://msdn.microsoft.com/library/e5ae402f-6dda-4732-bbe8-77296630f675"
+                , "https://docs.microsoft.com/en-us/previous-versions/h846e9b3(v=vs.110)?redirectedfrom=MSDN");
+            var newUrl = urlRepairHelper.GetDocsUrl(inText);
             Assert.AreEqual(expected, newUrl);
         }
 
@@ -53,6 +56,9 @@ namespace UnitTest
         public void FixedVersions_Switch_Test(string inText, string expected, bool isFixedVersions)
         {
             CommandLineOptions option = new CommandLineOptions() { BaseUrl = "https://docs.microsoft.com/en-us",  FixedVersions = isFixedVersions };
+            var urlRepairHelper = new UrlRepairHelper(option);
+            urlRepairHelper.MockTestData("https://msdn.microsoft.com/library/f811c019-a67b-4d54-82e6-e29549496f6e"
+                , "https://docs.microsoft.com/en-us/visualstudio/msbuild/aspnetcompiler-task?view=vs-2015&redirectedfrom=MSDN");
             var newUrl = new UrlRepairHelper(option).GetDocsUrl(inText);
             Assert.AreEqual(expected, newUrl);
         }
@@ -80,7 +86,15 @@ namespace UnitTest
         public void RepairString_Test(string inText, string expected)
         {
             CommandLineOptions option = new CommandLineOptions() { BaseUrl = "https://docs.microsoft.com/en-us" , FixedVersions= true, PreVersions=true };
-            var newText = new UrlRepairHelper(option).RepairString(inText, null);
+            var urlRepairHelper = new UrlRepairHelper(option);
+            urlRepairHelper.MockTestData("https://msdn.microsoft.com/library/microsoft.web.management.databasemanager.column.allownulls"
+                , "https://docs.microsoft.com/en-us/iis/extensions/database-manager-reference/column-allownulls-property-microsoft-web-management-databasemanager?redirectedfrom=MSDN");
+            urlRepairHelper.MockTestData("https://msdn.microsoft.com/library/1d3t3c61.aspx"
+                , "https://docs.microsoft.com/en-us/previous-versions/dotnet/netframework-4.0/1d3t3c61(v=vs.100)?redirectedfrom=MSDN");
+            urlRepairHelper.MockTestData("https://msdn.microsoft.com/library/jj591583(v=vs.113).aspx"
+                , "https://docs.microsoft.com/en-us/ef/ef6/modeling/code-first/data-annotations?redirectedfrom=MSDN");
+            urlRepairHelper.MockTestData("", "");
+            var newText = urlRepairHelper.RepairString(inText, null);
             Assert.AreEqual(expected, newText);
         }
     }
