@@ -52,7 +52,7 @@ syntaxWithMoniker:
       public enum Complex<T,J>.ComplexFlags
 - lang: fsharp
   values:
-  - value: "[<System.Flags>]\ntype Complex<'T, 'J>.ComplexFlags = "
+  - value: "type Complex<'T, 'J>.ComplexFlags = "
 - lang: vb
   values:
   - value: Public Enum Complex(Of T, J).ComplexFlags

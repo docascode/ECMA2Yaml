@@ -553,12 +553,8 @@ namespace ECMA2Yaml.Models
                                 if (m.Signatures.IsProtected)
                                 {
                                     //Filter out moniker of members that are in public sealed class;
-                                    m.Monikers = m.Monikers.Where(p =>
-                                    {
-                                        var versionedStrings = m.Parent.Signatures.GetPublishSealedClasses();
-                                        var bl = versionedStrings.Any(q => q.Monikers.Contains(p));
-                                        return !bl;
-                                    }).ToHashSet();
+                                    var publishSealedClasses = m.Parent.Signatures.GetPublishSealedClasses()?.Select(s => s.Monikers)?.ToList();
+                                    publishSealedClasses?.ForEach(p => m.Monikers = m.Monikers.Except(p).ToHashSet());
                                 }
 
                             }
