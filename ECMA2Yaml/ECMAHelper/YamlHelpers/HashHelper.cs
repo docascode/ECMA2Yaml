@@ -1,6 +1,7 @@
 ﻿namespace ECMA2Yaml.YamlHelpers
 {
     using System;
+
     public static class HashHelper
     {
         public static int GetDeterministicHashCode(this string str)
@@ -20,6 +21,6 @@
 
                 return hash1 + (hash2 * 1566083941);
             }
-        }        
+        }
     }
 }
