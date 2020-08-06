@@ -38,6 +38,7 @@ namespace MSDNUrlPatch
         static int _batchSize = 100;
 
         Dictionary<string, string> UrlDic = new Dictionary<string, string>();   // <msdn url,docs url>
+        Dictionary<string, string> _MockTestData = new Dictionary<string, string>();   // Mock data: <msdn url,docs url>
         List<string> logMessages = new List<string>();
 
         public UrlRepairHelper(CommandLineOptions option)
@@ -497,6 +498,12 @@ namespace MSDNUrlPatch
 
         public async Task<string> GetRedirectUrl(string msdnUrl)
         {
+            // Only for unit test
+            if (_MockTestData != null && _MockTestData.ContainsKey(msdnUrl))
+            {
+                return _MockTestData[msdnUrl];
+            }
+
             try
             {
                 var response = await _client.GetAsync(msdnUrl);
@@ -592,6 +599,14 @@ namespace MSDNUrlPatch
 
             partialChar = "";
             return url;
+        }
+
+        public void MockTestData(string msdnUrl, string redirectUrl)
+        {
+            if (!_MockTestData.ContainsKey(msdnUrl))
+            {
+                _MockTestData[msdnUrl] = redirectUrl;
+            }
         }
     }
 }
