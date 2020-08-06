@@ -11,12 +11,16 @@
     <Meta Name="apiContracts" Value="Win10 build 2" />
     <Meta Name="contentSourcePath" Value="aaa\bbb.md" />
   </Metadata>
-  <TypeSignature Language="C#" Value="public class Cat&lt;T,K&gt; : CatLibrary.ICat where T : class, new() where K : struct" />
-  <TypeSignature Language="ILAsm" Value=".class public auto ansi serializable beforefieldinit Cat`2&lt;class .ctor T, struct .ctor (class System.ValueType) K&gt; extends System.Object implements class CatLibrary.IAnimal, class CatLibrary.ICat" />
+  <TypeSignature Language="C#" Value="public sealed class Cat&lt;T,K&gt; : CatLibrary.ICat where T : class, new() where K : struct" FrameworkAlternate="cat-1.0" />
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi serializable sealed beforefieldinit Cat`2&lt;class .ctor T, struct .ctor (class System.ValueType) K&gt; extends System.Object implements class CatLibrary.IAnimal, class CatLibrary.ICat" FrameworkAlternate="cat-1.0" />
   <TypeSignature Language="DocId" Value="T:CatLibrary.Cat`2" />
-  <TypeSignature Language="VB.NET" Value="Public Class Cat(Of T, K)&#xA;Implements ICat" />
-  <TypeSignature Language="C++ CLI" Value="generic &lt;typename T, typename K&gt;&#xA; where T : class, gcnew() where K : value classpublic ref class Cat : CatLibrary::ICat" />
+  <TypeSignature Language="VB.NET" Value="Public NotInheritable Class Cat(Of T, K)&#xA;Implements ICat" FrameworkAlternate="cat-1.0" />
+  <TypeSignature Language="C++ CLI" Value="generic &lt;typename T, typename K&gt;&#xA; where T : class, gcnew() where K : value classpublic ref class Cat sealed : CatLibrary::ICat" FrameworkAlternate="cat-1.0" />
   <TypeSignature Language="F#" Value="type Cat&lt;'T, 'K (requires 'T : null and 'T : (new : unit -&gt; 'T) and 'K : struct)&gt; = class&#xA;    interface ICat&#xA;    interface IAnimal" />
+  <TypeSignature Language="C#" Value="public class Cat&lt;T,K&gt; : CatLibrary.ICat where T : class, new() where K : struct" FrameworkAlternate="cat-2.0" />
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi serializable beforefieldinit Cat`2&lt;class .ctor T, struct .ctor (class System.ValueType) K&gt; extends System.Object implements class CatLibrary.IAnimal, class CatLibrary.ICat" FrameworkAlternate="cat-2.0" />
+  <TypeSignature Language="VB.NET" Value="Public Class Cat(Of T, K)&#xA;Implements ICat" FrameworkAlternate="cat-2.0" />
+  <TypeSignature Language="C++ CLI" Value="generic &lt;typename T, typename K&gt;&#xA; where T : class, gcnew() where K : value classpublic ref class Cat : CatLibrary::ICat" FrameworkAlternate="cat-2.0" />
   <AssemblyInfo>
     <AssemblyName>CatLibrary</AssemblyName>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
@@ -62,8 +66,7 @@
   </Interfaces>
   <Attributes>
     <Attribute>
-      <AttributeName Language="C#">[System.Serializable]</AttributeName>
-      <AttributeName Language="F#">[&lt;System.Serializable&gt;]</AttributeName>
+      <AttributeName>System.Serializable</AttributeName>
     </Attribute>
   </Attributes>
   <Docs>
@@ -337,8 +340,7 @@
       </AssemblyInfo>
       <Attributes>
         <Attribute FrameworkAlternate="cat-2.0">
-          <AttributeName Language="C#">[System.Obsolete("mark CatchJerry(bool force) as obsolete for testing")]</AttributeName>
-          <AttributeName Language="F#">[&lt;System.Obsolete("mark CatchJerry(bool force) as obsolete for testing")&gt;]</AttributeName>
+          <AttributeName>System.Obsolete("mark CatchJerry(bool force) as obsolete for testing")</AttributeName>
         </Attribute>
       </Attributes>
       <ReturnValue>
@@ -551,8 +553,7 @@
         <Parameter Name="parameters" Type="System.Object[]">
           <Attributes>
             <Attribute FrameworkAlternate="cat-1.0">
-              <AttributeName Language="C#">[System.ParamArray]</AttributeName>
-              <AttributeName Language="F#">[&lt;System.ParamArray&gt;]</AttributeName>
+              <AttributeName>System.ParamArray</AttributeName>
             </Attribute>
           </Attributes>
         </Parameter>
@@ -583,12 +584,10 @@
       </AssemblyInfo>
       <Attributes>
         <Attribute>
-          <AttributeName Language="C#">[System.ContextStatic]</AttributeName>
-          <AttributeName Language="F#">[&lt;System.ContextStatic&gt;]</AttributeName>
+          <AttributeName>System.ContextStatic</AttributeName>
         </Attribute>
         <Attribute FrameworkAlternate="cat-2.0">
-          <AttributeName Language="C#">[System.Obsolete("mark IsHealthy as obsolete for testing")]</AttributeName>
-          <AttributeName Language="F#">[&lt;System.Obsolete("mark IsHealthy as obsolete for testing")&gt;]</AttributeName>
+          <AttributeName>System.Obsolete("mark IsHealthy as obsolete for testing")</AttributeName>
         </Attribute>
       </Attributes>
       <ReturnValue>
@@ -658,8 +657,7 @@
       </AssemblyInfo>
       <Attributes>
         <Attribute>
-          <AttributeName Language="C#">[System.Diagnostics.Conditional("Debug")]</AttributeName>
-          <AttributeName Language="F#">[&lt;System.Diagnostics.Conditional("Debug")&gt;]</AttributeName>
+          <AttributeName>System.Diagnostics.Conditional("Debug")</AttributeName>
         </Attribute>
       </Attributes>
       <ReturnValue>

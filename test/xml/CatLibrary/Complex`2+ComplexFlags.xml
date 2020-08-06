@@ -33,8 +33,7 @@
   </Base>
   <Attributes>
     <Attribute>
-      <AttributeName Language="C#">[System.Flags]</AttributeName>
-      <AttributeName Language="F#">[&lt;System.Flags&gt;]</AttributeName>
+      <AttributeName>System.Flags</AttributeName>
     </Attribute>
   </Attributes>
   <Docs>

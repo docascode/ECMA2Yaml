@@ -40,8 +40,7 @@
     <Parameter Name="scores" Type="System.Object[]">
       <Attributes>
         <Attribute FrameworkAlternate="cat-1.0">
-          <AttributeName Language="C#">[System.ParamArray]</AttributeName>
-          <AttributeName Language="F#">[&lt;System.ParamArray&gt;]</AttributeName>
+          <AttributeName>System.ParamArray</AttributeName>
         </Attribute>
       </Attributes>
     </Parameter>
