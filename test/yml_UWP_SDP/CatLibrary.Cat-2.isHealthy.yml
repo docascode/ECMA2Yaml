@@ -36,7 +36,20 @@ members:
       - cat-2.0
   - lang: fsharp
     values:
-    - value: 'val mutable isHealthy : bool'
+    - value: >-
+        [<System.ContextStatic>]
+
+        val mutable isHealthy : bool
+      monikers:
+      - cat-1.0
+    - value: >-
+        [<System.ContextStatic>]
+
+        [<System.Obsolete("mark IsHealthy as obsolete for testing")>]
+
+        val mutable isHealthy : bool
+      monikers:
+      - cat-2.0
   - lang: vb
     values:
     - value: 'Public isHealthy As Boolean '

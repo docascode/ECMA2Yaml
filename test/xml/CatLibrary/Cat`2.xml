@@ -66,7 +66,8 @@
   </Interfaces>
   <Attributes>
     <Attribute>
-      <AttributeName>System.Serializable</AttributeName>
+      <AttributeName Language="C#">[System.Serializable]</AttributeName>
+      <AttributeName Language="F#">[&lt;System.Serializable&gt;]</AttributeName>
     </Attribute>
   </Attributes>
   <Docs>
@@ -340,7 +341,8 @@
       </AssemblyInfo>
       <Attributes>
         <Attribute FrameworkAlternate="cat-2.0">
-          <AttributeName>System.Obsolete("mark CatchJerry(bool force) as obsolete for testing")</AttributeName>
+          <AttributeName Language="C#">[System.Obsolete("mark CatchJerry(bool force) as obsolete for testing")]</AttributeName>
+          <AttributeName Language="F#">[&lt;System.Obsolete("mark CatchJerry(bool force) as obsolete for testing")&gt;]</AttributeName>
         </Attribute>
       </Attributes>
       <ReturnValue>
@@ -553,7 +555,8 @@
         <Parameter Name="parameters" Type="System.Object[]">
           <Attributes>
             <Attribute FrameworkAlternate="cat-1.0">
-              <AttributeName>System.ParamArray</AttributeName>
+              <AttributeName Language="C#">[System.ParamArray]</AttributeName>
+              <AttributeName Language="F#">[&lt;System.ParamArray&gt;]</AttributeName>
             </Attribute>
           </Attributes>
         </Parameter>
@@ -584,10 +587,12 @@
       </AssemblyInfo>
       <Attributes>
         <Attribute>
-          <AttributeName>System.ContextStatic</AttributeName>
+          <AttributeName Language="C#">[System.ContextStatic]</AttributeName>
+          <AttributeName Language="F#">[&lt;System.ContextStatic&gt;]</AttributeName>
         </Attribute>
         <Attribute FrameworkAlternate="cat-2.0">
-          <AttributeName>System.Obsolete("mark IsHealthy as obsolete for testing")</AttributeName>
+          <AttributeName Language="C#">[System.Obsolete("mark IsHealthy as obsolete for testing")]</AttributeName>
+          <AttributeName Language="F#">[&lt;System.Obsolete("mark IsHealthy as obsolete for testing")&gt;]</AttributeName>
         </Attribute>
       </Attributes>
       <ReturnValue>
@@ -657,7 +662,8 @@
       </AssemblyInfo>
       <Attributes>
         <Attribute>
-          <AttributeName>System.Diagnostics.Conditional("Debug")</AttributeName>
+          <AttributeName Language="C#">[System.Diagnostics.Conditional("Debug")]</AttributeName>
+          <AttributeName Language="F#">[&lt;System.Diagnostics.Conditional("Debug")&gt;]</AttributeName>
         </Attribute>
       </Attributes>
       <ReturnValue>

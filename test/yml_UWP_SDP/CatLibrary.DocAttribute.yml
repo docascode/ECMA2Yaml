@@ -29,6 +29,8 @@ syntaxWithMoniker:
 - lang: fsharp
   values:
   - value: >-
+      [<System.AttributeUsage(System.AttributeTargets.All)>]
+
       type DocAttribute = class
           inherit Attribute
 - lang: vb
