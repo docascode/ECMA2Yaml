@@ -53,6 +53,6 @@ New-Item frameworks\CatLibrary\cat-2.0 -Type Directory -Force
 Copy-Item "CatLibraryV1\CatLibrary\bin\Release\*" -Destination "frameworks\CatLibrary\cat-1.0\" -Recurse -Force -Container
 Copy-Item "CatLibraryV2\CatLibrary\bin\Release\*" -Destination "frameworks\CatLibrary\cat-2.0\" -Recurse -Force -Container
 
-& $mdocPath update -o xml -fx frameworks\CatLibrary -lang docid -lang vb.net -lang c++/cli -lang fsharp --delete
+& $mdocPath update -o xml -fx frameworks\CatLibrary -lang docid -lang vb.net -lang c++/cli -lang fsharp --delete -index false
 
 popd
