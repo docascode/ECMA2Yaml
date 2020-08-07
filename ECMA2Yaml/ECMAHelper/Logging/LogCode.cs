@@ -44,6 +44,7 @@ namespace ECMA2Yaml
 		public static readonly LogCode ECMA2Yaml_Type_ExternalBaseType = new LogCode("ECMA2Yaml_Type_ExternalBaseType", "Type {0} has an external base type {1}");
 		public static readonly LogCode ECMA2Yaml_ExceptionTypeNotFound = new LogCode("ECMA2Yaml_ExceptionTypeNotFound", "Referenced exception type not found: {0}");
 		public static readonly LogCode ECMA2Yaml_CrefTypePrefixMissing = new LogCode("ECMA2Yaml_CrefTypePrefixMissing", "Invalid cref format ({0}) detected in {1}");
+		public static readonly LogCode ECMA2Yaml_Member_EmptyMoniker = new LogCode("ECMA2Yaml_Member_EmptyMoniker", "{0} have empty Moniker");
 		#endregion
     public LogCode(string code, string msgTemplate)
         : base(code, msgTemplate)

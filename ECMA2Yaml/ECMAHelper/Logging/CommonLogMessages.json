@@ -157,6 +157,11 @@
           "log_code": "ECMA2Yaml_CrefTypePrefixMissing",
           "message": "Invalid cref format ({0}) detected in {1}",
           "document_url": ""
+        },
+        {
+          "log_code": "ECMA2Yaml_Member_EmptyMoniker",
+          "message": "{0} have empty Moniker",
+          "document_url": ""
         }
       ]
     }
