@@ -93,7 +93,6 @@ eiis:
 properties:
 - uid: CatLibrary.Cat`2.Age
   monikers:
-  - cat-1.0
   - cat-2.0
 - uid: CatLibrary.Cat`2.Item(System.String)
   monikers:
@@ -135,13 +134,28 @@ syntaxWithMoniker:
   values:
   - value: >-
       generic <typename T, typename K>
+       where T : class, gcnew() where K : value classpublic ref class Cat sealed : CatLibrary::ICat
+    monikers:
+    - cat-1.0
+  - value: >-
+      generic <typename T, typename K>
        where T : class, gcnew() where K : value classpublic ref class Cat : CatLibrary::ICat
+    monikers:
+    - cat-2.0
 - lang: csharp
   values:
   - value: >-
       [System.Serializable]
 
+      public sealed class Cat<T,K> : CatLibrary.ICat where T : class, new() where K : struct
+    monikers:
+    - cat-1.0
+  - value: >-
+      [System.Serializable]
+
       public class Cat<T,K> : CatLibrary.ICat where T : class, new() where K : struct
+    monikers:
+    - cat-2.0
 - lang: fsharp
   values:
   - value: >-
@@ -153,9 +167,17 @@ syntaxWithMoniker:
 - lang: vb
   values:
   - value: >-
+      Public NotInheritable Class Cat(Of T, K)
+
+      Implements ICat
+    monikers:
+    - cat-1.0
+  - value: >-
       Public Class Cat(Of T, K)
 
       Implements ICat
+    monikers:
+    - cat-2.0
 devLangs:
 - csharp
 - vb

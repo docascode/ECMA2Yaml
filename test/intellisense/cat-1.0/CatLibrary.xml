@@ -104,10 +104,6 @@
       <param name="lsr" />
       <param name="rsr" />
     </member>
-    <member name="P:CatLibrary.Cat`2.Age">
-      <summary>
-            Hint cat's age.</summary>
-    </member>
     <member name="P:CatLibrary.Cat`2.CatLibrary#IAnimal#Item(System.Int32)">
       <summary>
             EII index.</summary>

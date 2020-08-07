@@ -179,7 +179,7 @@ namespace ECMA2Yaml
                     return new HashSet<string>(propertyMonikers.Intersect(itemMonikers));
                 }
             }
-            return propertyMonikers;
+            return propertyMonikers.NullIfEmpty();
         }
 
         public static List<VersionedValue<T>> TrimMonikers<T>(List<VersionedValue<T>> versionedValues, HashSet<string> itemMonikers)
