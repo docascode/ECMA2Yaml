@@ -93,6 +93,11 @@ namespace IntellisenseFileGen
                 return;
             }
             store.Build();
+            if (OPSLogger.ErrorLogged)
+            {
+                WriteLine("ECMAStore.Build() met error, will quit.");
+                return;
+            }
             var frameworks = store.GetFrameworkIndex();
             List<string> requiredFrameworkList = new List<string>();
             frameworks.FrameworkAssemblies.Keys.ToList().ForEach(fw =>

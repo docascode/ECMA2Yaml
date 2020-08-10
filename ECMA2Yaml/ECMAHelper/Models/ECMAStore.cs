@@ -973,7 +973,7 @@ namespace ECMA2Yaml.Models
                                     }
                                     else
                                     {
-                                        OPSLogger.LogUserWarning(LogCode.ECMA2Yaml_Member_EmptyMoniker, m.SourceFileLocalPath, m.DocId);
+                                        OPSLogger.LogUserError(LogCode.ECMA2Yaml_Member_EmptyMoniker, m.SourceFileLocalPath, m.DocId);
                                     }
                                 }
                             }
