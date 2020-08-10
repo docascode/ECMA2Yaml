@@ -962,11 +962,18 @@ namespace ECMA2Yaml.Models
                                 // so we should check both the id and moniker
                                 if (inheritedMembersById.TryGetValue(m.Id, out var inheritedMember))
                                 {
-                                    // Create another HashSet since all the inheritedMembersById share the same "Monikers" object
-                                    inheritedMember.Monikers = inheritedMember.Monikers.Except(m.Monikers).ToHashSet();
-                                    if(inheritedMember.Monikers.Count == 0)
+                                    if (m.Monikers != null)
                                     {
-                                        inheritedMembersById.Remove(m.Id);
+                                        // Create another HashSet since all the inheritedMembersById share the same "Monikers" object
+                                        inheritedMember.Monikers = inheritedMember.Monikers.Except(m.Monikers).ToHashSet();
+                                        if(inheritedMember.Monikers.Count == 0)
+                                        {
+                                            inheritedMembersById.Remove(m.Id);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        OPSLogger.LogUserError(LogCode.ECMA2Yaml_Member_EmptyMoniker, m.SourceFileLocalPath, m.DocId);
                                     }
                                 }
                             }

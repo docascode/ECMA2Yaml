@@ -19,6 +19,7 @@ namespace IntellisenseFileGen
         static string _docsetFolder = @"G:\SourceCode\DevCode\dotnet-api-docs";
         static string _outFolder = @"G:\ECMA2Yaml-output\GenerateIntellisense\_intellisense";
         static string _moniker = string.Empty;
+        static string _logFile = string.Empty;
         static string _repoRootFolder = string.Empty;
         static string _fallbackRepoRootFolder = string.Empty;
         static string[] _replaceStringDic = new string[] {
@@ -42,6 +43,7 @@ namespace IntellisenseFileGen
                 _docsetFolder = opt.DocsetPath;
                 _outFolder = opt.OutFolder;
                 _moniker = opt.Moniker;
+                _logFile = opt.LogFilePath;
             }
 
             if (string.IsNullOrEmpty(_xmlDataFolder))
@@ -54,6 +56,10 @@ namespace IntellisenseFileGen
             {
                 // TODO: log error
                 return;
+            }
+            if (string.IsNullOrEmpty(opt.LogFilePath))
+            {
+                _logFile = "log.txt";
             }
             (_repoRootFolder, _fallbackRepoRootFolder) = ECMALoader.GetRepoRootBySubPath(_xmlDataFolder);
             _fileAccessor = new FileAccessor(_repoRootFolder, _fallbackRepoRootFolder);
@@ -69,9 +75,11 @@ namespace IntellisenseFileGen
             }
             catch (Exception ex)
             {
-                WriteLine(ex.ToString());
-                throw ex;
-                // TODO: log error
+                OPSLogger.LogSystemError(LogCode.ECMA2Yaml_InternalError, null, ex.ToString());
+            }
+            finally
+            {
+                OPSLogger.Flush(_logFile);
             }
         }
 
@@ -85,6 +93,11 @@ namespace IntellisenseFileGen
                 return;
             }
             store.Build();
+            if (OPSLogger.ErrorLogged)
+            {
+                WriteLine("ECMAStore.Build() met error, will quit.");
+                return;
+            }
             var frameworks = store.GetFrameworkIndex();
             List<string> requiredFrameworkList = new List<string>();
             frameworks.FrameworkAssemblies.Keys.ToList().ForEach(fw =>

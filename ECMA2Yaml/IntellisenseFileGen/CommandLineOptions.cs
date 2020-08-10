@@ -13,6 +13,7 @@ namespace IntellisenseFileGen
         public string XmlPath { get; set; }
         public string OutFolder { get; set; }
         public string Moniker { get; set; }
+        public string LogFilePath { get; set; }
 
 
         List<string> Extras = null;
@@ -25,6 +26,7 @@ namespace IntellisenseFileGen
                 { "x|xmlpath=", "[Required] the xml data path.", s => XmlPath = s },
                 { "o|outpath=", "[Required] output file path.",  s => OutFolder = s},
                 { "m|moniker=", "moniker name.",  s => Moniker = s},
+                { "l|log=", "the log file path.",  l => LogFilePath = l },
             };
         }
 
