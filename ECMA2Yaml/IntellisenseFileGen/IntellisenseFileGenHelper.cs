@@ -48,15 +48,15 @@ namespace IntellisenseFileGen
 
             if (string.IsNullOrEmpty(_xmlDataFolder))
             {
-                // TODO: log error
-
+                WriteLine("xml path can't be null!");
                 return;
             }
             if (!Directory.Exists(_docsetFolder))
             {
-                // TODO: log error
+                WriteLine($"docset path '{_docsetFolder}' not exist");
                 return;
             }
+
             if (string.IsNullOrEmpty(opt.LogFilePath))
             {
                 _logFile = "log.txt";
