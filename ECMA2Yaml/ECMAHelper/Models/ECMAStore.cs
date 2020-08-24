@@ -545,7 +545,7 @@ namespace ECMA2Yaml.Models
                     }
                     if (t.Members != null)
                     {
-                        foreach (var m in t.Members.Where(m => !string.IsNullOrEmpty(m.DocId)))
+                        foreach (var m in t.Members.Where(m => !string.IsNullOrEmpty(m.DocId)).ToList())
                         {
                             if (_frameworks.DocIdToFrameworkDict.ContainsKey(m.DocId))
                             {
@@ -555,6 +555,10 @@ namespace ECMA2Yaml.Models
                                     //Filter out moniker of members that are in public sealed class;
                                     var publishSealedClasses = m.Parent.Signatures.GetPublishSealedClasses()?.SelectMany(s => s.Monikers).ToList();
                                     m.Monikers = m.Monikers.Except(publishSealedClasses).ToHashSet();
+                                    if (m.Monikers.Count == 0)
+                                    {
+                                        t.Members.Remove(m);
+                                    }
                                 }
                             }
                             else
