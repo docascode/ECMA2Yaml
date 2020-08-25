@@ -154,21 +154,21 @@ namespace ECMA2Yaml.Models
         {
             foreach (var ns in _nsList)
             {
-                HandleContentSourceMeta(ns, publicGitRepoUrl, publicGitBranch);
+                HandleContentSourceMeta(ns, publicGitBranch, publicGitRepoUrl);
                 foreach (var t in ns.Types)
                 {
-                    HandleContentSourceMeta(t, publicGitRepoUrl, publicGitBranch);
+                    HandleContentSourceMeta(t, publicGitBranch, publicGitRepoUrl);
                     if (t.Members != null)
                     {
                         foreach (var m in t.Members)
                         {
-                            HandleContentSourceMeta(m, publicGitRepoUrl, publicGitBranch);
+                            HandleContentSourceMeta(m, publicGitBranch, publicGitRepoUrl);
                         }
                         if (t.Overloads != null)
                         {
                             foreach (var o in t.Overloads)
                             {
-                                HandleContentSourceMeta(o, publicGitRepoUrl, publicGitBranch);
+                                HandleContentSourceMeta(o, publicGitBranch, publicGitRepoUrl);
                             }
                         }
                     }
@@ -209,24 +209,24 @@ namespace ECMA2Yaml.Models
             foreach (var ns in _nsList)
             {
                 TranslateSourceLocation(ns, sourcePathRoot, gitUrlPattern, publicGitUrlPattern);
-                HandleContentSourceMeta(ns, publicGitRepoUrl, publicGitBranch);
+                HandleContentSourceMeta(ns, publicGitBranch, publicGitRepoUrl);
                 foreach (var t in ns.Types)
                 {
                     TranslateSourceLocation(t, sourcePathRoot, gitUrlPattern, publicGitUrlPattern);
-                    HandleContentSourceMeta(t, publicGitRepoUrl, publicGitBranch);
+                    HandleContentSourceMeta(t, publicGitBranch, publicGitRepoUrl);
                     if (t.Members != null)
                     {
                         foreach (var m in t.Members)
                         {
                             TranslateSourceLocation(m, sourcePathRoot, gitUrlPattern, publicGitUrlPattern);
-                            HandleContentSourceMeta(m, publicGitRepoUrl, publicGitBranch);
+                            HandleContentSourceMeta(m, publicGitBranch, publicGitRepoUrl);
                         }
                         if (t.Overloads != null)
                         {
                             foreach (var o in t.Overloads)
                             {
                                 TranslateSourceLocation(o, sourcePathRoot, gitUrlPattern, publicGitUrlPattern);
-                                HandleContentSourceMeta(o, publicGitRepoUrl, publicGitBranch);
+                                HandleContentSourceMeta(o, publicGitBranch, publicGitRepoUrl);
                             }
                         }
                     }
