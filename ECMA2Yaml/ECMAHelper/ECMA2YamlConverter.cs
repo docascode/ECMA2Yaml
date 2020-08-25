@@ -68,7 +68,7 @@ namespace ECMA2Yaml
             }
 
             Console.WriteLine("Building loaded files...");
-            Console.WriteLine($"ECMA2YamlRepoConfig:{config}");
+            Console.WriteLine($"ECMA2YamlRepoConfig:{JsonConvert.SerializeObject(config)}");
             store.UWPMode = config?.UWP ?? false;
             store.Build();
 

@@ -22,9 +22,5 @@ namespace ECMA2Yaml
         [JsonProperty("UWP")]
         public bool UWP { get; set; }
 
-        public override string ToString()
-        {
-            return "{" + $"BatchId:{BatchId},SourceXmlFolder:{SourceXmlFolder},OutputYamlFolder:{OutputYamlFolder},Flatten:{Flatten},UWP:{UWP}" + "}";
-        }
     }
 }
