@@ -24,5 +24,19 @@ namespace UnitTest
                 logContentBaseDirectory: testDirectory + "\\abc",
                 sourceMapFilePath: sourceMapFilePath);
         }
+        [TestMethod]
+        public void ECMA2YamlConverter_HappyPath_UWPMode()
+        {
+            string testDirectory = Path.GetFullPath("..\\..\\..\\..\\test");
+            string xmlDirectory = Path.Combine(testDirectory, "xml");
+            string outputDirectory = Path.Combine(testDirectory, "_yml_UnitTests_ECMA2YamlConverter_HappyPath_UWPMode");
+            string sourceMapFilePath = Path.Combine(testDirectory, "_yml_UnitTests_ECMA2YamlConverter_HappyPath_UWPMode\\.sourcemap.json");
+            ECMA2YamlConverter.Run(
+                xmlDirectory,
+                outputDirectory,
+                logWriter: item => Console.WriteLine(item.File),
+                logContentBaseDirectory: testDirectory + "\\abc",
+                sourceMapFilePath: sourceMapFilePath,repoUrl:"http://git/test",repoBranch:"develop",config:new ECMA2YamlRepoConfig() { UWP=true,});
+        }
     }
 }

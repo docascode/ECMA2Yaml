@@ -149,7 +149,47 @@ namespace ECMA2Yaml.Models
                 return TypesByFullName.TryGetValue(fullName, out type);
             }
         }
-
+        public void TranlateContentSourceMeta(string publicGitRepoUrl,
+           string publicGitBranch)
+        {
+            foreach (var ns in _nsList)
+            {
+                HandleContentSourceMeta(ns, publicGitRepoUrl, publicGitBranch);
+                foreach (var t in ns.Types)
+                {
+                    HandleContentSourceMeta(t, publicGitRepoUrl, publicGitBranch);
+                    if (t.Members != null)
+                    {
+                        foreach (var m in t.Members)
+                        {
+                            HandleContentSourceMeta(m, publicGitRepoUrl, publicGitBranch);
+                        }
+                        if (t.Overloads != null)
+                        {
+                            foreach (var o in t.Overloads)
+                            {
+                                HandleContentSourceMeta(o, publicGitRepoUrl, publicGitBranch);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        private void HandleContentSourceMeta(ReflectionItem item, string publicGitBranch, string publicGitRepoUrl)
+        {
+            if (item != null && item.Metadata.TryGetValue("contentSourcePath", out object val) && val != null)
+            {
+                var mdPath = val.ToString().Replace("\\", "/");
+                mdPath = mdPath.StartsWith("/") ? mdPath : ("/" + mdPath);
+                item.SourceDetail = new GitSourceDetail()
+                {
+                    Path = mdPath,
+                    RepoBranch = publicGitBranch,
+                    RepoUrl = publicGitRepoUrl
+                };
+                item.Metadata.Remove("contentSourcePath");
+            }
+        }
         public void TranslateSourceLocation(
             string sourcePathRoot,
             string gitRepoUrl,
@@ -169,24 +209,24 @@ namespace ECMA2Yaml.Models
             foreach (var ns in _nsList)
             {
                 TranslateSourceLocation(ns, sourcePathRoot, gitUrlPattern, publicGitUrlPattern);
-                HandleContentSourceMeta(ns);
+                HandleContentSourceMeta(ns, publicGitRepoUrl, publicGitBranch);
                 foreach (var t in ns.Types)
                 {
                     TranslateSourceLocation(t, sourcePathRoot, gitUrlPattern, publicGitUrlPattern);
-                    HandleContentSourceMeta(t);
+                    HandleContentSourceMeta(t, publicGitRepoUrl, publicGitBranch);
                     if (t.Members != null)
                     {
                         foreach (var m in t.Members)
                         {
                             TranslateSourceLocation(m, sourcePathRoot, gitUrlPattern, publicGitUrlPattern);
-                            HandleContentSourceMeta(m);
+                            HandleContentSourceMeta(m, publicGitRepoUrl, publicGitBranch);
                         }
                         if (t.Overloads != null)
                         {
                             foreach (var o in t.Overloads)
                             {
                                 TranslateSourceLocation(o, sourcePathRoot, gitUrlPattern, publicGitUrlPattern);
-                                HandleContentSourceMeta(o);
+                                HandleContentSourceMeta(o, publicGitRepoUrl, publicGitBranch);
                             }
                         }
                     }
@@ -207,22 +247,7 @@ namespace ECMA2Yaml.Models
                     return xmlPath => string.Format(pattern, xmlPath);
                 }
             }
-
-            void HandleContentSourceMeta(ReflectionItem item)
-            {
-                if (item.Metadata.TryGetValue("contentSourcePath", out object val) && val != null)
-                {
-                    var mdPath = val.ToString().Replace("\\", "/");
-                    mdPath = mdPath.StartsWith("/") ? mdPath : ("/" + mdPath);
-                    item.SourceDetail = new GitSourceDetail()
-                    {
-                        Path = mdPath,
-                        RepoBranch = publicGitBranch,
-                        RepoUrl = publicGitRepoUrl
-                    };
-                    item.Metadata.Remove("contentSourcePath");
-                }
-            }
+          
         }
 
         /// <summary>

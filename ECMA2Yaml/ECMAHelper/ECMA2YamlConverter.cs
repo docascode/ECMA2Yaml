@@ -19,6 +19,8 @@ namespace ECMA2Yaml
             Action<LogItem> logWriter = null,
             string logContentBaseDirectory = null,
             string sourceMapFilePath = null,
+            string repoUrl = null,
+            string repoBranch = null,
             ECMA2YamlRepoConfig config = null)
         {
             if (xmlDirectory == null)
@@ -68,9 +70,20 @@ namespace ECMA2Yaml
             }
 
             Console.WriteLine("Building loaded files...");
-            Console.WriteLine($"ECMA2YamlRepoConfig:{JsonConvert.SerializeObject(config)}");
+            Console.WriteLine($"RepoUrl:{repoUrl}, repoBranch:{repoBranch}, ECMA2YamlRepoConfig:{JsonConvert.SerializeObject(config)}");
             store.UWPMode = config?.UWP ?? false;
             store.Build();
+
+            if (store.UWPMode && !string.IsNullOrEmpty(repoUrl)
+               && !string.IsNullOrEmpty(repoBranch))
+            {
+                store.TranlateContentSourceMeta(repoUrl, repoBranch);
+            }
+            else
+            {
+                Console.WriteLine("Not enough information, unable to generate git url related metadata. -publicRepo {0}, -publicBranch {1}",
+                  repoUrl, repoBranch);
+            }
 
             var xmlYamlFileMapping = SDPYamlGenerator.Generate(store, outputDirectory, flatten: config?.Flatten ?? true, withVersioning: true);
             if (loader.FallbackFiles != null && loader.FallbackFiles.Any() && !string.IsNullOrEmpty(fallbackOutputDirectory))
