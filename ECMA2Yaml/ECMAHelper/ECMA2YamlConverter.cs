@@ -68,6 +68,7 @@ namespace ECMA2Yaml
             }
 
             Console.WriteLine("Building loaded files...");
+            Console.WriteLine($"ECMA2YamlRepoConfig:{config}");
             store.UWPMode = config?.UWP ?? false;
             store.Build();
 

@@ -80,7 +80,28 @@ namespace ECMA2Yaml
                 }
             }
         }
+        public static ReflectionItem HandleContentSourceMeta(ReflectionItem item)
+        {
+            if (item == null)
+            {
+                return null;
+            }
 
+            if (item.Metadata.TryGetValue("contentSourcePath", out object val) && val != null)
+            {
+                var mdPath = val.ToString().Replace("\\", "/");
+                mdPath = mdPath.StartsWith("/") ? mdPath : ("/" + mdPath);
+                item.SourceDetail = new GitSourceDetail()
+                {
+                    Path = mdPath,
+                    //RepoBranch = publicGitBranch,
+                    //RepoUrl = publicGitRepoUrl
+                };
+                item.Metadata.Remove("contentSourcePath");
+            }
+
+            return item;
+        }
         private T InitWithBasicProperties<T>(ReflectionItem item) where T : ItemSDPModelBase, new()
         {
             T rval = new T
@@ -95,7 +116,7 @@ namespace ECMA2Yaml
                 Remarks = item.Docs.Remarks,
                 Examples = item.Docs.Examples,
                 Monikers = item.Monikers,
-                Source = _store.UWPMode || _store.DemoMode ? item.SourceDetail.ToSDPSourceDetail() : null
+                Source = _store.UWPMode || _store.DemoMode ?HandleContentSourceMeta(item)?.SourceDetail.ToSDPSourceDetail() : null
             };
 
             if(_withVersioning)
