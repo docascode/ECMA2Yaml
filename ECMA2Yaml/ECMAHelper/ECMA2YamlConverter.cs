@@ -74,17 +74,13 @@ namespace ECMA2Yaml
             store.UWPMode = config?.UWP ?? false;
             store.Build();
 
-            if (store.UWPMode)
-            { 
-                if(!string.IsNullOrEmpty(repoUrl) && !string.IsNullOrEmpty(repoBranch))
-                {
-                    store.TranlateContentSourceMeta(repoUrl, repoBranch);
-                }
-                else
-                {
-                    Console.WriteLine("Not enough information, unable to generate git url related metadata. -publicRepo {0}, -publicBranch {1}",
-                      repoUrl, repoBranch);
-                }
+            if(!string.IsNullOrEmpty(repoUrl) && !string.IsNullOrEmpty(repoBranch))
+            {
+               store.TranlateContentSourceMeta(repoUrl, repoBranch);
+            }
+            else
+            {
+               Console.WriteLine("Not enough information, unable to generate git url related metadata. -publicRepo {0}, -publicBranch {1}",repoUrl, repoBranch);
             }
 
             var xmlYamlFileMapping = SDPYamlGenerator.Generate(store, outputDirectory, flatten: config?.Flatten ?? true, withVersioning: true);

@@ -21,6 +21,5 @@ namespace ECMA2Yaml
 
         [JsonProperty("UWP")]
         public bool UWP { get; set; }
-
     }
 }
