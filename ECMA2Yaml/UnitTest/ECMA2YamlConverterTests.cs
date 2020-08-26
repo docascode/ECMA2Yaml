@@ -36,7 +36,7 @@ namespace UnitTest
                 outputDirectory,
                 logWriter: item => Console.WriteLine(item.File),
                 logContentBaseDirectory: testDirectory + "\\abc",
-                sourceMapFilePath: sourceMapFilePath,repoUrl:"http://git/test",repoBranch:"develop",config:new ECMA2YamlRepoConfig() { UWP=true,});
+                sourceMapFilePath: sourceMapFilePath,publicGitRepoUrl :"http://git/test",publicGitBranch:"develop",config:new ECMA2YamlRepoConfig() { UWP=true,});
         }
     }
 }
