@@ -80,7 +80,6 @@ namespace ECMA2Yaml
                 }
             }
         }
-
         private T InitWithBasicProperties<T>(ReflectionItem item) where T : ItemSDPModelBase, new()
         {
             T rval = new T
@@ -95,7 +94,7 @@ namespace ECMA2Yaml
                 Remarks = item.Docs.Remarks,
                 Examples = item.Docs.Examples,
                 Monikers = item.Monikers,
-                Source = _store.UWPMode || _store.DemoMode ? item.SourceDetail.ToSDPSourceDetail() : null
+                Source = (_store.UWPMode || _store.DemoMode) ?item.SourceDetail.ToSDPSourceDetail() : null
             };
 
             if(_withVersioning)
