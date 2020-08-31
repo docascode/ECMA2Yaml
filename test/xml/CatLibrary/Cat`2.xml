@@ -297,6 +297,7 @@
             </summary>
         <returns>It's a relationship map of different kind food.</returns>
         <remarks>To be added.</remarks>
+        <forInternalUseOnly />
       </Docs>
     </Member>
     <Member MemberName="CatchJerry">

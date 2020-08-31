@@ -33,6 +33,7 @@ members:
   monikers:
   - cat-1.0
   - cat-2.0
+  isInternalOnly: true
   summary: It's a method with complex return type.
   metadata: {}
 uid: CatLibrary.Cat`2.CalculateFood*
