@@ -157,7 +157,7 @@ namespace ECMA2Yaml
                     .Where(attr => attr.TypeFullName == "System.ObsoleteAttribute")
                     .Select(attr => new VersionedString() 
                     { 
-                        Value = "",
+                        Value = GenerateObsoleteNotification(attr.Declaration),
                         Monikers = attr.Monikers
                     })
                     .ToList().NullIfEmpty();
@@ -169,6 +169,28 @@ namespace ECMA2Yaml
             }
 
             return rval;
+        }
+
+        private string GenerateObsoleteNotification(string declaration)
+        {
+            var value = "";
+            if (string.IsNullOrEmpty(declaration))
+            {
+                return value;
+            }
+
+            var startIndex = declaration.IndexOf("(");
+            var endIndex = declaration.LastIndexOf(")");
+            if (startIndex == -1 || endIndex == -1)
+            {
+                return value;
+            }
+
+            startIndex = startIndex + 1;
+
+            value = declaration.Substring(startIndex, endIndex - startIndex).TrimStart('"').TrimEnd('"');
+
+            return value;
         }
 
         private void GenerateUWPRequirements(ItemSDPModelBase model, ReflectionItem item)

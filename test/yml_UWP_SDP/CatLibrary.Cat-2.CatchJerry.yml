@@ -69,7 +69,7 @@ members:
   monikers:
   - cat-2.0
   obsoleteMessagesWithMoniker:
-  - value: ""
+  - value: mark CatchJerry(bool force) as obsolete for testing
     monikers:
     - cat-2.0
   summary: If you force it, maybe it can.
