@@ -1,4 +1,5 @@
-﻿using ECMA2Yaml.IO;
+﻿using ECMA2Yaml;
+using ECMA2Yaml.IO;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -102,8 +103,9 @@ namespace MSDNUrlPatch
                     break;
                 }
             }
-
-            WriteLine("Repair done.");
+            string message = $"Repair done, Total file:{allXmlFileList.Count()}, updated file:{modifyFileCounter}";
+            WriteLine(message);
+            logMessages.Add(message);
         }
 
         public bool RepairFile(string filePath)
@@ -278,26 +280,29 @@ namespace MSDNUrlPatch
                         {
                             string partialChar = string.Empty;
                             string oldUrl = groups[i].Value.TrimEnd('.');
-                            oldUrl = PreProcessMSDNUrl(oldUrl,out partialChar);
-                            string docsUrl = GetNewUrl(oldUrl);
-                            if (string.IsNullOrEmpty(docsUrl))
+                            if (IsMSDNUrl(oldUrl))
                             {
-                                logMessages.Add(string.Format("Can't repair msdn url {0} into file {1}", oldUrl, filePath));
-                            }
-                            else
-                            {
-                                if (docsUrl != _noNeedRepairKeyWord)
+                                oldUrl = PreProcessMSDNUrl(oldUrl, out partialChar);
+                                string docsUrl = GetNewUrl(oldUrl);
+                                if (string.IsNullOrEmpty(docsUrl))
                                 {
-                                    // inputText = _linkRegex.Replace(inputText, docsUrl);
-                                    // Fix issue 1 in bug https://dev.azure.com/ceapex/Engineering/_workitems/edit/267076
-                                    
-                                    if (!string.IsNullOrEmpty(_baseUrl) && !docsUrl.StartsWith("http"))
+                                    logMessages.Add(string.Format("Can't repair msdn url {0} into file {1}", oldUrl, filePath));
+                                }
+                                else
+                                {
+                                    if (docsUrl != _noNeedRepairKeyWord)
                                     {
-                                        inputText = inputText.Replace(linkString, $"<{_baseUrl}{docsUrl}>{partialChar}");
-                                    }
-                                    else
-                                    {
-                                        inputText = inputText.Replace(linkString, $"<{docsUrl}>{partialChar}");
+                                        // inputText = _linkRegex.Replace(inputText, docsUrl);
+                                        // Fix issue 1 in bug https://dev.azure.com/ceapex/Engineering/_workitems/edit/267076
+
+                                        if (!string.IsNullOrEmpty(_baseUrl) && !docsUrl.StartsWith("http"))
+                                        {
+                                            inputText = inputText.Replace(linkString, $"<{_baseUrl}{docsUrl}>{partialChar}");
+                                        }
+                                        else
+                                        {
+                                            inputText = inputText.Replace(linkString, $"<{docsUrl}>{partialChar}");
+                                        }
                                     }
                                 }
                             }
@@ -319,16 +324,19 @@ namespace MSDNUrlPatch
                         for (int i = 1; i < groups.Count; i++)
                         {
                             string oldUrl = groups[i].Value.TrimEnd('.');
-                            string docsUrl = GetNewUrl(oldUrl);
-                            if (string.IsNullOrEmpty(docsUrl))
+                            if (IsMSDNUrl(oldUrl))
                             {
-                                logMessages.Add(string.Format("Can't repair msdn url {0} into file {1}", oldUrl, filePath));
-                            }
-                            else
-                            {
-                                if (docsUrl != _noNeedRepairKeyWord)
+                                string docsUrl = GetNewUrl(oldUrl);
+                                if (string.IsNullOrEmpty(docsUrl))
                                 {
-                                    inputText = _link1Regex.Replace(inputText, docsUrl);
+                                    logMessages.Add(string.Format("Can't repair msdn url {0} into file {1}", oldUrl, filePath));
+                                }
+                                else
+                                {
+                                    if (docsUrl != _noNeedRepairKeyWord)
+                                    {
+                                        inputText = _link1Regex.Replace(inputText, docsUrl);
+                                    }
                                 }
                             }
                         }
@@ -348,16 +356,19 @@ namespace MSDNUrlPatch
                         for (int i = 1; i < groups.Count; i++)
                         {
                             string oldUrl = groups[i].Value.TrimEnd('.');
-                            string docsUrl = GetNewUrl(oldUrl);
-                            if (string.IsNullOrEmpty(docsUrl))
+                            if (IsMSDNUrl(oldUrl))
                             {
-                                logMessages.Add(string.Format("Can't repair msdn url {0} into file {1}", oldUrl, filePath));
-                            }
-                            else
-                            {
-                                if (docsUrl != _noNeedRepairKeyWord)
+                                string docsUrl = GetNewUrl(oldUrl);
+                                if (string.IsNullOrEmpty(docsUrl))
                                 {
-                                    inputText = _msdnUrlRegex.Replace(inputText, docsUrl);
+                                    logMessages.Add(string.Format("Can't repair msdn url {0} into file {1}", oldUrl, filePath));
+                                }
+                                else
+                                {
+                                    if (docsUrl != _noNeedRepairKeyWord)
+                                    {
+                                        inputText = _msdnUrlRegex.Replace(inputText, docsUrl);
+                                    }
                                 }
                             }
                         }
@@ -394,7 +405,8 @@ namespace MSDNUrlPatch
                     return "https://docs.microsoft.com";
                 }
 
-                string redirectUrl = GetRedirectUrl(msdnUrl).Result;
+                string url = DecodeUrl(msdnUrl);
+                string redirectUrl = GetRedirectUrl(url).Result;
                 if (IsNeedRepair(redirectUrl))
                 {
                     return RemoveUnusePartFromRedirectUrl(redirectUrl);
@@ -599,6 +611,17 @@ namespace MSDNUrlPatch
 
             partialChar = "";
             return url;
+        }
+
+        private string DecodeUrl(string url)
+        {
+            if (string.IsNullOrEmpty(url))
+            {
+                return url;
+            }
+
+            // Fix bug: https://dev.azure.com/ceapex/Engineering/_workitems/edit/287551
+            return url.Replace(@"\(","(").Replace(@"\)", ")");
         }
 
         public void MockTestData(string msdnUrl, string redirectUrl)
