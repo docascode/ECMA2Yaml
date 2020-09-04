@@ -138,6 +138,8 @@ Boolean isAvailable = scheduleObject.RawSchedule[2, 15, 3];
         }
 
         [DataTestMethod]
+        [DataRow("Creates an @\"Windows.AI.MachineLearning.ImageFeatureValue?text=ImageFeatureValue\" using the given video frame."
+                , "Creates an ImageFeatureValue using the given video frame.")]
         [DataRow("Creates an @Windows.AI.MachineLearning.ImageFeatureValue?text=ImageFeatureValue using the given video frame."
                 , "Creates an ImageFeatureValue using the given video frame.")]
         [DataRow(@"Creates an instance of @Windows.UI.Composition.Interactions.InteractionTracker?text=InteractionTracker.
