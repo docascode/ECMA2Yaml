@@ -41,6 +41,7 @@
   </xsl:template>
 
   <xsl:template match="code">
+    <xsl:text>&#10;</xsl:text>
     <pre>
       <code>
         <xsl:if test="normalize-space(@language)">
