@@ -41,24 +41,24 @@
   </xsl:template>
 
   <xsl:template match="code">
-<xsl:text>&#10;</xsl:text>
-<xsl:choose>
-  <xsl:when test="@language = 'C#' or @language = 'c#' or @lang = 'C#' or @lang = 'c#'">
-```csharp
-  </xsl:when>
-  <xsl:when test="normalize-space(@language)">
-```<xsl:value-of select="@language" />
-  </xsl:when>
-  <xsl:when test="normalize-space(@lang)">
-```<xsl:value-of select="@lang" />
-  </xsl:when>
-  <xsl:otherwise>
-```
-  </xsl:otherwise>
-</xsl:choose>
-<xsl:apply-templates />
-```
-<xsl:text>&#10;</xsl:text>
+    <xsl:text>&#10;</xsl:text>
+    <xsl:choose>
+      <xsl:when test="@language = 'C#' or @language = 'c#' or @lang = 'C#' or @lang = 'c#'">
+        <xsl:text>```csharp</xsl:text>
+      </xsl:when>
+      <xsl:when test="normalize-space(@language)">
+        <xsl:text>```</xsl:text><xsl:value-of select="@language" />
+      </xsl:when>
+      <xsl:when test="normalize-space(@lang)">
+        <xsl:text>```</xsl:text><xsl:value-of select="@lang" />
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:text>```</xsl:text>
+      </xsl:otherwise>
+    </xsl:choose>
+    <xsl:apply-templates />
+    <xsl:text>```</xsl:text>
+    <xsl:text>&#10;</xsl:text>
   </xsl:template>
 
   <xsl:template match="value">
