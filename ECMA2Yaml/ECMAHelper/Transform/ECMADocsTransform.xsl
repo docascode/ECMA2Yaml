@@ -57,7 +57,7 @@
       </xsl:otherwise>
     </xsl:choose>
     <xsl:apply-templates />
-    <xsl:text>&#10;```&#10;</xsl:text>
+    <xsl:text>&#10;```</xsl:text>
   </xsl:template>
 
   <xsl:template match="value">

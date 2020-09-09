@@ -353,6 +353,11 @@ namespace ECMA2Yaml
             }
             for (int i = startIndex; i < lines.Length; i++)
             {
+                if (string.IsNullOrWhiteSpace(lines[i]))
+                {
+                    lines[i] = "";
+                    continue;
+                }
                 var indent = 0;
                 while (indent < lines[i].Length && char.IsWhiteSpace(lines[i][indent]))
                 {
