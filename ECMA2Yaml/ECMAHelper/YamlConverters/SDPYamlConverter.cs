@@ -179,8 +179,8 @@ namespace ECMA2Yaml
                 return value;
             }
 
-            var startIndex = declaration.IndexOf("(");
-            var endIndex = declaration.LastIndexOf(")");
+            var startIndex = declaration.IndexOf('"');
+            var endIndex = declaration.LastIndexOf('"');
             if (startIndex == -1 || endIndex == -1)
             {
                 return value;
@@ -188,14 +188,6 @@ namespace ECMA2Yaml
 
             startIndex = startIndex + 1;
             value = declaration.Substring(startIndex, endIndex - startIndex);
-            if (value.Contains(','))
-            {
-                endIndex= value.LastIndexOf(',');
-                value = value.Substring(0, endIndex);
-            }
-
-            value=value.TrimStart('"').TrimEnd('"');
-
             return value;
         }
 
