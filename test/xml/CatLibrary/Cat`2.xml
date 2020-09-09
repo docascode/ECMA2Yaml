@@ -342,8 +342,8 @@
       </AssemblyInfo>
       <Attributes>
         <Attribute FrameworkAlternate="cat-2.0">
-          <AttributeName Language="C#">[System.Obsolete("mark CatchJerry(bool force) as obsolete for testing")]</AttributeName>
-          <AttributeName Language="F#">[&lt;System.Obsolete("mark CatchJerry(bool force) as obsolete for testing")&gt;]</AttributeName>
+          <AttributeName Language="C#">[System.Obsolete("mark CatchJerry(bool force) as obsolete for testing", true)]</AttributeName>
+          <AttributeName Language="F#">[&lt;System.Obsolete("mark CatchJerry(bool force) as obsolete for testing", true)&gt;]</AttributeName>
         </Attribute>
       </Attributes>
       <ReturnValue>
