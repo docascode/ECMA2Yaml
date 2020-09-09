@@ -592,8 +592,8 @@
           <AttributeName Language="F#">[&lt;System.ContextStatic&gt;]</AttributeName>
         </Attribute>
         <Attribute FrameworkAlternate="cat-2.0">
-          <AttributeName Language="C#">[System.Obsolete("hi,mark IsHealthy as obsolete for testing")]</AttributeName>
-          <AttributeName Language="F#">[&lt;System.Obsolete("hi,mark IsHealthy as obsolete for testing")&gt;]</AttributeName>
+          <AttributeName Language="C#">[System.Obsolete("mark IsHealthy as obsolete for testing")]</AttributeName>
+          <AttributeName Language="F#">[&lt;System.Obsolete("mark IsHealthy as obsolete for testing")&gt;]</AttributeName>
         </Attribute>
       </Attributes>
       <ReturnValue>

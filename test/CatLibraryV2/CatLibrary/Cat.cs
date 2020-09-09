@@ -175,7 +175,7 @@ namespace CatLibrary
         /// </summary>
         [ContextStatic]
         [NonSerialized]
-        [Obsolete("hi,mark IsHealthy as obsolete for testing")]
+        [Obsolete("mark IsHealthy as obsolete for testing")]
         public bool isHealthy;
 
         //EII Method
