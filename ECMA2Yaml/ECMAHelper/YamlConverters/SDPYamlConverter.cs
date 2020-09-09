@@ -187,8 +187,14 @@ namespace ECMA2Yaml
             }
 
             startIndex = startIndex + 1;
+            value = declaration.Substring(startIndex, endIndex - startIndex);
+            if (value.Contains(','))
+            {
+                endIndex= value.LastIndexOf(',');
+                value = value.Substring(0, endIndex);
+            }
 
-            value = declaration.Substring(startIndex, endIndex - startIndex).TrimStart('"').TrimEnd('"');
+            value=value.TrimStart('"').TrimEnd('"');
 
             return value;
         }
