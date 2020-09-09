@@ -11,6 +11,12 @@ members:
   name: Name
   fullName: CatLibrary.Cat<T,K>.Name
   nameWithType: Cat<T,K>.Name
+  attributesWithMoniker:
+  - value: System.ObsoleteAttribute
+    monikers:
+    - cat-2.0
+  attributeMonikers:
+  - cat-2.0
   syntaxWithMoniker:
   - lang: cpp
     values:
@@ -20,15 +26,35 @@ members:
   - lang: csharp
     values:
     - value: public string Name { get; }
+      monikers:
+      - cat-1.0
+    - value: >-
+        [System.Obsolete("hi,mark Name as obsolete for testing")]
+
+        public string Name { get; }
+      monikers:
+      - cat-2.0
   - lang: fsharp
     values:
     - value: 'member this.Name : string'
+      monikers:
+      - cat-1.0
+    - value: >-
+        [<System.Obsolete("hi,mark Name as obsolete for testing")>]
+
+        member this.Name : string
+      monikers:
+      - cat-2.0
   - lang: vb
     values:
     - value: Public ReadOnly Property Name As String
   monikers:
   - cat-1.0
   - cat-2.0
+  obsoleteMessagesWithMoniker:
+  - value: hi,mark Name as obsolete for testing
+    monikers:
+    - cat-2.0
   summary: EII property.
   metadata: {}
 uid: CatLibrary.Cat`2.Name*

@@ -175,7 +175,7 @@ namespace CatLibrary
         /// </summary>
         [ContextStatic]
         [NonSerialized]
-        [Obsolete("mark IsHealthy as obsolete for testing")]
+        [Obsolete("hi,mark IsHealthy as obsolete for testing")]
         public bool isHealthy;
 
         //EII Method
@@ -207,7 +207,7 @@ namespace CatLibrary
         /// <summary>
         /// If you force it, maybe it can.
         /// </summary>
-        [Obsolete("mark CatchJerry(bool force) as obsolete for testing",true)]
+        [Obsolete("hi,mark CatchJerry(bool force) as obsolete for testing",true)]
         public void CatchJerry(bool force)
         {
             throw new NotImplementedException();
@@ -217,6 +217,7 @@ namespace CatLibrary
         /// <summary>
         /// EII property.
         /// </summary>
+       [Obsolete("hi,mark Name as obsolete for testing")]
         public string Name { get { return "Pig"; } }
 
         /// <summary>

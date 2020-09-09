@@ -342,8 +342,8 @@
       </AssemblyInfo>
       <Attributes>
         <Attribute FrameworkAlternate="cat-2.0">
-          <AttributeName Language="C#">[System.Obsolete("mark CatchJerry(bool force) as obsolete for testing", true)]</AttributeName>
-          <AttributeName Language="F#">[&lt;System.Obsolete("mark CatchJerry(bool force) as obsolete for testing", true)&gt;]</AttributeName>
+          <AttributeName Language="C#">[System.Obsolete("hi,mark CatchJerry(bool force) as obsolete for testing", true)]</AttributeName>
+          <AttributeName Language="F#">[&lt;System.Obsolete("hi,mark CatchJerry(bool force) as obsolete for testing", true)&gt;]</AttributeName>
         </Attribute>
       </Attributes>
       <ReturnValue>
@@ -592,8 +592,8 @@
           <AttributeName Language="F#">[&lt;System.ContextStatic&gt;]</AttributeName>
         </Attribute>
         <Attribute FrameworkAlternate="cat-2.0">
-          <AttributeName Language="C#">[System.Obsolete("mark IsHealthy as obsolete for testing")]</AttributeName>
-          <AttributeName Language="F#">[&lt;System.Obsolete("mark IsHealthy as obsolete for testing")&gt;]</AttributeName>
+          <AttributeName Language="C#">[System.Obsolete("hi,mark IsHealthy as obsolete for testing")]</AttributeName>
+          <AttributeName Language="F#">[&lt;System.Obsolete("hi,mark IsHealthy as obsolete for testing")&gt;]</AttributeName>
         </Attribute>
       </Attributes>
       <ReturnValue>
@@ -702,6 +702,12 @@
         <AssemblyVersion>1.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.0.0</AssemblyVersion>
       </AssemblyInfo>
+      <Attributes>
+        <Attribute FrameworkAlternate="cat-2.0">
+          <AttributeName Language="C#">[System.Obsolete("hi,mark Name as obsolete for testing")]</AttributeName>
+          <AttributeName Language="F#">[&lt;System.Obsolete("hi,mark Name as obsolete for testing")&gt;]</AttributeName>
+        </Attribute>
+      </Attributes>
       <ReturnValue>
         <ReturnType>System.String</ReturnType>
       </ReturnValue>

@@ -29,7 +29,7 @@ members:
     - value: >-
         [System.ContextStatic]
 
-        [System.Obsolete("mark IsHealthy as obsolete for testing")]
+        [System.Obsolete("hi,mark IsHealthy as obsolete for testing")]
 
         public bool isHealthy;
       monikers:
@@ -45,7 +45,7 @@ members:
     - value: >-
         [<System.ContextStatic>]
 
-        [<System.Obsolete("mark IsHealthy as obsolete for testing")>]
+        [<System.Obsolete("hi,mark IsHealthy as obsolete for testing")>]
 
         val mutable isHealthy : bool
       monikers:
@@ -57,7 +57,7 @@ members:
   - cat-1.0
   - cat-2.0
   obsoleteMessagesWithMoniker:
-  - value: mark IsHealthy as obsolete for testing
+  - value: hi,mark IsHealthy as obsolete for testing
     monikers:
     - cat-2.0
   summary: Field with attribute.
