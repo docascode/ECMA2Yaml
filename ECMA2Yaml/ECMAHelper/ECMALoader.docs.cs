@@ -370,7 +370,7 @@ namespace ECMA2Yaml
                 minIndent = Math.Min(minIndent, indent);
             }
             formatDetected = true;
-            return string.Join("\n", lines.Skip(startIndex).Select(l => (l.Length >= minIndent && char.IsWhiteSpace(l[0])) ? l.Substring(minIndent) : l));
+            return string.Join("\n", lines.Skip(startIndex).Select(l => (l.Length > 0 && l.Length >= minIndent && char.IsWhiteSpace(l[0])) ? l.Substring(minIndent) : l));
         }
 
         private static readonly Regex XmlIndentRegex = new Regex("^[\\t ]+<", RegexOptions.Multiline | RegexOptions.Compiled);
