@@ -50,7 +50,7 @@ members:
   - lang: csharp
     values:
     - value: >-
-        [System.Obsolete("mark CatchJerry(bool force) as obsolete for testing")]
+        [System.Obsolete("hi,mark CatchJerry(bool force) as obsolete for testing", true)]
 
         public void CatchJerry (bool force);
       monikers:
@@ -58,7 +58,7 @@ members:
   - lang: fsharp
     values:
     - value: >-
-        [<System.Obsolete("mark CatchJerry(bool force) as obsolete for testing")>]
+        [<System.Obsolete("hi,mark CatchJerry(bool force) as obsolete for testing", true)>]
 
         member this.CatchJerry : bool -> unit
       monikers:
@@ -69,7 +69,7 @@ members:
   monikers:
   - cat-2.0
   obsoleteMessagesWithMoniker:
-  - value: mark CatchJerry(bool force) as obsolete for testing
+  - value: hi,mark CatchJerry(bool force) as obsolete for testing
     monikers:
     - cat-2.0
   summary: If you force it, maybe it can.

@@ -179,17 +179,15 @@ namespace ECMA2Yaml
                 return value;
             }
 
-            var startIndex = declaration.IndexOf("(");
-            var endIndex = declaration.LastIndexOf(")");
+            var startIndex = declaration.IndexOf('"');
+            var endIndex = declaration.LastIndexOf('"');
             if (startIndex == -1 || endIndex == -1)
             {
                 return value;
             }
 
             startIndex = startIndex + 1;
-
-            value = declaration.Substring(startIndex, endIndex - startIndex).TrimStart('"').TrimEnd('"');
-
+            value = declaration.Substring(startIndex, endIndex - startIndex);
             return value;
         }
 
