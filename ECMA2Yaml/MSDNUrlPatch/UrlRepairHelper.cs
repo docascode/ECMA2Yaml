@@ -205,6 +205,13 @@ namespace MSDNUrlPatch
                                 isChange = true;
                             }
                         }
+                        else if (e.NodeType == System.Xml.XmlNodeType.CDATA)
+                        {
+                            if (RepairCData((e as XCData), filePath) && isChange == false)
+                            {
+                                isChange = true;
+                            }
+                        }
                     }
                 }
 
@@ -225,6 +232,20 @@ namespace MSDNUrlPatch
         }
 
         public bool RepairXText(XText xText, string filePath)
+        {
+            string content = xText.Value;
+            string newContent = RepairString(content, filePath);
+
+            if (!content.Equals(newContent))
+            {
+                xText.Value = newContent;
+                return true;
+            }
+
+            return false;
+        }
+
+        public bool RepairCData(XCData xText, string filePath)
         {
             string content = xText.Value;
             string newContent = RepairString(content, filePath);
@@ -562,7 +583,7 @@ namespace MSDNUrlPatch
 
         public void SaveXmlFile(XDocument xmlDoc, string xmlFilePath)
         {
-            var fileEncoding = GetEncoding(xmlFilePath);
+            var fileEncoding = new UTF8Encoding(false);
             XmlWriterSettings xws = new XmlWriterSettings
             {
                 Indent = true,
@@ -574,23 +595,6 @@ namespace MSDNUrlPatch
                 xmlDoc.Save(xw);
             }
         }
-
-        private Encoding GetEncoding(string filename)
-        {
-            // This is a direct quote from MSDN:  
-            // The CurrentEncoding value can be different after the first
-            // call to any Read method of StreamReader, since encoding
-            // autodetection is not done until the first call to a Read method.
-
-            using (var reader = new StreamReader(filename, Encoding.Default, true))
-            {
-                if (reader.Peek() >= 0) // you need this!
-                    reader.Read();
-
-                return reader.CurrentEncoding;
-            }
-        }
-
         private string PreProcessMSDNUrl(string url, out string partialChar)
         {
             if (string.IsNullOrEmpty(url))
