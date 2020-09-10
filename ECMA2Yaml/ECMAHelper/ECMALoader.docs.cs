@@ -358,6 +358,10 @@ namespace ECMA2Yaml
                     lines[i] = "";
                     continue;
                 }
+                if (lines[i].StartsWith("```")) //MD code syntax must start without any indents, we shouldn't count this.
+                {
+                    continue;
+                }
                 var indent = 0;
                 while (indent < lines[i].Length && char.IsWhiteSpace(lines[i][indent]))
                 {
@@ -366,7 +370,7 @@ namespace ECMA2Yaml
                 minIndent = Math.Min(minIndent, indent);
             }
             formatDetected = true;
-            return string.Join("\n", lines.Skip(startIndex).Select(l => l.Length >= minIndent ? l.Substring(minIndent) : l));
+            return string.Join("\n", lines.Skip(startIndex).Select(l => (l.Length >= minIndent && char.IsWhiteSpace(l[0])) ? l.Substring(minIndent) : l));
         }
 
         private static readonly Regex XmlIndentRegex = new Regex("^[\\t ]+<", RegexOptions.Multiline | RegexOptions.Compiled);
