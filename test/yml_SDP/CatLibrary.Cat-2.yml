@@ -205,12 +205,16 @@ examples: >-
 
 
   ```csharp
-                  var a = new Cat(object, int)();
-                  int catNumber = new int();
-                  unsafe
-                  {
-                      a.GetFeetLength(catNumber);
-                  }
+
+  var a = new Cat(object, int)();
+
+  int catNumber = new int();
+
+  unsafe
+
+  {
+      a.GetFeetLength(catNumber);
+  }
 
   ```
 

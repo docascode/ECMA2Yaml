@@ -23,7 +23,7 @@ namespace ECMA2Yaml
             return dElement2;
         }
 
-        public Docs LoadDocs(XElement dElement,string filePath)
+        public Docs LoadDocs(XElement dElement, string filePath)
         {
             dElement = TransformDocs(dElement);
             if (dElement == null)
@@ -149,11 +149,11 @@ namespace ECMA2Yaml
             // walk through the content, first adjusting larger headers and moving in reverse
             for (int headerSize = 5; headerSize > 0; headerSize--)
                 ReplaceTriggered(lines, headerSize, ref replaceTriggered);
-            
+
             return replaceTriggered ? string.Join("\n", lines) : remarksText;
         }
 
-        private static readonly string[] markdownHeaders = new string []
+        private static readonly string[] markdownHeaders = new string[]
         {
             "#",
             "##",
@@ -175,7 +175,7 @@ namespace ECMA2Yaml
             bool breakLoop = false;
             for (int i = 0; i < line.Length; i++)
             {
-                switch(line[i])
+                switch (line[i])
                 {
                     case ' ':
                         if (hashCount > 0)
@@ -206,7 +206,7 @@ namespace ECMA2Yaml
         /// <summary>Modifies the array if a header of the given size is found</summary>
         private static void ReplaceTriggered(string[] lines, int headerCount, ref bool replaceTriggered)
         {
-            string headerPrefix = markdownHeaders[headerCount-1];
+            string headerPrefix = markdownHeaders[headerCount - 1];
             string newHeaderPrefix = null;
             bool inCodeFence = false;
             for (int i = 0; i < lines.Length; i++)
@@ -351,6 +351,7 @@ namespace ECMA2Yaml
                 formatDetected = false;
                 return lines[startIndex].Trim();
             }
+            List<int> codeBlockIndexes = null;
             for (int i = startIndex; i < lines.Length; i++)
             {
                 if (string.IsNullOrWhiteSpace(lines[i]))
@@ -358,19 +359,44 @@ namespace ECMA2Yaml
                     lines[i] = "";
                     continue;
                 }
-                if (lines[i].StartsWith("```")) //MD code syntax must start without any indents, we shouldn't count this.
+                //MD code syntax must start without any indents, we shouldn't count this.
+                if (lines[i].StartsWith("```"))
                 {
+                    codeBlockIndexes = codeBlockIndexes ?? new List<int>();
+                    codeBlockIndexes.Add(i);
                     continue;
                 }
-                var indent = 0;
-                while (indent < lines[i].Length && char.IsWhiteSpace(lines[i][indent]))
+                minIndent = Math.Min(minIndent, lines[i].CountIndent());
+            }
+            for (int i = startIndex; i < lines.Length; i++)
+            {
+                lines[i] = lines[i].TrimIndent(minIndent);
+            }
+            if (codeBlockIndexes?.Count > 0)
+            {
+                for (int i = 0; i < codeBlockIndexes.Count / 2; i++)
                 {
-                    indent++;
+                    minIndent = int.MaxValue;
+                    //the line just before the second ```, if it's empty line, we should delete it.
+                    if (string.IsNullOrWhiteSpace(lines[codeBlockIndexes[i + 1] - 1]))
+                    {
+                        lines[codeBlockIndexes[i + 1] - 1] = null;
+                    }
+                    for (int j = codeBlockIndexes[i] + 1; j < codeBlockIndexes[i + 1]; j++)
+                    {
+                        minIndent = string.IsNullOrEmpty(lines[j]) ? minIndent : Math.Min(minIndent, lines[j].CountIndent());
+                    }
+                    if (minIndent < int.MaxValue)
+                    {
+                        for (int j = codeBlockIndexes[i] + 1; j < codeBlockIndexes[i + 1]; j++)
+                        {
+                            lines[j] = string.IsNullOrEmpty(lines[j]) ? lines[j] : lines[j].Substring(minIndent);
+                        }
+                    }
                 }
-                minIndent = Math.Min(minIndent, indent);
             }
             formatDetected = true;
-            return string.Join("\n", lines.Skip(startIndex).Select(l => (l.Length > 0 && l.Length >= minIndent && char.IsWhiteSpace(l[0])) ? l.Substring(minIndent) : l));
+            return string.Join("\n", lines.Skip(startIndex).Where(l => l != null));
         }
 
         private static readonly Regex XmlIndentRegex = new Regex("^[\\t ]+<", RegexOptions.Multiline | RegexOptions.Compiled);

@@ -31,5 +31,28 @@ namespace ECMA2Yaml
 
             return path + DirectorySeparatorChar;
         }
+
+        public static int CountIndent(this string line)
+        {
+            var indent = 0;
+            if (!string.IsNullOrEmpty(line))
+            {
+                while (indent < line.Length && char.IsWhiteSpace(line[indent]))
+                {
+                    indent++;
+                }
+            }
+
+            return indent;
+        }
+
+        public static string TrimIndent(this string line, int indent)
+        {
+            if (string.IsNullOrEmpty(line) || line.Length < indent || !char.IsWhiteSpace(line[0]))
+            {
+                return line;
+            }
+            return line.Substring(indent);
+        }
     }
 }
