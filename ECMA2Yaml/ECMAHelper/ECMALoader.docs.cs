@@ -382,6 +382,11 @@ namespace ECMA2Yaml
                     {
                         lines[codeBlockIndexes[i + 1] - 1] = null;
                     }
+                    //the line just after the first ```, if it's empty line, we should delete it.
+                    if (string.IsNullOrWhiteSpace(lines[codeBlockIndexes[i] + 1]))
+                    {
+                        lines[codeBlockIndexes[i] + 1] = null;
+                    }
                     for (int j = codeBlockIndexes[i] + 1; j < codeBlockIndexes[i + 1]; j++)
                     {
                         minIndent = string.IsNullOrEmpty(lines[j]) ? minIndent : Math.Min(minIndent, lines[j].CountIndent());

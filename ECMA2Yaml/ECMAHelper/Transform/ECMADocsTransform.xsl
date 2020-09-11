@@ -56,6 +56,7 @@
         <xsl:text>```</xsl:text>
       </xsl:otherwise>
     </xsl:choose>
+    <xsl:text>&#10;</xsl:text>
     <xsl:apply-templates />
     <xsl:text>&#10;```</xsl:text>
   </xsl:template>
