@@ -377,23 +377,25 @@ namespace ECMA2Yaml
                 for (int i = 0; i < codeBlockIndexes.Count / 2; i++)
                 {
                     minIndent = int.MaxValue;
+                    int startIdx = codeBlockIndexes[i * 2];
+                    int endIdx = codeBlockIndexes[i * 2 + 1];
                     //the line just before the second ```, if it's empty line, we should delete it.
-                    if (string.IsNullOrWhiteSpace(lines[codeBlockIndexes[i + 1] - 1]))
+                    if (string.IsNullOrWhiteSpace(lines[endIdx - 1]))
                     {
-                        lines[codeBlockIndexes[i + 1] - 1] = null;
+                        lines[endIdx - 1] = null;
                     }
                     //the line just after the first ```, if it's empty line, we should delete it.
-                    if (string.IsNullOrWhiteSpace(lines[codeBlockIndexes[i] + 1]))
+                    if (string.IsNullOrWhiteSpace(lines[startIdx + 1]))
                     {
-                        lines[codeBlockIndexes[i] + 1] = null;
+                        lines[startIdx + 1] = null;
                     }
-                    for (int j = codeBlockIndexes[i] + 1; j < codeBlockIndexes[i + 1]; j++)
+                    for (int j = startIdx + 1; j < endIdx; j++)
                     {
                         minIndent = string.IsNullOrEmpty(lines[j]) ? minIndent : Math.Min(minIndent, lines[j].CountIndent());
                     }
                     if (minIndent < int.MaxValue)
                     {
-                        for (int j = codeBlockIndexes[i] + 1; j < codeBlockIndexes[i + 1]; j++)
+                        for (int j = startIdx + 1; j < endIdx; j++)
                         {
                             lines[j] = string.IsNullOrEmpty(lines[j]) ? lines[j] : lines[j].Substring(minIndent);
                         }
