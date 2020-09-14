@@ -203,14 +203,20 @@ remarks: <p>Here's all the content you can see in this class.</p>
 examples: >-
   <p>Here's example of how to create an instance of this class. As T is limited with <code data-dev-comment-type="c">class</code> and K is limited with <code data-dev-comment-type="c">struct</code>.</p>
 
-  <pre><code class="c#">
-            var a = new Cat(object, int)();
-            int catNumber = new int();
-            unsafe
-            {
-                a.GetFeetLength(catNumber);
-            }
-  </code></pre>
+
+  ```csharp
+
+  var a = new Cat(object, int)();
+
+  int catNumber = new int();
+
+  unsafe
+
+  {
+      a.GetFeetLength(catNumber);
+  }
+
+  ```
 
   <p>As you see, here we bring in <strong>pointer</strong> so we need to add <code data-dev-comment-type="languageKeyword">unsafe</code> keyword.</p>
 metadata:
