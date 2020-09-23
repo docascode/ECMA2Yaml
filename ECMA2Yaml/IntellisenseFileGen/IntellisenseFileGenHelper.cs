@@ -18,6 +18,7 @@ namespace IntellisenseFileGen
         static string _xmlDataFolder = @"G:\SourceCode\DevCode\dotnet-api-docs\xml";
         static string _docsetFolder = @"G:\SourceCode\DevCode\dotnet-api-docs";
         static string _outFolder = @"G:\ECMA2Yaml-output\GenerateIntellisense\_intellisense";
+        static string[] _monikers;
         static string _moniker = string.Empty;
         static string _logFile = string.Empty;
         static string _repoRootFolder = string.Empty;
@@ -61,6 +62,12 @@ namespace IntellisenseFileGen
             {
                 _logFile = "log.txt";
             }
+
+            if (!string.IsNullOrEmpty(opt.Moniker))
+            {
+                _monikers = opt.Moniker.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+            }
+
             (_repoRootFolder, _fallbackRepoRootFolder) = ECMALoader.GetRepoRootBySubPath(_xmlDataFolder);
             _fileAccessor = new FileAccessor(_repoRootFolder, _fallbackRepoRootFolder);
 
@@ -102,7 +109,7 @@ namespace IntellisenseFileGen
             List<string> requiredFrameworkList = new List<string>();
             frameworks.FrameworkAssemblies.Keys.ToList().ForEach(fw =>
             {
-                if (string.IsNullOrEmpty(_moniker) || _moniker.Equals(fw, StringComparison.OrdinalIgnoreCase))
+                if (string.IsNullOrEmpty(_moniker) || _moniker.Equals(fw, StringComparison.OrdinalIgnoreCase) || _monikers.Contains(fw))
                 {
                     requiredFrameworkList.Add(fw);
                 }
@@ -127,7 +134,7 @@ namespace IntellisenseFileGen
 
             requiredFrameworkList.ForEach(fw =>
             {
-                if (string.IsNullOrEmpty(_moniker) || _moniker.Equals(fw, StringComparison.OrdinalIgnoreCase))
+                if (string.IsNullOrEmpty(_moniker) || _moniker.Equals(fw, StringComparison.OrdinalIgnoreCase) || _monikers.Contains(fw))
                 {
                     string outPutFolder = Path.Combine(_outFolder, fw);
 
