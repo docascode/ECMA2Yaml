@@ -33,6 +33,12 @@ namespace ECMA2Yaml
             //}
 
             var frameworks = LoadFrameworks(sourcePath);
+            if (frameworks == null || frameworks.DocIdToFrameworkDict.Count == 0)
+            {
+                OPSLogger.LogUserError(LogCode.ECMA2Yaml_Framework_NotFound, null, "any API, please check your FrameworkIndex folder");
+                return null;
+            }
+
             //var extensionMethods = LoadExtensionMethods(sourcePath);
             var filterStore = LoadFilters(sourcePath);
             var pkgInfoMapping = LoadPackageInformationMapping(sourcePath);
@@ -66,13 +72,7 @@ namespace ECMA2Yaml
                 OPSLogger.LogUserError(LogCode.ECMA2Yaml_File_LoadFailed, null, _errorFiles.Count);
                 return null;
             }
-            var filteredNS = Filter(namespaces, filterStore);
-            if (filteredNS.Count > 0 && 
-                (frameworks == null || frameworks.DocIdToFrameworkDict.Count == 0))
-            {
-                OPSLogger.LogUserError(LogCode.ECMA2Yaml_Framework_NotFound, null, "any API, please check your FrameworkIndex folder");
-                return null;
-            }
+            var filteredNS = Filter(namespaces, filterStore, frameworks);
             var store = new ECMAStore(filteredNS.OrderBy(ns => ns.Name).ToArray(), frameworks)
             {
                 FilterStore = filterStore,
@@ -81,18 +81,18 @@ namespace ECMA2Yaml
             return store;
         }
 
-        private List<Namespace> Filter(IEnumerable<Namespace> namespaces, FilterStore filterStore)
+        private List<Namespace> Filter(IEnumerable<Namespace> namespaces, FilterStore filterStore, FrameworkIndex frameworks)
         {
             var filteredNS = namespaces.ToList();
-            if (filterStore?.TypeFilters?.Count > 0)
+            foreach (var ns in filteredNS)
             {
-                foreach (var ns in filteredNS)
+                if (ns.Types?.Count > 0)
                 {
-                    if (ns.Types?.Count > 0)
+                    ns.Types = ns.Types.Where(t =>
                     {
-                        ns.Types = ns.Types.Where(t =>
+                        bool expose = true;
+                        if (filterStore?.TypeFilters?.Count > 0)
                         {
-                            bool expose = true;
                             var applicableFilters = filterStore.TypeFilters.Where(tf => tf.Filter(t).HasValue).ToList();
                             if (applicableFilters.Count == 1)
                             {
@@ -106,31 +106,32 @@ namespace ECMA2Yaml
                                     expose = expose && filter.Filter(t).Value;
                                 }
                             }
-                            return expose;
-                        }).ToList();
+                        }
 
-                    }
+                        return expose && frameworks.DocIdToFrameworkDict.ContainsKey(t.DocId);
+                    }).ToList();
+
                 }
-                filteredNS = filteredNS.Where(ns => ns.Types?.Count > 0).ToList();
             }
-            if (filterStore?.MemberFilters?.Count > 0)
+            filteredNS = filteredNS.Where(ns => ns.Types?.Count > 0 && frameworks.DocIdToFrameworkDict.ContainsKey(ns.CommentId)).ToList();
+            foreach (var ns in filteredNS)
             {
-                foreach (var ns in filteredNS)
+                foreach (var t in ns.Types)
                 {
-                    foreach (var t in ns.Types)
+                    if (t.Members?.Count > 0)
                     {
-                        if (t.Members?.Count > 0)
+                        t.Members = t.Members.Where(m =>
                         {
-                            t.Members = t.Members.Where(m =>
+                            bool expose = true;
+                            if (filterStore?.MemberFilters?.Count > 0)
                             {
-                                bool expose = true;
                                 foreach (var filter in filterStore.MemberFilters.Where(mf => mf.Filter(m).HasValue))
                                 {
                                     expose = expose && filter.Filter(m).Value;
                                 }
-                                return expose;
-                            }).ToList();
-                        }
+                            }
+                            return expose && frameworks.DocIdToFrameworkDict.ContainsKey(m.DocId); ;
+                        }).ToList();
                     }
                 }
             }
