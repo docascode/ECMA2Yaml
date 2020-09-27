@@ -858,6 +858,7 @@ namespace ECMA2Yaml.Models
             {
                 return null;
             }
+
             if (t.InheritanceChains != null)
             {
                 return t.InheritanceChains; //already calculated, return directly
@@ -870,21 +871,35 @@ namespace ECMA2Yaml.Models
                     var grandParents = BuildInheritanceChain(parent.Value);
                     if (grandParents == null)
                     {
-                        inheritanceChains.Add(new VersionedCollection<string>(parent.Monikers, new List<string>() { parent.Value }));
+                        if (parent.Monikers != null)
+                        {
+                            inheritanceChains.Add(new VersionedCollection<string>(parent.Monikers, new List<string>() { parent.Value }));
+                        }
+                        else
+                        {
+                            OPSLogger.LogUserError(LogCode.ECMA2Yaml_Member_EmptyMoniker, null, parent.Value);
+                        }
                     }
                     else
                     {
                         foreach(var grandParentChain in grandParents)
                         {
-                            if (parent.Monikers.Overlaps(grandParentChain.Monikers))
+                            if (parent.Monikers != null)
                             {
-                                var commonMonikers = new HashSet<string>(parent.Monikers.Intersect(grandParentChain.Monikers));
-                                if (commonMonikers.Overlaps(t.Monikers))
+                                if (parent.Monikers.Overlaps(grandParentChain.Monikers))
                                 {
-                                    var chain = new List<string>(grandParentChain.Values);
-                                    chain.Add(parent.Value);
-                                    inheritanceChains.Add(new VersionedCollection<string>(commonMonikers, chain));
+                                    var commonMonikers = new HashSet<string>(parent.Monikers.Intersect(grandParentChain.Monikers));
+                                    if (commonMonikers.Overlaps(t.Monikers))
+                                    {
+                                        var chain = new List<string>(grandParentChain.Values);
+                                        chain.Add(parent.Value);
+                                        inheritanceChains.Add(new VersionedCollection<string>(commonMonikers, chain));
+                                    }
                                 }
+                            }
+                            else
+                            {
+                                OPSLogger.LogUserError(LogCode.ECMA2Yaml_Member_EmptyMoniker, null, parent.Value);
                             }
                         }
                     }
@@ -953,6 +968,12 @@ namespace ECMA2Yaml.Models
         {
             if (t.BaseTypes != null)
             {
+                if (t.Monikers == null)
+                {
+                    OPSLogger.LogUserError(LogCode.ECMA2Yaml_Member_EmptyMoniker, t.SourceFileLocalPath, t.DocId);
+                    return;
+                }
+
                 t.InheritanceChains = BuildInheritanceChain(t.Uid);
 
                 if (t.ItemType == ItemType.Class && !t.Signatures.IsStatic)
