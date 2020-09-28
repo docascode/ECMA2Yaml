@@ -153,7 +153,7 @@ namespace IntellisenseFileGen
                     fwAssemblyList = fwAssemblyList.Where(asm => fwTypeDocIdsByAssembly.ContainsKey(asm.Name)).ToList();
                     fwAssemblyList.ForEach(assembly =>
                     {
-                        var assemblyTypes = fwTypeDocIdsByAssembly[assembly.Name].Select(docId => typesByDocId[docId]).ToList();
+                        var assemblyTypes = fwTypeDocIdsByAssembly[assembly.Name].Where(p => typesByDocId.ContainsKey(p)).Select(docId => typesByDocId[docId]).ToList();
                         var assemblyMemberDocIds = fwMemberDocIdsByAssembly.ContainsKey(assembly.Name) ? fwMemberDocIdsByAssembly[assembly.Name] : new HashSet<string>();
                         // Order by xml
                         if (assemblyTypes.Count > 0)
