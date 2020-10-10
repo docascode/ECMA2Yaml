@@ -296,7 +296,8 @@ namespace MSDNUrlPatch
                     if (match.Groups != null)
                     {
                         var groups = match.Groups;
-                        string linkString = groups[0].Value.ToString();
+                        string fullLinkString = groups[0].Value.ToString();
+                        string linkString = groups[1].Value.ToString();
                         for (int i = 1; i < groups.Count; i++)
                         {
                             string partialChar = string.Empty;
@@ -316,13 +317,23 @@ namespace MSDNUrlPatch
                                         // inputText = _linkRegex.Replace(inputText, docsUrl);
                                         // Fix issue 1 in bug https://dev.azure.com/ceapex/Engineering/_workitems/edit/267076
 
-                                        if (!string.IsNullOrEmpty(_baseUrl) && !docsUrl.StartsWith("http"))
+                                        // if text content part = link content part, just like following case, just update it to: <newurl>
+                                        // [https://msdn.microsoft.com/library/windows/desktop/aa384066(v=vs.85).aspx](https://msdn.microsoft.com/library/windows/desktop/aa384066(v=vs.85).aspx)
+                                        // ==> </windows/win32/winhttp/option-flags>
+                                        if (inputText.Contains($"[{oldUrl}]("))
                                         {
-                                            inputText = inputText.Replace(linkString, $"<{_baseUrl}{docsUrl}>{partialChar}");
+                                            if (!string.IsNullOrEmpty(_baseUrl) && !docsUrl.StartsWith("http"))
+                                            {
+                                                inputText = inputText.Replace(fullLinkString, $"<{_baseUrl}{docsUrl}>{partialChar}");
+                                            }
+                                            else
+                                            {
+                                                inputText = inputText.Replace(fullLinkString, $"<{docsUrl}>{partialChar}");
+                                            }
                                         }
                                         else
                                         {
-                                            inputText = inputText.Replace(linkString, $"<{docsUrl}>{partialChar}");
+                                            inputText = inputText.Replace(linkString, $"{docsUrl}{partialChar}");
                                         }
                                     }
                                 }
@@ -517,6 +528,12 @@ namespace MSDNUrlPatch
                 {
                     newUrl = newUrl.Replace(_baseUrl, "");
                 }
+            }
+
+            // Locale need be removed since bug 319246 (https://ceapex.visualstudio.com/Engineering/_workitems/edit/319246)
+            if (newUrl.Contains("en-us/"))
+            {
+                newUrl = newUrl.Replace("en-us/", "");
             }
 
             //  There are a couple of links that have a version extension that is being kept when the link is updated to docs, 
