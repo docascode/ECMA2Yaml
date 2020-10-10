@@ -531,7 +531,7 @@ namespace MSDNUrlPatch
             }
 
             // Locale need be removed since bug 319246 (https://ceapex.visualstudio.com/Engineering/_workitems/edit/319246)
-            if (newUrl.Contains("en-us/"))
+            if (newUrl.StartsWith("en-us/") || newUrl.Contains("/en-us/"))
             {
                 newUrl = newUrl.Replace("en-us/", "");
             }
