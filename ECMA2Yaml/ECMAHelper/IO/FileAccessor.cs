@@ -94,7 +94,7 @@ namespace ECMA2Yaml.IO
             {
                 var currentFileFilePathSet = new HashSet<string>(currentFiles.Select(a => a.RelativePath));
 
-                var fallbackFiles = FallbackFileAbstractLayer.ListFiles(wildCardPattern, subFolder).Where(i => !currentFileFilePathSet.Contains(i.RelativePath));
+                var fallbackFiles = FallbackFileAbstractLayer.ListFiles(wildCardPattern, subFolder, allDirectories).Where(i => !currentFileFilePathSet.Contains(i.RelativePath));
 
                 return currentFiles.Concat(fallbackFiles).ToList();
             }
