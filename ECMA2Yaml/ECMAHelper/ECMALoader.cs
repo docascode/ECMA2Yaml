@@ -32,13 +32,6 @@ namespace ECMA2Yaml
             //    return null;
             //}
 
-            var frameworks = LoadFrameworks(sourcePath);
-            if (frameworks == null || frameworks.DocIdToFrameworkDict.Count == 0)
-            {
-                OPSLogger.LogUserError(LogCode.ECMA2Yaml_Framework_NotFound, null, "any API, please check your FrameworkIndex folder");
-                return null;
-            }
-
             //var extensionMethods = LoadExtensionMethods(sourcePath);
             var filterStore = LoadFilters(sourcePath);
             var pkgInfoMapping = LoadPackageInformationMapping(sourcePath);
@@ -67,11 +60,24 @@ namespace ECMA2Yaml
                 }
             });
 
+            if (namespaces.Count == 0)
+            {
+                return null;
+            }
+
             if (_errorFiles.Count > 0)
             {
                 OPSLogger.LogUserError(LogCode.ECMA2Yaml_File_LoadFailed, null, _errorFiles.Count);
                 return null;
             }
+            
+            var frameworks = LoadFrameworks(sourcePath);
+            if (frameworks == null || frameworks.DocIdToFrameworkDict.Count == 0)
+            {
+                OPSLogger.LogUserError(LogCode.ECMA2Yaml_Framework_NotFound, null, "any API, please check your FrameworkIndex folder");
+                return null;
+            }
+
             var filteredNS = Filter(namespaces, filterStore, frameworks);
             var store = new ECMAStore(filteredNS.OrderBy(ns => ns.Name).ToArray(), frameworks)
             {
