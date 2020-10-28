@@ -197,14 +197,14 @@ examples: >-
 
   ```csharp
 
-  var a = new Cat(object, int)();
+  var a = new Cat(object, int)("&lt;");
 
   int catNumber = new int();
 
   unsafe
 
   {
-      a.GetFeetLength(catNumber);
+      a.GetFeetLength<System.Int64>(catNumber);
   }
 
   ```
