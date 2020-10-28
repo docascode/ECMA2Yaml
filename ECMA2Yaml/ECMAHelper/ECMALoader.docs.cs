@@ -391,7 +391,11 @@ namespace ECMA2Yaml
                     }
                     for (int j = startIdx + 1; j < endIdx; j++)
                     {
-                        minIndent = string.IsNullOrEmpty(lines[j]) ? minIndent : Math.Min(minIndent, lines[j].CountIndent());
+                        if (!string.IsNullOrEmpty(lines[j]))
+                        {
+                            minIndent = Math.Min(minIndent, lines[j].CountIndent());
+                            lines[j] = lines[j].Replace("&lt;", "<").Replace("&gt;", ">").Replace("&amp;", "&");
+                        }
                     }
                     if (minIndent < int.MaxValue)
                     {
