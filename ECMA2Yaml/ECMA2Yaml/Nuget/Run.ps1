@@ -151,7 +151,6 @@ foreach($ecmaConfig in $jobs)
         $newChangeList = $changeListFile -replace "\.tsv$",".mapped.tsv";
         $allArgs += "-changeList";
         $allArgs += "$changeListFile";
-        $ParameterDictionary.context.changeListTsvFilePath = $newChangeList
     }
     $userChangeListFile = $ParameterDictionary.context.userSpecifiedChangeListTsvFilePath;
     if (-not [string]::IsNullOrEmpty($userChangeListFile) -and (Test-Path $userChangeListFile))
@@ -159,7 +158,6 @@ foreach($ecmaConfig in $jobs)
         $newUserChangeList = $userChangeListFile -replace "\.tsv$",".mapped.tsv";
         $allArgs += "-changeList";
         $allArgs += "$userChangeListFile";
-        $ParameterDictionary.context.userSpecifiedChangeListTsvFilePath = $newUserChangeList
     }
 
     $printAllArgs = [System.String]::Join(' ', $allArgs)
@@ -170,7 +168,14 @@ foreach($ecmaConfig in $jobs)
     {
         exit $LASTEXITCODE
     }
-
+    if (Test-Path $newChangeList)
+    {
+        $ParameterDictionary.context.changeListTsvFilePath = $newChangeList
+    }
+    if (Test-Path $newUserChangeList)
+    {
+        $ParameterDictionary.context.userSpecifiedChangeListTsvFilePath = $newUserChangeList
+    }
     if (-not [string]::IsNullOrEmpty($ecmaConfig.id))
     {
         $tocPath = Join-Path $ecmaOutputYamlFolder "toc.yml"
