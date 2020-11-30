@@ -119,9 +119,13 @@ namespace ECMA2Yaml.Models
             {
                 foreach (var group in groups)
                 {
-                    foreach (var member in group)
+                    var types = group.Select(m => m.ItemType).Distinct().ToList();
+                    if (types.Count < group.Count())
                     {
-                        OPSLogger.LogUserWarning(LogCode.ECMA2Yaml_MemberNameAndSignature_NotUnique, member.SourceFileLocalPath, member.Name);
+                        foreach (var member in group)
+                        {
+                            OPSLogger.LogUserWarning(LogCode.ECMA2Yaml_MemberNameAndSignature_NotUnique, member.SourceFileLocalPath, member.Name);
+                        }
                     }
                 }
             }
