@@ -180,7 +180,7 @@ namespace ECMA2Yaml
             }
 
             var startIndex = declaration.IndexOf('"');
-            var endIndex = declaration.LastIndexOf('"');
+            var endIndex = declaration.IndexOf('"', startIndex+1);
             if (startIndex == -1 || endIndex == -1)
             {
                 return value;
