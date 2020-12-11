@@ -23,8 +23,6 @@ namespace ECMA2Yaml
 		public static readonly LogCode ECMA2Yaml_Framework_NotFound = new LogCode("ECMA2Yaml_Framework_NotFound", "Unable to find framework info for {0}");
 		public static readonly LogCode ECMA2Yaml_Type_NotFound = new LogCode("ECMA2Yaml_Type_NotFound", "Unable to identify the type of Type {0}");
 		public static readonly LogCode ECMA2Yaml_TypeString_ParseFailed = new LogCode("ECMA2Yaml_TypeString_ParseFailed", "Unable to parse type string {0}");
-		public static readonly LogCode ECMA2Yaml_OverloadMDFile_SaveFailed = new LogCode("ECMA2Yaml_OverloadMDFile_SaveFailed", "Unable to save overload md file for {0}");
-		public static readonly LogCode ECMA2Yaml_OverwriteMDFile_SaveFailed = new LogCode("ECMA2Yaml_OverwriteMDFile_SaveFailed", "Unable to save content overwrite md file for {0}");
 		public static readonly LogCode ECMA2Yaml_CommentID_ParseFailed = new LogCode("ECMA2Yaml_CommentID_ParseFailed", "Unable to parse string as comment id: {0}");
 		public static readonly LogCode ECMA2Yaml_PackageInformation_LoadFailed = new LogCode("ECMA2Yaml_PackageInformation_LoadFailed", "Unable to load package information: {0}");
 		public static readonly LogCode ECMA2Yaml_MonikerToAssembly_Failed = new LogCode("ECMA2Yaml_MonikerToAssembly_Failed", "Unable to load moniker to assembly mapping: {0}");
@@ -32,8 +30,6 @@ namespace ECMA2Yaml
 		public static readonly LogCode ECMA2Yaml_CommentId_ResolveFailed = new LogCode("ECMA2Yaml_CommentId_ResolveFailed", "Unable to resolve: <InterfaceMember>{0}</InterfaceMember>");
 		public static readonly LogCode ECMA2Yaml_Namespace_LoadFailed = new LogCode("ECMA2Yaml_Namespace_LoadFailed", "Failed to load namespace");
 		public static readonly LogCode ECMA2Yaml_File_LoadFailed = new LogCode("ECMA2Yaml_File_LoadFailed", "Failed to load {0} files, aborting...");
-		public static readonly LogCode ECMA2Yaml_YamlHeader_ParseFailed_WithException = new LogCode("ECMA2Yaml_YamlHeader_ParseFailed_WithException", "Parsing yaml header failed, exception: {0}");
-		public static readonly LogCode ECMA2Yaml_YamlHeader_ParseFailed = new LogCode("ECMA2Yaml_YamlHeader_ParseFailed", "Parsing yaml header failed: {0}");
 		public static readonly LogCode ECMA2Yaml_Uid_NotFound = new LogCode("ECMA2Yaml_Uid_NotFound", "Can't find uid in yaml header: {0}");
 		public static readonly LogCode ECMA2Yaml_NotesType_UnKnown = new LogCode("ECMA2Yaml_NotesType_UnKnown", "Can't recognize additional notes type: {0}");
 		public static readonly LogCode ECMA2Yaml_UidAssembly_NotMatched = new LogCode("ECMA2Yaml_UidAssembly_NotMatched", "{0}'s moniker {1} can't match any assembly.");
@@ -45,6 +41,7 @@ namespace ECMA2Yaml
 		public static readonly LogCode ECMA2Yaml_ExceptionTypeNotFound = new LogCode("ECMA2Yaml_ExceptionTypeNotFound", "Referenced exception type not found: {0}");
 		public static readonly LogCode ECMA2Yaml_CrefTypePrefixMissing = new LogCode("ECMA2Yaml_CrefTypePrefixMissing", "Invalid cref format ({0}) detected in {1}");
 		public static readonly LogCode ECMA2Yaml_Member_EmptyMoniker = new LogCode("ECMA2Yaml_Member_EmptyMoniker", "{0} have empty Moniker");
+		public static readonly LogCode ECMA2Yaml_Enum_NoRemarks = new LogCode("ECMA2Yaml_Enum_NoRemarks", "Please note: <remarks> node on Enum fields will be ignored.");
 		#endregion
     public LogCode(string code, string msgTemplate)
         : base(code, msgTemplate)

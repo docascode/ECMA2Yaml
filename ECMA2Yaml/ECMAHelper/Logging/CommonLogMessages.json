@@ -54,16 +54,6 @@
           "document_url": ""
         },
         {
-          "log_code": "ECMA2Yaml_OverloadMDFile_SaveFailed",
-          "message": "Unable to save overload md file for {0}",
-          "document_url": ""
-        },
-        {
-          "log_code": "ECMA2Yaml_OverwriteMDFile_SaveFailed",
-          "message": "Unable to save content overwrite md file for {0}",
-          "document_url": ""
-        },
-        {
           "log_code": "ECMA2Yaml_CommentID_ParseFailed",
           "message": "Unable to parse string as comment id: {0}",
           "document_url": ""
@@ -96,16 +86,6 @@
         {
           "log_code": "ECMA2Yaml_File_LoadFailed",
           "message": "Failed to load {0} files, aborting...",
-          "document_url": ""
-        },
-        {
-          "log_code": "ECMA2Yaml_YamlHeader_ParseFailed_WithException",
-          "message": "Parsing yaml header failed, exception: {0}",
-          "document_url": ""
-        },
-        {
-          "log_code": "ECMA2Yaml_YamlHeader_ParseFailed",
-          "message": "Parsing yaml header failed: {0}",
           "document_url": ""
         },
         {
@@ -161,6 +141,11 @@
         {
           "log_code": "ECMA2Yaml_Member_EmptyMoniker",
           "message": "{0} have empty Moniker",
+          "document_url": ""
+        },
+        {
+          "log_code": "ECMA2Yaml_Enum_NoRemarks",
+          "message": "Please note: <remarks> node on Enum fields will be ignored.",
           "document_url": ""
         }
       ]

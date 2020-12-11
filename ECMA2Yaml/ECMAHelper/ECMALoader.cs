@@ -316,6 +316,17 @@ namespace ECMA2Yaml
             //MemberType
             t.ItemType = InferTypeOfType(t);
 
+            if (t.ItemType == ItemType.Enum && t.Members?.Count > 0)
+            {
+                foreach(var m in t.Members)
+                {
+                    if (!string.IsNullOrEmpty(m.Docs.Remarks))
+                    {
+                        OPSLogger.LogUserWarning(LogCode.ECMA2Yaml_Enum_NoRemarks, typeFile.AbsolutePath);
+                    }
+                }
+            }
+
             // Metadata
             LoadMetadata(t, tRoot);
 
