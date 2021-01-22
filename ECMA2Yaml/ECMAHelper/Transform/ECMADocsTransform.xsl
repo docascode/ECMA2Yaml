@@ -42,29 +42,29 @@
 
   <xsl:template match="code">
     <xsl:choose>
-    <xsl:when test="contains(., '&#10;')">
-    <xsl:text>&#10;</xsl:text>
-    <xsl:choose>
-      <xsl:when test="@language = 'C#' or @language = 'c#' or @lang = 'C#' or @lang = 'c#'">
-        <xsl:text>```csharp</xsl:text>
-      </xsl:when>
-      <xsl:when test="normalize-space(@language)">
-        <xsl:text>```</xsl:text><xsl:value-of select="@language" />
-      </xsl:when>
-      <xsl:when test="normalize-space(@lang)">
-        <xsl:text>```</xsl:text><xsl:value-of select="@lang" />
+      <xsl:when test="contains(., '&#10;')">
+        <xsl:text>&#10;</xsl:text>
+        <xsl:choose>
+          <xsl:when test="@language = 'C#' or @language = 'c#' or @lang = 'C#' or @lang = 'c#'">
+            <xsl:text>```csharp</xsl:text>
+          </xsl:when>
+          <xsl:when test="normalize-space(@language)">
+            <xsl:text>```</xsl:text><xsl:value-of select="@language" />
+          </xsl:when>
+          <xsl:when test="normalize-space(@lang)">
+            <xsl:text>```</xsl:text><xsl:value-of select="@lang" />
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:text>```</xsl:text>
+          </xsl:otherwise>
+        </xsl:choose>
+        <xsl:text>&#10;</xsl:text>
+        <xsl:apply-templates />
+        <xsl:text>&#10;```</xsl:text>
       </xsl:when>
       <xsl:otherwise>
-        <xsl:text>```</xsl:text>
+        <code><xsl:apply-templates /></code>
       </xsl:otherwise>
-    </xsl:choose>
-    <xsl:text>&#10;</xsl:text>
-    <xsl:apply-templates />
-    <xsl:text>&#10;```</xsl:text>
-    </xsl:when>
-    <xsl:otherwise>
-      <code><xsl:apply-templates /></code>
-    </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
 

@@ -389,6 +389,12 @@ namespace ECMA2Yaml
                     {
                         lines[startIdx + 1] = null;
                     }
+                    //the line just before the first ```, if it's NOT empty line and ends with a html tag, we should add an extra linebreak.
+                    //this is because how markdig handles html block.
+                    if (startIdx > 0 && !string.IsNullOrWhiteSpace(lines[startIdx - 1]) && lines[startIdx - 1].EndsWith(">"))
+                    {
+                        lines[startIdx] = "\n" + lines[startIdx];
+                    }
                     for (int j = startIdx + 1; j < endIdx; j++)
                     {
                         if (!string.IsNullOrEmpty(lines[j]))
