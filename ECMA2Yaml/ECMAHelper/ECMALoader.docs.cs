@@ -150,7 +150,7 @@ namespace ECMA2Yaml
             for (int headerSize = 5; headerSize > 0; headerSize--)
                 ReplaceTriggered(lines, headerSize, ref replaceTriggered);
 
-            return replaceTriggered ? string.Join("\n", lines) : remarksText;
+            return replaceTriggered ? remarksText : remarksText;
         }
 
         private static readonly string[] markdownHeaders = new string[]
