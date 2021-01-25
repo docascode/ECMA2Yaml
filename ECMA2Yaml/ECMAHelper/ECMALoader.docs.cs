@@ -32,7 +32,7 @@ namespace ECMA2Yaml
             }
 
             var remarks = dElement.Element("remarks");
-            string remarksText = NormalizeDocsElement(remarks, true);
+            string remarksText = NormalizeDocsElement(remarks);
             string examplesText = null;
             if (remarksText != null)
             {
