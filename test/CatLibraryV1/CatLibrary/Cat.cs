@@ -181,6 +181,10 @@ namespace CatLibrary
         /// <summary>
         /// EII method.
         /// </summary>
+        /// <remarks>
+        /// Fix Bug# 357373: Docs unexpectedly preserving line feeds in dotnet remark
+        /// Test the display of multiple lines.
+        /// </remarks>
         void IAnimal.Eat() { }
         /// <summary>
         /// EII template method.
