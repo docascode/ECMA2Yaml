@@ -98,6 +98,15 @@ namespace ECMA2Yaml
                 };
             }
 
+            var inheritdocEle = dElement.Element("inheritdoc");
+            InheritDoc inheritDoc = null;
+            if (inheritdocEle != null)
+            {
+                inheritDoc = new InheritDoc();
+
+                // TODO: other attributes parse
+            }
+            
             return new Docs()
             {
                 Summary = NormalizeDocsElement(dElement.Element("summary")),
@@ -115,7 +124,8 @@ namespace ECMA2Yaml
                 ThreadSafetyInfo = threadSafety,
                 Since = NormalizeDocsElement(dElement.Element("since")?.Value),
                 AltCompliant = dElement.Element("altCompliant")?.Attribute("cref")?.Value,
-                InternalOnly = dElement.Element("forInternalUseOnly") != null
+                InternalOnly = dElement.Element("forInternalUseOnly") != null,
+                Inheritdoc = inheritDoc
             };
         }
 

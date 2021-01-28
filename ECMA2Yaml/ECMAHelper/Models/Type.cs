@@ -14,6 +14,7 @@ namespace ECMA2Yaml.Models
         public List<VersionedCollection<string>> InheritanceChains { get; set; }
         public TypeForwardingChain TypeForwardingChain { get; set; }
         public Dictionary<string, VersionedString> InheritedMembers { get; set; }
+        public Dictionary<string, List<string>> InheritedMembersById { get; set; }  // Use to find inherit doc feature
         public List<string> IsA { get; set; }
         public List<VersionedString> Interfaces { get; set; }
         public List<Member> Members { get; set; }
