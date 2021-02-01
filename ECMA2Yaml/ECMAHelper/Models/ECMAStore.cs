@@ -1351,6 +1351,7 @@ namespace ECMA2Yaml.Models
             else
             {
                 // No support other types
+                return;
             }
 
             DoValidation(m.Docs, m.Uid, m.SourceFileLocalPath);
