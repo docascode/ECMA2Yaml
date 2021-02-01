@@ -907,8 +907,6 @@ namespace ECMA2Yaml.Models
 
         private void BuildInheritance(Type t)
         {
-            BuildInheritanceForDocs(t);
-
             if (t.ItemType == ItemType.Interface)
             {
                 BuildInheritanceForInterface(t);
@@ -917,6 +915,8 @@ namespace ECMA2Yaml.Models
             {
                 BuildInheritanceDefault(t);
             }
+
+            BuildInheritanceForDocs(t);
         }
 
         private void BuildInheritanceForInterface(Type t)
@@ -1214,7 +1214,7 @@ namespace ECMA2Yaml.Models
                                             && m.ItemType != ItemType.AttachedEvent
                                             && !m.Signatures.IsStatic)
                                         {
-                                            var inheritDocId = GetInheritDocSearchId(m);
+                                            var inheritDocId = m.Id;
                                             if (allInheritedMembersById.ContainsKey(inheritDocId))
                                             {
                                                 allInheritedMembersById[inheritDocId].Add(m.Uid);
@@ -1248,7 +1248,7 @@ namespace ECMA2Yaml.Models
                             {
                                 if (m.Name != "Finalize" && !m.Signatures.IsStatic)
                                 {
-                                    var inheritDocId = GetInheritDocSearchId(m);
+                                    var inheritDocId = m.Id;
                                     if (allInheritedMembersById.ContainsKey(inheritDocId))
                                     {
                                         allInheritedMembersById[inheritDocId].Add(m.Uid);
@@ -1319,7 +1319,7 @@ namespace ECMA2Yaml.Models
 
             if (m.ItemType == ItemType.Method || m.ItemType == ItemType.Constructor)
             {
-                var inheritDocId = GetInheritDocSearchId(m);
+                var inheritDocId = m.Id;
                 if (t.InheritedMembersById?.Count > 0 && t.InheritedMembersById.ContainsKey(inheritDocId))
                 {
                     var uids = t.InheritedMembersById[inheritDocId];
@@ -1367,7 +1367,12 @@ namespace ECMA2Yaml.Models
             }
             if (inheritFrom?.Parameters?.Count > 0)
             {
-                inheritTo.Parameters = inheritFrom.Parameters;
+                inheritTo.Parameters = new Dictionary<string, string>();
+                foreach (var p in inheritFrom.Parameters)
+                {
+                    inheritTo.Parameters.Add(p.Key, p.Value);
+                }
+
                 isInherit = true;
             }
             if (!string.IsNullOrEmpty(inheritFrom?.Returns))
@@ -1408,15 +1413,6 @@ namespace ECMA2Yaml.Models
 
             return true;
         }
-
-        private string GetInheritDocSearchId(Member m)
-        {
-            //string signature = m.Signatures.Dict[ECMADevLangs.CSharp].FirstOrDefault()?.Value;
-            //if (!string.IsNullOrEmpty(signature)) signature = signature.Replace("abstract ", "").Replace("override ", "").Replace("virtual ", "");
-            //return signature;
-
-            return m.Id;
-        } 
         #endregion
     }
 }
