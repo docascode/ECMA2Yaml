@@ -7,6 +7,7 @@ using System.Xml.Linq;
 
 namespace ECMA2Yaml.Models
 {
+    [Serializable]
     public class VersionedSignatures
     {
         readonly string csharp = ECMADevLangs.OPSMapping[ECMADevLangs.CSharp];

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace ECMA2Yaml.Models
 {
+    [Serializable]
     public class TypedContent
     {
         public string CommentId { get; set; }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace ECMA2Yaml.Models
 {
+    [Serializable]
     public class PackageInformation
     {
         public string Name { get; set; }
@@ -14,7 +15,7 @@ namespace ECMA2Yaml.Models
 
         public string Feed { get; set; }
     }
-
+    [Serializable]
     // moniker1
     //   |__ assembly1 => package1
     //   |__ assembly2 => package2

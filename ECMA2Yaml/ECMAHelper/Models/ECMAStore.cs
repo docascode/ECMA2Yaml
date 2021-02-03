@@ -2,8 +2,12 @@
 using MoreLinq;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
+using System.Reflection;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text.RegularExpressions;
 
 namespace ECMA2Yaml.Models
@@ -35,6 +39,9 @@ namespace ECMA2Yaml.Models
         private FrameworkIndex _frameworks;
         private List<Member> _extensionMethods;
 
+        //Record the items that need to be separated.
+        private Dictionary<string, string> enumCovertClass;
+
         public ECMAStore(IEnumerable<Namespace> nsList, FrameworkIndex frameworks)
         {
             typeDescriptorCache = new Dictionary<string, EcmaDesc>();
@@ -47,16 +54,22 @@ namespace ECMA2Yaml.Models
             InheritanceChildrenByUid = new Dictionary<string, List<VersionedString>>();
             ImplementationParentsByUid = new Dictionary<string, List<VersionedString>>();
             ImplementationChildrenByUid = new Dictionary<string, List<VersionedString>>();
+            enumCovertClass = new Dictionary<string, string>();
         }
 
         public void Build()
         {
+            //The type changed from an enum to a regular object in the latest release of the library, 
+            //so this would have to result in two separate yaml documents entirely for the same type.
+            EnumConvertToClass();
+            _tList = _nsList.SelectMany(ns => ns.Types).ToList();
             Namespaces = _nsList.ToDictionary(ns => ns.Name);
             TypesByFullName = _tList.ToDictionary(t => t.FullName);
-
+          
             BuildIds(_nsList, _tList);
 
             TypesByUid = _tList.ToDictionary(t => t.Uid);
+            
             BuildUniqueMembers();
             BuildDocIdDictionary();
 
@@ -87,6 +100,35 @@ namespace ECMA2Yaml.Models
             BuildExtensionMethods();
 
             BuildOtherMetadata();
+        }
+        private void EnumConvertToClass()
+        {
+            var enumConvertClass = _nsList.Where(t => t.Types != null && (t.Types.Any(item=>item.BaseTypes.Any(bt => bt.Name == "System.Enum")) && t.Types.Any(item => item.BaseTypes.Any(bt => bt.Name == "System.Object")))).ToList();
+            enumConvertClass.ForEach(item =>
+            {
+                var listType =new List<Type>();
+                item.Types.ForEach(type =>
+                {
+                    var tempName = type.DeepClone().DocId;
+                    var newItem = type.DeepClone();
+                    type.Id = type.Name + "_" + ItemType.Class;
+                    type.FullName = type.FullName + "_" + ItemType.Class;
+                    type.ItemType =ItemType.Class;
+                    type.DocId = type.DocId + "_" + ItemType.Class;
+                    type.Members = type.Members.Where(t => t.ItemType != ItemType.Field).ToList();
+                    listType.Add(type);
+                    enumCovertClass[type.DocId] = tempName;
+                    newItem.Id = newItem.Name + "_" + ItemType.Enum;
+                    newItem.FullName = newItem.FullName + "_" + ItemType.Enum;
+                    newItem.DocId = newItem.DocId + "_" + ItemType.Enum;
+                    newItem.ItemType = ItemType.Enum;
+                    newItem.Members = newItem.Members.Where(t => t.ItemType == ItemType.Field).ToList();
+                    enumCovertClass[newItem.DocId] = tempName;
+                    listType.Add(newItem);
+                });
+
+                item.Types = listType;
+            });
         }
 
         private void BuildDocIdDictionary()
@@ -551,9 +593,10 @@ namespace ECMA2Yaml.Models
                 }
                 foreach (var t in ns.Types)
                 {
-                    if (!string.IsNullOrEmpty(t.DocId) && _frameworks.DocIdToFrameworkDict.ContainsKey(t.DocId))
+                    var docId = t.DocId;
+                    if ((!string.IsNullOrEmpty(docId) && _frameworks.DocIdToFrameworkDict.ContainsKey(docId)) || enumCovertClass.TryGetValue(t.DocId, out docId))
                     {
-                        t.Monikers = new HashSet<string>(_frameworks.DocIdToFrameworkDict[t.DocId]);
+                        t.Monikers = new HashSet<string>(_frameworks.DocIdToFrameworkDict[docId]);
                         if (t.TypeForwardingChain != null)
                         {
                             t.TypeForwardingChain.Build(t.Monikers);

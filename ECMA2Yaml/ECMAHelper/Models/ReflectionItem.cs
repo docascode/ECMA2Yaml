@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace ECMA2Yaml.Models
 {
+    [Serializable]
     public enum ItemType
     {
         Default,
@@ -27,7 +28,7 @@ namespace ECMA2Yaml.Models
         AttachedEvent,
         AttachedProperty
     }
-
+    [Serializable]
     public abstract class ReflectionItem
     {
         private string _id;

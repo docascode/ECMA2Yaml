@@ -1,14 +1,16 @@
 ﻿using Lucene.Net.Store;
+using System;
 using System.Collections.Generic;
 
 namespace ECMA2Yaml.Models
 {
+    [Serializable]
     public class TypeForwarding
     {
         public AssemblyInfo From { get; set; }
         public AssemblyInfo To { get; set; }
     }
-
+    [Serializable]
     public class TypeForwardingChain
     {
         public Dictionary<string, List<TypeForwarding>> TypeForwardingsPerMoniker { get; set; }

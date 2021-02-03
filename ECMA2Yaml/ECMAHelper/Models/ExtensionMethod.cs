@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace ECMA2Yaml.Models
 {
+    [Serializable]
     public class ExtensionMethod
     {
         public string Uid { get; set; }

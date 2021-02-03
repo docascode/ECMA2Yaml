@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace ECMA2Yaml
 {
+    [Serializable]
     public class GitSourceDetail
     {
         public string RepoUrl { get; set; }

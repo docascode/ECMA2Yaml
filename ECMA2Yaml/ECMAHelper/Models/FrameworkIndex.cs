@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace ECMA2Yaml.Models
 {
+    [Serializable]
     public class FrameworkIndex
     {
         public Dictionary<string, List<string>> DocIdToFrameworkDict { get; set; }
