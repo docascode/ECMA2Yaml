@@ -15,6 +15,7 @@ namespace ECMA2Yaml
         private List<string> _errorFiles = new List<string>();
         private ECMADocsTransform _docsTransform = new ECMADocsTransform();
         private FileAccessor _fileAccessor = null;
+        private ConcurrentDictionary<string, List<Models.Type>> _enumClassTypes = new ConcurrentDictionary<string, List<Models.Type>>();
 
         public ConcurrentBag<string> FallbackFiles { get; private set; }
 
@@ -180,8 +181,51 @@ namespace ECMA2Yaml
                     var t = LoadType(typeFile);
                     if (t != null)
                     {
+                        if (t.ItemType != ItemType.EnumClass)
+                        {
+                            t.Parent = ns;
+                            types.Add(t);
+                            if (typeFile.IsVirtual)
+                            {
+                                FallbackFiles.Add(typeFile.AbsolutePath);
+                            }
+
+                            break;
+                        }
+
+                        //The type changed from an enum to a regular object in the latest release of the library, 
+                        //so this would have to result in two separate yaml documents entirely for the same type.
+                        var docId = t.DocId;
+                        t.ItemType = ItemType.Class;
+                        //It is mainly used to modify uid, for uid is readonly.
+                        t.Name = t.Name + "_" + ItemType.Class.ToString();
+                        t.FullName = t.FullName + "_" + ItemType.Class.ToString();
+                        //Filter out the members related to class
+                        t.Members = t.Members.Where(m => m.ItemType == ItemType.Constructor || m.ItemType == ItemType.Method).ToList();
+                        //because the docId must to be unique
+                        t.DocId = t.DocId + "_" + ItemType.Class.ToString();
                         t.Parent = ns;
                         types.Add(t);
+
+                        //Record the items that need to be separated, because they also need to be separated in LoadFrameworks Menthod.
+                        _enumClassTypes.AddOrUpdate(docId, new List<Models.Type>() { t }, (k, v) => { v.Add(t); return v; });
+
+                        if (typeFile.IsVirtual)
+                        {
+                              FallbackFiles.Add(typeFile.AbsolutePath);
+                        }
+
+                        //Equivalente a deep copy.
+                        t = LoadType(typeFile);
+                        t.ItemType = ItemType.Enum;
+                        //Filter out the members related to Enum
+                        t.Members = t.Members.Where(m => m.ItemType == ItemType.Field).ToList();
+                        t.FullName = t.FullName + "_" + ItemType.Enum.ToString();
+                        t.Name = t.Name + "_" + ItemType.Enum.ToString();
+                        t.DocId = t.DocId + "_" + ItemType.Enum.ToString();
+                        t.Parent = ns;
+                        types.Add(t);
+                        _enumClassTypes.AddOrUpdate(docId, new List<Models.Type>() { t }, (k, v) => { v.Add(t); return v; });
                         if (typeFile.IsVirtual)
                         {
                             FallbackFiles.Add(typeFile.AbsolutePath);
@@ -339,6 +383,11 @@ namespace ECMA2Yaml
             if (t.BaseTypes == null && signature.Contains(" interface "))
             {
                 return ItemType.Interface;
+            }
+            else if ((t.BaseTypes == null || (t.BaseTypes.Any(bt => bt.Name == "System.Enum") && t.BaseTypes.Any(bt => bt.Name == "System.Object")))
+                && signature.Contains(" enum "))
+            {
+                return ItemType.EnumClass;
             }
             else if ((t.BaseTypes == null || t.BaseTypes.Any(bt => bt.Name == "System.Enum"))
                 && signature.Contains(" enum "))

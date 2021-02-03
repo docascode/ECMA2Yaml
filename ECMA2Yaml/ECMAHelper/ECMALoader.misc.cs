@@ -116,12 +116,31 @@ namespace ECMA2Yaml
                     foreach (var tElement in nsElement.Elements("Type"))
                     {
                         var t = tElement.Attribute("Id").Value;
-                        frameworkIndex.DocIdToFrameworkDict.AddWithKey(t, fxName);
-                        foreach (var mElement in tElement.Elements("Member"))
+
+                        //The type changed from an enum to a regular object in the latest release of the library, 
+                        //so this would have to result in two separate yaml documents entirely for the same type.
+                        if (_enumClassTypes.TryGetValue(t, out List<Models.Type> types))
                         {
-                            var m = mElement.Attribute("Id").Value;
-                            frameworkIndex.DocIdToFrameworkDict.AddWithKey(m, fxName);
+                            foreach (var item in types)
+                            {
+                                frameworkIndex.DocIdToFrameworkDict.AddWithKey(item.DocId, fxName);
+                                foreach (var member in item.Members)
+                                {
+                                    frameworkIndex.DocIdToFrameworkDict.AddWithKey(member.DocId, fxName);
+                                }
+                            }
                         }
+                        else
+                        {
+                            frameworkIndex.DocIdToFrameworkDict.AddWithKey(t, fxName);
+                            foreach (var mElement in tElement.Elements("Member"))
+                            {
+                                var m = mElement.Attribute("Id").Value;
+                                frameworkIndex.DocIdToFrameworkDict.AddWithKey(m, fxName);
+                            }
+                        }
+
+                        
                     }
                 }
 

@@ -25,7 +25,8 @@ namespace ECMA2Yaml.Models
         Operator,
         Container,
         AttachedEvent,
-        AttachedProperty
+        AttachedProperty,
+        EnumClass
     }
 
     public abstract class ReflectionItem
