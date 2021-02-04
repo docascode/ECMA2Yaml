@@ -78,7 +78,6 @@ namespace ECMA2Yaml.Models
             }
 
             PopulateMonikers();
-            //PopulateEnumConvertToClassMember();
             foreach (var t in _tList)
             {
                 FillInheritanceImplementationGraph(t);
@@ -622,7 +621,6 @@ namespace ECMA2Yaml.Models
                 return null;
             }
         }
-        
         private void PopulateMonikers()
         {
             if (_frameworks == null || _frameworks.DocIdToFrameworkDict.Count == 0)
@@ -639,7 +637,7 @@ namespace ECMA2Yaml.Models
                 }
                 foreach (var t in ns.Types)
                 {
-                    if ((!string.IsNullOrEmpty(t.DocId) && _frameworks.DocIdToFrameworkDict.ContainsKey(t.DocId)))
+                    if (!string.IsNullOrEmpty(t.DocId) && _frameworks.DocIdToFrameworkDict.ContainsKey(t.DocId))
                     {
                         t.Monikers = new HashSet<string>(_frameworks.DocIdToFrameworkDict[t.DocId]);
                         if (t.TypeForwardingChain != null)

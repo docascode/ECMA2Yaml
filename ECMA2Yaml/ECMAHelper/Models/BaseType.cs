@@ -11,6 +11,7 @@ namespace ECMA2Yaml.Models
         public string TypeParamName { get; set; }
         public string Value { get; set; }
     }
+
     public class BaseType : ReflectionItem
     {
         public List<BaseTypeArgument> TypeArguments { get; set; }

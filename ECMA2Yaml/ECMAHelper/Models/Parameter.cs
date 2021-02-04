@@ -64,6 +64,7 @@ namespace ECMA2Yaml.Models
                     .ToList();
         }
     }
+
     public class Parameter : ParameterBase, IEquatable<Parameter>
     {
         public string Type { get; set; }

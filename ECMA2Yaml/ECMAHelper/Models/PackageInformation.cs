@@ -14,6 +14,7 @@ namespace ECMA2Yaml.Models
 
         public string Feed { get; set; }
     }
+
     // moniker1
     //   |__ assembly1 => package1
     //   |__ assembly2 => package2

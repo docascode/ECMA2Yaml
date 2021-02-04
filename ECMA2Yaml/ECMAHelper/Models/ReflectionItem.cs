@@ -27,6 +27,7 @@ namespace ECMA2Yaml.Models
         AttachedEvent,
         AttachedProperty
     }
+
     public abstract class ReflectionItem
     {
         private string _id;

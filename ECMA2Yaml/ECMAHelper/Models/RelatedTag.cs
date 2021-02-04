@@ -14,6 +14,7 @@ namespace ECMA2Yaml.Models
         Article,
         Recipe
     }
+
     public class RelatedTag
     {
         public RelatedType Type { get; set; }
