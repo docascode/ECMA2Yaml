@@ -7,7 +7,6 @@ using System.Xml.Linq;
 
 namespace ECMA2Yaml.Models
 {
-    [Serializable]
     public class ParameterBase
     {
         public List<VersionedString> VersionedNames { get; set; }
@@ -65,7 +64,6 @@ namespace ECMA2Yaml.Models
                     .ToList();
         }
     }
-    [Serializable]
     public class Parameter : ParameterBase, IEquatable<Parameter>
     {
         public string Type { get; set; }

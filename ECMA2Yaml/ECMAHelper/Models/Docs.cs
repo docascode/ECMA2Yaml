@@ -6,7 +6,6 @@ using System.Xml.Linq;
 
 namespace ECMA2Yaml.Models
 {
-    [Serializable]
     //http://docs.go-mono.com/?link=man%3amdoc(5)
     public class Docs
     {

@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 
 namespace ECMA2Yaml.Models
 {
-    [Serializable]
     public class Namespace : ReflectionItem
     {
         public List<Type> Types { get; set; }

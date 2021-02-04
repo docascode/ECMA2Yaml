@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace ECMA2Yaml.Models
 {
-    [Serializable]
     public class AssemblyInfo : IEquatable<AssemblyInfo>
     {
         public string Name { get; set; }

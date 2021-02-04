@@ -6,13 +6,11 @@ using System.Threading.Tasks;
 
 namespace ECMA2Yaml.Models
 {
-    [Serializable]
     public class BaseTypeArgument
     {
         public string TypeParamName { get; set; }
         public string Value { get; set; }
     }
-    [Serializable]
     public class BaseType : ReflectionItem
     {
         public List<BaseTypeArgument> TypeArguments { get; set; }

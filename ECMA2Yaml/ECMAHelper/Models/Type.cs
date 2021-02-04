@@ -10,7 +10,6 @@ using System.Threading.Tasks;
 
 namespace ECMA2Yaml.Models
 {
-    [Serializable]
     public class Type : ReflectionItem
     {
         public string FullName { get; set; }
@@ -36,16 +35,20 @@ namespace ECMA2Yaml.Models
                 }
             }
         }
-
-        public Type DeepClone()
+        public Type DeepCopy()
         {
-            using (Stream objectStream = new MemoryStream())
-            {
-                IFormatter formatter = new BinaryFormatter();
-                formatter.Serialize(objectStream, this);
-                objectStream.Seek(0, SeekOrigin.Begin);
-                return formatter.Deserialize(objectStream) as Type;
-            }
+            Type rval = (Type)MemberwiseClone();
+            rval.BaseTypes = BaseTypes==null?null:new List<BaseType>(BaseTypes);
+            rval.InheritanceChains = InheritanceChains==null?null:new List<VersionedCollection<string>>(InheritanceChains);
+            rval.TypeForwardingChain = TypeForwardingChain==null?null:TypeForwardingChain.DeepCopy();
+            rval.InheritedMembers = InheritedMembers==null?null:new Dictionary<string, VersionedString>(InheritedMembers);
+            rval.IsA = IsA==null?null:new List<string>(IsA);
+            rval.Interfaces = Interfaces==null?null:new List<VersionedString>(Interfaces);
+            rval.Members = Members==null?null:new List<Member>(Members);
+            rval.Overloads = Overloads==null?null:new List<Member>(Overloads);
+            rval.ExtensionMethods = ExtensionMethods==null?null:new List<VersionedString>(ExtensionMethods);
+            return rval;
         }
+
     }
 }

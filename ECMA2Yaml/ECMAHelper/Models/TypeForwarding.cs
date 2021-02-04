@@ -1,16 +1,13 @@
 ﻿using Lucene.Net.Store;
-using System;
 using System.Collections.Generic;
 
 namespace ECMA2Yaml.Models
 {
-    [Serializable]
     public class TypeForwarding
     {
         public AssemblyInfo From { get; set; }
         public AssemblyInfo To { get; set; }
     }
-    [Serializable]
     public class TypeForwardingChain
     {
         public Dictionary<string, List<TypeForwarding>> TypeForwardingsPerMoniker { get; set; }
@@ -39,6 +36,13 @@ namespace ECMA2Yaml.Models
                     }
                 }
             }
+        }
+        public TypeForwardingChain DeepCopy()
+        {
+            TypeForwardingChain rval = (TypeForwardingChain)MemberwiseClone();
+            rval.TypeForwardingsPerMoniker = TypeForwardingsPerMoniker==null?null:new Dictionary<string, List<TypeForwarding>>(TypeForwardingsPerMoniker);
+            rval._rawData = _rawData==null?null:new List<VersionedValue<TypeForwarding>>(_rawData);
+            return rval;
         }
     }
 }

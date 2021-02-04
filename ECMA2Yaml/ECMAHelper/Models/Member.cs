@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 
 namespace ECMA2Yaml.Models
 {
-    [Serializable]
     public class Member : ReflectionItem
     {
         public string DisplayName { get; set; }

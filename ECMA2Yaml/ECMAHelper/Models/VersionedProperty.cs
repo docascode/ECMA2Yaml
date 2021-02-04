@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace ECMA2Yaml.Models
 {
-    [Serializable]
     public class VersionedProperty<VT> where VT : IEquatable<VT>
     {
         public Dictionary<string, List<VT>> ValuesPerMoniker { get; private set; }

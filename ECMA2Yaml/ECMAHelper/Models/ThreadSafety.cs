@@ -8,7 +8,6 @@ using YamlDotNet.Serialization;
 
 namespace ECMA2Yaml.Models
 {
-    [Serializable]
     public class ThreadSafety
     {
         [JsonProperty("customContent")]

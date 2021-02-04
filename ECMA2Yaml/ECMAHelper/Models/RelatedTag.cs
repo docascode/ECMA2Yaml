@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace ECMA2Yaml.Models
 {
-    [Serializable]
     public enum RelatedType
     {
         Sample,
@@ -15,7 +14,6 @@ namespace ECMA2Yaml.Models
         Article,
         Recipe
     }
-    [Serializable]
     public class RelatedTag
     {
         public RelatedType Type { get; set; }

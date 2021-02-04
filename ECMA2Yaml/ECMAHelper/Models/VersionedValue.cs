@@ -9,7 +9,6 @@ using YamlDotNet.Serialization;
 
 namespace ECMA2Yaml.Models
 {
-    [Serializable]
     public class VersionedString : VersionedValue<string>
     {
         public VersionedString() { }
@@ -18,7 +17,6 @@ namespace ECMA2Yaml.Models
         {
         }
     }
-    [Serializable]
     public class VersionedReturnType : VersionedString
     {
         [JsonProperty("refType")]
@@ -30,7 +28,6 @@ namespace ECMA2Yaml.Models
             RefType = reftype;
         }
     }
-    [Serializable]
     public class VersionedValue<T>
     {
         [JsonProperty("value")]
@@ -48,7 +45,6 @@ namespace ECMA2Yaml.Models
             Value = value;
         }
     }
-    [Serializable]
     public class VersionedCollection<T>
     {
         [JsonProperty("values")]
