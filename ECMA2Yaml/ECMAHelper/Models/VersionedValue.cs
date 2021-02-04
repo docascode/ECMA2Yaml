@@ -17,6 +17,7 @@ namespace ECMA2Yaml.Models
         {
         }
     }
+
     public class VersionedReturnType : VersionedString
     {
         [JsonProperty("refType")]
@@ -28,6 +29,7 @@ namespace ECMA2Yaml.Models
             RefType = reftype;
         }
     }
+
     public class VersionedValue<T>
     {
         [JsonProperty("value")]
@@ -45,6 +47,7 @@ namespace ECMA2Yaml.Models
             Value = value;
         }
     }
+
     public class VersionedCollection<T>
     {
         [JsonProperty("values")]
