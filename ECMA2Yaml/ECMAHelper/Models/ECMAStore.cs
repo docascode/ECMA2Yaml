@@ -68,7 +68,6 @@ namespace ECMA2Yaml.Models
             BuildIds(_nsList, _tList);
 
             TypesByUid = _tList.ToDictionary(t => t.Uid);
-            
             BuildUniqueMembers();
             BuildDocIdDictionary();
 
@@ -78,6 +77,7 @@ namespace ECMA2Yaml.Models
             }
 
             PopulateMonikers();
+
             foreach (var t in _tList)
             {
                 FillInheritanceImplementationGraph(t);
@@ -99,6 +99,7 @@ namespace ECMA2Yaml.Models
 
             BuildOtherMetadata();
         }
+
         private void EnumConvertToClass()
         {
             var enumConvertClass = _nsList.Where(t => t.Types != null && (t.Types.Any(item=>item.BaseTypes.Any(bt => bt.Name == "System.Enum")) && t.Types.Any(item => item.BaseTypes.Any(bt => bt.Name == "System.Object")))).ToList();
