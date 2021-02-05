@@ -46,6 +46,7 @@ namespace ECMA2Yaml
 		public static readonly LogCode ECMA2Yaml_Inheritdoc_NoFoundDocs = new LogCode("ECMA2Yaml_Inheritdoc_NoFoundDocs", "Inheridoc tag exists but no inheritdoc found for uid:{0}.");
 		public static readonly LogCode ECMA2Yaml_Inheritdoc_InvalidTags = new LogCode("ECMA2Yaml_Inheritdoc_InvalidTags", "Inheridoc and summary tags both exists for uid:{0}.");
 		public static readonly LogCode ECMA2Yaml_Inheritdoc_InvalidTagsForStatic = new LogCode("ECMA2Yaml_Inheritdoc_InvalidTagsForStatic", "Inheridoc should not use on static object for uid:{0}.");
+		public static readonly LogCode ECMA2Yaml_Inheritdoc_NotSupportType = new LogCode("ECMA2Yaml_Inheritdoc_NotSupportType", "Inheridoc not support type: {0} for uid:{1}.");
 		#endregion
     public LogCode(string code, string msgTemplate)
         : base(code, msgTemplate)

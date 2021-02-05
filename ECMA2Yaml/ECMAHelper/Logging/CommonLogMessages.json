@@ -167,6 +167,11 @@
           "log_code": "ECMA2Yaml_Inheritdoc_InvalidTagsForStatic",
           "message": "Inheridoc should not use on static object for uid:{0}.",
           "document_url": ""
+        },
+        {
+          "log_code": "ECMA2Yaml_Inheritdoc_NotSupportType",
+          "message": "Inheridoc not support type: {0} for uid:{1}.",
+          "document_url": ""
         }
       ]
     }

@@ -1354,7 +1354,7 @@ namespace ECMA2Yaml.Models
             }
             else
             {
-                // No support other types
+                OPSLogger.LogUserWarning(LogCode.ECMA2Yaml_Inheritdoc_NotSupportType, t.SourceFileLocalPath, m.ItemType, m.Uid);
                 return;
             }
 
@@ -1429,6 +1429,7 @@ namespace ECMA2Yaml.Models
 
             if (t.ItemType != ItemType.Class && t.ItemType != ItemType.Interface)
             {
+                OPSLogger.LogUserWarning(LogCode.ECMA2Yaml_Inheritdoc_NotSupportType, t.SourceFileLocalPath, t.ItemType, t.Uid);
                 return false;
             }
             else
