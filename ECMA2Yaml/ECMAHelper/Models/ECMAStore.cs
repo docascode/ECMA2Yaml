@@ -1194,8 +1194,6 @@ namespace ECMA2Yaml.Models
             var allInheritedMembersById = new Dictionary<string, List<string>>();
             if (t.BaseTypes != null)
             {
-                t.InheritanceChains = BuildInheritanceChain(t.Uid);
-
                 if (t.ItemType == ItemType.Class && !t.Signatures.IsStatic)
                 {
                     foreach (var inheritanceChain in t.InheritanceChains)
@@ -1271,7 +1269,7 @@ namespace ECMA2Yaml.Models
 
         private void SetInheritDocForType(Type t)
         {
-            if (t.ItemType != ItemType.Class && t.ItemType != ItemType.Interface)
+            if (!IsNeedInheritdoc(t))
             {
                 return;
             }
@@ -1310,14 +1308,14 @@ namespace ECMA2Yaml.Models
 
         private void SetInheritDocForMember(Member m, Type t)
         {
-            if (t.ItemType != ItemType.Class && t.ItemType != ItemType.Interface)
+            if (!IsNeedInheritdoc(t))
             {
                 return;
             }
 
             if (!PreDoValidation(m.Docs, m.Uid, m.SourceFileLocalPath)) return;
 
-            if (m.ItemType == ItemType.Method || m.ItemType == ItemType.Constructor)
+            if (!m.Signatures.IsStatic && (m.ItemType == ItemType.Method || m.ItemType == ItemType.Constructor))
             {
                 var inheritDocId = m.Id;
                 if (t.InheritedMembersById?.Count > 0 && t.InheritedMembersById.ContainsKey(inheritDocId))
@@ -1413,6 +1411,18 @@ namespace ECMA2Yaml.Models
             }
 
             return true;
+        }
+
+        private bool IsNeedInheritdoc(Type t)
+        {
+            if (t.ItemType != ItemType.Class && t.ItemType != ItemType.Interface && !t.Signatures.IsStatic)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
         #endregion
     }
