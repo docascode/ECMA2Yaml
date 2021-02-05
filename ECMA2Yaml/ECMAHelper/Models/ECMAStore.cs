@@ -1273,6 +1273,7 @@ namespace ECMA2Yaml.Models
             {
                 return;
             }
+
             if (!PreDoValidation(t.Docs, t.Uid, t.SourceFileLocalPath)) return;
 
             bool inheritedFlag = false;
@@ -1308,14 +1309,19 @@ namespace ECMA2Yaml.Models
 
         private void SetInheritDocForMember(Member m, Type t)
         {
+            if (m.Signatures.IsStatic)
+            {
+                OPSLogger.LogUserWarning(LogCode.ECMA2Yaml_Inheritdoc_InvalidTagsForStatic, t.SourceFileLocalPath, m.Uid);
+                return;
+            }
+
             if (!IsNeedInheritdoc(t))
             {
                 return;
             }
-
             if (!PreDoValidation(m.Docs, m.Uid, m.SourceFileLocalPath)) return;
 
-            if (!m.Signatures.IsStatic && (m.ItemType == ItemType.Method || m.ItemType == ItemType.Constructor))
+            if (m.ItemType == ItemType.Method || m.ItemType == ItemType.Constructor)
             {
                 var inheritDocId = m.Id;
                 if (t.InheritedMembersById?.Count > 0 && t.InheritedMembersById.ContainsKey(inheritDocId))
@@ -1338,7 +1344,7 @@ namespace ECMA2Yaml.Models
                     }
                     else
                     {
-                        OPSLogger.LogUserWarning(LogCode.ECMA2Yaml_Inheritdoc_NoFoundParent, m.SourceFileLocalPath, inheritDocId,m.Uid);
+                        OPSLogger.LogUserWarning(LogCode.ECMA2Yaml_Inheritdoc_NoFoundParent, m.SourceFileLocalPath, inheritDocId, m.Uid);
                     }
                 }
                 else
@@ -1415,7 +1421,13 @@ namespace ECMA2Yaml.Models
 
         private bool IsNeedInheritdoc(Type t)
         {
-            if (t.ItemType != ItemType.Class && t.ItemType != ItemType.Interface && !t.Signatures.IsStatic)
+            if (t.Signatures.IsStatic)
+            {
+                OPSLogger.LogUserWarning(LogCode.ECMA2Yaml_Inheritdoc_InvalidTagsForStatic, t.SourceFileLocalPath, t.Uid);
+                return false;
+            }
+
+            if (t.ItemType != ItemType.Class && t.ItemType != ItemType.Interface)
             {
                 return false;
             }

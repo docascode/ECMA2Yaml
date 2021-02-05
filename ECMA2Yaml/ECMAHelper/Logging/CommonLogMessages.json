@@ -162,6 +162,11 @@
           "log_code": "ECMA2Yaml_Inheritdoc_InvalidTags",
           "message": "Inheridoc and summary tags both exists for uid:{0}.",
           "document_url": ""
+        },
+        {
+          "log_code": "ECMA2Yaml_Inheritdoc_InvalidTagsForStatic",
+          "message": "Inheridoc should not use on static object for uid:{0}.",
+          "document_url": ""
         }
       ]
     }
