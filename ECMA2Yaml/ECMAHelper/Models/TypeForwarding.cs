@@ -37,12 +37,5 @@ namespace ECMA2Yaml.Models
                 }
             }
         }
-        public TypeForwardingChain DeepCopy()
-        {
-            TypeForwardingChain rval = (TypeForwardingChain)MemberwiseClone();
-            rval.TypeForwardingsPerMoniker = TypeForwardingsPerMoniker==null?null:new Dictionary<string, List<TypeForwarding>>(TypeForwardingsPerMoniker);
-            rval._rawData = _rawData==null?null:new List<VersionedValue<TypeForwarding>>(_rawData);
-            return rval;
-        }
     }
 }

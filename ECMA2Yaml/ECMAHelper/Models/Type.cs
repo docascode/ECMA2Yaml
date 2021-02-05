@@ -37,7 +37,6 @@ namespace ECMA2Yaml.Models
             Type rval = (Type)MemberwiseClone();
             rval.BaseTypes = BaseTypes==null?null:new List<BaseType>(BaseTypes);
             rval.InheritanceChains = InheritanceChains==null?null:new List<VersionedCollection<string>>(InheritanceChains);
-            rval.TypeForwardingChain = TypeForwardingChain==null?null:TypeForwardingChain.DeepCopy();
             rval.InheritedMembers = InheritedMembers==null?null:new Dictionary<string, VersionedString>(InheritedMembers);
             rval.IsA = IsA==null?null:new List<string>(IsA);
             rval.Interfaces = Interfaces==null?null:new List<VersionedString>(Interfaces);
