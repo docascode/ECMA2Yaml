@@ -26,5 +26,6 @@ namespace ECMA2Yaml.Models
         public string Value { get; set; }
         public string AltCompliant { get; set; }
         public bool InternalOnly { get; set; }
+        public InheritDoc Inheritdoc { get; set; }
     }
 }

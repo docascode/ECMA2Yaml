@@ -22,6 +22,7 @@ namespace ECMA2Yaml.Models
         public Dictionary<string, List<VersionedString>> ImplementationChildrenByUid { get; set; }
         public Dictionary<string, Member> ExtensionMethodsByMemberDocId { get; set; }
         public ILookup<string, Member> ExtensionMethodUidsByTargetUid { get; set; }
+        public Dictionary<string, string> InheritDocItemsByUid { get; set; }    // Inheritdoc uid pair
         public FilterStore FilterStore { get; set; }
         public bool StrictMode { get; set; }
         public bool UWPMode { get; set; }
@@ -47,6 +48,7 @@ namespace ECMA2Yaml.Models
             InheritanceChildrenByUid = new Dictionary<string, List<VersionedString>>();
             ImplementationParentsByUid = new Dictionary<string, List<VersionedString>>();
             ImplementationChildrenByUid = new Dictionary<string, List<VersionedString>>();
+            InheritDocItemsByUid = new Dictionary<string, string>();
         }
 
         public void Build()
@@ -198,7 +200,7 @@ namespace ECMA2Yaml.Models
             string sourcePathRoot,
             string gitRepoUrl,
             string gitRepoBranch,
-            string publicGitRepoUrl, 
+            string publicGitRepoUrl,
             string publicGitBranch)
         {
             sourcePathRoot = System.IO.Path.GetFullPath(sourcePathRoot);
@@ -251,7 +253,7 @@ namespace ECMA2Yaml.Models
                     return xmlPath => string.Format(pattern, xmlPath);
                 }
             }
-          
+
         }
 
         /// <summary>
@@ -275,7 +277,7 @@ namespace ECMA2Yaml.Models
                 && !item.Metadata.ContainsKey(OPSMetadata.ContentUrl))
             {
                 string xmlPath = item.SourceFileLocalPath.Replace(sourcePathRoot, "/").Replace("\\", "/");
-                
+
                 string contentGitUrl = publicGitUrlPattern(xmlPath);
                 item.Metadata[OPSMetadata.ContentUrl] = contentGitUrl;
 
@@ -334,7 +336,7 @@ namespace ECMA2Yaml.Models
                     }
                     if (t.Overloads != null)
                     {
-                        foreach(var ol in t.Overloads)
+                        foreach (var ol in t.Overloads)
                         {
                             if (ol.ExtendedMetadata == null || ol.ExtendedMetadata.Count == 0)
                             {
@@ -392,7 +394,7 @@ namespace ECMA2Yaml.Models
             {
                 if (!string.IsNullOrEmpty(m.DocId))
                 {
-                    var thisParam = m.Parameters?.FirstOrDefault(p =>  p.RefType == "this");
+                    var thisParam = m.Parameters?.FirstOrDefault(p => p.RefType == "this");
                     if (m.Parameters != null && thisParam != null)
                     {
                         if (m.Parent != null && m.Parent.Signatures.IsStatic)
@@ -403,7 +405,7 @@ namespace ECMA2Yaml.Models
                             // Next step, transfer special char like "+" when loading xml data, need add more case to cover this change.
                             if (targetType.Contains("+"))
                             {
-                                targetType = targetType.Replace("+",".");
+                                targetType = targetType.Replace("+", ".");
                             }
 
                             m.IsExtensionMethod = true;
@@ -485,7 +487,7 @@ namespace ECMA2Yaml.Models
 
             if (extensionMethods != null)
             {
-                foreach(var ext in extensionMethods)
+                foreach (var ext in extensionMethods)
                 {
                     if (ext.Monikers != null)
                     {
@@ -691,7 +693,7 @@ namespace ECMA2Yaml.Models
                     {
                         overloads[id].Modifiers = new SortedList<string, List<string>>();
                     }
-                    foreach(var pair in m.Modifiers)
+                    foreach (var pair in m.Modifiers)
                     {
                         if (overloads[id].Modifiers.ContainsKey(pair.Key))
                         {
@@ -713,7 +715,7 @@ namespace ECMA2Yaml.Models
                 }
                 if (overloads.Count > 0)
                 {
-                    foreach(var overload in overloads.Values)
+                    foreach (var overload in overloads.Values)
                     {
                         foreach (var lang in overload.Modifiers.Keys.ToList())
                         {
@@ -846,7 +848,7 @@ namespace ECMA2Yaml.Models
             }
             if (t.BaseTypes != null)
             {
-                foreach(var bt in t.BaseTypes)
+                foreach (var bt in t.BaseTypes)
                 {
                     if (bt.Uid != t.Uid)
                     {
@@ -878,7 +880,7 @@ namespace ECMA2Yaml.Models
                     }
                     else
                     {
-                        foreach(var grandParentChain in grandParents)
+                        foreach (var grandParentChain in grandParents)
                         {
                             if (parent.Monikers.Overlaps(grandParentChain.Monikers))
                             {
@@ -913,6 +915,8 @@ namespace ECMA2Yaml.Models
             {
                 BuildInheritanceDefault(t);
             }
+
+            BuildInheritanceForDocs(t);
         }
 
         private void BuildInheritanceForInterface(Type t)
@@ -999,7 +1003,7 @@ namespace ECMA2Yaml.Models
                                     {
                                         // Create another HashSet since all the inheritedMembersById share the same "Monikers" object
                                         inheritedMember.Monikers = inheritedMember.Monikers.Except(m.Monikers).ToHashSet();
-                                        if(inheritedMember.Monikers.Count == 0)
+                                        if (inheritedMember.Monikers.Count == 0)
                                         {
                                             inheritedMembersById.Remove(m.Id);
                                         }
@@ -1050,6 +1054,11 @@ namespace ECMA2Yaml.Models
 
         private void BuildDocs(Type t)
         {
+            if (t.Docs?.Inheritdoc != null)
+            {
+                SetInheritDocForType(t);
+            }
+
             if (t.TypeParameters != null && t.Docs?.TypeParameters != null)
             {
                 foreach (var ttp in t.TypeParameters)
@@ -1080,6 +1089,12 @@ namespace ECMA2Yaml.Models
                     //    m.Docs.AdditionalNotes = m.Docs.AdditionalNotes.Where(p => !(t.Docs.AdditionalNotes.ContainsKey(p.Key) && t.Docs.AdditionalNotes[p.Key] == p.Value))
                     //        .ToDictionary(p => p.Key, p => p.Value);
                     //}
+
+                    if (m.Docs?.Inheritdoc != null)
+                    {
+                        SetInheritDocForMember(m, t);
+                    }
+
                     if (m.TypeParameters != null && m.Docs?.TypeParameters != null)
                     {
                         foreach (var mtp in m.TypeParameters)
@@ -1172,5 +1187,251 @@ namespace ECMA2Yaml.Models
 
             return str;
         }
+
+        #region Inherit docs
+        private void BuildInheritanceForDocs(Type t)
+        {
+            var allInheritedMembersById = new Dictionary<string, List<string>>();
+            if (t.BaseTypes != null)
+            {
+                if (t.ItemType == ItemType.Class && !t.Signatures.IsStatic)
+                {
+                    foreach (var inheritanceChain in t.InheritanceChains)
+                    {
+                        foreach (var btUid in inheritanceChain.Values)
+                        {
+                            if (TypesByUid.ContainsKey(btUid))
+                            {
+                                var bt = TypesByUid[btUid];
+                                if (bt.Members != null)
+                                {
+                                    foreach (var m in bt.Members)
+                                    {
+                                        if (m.Name != "Finalize"
+                                            && m.ItemType != ItemType.AttachedProperty
+                                            && m.ItemType != ItemType.AttachedEvent
+                                            && !m.Signatures.IsStatic)
+                                        {
+                                            var inheritDocId = m.Id;
+                                            if (allInheritedMembersById.ContainsKey(inheritDocId))
+                                            {
+                                                allInheritedMembersById[inheritDocId].Add(m.Uid);
+                                            }
+                                            else
+                                            {
+                                                allInheritedMembersById[inheritDocId] = new List<string>();
+                                                allInheritedMembersById[inheritDocId].Add(m.Uid);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+
+            if (t.Interfaces?.Count > 0)
+            {
+                foreach (var f in t.Interfaces)
+                {
+                    var interfaceUid = f.Value.ToOuterTypeUid();
+
+                    if (TypesByUid.TryGetValue(interfaceUid, out Type inter))
+                    {
+                        if (inter.Members != null)
+                        {
+                            foreach (var m in inter.Members)
+                            {
+                                if (m.Name != "Finalize" && !m.Signatures.IsStatic)
+                                {
+                                    var inheritDocId = m.Id;
+                                    if (allInheritedMembersById.ContainsKey(inheritDocId))
+                                    {
+                                        allInheritedMembersById[inheritDocId].Add(m.Uid);
+                                    }
+                                    else
+                                    {
+                                        allInheritedMembersById[inheritDocId] = new List<string>();
+                                        allInheritedMembersById[inheritDocId].Add(m.Uid);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+            }
+
+            t.InheritedMembersById = allInheritedMembersById;
+        }
+
+        private void SetInheritDocForType(Type t)
+        {
+            if (!IsNeedInheritdoc(t))
+            {
+                return;
+            }
+
+            if (!PreDoValidation(t.Docs, t.Uid, t.SourceFileLocalPath)) return;
+
+            bool inheritedFlag = false;
+            if (t.BaseTypes?.Count > 0)
+            {
+                foreach (var bt in t.BaseTypes)
+                {
+                    var baseType = TypesByUid[bt.Uid];
+                    inheritedFlag = SetInheritDoc(baseType.Docs, t.Docs);
+                    if (inheritedFlag)
+                    {
+                        InheritDocItemsByUid.Add(t.Uid, baseType.Uid);
+                        break;
+                    }
+                }
+            }
+
+            if (!inheritedFlag && t.Interfaces?.Count > 0)
+            {
+                foreach (var intf in t.Interfaces)
+                {
+                    var parentInterface = TypesByUid[intf.Value.ToOuterTypeUid()];
+                    if (SetInheritDoc(parentInterface.Docs, t.Docs))
+                    {
+                        InheritDocItemsByUid.Add(t.Uid, parentInterface.Uid);
+                        break;
+                    }
+                }
+            }
+
+            DoValidation(t.Docs, t.Uid, t.SourceFileLocalPath);
+        }
+
+        private void SetInheritDocForMember(Member m, Type t)
+        {
+            if (m.Signatures.IsStatic)
+            {
+                OPSLogger.LogUserWarning(LogCode.ECMA2Yaml_Inheritdoc_InvalidTagsForStatic, t.SourceFileLocalPath, m.Uid);
+                return;
+            }
+
+            if (!IsNeedInheritdoc(t))
+            {
+                return;
+            }
+            if (!PreDoValidation(m.Docs, m.Uid, m.SourceFileLocalPath)) return;
+
+            if (m.ItemType == ItemType.Method || m.ItemType == ItemType.Constructor)
+            {
+                var inheritDocId = m.Id;
+                if (t.InheritedMembersById?.Count > 0 && t.InheritedMembersById.ContainsKey(inheritDocId))
+                {
+                    var uids = t.InheritedMembersById[inheritDocId];
+                    if (uids.Count > 0)
+                    {
+                        foreach (var uid in uids)
+                        {
+                            if (MembersByUid.ContainsKey(uid))
+                            {
+                                var inheritFrom = MembersByUid[uid];
+                                if (SetInheritDoc(inheritFrom.Docs, m.Docs))
+                                {
+                                    InheritDocItemsByUid.Add(m.Uid, inheritFrom.Uid);
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        OPSLogger.LogUserWarning(LogCode.ECMA2Yaml_Inheritdoc_NoFoundParent, m.SourceFileLocalPath, inheritDocId, m.Uid);
+                    }
+                }
+                else
+                {
+                    OPSLogger.LogUserWarning(LogCode.ECMA2Yaml_Inheritdoc_NoFoundParent, m.SourceFileLocalPath, inheritDocId, m.Uid);
+                }
+            }
+            else
+            {
+                OPSLogger.LogUserWarning(LogCode.ECMA2Yaml_Inheritdoc_NotSupportType, t.SourceFileLocalPath, m.ItemType, m.Uid);
+                return;
+            }
+
+            DoValidation(m.Docs, m.Uid, m.SourceFileLocalPath);
+        }
+
+        private bool SetInheritDoc(Docs inheritFrom, Docs inheritTo)
+        {
+            bool isInherit = false;
+
+            if (!string.IsNullOrEmpty(inheritFrom?.Summary))
+            {
+                inheritTo.Summary = inheritFrom.Summary;
+                isInherit = true;
+            }
+            if (inheritFrom?.Parameters?.Count > 0)
+            {
+                inheritTo.Parameters = new Dictionary<string, string>(inheritFrom.Parameters);
+                isInherit = true;
+            }
+            if (!string.IsNullOrEmpty(inheritFrom?.Returns))
+            {
+                inheritTo.Returns = inheritFrom.Returns;
+                isInherit = true;
+            }
+            if (!string.IsNullOrEmpty(inheritFrom?.Value))
+            {
+                inheritTo.Value = inheritFrom.Value;
+                isInherit = true;
+            }
+
+            return isInherit;
+        }
+
+        private bool DoValidation(Docs docs, string uid, string filePath)
+        {
+            if (string.IsNullOrEmpty(docs?.Summary) &&
+                docs?.Parameters?.Count == 0 &&
+                string.IsNullOrEmpty(docs?.Returns) &&
+                string.IsNullOrEmpty(docs?.Value))
+            {
+                OPSLogger.LogUserWarning(LogCode.ECMA2Yaml_Inheritdoc_NoFoundDocs, filePath, uid);
+                return false;
+            }
+
+            return true;
+        }
+
+        private bool PreDoValidation(Docs docs, string uid, string filePath)
+        {
+            if (!string.IsNullOrEmpty(docs?.Summary))
+            {
+                OPSLogger.LogUserWarning(LogCode.ECMA2Yaml_Inheritdoc_InvalidTags, filePath, uid);
+                return false;
+            }
+
+            return true;
+        }
+
+        private bool IsNeedInheritdoc(Type t)
+        {
+            if (t.Signatures.IsStatic)
+            {
+                OPSLogger.LogUserWarning(LogCode.ECMA2Yaml_Inheritdoc_InvalidTagsForStatic, t.SourceFileLocalPath, t.Uid);
+                return false;
+            }
+
+            if (t.ItemType != ItemType.Class && t.ItemType != ItemType.Interface)
+            {
+                OPSLogger.LogUserWarning(LogCode.ECMA2Yaml_Inheritdoc_NotSupportType, t.SourceFileLocalPath, t.ItemType, t.Uid);
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+        #endregion
     }
 }
