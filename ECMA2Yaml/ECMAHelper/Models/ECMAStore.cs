@@ -49,6 +49,7 @@ namespace ECMA2Yaml.Models
             InheritanceChildrenByUid = new Dictionary<string, List<VersionedString>>();
             ImplementationParentsByUid = new Dictionary<string, List<VersionedString>>();
             ImplementationChildrenByUid = new Dictionary<string, List<VersionedString>>();
+            InheritDocItemsByUid = new Dictionary<string, string>();
         }
 
         public void Build()
@@ -61,7 +62,7 @@ namespace ECMA2Yaml.Models
             TypesByFullName = _tList.ToDictionary(t => t.FullName);
           
             BuildIds(_nsList, _tList);
-
+            var a =_tList.GroupBy(m => m.Uid).Where(g => g.Count() > 1).ToList();
             TypesByUid = _tList.ToDictionary(t => t.Uid);
             BuildUniqueMembers();
             BuildDocIdDictionary();
@@ -98,18 +99,24 @@ namespace ECMA2Yaml.Models
         private void EnumConvertToClass()
         {
             var enumCovertClassMoniker = new List<string>();
-            var enumConvertClass = _nsList.Where(t => t.Types != null && (t.Types.Any(item => item.BaseTypes.Any(bt => bt.Name == "System.Enum")) && t.Types.Any(item => item.BaseTypes.Any(bt => bt.Name == "System.Object")))).ToList();
-            enumConvertClass.ForEach(item =>
+            foreach (var item in _nsList)
             {
+                if (item.Types == null || _frameworks?.DocIdToFrameworkDict == null)
+                {
+                    return;
+                }
+
                 var listType = new List<Type>();
                 item.Types.ForEach(type =>
                 {
-                    item.Types.ForEach(m => {
-                        var classMonikers = m.BaseTypes.Where(bt => bt.Name == "System.Object");
-                        enumCovertClassMoniker = classMonikers.SelectMany(o => o.Monikers).ToList();
-                    });
+                    if (type.BaseTypes == null || !(type.BaseTypes != null && type.BaseTypes.Any(bt => bt.Name == "System.Enum") && type.BaseTypes.Any(bt => bt.Name == "System.Object")))
+                        return;
 
-                    if (_frameworks == null && _frameworks.DocIdToFrameworkDict == null)
+                    var classMonikers = type.BaseTypes.Where(bt => bt.Name != null && bt.Name == "System.Object");
+                    var tempMonikers = classMonikers?.Where(n => n.Monikers != null).SelectMany(o => o.Monikers);
+                    enumCovertClassMoniker = tempMonikers == null ? new List<string>() : tempMonikers.ToList();
+
+                    if (enumCovertClassMoniker == null)
                     {
                         return;
                     }
@@ -126,55 +133,42 @@ namespace ECMA2Yaml.Models
                     monikers = monikers.Except(enumCovertClassMoniker).ToList();
                     _frameworks.DocIdToFrameworkDict[enumItemDocId] = monikers;
                     var members = new List<Member>();
-                    foreach (var m in enumType.Members)
+                    if (enumType.Members != null)
                     {
-                        if (!_frameworks.DocIdToFrameworkDict[m.DocId].Any(moniker => enumCovertClassMoniker.Contains(moniker)))
+                        foreach (var m in enumType.Members)
                         {
-                            members.Add(m);
+                            if (!_frameworks.DocIdToFrameworkDict[m.DocId].Any(moniker => enumCovertClassMoniker.Contains(moniker)))
+                            {
+                                members.Add(m);
+                            }
                         }
+
+                        enumType.Members = members;
                     }
 
-                    enumType.Members = members;
-                    members = new List<Member>();
-                    foreach (var m in enumType.Overloads)
-                    {
-                        if (!_frameworks.DocIdToFrameworkDict[m.DocId].Any(moniker => enumCovertClassMoniker.Contains(moniker)))
-                        {
-                            members.Add(m);
-                        }
-                    }
-
-                    enumType.Overloads = members;
                     listType.Add(enumType);
 
                     ///Generate Class Type
-                    members = new List<Member>();
                     type.ItemType = ItemType.Class;
                     _frameworks.DocIdToFrameworkDict[type.DocId] = enumCovertClassMoniker;
-                    foreach (var m in type.Members)
-                    {
-                        if (_frameworks.DocIdToFrameworkDict[m.DocId].Any(moniker => enumCovertClassMoniker.Contains(moniker)))
-                        {
-                            members.Add(m);
-                        }
-                    }
 
-                    type.Members = members;
-                    members = new List<Member>();
-                    foreach (var m in type.Overloads)
+                    if (type.Members != null)
                     {
-                        if (_frameworks.DocIdToFrameworkDict[m.DocId].Any(moniker => enumCovertClassMoniker.Contains(moniker)))
+                        members = new List<Member>();
+                        foreach (var m in type.Members)
                         {
-                            members.Add(m);
+                            if (_frameworks.DocIdToFrameworkDict[m.DocId].Any(moniker => enumCovertClassMoniker.Contains(moniker)))
+                            {
+                                members.Add(m);
+                            }
                         }
-                    }
 
-                    type.Overloads = members;
-                    listType.Add(type);
+                        type.Members = members;
+                    }
                 });
 
-                item.Types = listType;
-            });
+                item.Types.AddRange(listType);
+            }
         }
 
         private void BuildDocIdDictionary()

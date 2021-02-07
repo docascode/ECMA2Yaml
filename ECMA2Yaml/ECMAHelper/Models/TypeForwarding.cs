@@ -8,6 +8,7 @@ namespace ECMA2Yaml.Models
         public AssemblyInfo From { get; set; }
         public AssemblyInfo To { get; set; }
     }
+
     public class TypeForwardingChain
     {
         public Dictionary<string, List<TypeForwarding>> TypeForwardingsPerMoniker { get; set; }
