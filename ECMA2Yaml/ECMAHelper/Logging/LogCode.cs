@@ -42,6 +42,11 @@ namespace ECMA2Yaml
 		public static readonly LogCode ECMA2Yaml_CrefTypePrefixMissing = new LogCode("ECMA2Yaml_CrefTypePrefixMissing", "Invalid cref format ({0}) detected in {1}");
 		public static readonly LogCode ECMA2Yaml_Member_EmptyMoniker = new LogCode("ECMA2Yaml_Member_EmptyMoniker", "{0} have empty Moniker");
 		public static readonly LogCode ECMA2Yaml_Enum_NoRemarks = new LogCode("ECMA2Yaml_Enum_NoRemarks", "Please note: <remarks> node on Enum fields will be ignored.");
+		public static readonly LogCode ECMA2Yaml_Inheritdoc_NoFoundParent = new LogCode("ECMA2Yaml_Inheritdoc_NoFoundParent", "Found no member can be inherited by key:{0} for uid: {1}.");
+		public static readonly LogCode ECMA2Yaml_Inheritdoc_NoFoundDocs = new LogCode("ECMA2Yaml_Inheritdoc_NoFoundDocs", "Inheridoc tag exists but no inheritdoc found for uid:{0}.");
+		public static readonly LogCode ECMA2Yaml_Inheritdoc_InvalidTags = new LogCode("ECMA2Yaml_Inheritdoc_InvalidTags", "Inheridoc and summary tags both exists for uid:{0}.");
+		public static readonly LogCode ECMA2Yaml_Inheritdoc_InvalidTagsForStatic = new LogCode("ECMA2Yaml_Inheritdoc_InvalidTagsForStatic", "Inheridoc should not use on static object for uid:{0}.");
+		public static readonly LogCode ECMA2Yaml_Inheritdoc_NotSupportType = new LogCode("ECMA2Yaml_Inheritdoc_NotSupportType", "Inheridoc not support type: {0} for uid:{1}.");
 		#endregion
     public LogCode(string code, string msgTemplate)
         : base(code, msgTemplate)

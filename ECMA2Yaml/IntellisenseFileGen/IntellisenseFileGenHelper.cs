@@ -109,7 +109,7 @@ namespace IntellisenseFileGen
             List<string> requiredFrameworkList = new List<string>();
             frameworks.FrameworkAssemblies.Keys.ToList().ForEach(fw =>
             {
-                if (_monikers==null || _monikers.Contains(fw))
+                if (_monikers == null || _monikers.Contains(fw))
                 {
                     requiredFrameworkList.Add(fw);
                 }
@@ -277,9 +277,26 @@ namespace IntellisenseFileGen
             {
                 return null;
             }
+            if (store.ItemsByDocId.TryGetValue(docId, out var item))
+            {
+                t.Uid = item.Uid;
+            }
 
             var docsEle = new XElement("member");
-            SetDocsEle(docsEle, xmlDoc.Root, docId);
+            if (!string.IsNullOrEmpty(t.Uid) && store.InheritDocItemsByUid.Keys.Contains(t.Uid))
+            {
+                var inheritFromType = store.TypesByUid[t.Uid];
+                var inheritDocsEle = InheritDocs(inheritFromType.Docs);
+                if (inheritDocsEle != null)
+                {
+                    inheritDocsEle.SetAttributeValue("name", docId);
+                    docsEle = inheritDocsEle;
+                }
+            }
+            else
+            {
+                SetDocsEle(docsEle, xmlDoc.Root, docId);
+            }
             t.Docs = docsEle;
 
             var AssemblyInfoEleList = xmlDoc.Root.Elements("AssemblyInfo");
@@ -352,7 +369,20 @@ namespace IntellisenseFileGen
             }
 
             var docsEle = new XElement("member");
-            SetDocsEle(docsEle, member, m.CommentId);
+            if (!string.IsNullOrEmpty(m.Uid) && store.InheritDocItemsByUid.Keys.Contains(m.Uid))
+            {
+                var inheritFromMember = store.MembersByUid[m.Uid];
+                var inheritDocsEle = InheritDocs(inheritFromMember.Docs);
+                if (inheritDocsEle != null)
+                {
+                    inheritDocsEle.SetAttributeValue("name", docId);
+                    docsEle = inheritDocsEle;
+                }
+            }
+            else
+            {
+                SetDocsEle(docsEle, member, m.CommentId);
+            }
             m.Docs = docsEle;
 
             var AssemblyInfoEleList = member.Elements("AssemblyInfo");
@@ -376,7 +406,7 @@ namespace IntellisenseFileGen
             return m;
         }
 
-        private static void SetDocsEle(XElement docsEle, XElement xmlEle, string uid)
+        private static void SetDocsEle(XElement docsEle, XElement xmlEle, string docId)
         {
             if (xmlEle == null || docsEle == null)
             {
@@ -470,8 +500,74 @@ namespace IntellisenseFileGen
                     }
                 }
             }
+            docsEle.SetAttributeValue("name", docId);
+        }
 
-            docsEle.SetAttributeValue("name", uid);
+        private static XElement InheritDocs(ECMA2Yaml.Models.Docs docs)
+        {
+            if (docs == null) return null;
+            XElement docsEle = new XElement("member");
+
+            if (!string.IsNullOrEmpty(docs.Summary))
+            {
+                var summaryEle = XElement.Parse($"<summary>{docs.Summary}</summary>");
+                docsEle.Add(summaryEle);
+            }
+            if (docs.Parameters?.Count > 0)
+            {
+                foreach(var para in docs.Parameters)
+                {
+                    string xmlStr = "";
+                    if (string.IsNullOrEmpty(para.Value))
+                    {
+                        xmlStr = $"<param name=\"{para.Key}\" />";
+                    }
+                    else
+                    {
+                        xmlStr = $"<param name=\"{para.Key}\">{para.Value}</param>";
+                    }
+                    var paraEle = XElement.Parse(xmlStr);
+                    docsEle.Add(paraEle);
+                }
+            }
+            if (docs.TypeParameters?.Count > 0)
+            {
+                foreach (var para in docs.TypeParameters)
+                {
+                    string xmlStr = "";
+                    if (string.IsNullOrEmpty(para.Value))
+                    {
+                        xmlStr = $"<typeparam name=\"{para.Key}\" />";
+                    }
+                    else
+                    {
+                        xmlStr = $"<typeparam name=\"{para.Key}\">{para.Value}</typeparam>";
+                    }
+
+                    var paraEle = XElement.Parse(xmlStr);
+                    docsEle.Add(paraEle);
+                }
+            }
+            if (!string.IsNullOrEmpty(docs.Returns))
+            {
+                var returnsEle = XElement.Parse($"<returns>{docs.Returns}</returns>");
+                docsEle.Add(returnsEle);
+            }
+            if (!string.IsNullOrEmpty(docs.Value))
+            {
+                var valueEle = XElement.Parse($"<returns>{docs.Value}</returns>");
+                docsEle.Add(valueEle);
+            }
+
+            if (docsEle.HasElements)
+            {
+                SpecialProcessElement(docsEle);
+                return docsEle;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         private static string GetDocId(XElement xmlEle, string signatureName = "MemberSignature")
@@ -525,7 +621,7 @@ namespace IntellisenseFileGen
                 // <summary><format type="text/markdown"><![CDATA[Describes the common properties that all features have.]]></format></summary> 
                 // => 
                 // <summary>Describes the common properties that all features have.</summary>
-                var formatEles = ele.Elements().Where(p=>p.Name=="format");
+                var formatEles = ele.Elements().Where(p => p.Name == "format");
                 if (formatEles != null && formatEles.Count() > 0)
                 {
                     formatEles.ToList().ForEach(formatEle =>
@@ -781,7 +877,7 @@ namespace IntellisenseFileGen
                         contentChange = true;
                     }
                 }
-                
+
                 // 2BAD1A8DDD5C4C55A920F73420E93A9B => *
                 for (int i = 0; i < _replaceStringDic.Length - 1; i += 3)
                 {

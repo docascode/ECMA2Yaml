@@ -147,6 +147,31 @@
           "log_code": "ECMA2Yaml_Enum_NoRemarks",
           "message": "Please note: <remarks> node on Enum fields will be ignored.",
           "document_url": ""
+        },
+        {
+          "log_code": "ECMA2Yaml_Inheritdoc_NoFoundParent",
+          "message": "Found no member can be inherited by key:{0} for uid: {1}.",
+          "document_url": ""
+        },
+        {
+          "log_code": "ECMA2Yaml_Inheritdoc_NoFoundDocs",
+          "message": "Inheridoc tag exists but no inheritdoc found for uid:{0}.",
+          "document_url": ""
+        },
+        {
+          "log_code": "ECMA2Yaml_Inheritdoc_InvalidTags",
+          "message": "Inheridoc and summary tags both exists for uid:{0}.",
+          "document_url": ""
+        },
+        {
+          "log_code": "ECMA2Yaml_Inheritdoc_InvalidTagsForStatic",
+          "message": "Inheridoc should not use on static object for uid:{0}.",
+          "document_url": ""
+        },
+        {
+          "log_code": "ECMA2Yaml_Inheritdoc_NotSupportType",
+          "message": "Inheridoc not support type: {0} for uid:{1}.",
+          "document_url": ""
         }
       ]
     }
