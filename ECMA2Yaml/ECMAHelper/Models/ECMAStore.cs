@@ -37,8 +37,6 @@ namespace ECMA2Yaml.Models
         private FrameworkIndex _frameworks;
         private List<Member> _extensionMethods;
 
-        private HashSet<string> enumCovertClassMoniker;
-
         public ECMAStore(IEnumerable<Namespace> nsList, FrameworkIndex frameworks)
         {
             typeDescriptorCache = new Dictionary<string, EcmaDesc>();
