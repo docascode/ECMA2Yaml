@@ -1372,12 +1372,7 @@ namespace ECMA2Yaml.Models
             }
             if (inheritFrom?.Parameters?.Count > 0)
             {
-                inheritTo.Parameters = new Dictionary<string, string>();
-                foreach (var p in inheritFrom.Parameters)
-                {
-                    inheritTo.Parameters.Add(p.Key, p.Value);
-                }
-
+                inheritTo.Parameters = new Dictionary<string, string>(inheritFrom.Parameters);
                 isInherit = true;
             }
             if (!string.IsNullOrEmpty(inheritFrom?.Returns))
