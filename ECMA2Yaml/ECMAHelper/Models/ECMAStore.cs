@@ -61,7 +61,6 @@ namespace ECMA2Yaml.Models
             TypesByFullName = _tList.ToDictionary(t => t.FullName);
           
             BuildIds(_nsList, _tList);
-            var a =_tList.GroupBy(m => m.Uid).Where(g => g.Count() > 1).ToList();
             TypesByUid = _tList.ToDictionary(t => t.Uid);
             BuildUniqueMembers();
             BuildDocIdDictionary();
