@@ -33,5 +33,28 @@ namespace ECMA2Yaml.Models
                 }
             }
         }
+        public Type DeepCopy()
+        {
+            Type rval = (Type)MemberwiseClone();
+            rval.BaseTypes = BaseTypes==null?null:new List<BaseType>(BaseTypes);
+            rval.InheritanceChains = InheritanceChains==null?null:new List<VersionedCollection<string>>(InheritanceChains);
+            rval.InheritedMembers = InheritedMembers==null?null:new Dictionary<string, VersionedString>(InheritedMembers);
+            rval.IsA = IsA==null?null:new List<string>(IsA);
+            rval.Interfaces = Interfaces==null?null:new List<VersionedString>(Interfaces);
+            rval.Members = Members==null?null:new List<Member>(Members);
+            rval.Overloads = Overloads==null?null:new List<Member>(Overloads);
+            rval.ExtensionMethods = ExtensionMethods==null?null:new List<VersionedString>(ExtensionMethods);
+            rval.ExtensionMethods = ExtensionMethods == null ? null : new List<VersionedString>(ExtensionMethods);
+            rval.TypeParameters = TypeParameters == null ? null : new List<TypeParameter>(TypeParameters);
+            rval.Parameters = Parameters == null ? null : new List<Parameter>(Parameters);
+            rval.Attributes = Attributes == null ? null : new List<ECMAAttribute>(Attributes);
+            rval.Metadata = Metadata == null ? null : new Dictionary<string, object>(Metadata);
+            rval.ExtendedMetadata = ExtendedMetadata == null ? null : new Dictionary<string, object>(ExtendedMetadata);
+            rval.Modifiers = Modifiers == null ? null : new SortedList<string, List<string>>(Modifiers);
+            rval.AssemblyInfo = AssemblyInfo == null ? null : new List<AssemblyInfo>(AssemblyInfo);
+            rval.Monikers = Monikers == null ? null : new HashSet<string>(Monikers);
+            return rval;
+        }
+
     }
 }
