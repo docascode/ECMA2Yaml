@@ -106,7 +106,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Mono.Options">
-      <Version>5.3.0.1</Version>
+      <Version>6.6.0.161</Version>
     </PackageReference>
     <PackageReference Include="MoreLinq.Source.MoreEnumerable.DistinctBy">
       <Version>1.0.2</Version>
@@ -114,10 +114,10 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
-      <Version>9.0.1</Version>
+      <Version>12.0.3</Version>
     </PackageReference>
     <PackageReference Include="System.Reflection.Emit.Lightweight">
-      <Version>4.3.0</Version>
+      <Version>4.7.0</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
