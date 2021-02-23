@@ -405,6 +405,18 @@ namespace ECMA2Yaml
                     {
                         lines[startIdx] = "\n" + lines[startIdx];
                     }
+                    //the line just after the second ```, if it's NOT empty line and ends with a html tag, we should add an extra linebreak.
+                    //this is because how markdig handles html block.
+                    if (endIdx + 1 < lines.Length && !string.IsNullOrWhiteSpace(lines[endIdx + 1]) && lines[endIdx + 1].StartsWith("<"))
+                    {
+                        lines[endIdx] = lines[endIdx] + "\n";
+                    }
+                    //if the second ``` itself is in the same line with other html tags, add an extra line break, for example ```</p><p>
+                    if (lines[endIdx].Length > 3 && lines[endIdx][3] == '<')
+                    {
+                        lines[endIdx] = lines[endIdx].Replace("```", "```\n");
+                    }
+
                     for (int j = startIdx + 1; j < endIdx; j++)
                     {
                         if (!string.IsNullOrEmpty(lines[j]))
