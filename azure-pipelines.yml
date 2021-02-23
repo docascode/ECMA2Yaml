@@ -41,6 +41,9 @@ steps:
   displayName: Integration Tests
   inputs:
     filePath: 'CI/devopsIntTest.ps1'
+- task: CredScan@2
+  inputs:
+    toolMajorVersion: 'V2'
 
 # Publish Artifacts for debug
 - task: PublishPipelineArtifact@1
