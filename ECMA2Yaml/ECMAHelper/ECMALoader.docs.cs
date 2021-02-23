@@ -405,6 +405,12 @@ namespace ECMA2Yaml
                     {
                         lines[startIdx] = "\n" + lines[startIdx];
                     }
+                    //if the second ``` itself is in the same line with other html tags, add an extra line break, for example ```</p><p>
+                    if (lines[endIdx].Length > 3 && lines[endIdx][3] == '<')
+                    {
+                        lines[endIdx] = lines[endIdx].Replace("```", "```\n");
+                    }
+
                     for (int j = startIdx + 1; j < endIdx; j++)
                     {
                         if (!string.IsNullOrEmpty(lines[j]))
