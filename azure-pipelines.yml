@@ -44,9 +44,11 @@ steps:
 
 # Security Tasks
 - task: CredScan@2
+  displayName: Security - CredScan
   inputs:
     toolMajorVersion: 'V2'
 - task: PostAnalysis@1
+  displayName: Security - PostAnalysis
   inputs:
     AllTools: false
     APIScan: false
