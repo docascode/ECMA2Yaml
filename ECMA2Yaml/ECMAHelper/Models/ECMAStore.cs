@@ -1358,12 +1358,15 @@ namespace ECMA2Yaml.Models
             {
                 foreach (var bt in t.BaseTypes)
                 {
-                    var baseType = TypesByUid[bt.Uid];
-                    inheritedFlag = SetInheritDoc(baseType.Docs, t.Docs);
-                    if (inheritedFlag)
+                    if (TypesByUid.ContainsKey(bt.Uid))
                     {
-                        InheritDocItemsByUid.Add(t.Uid, baseType.Uid);
-                        break;
+                        var baseType = TypesByUid[bt.Uid];
+                        inheritedFlag = SetInheritDoc(baseType.Docs, t.Docs);
+                        if (inheritedFlag)
+                        {
+                            InheritDocItemsByUid.Add(t.Uid, baseType.Uid);
+                            break;
+                        }
                     }
                 }
             }
@@ -1372,11 +1375,15 @@ namespace ECMA2Yaml.Models
             {
                 foreach (var intf in t.Interfaces)
                 {
-                    var parentInterface = TypesByUid[intf.Value.ToOuterTypeUid()];
-                    if (SetInheritDoc(parentInterface.Docs, t.Docs))
+                    string uid = intf.Value.ToOuterTypeUid();
+                    if (TypesByUid.ContainsKey(uid))
                     {
-                        InheritDocItemsByUid.Add(t.Uid, parentInterface.Uid);
-                        break;
+                        var parentInterface = TypesByUid[uid];
+                        if (SetInheritDoc(parentInterface.Docs, t.Docs))
+                        {
+                            InheritDocItemsByUid.Add(t.Uid, parentInterface.Uid);
+                            break;
+                        }
                     }
                 }
             }
