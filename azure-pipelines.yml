@@ -41,9 +41,27 @@ steps:
   displayName: Integration Tests
   inputs:
     filePath: 'CI/devopsIntTest.ps1'
+
+# Security Tasks
 - task: CredScan@2
   inputs:
     toolMajorVersion: 'V2'
+- task: PostAnalysis@1
+  inputs:
+    AllTools: false
+    APIScan: false
+    BinSkim: false
+    CodesignValidation: false
+    CredScan: true
+    FortifySCA: false
+    FxCop: false
+    ModernCop: false
+    PoliCheck: false
+    RoslynAnalyzers: false
+    SDLNativeRules: false
+    Semmle: false
+    TSLint: false
+    ToolLogsNotFoundAction: 'Standard'
 
 # Publish Artifacts for debug
 - task: PublishPipelineArtifact@1
