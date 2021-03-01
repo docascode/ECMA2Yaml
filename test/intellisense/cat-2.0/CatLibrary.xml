@@ -11,7 +11,9 @@
         <para />
         <para>this class is a template class. It has two Generic parameter. they are: <typeparamref name="T" /> and <typeparamref name="K" />.</para>
         <para>The extension method of this class can refer to <see cref="T:CatLibrary.ICatExtension" /> class</para>
-      </summary>
+                  it is to test the task:383436 scenario1 
+				  it is to test the task:383436 scenario2 Task:383436
+				  it is to test the task:383436 scenario3</summary>
       <typeparam name="T">This type should be class and can new instance.</typeparam>
       <typeparam name="K">This type is a struct type, class type can't be used for this parameter.</typeparam>
     </member>

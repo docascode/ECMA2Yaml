@@ -199,6 +199,10 @@ summary: >-
   <p>this class is a template class. It has two Generic parameter. they are: <code data-dev-comment-type="typeparamref">T</code> and <code data-dev-comment-type="typeparamref">K</code>.</p>
 
   <p>The extension method of this class can refer to <xref data-throw-if-not-resolved="true" uid="CatLibrary.ICatExtension"></xref> class</p>
+              it is to test the task:383436 scenario1 <a href="https://ceapex.visualstudio.com/Engineering/_workitems/edit/383436" data-linktype="absolute-path">https://ceapex.visualstudio.com/Engineering/_workitems/edit/383436</a>
+  it is to test the task:383436 scenario2 <a href="https://ceapex.visualstudio.com/Engineering/_workitems/edit/383436">Task:383436</a>
+
+  it is to test the task:383436 scenario3 <a href="https://ceapex.visualstudio.com/Engineering/_workitems/edit/383436">https://ceapex.visualstudio.com/Engineering/_workitems/edit/383436</a>
 remarks: <p>Here's all the content you can see in this class.</p>
 examples: >-
   <p>Here's example of how to create an instance of this class. As T is limited with <code data-dev-comment-type="c">class</code> and K is limited with <code data-dev-comment-type="c">struct</code>.</p>

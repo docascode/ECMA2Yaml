@@ -12,6 +12,9 @@ namespace CatLibrary
     /// <para></para>
     /// <para>this class is a template class. It has two Generic parameter. they are: <typeparamref name="T"/> and <typeparamref name="K"/>.</para>
     /// <para>The extension method of this class can refer to <see cref="ICatExtension"/> class</para>
+    /// it is to test the task:383436 scenario1 <see href="https://ceapex.visualstudio.com/Engineering/_workitems/edit/383436" data-linktype="absolute-path"/>
+    /// it is to test the task:383436 scenario2 <see href="https://ceapex.visualstudio.com/Engineering/_workitems/edit/383436">Task:383436</see>
+    /// it is to test the task:383436 scenario3 <see href="https://ceapex.visualstudio.com/Engineering/_workitems/edit/383436"></see>
     /// </summary>
     /// <seealso cref="CatLibrary.ICat"/>
     /// <example>
