@@ -110,9 +110,15 @@
   </xsl:template>
 
   <xsl:template match="see[@href and not(parent::member)]">
-    <a>
-      <xsl:apply-templates select="@*|node()"/>
-    </a>
+    <xsl:choose>
+      <xsl:when test="normalize-space(@href)=''">
+      </xsl:when>
+      <xsl:otherwise>
+        <a>
+          <xsl:apply-templates select="@*|node()"/>
+        </a>
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:template>
 
   <xsl:template match="seealso[@href and not(parent::member)]">
