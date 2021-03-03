@@ -86,7 +86,7 @@ namespace ECMA2Yaml
             {
                 Uid = item.Uid,
                 CommentId = item.CommentId,
-                Name = item.Name,                
+                Name = item.Name,
                 DevLangs = item.Signatures?.DevLangs ?? defaultLangList,
 
                 SeeAlso = BuildSeeAlsoList(item.Docs, _store),
@@ -155,8 +155,8 @@ namespace ECMA2Yaml
             {
                 rval.ObsoleteMessagesWithMoniker = item.Attributes
                     .Where(attr => attr.TypeFullName == "System.ObsoleteAttribute")
-                    .Select(attr => new VersionedString() 
-                    { 
+                    .Select(attr => new VersionedString()
+                    {
                         Value = GenerateObsoleteNotification(attr.Declaration),
                         Monikers = attr.Monikers
                     })
@@ -290,7 +290,7 @@ namespace ECMA2Yaml
             }
             F1KeywordsGenerator.Generate(model, item, childrenItems);
             HelpViewerKeywordsGenerator.Generate(model, item, childrenItems);
-            
+
             // Per V3 requirement, we need to put page level monikers in metadata node.
             // To make it compatible with V2 and existing template code, we choose to duplicate this meta in both root level and metadata node
             if (model is OverloadSDPModel
@@ -360,6 +360,11 @@ namespace ECMA2Yaml
 
         public static string BuildSeeAlsoList(Docs docs, ECMAStore store)
         {
+            if ((docs.AltMemberCommentIds?.Count == 0) || (docs.Related?.Count == 0))
+            {
+                return null;
+            }
+
             StringBuilder sb = new StringBuilder();
             if (docs.AltMemberCommentIds != null)
             {
@@ -379,7 +384,7 @@ namespace ECMA2Yaml
                 }
             }
 
-            return sb.Length == 0 ? null : sb.ToString();
+            return sb.ToString();
         }
     }
 }
