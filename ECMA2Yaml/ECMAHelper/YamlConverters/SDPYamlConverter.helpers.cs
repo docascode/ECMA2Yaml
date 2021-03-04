@@ -272,7 +272,8 @@ namespace ECMA2Yaml
                     {
                         Value = g.Key,
                         Monikers = ConverterHelper.TrimMonikers(MergeMonikerHashSets(g.Select(gvs => gvs.Monikers).ToArray()), t.Monikers)
-                    });
+                    })
+                    .OrderBy(vs => vs.Value);
             }
             else if (_store.InheritanceParentsByUid.ContainsKey(t.Uid)
                 && _store.InheritanceParentsByUid[t.Uid]?.Count > 0
@@ -284,7 +285,8 @@ namespace ECMA2Yaml
                     {
                         Value = g.Key,
                         Monikers = ConverterHelper.TrimMonikers(MergeMonikerHashSets(g.Select(gvs => gvs.Monikers).ToArray()), t.Monikers)
-                    });
+                    })
+                    .OrderBy(vs => vs.Value);
             }
             return null;
         }
