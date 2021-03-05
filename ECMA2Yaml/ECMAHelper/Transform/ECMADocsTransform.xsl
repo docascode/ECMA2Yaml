@@ -125,10 +125,20 @@
     </xsl:choose>
   </xsl:template>
 
-  <xsl:template match="seealso[@href and not(parent::member)]">
-    <a>
-      <xsl:apply-templates select="@*|node()"/>
-    </a>
+  <xsl:template match="seealso[@href and not(parent::member) and not(parent::Docs)]">
+     <xsl:choose>
+      <xsl:when test="text()!=''">
+        <a>
+          <xsl:apply-templates select="@*|node()"/>
+        </a>
+      </xsl:when>
+      <xsl:otherwise>
+        <a>
+          <xsl:apply-templates select="@*|node()"/>
+          <xsl:value-of select="normalize-space(@href)"/>
+        </a>
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:template>
 
   <xsl:template match="paramref">
@@ -158,7 +168,7 @@
       <xsl:value-of select="@langword"/>
     </code>
   </xsl:template>
-  
+
   <xsl:template match="list">
     <xsl:variable name="listtype">
       <xsl:value-of select="normalize-space(@type)"/>
@@ -238,7 +248,7 @@
        <xsl:apply-templates />
     </div>
   </xsl:template>
-  
+
   <xsl:template match="description">
     <xsl:apply-templates />
   </xsl:template>

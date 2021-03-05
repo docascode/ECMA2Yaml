@@ -60,11 +60,17 @@ namespace ECMA2Yaml
             }
 
             List<RelatedTag> related = null;
-            var relatedElements = dElement.Elements("related")?.ToList();
+
+            var relatedElements =
+                dElement.Elements("related")
+                .Concat(dElement.Elements("seealso").Where(element => element.Attribute("href") != null && element.Attribute("cref") == null))
+                .ToList();
+
             if (relatedElements?.Count > 0)
             {
                 related = LoadRelated(relatedElements);
             }
+
 
             Dictionary<string, string> additionalNotes = null;
             var blocks = dElement.Elements("block")?.Where(p => !string.IsNullOrEmpty(p.Attribute("type")?.Value)).ToList();
@@ -106,7 +112,7 @@ namespace ECMA2Yaml
 
                 // TODO: other attributes parse
             }
-            
+
             return new Docs()
             {
                 Summary = NormalizeDocsElement(dElement.Element("summary")),
@@ -136,9 +142,10 @@ namespace ECMA2Yaml
         /// <returns>List<string></returns>
         private static List<string> MergeAltmemberAndSeealsoToAltMemberCommentsIds(XElement dElement)
         {
-            var ids = dElement.Elements("altmember").Select(alt => alt.Attribute("cref").Value).ToList();
-            ids = ids.ConcatList(dElement.Elements("seealso").Select(alt => alt.Attribute("cref").Value).ToList());
-            return ids;
+            return dElement.Elements("altmember").Select(alt => alt.Attribute("cref").Value)
+                .Concat(dElement.Elements("seealso").Where(alt=> alt.Attribute("cref") != null).Select(alt => alt.Attribute("cref").Value))
+                .Distinct()
+                .ToList();
         }
         /// <summary>Downgrades markdown headers from 1 - 5. So a `#` becomes `##`, but `######` (ie. h6) remains the same.</summary>
         /// <param name="remarksText">A string of markdown content</param>
@@ -258,6 +265,17 @@ namespace ECMA2Yaml
                         Text = element.Value,
                         OriginalText = GetInnerXml(element)
                     };
+
+                    if (string.IsNullOrEmpty(tag.Text))
+                    {
+                        tag.Text = tag.Uri;
+                    }
+
+                    if (string.IsNullOrEmpty(tag.OriginalText))
+                    {
+                        tag.OriginalText = tag.Uri;
+                    }
+
                     var type = element.Attribute("type")?.Value;
                     if (!string.IsNullOrEmpty(type))
                     {

@@ -15,8 +15,13 @@ namespace CatLibrary
     /// it is to test the task:383436 scenario1 <see href="https://ceapex.visualstudio.com/Engineering/_workitems/edit/383436" data-linktype="absolute-path"/>
     /// it is to test the task:383436 scenario2 <see href="https://ceapex.visualstudio.com/Engineering/_workitems/edit/383436">Task:383436</see>
     /// it is to test the task:383436 scenario3 <see href="https://ceapex.visualstudio.com/Engineering/_workitems/edit/383436"></see>
+    /// <seealso href="http://some.external.net/embeddedcontent">SeeAlsoEmbeddedContent</seealso>
+    /// <seealso href="http://some.external.net/embeddedselfclose"/>
     /// </summary>
     /// <seealso cref="CatLibrary.ICat"/>
+    /// <seealso href="http://some.external.net/content">SeeAlsoContent</seealso>
+    /// <seealso href="http://some.external.net/nocontent"></seealso>
+    /// <seealso href="http://some.external.net/selfclose"/>
     /// <example>
     /// <para>Here's example of how to create an instance of this class. As T is limited with <c>class</c> and K is limited with <c>struct</c>.</para>
     /// <code language="c#">
@@ -33,6 +38,10 @@ namespace CatLibrary
     /// <typeparam name="K">This type is a struct type, class type can't be used for this parameter.</typeparam>
     /// <remarks>
     /// <para>Here's all the content you can see in this class.</para>
+    /// <see href="http://some.external.net/see-remarkscontent">SeeRemarksContent</see>
+    /// <see href="http://some.external.net/see-remarksselfclose"/>
+    /// <seealso href="http://some.external.net/seealso-remarkscontent">SeeAlsoRemarksContent</seealso>
+    /// <seealso href="http://some.external.net/seealso-remarksselfclose"/>
     /// <list type="ordered">
     /// <listItem>Constructors. With different input parameters.</listItem>
     /// <listItem>

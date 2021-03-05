@@ -609,17 +609,25 @@ namespace IntellisenseFileGen
                 if (ele.Name == "c") return;
                 // Replace href see with content
                 // <see href="~/docs/framework/unmanaged-api/diagnostics/isymunmanageddocument-interface.md">ISymUnmanagedDocument</see> => ISymUnmanagedDocument
+                // <see href="http://some.external.net/nocontent"/> => http://some.external.net/nocontent
                 var hrefEles = ele.Elements().Where(p => !string.IsNullOrEmpty(p.Attribute("href")?.Value) || _ignoreTags.Contains(p.Name.ToString()));
                 if (hrefEles != null && hrefEles.Count() > 0)
                 {
                     hrefEles.ToList().ForEach(hrefEle =>
                     {
-                        hrefEle.ReplaceWith(hrefEle.Value);
+                        if (!string.IsNullOrEmpty(hrefEle.Value))
+                        {
+                            hrefEle.ReplaceWith(hrefEle.Value);
+                        }
+                        else
+                        {
+                            hrefEle.ReplaceWith(hrefEle.Attribute("href").Value);
+                        }
                     });
                 }
 
-                // <summary><format type="text/markdown"><![CDATA[Describes the common properties that all features have.]]></format></summary> 
-                // => 
+                // <summary><format type="text/markdown"><![CDATA[Describes the common properties that all features have.]]></format></summary>
+                // =>
                 // <summary>Describes the common properties that all features have.</summary>
                 var formatEles = ele.Elements().Where(p => p.Name == "format");
                 if (formatEles != null && formatEles.Count() > 0)
@@ -764,7 +772,7 @@ namespace IntellisenseFileGen
                 // ============================================================================
                 // JSON comment within `/*..*/`.      ==>       JSON comment within /*..*/
                 // ============================================================================
-                // We need to protect /*..*/, put it into a dic(localReplaceStringDic), replace it with a guid, 
+                // We need to protect /*..*/, put it into a dic(localReplaceStringDic), replace it with a guid,
                 // After other things done, we need replace the content back
                 matches = RegexHelper.GetMatches_All_JustWantedOne(Constants.SingleSytax_Pattern2, content);
                 if (matches != null && matches.Length >= 2)
