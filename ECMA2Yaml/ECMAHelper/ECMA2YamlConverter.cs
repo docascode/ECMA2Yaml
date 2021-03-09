@@ -11,7 +11,7 @@ namespace ECMA2Yaml
 {
     public class ECMA2YamlConverter
     {
-        public static void Run(
+        public static bool Run(
             string xmlDirectory,
             string outputDirectory,
             string fallbackXmlDirectory = null,
@@ -66,7 +66,7 @@ namespace ECMA2Yaml
             var store = loader.LoadFolder("");
             if (store == null)
             {
-                return;
+                return false;
             }
 
             Console.WriteLine("Building loaded files...");
@@ -116,6 +116,8 @@ namespace ECMA2Yaml
                 Directory.CreateDirectory(tocOutputDirectory);
             }
             YamlUtility.Serialize(Path.Combine(tocOutputDirectory, "toc.yml"), toc, "YamlMime:TableOfContent");
+
+            return !OPSLogger.ErrorLogged;
         }
 
         private static void WriteYamlXMLFileMap(string sourceMapFilePath, IDictionary<string, List<string>> xmlYamlFileMap)
