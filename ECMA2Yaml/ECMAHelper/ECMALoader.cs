@@ -322,7 +322,7 @@ namespace ECMA2Yaml
                 {
                     if (!string.IsNullOrEmpty(m.Docs.Remarks))
                     {
-                        OPSLogger.LogUserWarning(LogCode.ECMA2Yaml_Enum_NoRemarks, typeFile.AbsolutePath);
+                        OPSLogger.LogUserSuggestion(LogCode.ECMA2Yaml_Enum_NoRemarks, typeFile.AbsolutePath);
                     }
                 }
             }
