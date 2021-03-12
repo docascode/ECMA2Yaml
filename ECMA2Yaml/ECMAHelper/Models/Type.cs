@@ -33,7 +33,8 @@ namespace ECMA2Yaml.Models
                 }
             }
         }
-        public Type DeepCopy()
+
+        public Type ShallowCopy()
         {
             Type rval = (Type)MemberwiseClone();
             rval.BaseTypes = BaseTypes==null?null:new List<BaseType>(BaseTypes);

@@ -211,5 +211,10 @@ namespace ECMA2Yaml.Models
             }
             return paraUid;
         }
+
+        public Member ShallowCopy()
+        {
+            return (Member)this.MemberwiseClone();
+        }
     }
 }
