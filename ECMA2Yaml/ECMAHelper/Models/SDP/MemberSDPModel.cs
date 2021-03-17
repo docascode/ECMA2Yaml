@@ -1,9 +1,5 @@
 ﻿using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using YamlDotNet.Serialization;
 
 namespace ECMA2Yaml.Models.SDP
@@ -17,10 +13,6 @@ namespace ECMA2Yaml.Models.SDP
         [JsonProperty("typeParameters")]
         [YamlMember(Alias = "typeParameters")]
         public IEnumerable<TypeParameterSDPModel> TypeParameters { get; set; }
-
-        [JsonProperty("returns")]
-        [YamlMember(Alias = "returns")]
-        public TypeReference Returns { get; set; }
 
         [JsonProperty("returnsWithMoniker")]
         [YamlMember(Alias = "returnsWithMoniker")]

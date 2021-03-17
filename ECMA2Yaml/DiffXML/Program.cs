@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -100,7 +99,7 @@ namespace DiffXML
         public static void SpecialProcessText(XText xText)
         {
             string content = xText.Value;
-            if (Regex.IsMatch(content, @"\n")|| Regex.IsMatch(content, @"\r\n"))
+            if (Regex.IsMatch(content, @"\n") || Regex.IsMatch(content, @"\r\n"))
             {
                 // remove blank line
                 //content = Regex.Replace(content, @"^\s+|\s+$", string.Empty, RegexOptions.Multiline);
@@ -108,7 +107,7 @@ namespace DiffXML
                 content = Regex.Replace(content, @"\n|\r\n", "", RegexOptions.Multiline);
                 content = Regex.Replace(content, @"\s*-or-\s*", "-or-", RegexOptions.Multiline);
                 content = Regex.Replace(content, @"\s{2,}", " ", RegexOptions.Multiline);
-                
+
                 xText.Value = content;
             }
         }

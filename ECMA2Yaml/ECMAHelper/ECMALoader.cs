@@ -70,7 +70,7 @@ namespace ECMA2Yaml
                 OPSLogger.LogUserError(LogCode.ECMA2Yaml_File_LoadFailed, null, _errorFiles.Count);
                 return null;
             }
-            
+
             var frameworks = LoadFrameworks(sourcePath);
             if (frameworks == null || frameworks.DocIdToFrameworkDict.Count == 0)
             {
@@ -318,7 +318,7 @@ namespace ECMA2Yaml
 
             if (t.ItemType == ItemType.Enum && t.Members?.Count > 0)
             {
-                foreach(var m in t.Members)
+                foreach (var m in t.Members)
                 {
                     if (!string.IsNullOrEmpty(m.Docs.Remarks))
                     {
@@ -453,7 +453,7 @@ namespace ECMA2Yaml
             }
 
             //Docs
-            m.Docs = LoadDocs(mElement.Element("Docs"),t.SourceFileLocalPath);
+            m.Docs = LoadDocs(mElement.Element("Docs"), t.SourceFileLocalPath);
 
             LoadMetadata(m, mElement);
 

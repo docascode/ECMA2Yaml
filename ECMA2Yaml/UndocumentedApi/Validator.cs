@@ -1,10 +1,7 @@
 ﻿using ECMA2Yaml.Models;
 using ECMA2Yaml.UndocumentedApi.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ECMA2Yaml.UndocumentedApi
 {
@@ -52,9 +49,9 @@ namespace ECMA2Yaml.UndocumentedApi
 
         public ValidationResult ValidateReturnValue(ReflectionItem item)
         {
-            if (item.ReturnValueType == null 
+            if (item.ReturnValueType == null
                 || item.ItemType == ItemType.Event
-                || item.ReturnValueType.VersionedTypes.Any(r => 
+                || item.ReturnValueType.VersionedTypes.Any(r =>
                         string.IsNullOrWhiteSpace(r.Value)
                         || r.Value == "System.Void"))
                 return ValidationResult.NA;
@@ -78,7 +75,7 @@ namespace ECMA2Yaml.UndocumentedApi
             {
                 return ValidationResult.NA;
             }
-            foreach(var param in item.Parameters)
+            foreach (var param in item.Parameters)
             {
                 if (!item.Docs.Parameters.ContainsKey(param.Name))
                 {

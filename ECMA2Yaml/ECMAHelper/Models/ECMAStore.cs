@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Text.RegularExpressions;
 
 namespace ECMA2Yaml.Models
 {
@@ -59,7 +58,7 @@ namespace ECMA2Yaml.Models
             _tList = _nsList.SelectMany(ns => ns.Types).ToList();
             Namespaces = _nsList.ToDictionary(ns => ns.Name);
             TypesByFullName = _tList.ToDictionary(t => t.FullName);
-          
+
             BuildIds(_nsList, _tList);
             TypesByUid = _tList.ToDictionary(t => t.Uid);
             BuildUniqueMembers();

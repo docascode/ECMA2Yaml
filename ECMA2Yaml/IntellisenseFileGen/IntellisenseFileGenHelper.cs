@@ -515,7 +515,7 @@ namespace IntellisenseFileGen
             }
             if (docs.Parameters?.Count > 0)
             {
-                foreach(var para in docs.Parameters)
+                foreach (var para in docs.Parameters)
                 {
                     string xmlStr = "";
                     if (string.IsNullOrEmpty(para.Value))

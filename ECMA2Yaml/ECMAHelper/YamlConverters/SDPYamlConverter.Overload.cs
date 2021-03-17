@@ -10,7 +10,7 @@ namespace ECMA2Yaml
         public OverloadSDPModel FormatOverload(Member overload, List<Member> members)
         {
             var sdpOverload = new OverloadSDPModel()
-            { 
+            {
                 Uid = overload?.Uid,
                 CommentId = overload?.CommentId,
                 Name = overload?.DisplayName,
@@ -26,22 +26,12 @@ namespace ECMA2Yaml
                 sdpOverload.NameWithType = members.First().Parent.Name + "." + sdpOverload.Name;
             }
 
-            if (_withVersioning)
+            if (!_store.UWPMode)
             {
-                if (!_store.UWPMode)
-                {
-                    sdpOverload.AssembliesWithMoniker = overload == null ? sdpOverload.Members.First().AssembliesWithMoniker
-                        : MonikerizeAssemblyStrings(overload);
-                    sdpOverload.PackagesWithMoniker = overload == null ? sdpOverload.Members.First().PackagesWithMoniker
-                        : MonikerizePackageStrings(overload, _store.PkgInfoMapping);
-                }
-            }
-            else
-            {
-                sdpOverload.Assemblies = sdpOverload.Members
-                .Where(m => m.Assemblies != null)
-                .SelectMany(m => m.Assemblies)
-                .Distinct().ToList().NullIfEmpty();
+                sdpOverload.AssembliesWithMoniker = overload == null ? sdpOverload.Members.First().AssembliesWithMoniker
+                    : MonikerizeAssemblyStrings(overload);
+                sdpOverload.PackagesWithMoniker = overload == null ? sdpOverload.Members.First().PackagesWithMoniker
+                    : MonikerizePackageStrings(overload, _store.PkgInfoMapping);
             }
 
             sdpOverload.Namespace = sdpOverload.Members.First().Namespace;
@@ -51,7 +41,7 @@ namespace ECMA2Yaml
             bool resetMemberThreadSafety = false;
             // One group members keep only one thread safety info
             var withThreadSafetyMembers = sdpOverload.Members.Where(p => p.ThreadSafety != null).ToList();
-            if (sdpOverload != null &&  overload?.Docs?.ThreadSafetyInfo != null)
+            if (sdpOverload != null && overload?.Docs?.ThreadSafetyInfo != null)
             {
                 sdpOverload.ThreadSafety = ConvertThreadSafety(overload);
                 resetMemberThreadSafety = true;

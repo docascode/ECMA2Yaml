@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace FixCodeSnippet
 {
@@ -26,7 +22,7 @@ namespace FixCodeSnippet
         {
             System.IO.FileInfo[] files = null;
             System.IO.DirectoryInfo[] subDirs = null;
-            
+
             files = root.GetFiles("*.*");
 
             if (files != null)

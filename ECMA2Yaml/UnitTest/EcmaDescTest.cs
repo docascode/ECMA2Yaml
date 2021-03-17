@@ -1,9 +1,8 @@
-﻿using System;
+﻿using ECMA2Yaml;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Monodoc.Ecma;
-using ECMA2Yaml;
+using System;
 using System.Collections.Generic;
-using System.Xml;
 using System.Xml.Linq;
 
 namespace UnitTest

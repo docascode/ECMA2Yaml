@@ -1,18 +1,15 @@
 ﻿using ECMA2Yaml.Models;
 using ECMA2Yaml.Models.SDP;
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace ECMA2Yaml
 {
     public partial class SDPYamlConverter
     {
         private readonly ECMAStore _store;
-        private readonly bool _withVersioning;
 
         private static string[] defaultLangList = new string[] { "csharp" };
 
@@ -21,10 +18,9 @@ namespace ECMA2Yaml
         public Dictionary<string, ItemSDPModelBase> MemberPages { get; } = new Dictionary<string, ItemSDPModelBase>();
         public Dictionary<string, ItemSDPModelBase> OverloadPages { get; } = new Dictionary<string, ItemSDPModelBase>();
 
-        public SDPYamlConverter(ECMAStore store, bool withVersioning = false)
+        public SDPYamlConverter(ECMAStore store)
         {
             _store = store;
-            _withVersioning = withVersioning;
         }
 
         public void Convert()
@@ -94,28 +90,17 @@ namespace ECMA2Yaml
                 Remarks = item.Docs.Remarks,
                 Examples = item.Docs.Examples,
                 Monikers = item.Monikers,
-                Source = (_store.UWPMode || _store.DemoMode) ?item.SourceDetail.ToSDPSourceDetail() : null
+                Source = (_store.UWPMode || _store.DemoMode) ? item.SourceDetail.ToSDPSourceDetail() : null
             };
 
-            if(_withVersioning)
-            {
-                rval.AssembliesWithMoniker = _store.UWPMode ? null : MonikerizeAssemblyStrings(item);
-                rval.PackagesWithMoniker = _store.UWPMode ? null : MonikerizePackageStrings(item, _store.PkgInfoMapping);
-                rval.AttributesWithMoniker = item.Attributes?.Where(att => att.Visible)
-                    .Select(att => new VersionedString() { Value = att.TypeFullName, Monikers = att.Monikers?.ToHashSet() })
-                    .DistinctVersionedString()
-                    .ToList().NullIfEmpty();
-                rval.AttributeMonikers = ConverterHelper.ConsolidateVersionedValues(rval.AttributesWithMoniker, item.Monikers);
-                rval.SyntaxWithMoniker = ConverterHelper.BuildVersionedSignatures(item, uwpMode: _store.UWPMode)?.NullIfEmpty();
-            }
-            else
-            {
-                rval.Assemblies = _store.UWPMode ? null : item.AssemblyInfo?.Select(asm => asm.Name).Distinct().ToList();
-                rval.Attributes = item.Attributes?.Where(att => att.Visible).Select(att => att.TypeFullName)
-                    .ToList().NullIfEmpty();
-                var rawSignatures = ConverterHelper.BuildSignatures(item, uwpMode: _store.UWPMode);
-                rval.Syntax = rawSignatures?.Select(sig => new SignatureModel() { Lang = sig.Key, Value = sig.Value }).ToList();
-            }
+            rval.AssembliesWithMoniker = _store.UWPMode ? null : MonikerizeAssemblyStrings(item);
+            rval.PackagesWithMoniker = _store.UWPMode ? null : MonikerizePackageStrings(item, _store.PkgInfoMapping);
+            rval.AttributesWithMoniker = item.Attributes?.Where(att => att.Visible)
+                .Select(att => new VersionedString() { Value = att.TypeFullName, Monikers = att.Monikers?.ToHashSet() })
+                .DistinctVersionedString()
+                .ToList().NullIfEmpty();
+            rval.AttributeMonikers = ConverterHelper.ConsolidateVersionedValues(rval.AttributesWithMoniker, item.Monikers);
+            rval.SyntaxWithMoniker = ConverterHelper.BuildVersionedSignatures(item, uwpMode: _store.UWPMode)?.NullIfEmpty();
 
             switch (item)
             {
@@ -180,7 +165,7 @@ namespace ECMA2Yaml
             }
 
             var startIndex = declaration.IndexOf('"');
-            var endIndex = declaration.IndexOf('"', startIndex+1);
+            var endIndex = declaration.IndexOf('"', startIndex + 1);
             if (startIndex == -1 || endIndex == -1)
             {
                 return value;
@@ -333,14 +318,7 @@ namespace ECMA2Yaml
         private ParameterReference ConvertNamedParameter(Parameter p, List<TypeParameter> knownTypeParams = null)
         {
             var r = ConvertParameter<ParameterReference>(p, knownTypeParams);
-            if (_withVersioning)
-            {
-                r.NamesWithMoniker = p.VersionedNames;
-            }
-            else
-            {
-                r.Name = p.Name;
-            }
+            r.NamesWithMoniker = p.VersionedNames;
             return r;
         }
 

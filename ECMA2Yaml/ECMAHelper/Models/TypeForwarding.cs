@@ -1,5 +1,4 @@
-﻿using Lucene.Net.Store;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace ECMA2Yaml.Models
 {

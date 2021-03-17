@@ -168,7 +168,8 @@ namespace ECMA2Yaml
                 {
                     monikers = m.Monikers;
                 }
-                else {
+                else
+                {
                     monikers = monikers.Intersect(m.Monikers).ToHashSet();
                 }
             }
@@ -221,7 +222,7 @@ namespace ECMA2Yaml
                 asmStr: string.Join(", ", pair.Value.OrderBy(asm => asm.Name).Select(asm => asm.Name + ".dll"))
                 ))
                 .ToList();
-            var versionedList =  monikerAssembliesPairs
+            var versionedList = monikerAssembliesPairs
                 .GroupBy(p => p.asmStr)
                 .Select(g => new VersionedString() { Value = g.Key, Monikers = g.Select(p => p.moniker).ToHashSet() })
                 .ToList();
@@ -296,7 +297,7 @@ namespace ECMA2Yaml
             HashSet<string> finalSet = null;
             if (sets != null)
             {
-                foreach(var set in sets)
+                foreach (var set in sets)
                 {
                     if (set != null)
                     {

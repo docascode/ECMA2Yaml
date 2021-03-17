@@ -1,14 +1,11 @@
 ﻿using ECMA2Yaml.Models;
 using ECMA2Yaml.UndocumentedApi.Models;
 using OfficeOpenXml;
-using OfficeOpenXml.Style;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ECMA2Yaml.UndocumentedApi
 {
@@ -30,7 +27,7 @@ namespace ECMA2Yaml.UndocumentedApi
                 _validator = new DotnetDocValidator();
             }
 
-            List <ReportItem> items = new List<ReportItem>();
+            List<ReportItem> items = new List<ReportItem>();
             items.AddRange(store.Namespaces.Values.Where(ns => !string.IsNullOrEmpty(ns.Uid)).Select(ns => ValidateItem(ns, branch)));
             items.AddRange(store.TypesByUid.Values.Select(t => ValidateItem(t, branch)));
             items.AddRange(store.MembersByUid.Values.Select(m => ValidateItem(m, branch)));
@@ -77,19 +74,19 @@ namespace ECMA2Yaml.UndocumentedApi
             ws.Cells[4, 5].Value = ValidationResult.UnderDoc.ToString();
 
             var row = 5;
-            foreach(FieldType fieldType in new[] { FieldType.Summary, FieldType.Parameters, FieldType.TypeParameters, FieldType.ReturnValue})
+            foreach (FieldType fieldType in new[] { FieldType.Summary, FieldType.Parameters, FieldType.TypeParameters, FieldType.ReturnValue })
             {
                 ws.Cells[row, 1].Value = fieldType.ToString();
                 int total = 0;
                 int totalPresent = 0;
                 int totalMissing = 0;
                 int totalUnderDoc = 0;
-                foreach(var item in report.ReportItems)
+                foreach (var item in report.ReportItems)
                 {
                     if (item.Results.ContainsKey(fieldType) && item.Results[fieldType] != ValidationResult.NA)
                     {
                         total++;
-                        switch(item.Results[fieldType])
+                        switch (item.Results[fieldType])
                         {
                             case ValidationResult.Present:
                                 totalPresent++;
@@ -148,7 +145,7 @@ namespace ECMA2Yaml.UndocumentedApi
                 selectedItems = report.ReportItems.Where(r => !r.IsOK && !r.Results.Values.Contains(ValidationResult.Missing) && r.Results.Values.Contains(ValidationResult.UnderDoc));
             }
 
-            foreach(var item in selectedItems)
+            foreach (var item in selectedItems)
             {
                 ws.Cells[row, 1].Value = item.ItemType;
                 ws.Cells[row, 2].Value = item.DocId;
@@ -202,7 +199,7 @@ namespace ECMA2Yaml.UndocumentedApi
                 ItemType = item.ItemType.ToString(),
                 Name = item.Name,
                 Results = _validator.ValidateItem(item),
-                SourceFilePath = item.Metadata.ContainsKey(OPSMetadata.RefSkeletionUrl) ? item.Metadata[OPSMetadata.RefSkeletionUrl] as string: item.SourceFileLocalPath,
+                SourceFilePath = item.Metadata.ContainsKey(OPSMetadata.RefSkeletionUrl) ? item.Metadata[OPSMetadata.RefSkeletionUrl] as string : item.SourceFileLocalPath,
                 Monikers = item.Monikers
             };
             switch (item)

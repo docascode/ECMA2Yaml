@@ -1,5 +1,4 @@
-﻿using ECMA2Yaml;
-using ECMA2Yaml.IO;
+﻿using ECMA2Yaml.IO;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -642,7 +641,7 @@ namespace MSDNUrlPatch
             }
 
             // Fix bug: https://dev.azure.com/ceapex/Engineering/_workitems/edit/287551
-            return url.Replace(@"\(","(").Replace(@"\)", ")");
+            return url.Replace(@"\(", "(").Replace(@"\)", ")");
         }
 
         public void MockTestData(string msdnUrl, string redirectUrl)

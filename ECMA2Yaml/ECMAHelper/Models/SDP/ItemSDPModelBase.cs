@@ -1,9 +1,5 @@
 ﻿using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using YamlDotNet.Serialization;
 
 namespace ECMA2Yaml.Models.SDP
@@ -55,10 +51,6 @@ namespace ECMA2Yaml.Models.SDP
         [YamlMember(Alias = "packagesWithMoniker")]
         public IEnumerable<VersionedString> PackagesWithMoniker { get; set; }
 
-        [JsonProperty("attributes")]
-        [YamlMember(Alias = "attributes")]
-        public IEnumerable<string> Attributes { get; set; }
-
         [JsonProperty("attributesWithMoniker")]
         [YamlMember(Alias = "attributesWithMoniker")]
         public IEnumerable<VersionedString> AttributesWithMoniker { get; set; }
@@ -66,10 +58,6 @@ namespace ECMA2Yaml.Models.SDP
         [JsonProperty("attributeMonikers")]
         [YamlMember(Alias = "attributeMonikers")]
         public IEnumerable<string> AttributeMonikers { get; set; }
-
-        [JsonProperty("syntax")]
-        [YamlMember(Alias = "syntax")]
-        public IEnumerable<SignatureModel> Syntax { get; set; }
 
         [JsonProperty("syntaxWithMoniker")]
         [YamlMember(Alias = "syntaxWithMoniker")]
@@ -86,10 +74,6 @@ namespace ECMA2Yaml.Models.SDP
         [JsonProperty("seeAlso")]
         [YamlMember(Alias = "seeAlso")]
         public string SeeAlso { get; set; }
-
-        [JsonProperty("isDeprecated")]
-        [YamlMember(Alias = "isDeprecated")]
-        public bool IsDeprecated { get; set; }
 
         [JsonProperty("obsoleteMessagesWithMoniker")]
         [YamlMember(Alias = "obsoleteMessagesWithMoniker")]

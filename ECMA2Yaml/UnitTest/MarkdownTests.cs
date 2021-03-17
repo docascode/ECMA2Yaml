@@ -1,10 +1,6 @@
 ﻿using ECMA2Yaml;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace UnitTest
 {
@@ -55,10 +51,10 @@ namespace UnitTest
         public void DowngradeMarkdownHeader_Whitespace() => AssertChange(" # Thing\n```\nSome ##Code \n# A comment\n```\n   ## after code block", $" ## Thing\n```\nSome ##Code \n# A comment\n```\n   ### after code block");
 
 
-        private static void AssertChange(string startText, string expected, Action<string,string> assert=null)
+        private static void AssertChange(string startText, string expected, Action<string, string> assert = null)
         {
             var actual = ECMALoader.DowngradeMarkdownHeaders(startText);
-            
+
             if (assert == null)
                 Assert.AreEqual(expected, actual);
             else

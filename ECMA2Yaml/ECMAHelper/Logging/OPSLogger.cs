@@ -1,13 +1,9 @@
 ﻿using ECMA2Yaml.IO;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace ECMA2Yaml
 {
@@ -59,7 +55,7 @@ namespace ECMA2Yaml
             if (logBag.Count > 0)
             {
                 StringBuilder sb = new StringBuilder();
-                foreach(var log in logBag.ToArray())
+                foreach (var log in logBag.ToArray())
                 {
                     var logStr = JsonConvert.SerializeObject(log);
                     sb.AppendLine(logStr);
@@ -84,7 +80,7 @@ namespace ECMA2Yaml
             {
                 if (file.StartsWith(PathTrimPrefix))
                 {
-                    file = file.Replace(PathTrimPrefix, ""); 
+                    file = file.Replace(PathTrimPrefix, "");
                 }
                 else
                 {

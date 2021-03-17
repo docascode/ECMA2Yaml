@@ -1,9 +1,5 @@
 ﻿using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using YamlDotNet.Serialization;
 
 namespace ECMA2Yaml.Models.SDP
@@ -13,10 +9,6 @@ namespace ECMA2Yaml.Models.SDP
         [JsonIgnore]
         [YamlIgnore]
         public override string YamlMime { get; } = "YamlMime:NetEnum";
-
-        [JsonProperty("inheritances")]
-        [YamlMember(Alias = "inheritances")]
-        public IEnumerable<string> Inheritances { get; set; }
 
         [JsonProperty("inheritancesWithMoniker")]
         [YamlMember(Alias = "inheritancesWithMoniker")]

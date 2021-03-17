@@ -8,7 +8,7 @@ namespace ECMA2Yaml.IO
     public class FileAbstractLayer
     {
         public string RootPath { get; private set; }
-        public bool IsVirtual {get; private set;}
+        public bool IsVirtual { get; private set; }
 
         public FileAbstractLayer(string rootPath, bool isVirtual)
         {

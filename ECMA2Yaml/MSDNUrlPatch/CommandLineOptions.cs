@@ -1,9 +1,6 @@
 ﻿using Mono.Options;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MSDNUrlPatch
 {
@@ -27,7 +24,7 @@ namespace MSDNUrlPatch
                 { "s|source=", "[Required] the folder path containing the ECMAXML files.", s => SourceFolder = s },
                 { "l|log=", "[Required] the log file path.",  l => LogFilePath = l },
                 { "batchsize=", "[Required] how many files can be processed in one batch.",  l => BatchSize = int.Parse(l) },
-                { "fileExtension=", "[Required] processed file extension name.",  l => FileExtension = l },    
+                { "fileExtension=", "[Required] processed file extension name.",  l => FileExtension = l },
                 { "b|baseurl=", "Base url",  l => BaseUrl = l },
                 { "Ver", "Log verbose",  s => LogVerbose = s != null },
                 { "preVersions", "Is url contains 'previous-versions' need fix",  s => PreVersions = s != null },

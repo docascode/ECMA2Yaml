@@ -1,7 +1,6 @@
 ﻿using ECMA2Yaml.IO;
 using ECMA2Yaml.Models;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -201,7 +200,7 @@ namespace ECMA2Yaml
                 {
                     if (UWPMetadata.Values.TryGetValue(g.Key, out var datatype))
                     {
-                        switch(datatype)
+                        switch (datatype)
                         {
                             case MetadataDataType.String:
                                 item.Metadata.Add(g.Key, g.First());
@@ -227,7 +226,7 @@ namespace ECMA2Yaml
             foreach (var attrName in attributeNames)
             {
                 var lang = attrName.Attribute("Language")?.Value;
-                switch(lang)
+                switch (lang)
                 {
                     case null:
                         declaration = attrName.Value;

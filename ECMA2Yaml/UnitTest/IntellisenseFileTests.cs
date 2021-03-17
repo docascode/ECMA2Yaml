@@ -1,7 +1,5 @@
 ﻿using IntellisenseFileGen;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
 
@@ -102,7 +100,7 @@ Boolean isAvailable = scheduleObject.RawSchedule[2, 15, 3];
             string[] expectedList = expected.Split(',');
             if (matches != null && matches.Length > 0)
             {
-                Assert.AreEqual<int>(expectedList.Length,matches.Length);
+                Assert.AreEqual<int>(expectedList.Length, matches.Length);
                 for (int i = 0; i < expectedList.Length; i++)
                 {
                     Assert.AreEqual<string>(matches[i], expectedList[i]);
@@ -158,7 +156,7 @@ Boolean isAvailable = scheduleObject.RawSchedule[2, 15, 3];
             XText text = new XText(inText);
             IntellisenseFileGenHelper.SpecialProcessText(text);
 
-            Assert.AreEqual<string>(expected,text.Value);
+            Assert.AreEqual<string>(expected, text.Value);
         }
 
         private static void PatternValidate(string inText, string expected, Regex regex)

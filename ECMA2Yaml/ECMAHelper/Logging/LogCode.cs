@@ -3,7 +3,6 @@
 // This is an auto generated file and any changes directly applied to this file will be lost in next generation.
 // Please DO NOT modify this file but instead, update .+LogMessage\.json files and/or LogCode.tt.
 // **********************************************************************************************************
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;

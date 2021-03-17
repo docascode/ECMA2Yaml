@@ -14,7 +14,6 @@
 // Please DO NOT modify this file but instead, update .+LogMessage\.json files and/or LogCode.tt.
 // **********************************************************************************************************
 <#@ output extension=".cs" #>
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;

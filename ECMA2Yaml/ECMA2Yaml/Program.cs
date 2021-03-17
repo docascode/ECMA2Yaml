@@ -2,13 +2,9 @@
 using ECMA2Yaml.YamlHelpers;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
 
 namespace ECMA2Yaml
 {
@@ -83,7 +79,7 @@ namespace ECMA2Yaml
                 WriteLine("Not enough information, unable to generate git url related metadata. -repoRoot {0}, -publicRepo {1}, -publicBranch {2}",
                     opt.RepoRootPath, opt.PublicRepoUrl, opt.PublicRepoBranch);
             }
-            
+
             WriteLine("Loaded {0} namespaces.", store.Namespaces.Count);
             WriteLine("Loaded {0} types.", store.TypesByFullName.Count);
             WriteLine("Loaded {0} members.", store.MembersByUid.Count);
@@ -98,14 +94,14 @@ namespace ECMA2Yaml
             IDictionary<string, List<string>> xmlYamlFileMapping = null;
             if (opt.SDPMode)
             {
-                xmlYamlFileMapping = SDPYamlGenerator.Generate(store, opt.OutputFolder, opt.Flatten, opt.Versioning);
+                xmlYamlFileMapping = SDPYamlGenerator.Generate(store, opt.OutputFolder, opt.Flatten);
                 YamlUtility.Serialize(Path.Combine(opt.OutputFolder, "toc.yml"), SDPTOCGenerator.Generate(store), "YamlMime:TableOfContent");
             }
 
             //Translate change list
             if (opt.ChangeListFiles.Count > 0)
             {
-                foreach(var changeList in opt.ChangeListFiles)
+                foreach (var changeList in opt.ChangeListFiles)
                 {
                     if (File.Exists(changeList))
                     {
@@ -115,7 +111,7 @@ namespace ECMA2Yaml
                 }
             }
             WriteYamlXMLFileMap(opt.YamlXMLMappingFile, opt.RepoRootPath, xmlYamlFileMapping);
-            
+
             //Save fallback file list as skip publish
             if (!string.IsNullOrEmpty(opt.SkipPublishFilePath) && loader.FallbackFiles?.Count > 0)
             {

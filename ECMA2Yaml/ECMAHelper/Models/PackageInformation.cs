@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace ECMA2Yaml.Models
 {
@@ -35,9 +31,9 @@ namespace ECMA2Yaml.Models
 
         public string TryGetPackageDisplayString(string moniker, string assemblyName)
         {
-            if(!string.IsNullOrEmpty(moniker) && !string.IsNullOrEmpty(assemblyName))
+            if (!string.IsNullOrEmpty(moniker) && !string.IsNullOrEmpty(assemblyName))
             {
-                if(this.ContainsKey(moniker) && this[moniker].ContainsKey(assemblyName))
+                if (this.ContainsKey(moniker) && this[moniker].ContainsKey(assemblyName))
                 {
                     var package = this[moniker][assemblyName];
                     return $"{package.Name} v{package.Version}";
