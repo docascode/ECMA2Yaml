@@ -4,6 +4,24 @@ using YamlDotNet.Serialization;
 
 namespace ECMA2Yaml.Models
 {
+    public class PerLanguageString
+    {
+        [JsonProperty("value")]
+        [YamlMember(Alias = "value")]
+        public string Value { get; set; }
+        [JsonProperty("langs")]
+        [YamlMember(Alias = "langs")]
+        public HashSet<string> Langs { get; set; }
+
+        public PerLanguageString() { }
+
+        public PerLanguageString(HashSet<string> langs, string value)
+        {
+            Langs = langs;
+            Value = value;
+        }
+    }
+
     public class VersionedString : VersionedValue<string>
     {
         public VersionedString() { }

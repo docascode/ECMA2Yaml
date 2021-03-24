@@ -11,7 +11,7 @@ namespace ECMA2Yaml
     {
         private readonly ECMAStore _store;
 
-        private static string[] defaultLangList = new string[] { "csharp" };
+        private static HashSet<string> defaultLangList = new HashSet<string> { "csharp" };
 
         public Dictionary<string, ItemSDPModelBase> NamespacePages { get; } = new Dictionary<string, ItemSDPModelBase>();
         public Dictionary<string, ItemSDPModelBase> TypePages { get; } = new Dictionary<string, ItemSDPModelBase>();
@@ -304,22 +304,27 @@ namespace ECMA2Yaml
             return null;
         }
 
-        private T ConvertParameter<T>(Parameter p, List<TypeParameter> knownTypeParams = null)
-            where T : TypeReference, new()
+        private ParameterReference ConvertNamedParameter(
+            Parameter p,
+            List<TypeParameter> knownTypeParams = null,
+            HashSet<string> totalLangs = null)
         {
             var isGeneric = knownTypeParams?.Any(tp => tp.Name == p.Type) ?? false;
-            return new T()
+            var rval = new ParameterReference()
             {
                 Description = p.Description,
                 Type = isGeneric ? p.Type : TypeStringToTypeMDString(p.OriginalTypeString ?? p.Type, _store)
             };
-        }
-
-        private ParameterReference ConvertNamedParameter(Parameter p, List<TypeParameter> knownTypeParams = null)
-        {
-            var r = ConvertParameter<ParameterReference>(p, knownTypeParams);
-            r.NamesWithMoniker = p.VersionedNames;
-            return r;
+            if (!isGeneric && _store.TypeMappingStore?.TypeMappingPerLanguage != null)
+            {
+                rval.TypePerLanguage = _store.TypeMappingStore.TranslateTypeString(rval.Type, totalLangs ?? _store.TotalDevLangs);
+                if (rval.TypePerLanguage.Count == 1)
+                {
+                    rval.TypePerLanguage = null;
+                }
+            }
+            rval.NamesWithMoniker = p.VersionedNames;
+            return rval;
         }
 
         private Models.SDP.ThreadSafety ConvertThreadSafety(ReflectionItem item)

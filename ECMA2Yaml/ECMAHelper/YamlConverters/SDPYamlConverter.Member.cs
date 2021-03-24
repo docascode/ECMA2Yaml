@@ -39,7 +39,7 @@ namespace ECMA2Yaml
                 }
             }
 
-            sdpMember.Parameters = m.Parameters?.Select(p => ConvertNamedParameter(p, knowTypeParams))
+            sdpMember.Parameters = m.Parameters?.Select(p => ConvertNamedParameter(p, knowTypeParams, m.Signatures.DevLangs))
                 .ToList().NullIfEmpty();
 
             sdpMember.Exceptions = m.Docs.Exceptions?.Select(

@@ -32,8 +32,8 @@ namespace ECMA2Yaml
             //    return null;
             //}
 
-            //var extensionMethods = LoadExtensionMethods(sourcePath);
             var filterStore = LoadFilters(sourcePath);
+            var typeMappingStore = LoadTypeMap(sourcePath);
             var pkgInfoMapping = LoadPackageInformationMapping(sourcePath);
 
             ConcurrentBag<Namespace> namespaces = new ConcurrentBag<Namespace>();
@@ -82,6 +82,7 @@ namespace ECMA2Yaml
             var store = new ECMAStore(filteredNS.OrderBy(ns => ns.Name).ToArray(), frameworks)
             {
                 FilterStore = filterStore,
+                TypeMappingStore = typeMappingStore,
                 PkgInfoMapping = pkgInfoMapping
             };
             return store;
