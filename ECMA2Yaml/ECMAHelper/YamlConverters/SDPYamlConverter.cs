@@ -97,7 +97,12 @@ namespace ECMA2Yaml
                 Source = (_store.UWPMode || _store.DemoMode) ?item.SourceDetail.ToSDPSourceDetail() : null
             };
 
-            if(_withVersioning)
+            if (!string.IsNullOrEmpty(item.CrossInheritdocUid))
+            {
+                rval.CrossInheritdocUid = item.CrossInheritdocUid;
+            }
+
+            if (_withVersioning)
             {
                 rval.AssembliesWithMoniker = _store.UWPMode ? null : MonikerizeAssemblyStrings(item);
                 rval.PackagesWithMoniker = _store.UWPMode ? null : MonikerizePackageStrings(item, _store.PkgInfoMapping);
