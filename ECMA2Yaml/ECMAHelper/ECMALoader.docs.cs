@@ -111,11 +111,11 @@ namespace ECMA2Yaml
                 inheritDoc = new InheritDoc();
                 var inheritCref = inheritdocEle?.Attribute("cref")?.Value;
                 var inheritPath = inheritdocEle?.Attribute("path")?.Value;
-                if (string.IsNullOrEmpty(inheritCref))
+                if (!string.IsNullOrEmpty(inheritCref))
                 {
                     inheritDoc.Cref = inheritCref;
                 }
-                if (string.IsNullOrEmpty(inheritPath))
+                if (!string.IsNullOrEmpty(inheritPath))
                 {
                     inheritDoc.Path = inheritPath;
                 }
