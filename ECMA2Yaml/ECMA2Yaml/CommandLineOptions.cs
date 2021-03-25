@@ -7,7 +7,6 @@ namespace ECMA2Yaml
     public class CommandLineOptions
     {
         public string SourceFolder = null;
-        public string MetadataFolder = null;
         public string OutputFolder = null;
 
         public string FallbackRepoRoot = null;
@@ -35,7 +34,6 @@ namespace ECMA2Yaml
             _options = new OptionSet {
                 { "s|source=", "[Required] the folder path containing the ECMAXML files.", s => SourceFolder = s.NormalizePath() },
                 { "o|output=", "[Required] the output folder to put yml files.", o => OutputFolder = o.NormalizePath() },
-                { "m|metadata=", "the folder path containing the overwrite MD files for metadata.", s => MetadataFolder = s.NormalizePath() },
                 { "l|log=", "the log file path.", l => LogFilePath = l.NormalizePath() },
                 { "f|flatten", "to put all ymls in output root and not keep original folder structure.", f => Flatten = f != null },
                 { "strict", "strict mode, means that any unresolved type reference will cause a warning",  s => StrictMode = s != null },
