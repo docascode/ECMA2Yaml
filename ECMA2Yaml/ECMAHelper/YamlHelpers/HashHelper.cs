@@ -1,7 +1,5 @@
 ﻿namespace ECMA2Yaml.YamlHelpers
 {
-    using System;
-
     public static class HashHelper
     {
         public static int GetDeterministicHashCode(this string str)

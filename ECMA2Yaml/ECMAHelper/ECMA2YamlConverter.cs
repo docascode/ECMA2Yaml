@@ -74,16 +74,16 @@ namespace ECMA2Yaml
             store.UWPMode = config?.UWP ?? false;
             store.Build();
 
-            if(!string.IsNullOrEmpty(publicGitRepoUrl) && !string.IsNullOrEmpty(publicGitBranch))
+            if (!string.IsNullOrEmpty(publicGitRepoUrl) && !string.IsNullOrEmpty(publicGitBranch))
             {
-               store.TranlateContentSourceMeta(publicGitRepoUrl, publicGitBranch);
+                store.TranlateContentSourceMeta(publicGitRepoUrl, publicGitBranch);
             }
             else
             {
-               Console.WriteLine("Not enough information, unable to generate git url related metadata. -publicRepo {0}, -publicBranch {1}", publicGitRepoUrl, publicGitBranch);
+                Console.WriteLine("Not enough information, unable to generate git url related metadata. -publicRepo {0}, -publicBranch {1}", publicGitRepoUrl, publicGitBranch);
             }
 
-            var xmlYamlFileMapping = SDPYamlGenerator.Generate(store, outputDirectory, flatten: config?.Flatten ?? true, withVersioning: true);
+            var xmlYamlFileMapping = SDPYamlGenerator.Generate(store, outputDirectory, flatten: config?.Flatten ?? true);
             if (loader.FallbackFiles != null && loader.FallbackFiles.Any() && !string.IsNullOrEmpty(fallbackOutputDirectory))
             {
                 if (!Directory.Exists(fallbackOutputDirectory))
@@ -94,7 +94,7 @@ namespace ECMA2Yaml
                 {
                     if (xmlYamlFileMapping.TryGetValue(fallbackFile, out var originalYamls))
                     {
-                        foreach(var originalYaml in originalYamls)
+                        foreach (var originalYaml in originalYamls)
                         {
                             var newYaml = originalYaml.Replace(outputDirectory, fallbackOutputDirectory);
                             File.Copy(originalYaml, newYaml, overwrite: true);

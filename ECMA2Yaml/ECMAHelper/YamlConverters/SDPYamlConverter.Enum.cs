@@ -1,11 +1,7 @@
 ﻿using ECMA2Yaml.Models;
 using ECMA2Yaml.Models.SDP;
-using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Type = ECMA2Yaml.Models.Type;
 
 namespace ECMA2Yaml
@@ -16,22 +12,15 @@ namespace ECMA2Yaml
         {
             var sdpEnum = InitWithBasicProperties<EnumSDPModel>(enumTypeItem);
 
-            if (_withVersioning)
-            {
-                sdpEnum.InheritancesWithMoniker = ConverterHelper.TrimMonikers(
-                    enumTypeItem.InheritanceChains?.Select(
-                    chain => new VersionedCollection<string>(
-                        chain.Monikers,
-                        chain.Values.Select(uid => UidToTypeMDString(uid, _store)).ToList()
-                        )).ToList(),
-                    enumTypeItem.Monikers);
-            }
-            else
-            {
-                sdpEnum.Inheritances = enumTypeItem.InheritanceChains?.LastOrDefault().Values.Select(uid => UidToTypeMDString(uid, _store)).ToList();
-            }
-            
-            sdpEnum.IsFlags = enumTypeItem.Attributes != null 
+            sdpEnum.InheritancesWithMoniker = ConverterHelper.TrimMonikers(
+                enumTypeItem.InheritanceChains?.Select(
+                chain => new VersionedCollection<string>(
+                    chain.Monikers,
+                    chain.Values.Select(uid => UidToTypeMDString(uid, _store)).ToList()
+                    )).ToList(),
+                enumTypeItem.Monikers);
+
+            sdpEnum.IsFlags = enumTypeItem.Attributes != null
                 && enumTypeItem.Attributes.Any(attr => attr.Declaration == "System.Flags");
 
             sdpEnum.Fields = enumTypeItem.Members.Select(fItem =>

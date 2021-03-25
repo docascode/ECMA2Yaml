@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Linq;
 
 namespace ECMA2Yaml.Models
@@ -13,13 +10,13 @@ namespace ECMA2Yaml.Models
 
         public Dictionary<string, List<VersionedString>> Dict { get; set; }
         public SortedList<string, List<string>> CombinedModifiers { get; private set; }
-        public string[] DevLangs { get; private set; }
+        public HashSet<string> DevLangs { get; private set; }
         public string DocId { get; private set; }
 
-        public bool IsPublishSealedClass 
-        { 
+        public bool IsPublishSealedClass
+        {
             get => Dict.ContainsKey(ECMADevLangs.CSharp)
-                && Dict[ECMADevLangs.CSharp].All(s => s.Value.StartsWith("public sealed class")); 
+                && Dict[ECMADevLangs.CSharp].All(s => s.Value.StartsWith("public sealed class"));
         }
 
         public bool IsProtected
@@ -74,7 +71,7 @@ namespace ECMA2Yaml.Models
                 : g.Select(t => new VersionedString(null, t.val)).ToList() // remove monikers if there's only one version
                 );
 
-            DevLangs = Dict.Keys.Where(k => ECMADevLangs.OPSMapping.ContainsKey(k)).Select(k => ECMADevLangs.OPSMapping[k]).ToArray();
+            DevLangs = Dict.Keys.Where(k => ECMADevLangs.OPSMapping.ContainsKey(k)).Select(k => ECMADevLangs.OPSMapping[k]).ToHashSet();
 
             foreach (var sig in Dict[ECMADevLangs.CSharp])
             {

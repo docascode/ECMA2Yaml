@@ -5,7 +5,6 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using YamlUtility = ECMA2Yaml.YamlHelpers.YamlUtility;
 
@@ -17,8 +16,7 @@ namespace ECMA2Yaml
         public static IDictionary<string, List<string>> Generate(
             ECMAStore store,
             string outputFolder,
-            bool flatten,
-            bool withVersioning)
+            bool flatten)
         {
             WriteLine("Generating SDP Yaml models...");
 
@@ -27,7 +25,7 @@ namespace ECMA2Yaml
                 Directory.CreateDirectory(outputFolder);
             }
 
-            var sdpConverter = new SDPYamlConverter(store, withVersioning);
+            var sdpConverter = new SDPYamlConverter(store);
             sdpConverter.Convert();
 
             WriteLine("Writing SDP Yaml files...");
@@ -67,7 +65,7 @@ namespace ECMA2Yaml
                                 if (!string.IsNullOrEmpty(m.Uid) && sdpConverter.OverloadPages.TryGetValue(m.Uid, out var mPage))
                                 {
                                     var fileName = PathUtility.ToCleanUrlFileName(m.Uid);
-                                    fileName = GetUniqueFileNameWithSuffix(fileName, existingFileNames) +".yml";
+                                    fileName = GetUniqueFileNameWithSuffix(fileName, existingFileNames) + ".yml";
                                     var path = Path.Combine(flatten ? outputFolder : nsFolder, fileName);
                                     ymlFiles.Add(path);
                                     YamlUtility.Serialize(path, mPage, mPage.YamlMime);

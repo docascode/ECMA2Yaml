@@ -151,7 +151,7 @@ namespace ECMA2Yaml
         private static List<string> MergeAltmemberAndSeealsoToAltMemberCommentsIds(XElement dElement)
         {
             return dElement.Elements("altmember").Select(alt => alt.Attribute("cref").Value)
-                .Concat(dElement.Elements("seealso").Where(alt=> alt.Attribute("cref") != null).Select(alt => alt.Attribute("cref").Value))
+                .Concat(dElement.Elements("seealso").Where(alt => alt.Attribute("cref") != null).Select(alt => alt.Attribute("cref").Value))
                 .Distinct()
                 .ToList();
         }

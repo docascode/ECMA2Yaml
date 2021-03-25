@@ -1,10 +1,6 @@
 ﻿using ECMA2Yaml.Models;
 using ECMA2Yaml.Models.SDP;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ECMA2Yaml
 {
@@ -16,7 +12,7 @@ namespace ECMA2Yaml
 
             if (nsItem.Types != null)
             {
-                foreach(var tGroup in nsItem.Types?.GroupBy(t => t.ItemType))
+                foreach (var tGroup in nsItem.Types?.GroupBy(t => t.ItemType))
                 {
                     switch (tGroup.Key)
                     {

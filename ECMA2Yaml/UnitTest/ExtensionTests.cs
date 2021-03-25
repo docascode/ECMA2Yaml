@@ -1,11 +1,6 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ECMA2Yaml;
+﻿using ECMA2Yaml;
 using ECMA2Yaml.IO;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace UnitTest
 {

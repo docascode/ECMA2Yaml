@@ -8,7 +8,7 @@ namespace ECMA2Yaml.Models
     {
         [JsonProperty("type")]
         [YamlMember(Alias = "type")]
-        public IEnumerable<VersionedReturnType> VersionedTypes {get;set;}
+        public IEnumerable<VersionedReturnType> VersionedTypes { get; set; }
 
 
         [JsonProperty("description")]

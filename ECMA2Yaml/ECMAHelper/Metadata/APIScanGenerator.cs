@@ -1,9 +1,8 @@
-﻿using System;
+﻿using ECMA2Yaml.Models;
+using ECMA2Yaml.Models.SDP;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
-using ECMA2Yaml.Models;
-using ECMA2Yaml.Models.SDP;
 
 namespace ECMA2Yaml
 {
@@ -83,7 +82,7 @@ namespace ECMA2Yaml
             List<string> names = new List<string>();
             names.Add(item.Uid);
             var t = item as Models.Type;
-            foreach(var f in t.Members)
+            foreach (var f in t.Members)
             {
                 names.Add(f.Uid);
             }

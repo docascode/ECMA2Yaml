@@ -1,8 +1,5 @@
-﻿using ECMA2Yaml.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ECMA2Yaml.Models
 {
@@ -109,7 +106,8 @@ namespace ECMA2Yaml.Models
                     .OrderBy(p => p.Key)
                     .ToDictionary(
                         g => g.Key,
-                        g => {
+                        g =>
+                        {
                             var monikers = g.SelectMany(p => p.Value).ToList();
                             monikers.Sort();
                             return monikers;
@@ -130,11 +128,11 @@ namespace ECMA2Yaml.Models
                 if (t.TypeForwardingChain?.TypeForwardingsPerMoniker?.Count > 0
                     && _frameworks.FrameworkAssemblies?.Count > 0)
                 {
-                    foreach(var fwdPerMoniker in t.TypeForwardingChain.TypeForwardingsPerMoniker)
+                    foreach (var fwdPerMoniker in t.TypeForwardingChain.TypeForwardingsPerMoniker)
                     {
                         if (_frameworks.FrameworkAssemblies.TryGetValue(fwdPerMoniker.Key, out var assemblyDict))
                         {
-                            foreach(var fwd in fwdPerMoniker.Value)
+                            foreach (var fwd in fwdPerMoniker.Value)
                             {
                                 if (fwd.To.Version == "0.0.0.0" && assemblyDict.TryGetValue(fwd.To.Name, out var asmInfo))
                                 {

@@ -7,7 +7,6 @@ namespace ECMA2Yaml
     public class CommandLineOptions
     {
         public string SourceFolder = null;
-        public string MetadataFolder = null;
         public string OutputFolder = null;
 
         public string FallbackRepoRoot = null;
@@ -27,7 +26,6 @@ namespace ECMA2Yaml
         public bool SDPMode = false;
         public bool UWPMode = false;
         public bool DemoMode = false;
-        public bool Versioning = true;
         List<string> Extras = null;
         OptionSet _options = null;
 
@@ -36,14 +34,12 @@ namespace ECMA2Yaml
             _options = new OptionSet {
                 { "s|source=", "[Required] the folder path containing the ECMAXML files.", s => SourceFolder = s.NormalizePath() },
                 { "o|output=", "[Required] the output folder to put yml files.", o => OutputFolder = o.NormalizePath() },
-                { "m|metadata=", "the folder path containing the overwrite MD files for metadata.", s => MetadataFolder = s.NormalizePath() },
                 { "l|log=", "the log file path.", l => LogFilePath = l.NormalizePath() },
                 { "f|flatten", "to put all ymls in output root and not keep original folder structure.", f => Flatten = f != null },
                 { "strict", "strict mode, means that any unresolved type reference will cause a warning",  s => StrictMode = s != null },
                 { "SDP", "SDP mode, generate yamls in the .NET SDP schema format",  s => SDPMode = s != null },
                 { "UWP", "UWP mode, special treatment for UWP pipeline",  s => UWPMode = s != null },
                 { "demo", "demo mode, only for generating test yamls, do not set --SDP or --UWP together with this option.",  s => DemoMode = s != null },
-                { "NoVersioning", "No-Versioning mode, don't output property-level versioning data",  s => Versioning = false },
                 { "changeList=", "OPS change list file, ECMA2Yaml will translate xml path to yml path",  s => ChangeListFiles.Add(s)},
                 { "skipPublishFilePath=", "Pass a file to OPS to let it know which files should skip publish",  s => SkipPublishFilePath = s.NormalizePath()},
                 { "undocumentedApiReport=", "Save the Undocumented API validation result to Excel file",  s => UndocumentedApiReport = s.NormalizePath()},

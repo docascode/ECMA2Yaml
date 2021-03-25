@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ECMA2Yaml.Models
 {
@@ -16,9 +13,9 @@ namespace ECMA2Yaml.Models
             ValuesPerMoniker = valuesPerMoniker;
 
             MonikersPerValue = new Dictionary<VT, List<string>>();
-            foreach(var pair in valuesPerMoniker)
+            foreach (var pair in valuesPerMoniker)
             {
-                foreach(var value in pair.Value)
+                foreach (var value in pair.Value)
                 {
                     if (MonikersPerValue.TryGetValue(value, out List<string> monikerList))
                     {

@@ -1,9 +1,5 @@
 ﻿using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using YamlDotNet.Serialization;
 
 namespace ECMA2Yaml.Models.SDP
@@ -30,10 +26,6 @@ namespace ECMA2Yaml.Models.SDP
         [YamlMember(Alias = "permissions")]
         public IEnumerable<TypeReference> Permissions { get; set; }
 
-        [JsonProperty("implements")]
-        [YamlMember(Alias = "implements")]
-        public IEnumerable<string> Implements { get; set; }
-
         [JsonProperty("implementsWithMoniker")]
         [YamlMember(Alias = "implementsWithMoniker")]
         public IEnumerable<VersionedString> ImplementsWithMoniker { get; set; }
@@ -45,17 +37,9 @@ namespace ECMA2Yaml.Models.SDP
         [YamlMember(Alias = "implementsMonikers")]
         public IEnumerable<string> ImplementsMonikers { get; set; }
 
-        [JsonProperty("inheritances")]
-        [YamlMember(Alias = "inheritances")]
-        public IEnumerable<string> Inheritances { get; set; }
-
         [JsonProperty("inheritancesWithMoniker")]
         [YamlMember(Alias = "inheritancesWithMoniker")]
         public IEnumerable<VersionedCollection<string>> InheritancesWithMoniker { get; set; }
-
-        [JsonProperty("derivedClasses")]
-        [YamlMember(Alias = "derivedClasses")]
-        public IEnumerable<string> DerivedClasses { get; set; }
 
         [JsonProperty("derivedClassesWithMoniker")]
         [YamlMember(Alias = "derivedClassesWithMoniker")]

@@ -1,11 +1,9 @@
 ﻿using ECMA2Yaml.Models;
 using ECMA2Yaml.Models.SDP;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace ECMA2Yaml
 {
@@ -88,7 +86,7 @@ namespace ECMA2Yaml
                     {
                         var lang = Models.ECMADevLangs.OPSMapping[sigPair.Key];
                         var sigValues = sigPair.Value;
-                        
+
                         switch (sigPair.Key)
                         {
                             case ECMADevLangs.CSharp:
@@ -148,7 +146,7 @@ namespace ECMA2Yaml
         {
             if (string.IsNullOrEmpty(sig)
                 || attrs == null
-                || attrs.Count == 0 
+                || attrs.Count == 0
                 || attrs.Count(attr => attr.NamesPerLanguage?.ContainsKey(lang) == true) == 0)
             {
                 return sig;
@@ -217,11 +215,11 @@ namespace ECMA2Yaml
         public static IEnumerable<string> ConsolidateVersionedValues(IEnumerable<VersionedString> vals, HashSet<string> pageMonikers)
         {
             if (vals == null)
-            { 
+            {
                 return null;
             }
             HashSet<string> allMonikers = new HashSet<string>();
-            foreach(var val in vals.Where(v => v.Monikers != null))
+            foreach (var val in vals.Where(v => v.Monikers != null))
             {
                 allMonikers.UnionWith(val.Monikers);
                 if (val.Monikers.SetEquals(pageMonikers))

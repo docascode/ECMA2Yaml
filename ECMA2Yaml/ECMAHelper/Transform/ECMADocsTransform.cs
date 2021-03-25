@@ -1,8 +1,6 @@
 ﻿namespace ECMA2Yaml
 {
-    using Models;
     using System.IO;
-    using System.Net;
     using System.Xml;
     using System.Xml.Linq;
     using System.Xml.XPath;

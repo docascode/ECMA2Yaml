@@ -1,10 +1,6 @@
 ﻿using ECMA2Yaml.Models;
 using ECMA2Yaml.Models.SDP;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ECMA2Yaml
 {
@@ -32,7 +28,7 @@ namespace ECMA2Yaml
                 }
             }
 
-            sdpDelegate.Parameters = t.Parameters?.Select(p => ConvertNamedParameter(p, t.TypeParameters))
+            sdpDelegate.Parameters = t.Parameters?.Select(p => ConvertNamedParameter(p, t.TypeParameters, t.Signatures.DevLangs))
                 .ToList().NullIfEmpty();
 
             if (t.Attributes != null

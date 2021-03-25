@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Linq;
 
 namespace ECMA2Yaml.Models
@@ -72,7 +70,7 @@ namespace ECMA2Yaml.Models
 
         public bool Equals(Parameter other)
         {
-            return other != null && other.Type == this.Type && other.OriginalTypeString == this.OriginalTypeString;        
+            return other != null && other.Type == this.Type && other.OriginalTypeString == this.OriginalTypeString;
         }
 
         public override void LoadFromXElement(XElement p)

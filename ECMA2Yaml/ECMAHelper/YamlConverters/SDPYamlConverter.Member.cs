@@ -1,10 +1,6 @@
 ﻿using ECMA2Yaml.Models;
 using ECMA2Yaml.Models.SDP;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ECMA2Yaml
 {
@@ -43,7 +39,7 @@ namespace ECMA2Yaml
                 }
             }
 
-            sdpMember.Parameters = m.Parameters?.Select(p => ConvertNamedParameter(p, knowTypeParams))
+            sdpMember.Parameters = m.Parameters?.Select(p => ConvertNamedParameter(p, knowTypeParams, m.Signatures.DevLangs))
                 .ToList().NullIfEmpty();
 
             sdpMember.Exceptions = m.Docs.Exceptions?.Select(

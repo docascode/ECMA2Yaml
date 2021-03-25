@@ -1,10 +1,6 @@
-﻿using Monodoc.Ecma;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace ECMA2Yaml.Models
 {
@@ -210,6 +206,11 @@ namespace ECMA2Yaml.Models
                 }
             }
             return paraUid;
+        }
+
+        public Member ShallowCopy()
+        {
+            return (Member)this.MemberwiseClone();
         }
     }
 }

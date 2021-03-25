@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ECMA2Yaml.Models;
+﻿using ECMA2Yaml.Models;
 using ECMA2Yaml.Models.SDP;
+using System.Collections.Generic;
 
 namespace ECMA2Yaml
 {
@@ -20,7 +16,7 @@ namespace ECMA2Yaml
         {
             if (item?.Metadata != null)
             {
-                foreach(var pair in item.Metadata)
+                foreach (var pair in item.Metadata)
                 {
                     if (MetadataMapping.TryGetValue(pair.Key, out string newKey))
                     {
@@ -30,7 +26,7 @@ namespace ECMA2Yaml
             }
             if (item?.ExtendedMetadata?.Count > 0)
             {
-                foreach(var pair in item.ExtendedMetadata)
+                foreach (var pair in item.ExtendedMetadata)
                 {
                     model.Metadata[pair.Key] = pair.Value;
                 }

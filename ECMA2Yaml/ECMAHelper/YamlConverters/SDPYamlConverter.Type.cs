@@ -1,10 +1,7 @@
 ﻿using ECMA2Yaml.Models;
 using ECMA2Yaml.Models.SDP;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ECMA2Yaml
 {
@@ -18,46 +15,20 @@ namespace ECMA2Yaml
             sdpType.TypeParameters = ConvertTypeParameters(t);
             sdpType.ThreadSafety = ConvertThreadSafety(t);
 
-            if (_withVersioning)
-            {
-                Type child = t;
-                sdpType.InheritancesWithMoniker = ConverterHelper.TrimMonikers(
-                    t.InheritanceChains?.Select(
-                    chain => new VersionedCollection<string>(
-                        chain.Monikers?.NullIfEmpty(),
-                        GetInheritChainMDStringList(chain.Values,t)
-                    )).ToList(),
-                t.Monikers);
-                sdpType.DerivedClassesWithMoniker = MonikerizeDerivedClasses(t);
-                sdpType.ImplementsWithMoniker = t.Interfaces?.Where(i => i != null && i.Value != null)
-                    .Select(i => new VersionedString(i.Monikers, TypeStringToTypeMDString(i.Value, _store)))
-                    .ToList()
-                    .NullIfEmpty();
-                sdpType.ImplementsMonikers = ConverterHelper.ConsolidateVersionedValues(sdpType.ImplementsWithMoniker, t.Monikers);
-            }
-            else
-            {
-                sdpType.Inheritances = t.InheritanceChains?.LastOrDefault()?.Values.Select(uid => UidToTypeMDString(uid, _store))
+            Type child = t;
+            sdpType.InheritancesWithMoniker = ConverterHelper.TrimMonikers(
+                t.InheritanceChains?.Select(
+                chain => new VersionedCollection<string>(
+                    chain.Monikers?.NullIfEmpty(),
+                    GetInheritChainMDStringList(chain.Values, t)
+                )).ToList(),
+            t.Monikers);
+            sdpType.DerivedClassesWithMoniker = MonikerizeDerivedClasses(t);
+            sdpType.ImplementsWithMoniker = t.Interfaces?.Where(i => i != null && i.Value != null)
+                .Select(i => new VersionedString(i.Monikers, TypeStringToTypeMDString(i.Value, _store)))
                 .ToList()
                 .NullIfEmpty();
-
-                //not top level class like System.Object, has children
-                if (t.ItemType == ItemType.Interface
-                    && _store.ImplementationChildrenByUid.ContainsKey(t.Uid))
-                {
-                    sdpType.DerivedClasses = _store.ImplementationChildrenByUid[t.Uid].Select(v => v.Value).ToList();
-                }
-                else if (_store.InheritanceParentsByUid.ContainsKey(t.Uid)
-                    && _store.InheritanceParentsByUid[t.Uid]?.Count > 0
-                    && _store.InheritanceChildrenByUid.ContainsKey(t.Uid))
-                {
-                    sdpType.DerivedClasses = _store.InheritanceChildrenByUid[t.Uid].Select(v => v.Value).ToList();
-                }
-                sdpType.Implements = t.Interfaces?.Where(i => i != null && i.Value != null)
-                    .Select(i => TypeStringToTypeMDString(i.Value, _store))
-                    .ToList()
-                    .NullIfEmpty();
-            }
+            sdpType.ImplementsMonikers = ConverterHelper.ConsolidateVersionedValues(sdpType.ImplementsWithMoniker, t.Monikers);
 
             sdpType.Permissions = t.Docs.Permissions?.Select(
                 p => new TypeReference()
@@ -89,10 +60,10 @@ namespace ECMA2Yaml
             string typeStr = string.Empty;
             string typeMDStr = string.Empty;
             int i = 0;
-            for (; i < inheritanceChains.Count-1; i++)
+            for (; i < inheritanceChains.Count - 1; i++)
             {
                 parentUid = inheritanceChains[i];
-                childrenUid = inheritanceChains[i+1];
+                childrenUid = inheritanceChains[i + 1];
                 child = _store.TypesByUid[childrenUid];
 
                 typeMDStr = GetParentTypeStringFromChild(child, parentUid);

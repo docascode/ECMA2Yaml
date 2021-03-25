@@ -1,30 +1,26 @@
 ﻿using ECMA2Yaml.Models;
 using ECMA2Yaml.Models.SDP;
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace ECMA2Yaml
 {
     public partial class SDPYamlConverter
     {
         private readonly ECMAStore _store;
-        private readonly bool _withVersioning;
 
-        private static string[] defaultLangList = new string[] { "csharp" };
+        private static HashSet<string> defaultLangList = new HashSet<string> { "csharp" };
 
         public Dictionary<string, ItemSDPModelBase> NamespacePages { get; } = new Dictionary<string, ItemSDPModelBase>();
         public Dictionary<string, ItemSDPModelBase> TypePages { get; } = new Dictionary<string, ItemSDPModelBase>();
         public Dictionary<string, ItemSDPModelBase> MemberPages { get; } = new Dictionary<string, ItemSDPModelBase>();
         public Dictionary<string, ItemSDPModelBase> OverloadPages { get; } = new Dictionary<string, ItemSDPModelBase>();
 
-        public SDPYamlConverter(ECMAStore store, bool withVersioning = false)
+        public SDPYamlConverter(ECMAStore store)
         {
             _store = store;
-            _withVersioning = withVersioning;
         }
 
         public void Convert()
@@ -94,7 +90,7 @@ namespace ECMA2Yaml
                 Remarks = item.Docs.Remarks,
                 Examples = item.Docs.Examples,
                 Monikers = item.Monikers,
-                Source = (_store.UWPMode || _store.DemoMode) ?item.SourceDetail.ToSDPSourceDetail() : null
+                Source = (_store.UWPMode || _store.DemoMode) ? item.SourceDetail.ToSDPSourceDetail() : null
             };
 
             if (!string.IsNullOrEmpty(item.CrossInheritdocUid))
@@ -102,25 +98,14 @@ namespace ECMA2Yaml
                 rval.CrossInheritdocUid = item.CrossInheritdocUid;
             }
 
-            if (_withVersioning)
-            {
-                rval.AssembliesWithMoniker = _store.UWPMode ? null : MonikerizeAssemblyStrings(item);
-                rval.PackagesWithMoniker = _store.UWPMode ? null : MonikerizePackageStrings(item, _store.PkgInfoMapping);
-                rval.AttributesWithMoniker = item.Attributes?.Where(att => att.Visible)
-                    .Select(att => new VersionedString() { Value = att.TypeFullName, Monikers = att.Monikers?.ToHashSet() })
-                    .DistinctVersionedString()
-                    .ToList().NullIfEmpty();
-                rval.AttributeMonikers = ConverterHelper.ConsolidateVersionedValues(rval.AttributesWithMoniker, item.Monikers);
-                rval.SyntaxWithMoniker = ConverterHelper.BuildVersionedSignatures(item, uwpMode: _store.UWPMode)?.NullIfEmpty();
-            }
-            else
-            {
-                rval.Assemblies = _store.UWPMode ? null : item.AssemblyInfo?.Select(asm => asm.Name).Distinct().ToList();
-                rval.Attributes = item.Attributes?.Where(att => att.Visible).Select(att => att.TypeFullName)
-                    .ToList().NullIfEmpty();
-                var rawSignatures = ConverterHelper.BuildSignatures(item, uwpMode: _store.UWPMode);
-                rval.Syntax = rawSignatures?.Select(sig => new SignatureModel() { Lang = sig.Key, Value = sig.Value }).ToList();
-            }
+            rval.AssembliesWithMoniker = _store.UWPMode ? null : MonikerizeAssemblyStrings(item);
+            rval.PackagesWithMoniker = _store.UWPMode ? null : MonikerizePackageStrings(item, _store.PkgInfoMapping);
+            rval.AttributesWithMoniker = item.Attributes?.Where(att => att.Visible)
+                .Select(att => new VersionedString() { Value = att.TypeFullName, Monikers = att.Monikers?.ToHashSet() })
+                .DistinctVersionedString()
+                .ToList().NullIfEmpty();
+            rval.AttributeMonikers = ConverterHelper.ConsolidateVersionedValues(rval.AttributesWithMoniker, item.Monikers);
+            rval.SyntaxWithMoniker = ConverterHelper.BuildVersionedSignatures(item, uwpMode: _store.UWPMode)?.NullIfEmpty();
 
             switch (item)
             {
@@ -185,7 +170,7 @@ namespace ECMA2Yaml
             }
 
             var startIndex = declaration.IndexOf('"');
-            var endIndex = declaration.IndexOf('"', startIndex+1);
+            var endIndex = declaration.IndexOf('"', startIndex + 1);
             if (startIndex == -1 || endIndex == -1)
             {
                 return value;
@@ -324,29 +309,27 @@ namespace ECMA2Yaml
             return null;
         }
 
-        private T ConvertParameter<T>(Parameter p, List<TypeParameter> knownTypeParams = null)
-            where T : TypeReference, new()
+        private ParameterReference ConvertNamedParameter(
+            Parameter p,
+            List<TypeParameter> knownTypeParams = null,
+            HashSet<string> totalLangs = null)
         {
             var isGeneric = knownTypeParams?.Any(tp => tp.Name == p.Type) ?? false;
-            return new T()
+            var rval = new ParameterReference()
             {
                 Description = p.Description,
                 Type = isGeneric ? p.Type : TypeStringToTypeMDString(p.OriginalTypeString ?? p.Type, _store)
             };
-        }
-
-        private ParameterReference ConvertNamedParameter(Parameter p, List<TypeParameter> knownTypeParams = null)
-        {
-            var r = ConvertParameter<ParameterReference>(p, knownTypeParams);
-            if (_withVersioning)
+            if (!isGeneric && _store.TypeMappingStore?.TypeMappingPerLanguage != null)
             {
-                r.NamesWithMoniker = p.VersionedNames;
+                rval.TypePerLanguage = _store.TypeMappingStore.TranslateTypeString(rval.Type, totalLangs ?? _store.TotalDevLangs);
+                if (rval.TypePerLanguage.Count == 1)
+                {
+                    rval.TypePerLanguage = null;
+                }
             }
-            else
-            {
-                r.Name = p.Name;
-            }
-            return r;
+            rval.NamesWithMoniker = p.VersionedNames;
+            return rval;
         }
 
         private Models.SDP.ThreadSafety ConvertThreadSafety(ReflectionItem item)

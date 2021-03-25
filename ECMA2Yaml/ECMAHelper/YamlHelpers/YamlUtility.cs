@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using System.Text;
 using System.Threading;
 using YamlDotNet.Serialization;
@@ -10,7 +8,7 @@ namespace ECMA2Yaml.YamlHelpers
     public static class YamlUtility
     {
         private static readonly ThreadLocal<ISerializer> serializer
-            = new ThreadLocal<ISerializer>(() => 
+            = new ThreadLocal<ISerializer>(() =>
             new SerializerBuilder()
             .DisableAliases()
             .ConfigureDefaultValuesHandling(DefaultValuesHandling.OmitDefaults)

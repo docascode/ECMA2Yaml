@@ -1,10 +1,7 @@
 ﻿using ECMA2Yaml.Models;
 using ECMA2Yaml.Models.SDP;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ECMA2Yaml
 {
@@ -67,7 +64,7 @@ namespace ECMA2Yaml
             }
 
             var items = new List<TOCNodeYamlModel>();
-            foreach(var olGroup in t.Members.Where(m => m.Overload != null).GroupBy(m => m.Overload))
+            foreach (var olGroup in t.Members.Where(m => m.Overload != null).GroupBy(m => m.Overload))
             {
                 var ol = t.Overloads.FirstOrDefault(o => o.Uid == olGroup.Key);
                 var tocEntry = new TOCNodeYamlModel()
@@ -76,7 +73,7 @@ namespace ECMA2Yaml
                     Name = ol.DisplayName
                 };
                 tocEntry.Type = ol.ItemType.ToString();
-                if ((ol.ItemType == ItemType.Method|| ol.ItemType == ItemType.Property) && olGroup.First().IsEII)
+                if ((ol.ItemType == ItemType.Method || ol.ItemType == ItemType.Property) && olGroup.First().IsEII)
                 {
                     tocEntry.IsEII = true;
                 }

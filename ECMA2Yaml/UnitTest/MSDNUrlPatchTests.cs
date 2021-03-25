@@ -1,9 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MSDNUrlPatch;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.RegularExpressions;
-using System.Xml.Linq;
 
 
 namespace UnitTest
@@ -40,7 +36,7 @@ namespace UnitTest
                     , "NoNeed", false, "https://docs.microsoft.com/en-us/previous-versions/h846e9b3(v=vs.110)?redirectedfrom=MSDN")]
         public void PreVersions_Switch_Test(string inText, string expected, bool isPreVersions, string mockRedirectUrl)
         {
-            CommandLineOptions option = new CommandLineOptions() { BaseUrl = "https://docs.microsoft.com/en-us", PreVersions=isPreVersions };
+            CommandLineOptions option = new CommandLineOptions() { BaseUrl = "https://docs.microsoft.com/en-us", PreVersions = isPreVersions };
             var urlRepairHelper = new UrlRepairHelper(option);
             urlRepairHelper.MockTestData(inText, mockRedirectUrl);
             var newUrl = urlRepairHelper.GetDocsUrl(inText);
@@ -54,7 +50,7 @@ namespace UnitTest
                     , "NoNeed", false, "https://docs.microsoft.com/en-us/visualstudio/msbuild/aspnetcompiler-task?view=vs-2015&redirectedfrom=MSDN")]
         public void FixedVersions_Switch_Test(string inText, string expected, bool isFixedVersions, string mockRedirectUrl)
         {
-            CommandLineOptions option = new CommandLineOptions() { BaseUrl = "https://docs.microsoft.com/en-us",  FixedVersions = isFixedVersions };
+            CommandLineOptions option = new CommandLineOptions() { BaseUrl = "https://docs.microsoft.com/en-us", FixedVersions = isFixedVersions };
             var urlRepairHelper = new UrlRepairHelper(option);
             urlRepairHelper.MockTestData(inText, mockRedirectUrl);
             var newUrl = urlRepairHelper.GetDocsUrl(inText);
@@ -94,7 +90,7 @@ namespace UnitTest
             , "https://docs.microsoft.com/en-us/ef/ef6/modeling/code-first/data-annotations?redirectedfrom=MSDN")]
         public void RepairString_Test(string inText, string expected, string msdnUrl, string mockRedirectUrl)
         {
-            CommandLineOptions option = new CommandLineOptions() { BaseUrl = "https://docs.microsoft.com/en-us" , FixedVersions= true, PreVersions=true };
+            CommandLineOptions option = new CommandLineOptions() { BaseUrl = "https://docs.microsoft.com/en-us", FixedVersions = true, PreVersions = true };
             var urlRepairHelper = new UrlRepairHelper(option);
             urlRepairHelper.MockTestData(msdnUrl, mockRedirectUrl);
             var newText = urlRepairHelper.RepairString(inText, null);

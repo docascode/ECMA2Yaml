@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using System.Xml.Linq;
 
 namespace ECMA2Yaml.Models
@@ -22,7 +18,7 @@ namespace ECMA2Yaml.Models
                 bool expose = Expose;
                 if (t.Attributes?.Count > 0 && AttributeFilters?.Count > 0)
                 {
-                    foreach(var attr in t.Attributes.Where(a => AttributeFilters.ContainsKey(a.Declaration)))
+                    foreach (var attr in t.Attributes.Where(a => AttributeFilters.ContainsKey(a.Declaration)))
                     {
                         expose = expose && AttributeFilters[attr.Declaration];
                     }

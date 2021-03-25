@@ -13,21 +13,16 @@ ECMA2Yaml.exe <Options>
   -s, --source=VALUE         [Required] the folder path containing the ECMAXML
                                files.
   -o, --output=VALUE         [Required] the output folder to put yml files.
-  -m, --metadata=VALUE       the folder path containing the overwrite MD files
-                               for metadata.
   -l, --log=VALUE            the log file path.
   -f, --flatten              to put all ymls in output root and not keep
                                original folder structure.
-  -p, --pathUrlMapping=VALUE1=>VALUE2
-                             map local xml path to the Github url.
       --strict               strict mode, means that any unresolved type
                                reference will cause a warning
-      --mapFolder            folder mapping mode, maps assemblies in folder to
-                               json, used in .NET CI
       --SDP                  SDP mode, generate yamls in the .NET SDP schema
                                format
-      --UWP                  UWP mode, generate yamls in the .NET SDP schema
-                               format with additional UWP properties
+      --UWP                  UWP mode, special treatment for UWP pipeline
+      --demo                 demo mode, only for generating test yamls, do not
+                               set --SDP or --UWP together with this option.
       --changeList=VALUE     OPS change list file, ECMA2Yaml will translate xml
                                path to yml path
       --skipPublishFilePath=VALUE
@@ -36,5 +31,14 @@ ECMA2Yaml.exe <Options>
       --undocumentedApiReport=VALUE
                              Save the Undocumented API validation result to
                                Excel file
-      --branch=VALUE         current branch
+      --publicRepoBranch=VALUE
+                             the branch that is public to contributors
+      --publicRepoUrl=VALUE  the repo that is public to contributors
+      --repoRoot=VALUE       the local path of the root of the repo
+      --fallbackRepoRoot=VALUE
+                             the local path of the root of the fallback repo
+      --repoUrl=VALUE        the url of the current repo being processed
+      --repoBranch=VALUE     the branch of the current repo being processed
+      --yamlXMLMappingFile=VALUE
+                             Mapping from generated yaml files to source XML files
 ```

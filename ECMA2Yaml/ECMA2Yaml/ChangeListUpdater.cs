@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ECMA2Yaml
 {
@@ -21,7 +18,7 @@ namespace ECMA2Yaml
                     var parts = l.Split('\t');
                     var file = parts[0].Replace("/", "\\");
                     var change = parts[1].Trim();
-                   
+
                     if (fileMapping != null && fileMapping.ContainsKey(file))
                     {
                         count++;
