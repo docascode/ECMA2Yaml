@@ -23,11 +23,12 @@ namespace ECMA2Yaml.Models
         public ILookup<string, Member> ExtensionMethodUidsByTargetUid { get; set; }
         public Dictionary<string, string> InheritDocItemsByUid { get; set; }    // Inheritdoc uid pair
         public FilterStore FilterStore { get; set; }
+        public TypeMappingStore TypeMappingStore { get; set; }
         public bool StrictMode { get; set; }
         public bool UWPMode { get; set; }
         public bool DemoMode { get; set; }
         public PackageInformationMapping PkgInfoMapping { get; set; }
-
+        public HashSet<string> TotalDevLangs { get; set; }
         private static Dictionary<string, EcmaDesc> typeDescriptorCache;
 
         private IEnumerable<Namespace> _nsList;
@@ -56,6 +57,7 @@ namespace ECMA2Yaml.Models
             //so this would have to result in two separate yaml documents entirely for the same type.
             EnumConvertToClass();
             _tList = _nsList.SelectMany(ns => ns.Types).ToList();
+            TotalDevLangs = _tList.SelectMany(t => t.Signatures.DevLangs).ToHashSet();
             Namespaces = _nsList.ToDictionary(ns => ns.Name);
             TypesByFullName = _tList.ToDictionary(t => t.FullName);
 

@@ -28,7 +28,7 @@ namespace ECMA2Yaml
                 }
             }
 
-            sdpDelegate.Parameters = t.Parameters?.Select(p => ConvertNamedParameter(p, t.TypeParameters))
+            sdpDelegate.Parameters = t.Parameters?.Select(p => ConvertNamedParameter(p, t.TypeParameters, t.Signatures.DevLangs))
                 .ToList().NullIfEmpty();
 
             if (t.Attributes != null

@@ -50,7 +50,6 @@ namespace ECMA2Yaml
             foreach (var m in sdpOverload.Members)
             {
                 m.Namespace = null;
-                m.Assemblies = null;
                 m.AssembliesWithMoniker = null;
                 m.PackagesWithMoniker = null;
                 m.DevLangs = null;

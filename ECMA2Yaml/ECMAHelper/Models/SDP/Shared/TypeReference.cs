@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 using YamlDotNet.Serialization;
 
 namespace ECMA2Yaml.Models.SDP
@@ -12,5 +13,9 @@ namespace ECMA2Yaml.Models.SDP
         [JsonProperty("type")]
         [YamlMember(Alias = "type")]
         public string Type { get; set; }
+
+        [JsonProperty("typePerLanguage")]
+        [YamlMember(Alias = "typePerLanguage")]
+        public List<PerLanguageString> TypePerLanguage { get; set; }
     }
 }

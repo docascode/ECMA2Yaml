@@ -36,8 +36,7 @@ namespace ECMA2Yaml
                             };
                             foreach (var tFiler in fElement.Elements("typeFilter"))
                             {
-                                bool expose = false;
-                                bool.TryParse(tFiler.Attribute("expose").Value, out expose);
+                                bool.TryParse(tFiler.Attribute("expose").Value, out bool expose);
                                 string name = tFiler.Attribute("name").Value;
                                 if (name == "*")
                                 {
@@ -90,6 +89,48 @@ namespace ECMA2Yaml
                 return filterStore;
             }
 
+            return null;
+        }
+
+        private TypeMappingStore LoadTypeMap(string folder)
+        {
+            var mappingFile = Path.Combine(folder, "TypeMap.xml");
+            if (_fileAccessor.Exists(mappingFile))
+            {
+                XDocument mappingDoc = XDocument.Parse(_fileAccessor.ReadAllText(mappingFile));
+                var replaces = mappingDoc.Root.Elements("InterfaceReplace").ToList();
+                replaces.AddRange(mappingDoc.Root.Elements("TypeReplace"));
+                if (replaces.Any())
+                {
+                    var mappingStore = new TypeMappingStore()
+                    {
+                        TypeMappingPerLanguage = new Dictionary<string, Dictionary<string, string>>()
+                    };
+                    foreach(var replace in replaces)
+                    {
+                        var from = replace.Attribute("From")?.Value;
+                        var to = replace.Attribute("To")?.Value;
+                        var langs = replace.Attribute("Langs")?.Value.TrimEnd(';').Split(';');
+                        langs = langs.Where(k => ECMADevLangs.OPSMapping.ContainsKey(k)).Select(k => ECMADevLangs.OPSMapping[k]).ToArray();
+                        if (from != null && to != null && langs?.Length > 0)
+                        {
+                            if (from == "System.Guid" && to == "winrt::guid")
+                            {
+                                from = "<xref href=\"System.Guid?alt=System.Guid&text=Guid\" data-throw-if-not-resolved=\"True\"/>";
+                            }
+                            foreach (var lang in langs)
+                            {
+                                if (!mappingStore.TypeMappingPerLanguage.ContainsKey(lang))
+                                {
+                                    mappingStore.TypeMappingPerLanguage[lang] = new Dictionary<string, string>();
+                                }
+                                mappingStore.TypeMappingPerLanguage[lang][from] = to;
+                            }
+                        }
+                    }
+                    return mappingStore;
+                }
+            }
             return null;
         }
 
