@@ -1,0 +1,73 @@
+### YamlMime:NetMember
+type: method
+members:
+- parameters:
+  - namesWithMoniker:
+    - value: language
+    description: The language that person speak
+    type: <xref href="System.String?alt=System.String&text=String" data-throw-if-not-resolved="True"/>
+  implementsWithMoniker:
+  - value: <xref href="CatLibrary.IPerson.Speak(System.String)?alt=CatLibrary.IPerson.Speak(System.String)&text=Speak(String)" data-throw-if-not-resolved="True"/>
+  uid: CatLibrary.Student.Speak(System.String)
+  commentId: M:CatLibrary.Student.Speak(System.String)
+  name: Speak(String)
+  fullName: CatLibrary.Student.Speak(String)
+  nameWithType: Student.Speak(String)
+  syntaxWithMoniker:
+  - lang: cpp
+    values:
+    - value: >-
+        public:
+         virtual void Speak(System::String ^ language);
+  - lang: csharp
+    values:
+    - value: public void Speak(string language);
+  - lang: fsharp
+    values:
+    - value: >-
+        abstract member Speak : string -> unit
+
+        override this.Speak : string -> unit
+  - lang: vb
+    values:
+    - value: Public Sub Speak (language As String)
+  monikers:
+  - cat-1.0
+  summary: Speak with a language in IPerson interface
+  metadata: {}
+uid: CatLibrary.Student.Speak*
+commentId: Overload:CatLibrary.Student.Speak
+namespace: CatLibrary
+name: Speak
+fullName: CatLibrary.Student.Speak
+nameWithType: Student.Speak
+devLangs:
+- csharp
+- vb
+- cpp
+- fsharp
+monikers:
+- cat-1.0
+metadata:
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Student.xml
+  _op_overwriteFileGitUrl: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Student.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Student.xml
+  api_name:
+  - CatLibrary.Student.Speak
+  f1_keywords:
+  - CatLibrary.Student.Speak
+  - CatLibrary::Student::Speak
+  - Speak
+  - Student.Speak
+  - Student::Speak
+  topic_type:
+  - apiref
+  api_type:
+  - Assembly
+  helpviewer_keywords:
+  - Student.Speak method [.NET]
+  - Speak method [.NET], class Student
+  - Student.Speak(String) method [.NET]
+  - Speak(String) method [.NET], class Student
+  monikers:
+  - cat-1.0

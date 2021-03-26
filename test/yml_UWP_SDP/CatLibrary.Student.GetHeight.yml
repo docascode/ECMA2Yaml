@@ -1,0 +1,77 @@
+### YamlMime:NetMember
+type: method
+members:
+- returnsWithMoniker:
+    type:
+    - value: <xref href="System.Int32?alt=System.Int32&text=Int32" data-throw-if-not-resolved="True"/>
+    description: The height of the cat in cm.
+  parameters:
+  - namesWithMoniker:
+    - value: age
+    description: Tha age of the cat, in years.
+    type: <xref href="System.Int32?alt=System.Int32&text=Int32" data-throw-if-not-resolved="True"/>
+  implementsWithMoniker:
+  - value: <xref href="CatLibrary.IPerson.GetHeight(System.Int32)?alt=CatLibrary.IPerson.GetHeight(System.Int32)&text=GetHeight(Int32)" data-throw-if-not-resolved="True"/>
+  uid: CatLibrary.Student.GetHeight(System.Int32)
+  commentId: M:CatLibrary.Student.GetHeight(System.Int32)
+  name: GetHeight(Int32)
+  fullName: CatLibrary.Student.GetHeight(Int32)
+  nameWithType: Student.GetHeight(Int32)
+  syntaxWithMoniker:
+  - lang: cpp
+    values:
+    - value: >-
+        public:
+         virtual int GetHeight(int age);
+  - lang: csharp
+    values:
+    - value: public int GetHeight(int age);
+  - lang: fsharp
+    values:
+    - value: >-
+        abstract member GetHeight : int -> int
+
+        override this.GetHeight : int -> int
+  - lang: vb
+    values:
+    - value: Public Function GetHeight (age As Integer) As Integer
+  monikers:
+  - cat-1.0
+  summary: Calculates the height in Student class.
+  metadata: {}
+uid: CatLibrary.Student.GetHeight*
+commentId: Overload:CatLibrary.Student.GetHeight
+namespace: CatLibrary
+name: GetHeight
+fullName: CatLibrary.Student.GetHeight
+nameWithType: Student.GetHeight
+devLangs:
+- csharp
+- vb
+- cpp
+- fsharp
+monikers:
+- cat-1.0
+metadata:
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Student.xml
+  _op_overwriteFileGitUrl: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Student.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Student.xml
+  api_name:
+  - CatLibrary.Student.GetHeight
+  f1_keywords:
+  - CatLibrary.Student.GetHeight
+  - CatLibrary::Student::GetHeight
+  - GetHeight
+  - Student.GetHeight
+  - Student::GetHeight
+  topic_type:
+  - apiref
+  api_type:
+  - Assembly
+  helpviewer_keywords:
+  - Student.GetHeight method [.NET]
+  - GetHeight method [.NET], class Student
+  - Student.GetHeight(Int32) method [.NET]
+  - GetHeight(Int32) method [.NET], class Student
+  monikers:
+  - cat-1.0

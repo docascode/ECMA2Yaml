@@ -50,8 +50,25 @@
       <Member Id="M:CatLibrary.ICatExtension.Play(CatLibrary.ICat,System.String)" />
       <Member Id="M:CatLibrary.ICatExtension.Sleep(CatLibrary.ICat,System.Int64)" />
     </Type>
+    <Type Name="CatLibrary.IPerson" Id="T:CatLibrary.IPerson">
+      <Member Id="M:CatLibrary.IPerson.GetHeight(System.Int32)" />
+      <Member Id="M:CatLibrary.IPerson.Speak(System.String)" />
+      <Member Id="P:CatLibrary.IPerson.Age" />
+      <Member Id="P:CatLibrary.IPerson.ID" />
+      <Member Id="P:CatLibrary.IPerson.Name" />
+    </Type>
     <Type Name="CatLibrary.MRefDelegate`3" Id="T:CatLibrary.MRefDelegate`3" />
     <Type Name="CatLibrary.MRefNormalDelegate" Id="T:CatLibrary.MRefNormalDelegate" />
+    <Type Name="CatLibrary.Student" Id="T:CatLibrary.Student">
+      <Member Id="M:CatLibrary.Student.#ctor" />
+      <Member Id="M:CatLibrary.Student.GetHeight(System.Int32)" />
+      <Member Id="M:CatLibrary.Student.GetHeight1(System.Int32)" />
+      <Member Id="M:CatLibrary.Student.GetHeight2(System.Int32)" />
+      <Member Id="M:CatLibrary.Student.Speak(System.String)" />
+      <Member Id="P:CatLibrary.Student.Age" />
+      <Member Id="P:CatLibrary.Student.ID" />
+      <Member Id="P:CatLibrary.Student.Name" />
+    </Type>
     <Type Name="CatLibrary.Tom" Id="T:CatLibrary.Tom">
       <Member Id="M:CatLibrary.Tom.#ctor" />
       <Member Id="M:CatLibrary.Tom.TomMethod(CatLibrary.Complex{CatLibrary.TomFromBaseClass,CatLibrary.TomFromBaseClass},System.Tuple{System.String,CatLibrary.Tom})" />

@@ -198,6 +198,33 @@
       <param name="icat">The type will be extended.</param>
       <param name="hours">The length of sleep.</param>
     </member>
+    <member name="T:CatLibrary.IPerson">
+      <summary>
+            This is interface of all Person.</summary>
+    </member>
+    <member name="M:CatLibrary.IPerson.GetHeight(System.Int32)">
+      <summary>
+            Calculates the height in IPerson interface.</summary>
+      <param name="age">Tha age of the cat, in years.</param>
+      <returns>The height of the cat in cm.</returns>
+    </member>
+    <member name="M:CatLibrary.IPerson.Speak(System.String)">
+      <summary>
+            Speak with a language in IPerson interface</summary>
+      <param name="language">The language that person speak</param>
+    </member>
+    <member name="P:CatLibrary.IPerson.Age">
+      <summary>
+            Person's Age</summary>
+    </member>
+    <member name="P:CatLibrary.IPerson.ID">
+      <summary>
+            Person's ID</summary>
+    </member>
+    <member name="P:CatLibrary.IPerson.Name">
+      <summary>
+            Person's Name</summary>
+    </member>
     <member name="T:CatLibrary.MRefDelegate`3">
       <summary>
             Generic delegate with many constrains.</summary>
@@ -213,6 +240,37 @@
             Delegate in the namespace</summary>
       <param name="pics">a name list of pictures.</param>
       <param name="name">give out the needed name.</param>
+    </member>
+    <member name="T:CatLibrary.Student">
+      <summary>This is interface of all Person.</summary>
+    </member>
+    <member name="M:CatLibrary.Student.#ctor" />
+    <member name="M:CatLibrary.Student.GetHeight(System.Int32)">
+      <summary>Calculates the height in Student class.</summary>
+      <param name="age">Tha age of the cat, in years.</param>
+      <returns>The height of the cat in cm.</returns>
+    </member>
+    <member name="M:CatLibrary.Student.GetHeight1(System.Int32)">
+      <summary>Calculates the height in IPerson interface.</summary>
+      <param name="age">Tha age of the cat, in years.</param>
+      <returns>The height of the cat in cm.</returns>
+    </member>
+    <member name="M:CatLibrary.Student.GetHeight2(System.Int32)">
+      <param name="age" />
+    </member>
+    <member name="M:CatLibrary.Student.Speak(System.String)">
+      <summary>Speak with a language in IPerson interface</summary>
+      <param name="language">The language that person speak</param>
+    </member>
+    <member name="P:CatLibrary.Student.Age">
+      <summary>Person's Age</summary>
+    </member>
+    <member name="P:CatLibrary.Student.ID">
+      <summary>Person's ID</summary>
+    </member>
+    <member name="P:CatLibrary.Student.Name">
+      <summary>
+            Student's Name</summary>
     </member>
     <member name="T:CatLibrary.Tom">
       <summary>

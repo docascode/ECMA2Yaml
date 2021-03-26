@@ -1,0 +1,232 @@
+<Type Name="Student" FullName="CatLibrary.Student">
+  <TypeSignature Language="C#" Value="public class Student : CatLibrary.IPerson" />
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit Student extends System.Object implements class CatLibrary.IPerson" />
+  <TypeSignature Language="DocId" Value="T:CatLibrary.Student" />
+  <TypeSignature Language="VB.NET" Value="Public Class Student&#xA;Implements IPerson" />
+  <TypeSignature Language="C++ CLI" Value="public ref class Student : CatLibrary::IPerson" />
+  <TypeSignature Language="F#" Value="type Student = class&#xA;    interface IPerson" />
+  <AssemblyInfo>
+    <AssemblyName>CatLibrary</AssemblyName>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>System.Object</BaseTypeName>
+  </Base>
+  <Interfaces>
+    <Interface>
+      <InterfaceName>CatLibrary.IPerson</InterfaceName>
+    </Interface>
+  </Interfaces>
+  <Docs>
+    <summary />
+    <remarks>To be added.</remarks>
+    <inheritdoc />
+  </Docs>
+  <Members>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public Student ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor() cil managed" />
+      <MemberSignature Language="DocId" Value="M:CatLibrary.Student.#ctor" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New ()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; Student();" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>CatLibrary</AssemblyName>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters />
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Age">
+      <MemberSignature Language="C#" Value="public int Age { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance int32 Age" />
+      <MemberSignature Language="DocId" Value="P:CatLibrary.Student.Age" />
+      <MemberSignature Language="VB.NET" Value="Public Property Age As Integer" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property int Age { int get(); void set(int value); };" />
+      <MemberSignature Language="F#" Value="member this.Age : int with get, set" Usage="CatLibrary.Student.Age" />
+      <MemberType>Property</MemberType>
+      <Implements>
+        <InterfaceMember>P:CatLibrary.IPerson.Age</InterfaceMember>
+      </Implements>
+      <AssemblyInfo>
+        <AssemblyName>CatLibrary</AssemblyName>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <value>To be added.</value>
+        <remarks>To be added.</remarks>
+        <inheritdoc />
+      </Docs>
+    </Member>
+    <Member MemberName="GetHeight">
+      <MemberSignature Language="C#" Value="public int GetHeight (int age);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance int32 GetHeight(int32 age) cil managed" />
+      <MemberSignature Language="DocId" Value="M:CatLibrary.Student.GetHeight(System.Int32)" />
+      <MemberSignature Language="VB.NET" Value="Public Function GetHeight (age As Integer) As Integer" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual int GetHeight(int age);" />
+      <MemberSignature Language="F#" Value="abstract member GetHeight : int -&gt; int&#xA;override this.GetHeight : int -&gt; int" Usage="student.GetHeight age" />
+      <MemberType>Method</MemberType>
+      <Implements>
+        <InterfaceMember>M:CatLibrary.IPerson.GetHeight(System.Int32)</InterfaceMember>
+      </Implements>
+      <AssemblyInfo>
+        <AssemblyName>CatLibrary</AssemblyName>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="age" Type="System.Int32" />
+      </Parameters>
+      <Docs>
+        <param name="age" />
+        <summary>
+            Calculates the height in Student class.
+            </summary>
+        <returns />
+        <remarks>To be added.</remarks>
+        <inheritdoc />
+      </Docs>
+    </Member>
+    <Member MemberName="GetHeight1">
+      <MemberSignature Language="C#" Value="public int GetHeight1 (int age);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance int32 GetHeight1(int32 age) cil managed" />
+      <MemberSignature Language="DocId" Value="M:CatLibrary.Student.GetHeight1(System.Int32)" />
+      <MemberSignature Language="VB.NET" Value="Public Function GetHeight1 (age As Integer) As Integer" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; int GetHeight1(int age);" />
+      <MemberSignature Language="F#" Value="member this.GetHeight1 : int -&gt; int" Usage="student.GetHeight1 age" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>CatLibrary</AssemblyName>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="age" Type="System.Int32" />
+      </Parameters>
+      <Docs>
+        <param name="age">To be added.</param>
+        <summary>To be added.</summary>
+        <returns>To be added.</returns>
+        <remarks>To be added.</remarks>
+        <inheritdoc cref="M:CatLibrary.IPerson.GetHeight(System.Int32)" />
+      </Docs>
+    </Member>
+    <Member MemberName="GetHeight2">
+      <MemberSignature Language="C#" Value="public int GetHeight2 (int age);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance int32 GetHeight2(int32 age) cil managed" />
+      <MemberSignature Language="DocId" Value="M:CatLibrary.Student.GetHeight2(System.Int32)" />
+      <MemberSignature Language="VB.NET" Value="Public Function GetHeight2 (age As Integer) As Integer" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; int GetHeight2(int age);" />
+      <MemberSignature Language="F#" Value="member this.GetHeight2 : int -&gt; int" Usage="student.GetHeight2 age" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>CatLibrary</AssemblyName>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="age" Type="System.Int32" />
+      </Parameters>
+      <Docs>
+        <param name="age">To be added.</param>
+        <summary>To be added.</summary>
+        <returns>To be added.</returns>
+        <remarks>To be added.</remarks>
+        <inheritdoc cref="M:CatLibrary.IPerson.GetHeight2(System.Int32)" />
+      </Docs>
+    </Member>
+    <Member MemberName="ID">
+      <MemberSignature Language="C#" Value="public string ID { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance string ID" />
+      <MemberSignature Language="DocId" Value="P:CatLibrary.Student.ID" />
+      <MemberSignature Language="VB.NET" Value="Public Property ID As String" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property System::String ^ ID { System::String ^ get(); void set(System::String ^ value); };" />
+      <MemberSignature Language="F#" Value="member this.ID : string with get, set" Usage="CatLibrary.Student.ID" />
+      <MemberType>Property</MemberType>
+      <Implements>
+        <InterfaceMember>P:CatLibrary.IPerson.ID</InterfaceMember>
+      </Implements>
+      <AssemblyInfo>
+        <AssemblyName>CatLibrary</AssemblyName>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary />
+        <value>To be added.</value>
+        <remarks>To be added.</remarks>
+        <inheritdoc />
+      </Docs>
+    </Member>
+    <Member MemberName="Name">
+      <MemberSignature Language="C#" Value="public string Name { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance string Name" />
+      <MemberSignature Language="DocId" Value="P:CatLibrary.Student.Name" />
+      <MemberSignature Language="VB.NET" Value="Public Property Name As String" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property System::String ^ Name { System::String ^ get(); void set(System::String ^ value); };" />
+      <MemberSignature Language="F#" Value="member this.Name : string with get, set" Usage="CatLibrary.Student.Name" />
+      <MemberType>Property</MemberType>
+      <Implements>
+        <InterfaceMember>P:CatLibrary.IPerson.Name</InterfaceMember>
+      </Implements>
+      <AssemblyInfo>
+        <AssemblyName>CatLibrary</AssemblyName>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+            Student's Name
+            </summary>
+        <value>To be added.</value>
+        <remarks>To be added.</remarks>
+        <inheritdoc />
+      </Docs>
+    </Member>
+    <Member MemberName="Speak">
+      <MemberSignature Language="C#" Value="public void Speak (string language);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance void Speak(string language) cil managed" />
+      <MemberSignature Language="DocId" Value="M:CatLibrary.Student.Speak(System.String)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub Speak (language As String)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual void Speak(System::String ^ language);" />
+      <MemberSignature Language="F#" Value="abstract member Speak : string -&gt; unit&#xA;override this.Speak : string -&gt; unit" Usage="student.Speak language" />
+      <MemberType>Method</MemberType>
+      <Implements>
+        <InterfaceMember>M:CatLibrary.IPerson.Speak(System.String)</InterfaceMember>
+      </Implements>
+      <AssemblyInfo>
+        <AssemblyName>CatLibrary</AssemblyName>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="language" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="language" />
+        <summary />
+        <remarks>To be added.</remarks>
+        <inheritdoc />
+      </Docs>
+    </Member>
+  </Members>
+</Type>

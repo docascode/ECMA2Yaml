@@ -1,0 +1,72 @@
+### YamlMime:NetMember
+type: property
+members:
+- returnsWithMoniker:
+    type:
+    - value: <xref href="System.Int32?alt=System.Int32&text=Int32" data-throw-if-not-resolved="True"/>
+  uid: CatLibrary.IPerson.Age
+  commentId: P:CatLibrary.IPerson.Age
+  name: Age
+  fullName: CatLibrary.IPerson.Age
+  nameWithType: IPerson.Age
+  syntaxWithMoniker:
+  - lang: cpp
+    values:
+    - value: >-
+        public:
+         property int Age { int get(); void set(int value); };
+  - lang: csharp
+    values:
+    - value: public int Age { get; set; }
+  - lang: fsharp
+    values:
+    - value: 'member this.Age : int with get, set'
+  - lang: vb
+    values:
+    - value: Public Property Age As Integer
+  monikers:
+  - cat-1.0
+  summary: Person's Age
+  metadata: {}
+uid: CatLibrary.IPerson.Age*
+commentId: Overload:CatLibrary.IPerson.Age
+namespace: CatLibrary
+name: Age
+fullName: CatLibrary.IPerson.Age
+nameWithType: IPerson.Age
+assembliesWithMoniker:
+- value: CatLibrary.dll
+packagesWithMoniker:
+- value: Animal v1.0.0
+devLangs:
+- csharp
+- vb
+- cpp
+- fsharp
+monikers:
+- cat-1.0
+metadata:
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/IPerson.xml
+  _op_overwriteFileGitUrl: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/IPerson.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/IPerson.xml
+  api_name:
+  - CatLibrary.IPerson.Age
+  - CatLibrary.IPerson.get_Age
+  - CatLibrary.IPerson.set_Age
+  api_location:
+  - CatLibrary.dll
+  topic_type:
+  - apiref
+  api_type:
+  - Assembly
+  f1_keywords:
+  - CatLibrary.IPerson.Age
+  - CatLibrary::IPerson::Age
+  - Age
+  - IPerson.Age
+  - IPerson::Age
+  helpviewer_keywords:
+  - IPerson.Age property [.NET]
+  - Age property [.NET], interface IPerson
+  monikers:
+  - cat-1.0

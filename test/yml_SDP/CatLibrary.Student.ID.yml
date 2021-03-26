@@ -1,0 +1,74 @@
+### YamlMime:NetMember
+type: property
+members:
+- returnsWithMoniker:
+    type:
+    - value: <xref href="System.String?alt=System.String&text=String" data-throw-if-not-resolved="True"/>
+  implementsWithMoniker:
+  - value: <xref href="CatLibrary.IPerson.ID?alt=CatLibrary.IPerson.ID&text=ID" data-throw-if-not-resolved="True"/>
+  uid: CatLibrary.Student.ID
+  commentId: P:CatLibrary.Student.ID
+  name: ID
+  fullName: CatLibrary.Student.ID
+  nameWithType: Student.ID
+  syntaxWithMoniker:
+  - lang: cpp
+    values:
+    - value: >-
+        public:
+         property System::String ^ ID { System::String ^ get(); void set(System::String ^ value); };
+  - lang: csharp
+    values:
+    - value: public string ID { get; set; }
+  - lang: fsharp
+    values:
+    - value: 'member this.ID : string with get, set'
+  - lang: vb
+    values:
+    - value: Public Property ID As String
+  monikers:
+  - cat-1.0
+  summary: Person's ID
+  metadata: {}
+uid: CatLibrary.Student.ID*
+commentId: Overload:CatLibrary.Student.ID
+namespace: CatLibrary
+name: ID
+fullName: CatLibrary.Student.ID
+nameWithType: Student.ID
+assembliesWithMoniker:
+- value: CatLibrary.dll
+packagesWithMoniker:
+- value: Animal v1.0.0
+devLangs:
+- csharp
+- vb
+- cpp
+- fsharp
+monikers:
+- cat-1.0
+metadata:
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Student.xml
+  _op_overwriteFileGitUrl: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Student.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Student.xml
+  api_name:
+  - CatLibrary.Student.ID
+  - CatLibrary.Student.get_ID
+  - CatLibrary.Student.set_ID
+  api_location:
+  - CatLibrary.dll
+  topic_type:
+  - apiref
+  api_type:
+  - Assembly
+  f1_keywords:
+  - CatLibrary.Student.ID
+  - CatLibrary::Student::ID
+  - ID
+  - Student.ID
+  - Student::ID
+  helpviewer_keywords:
+  - Student.ID property [.NET]
+  - ID property [.NET], class Student
+  monikers:
+  - cat-1.0

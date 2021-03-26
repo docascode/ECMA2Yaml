@@ -1444,7 +1444,7 @@ namespace ECMA2Yaml.Models
                 // 1. Get inheritdoc from cref object
                 if (!string.IsNullOrEmpty((m.Docs?.Inheritdoc.Cref)))
                 {
-                    var crefUid = m.Docs?.Inheritdoc.Cref;
+                    var crefUid = m.Docs?.Inheritdoc.Cref.Substring(2);
                     if (MembersByUid.ContainsKey(crefUid))
                     {
                         var inheritFrom = MembersByUid[crefUid];
@@ -1539,17 +1539,25 @@ namespace ECMA2Yaml.Models
                 inheritTo.Summary = inheritFrom.Summary;
                 isInherit = true;
             }
-            if (inheritFrom?.Parameters?.Count > 0 && inheritFrom?.Parameters?.Count == 0)
+            if (inheritFrom?.Parameters?.Count > 0 && inheritTo?.Parameters?.Count > 0)
             {
-                inheritTo.Parameters = new Dictionary<string, string>(inheritFrom.Parameters);
-                isInherit = true;
+                inheritFrom.Parameters.ToList().ForEach(p => {
+                    if (!string.IsNullOrEmpty(p.Value) && inheritTo.Parameters.ContainsKey(p.Key))
+                    {
+                        if (string.IsNullOrEmpty(inheritTo.Parameters[p.Key]))
+                        {
+                            inheritTo.Parameters[p.Key] = p.Value;
+                            isInherit = true;
+                        }
+                    }
+                });
             }
             if (!string.IsNullOrEmpty(inheritFrom?.Returns) && string.IsNullOrEmpty(inheritTo?.Returns))
             {
                 inheritTo.Returns = inheritFrom.Returns;
                 isInherit = true;
             }
-            if (!string.IsNullOrEmpty(inheritFrom?.Value) && string.IsNullOrEmpty(inheritTo?.Returns))
+            if (!string.IsNullOrEmpty(inheritFrom?.Value) && string.IsNullOrEmpty(inheritTo?.Value))
             {
                 inheritTo.Value = inheritFrom.Value;
                 isInherit = true;

@@ -1,0 +1,74 @@
+### YamlMime:NetMember
+type: property
+members:
+- returnsWithMoniker:
+    type:
+    - value: <xref href="System.String?alt=System.String&text=String" data-throw-if-not-resolved="True"/>
+  implementsWithMoniker:
+  - value: <xref href="CatLibrary.IPerson.Name?alt=CatLibrary.IPerson.Name&text=Name" data-throw-if-not-resolved="True"/>
+  uid: CatLibrary.Student.Name
+  commentId: P:CatLibrary.Student.Name
+  name: Name
+  fullName: CatLibrary.Student.Name
+  nameWithType: Student.Name
+  syntaxWithMoniker:
+  - lang: cpp
+    values:
+    - value: >-
+        public:
+         property System::String ^ Name { System::String ^ get(); void set(System::String ^ value); };
+  - lang: csharp
+    values:
+    - value: public string Name { get; set; }
+  - lang: fsharp
+    values:
+    - value: 'member this.Name : string with get, set'
+  - lang: vb
+    values:
+    - value: Public Property Name As String
+  monikers:
+  - cat-1.0
+  summary: Student's Name
+  metadata: {}
+uid: CatLibrary.Student.Name*
+commentId: Overload:CatLibrary.Student.Name
+namespace: CatLibrary
+name: Name
+fullName: CatLibrary.Student.Name
+nameWithType: Student.Name
+assembliesWithMoniker:
+- value: CatLibrary.dll
+packagesWithMoniker:
+- value: Animal v1.0.0
+devLangs:
+- csharp
+- vb
+- cpp
+- fsharp
+monikers:
+- cat-1.0
+metadata:
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Student.xml
+  _op_overwriteFileGitUrl: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Student.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Student.xml
+  api_name:
+  - CatLibrary.Student.Name
+  - CatLibrary.Student.get_Name
+  - CatLibrary.Student.set_Name
+  api_location:
+  - CatLibrary.dll
+  topic_type:
+  - apiref
+  api_type:
+  - Assembly
+  f1_keywords:
+  - CatLibrary.Student.Name
+  - CatLibrary::Student::Name
+  - Name
+  - Student.Name
+  - Student::Name
+  helpviewer_keywords:
+  - Student.Name property [.NET]
+  - Name property [.NET], class Student
+  monikers:
+  - cat-1.0
