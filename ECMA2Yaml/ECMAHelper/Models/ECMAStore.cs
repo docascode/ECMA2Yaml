@@ -1456,7 +1456,6 @@ namespace ECMA2Yaml.Models
                     else
                     {
                         m.CrossInheritdocUid = crefUid;
-                        Console.WriteLine($"no found cref uid:{crefUid} for inheritdoc on uid:{m.Uid}-->");
                     }
                 }
 
