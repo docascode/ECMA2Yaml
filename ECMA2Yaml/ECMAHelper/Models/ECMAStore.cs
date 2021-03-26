@@ -22,6 +22,8 @@ namespace ECMA2Yaml.Models
         public Dictionary<string, Member> ExtensionMethodsByMemberDocId { get; set; }
         public ILookup<string, Member> ExtensionMethodUidsByTargetUid { get; set; }
         public Dictionary<string, string> InheritDocItemsByUid { get; set; }    // Inheritdoc uid pair
+        public Dictionary<string, List<string>> CrossRepoParentsByUid { get; set; }    // Parent in cross repo uid pair, <child type uid, parent type uids>
+
         public FilterStore FilterStore { get; set; }
         public TypeMappingStore TypeMappingStore { get; set; }
         public bool StrictMode { get; set; }
@@ -49,6 +51,7 @@ namespace ECMA2Yaml.Models
             ImplementationParentsByUid = new Dictionary<string, List<VersionedString>>();
             ImplementationChildrenByUid = new Dictionary<string, List<VersionedString>>();
             InheritDocItemsByUid = new Dictionary<string, string>();
+            CrossRepoParentsByUid = new Dictionary<string, List<string>>();
         }
 
         public void Build()
@@ -1313,6 +1316,18 @@ namespace ECMA2Yaml.Models
                                     }
                                 }
                             }
+                            else
+                            {
+                                if (CrossRepoParentsByUid.ContainsKey(t.Uid))
+                                {
+                                    CrossRepoParentsByUid[t.Uid].Add(btUid);
+                                }
+                                else
+                                {
+                                    CrossRepoParentsByUid[t.Uid] = new List<string>();
+                                    CrossRepoParentsByUid[t.Uid].Add(btUid);
+                                }
+                            }
                         }
                     }
                 }
@@ -1347,6 +1362,18 @@ namespace ECMA2Yaml.Models
                             }
                         }
                     }
+                    else
+                    {
+                        if (CrossRepoParentsByUid.ContainsKey(t.Uid))
+                        {
+                            CrossRepoParentsByUid[t.Uid].Add(interfaceUid);
+                        }
+                        else
+                        {
+                            CrossRepoParentsByUid[t.Uid] = new List<string>();
+                            CrossRepoParentsByUid[t.Uid].Add(interfaceUid);
+                        }
+                    }
                 }
 
             }
@@ -1360,8 +1387,6 @@ namespace ECMA2Yaml.Models
             {
                 return;
             }
-
-            if (!PreDoValidation(t.Docs, t.Uid, t.SourceFileLocalPath)) return;
 
             bool inheritedFlag = false;
             if (t.BaseTypes?.Count > 0)
@@ -1398,14 +1423,14 @@ namespace ECMA2Yaml.Models
                 }
             }
 
-            DoValidation(t.Docs, t.Uid, t.SourceFileLocalPath);
+            DoValidation(t, t, true);
         }
 
         private void SetInheritDocForMember(Member m, Type t)
         {
             if (m.Signatures.IsStatic)
             {
-                OPSLogger.LogUserWarning(LogCode.ECMA2Yaml_Inheritdoc_InvalidTagsForStatic, t.SourceFileLocalPath, m.Uid);
+                OPSLogger.LogUserSuggestion(LogCode.ECMA2Yaml_Inheritdoc_InvalidTagsForStatic, t.SourceFileLocalPath, m.Uid);
                 return;
             }
 
@@ -1413,68 +1438,125 @@ namespace ECMA2Yaml.Models
             {
                 return;
             }
-            if (!PreDoValidation(m.Docs, m.Uid, m.SourceFileLocalPath)) return;
 
-            if (m.ItemType == ItemType.Method || m.ItemType == ItemType.Constructor)
+            if (m.ItemType == ItemType.Method || m.ItemType == ItemType.Constructor || m.ItemType == ItemType.Property)
             {
-                var inheritDocId = m.Id;
-                if (t.InheritedMembersById?.Count > 0 && t.InheritedMembersById.ContainsKey(inheritDocId))
+                // 1. Get inheritdoc from cref object
+                if (!string.IsNullOrEmpty((m.Docs?.Inheritdoc.Cref)))
                 {
-                    var uids = t.InheritedMembersById[inheritDocId];
-                    if (uids.Count > 0)
+                    var crefUid = m.Docs?.Inheritdoc.Cref.Substring(2);
+                    if (MembersByUid.ContainsKey(crefUid))
                     {
-                        foreach (var uid in uids)
+                        var inheritFrom = MembersByUid[crefUid];
+                        if (SetInheritDoc(inheritFrom.Docs, m.Docs))
                         {
-                            if (MembersByUid.ContainsKey(uid))
-                            {
-                                var inheritFrom = MembersByUid[uid];
-                                if (SetInheritDoc(inheritFrom.Docs, m.Docs))
-                                {
-                                    InheritDocItemsByUid.Add(m.Uid, inheritFrom.Uid);
-                                    break;
-                                }
-                            }
+                            InheritDocItemsByUid.Add(m.Uid, inheritFrom.Uid);
                         }
                     }
                     else
                     {
-                        OPSLogger.LogUserWarning(LogCode.ECMA2Yaml_Inheritdoc_NoFoundParent, m.SourceFileLocalPath, inheritDocId, m.Uid);
+                        m.CrossInheritdocUid = crefUid;
                     }
                 }
-                else
+
+                // 2. Get inheritdoc from implements
+                if (string.IsNullOrEmpty(m.CrossInheritdocUid) && m.Implements != null && m.Implements.Count() > 0)
                 {
-                    OPSLogger.LogUserWarning(LogCode.ECMA2Yaml_Inheritdoc_NoFoundParent, m.SourceFileLocalPath, inheritDocId, m.Uid);
+                    var implementUid = "";
+                    var implementDocId = m.Implements.FirstOrDefault().Value;
+                    if (!string.IsNullOrEmpty(implementDocId))
+                    {
+                        implementUid = implementDocId.Substring(2);
+                    }
+
+                    if (!string.IsNullOrEmpty(implementUid))
+                    {
+                        if (MembersByUid.ContainsKey(implementUid))
+                        {
+                            var inheritFrom = MembersByUid[implementUid];
+                            if (SetInheritDoc(inheritFrom.Docs, m.Docs))
+                            {
+                                InheritDocItemsByUid.Add(m.Uid, inheritFrom.Uid);
+                            }
+                        }
+                        else
+                        {
+                            m.CrossInheritdocUid = implementUid;
+                        }
+                    }
+
+                }
+
+                // 3. Get inheritdoc from inhertance chain list
+                if (string.IsNullOrEmpty(m.CrossInheritdocUid))
+                {
+                    var inheritDocId = m.Id;
+                    if (t.InheritedMembersById?.Count > 0 && t.InheritedMembersById.ContainsKey(inheritDocId))
+                    {
+                        var uids = t.InheritedMembersById[inheritDocId];
+                        if (uids.Count > 0)
+                        {
+                            foreach (var uid in uids)
+                            {
+                                if (MembersByUid.ContainsKey(uid))
+                                {
+                                    var inheritFrom = MembersByUid[uid];
+                                    if (SetInheritDoc(inheritFrom.Docs, m.Docs))
+                                    {
+                                        InheritDocItemsByUid.Add(m.Uid, inheritFrom.Uid);
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            OPSLogger.LogUserSuggestion(LogCode.ECMA2Yaml_Inheritdoc_NoFoundParent, m.SourceFileLocalPath, inheritDocId, m.Uid);
+                        }
+                    }
+                    else
+                    {
+                        OPSLogger.LogUserSuggestion(LogCode.ECMA2Yaml_Inheritdoc_NoFoundParent, m.SourceFileLocalPath, inheritDocId, m.Uid);
+                    }
                 }
             }
             else
             {
-                OPSLogger.LogUserWarning(LogCode.ECMA2Yaml_Inheritdoc_NotSupportType, t.SourceFileLocalPath, m.ItemType, m.Uid);
+                OPSLogger.LogUserSuggestion(LogCode.ECMA2Yaml_Inheritdoc_NotSupportType, t.SourceFileLocalPath, m.ItemType, m.Uid);
                 return;
             }
 
-            DoValidation(m.Docs, m.Uid, m.SourceFileLocalPath);
+            DoValidation(m, t, false);
         }
 
         private bool SetInheritDoc(Docs inheritFrom, Docs inheritTo)
         {
             bool isInherit = false;
 
-            if (!string.IsNullOrEmpty(inheritFrom?.Summary))
+            if (!string.IsNullOrEmpty(inheritFrom?.Summary) && string.IsNullOrEmpty(inheritTo?.Summary))
             {
                 inheritTo.Summary = inheritFrom.Summary;
                 isInherit = true;
             }
-            if (inheritFrom?.Parameters?.Count > 0)
+            if (inheritFrom?.Parameters?.Count > 0 && inheritTo?.Parameters?.Count > 0)
             {
-                inheritTo.Parameters = new Dictionary<string, string>(inheritFrom.Parameters);
-                isInherit = true;
+                inheritFrom.Parameters.ToList().ForEach(p => {
+                    if (!string.IsNullOrEmpty(p.Value) && inheritTo.Parameters.ContainsKey(p.Key))
+                    {
+                        if (string.IsNullOrEmpty(inheritTo.Parameters[p.Key]))
+                        {
+                            inheritTo.Parameters[p.Key] = p.Value;
+                            isInherit = true;
+                        }
+                    }
+                });
             }
-            if (!string.IsNullOrEmpty(inheritFrom?.Returns))
+            if (!string.IsNullOrEmpty(inheritFrom?.Returns) && string.IsNullOrEmpty(inheritTo?.Returns))
             {
                 inheritTo.Returns = inheritFrom.Returns;
                 isInherit = true;
             }
-            if (!string.IsNullOrEmpty(inheritFrom?.Value))
+            if (!string.IsNullOrEmpty(inheritFrom?.Value) && string.IsNullOrEmpty(inheritTo?.Value))
             {
                 inheritTo.Value = inheritFrom.Value;
                 isInherit = true;
@@ -1483,25 +1565,34 @@ namespace ECMA2Yaml.Models
             return isInherit;
         }
 
-        private bool DoValidation(Docs docs, string uid, string filePath)
+        private bool DoValidation(ReflectionItem current, Type t, bool isType)
         {
-            if (string.IsNullOrEmpty(docs?.Summary) &&
-                docs?.Parameters?.Count == 0 &&
-                string.IsNullOrEmpty(docs?.Returns) &&
-                string.IsNullOrEmpty(docs?.Value))
+            if (string.IsNullOrEmpty(current.Docs?.Summary) &&
+                current.Docs?.Parameters?.Count == 0 &&
+                string.IsNullOrEmpty(current.Docs?.Returns) &&
+                string.IsNullOrEmpty(current.Docs?.Value))
             {
-                OPSLogger.LogUserWarning(LogCode.ECMA2Yaml_Inheritdoc_NoFoundDocs, filePath, uid);
-                return false;
-            }
+                // If we can't found inheritdoc from inner repo and can't found from implements
+                // Get first parent(base class or interface) uid set to CrossInheritdocUid
+                if (string.IsNullOrEmpty(current.CrossInheritdocUid))
+                {
+                    if (CrossRepoParentsByUid.ContainsKey(t.Uid))
+                    {
+                        if (isType)
+                        {
+                            current.CrossInheritdocUid = CrossRepoParentsByUid[t.Uid].FirstOrDefault();
+                        }
+                        else
+                        {
+                            current.CrossInheritdocUid = current.Uid.Replace(t.Uid, CrossRepoParentsByUid[t.Uid].FirstOrDefault());
+                        }
+                    }
 
-            return true;
-        }
-
-        private bool PreDoValidation(Docs docs, string uid, string filePath)
-        {
-            if (!string.IsNullOrEmpty(docs?.Summary))
-            {
-                OPSLogger.LogUserWarning(LogCode.ECMA2Yaml_Inheritdoc_InvalidTags, filePath, uid);
+                    if (string.IsNullOrEmpty(current.CrossInheritdocUid))
+                    {
+                        OPSLogger.LogUserSuggestion(LogCode.ECMA2Yaml_Inheritdoc_NoFoundDocs, current.SourceFileLocalPath, current.Uid);
+                    }
+                }
                 return false;
             }
 
@@ -1512,13 +1603,13 @@ namespace ECMA2Yaml.Models
         {
             if (t.Signatures.IsStatic)
             {
-                OPSLogger.LogUserWarning(LogCode.ECMA2Yaml_Inheritdoc_InvalidTagsForStatic, t.SourceFileLocalPath, t.Uid);
+                OPSLogger.LogUserSuggestion(LogCode.ECMA2Yaml_Inheritdoc_InvalidTagsForStatic, t.SourceFileLocalPath, t.Uid);
                 return false;
             }
 
-            if (t.ItemType != ItemType.Class && t.ItemType != ItemType.Interface)
+            if (t.ItemType != ItemType.Class && t.ItemType != ItemType.Interface && t.ItemType != ItemType.Struct)
             {
-                OPSLogger.LogUserWarning(LogCode.ECMA2Yaml_Inheritdoc_NotSupportType, t.SourceFileLocalPath, t.ItemType, t.Uid);
+                OPSLogger.LogUserSuggestion(LogCode.ECMA2Yaml_Inheritdoc_NotSupportType, t.SourceFileLocalPath, t.ItemType, t.Uid);
                 return false;
             }
             else

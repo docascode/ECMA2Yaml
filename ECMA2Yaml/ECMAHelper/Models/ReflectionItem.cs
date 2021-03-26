@@ -95,6 +95,7 @@ namespace ECMA2Yaml.Models
         public VersionedProperty<AssemblyInfo> VersionedAssemblyInfo { get; set; }
 
         public HashSet<string> Monikers { get; set; }
+        public string CrossInheritdocUid { get; set; }
 
         public ReflectionItem()
         {

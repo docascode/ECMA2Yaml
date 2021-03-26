@@ -1,0 +1,74 @@
+### YamlMime:NetMember
+type: method
+members:
+- parameters:
+  - namesWithMoniker:
+    - value: language
+    description: The language that person speak
+    type: <xref href="System.String?alt=System.String&text=String" data-throw-if-not-resolved="True"/>
+  uid: CatLibrary.IPerson.Speak(System.String)
+  commentId: M:CatLibrary.IPerson.Speak(System.String)
+  name: Speak(String)
+  fullName: CatLibrary.IPerson.Speak(String)
+  nameWithType: IPerson.Speak(String)
+  syntaxWithMoniker:
+  - lang: cpp
+    values:
+    - value: >-
+        public:
+         void Speak(System::String ^ language);
+  - lang: csharp
+    values:
+    - value: public void Speak (string language);
+  - lang: fsharp
+    values:
+    - value: 'abstract member Speak : string -> unit'
+  - lang: vb
+    values:
+    - value: Public Sub Speak (language As String)
+  monikers:
+  - cat-1.0
+  summary: Speak with a language in IPerson interface
+  metadata: {}
+uid: CatLibrary.IPerson.Speak*
+commentId: Overload:CatLibrary.IPerson.Speak
+namespace: CatLibrary
+name: Speak
+fullName: CatLibrary.IPerson.Speak
+nameWithType: IPerson.Speak
+assembliesWithMoniker:
+- value: CatLibrary.dll
+packagesWithMoniker:
+- value: Animal v1.0.0
+devLangs:
+- csharp
+- vb
+- cpp
+- fsharp
+monikers:
+- cat-1.0
+metadata:
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/IPerson.xml
+  _op_overwriteFileGitUrl: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/IPerson.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/IPerson.xml
+  api_name:
+  - CatLibrary.IPerson.Speak
+  api_location:
+  - CatLibrary.dll
+  topic_type:
+  - apiref
+  api_type:
+  - Assembly
+  f1_keywords:
+  - CatLibrary.IPerson.Speak
+  - CatLibrary::IPerson::Speak
+  - Speak
+  - IPerson.Speak
+  - IPerson::Speak
+  helpviewer_keywords:
+  - IPerson.Speak method [.NET]
+  - Speak method [.NET], interface IPerson
+  - IPerson.Speak(String) method [.NET]
+  - Speak(String) method [.NET], interface IPerson
+  monikers:
+  - cat-1.0

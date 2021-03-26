@@ -1,0 +1,68 @@
+### YamlMime:NetMember
+type: property
+members:
+- returnsWithMoniker:
+    type:
+    - value: <xref href="System.Int32?alt=System.Int32&text=Int32" data-throw-if-not-resolved="True"/>
+  implementsWithMoniker:
+  - value: <xref href="CatLibrary.IPerson.Age?alt=CatLibrary.IPerson.Age&text=Age" data-throw-if-not-resolved="True"/>
+  uid: CatLibrary.Student.Age
+  commentId: P:CatLibrary.Student.Age
+  name: Age
+  fullName: CatLibrary.Student.Age
+  nameWithType: Student.Age
+  syntaxWithMoniker:
+  - lang: cpp
+    values:
+    - value: >-
+        public:
+         property int Age { int get(); void set(int value); };
+  - lang: csharp
+    values:
+    - value: public int Age { get; set; }
+  - lang: fsharp
+    values:
+    - value: 'member this.Age : int with get, set'
+  - lang: vb
+    values:
+    - value: Public Property Age As Integer
+  monikers:
+  - cat-1.0
+  summary: Person's Age
+  metadata: {}
+uid: CatLibrary.Student.Age*
+commentId: Overload:CatLibrary.Student.Age
+namespace: CatLibrary
+name: Age
+fullName: CatLibrary.Student.Age
+nameWithType: Student.Age
+devLangs:
+- csharp
+- vb
+- cpp
+- fsharp
+monikers:
+- cat-1.0
+metadata:
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Student.xml
+  _op_overwriteFileGitUrl: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Student.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Student.xml
+  api_name:
+  - CatLibrary.Student.Age
+  - CatLibrary.Student.get_Age
+  - CatLibrary.Student.set_Age
+  f1_keywords:
+  - CatLibrary.Student.Age
+  - CatLibrary::Student::Age
+  - Age
+  - Student.Age
+  - Student::Age
+  topic_type:
+  - apiref
+  api_type:
+  - Assembly
+  helpviewer_keywords:
+  - Student.Age property [.NET]
+  - Age property [.NET], class Student
+  monikers:
+  - cat-1.0

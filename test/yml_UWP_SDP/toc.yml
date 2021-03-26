@@ -117,6 +117,26 @@ items:
     - uid: CatLibrary.ICatExtension.Sleep*
       name: Sleep
       type: Method
+  - uid: CatLibrary.IPerson
+    name: IPerson
+    items:
+    - uid: CatLibrary.IPerson.Age*
+      name: Age
+      type: Property
+    - uid: CatLibrary.IPerson.GetHeight*
+      name: GetHeight
+      type: Method
+    - uid: CatLibrary.IPerson.ID*
+      name: ID
+      type: Property
+    - uid: CatLibrary.IPerson.Name*
+      name: Name
+      type: Property
+    - uid: CatLibrary.IPerson.Speak*
+      name: Speak
+      type: Method
+    monikers:
+    - cat-1.0
   - uid: CatLibrary.JerryExtension
     name: JerryExtension
     items:
@@ -129,6 +149,35 @@ items:
     name: MRefDelegate<K,T,L>
   - uid: CatLibrary.MRefNormalDelegate
     name: MRefNormalDelegate
+  - uid: CatLibrary.Student
+    name: Student
+    items:
+    - uid: CatLibrary.Student.#ctor*
+      name: Student
+      type: Constructor
+    - uid: CatLibrary.Student.Age*
+      name: Age
+      type: Property
+    - uid: CatLibrary.Student.GetHeight*
+      name: GetHeight
+      type: Method
+    - uid: CatLibrary.Student.GetHeight1*
+      name: GetHeight1
+      type: Method
+    - uid: CatLibrary.Student.GetHeight2*
+      name: GetHeight2
+      type: Method
+    - uid: CatLibrary.Student.ID*
+      name: ID
+      type: Property
+    - uid: CatLibrary.Student.Name*
+      name: Name
+      type: Property
+    - uid: CatLibrary.Student.Speak*
+      name: Speak
+      type: Method
+    monikers:
+    - cat-1.0
   - uid: CatLibrary.Tom
     name: Tom
     items:

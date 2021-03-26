@@ -109,8 +109,16 @@ namespace ECMA2Yaml
             if (inheritdocEle != null)
             {
                 inheritDoc = new InheritDoc();
-
-                // TODO: other attributes parse
+                var inheritCref = inheritdocEle?.Attribute("cref")?.Value;
+                var inheritPath = inheritdocEle?.Attribute("path")?.Value;
+                if (!string.IsNullOrEmpty(inheritCref))
+                {
+                    inheritDoc.Cref = inheritCref;
+                }
+                if (!string.IsNullOrEmpty(inheritPath))
+                {
+                    inheritDoc.Path = inheritPath;
+                }
             }
 
             return new Docs()

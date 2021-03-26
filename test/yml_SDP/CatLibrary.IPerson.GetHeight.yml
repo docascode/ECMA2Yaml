@@ -1,0 +1,78 @@
+### YamlMime:NetMember
+type: method
+members:
+- returnsWithMoniker:
+    type:
+    - value: <xref href="System.Int32?alt=System.Int32&text=Int32" data-throw-if-not-resolved="True"/>
+    description: The height of the cat in cm.
+  parameters:
+  - namesWithMoniker:
+    - value: age
+    description: Tha age of the cat, in years.
+    type: <xref href="System.Int32?alt=System.Int32&text=Int32" data-throw-if-not-resolved="True"/>
+  uid: CatLibrary.IPerson.GetHeight(System.Int32)
+  commentId: M:CatLibrary.IPerson.GetHeight(System.Int32)
+  name: GetHeight(Int32)
+  fullName: CatLibrary.IPerson.GetHeight(Int32)
+  nameWithType: IPerson.GetHeight(Int32)
+  syntaxWithMoniker:
+  - lang: cpp
+    values:
+    - value: >-
+        public:
+         int GetHeight(int age);
+  - lang: csharp
+    values:
+    - value: public int GetHeight (int age);
+  - lang: fsharp
+    values:
+    - value: 'abstract member GetHeight : int -> int'
+  - lang: vb
+    values:
+    - value: Public Function GetHeight (age As Integer) As Integer
+  monikers:
+  - cat-1.0
+  summary: Calculates the height in IPerson interface.
+  metadata: {}
+uid: CatLibrary.IPerson.GetHeight*
+commentId: Overload:CatLibrary.IPerson.GetHeight
+namespace: CatLibrary
+name: GetHeight
+fullName: CatLibrary.IPerson.GetHeight
+nameWithType: IPerson.GetHeight
+assembliesWithMoniker:
+- value: CatLibrary.dll
+packagesWithMoniker:
+- value: Animal v1.0.0
+devLangs:
+- csharp
+- vb
+- cpp
+- fsharp
+monikers:
+- cat-1.0
+metadata:
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/IPerson.xml
+  _op_overwriteFileGitUrl: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/IPerson.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/IPerson.xml
+  api_name:
+  - CatLibrary.IPerson.GetHeight
+  api_location:
+  - CatLibrary.dll
+  topic_type:
+  - apiref
+  api_type:
+  - Assembly
+  f1_keywords:
+  - CatLibrary.IPerson.GetHeight
+  - CatLibrary::IPerson::GetHeight
+  - GetHeight
+  - IPerson.GetHeight
+  - IPerson::GetHeight
+  helpviewer_keywords:
+  - IPerson.GetHeight method [.NET]
+  - GetHeight method [.NET], interface IPerson
+  - IPerson.GetHeight(Int32) method [.NET]
+  - GetHeight(Int32) method [.NET], interface IPerson
+  monikers:
+  - cat-1.0

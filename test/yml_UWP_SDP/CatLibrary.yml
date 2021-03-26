@@ -36,6 +36,9 @@ classes:
 - uid: CatLibrary.JerryExtension
   monikers:
   - cat-2.0
+- uid: CatLibrary.Student
+  monikers:
+  - cat-1.0
 - uid: CatLibrary.Tom
   monikers:
   - cat-1.0
@@ -60,6 +63,9 @@ interfaces:
   monikers:
   - cat-1.0
   - cat-2.0
+- uid: CatLibrary.IPerson
+  monikers:
+  - cat-1.0
 uid: CatLibrary
 commentId: N:CatLibrary
 name: CatLibrary

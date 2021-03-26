@@ -1,0 +1,143 @@
+<Type Name="IPerson" FullName="CatLibrary.IPerson">
+  <TypeSignature Language="C#" Value="public interface IPerson" />
+  <TypeSignature Language="ILAsm" Value=".class public interface auto ansi abstract IPerson" />
+  <TypeSignature Language="DocId" Value="T:CatLibrary.IPerson" />
+  <TypeSignature Language="VB.NET" Value="Public Interface IPerson" />
+  <TypeSignature Language="C++ CLI" Value="public interface class IPerson" />
+  <TypeSignature Language="F#" Value="type IPerson = interface" />
+  <AssemblyInfo>
+    <AssemblyName>CatLibrary</AssemblyName>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Interfaces />
+  <Docs>
+    <summary>
+            This is interface of all Person.
+            </summary>
+    <remarks>To be added.</remarks>
+  </Docs>
+  <Members>
+    <Member MemberName="Age">
+      <MemberSignature Language="C#" Value="public int Age { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance int32 Age" />
+      <MemberSignature Language="DocId" Value="P:CatLibrary.IPerson.Age" />
+      <MemberSignature Language="VB.NET" Value="Public Property Age As Integer" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property int Age { int get(); void set(int value); };" />
+      <MemberSignature Language="F#" Value="member this.Age : int with get, set" Usage="CatLibrary.IPerson.Age" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>CatLibrary</AssemblyName>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+            Person's Age
+            </summary>
+        <value>To be added.</value>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="GetHeight">
+      <MemberSignature Language="C#" Value="public int GetHeight (int age);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance int32 GetHeight(int32 age) cil managed" />
+      <MemberSignature Language="DocId" Value="M:CatLibrary.IPerson.GetHeight(System.Int32)" />
+      <MemberSignature Language="VB.NET" Value="Public Function GetHeight (age As Integer) As Integer" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; int GetHeight(int age);" />
+      <MemberSignature Language="F#" Value="abstract member GetHeight : int -&gt; int" Usage="iPerson.GetHeight age" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>CatLibrary</AssemblyName>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="age" Type="System.Int32" />
+      </Parameters>
+      <Docs>
+        <param name="age">Tha age of the cat, in years.</param>
+        <summary>
+            Calculates the height in IPerson interface.
+            </summary>
+        <returns>The height of the cat in cm.</returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="ID">
+      <MemberSignature Language="C#" Value="public string ID { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance string ID" />
+      <MemberSignature Language="DocId" Value="P:CatLibrary.IPerson.ID" />
+      <MemberSignature Language="VB.NET" Value="Public Property ID As String" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property System::String ^ ID { System::String ^ get(); void set(System::String ^ value); };" />
+      <MemberSignature Language="F#" Value="member this.ID : string with get, set" Usage="CatLibrary.IPerson.ID" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>CatLibrary</AssemblyName>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+            Person's ID
+            </summary>
+        <value>To be added.</value>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Name">
+      <MemberSignature Language="C#" Value="public string Name { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance string Name" />
+      <MemberSignature Language="DocId" Value="P:CatLibrary.IPerson.Name" />
+      <MemberSignature Language="VB.NET" Value="Public Property Name As String" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property System::String ^ Name { System::String ^ get(); void set(System::String ^ value); };" />
+      <MemberSignature Language="F#" Value="member this.Name : string with get, set" Usage="CatLibrary.IPerson.Name" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>CatLibrary</AssemblyName>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+            Person's Name
+            </summary>
+        <value>To be added.</value>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Speak">
+      <MemberSignature Language="C#" Value="public void Speak (string language);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance void Speak(string language) cil managed" />
+      <MemberSignature Language="DocId" Value="M:CatLibrary.IPerson.Speak(System.String)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub Speak (language As String)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; void Speak(System::String ^ language);" />
+      <MemberSignature Language="F#" Value="abstract member Speak : string -&gt; unit" Usage="iPerson.Speak language" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>CatLibrary</AssemblyName>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="language" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="language">The language that person speak</param>
+        <summary>
+            Speak with a language in IPerson interface
+            </summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+  </Members>
+</Type>

@@ -1,0 +1,72 @@
+### YamlMime:NetMember
+type: method
+members:
+- returnsWithMoniker:
+    type:
+    - value: <xref href="System.Int32?alt=System.Int32&text=Int32" data-throw-if-not-resolved="True"/>
+    description: The height of the cat in cm.
+  parameters:
+  - namesWithMoniker:
+    - value: age
+    description: Tha age of the cat, in years.
+    type: <xref href="System.Int32?alt=System.Int32&text=Int32" data-throw-if-not-resolved="True"/>
+  uid: CatLibrary.Student.GetHeight1(System.Int32)
+  commentId: M:CatLibrary.Student.GetHeight1(System.Int32)
+  name: GetHeight1(Int32)
+  fullName: CatLibrary.Student.GetHeight1(Int32)
+  nameWithType: Student.GetHeight1(Int32)
+  syntaxWithMoniker:
+  - lang: cpp
+    values:
+    - value: >-
+        public:
+         int GetHeight1(int age);
+  - lang: csharp
+    values:
+    - value: public int GetHeight1(int age);
+  - lang: fsharp
+    values:
+    - value: 'member this.GetHeight1 : int -> int'
+  - lang: vb
+    values:
+    - value: Public Function GetHeight1 (age As Integer) As Integer
+  monikers:
+  - cat-1.0
+  summary: Calculates the height in IPerson interface.
+  metadata: {}
+uid: CatLibrary.Student.GetHeight1*
+commentId: Overload:CatLibrary.Student.GetHeight1
+namespace: CatLibrary
+name: GetHeight1
+fullName: CatLibrary.Student.GetHeight1
+nameWithType: Student.GetHeight1
+devLangs:
+- csharp
+- vb
+- cpp
+- fsharp
+monikers:
+- cat-1.0
+metadata:
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Student.xml
+  _op_overwriteFileGitUrl: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Student.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Student.xml
+  api_name:
+  - CatLibrary.Student.GetHeight1
+  f1_keywords:
+  - CatLibrary.Student.GetHeight1
+  - CatLibrary::Student::GetHeight1
+  - GetHeight1
+  - Student.GetHeight1
+  - Student::GetHeight1
+  topic_type:
+  - apiref
+  api_type:
+  - Assembly
+  helpviewer_keywords:
+  - Student.GetHeight1 method [.NET]
+  - GetHeight1 method [.NET], class Student
+  - Student.GetHeight1(Int32) method [.NET]
+  - GetHeight1(Int32) method [.NET], class Student
+  monikers:
+  - cat-1.0

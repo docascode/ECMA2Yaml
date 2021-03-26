@@ -1,0 +1,56 @@
+### YamlMime:NetMember
+type: constructor
+members:
+- uid: CatLibrary.Student.#ctor
+  commentId: M:CatLibrary.Student.#ctor
+  name: Student()
+  fullName: CatLibrary.Student.Student()
+  nameWithType: Student.Student()
+  syntaxWithMoniker:
+  - lang: cpp
+    values:
+    - value: >-
+        public:
+         Student();
+  - lang: csharp
+    values:
+    - value: public Student();
+  - lang: vb
+    values:
+    - value: Public Sub New ()
+  monikers:
+  - cat-1.0
+  metadata: {}
+uid: CatLibrary.Student.#ctor*
+commentId: Overload:CatLibrary.Student.#ctor
+namespace: CatLibrary
+name: Student
+fullName: CatLibrary.Student.Student
+nameWithType: Student.Student
+devLangs:
+- csharp
+- vb
+- cpp
+monikers:
+- cat-1.0
+metadata:
+  content_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Student.xml
+  _op_overwriteFileGitUrl: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Student.xml
+  original_ref_skeleton_git_url: https://github.com/docascode/ECMA2Yaml/blob/master/test/xml/CatLibrary/Student.xml
+  api_name:
+  - CatLibrary.Student..ctor
+  f1_keywords:
+  - CatLibrary.Student.#ctor
+  - CatLibrary::Student::#ctor
+  - '#ctor'
+  - Student.#ctor
+  - Student::#ctor
+  topic_type:
+  - apiref
+  api_type:
+  - Assembly
+  helpviewer_keywords:
+  - Student class [.NET], constructors
+  - Student() class [.NET], constructors
+  monikers:
+  - cat-1.0
