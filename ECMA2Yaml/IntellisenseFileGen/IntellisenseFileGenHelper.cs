@@ -621,7 +621,10 @@ namespace IntellisenseFileGen
                         }
                         else
                         {
-                            hrefEle.ReplaceWith(hrefEle.Attribute("href").Value);
+                            if (hrefEle.Attribute("href")!=null)
+                            {
+                                hrefEle.ReplaceWith(hrefEle.Attribute("href").Value);
+                            }
                         }
                     });
                 }
