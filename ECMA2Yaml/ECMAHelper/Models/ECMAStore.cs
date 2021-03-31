@@ -488,7 +488,7 @@ namespace ECMA2Yaml.Models
                     var thisParam = m.Parameters?.FirstOrDefault(p => p.RefType == "this");
                     if (m.Parameters != null && thisParam != null)
                     {
-                        if (m.Parent != null && m.Parent.Signatures.IsStatic)
+                        if (m.Parent != null && (m.Parent.Signatures.IsStatic|| m.Parent.Signatures.IsPublicModule))
                         {
                             var targetType = thisParam.Type;
 

@@ -34,6 +34,12 @@ namespace ECMA2Yaml.Models
             get => CombinedModifiers.TryGetValue(csharp, out var list) && list.Contains("static");
         }
 
+        public bool IsPublicModule
+        {
+            get => Dict.ContainsKey(ECMADevLangs.VB)
+                && Dict[ECMADevLangs.VB].All(s => s.Value.StartsWith("Public Module"));
+        }
+
         public List<VersionedString> GetPublishSealedClasses()
         {
             if (Dict.ContainsKey(ECMADevLangs.CSharp))
