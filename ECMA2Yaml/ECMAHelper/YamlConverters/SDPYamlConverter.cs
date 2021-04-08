@@ -350,10 +350,10 @@ namespace ECMA2Yaml
 
                     if (!isGeneric && _store.TypeMappingStore?.TypeMappingPerLanguage != null)
                     {
-                        t.TypePerLanguage = _store.TypeMappingStore.TranslateTypeString(t.Value, totalLangs ?? _store.TotalDevLangs);
-                        if (t.TypePerLanguage.Count == 1)
+                        t.ValuePerLanguage = _store.TypeMappingStore.TranslateTypeString(t.Value, totalLangs ?? _store.TotalDevLangs);
+                        if (t.ValuePerLanguage.Count == 1)
                         {
-                            t.TypePerLanguage = null;
+                            t.ValuePerLanguage = null;
                         }
                     }
                 }

@@ -9,6 +9,11 @@ namespace ECMA2Yaml.Models
     {
         public Dictionary<string, Dictionary<string, string>> TypeMappingPerLanguage { get; set; }
 
+        // Store "From" and "To" attribute Type and it's xref dic
+        // <TypeReplace From = "System.Object" To="CatLibrary.IAnimal" Langs="C++ CLI" />
+        public Dictionary<string, string> ToTypeXrefDic { get; set; }
+        public Dictionary<string, string> FromTypeXrefDic { get; set; }
+
         /// <summary>
         /// Do type mapping per language, then aggregate based on the mapped value
         /// </summary>
@@ -32,7 +37,29 @@ namespace ECMA2Yaml.Models
                     {
                         foreach (var mapping in mappingDict)
                         {
-                            newTypeString = newTypeString.Replace(mapping.Key, mapping.Value);
+                            if (newTypeString.Contains(mapping.Key))
+                            {
+                                string fromTypeXref = "";
+                                string toTypeXref = "";
+
+                                if (FromTypeXrefDic.ContainsKey(mapping.Key) && !string.IsNullOrEmpty(FromTypeXrefDic[mapping.Key]))
+                                {
+                                    fromTypeXref = FromTypeXrefDic[mapping.Key];
+                                }
+                                if (ToTypeXrefDic.ContainsKey(mapping.Value) && !string.IsNullOrEmpty(ToTypeXrefDic[mapping.Value]))
+                                {
+                                    toTypeXref = ToTypeXrefDic[mapping.Value];
+                                }
+                                
+                                if(!string.IsNullOrEmpty(fromTypeXref) && !string.IsNullOrEmpty(toTypeXref))
+                                {
+                                    newTypeString = newTypeString.Replace(fromTypeXref, toTypeXref);
+                                }
+                                else
+                                {
+                                    newTypeString = newTypeString.Replace(mapping.Key, mapping.Value);
+                                }
+                            }
                         }
                         if (newTypeString != typeString)
                         {
@@ -57,6 +84,33 @@ namespace ECMA2Yaml.Models
                 rval.First().Langs = null;
             }
             return rval;
+        }
+
+        public void LoadTypeXref(ECMAStore store)
+        {
+            if (this.FromTypeXrefDic != null && this.FromTypeXrefDic.Keys.Count() > 0)
+            {
+                this.FromTypeXrefDic.Keys.ToList().ForEach(key =>
+                {
+                    string xref = SDPYamlConverter.TypeStringToTypeMDString(key, store);
+                    if (!string.IsNullOrEmpty(xref) && xref.StartsWith("<xref"))
+                    {
+                        this.FromTypeXrefDic[key] = xref;
+                    }
+                });
+            }
+
+            if (this.ToTypeXrefDic != null && this.ToTypeXrefDic.Keys.Count() > 0)
+            {
+                this.ToTypeXrefDic.Keys.ToList().ForEach(key =>
+                {
+                    string xref = SDPYamlConverter.TypeStringToTypeMDString(key, store);
+                    if (!string.IsNullOrEmpty(xref) && xref.StartsWith("<xref"))
+                    {
+                        this.ToTypeXrefDic[key] = xref;
+                    }
+                });
+            }
         }
     }
 }

@@ -37,9 +37,9 @@ namespace ECMA2Yaml.Models
         [YamlMember(Alias = "refType")]
         public string RefType { get; set; }
 
-        [JsonProperty("typePerLanguage")]
-        [YamlMember(Alias = "typePerLanguage")]
-        public List<PerLanguageString> TypePerLanguage { get; set; }
+        [JsonProperty("valuePerLanguage")]
+        [YamlMember(Alias = "valuePerLanguage")]
+        public List<PerLanguageString> ValuePerLanguage { get; set; }
 
         public VersionedReturnType() { }
         public VersionedReturnType(HashSet<string> monikers, string value, string reftype) : base(monikers, value)

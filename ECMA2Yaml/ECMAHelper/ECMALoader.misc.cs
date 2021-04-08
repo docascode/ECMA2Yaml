@@ -104,7 +104,9 @@ namespace ECMA2Yaml
                 {
                     var mappingStore = new TypeMappingStore()
                     {
-                        TypeMappingPerLanguage = new Dictionary<string, Dictionary<string, string>>()
+                        TypeMappingPerLanguage = new Dictionary<string, Dictionary<string, string>>(),
+                        FromTypeXrefDic = new Dictionary<string, string>(),
+                        ToTypeXrefDic = new Dictionary<string, string>()
                     };
                     foreach(var replace in replaces)
                     {
@@ -112,6 +114,15 @@ namespace ECMA2Yaml
                         var to = replace.Attribute("To")?.Value;
                         var langs = replace.Attribute("Langs")?.Value.TrimEnd(';').Split(';');
                         langs = langs.Where(k => ECMADevLangs.OPSMapping.ContainsKey(k)).Select(k => ECMADevLangs.OPSMapping[k]).ToArray();
+
+                        if (!string.IsNullOrEmpty(from) && !mappingStore.ToTypeXrefDic.ContainsKey(from))
+                        {
+                            mappingStore.FromTypeXrefDic.Add(from, null);
+                        }
+                        if (!string.IsNullOrEmpty(to) && !mappingStore.ToTypeXrefDic.ContainsKey(to))
+                        {
+                            mappingStore.ToTypeXrefDic.Add(to, null);
+                        }
                         if (from != null && to != null && langs?.Length > 0)
                         {
                             if (from == "System.Guid" && to == "winrt::guid")
