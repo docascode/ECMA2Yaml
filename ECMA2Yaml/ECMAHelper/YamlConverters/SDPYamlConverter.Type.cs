@@ -18,7 +18,7 @@ namespace ECMA2Yaml
             Type child = t;
             sdpType.InheritancesWithMoniker = ConverterHelper.TrimMonikers(
                 t.InheritanceChains?.Select(
-                chain => new VersionedCollection<string>(
+                chain => new VersionedCollection<VersionedString>(
                     chain.Monikers?.NullIfEmpty(),
                     GetInheritChainMDStringList(chain.Values, t)
                 )).ToList(),
@@ -51,9 +51,9 @@ namespace ECMA2Yaml
             return sdpType;
         }
 
-        private List<string> GetInheritChainMDStringList(List<string> inheritanceChains, Type current)
+        private List<VersionedString> GetInheritChainMDStringList(List<string> inheritanceChains, Type current)
         {
-            List<string> mdStringList = new List<string>();
+            List<VersionedString> mdStringList = new List<VersionedString>();
             Type child = null;
             string parentUid = string.Empty;
             string childrenUid = string.Empty;
@@ -67,13 +67,13 @@ namespace ECMA2Yaml
                 child = _store.TypesByUid[childrenUid];
 
                 typeMDStr = GetParentTypeStringFromChild(child, parentUid);
-                mdStringList.Add(typeMDStr);
+                mdStringList.Add(new VersionedString() { Value = typeMDStr, PerLanguage = ConvertNamedPerLanguage(typeMDStr, current) });
             }
 
             parentUid = inheritanceChains[i];
             child = current;
             typeMDStr = GetParentTypeStringFromChild(child, parentUid);
-            mdStringList.Add(typeMDStr);
+            mdStringList.Add(new VersionedString() { Value = typeMDStr, PerLanguage = ConvertNamedPerLanguage(typeMDStr, current) });
 
             return mdStringList;
         }

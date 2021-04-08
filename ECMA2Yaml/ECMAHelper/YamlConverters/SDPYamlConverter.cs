@@ -101,7 +101,7 @@ namespace ECMA2Yaml
             rval.AssembliesWithMoniker = _store.UWPMode ? null : MonikerizeAssemblyStrings(item);
             rval.PackagesWithMoniker = _store.UWPMode ? null : MonikerizePackageStrings(item, _store.PkgInfoMapping);
             rval.AttributesWithMoniker = item.Attributes?.Where(att => att.Visible)
-                .Select(att => new VersionedString() { Value = att.TypeFullName, Monikers = att.Monikers?.ToHashSet() })
+                .Select(att => new VersionedString() { Value = att.TypeFullName, Monikers = att.Monikers?.ToHashSet(), PerLanguage = ConvertNamedPerLanguage(att.TypeFullName, item) })
                 .DistinctVersionedString()
                 .ToList().NullIfEmpty();
             rval.AttributeMonikers = ConverterHelper.ConsolidateVersionedValues(rval.AttributesWithMoniker, item.Monikers);
@@ -308,7 +308,33 @@ namespace ECMA2Yaml
             }
             return null;
         }
+        private List<PerLanguageString> ConvertNamedPerLanguage(string typeStr,ReflectionItem item)
+        {
+            if (string.IsNullOrEmpty(typeStr))
+            {
+                return null;
+            }
 
+            var knownTypeParams = item.TypeParameters;
+            if (item.Parent?.TypeParameters != null)
+            {
+                knownTypeParams = knownTypeParams == null ? item.Parent.TypeParameters : knownTypeParams.Concat(item.Parent.TypeParameters).ToList();
+            }
+
+            var isGeneric = knownTypeParams?.Any(tp => tp.Name == typeStr) ?? false;
+            if (!isGeneric && _store.TypeMappingStore?.TypeMappingPerLanguage != null)
+            {
+                var perLanguageLanguage = _store.TypeMappingStore.TranslateTypeString(typeStr, item.Signatures.DevLangs ?? _store.TotalDevLangs);
+                if (perLanguageLanguage.Count == 1)
+                {
+                    perLanguageLanguage = null;
+                }
+
+                return perLanguageLanguage;
+            }
+
+            return null;
+        }
         private ParameterReference ConvertNamedParameter(
             Parameter p,
             List<TypeParameter> knownTypeParams = null,

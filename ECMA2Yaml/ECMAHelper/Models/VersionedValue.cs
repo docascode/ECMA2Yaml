@@ -25,7 +25,9 @@ namespace ECMA2Yaml.Models
     public class VersionedString : VersionedValue<string>
     {
         public VersionedString() { }
-
+        [JsonProperty("perLanguage")]
+        [YamlMember(Alias = "perLanguage")]
+        public List<PerLanguageString> PerLanguage { get; set; }
         public VersionedString(HashSet<string> monikers, string value) : base(monikers, value)
         {
         }
@@ -50,6 +52,7 @@ namespace ECMA2Yaml.Models
         public T Value { get; set; }
         [JsonProperty("monikers")]
         [YamlMember(Alias = "monikers")]
+
         public HashSet<string> Monikers { get; set; }
 
         public VersionedValue() { }
@@ -68,8 +71,8 @@ namespace ECMA2Yaml.Models
         public List<T> Values { get; set; }
         [JsonProperty("monikers")]
         [YamlMember(Alias = "monikers")]
-        public HashSet<string> Monikers { get; set; }
 
+        public HashSet<string> Monikers { get; set; }
         public VersionedCollection() { }
 
         public VersionedCollection(HashSet<string> monikers, List<T> value)
