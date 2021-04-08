@@ -2,16 +2,16 @@
 type: class
 inheritancesWithMoniker:
 - values:
-  - <xref href="System.Object?alt=System.Object&text=Object" data-throw-if-not-resolved="True"/>
-  - <xref href="VersioningTest.C?alt=VersioningTest.C&text=C" data-throw-if-not-resolved="True"/>
-  - <xref href="VersioningTest.F?alt=VersioningTest.F&text=F" data-throw-if-not-resolved="True"/>
+  - value: <xref href="System.Object?alt=System.Object&text=Object" data-throw-if-not-resolved="True"/>
+  - value: <xref href="VersioningTest.C?alt=VersioningTest.C&text=C" data-throw-if-not-resolved="True"/>
+  - value: <xref href="VersioningTest.F?alt=VersioningTest.F&text=F" data-throw-if-not-resolved="True"/>
   monikers:
   - cat-1.0
 - values:
-  - <xref href="System.Object?alt=System.Object&text=Object" data-throw-if-not-resolved="True"/>
-  - <xref href="VersioningTest.B?alt=VersioningTest.B&text=B" data-throw-if-not-resolved="True"/>
-  - <xref href="VersioningTest.D?alt=VersioningTest.D&text=D" data-throw-if-not-resolved="True"/>
-  - <xref href="VersioningTest.F?alt=VersioningTest.F&text=F" data-throw-if-not-resolved="True"/>
+  - value: <xref href="System.Object?alt=System.Object&text=Object" data-throw-if-not-resolved="True"/>
+  - value: <xref href="VersioningTest.B?alt=VersioningTest.B&text=B" data-throw-if-not-resolved="True"/>
+  - value: <xref href="VersioningTest.D?alt=VersioningTest.D&text=D" data-throw-if-not-resolved="True"/>
+  - value: <xref href="VersioningTest.F?alt=VersioningTest.F&text=F" data-throw-if-not-resolved="True"/>
   monikers:
   - cat-2.0
 extensionMethods:

@@ -1,7 +1,7 @@
 ### YamlMime:NetEnum
 inheritancesWithMoniker:
 - values:
-  - <xref href="System.Enum" data-throw-if-not-resolved="True"/>
+  - value: <xref href="System.Enum" data-throw-if-not-resolved="True"/>
 isFlags: true
 fields:
 - uid: CatLibrary.Complex`2.ComplexFlags.None

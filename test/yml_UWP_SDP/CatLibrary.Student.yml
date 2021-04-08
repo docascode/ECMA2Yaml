@@ -4,7 +4,7 @@ implementsWithMoniker:
 - value: <xref href="CatLibrary.IPerson?alt=CatLibrary.IPerson&text=IPerson" data-throw-if-not-resolved="True"/>
 inheritancesWithMoniker:
 - values:
-  - <xref href="System.Object?alt=System.Object&text=Object" data-throw-if-not-resolved="True"/>
+  - value: <xref href="System.Object?alt=System.Object&text=Object" data-throw-if-not-resolved="True"/>
 constructors:
 - uid: CatLibrary.Student.#ctor
   monikers:
