@@ -14,10 +14,10 @@ namespace ECMA2Yaml
 
             sdpEnum.InheritancesWithMoniker = ConverterHelper.TrimMonikers(
                 enumTypeItem.InheritanceChains?.Select(
-                chain => new VersionedCollection<VersionedString>(
+                chain => new VersionedCollection<string>(
                     chain.Monikers,
-                    CovnertNamedInheritancesWithMonikerPerLanguage(chain.Values, enumTypeItem)
-                    )).ToList(),
+                    chain.Values.Select(uid => UidToTypeMDString(uid, _store)).ToList()
+                    ){ ValuesPerLanguage= CovnertNamedInheritancesWithMonikerPerLanguage(chain.Values, enumTypeItem) }).ToList(),
                 enumTypeItem.Monikers);
 
             sdpEnum.IsFlags = enumTypeItem.Attributes != null
@@ -61,20 +61,12 @@ namespace ECMA2Yaml
                 versionedList.Add(new VersionedString() { Value = UidToTypeMDString(uid, _store), PerLanguage = ConvertNamedPerLanguage(value, enumTypeItem) });
             });
 
-            return versionedList;
-        }
+            if (versionedList.Any(item => item.PerLanguage != null))
+            {
+                return versionedList;
+            }
 
-        private string GetTypeNameByUid(string uid)
-        {
-            if (_store.TypesByUid.TryGetValue(uid, out var t))
-            {
-                return t.Name;
-            }
-            if (_store.MembersByUid.TryGetValue(uid, out var m))
-            {
-                return m.Name;
-            }
-            return uid;
+            return null;
         }
     }
 }

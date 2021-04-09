@@ -69,6 +69,9 @@ namespace ECMA2Yaml.Models
         [JsonProperty("values")]
         [YamlMember(Alias = "values")]
         public List<T> Values { get; set; }
+        [JsonProperty("valuesPerLanguage")]
+        [YamlMember(Alias = "valuesPerLanguage")]
+        public List<VersionedString> ValuesPerLanguage { get; set; }
         [JsonProperty("monikers")]
         [YamlMember(Alias = "monikers")]
 

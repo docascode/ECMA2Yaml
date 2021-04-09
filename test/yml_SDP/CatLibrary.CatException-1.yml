@@ -4,7 +4,7 @@ typeParameters:
 type: class
 inheritancesWithMoniker:
 - values:
-  - value: <xref href="System.Exception?alt=System.Exception&text=Exception" data-throw-if-not-resolved="True"/>
+  - <xref href="System.Exception?alt=System.Exception&text=Exception" data-throw-if-not-resolved="True"/>
 constructors:
 - uid: CatLibrary.CatException`1.#ctor
   monikers:

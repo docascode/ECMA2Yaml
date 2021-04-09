@@ -18,10 +18,10 @@ namespace ECMA2Yaml
             Type child = t;
             sdpType.InheritancesWithMoniker = ConverterHelper.TrimMonikers(
                 t.InheritanceChains?.Select(
-                chain => new VersionedCollection<VersionedString>(
+                chain => new VersionedCollection<string>(
                     chain.Monikers?.NullIfEmpty(),
                     GetInheritChainMDStringList(chain.Values, t)
-                )).ToList(),
+                ) { ValuesPerLanguage= GetInheritChainMDStringListPerLangage(chain.Values, t) }).ToList(),
             t.Monikers);
             sdpType.DerivedClassesWithMoniker = MonikerizeDerivedClasses(t);
             sdpType.ImplementsWithMoniker = t.Interfaces?.Where(i => i != null && i.Value != null)
@@ -51,7 +51,34 @@ namespace ECMA2Yaml
             return sdpType;
         }
 
-        private List<VersionedString> GetInheritChainMDStringList(List<string> inheritanceChains, Type current)
+        private List<string> GetInheritChainMDStringList(List<string> inheritanceChains, Type current)
+        {
+            List<string> mdStringList = new List<string>();
+            Type child = null;
+            string parentUid = string.Empty;
+            string childrenUid = string.Empty;
+            string typeStr = string.Empty;
+            string typeMDStr = string.Empty;
+            int i = 0;
+            for (; i < inheritanceChains.Count - 1; i++)
+            {
+                parentUid = inheritanceChains[i];
+                childrenUid = inheritanceChains[i + 1];
+                child = _store.TypesByUid[childrenUid];
+
+                typeMDStr = GetParentTypeStringFromChild(child, parentUid);
+                mdStringList.Add(typeMDStr);
+            }
+
+            parentUid = inheritanceChains[i];
+            child = current;
+            typeMDStr = GetParentTypeStringFromChild(child, parentUid);
+            mdStringList.Add(typeMDStr);
+
+            return mdStringList;
+        }
+
+        private List<VersionedString> GetInheritChainMDStringListPerLangage(List<string> inheritanceChains, Type current)
         {
             List<VersionedString> mdStringList = new List<VersionedString>();
             Type child = null;
@@ -75,7 +102,12 @@ namespace ECMA2Yaml
             typeMDStr = GetParentTypeStringFromChild(child, parentUid);
             mdStringList.Add(new VersionedString() { Value = typeMDStr, PerLanguage = ConvertNamedPerLanguage(typeMDStr, current) });
 
-            return mdStringList;
+            if (mdStringList.Any(item => item.PerLanguage != null))
+            {
+                return mdStringList;
+            }
+
+            return null;
         }
 
         private string GetParentTypeStringFromChild(Type children, string parentUid)

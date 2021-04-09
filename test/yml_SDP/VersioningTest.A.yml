@@ -2,7 +2,7 @@
 type: class
 inheritancesWithMoniker:
 - values:
-  - value: <xref href="System.Object?alt=System.Object&text=Object" data-throw-if-not-resolved="True"/>
+  - <xref href="System.Object?alt=System.Object&text=Object" data-throw-if-not-resolved="True"/>
 derivedClassesWithMoniker:
 - value: VersioningTest.D
   monikers:

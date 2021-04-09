@@ -2,7 +2,7 @@
 type: class
 inheritancesWithMoniker:
 - values:
-  - value: <xref href="System.Attribute?alt=System.Attribute&text=Attribute" data-throw-if-not-resolved="True"/>
+  - <xref href="System.Attribute?alt=System.Attribute&text=Attribute" data-throw-if-not-resolved="True"/>
 constructors:
 - uid: CatLibrary.DocAttribute.#ctor(System.String)
   monikers:
