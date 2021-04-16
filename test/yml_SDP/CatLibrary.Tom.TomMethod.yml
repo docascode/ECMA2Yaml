@@ -14,6 +14,15 @@ members:
     - value: b
     description: Another complex input
     type: <xref href="System.Tuple`2?alt=System.Tuple&text=Tuple" data-throw-if-not-resolved="True"/>&lt;<xref href="System.String?alt=System.String&text=String" data-throw-if-not-resolved="True"/>,<xref href="CatLibrary.Tom?alt=CatLibrary.Tom&text=Tom" data-throw-if-not-resolved="True"/>&gt;
+    typePerLanguage:
+    - value: <xref href="System.Tuple`2?alt=System.Tuple&text=Tuple" data-throw-if-not-resolved="True"/>&lt;<xref href="System.String?alt=System.String&text=String" data-throw-if-not-resolved="True"/>,<xref href="CatLibrary.Tom?alt=CatLibrary.Tom&text=Tom" data-throw-if-not-resolved="True"/>&gt;
+      langs:
+      - csharp
+      - vb
+      - fsharp
+    - value: <xref href="Windows.Foundation.Collections.IKeyValuePair`2?alt=Windows.Foundation.Collections.IKeyValuePair&text=IKeyValuePair" data-throw-if-not-resolved="True"/>&lt;<xref href="System.String?alt=System.String&text=String" data-throw-if-not-resolved="True"/>,<xref href="CatLibrary.Tom?alt=CatLibrary.Tom&text=Tom" data-throw-if-not-resolved="True"/>&gt;
+      langs:
+      - cpp
   exceptions:
   - description: This is not implemented
     type: <xref href="System.NotImplementedException" data-throw-if-not-resolved="True"/>

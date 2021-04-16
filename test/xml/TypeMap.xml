@@ -1,0 +1,89 @@
+<TypeMap>
+    <InterfaceReplace From="Windows.Foundation.Collections.IIterable`1" To="System.Collections.Generic.IEnumerable`1" Langs="C#;VB.NET;F#">
+        <Members>
+        </Members>
+    </InterfaceReplace>
+    <InterfaceReplace From="Windows.Foundation.Collections.IKeyValuePair`2" To="System.Collections.Generic.KeyValuePair`2" Langs="C#;VB.NET;F#">
+        <Members>
+        </Members>
+    </InterfaceReplace>
+    <InterfaceReplace From="Windows.Foundation.Collections.IMapView`2" To="System.Collections.Generic.IReadOnlyDictionary`2" Langs="C#;VB.NET;F#">
+        <Members>
+        </Members>
+    </InterfaceReplace>
+    <InterfaceReplace From="Windows.Foundation.Collections.IMap`2" To="System.Collections.Generic.IDictionary`2" Langs="C#;VB.NET;F#">
+        <Members>
+        </Members>
+    </InterfaceReplace>
+    <InterfaceReplace From="Windows.Foundation.Collections.IVectorView`1" To="System.Collections.Generic.IReadOnlyList`1" Langs="C#;VB.NET;F#">
+        <Members>
+        </Members>
+    </InterfaceReplace>
+    <InterfaceReplace From="Windows.Foundation.Collections.IVector`1" To="System.Collections.Generic.IList`1" Langs="C#;VB.NET;F#">
+        <Members>
+        </Members>
+    </InterfaceReplace>
+    <TypeReplace From="Windows.Foundation.DateTime" To="System.DateTimeOffset" Langs="C#;VB.NET;F#" />
+    <TypeReplace From="Windows.Foundation.EventHandler`1" To="System.EventHandler`1" Langs="C#;VB.NET;F#" />
+    <TypeReplace From="Windows.Foundation.EventRegistrationToken" To="System.Runtime.InteropServices.WindowsRuntime.EventRegistrationToken" Langs="C#;VB.NET;F#" />
+    <TypeReplace From="Windows.Foundation.HResult" To="System.Exception" Langs="C#;VB.NET;F#" />
+    <InterfaceReplace From="Windows.Foundation.IReference`1" To="System.Nullable`1" Langs="C#;VB.NET;F#">
+        <Members>
+        </Members>
+    </InterfaceReplace>
+    <InterfaceReplace From="System.Tuple`2" To="Windows.Foundation.Collections.IKeyValuePair`2" Langs="C++ CLI">
+        <Members>
+        </Members>
+    </InterfaceReplace>
+    <TypeReplace From="System.Guid" To="winrt::guid" Langs="C++ WINRT" />
+    <TypeReplace From="Windows.Foundation.Metadata.AttributeTargets" To="System.AttributeTargets" Langs="C#;VB.NET;F#" />
+    <TypeReplace From="Windows.Foundation.Numerics.Matrix3x2" To="System.Numerics.Matrix3x2" Langs="C#;VB.NET;F#" />
+    <TypeReplace From="Windows.Foundation.Numerics.Matrix4x4" To="System.Numerics.Matrix4x4" Langs="C#;VB.NET;F#" />
+    <TypeReplace From="Windows.Foundation.Numerics.Plane" To="System.Numerics.Plane" Langs="C#;VB.NET;F#" />
+    <TypeReplace From="Windows.Foundation.Numerics.Quaternion" To="System.Numerics.Quaternion" Langs="C#;VB.NET;F#" />
+    <TypeReplace From="Windows.Foundation.Numerics.Vector2" To="System.Numerics.Vector2" Langs="C#;VB.NET;F#" />
+    <TypeReplace From="Windows.Foundation.Numerics.Vector3" To="System.Numerics.Vector3" Langs="C#;VB.NET;F#" />
+    <TypeReplace From="Windows.Foundation.Numerics.Vector4" To="System.Numerics.Vector4" Langs="C#;VB.NET;F#" />
+    <TypeReplace From="Windows::Foundation::Numerics::Matrix3x2" To="winrt.Windows.Foundation.Numerics.float3x2" Langs="C++ CX" />
+    <TypeReplace From="Windows::Foundation::Numerics::Matrix4x4" To="winrt.Windows.Foundation.Numerics.float4x4" Langs="C++ CX" />
+    <TypeReplace From="Windows::Foundation::Numerics::Plane" To="winrt.Windows.Foundation.Numerics.plane" Langs="C++ CX" />
+    <TypeReplace From="Windows::Foundation::Numerics::Quaternion" To="winrt.Windows.Foundation.Numerics.quaternion" Langs="C++ CX" />
+    <TypeReplace From="Windows::Foundation::Numerics::Vector2" To="winrt.Windows.Foundation.Numerics.float2" Langs="C++ CX" />
+    <TypeReplace From="Windows::Foundation::Numerics::Vector3" To="winrt.Windows.Foundation.Numerics.float3" Langs="C++ CX" />
+    <TypeReplace From="Windows::Foundation::Numerics::Vector4" To="winrt.Windows.Foundation.Numerics.float4" Langs="C++ CX" />
+    <TypeReplace From="winrt::Windows::Foundation::Numerics::Matrix3x2" To="winrt.Windows.Foundation.Numerics.float3x2" Langs="C++ WINRT" />
+    <TypeReplace From="winrt::Windows::Foundation::Numerics::Matrix4x4" To="winrt.Windows.Foundation.Numerics.float4x4" Langs="C++ WINRT" />
+    <TypeReplace From="winrt::Windows::Foundation::Numerics::Plane" To="winrt.Windows.Foundation.Numerics.plane" Langs="C++ WINRT" />
+    <TypeReplace From="winrt::Windows::Foundation::Numerics::Quaternion" To="winrt.Windows.Foundation.Numerics.quaternion" Langs="C++ WINRT" />
+    <TypeReplace From="winrt::Windows::Foundation::Numerics::Vector2" To="winrt.Windows.Foundation.Numerics.float2" Langs="C++ WINRT" />
+    <TypeReplace From="winrt::Windows::Foundation::Numerics::Vector3" To="winrt.Windows.Foundation.Numerics.float3" Langs="C++ WINRT" />
+    <TypeReplace From="winrt::Windows::Foundation::Numerics::Vector4" To="winrt.Windows.Foundation.Numerics.float4" Langs="C++ WINRT" />
+    <TypeReplace From="Windows.Foundation.TimeSpan" To="System.TimeSpan" Langs="C#;VB.NET;F#" />
+    <TypeReplace From="Windows.Foundation.Uri" To="System.Uri" Langs="C#;VB.NET;F#" />
+    <InterfaceReplace From="Windows.UI.Xaml.Data.INotifyPropertyChanged" To="System.ComponentModel.INotifyPropertyChanged" Langs="C#;VB.NET;F#">
+        <Members>
+        </Members>
+    </InterfaceReplace>
+    <TypeReplace From="Windows.UI.Xaml.Data.PropertyChangedEventArgs" To="System.ComponentModel.PropertyChangedEventArgs" Langs="C#;VB.NET;F#" />
+    <TypeReplace From="Windows.UI.Xaml.Data.PropertyChangedEventHandler" To="System.ComponentModel.PropertyChangedEventHandler" Langs="C#;VB.NET;F#" />
+    <InterfaceReplace From="Windows.UI.Xaml.Input.ICommand" To="System.Windows.Input.ICommand" Langs="C#;VB.NET;F#">
+        <Members>
+        </Members>
+    </InterfaceReplace>
+    <InterfaceReplace From="Windows.UI.Xaml.Interop.IBindableIterable" To="System.Collections.IEnumerable" Langs="C#;VB.NET;F#">
+        <Members>
+        </Members>
+    </InterfaceReplace>
+    <InterfaceReplace From="Windows.UI.Xaml.Interop.IBindableVector" To="System.Collections.IList" Langs="C#;VB.NET;F#">
+        <Members>
+        </Members>
+    </InterfaceReplace>
+    <InterfaceReplace From="Windows.UI.Xaml.Interop.INotifyCollectionChanged" To="System.Collections.Specialized.INotifyCollectionChanged" Langs="C#;VB.NET;F#">
+        <Members>
+        </Members>
+    </InterfaceReplace>
+    <TypeReplace From="Windows.UI.Xaml.Interop.NotifyCollectionChangedAction" To="System.Collections.Specialized.NotifyCollectionChangedAction" Langs="C#;VB.NET;F#" />
+    <TypeReplace From="Windows.UI.Xaml.Interop.NotifyCollectionChangedEventArgs" To="System.Collections.Specialized.NotifyCollectionChangedEventArgs" Langs="C#;VB.NET;F#" />
+    <TypeReplace From="Windows.UI.Xaml.Interop.NotifyCollectionChangedEventHandler" To="System.Collections.Specialized.NotifyCollectionChangedEventHandler" Langs="C#;VB.NET;F#" />
+    <TypeReplace From="Windows.UI.Xaml.Interop.TypeName" To="System.Type" Langs="C#;VB.NET;F#" />
+</TypeMap>
