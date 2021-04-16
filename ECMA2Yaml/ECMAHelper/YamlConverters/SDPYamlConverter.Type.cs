@@ -92,9 +92,8 @@ namespace ECMA2Yaml
                 parentUid = inheritanceChains[i];
                 childrenUid = inheritanceChains[i + 1];
                 child = _store.TypesByUid[childrenUid];
-
                 typeMDStr = GetParentTypeStringFromChild(child, parentUid);
-                mdStringList.Add(new VersionedString() { Value = typeMDStr, PerLanguage = ConvertNamedPerLanguage(GetParentTypeNameFromChild(child, parentUid), current, true) });
+                mdStringList.Add(new VersionedString() { Value = typeMDStr, PerLanguage = ConvertNamedPerLanguage(GetParentTypeNameFromChild(child, parentUid), child, true) });
             }
 
             parentUid = inheritanceChains[i];
