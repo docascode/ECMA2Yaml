@@ -94,13 +94,13 @@ namespace ECMA2Yaml
                 child = _store.TypesByUid[childrenUid];
 
                 typeMDStr = GetParentTypeStringFromChild(child, parentUid);
-                mdStringList.Add(new VersionedString() { Value = typeMDStr, PerLanguage = ConvertNamedPerLanguage(typeMDStr, current) });
+                mdStringList.Add(new VersionedString() { Value = typeMDStr, PerLanguage = ConvertNamedPerLanguage(GetParentTypeNameFromChild(child, parentUid), current, true) });
             }
 
             parentUid = inheritanceChains[i];
             child = current;
             typeMDStr = GetParentTypeStringFromChild(child, parentUid);
-            mdStringList.Add(new VersionedString() { Value = typeMDStr, PerLanguage = ConvertNamedPerLanguage(typeMDStr, current) });
+            mdStringList.Add(new VersionedString() { Value = typeMDStr, PerLanguage = ConvertNamedPerLanguage(GetParentTypeNameFromChild(child, parentUid), current, true) });
 
             if (mdStringList.Any(item => item.PerLanguage != null))
             {
@@ -108,6 +108,37 @@ namespace ECMA2Yaml
             }
 
             return null;
+        }
+
+        private string GetTypNameByUid(string uid)
+        {
+            if (_store.TypesByUid.TryGetValue(uid, out var t))
+            {
+                return t.Name;
+            }
+            if (_store.MembersByUid.TryGetValue(uid, out var m))
+            {
+                return m.Name;
+            }
+            return uid;
+        }
+
+        private string GetParentTypeNameFromChild(Type children, string parentUid)
+        {
+            var find = children.BaseTypes.Where(p => p.Uid == parentUid).FirstOrDefault();
+            if (find != null)
+            {
+                if (_store.TryGetTypeByFullName(find.Name, out var t))
+                {
+                    return t.Name;
+                }
+                
+                return find.Name;
+            }
+            else
+            {
+                return GetTypNameByUid(parentUid);
+            }
         }
 
         private string GetParentTypeStringFromChild(Type children, string parentUid)

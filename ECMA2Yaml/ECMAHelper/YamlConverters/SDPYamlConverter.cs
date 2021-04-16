@@ -308,7 +308,7 @@ namespace ECMA2Yaml
             }
             return null;
         }
-        private List<PerLanguageString> ConvertNamedPerLanguage(string typeStr,ReflectionItem item)
+        private List<PerLanguageString> ConvertNamedPerLanguage(string typeStr,ReflectionItem item, bool isXRef=false)
         {
             if (string.IsNullOrEmpty(typeStr))
             {
@@ -325,9 +325,10 @@ namespace ECMA2Yaml
             if (!isGeneric && _store.TypeMappingStore?.TypeMappingPerLanguage != null)
             {
                 var perLanguageLanguage = _store.TypeMappingStore.TranslateTypeString(typeStr, item.Signatures.DevLangs ?? _store.TotalDevLangs);
-                if (perLanguageLanguage.Count == 1)
+         
+                if (isXRef && perLanguageLanguage != null)
                 {
-                    perLanguageLanguage = null;
+                    perLanguageLanguage.ForEach(perLang => perLang.Value = TypeStringToTypeMDString(perLang.Value, _store));
                 }
 
                 return perLanguageLanguage;

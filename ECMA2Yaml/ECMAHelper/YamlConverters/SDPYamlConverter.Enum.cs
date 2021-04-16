@@ -58,7 +58,7 @@ namespace ECMA2Yaml
             var versionedList = new List<VersionedString>();
             list.ForEach(uid => {
                 var value = UidToTypeMDString(uid, _store);
-                versionedList.Add(new VersionedString() { Value = UidToTypeMDString(uid, _store), PerLanguage = ConvertNamedPerLanguage(value, enumTypeItem) });
+                versionedList.Add(new VersionedString() { Value = UidToTypeMDString(uid, _store), PerLanguage = ConvertNamedPerLanguage(GetTypNameByUid(uid), enumTypeItem, true) });
             });
 
             if (versionedList.Any(item => item.PerLanguage != null))
