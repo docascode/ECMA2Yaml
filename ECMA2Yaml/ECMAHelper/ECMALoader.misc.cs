@@ -114,10 +114,8 @@ namespace ECMA2Yaml
                         langs = langs.Where(k => ECMADevLangs.OPSMapping.ContainsKey(k)).Select(k => ECMADevLangs.OPSMapping[k]).ToArray();
                         if (from != null && to != null && langs?.Length > 0)
                         {
-                            if (from == "System.Guid" && to == "winrt::guid")
-                            {
-                                from = "<xref href=\"System.Guid?alt=System.Guid&text=Guid\" data-throw-if-not-resolved=\"True\"/>";
-                            }
+                            from = from.Replace("`1", "<").Replace("`2", "<").Replace("`3", "<").Replace("`4", "<");
+                            to = to.Replace("`1", "<").Replace("`2", "<").Replace("`3", "<").Replace("`4", "<");
                             foreach (var lang in langs)
                             {
                                 if (!mappingStore.TypeMappingPerLanguage.ContainsKey(lang))

@@ -54,7 +54,14 @@ namespace ECMA2Yaml.Models
             }
             else if (rval.Count == 1)
             {
-                rval.First().Langs = null;
+                if (rval.First().Value == typeString)
+                {
+                    return null;
+                }
+                else
+                {
+                    rval.First().Langs = null;
+                }
             }
             return rval;
         }
