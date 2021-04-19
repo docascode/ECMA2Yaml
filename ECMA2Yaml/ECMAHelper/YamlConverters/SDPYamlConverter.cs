@@ -358,6 +358,44 @@ namespace ECMA2Yaml
             return rval;
         }
 
+        private ReturnValue ConvertNamedReturnValue(
+            ReturnValue returns,
+            List<TypeParameter> knownTypeParams = null,
+            HashSet<string> totalLangs = null)
+        {
+            ReturnValue rval = null;
+
+            var r = returns.VersionedTypes
+                   .Where(v => !string.IsNullOrWhiteSpace(v.Value) && v.Value != "System.Void").ToArray();
+            if (r.Any())
+            {
+                foreach (var t in returns.VersionedTypes)
+                {
+                    var isGeneric = knownTypeParams?.Any(tp => tp.Name == t.Value) ?? false;
+
+                    if (!isGeneric && _store.TypeMappingStore?.TypeMappingPerLanguage != null)
+                    {
+                        t.ValuePerLanguage = _store.TypeMappingStore.TranslateTypeString(t.Value, totalLangs ?? _store.TotalDevLangs);
+                        if (t.ValuePerLanguage != null)
+                        {
+                            t.ValuePerLanguage.ForEach(typePerLang => typePerLang.Value = TypeStringToTypeMDString(t.Value, _store));
+                        }
+                    }
+
+                    t.Value = isGeneric ? t.Value : TypeStringToTypeMDString(t.Value, _store);
+                }
+                var returnType = new ReturnValue
+                {
+                    VersionedTypes = r,
+                    Description = returns.Description
+                };
+
+                rval = returnType;
+            }
+
+            return rval;
+        }
+
         private Models.SDP.ThreadSafety ConvertThreadSafety(ReflectionItem item)
         {
             if (item.Docs.ThreadSafetyInfo != null)
