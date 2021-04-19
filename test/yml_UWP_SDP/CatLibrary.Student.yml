@@ -5,6 +5,15 @@ implementsWithMoniker:
 inheritancesWithMoniker:
 - values:
   - <xref href="System.Object?alt=System.Object&text=Object" data-throw-if-not-resolved="True"/>
+  valuesPerLanguage:
+  - value: <xref href="System.Object?alt=System.Object&text=Object" data-throw-if-not-resolved="True"/>
+    langs:
+    - cpp
+  - value: winrt::Object
+    langs:
+    - csharp
+    - vb
+    - fsharp
 constructors:
 - uid: CatLibrary.Student.#ctor
   monikers:

@@ -1,7 +1,16 @@
 ### YamlMime:NetEnum
 inheritancesWithMoniker:
 - values:
-  - <xref href="System.Enum" data-throw-if-not-resolved="True"/>
+  - <xref href="System.Enum?alt=System.Enum&text=Enum" data-throw-if-not-resolved="True"/>
+  valuesPerLanguage:
+  - value: <xref href="System.Enum?alt=System.Enum&text=Enum" data-throw-if-not-resolved="True"/>
+    langs:
+    - cpp
+  - value: winrt::Enum
+    langs:
+    - csharp
+    - vb
+    - fsharp
 isFlags: true
 fields:
 - uid: CatLibrary.Complex`2.ComplexFlags.None

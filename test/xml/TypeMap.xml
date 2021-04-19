@@ -86,4 +86,6 @@
     <TypeReplace From="Windows.UI.Xaml.Interop.NotifyCollectionChangedEventArgs" To="System.Collections.Specialized.NotifyCollectionChangedEventArgs" Langs="C#;VB.NET;F#" />
     <TypeReplace From="Windows.UI.Xaml.Interop.NotifyCollectionChangedEventHandler" To="System.Collections.Specialized.NotifyCollectionChangedEventHandler" Langs="C#;VB.NET;F#" />
     <TypeReplace From="Windows.UI.Xaml.Interop.TypeName" To="System.Type" Langs="C#;VB.NET;F#" />
+	<TypeReplace From="System.Object" To="winrt::Object" Langs="C#;VB.NET;F#" />
+	<TypeReplace From="System.Enum" To="winrt::Enum" Langs="C#;VB.NET;F#" />
 </TypeMap>

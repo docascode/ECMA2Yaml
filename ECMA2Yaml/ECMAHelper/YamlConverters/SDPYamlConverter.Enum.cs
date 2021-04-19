@@ -14,10 +14,7 @@ namespace ECMA2Yaml
 
             sdpEnum.InheritancesWithMoniker = ConverterHelper.TrimMonikers(
                 enumTypeItem.InheritanceChains?.Select(
-                chain => new VersionedCollection<string>(
-                    chain.Monikers,
-                    chain.Values.Select(uid => UidToTypeMDString(uid, _store)).ToList()
-                    )).ToList(),
+                chain => GetInheritChainMDStringList(chain, enumTypeItem)).ToList(),
                 enumTypeItem.Monikers);
 
             sdpEnum.IsFlags = enumTypeItem.Attributes != null
