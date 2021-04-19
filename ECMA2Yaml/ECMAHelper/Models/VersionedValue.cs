@@ -25,9 +25,11 @@ namespace ECMA2Yaml.Models
     public class VersionedString : VersionedValue<string>
     {
         public VersionedString() { }
+
         [JsonProperty("perLanguage")]
         [YamlMember(Alias = "perLanguage")]
         public List<PerLanguageString> PerLanguage { get; set; }
+
         public VersionedString(HashSet<string> monikers, string value) : base(monikers, value)
         {
         }
@@ -36,7 +38,9 @@ namespace ECMA2Yaml.Models
     public class VersionedReturnType : VersionedString
     {
         [JsonProperty("refType")]
+        [JsonIgnore]
         [YamlMember(Alias = "refType")]
+        [YamlIgnore] //not implemented in template yet, so don't write it to yaml
         public string RefType { get; set; }
         public VersionedReturnType() { }
         public VersionedReturnType(HashSet<string> monikers, string value, string reftype) : base(monikers, value)
@@ -50,9 +54,9 @@ namespace ECMA2Yaml.Models
         [JsonProperty("value")]
         [YamlMember(Alias = "value")]
         public T Value { get; set; }
+
         [JsonProperty("monikers")]
         [YamlMember(Alias = "monikers")]
-
         public HashSet<string> Monikers { get; set; }
 
         public VersionedValue() { }
@@ -71,7 +75,7 @@ namespace ECMA2Yaml.Models
         public List<T> Values { get; set; }
         [JsonProperty("valuesPerLanguage")]
         [YamlMember(Alias = "valuesPerLanguage")]
-        public List<VersionedString> ValuesPerLanguage { get; set; }
+        public List<PerLanguageString> ValuesPerLanguage { get; set; }
         [JsonProperty("monikers")]
         [YamlMember(Alias = "monikers")]
 
