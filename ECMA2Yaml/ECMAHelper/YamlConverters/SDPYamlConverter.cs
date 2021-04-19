@@ -346,16 +346,17 @@ namespace ECMA2Yaml
                 foreach (var t in returns.VersionedTypes)
                 {
                     var isGeneric = knownTypeParams?.Any(tp => tp.Name == t.Value) ?? false;
-                    t.Value = isGeneric ? t.Value : TypeStringToTypeMDString(t.Value, _store);
 
                     if (!isGeneric && _store.TypeMappingStore?.TypeMappingPerLanguage != null)
                     {
                         t.ValuePerLanguage = _store.TypeMappingStore.TranslateTypeString(t.Value, totalLangs ?? _store.TotalDevLangs);
-                        if (t.ValuePerLanguage.Count == 1)
+                        if (t.ValuePerLanguage != null)
                         {
-                            t.ValuePerLanguage = null;
+                            t.ValuePerLanguage.ForEach(typePerLang => typePerLang.Value = TypeStringToTypeMDString(t.Value, _store));
                         }
                     }
+
+                    t.Value = isGeneric ? t.Value : TypeStringToTypeMDString(t.Value, _store);
                 }
                 var returnType = new ReturnValue
                 {
