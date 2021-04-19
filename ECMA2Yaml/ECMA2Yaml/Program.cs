@@ -85,10 +85,6 @@ namespace ECMA2Yaml
             WriteLine("Loaded {0} members.", store.MembersByUid.Count);
             WriteLine("Loaded {0} extension methods.", store.ExtensionMethodsByMemberDocId?.Values?.Count ?? 0);
             WriteLine("Loaded {0} attribute filters.", store.FilterStore?.AttributeFilters?.Count ?? 0);
-            if (store.TypeMappingStore != null)
-            {
-                store.TypeMappingStore.LoadTypeXref(store);
-            }
             
             if (!string.IsNullOrEmpty(opt.UndocumentedApiReport))
             {
