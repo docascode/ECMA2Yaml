@@ -349,10 +349,10 @@ namespace ECMA2Yaml
             };
             if (!isGeneric && _store.TypeMappingStore?.TypeMappingPerLanguage != null)
             {
-                rval.TypePerLanguage = _store.TypeMappingStore.TranslateTypeString(rval.Type, totalLangs ?? _store.TotalDevLangs);
-                if (rval.TypePerLanguage.Count == 1)
+                rval.TypePerLanguage = _store.TypeMappingStore.TranslateTypeString(p.OriginalTypeString ?? p.Type, totalLangs ?? _store.TotalDevLangs);
+                if (rval.TypePerLanguage != null)
                 {
-                    rval.TypePerLanguage = null;
+                    rval.TypePerLanguage.ForEach(typePerLang => typePerLang.Value = TypeStringToTypeMDString(typePerLang.Value, _store));
                 }
             }
             rval.NamesWithMoniker = p.VersionedNames;
