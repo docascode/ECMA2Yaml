@@ -50,13 +50,12 @@ namespace ECMA2Yaml
             var fileAccessor = new FileAccessor(rootPath, opt.FallbackRepoRoot);
             ECMALoader loader = new ECMALoader(fileAccessor);
             WriteLine("Loading ECMAXML files...");
-            var store = loader.LoadFolder(xmlFolder);
+            var store = loader.LoadFolder(xmlFolder, isUWPMode: opt.UWPMode);
             if (store == null)
             {
                 return;
             }
             store.StrictMode = opt.StrictMode;
-            store.UWPMode = opt.UWPMode;
             store.DemoMode = opt.DemoMode;
 
             WriteLine("Building loaded files...");

@@ -63,7 +63,7 @@ namespace ECMA2Yaml
             var fileAccessor = new FileAccessor(xmlDirectory, fallbackXmlDirectory);
             ECMALoader loader = new ECMALoader(fileAccessor);
             Console.WriteLine("Loading ECMAXML files...");
-            var store = loader.LoadFolder("");
+            var store = loader.LoadFolder("", isUWPMode: config?.UWP ?? false);
             if (store == null)
             {
                 return false;
@@ -71,7 +71,6 @@ namespace ECMA2Yaml
 
             Console.WriteLine("Building loaded files...");
             Console.WriteLine($"ECMA2YamlRepoConfig:{JsonConvert.SerializeObject(config)}");
-            store.UWPMode = config?.UWP ?? false;
             store.Build();
 
             if (!string.IsNullOrEmpty(publicGitRepoUrl) && !string.IsNullOrEmpty(publicGitBranch))
