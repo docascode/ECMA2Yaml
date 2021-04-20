@@ -358,7 +358,7 @@ namespace ECMA2Yaml
             return rval;
         }
 
-        private ReturnValue ConvertNamedReturnValue(
+        private ReturnValue ConvertReturnValue(
             ReturnValue returns,
             List<TypeParameter> knownTypeParams = null,
             HashSet<string> totalLangs = null)
@@ -375,11 +375,10 @@ namespace ECMA2Yaml
 
                     if (!isGeneric && _store.TypeMappingStore?.TypeMappingPerLanguage != null)
                     {
-                        t.ValuePerLanguage = _store.TypeMappingStore.TranslateTypeString(t.Value, totalLangs ?? _store.TotalDevLangs);
-                        if (t.ValuePerLanguage != null)
-                        {
-                            t.ValuePerLanguage.ForEach(typePerLang => typePerLang.Value = TypeStringToTypeMDString(t.Value, _store));
-                        }
+                        t.ValuePerLanguage = TypeStringToMDWithTypeMapping(
+                            t.Value,
+                            totalLangs ?? _store.TotalDevLangs,
+                            nullIfTheSame: true);
                     }
 
                     t.Value = isGeneric ? t.Value : TypeStringToTypeMDString(t.Value, _store);
