@@ -137,7 +137,7 @@ namespace ECMA2Yaml
             var frameworkFolder = Path.Combine(folder, "FrameworksIndex");
             FrameworkIndex frameworkIndex = new FrameworkIndex()
             {
-                DocIdToFrameworkDict = new Dictionary<string, List<string>>(),
+                DocIdToFrameworkDict = new Dictionary<string, List<string>>(StringComparer.OrdinalIgnoreCase),
                 FrameworkAssemblies = new Dictionary<string, Dictionary<string, AssemblyInfo>>(),
                 AllFrameworks = new HashSet<string>()
             };
