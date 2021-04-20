@@ -36,6 +36,7 @@
         </Members>
     </InterfaceReplace>
     <TypeReplace From="System.Guid" To="winrt::guid" Langs="C++ WINRT" />
+	<TypeReplace From="System.Int64" To="INT64" Langs="C++ CLI" />
     <TypeReplace From="Windows.Foundation.Metadata.AttributeTargets" To="System.AttributeTargets" Langs="C#;VB.NET;F#" />
     <TypeReplace From="Windows.Foundation.Numerics.Matrix3x2" To="System.Numerics.Matrix3x2" Langs="C#;VB.NET;F#" />
     <TypeReplace From="Windows.Foundation.Numerics.Matrix4x4" To="System.Numerics.Matrix4x4" Langs="C#;VB.NET;F#" />

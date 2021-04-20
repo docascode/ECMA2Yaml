@@ -3,7 +3,15 @@ type: method
 members:
 - returnsWithMoniker:
     type:
-    - value: <xref href="System.Int64?alt=System.Int64&text=Int64" data-throw-if-not-resolved="True"/>
+    - valuePerLanguage:
+      - value: <xref href="System.Int64?alt=System.Int64&text=Int64" data-throw-if-not-resolved="True"/>
+        langs:
+        - csharp
+        - fsharp
+      - value: INT64
+        langs:
+        - cpp
+      value: <xref href="System.Int64?alt=System.Int64&text=Int64" data-throw-if-not-resolved="True"/>
     description: Return cat tail's length.
   parameters:
   - namesWithMoniker:
