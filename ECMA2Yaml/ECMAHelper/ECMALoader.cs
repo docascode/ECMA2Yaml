@@ -24,7 +24,7 @@ namespace ECMA2Yaml
             FallbackFiles = new ConcurrentBag<string>();
         }
 
-        public ECMAStore LoadFolder(string sourcePath)
+        public ECMAStore LoadFolder(string sourcePath, bool isUWPMode = false)
         {
             //if (!System.IO.Directory.Exists(sourcePath))
             //{
@@ -82,8 +82,9 @@ namespace ECMA2Yaml
             var store = new ECMAStore(filteredNS.OrderBy(ns => ns.Name).ToArray(), frameworks)
             {
                 FilterStore = filterStore,
-                TypeMappingStore = typeMappingStore,
-                PkgInfoMapping = pkgInfoMapping
+                TypeMappingStore = isUWPMode ? typeMappingStore : null,
+                PkgInfoMapping = pkgInfoMapping,
+                UWPMode = isUWPMode
             };
             return store;
         }

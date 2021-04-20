@@ -101,7 +101,12 @@ namespace ECMA2Yaml
             rval.AssembliesWithMoniker = _store.UWPMode ? null : MonikerizeAssemblyStrings(item);
             rval.PackagesWithMoniker = _store.UWPMode ? null : MonikerizePackageStrings(item, _store.PkgInfoMapping);
             rval.AttributesWithMoniker = item.Attributes?.Where(att => att.Visible)
-                .Select(att => new VersionedString() { Value = att.TypeFullName, Monikers = att.Monikers?.ToHashSet() })
+                .Select(att => new VersionedString() 
+                { 
+                    Value = att.TypeFullName,
+                    Monikers = att.Monikers?.ToHashSet(),
+                    PerLanguage = TypeStringToMDWithTypeMapping(att.TypeFullName, item.Signatures?.DevLangs, nullIfTheSame: true) 
+                })
                 .DistinctVersionedString()
                 .ToList().NullIfEmpty();
             rval.AttributeMonikers = ConverterHelper.ConsolidateVersionedValues(rval.AttributesWithMoniker, item.Monikers);
@@ -309,6 +314,28 @@ namespace ECMA2Yaml
             return null;
         }
 
+        private List<PerLanguageString> TypeStringToMDWithTypeMapping(
+            string typeString,
+            HashSet<string> totalLangs = null,
+            bool nullIfTheSame = false)
+        {
+            if (_store.TypeMappingStore != null)
+            {
+                var typePerLanguage = _store.TypeMappingStore.TranslateTypeString(typeString, totalLangs ?? _store.TotalDevLangs);
+                if (typePerLanguage != null)
+                {
+                    if (typePerLanguage?.Count == 1 && typePerLanguage.First().Value == typeString && nullIfTheSame)
+                    {
+                        return null;
+                    }
+                    typePerLanguage.ForEach(typePerLang => typePerLang.Value = TypeStringToTypeMDString(typePerLang.Value, _store));
+                    return typePerLanguage;
+                }
+            }
+
+            return null;
+        }
+
         private ParameterReference ConvertNamedParameter(
             Parameter p,
             List<TypeParameter> knownTypeParams = null,
@@ -322,11 +349,10 @@ namespace ECMA2Yaml
             };
             if (!isGeneric && _store.TypeMappingStore?.TypeMappingPerLanguage != null)
             {
-                rval.TypePerLanguage = _store.TypeMappingStore.TranslateTypeString(p.OriginalTypeString ?? p.Type, totalLangs ?? _store.TotalDevLangs);
-                if (rval.TypePerLanguage != null)
-                {
-                    rval.TypePerLanguage.ForEach(typePerLang => typePerLang.Value = TypeStringToTypeMDString(typePerLang.Value, _store));
-                }
+                rval.TypePerLanguage = TypeStringToMDWithTypeMapping(
+                    p.OriginalTypeString ?? p.Type,
+                    totalLangs ?? _store.TotalDevLangs,
+                    nullIfTheSame: true);
             }
             rval.NamesWithMoniker = p.VersionedNames;
             return rval;

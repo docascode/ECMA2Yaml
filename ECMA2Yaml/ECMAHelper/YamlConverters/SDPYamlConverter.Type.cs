@@ -18,10 +18,7 @@ namespace ECMA2Yaml
             Type child = t;
             sdpType.InheritancesWithMoniker = ConverterHelper.TrimMonikers(
                 t.InheritanceChains?.Select(
-                chain => new VersionedCollection<string>(
-                    chain.Monikers?.NullIfEmpty(),
-                    GetInheritChainMDStringList(chain.Values, t)
-                )).ToList(),
+                chain => GetInheritChainMDStringList(chain, t)).ToList(),
             t.Monikers);
             sdpType.DerivedClassesWithMoniker = MonikerizeDerivedClasses(t);
             sdpType.ImplementsWithMoniker = t.Interfaces?.Where(i => i != null && i.Value != null)
@@ -51,31 +48,69 @@ namespace ECMA2Yaml
             return sdpType;
         }
 
-        private List<string> GetInheritChainMDStringList(List<string> inheritanceChains, Type current)
+        private VersionedCollection<string> GetInheritChainMDStringList(VersionedCollection<string> chain, Type current)
         {
-            List<string> mdStringList = new List<string>();
+            VersionedCollection<string> rval = new VersionedCollection<string>
+            {
+                Values = new List<string>(),
+                ValuesPerLanguage = new List<PerLanguageString>(),
+                Monikers = chain.Monikers
+            };
             Type child = null;
             string parentUid = string.Empty;
             string childrenUid = string.Empty;
             string typeStr = string.Empty;
             string typeMDStr = string.Empty;
+            List<PerLanguageString> typeMDStrPerLang;
             int i = 0;
-            for (; i < inheritanceChains.Count - 1; i++)
+            for (; i < chain.Values.Count - 1; i++)
             {
-                parentUid = inheritanceChains[i];
-                childrenUid = inheritanceChains[i + 1];
+                parentUid = chain.Values[i];
+                childrenUid = chain.Values[i + 1];
                 child = _store.TypesByUid[childrenUid];
 
                 typeMDStr = GetParentTypeStringFromChild(child, parentUid);
-                mdStringList.Add(typeMDStr);
+                rval.Values.Add(typeMDStr);
+                typeMDStrPerLang = TypeStringToMDWithTypeMapping(GetParentTypeNameFromChild(child, parentUid), current.Signatures?.DevLangs);
+                if (typeMDStrPerLang != null)
+                {
+                    rval.ValuesPerLanguage.AddRange(typeMDStrPerLang);
+                }
             }
 
-            parentUid = inheritanceChains[i];
+            parentUid = chain.Values[i];
             child = current;
             typeMDStr = GetParentTypeStringFromChild(child, parentUid);
-            mdStringList.Add(typeMDStr);
+            rval.Values.Add(typeMDStr);
+            typeMDStrPerLang = TypeStringToMDWithTypeMapping(GetParentTypeNameFromChild(child, parentUid), current.Signatures?.DevLangs);
+            if (typeMDStrPerLang != null)
+            {
+                rval.ValuesPerLanguage.AddRange(typeMDStrPerLang);
+            }
+            if (!rval.ValuesPerLanguage.Any() || rval.ValuesPerLanguage.Select(v => v.Value).SequenceEqual(rval.Values))
+            {
+                rval.ValuesPerLanguage = null;
+            }
+            return rval;
+        }
 
-            return mdStringList;
+        private string GetTypNameByUid(string uid)
+        {
+            if (_store.TypesByUid.TryGetValue(uid, out var t))
+            {
+                return t.Name;
+            }
+            if (_store.MembersByUid.TryGetValue(uid, out var m))
+            {
+                return m.Name;
+            }
+            return uid;
+        }
+
+        private string GetParentTypeNameFromChild(Type children, string parentUid)
+        {
+            var find = children.BaseTypes.Where(p => p.Uid == parentUid).FirstOrDefault();
+            return find?.Name ?? GetTypNameByUid(parentUid);
         }
 
         private string GetParentTypeStringFromChild(Type children, string parentUid)
