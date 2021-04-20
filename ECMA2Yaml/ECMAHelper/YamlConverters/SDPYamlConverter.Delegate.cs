@@ -15,7 +15,7 @@ namespace ECMA2Yaml
 
             if (t.ReturnValueType != null)
             {
-                sdpDelegate.ReturnsWithMoniker = ConvertNamedReturnValue(t.ReturnValueType, t.TypeParameters, t.Signatures.DevLangs);
+                sdpDelegate.ReturnsWithMoniker = ConvertReturnValue(t.ReturnValueType, t.TypeParameters, t.Signatures.DevLangs);
             }
 
             sdpDelegate.Parameters = t.Parameters?.Select(p => ConvertNamedParameter(p, t.TypeParameters, t.Signatures.DevLangs))
