@@ -3,30 +3,11 @@ type: class
 inheritancesWithMoniker:
 - values:
   - <xref href="System.Object?alt=System.Object&text=Object" data-throw-if-not-resolved="True"/>
-  valuesPerLanguage:
-  - value: <xref href="System.Object?alt=System.Object&text=Object" data-throw-if-not-resolved="True"/>
-    langs:
-    - cpp
-  - value: winrt::Object
-    langs:
-    - csharp
-    - vb
-    - fsharp
   monikers:
   - cat-1.0
 - values:
   - <xref href="System.Object?alt=System.Object&text=Object" data-throw-if-not-resolved="True"/>
   - <xref href="CatLibrary.Complex`2?alt=CatLibrary.Complex&text=Complex" data-throw-if-not-resolved="True"/>&lt;<xref href="CatLibrary.Cat`2?alt=CatLibrary.Cat&text=Cat" data-throw-if-not-resolved="True"/>&lt;<xref href="CatLibrary.Tom?alt=CatLibrary.Tom&text=Tom" data-throw-if-not-resolved="True"/>,<xref href="System.Guid?alt=System.Guid&text=Guid" data-throw-if-not-resolved="True"/>&gt;,<xref href="System.Collections.Generic.IEnumerable`1?alt=System.Collections.Generic.IEnumerable&text=IEnumerable" data-throw-if-not-resolved="True"/>&lt;<xref href="System.String?alt=System.String&text=String" data-throw-if-not-resolved="True"/>&gt;&gt;
-  valuesPerLanguage:
-  - value: <xref href="System.Object?alt=System.Object&text=Object" data-throw-if-not-resolved="True"/>
-    langs:
-    - cpp
-  - value: winrt::Object
-    langs:
-    - csharp
-    - vb
-    - fsharp
-  - value: <xref href="CatLibrary.Complex`2?alt=CatLibrary.Complex&text=Complex" data-throw-if-not-resolved="True"/>&lt;<xref href="CatLibrary.Cat`2?alt=CatLibrary.Cat&text=Cat" data-throw-if-not-resolved="True"/>&lt;<xref href="CatLibrary.Tom?alt=CatLibrary.Tom&text=Tom" data-throw-if-not-resolved="True"/>,<xref href="System.Guid?alt=System.Guid&text=Guid" data-throw-if-not-resolved="True"/>&gt;,<xref href="System.Collections.Generic.IEnumerable`1?alt=System.Collections.Generic.IEnumerable&text=IEnumerable" data-throw-if-not-resolved="True"/>&lt;<xref href="System.String?alt=System.String&text=String" data-throw-if-not-resolved="True"/>&gt;&gt;
   monikers:
   - cat-2.0
 derivedClassesWithMoniker:

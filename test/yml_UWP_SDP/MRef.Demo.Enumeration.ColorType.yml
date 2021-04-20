@@ -2,15 +2,6 @@
 inheritancesWithMoniker:
 - values:
   - <xref href="System.Enum?alt=System.Enum&text=Enum" data-throw-if-not-resolved="True"/>
-  valuesPerLanguage:
-  - value: <xref href="System.Enum?alt=System.Enum&text=Enum" data-throw-if-not-resolved="True"/>
-    langs:
-    - cpp
-  - value: winrt::Enum
-    langs:
-    - csharp
-    - vb
-    - fsharp
 fields:
 - uid: MRef.Demo.Enumeration.ColorType.Blue
   commentId: F:MRef.Demo.Enumeration.ColorType.Blue

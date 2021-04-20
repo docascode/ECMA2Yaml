@@ -61,6 +61,7 @@ namespace ECMA2Yaml
             string childrenUid = string.Empty;
             string typeStr = string.Empty;
             string typeMDStr = string.Empty;
+            List<PerLanguageString> typeMDStrPerLang;
             int i = 0;
             for (; i < chain.Values.Count - 1; i++)
             {
@@ -70,15 +71,23 @@ namespace ECMA2Yaml
 
                 typeMDStr = GetParentTypeStringFromChild(child, parentUid);
                 rval.Values.Add(typeMDStr);
-                rval.ValuesPerLanguage.AddRange(TypeStringToMDWithTypeMapping(GetParentTypeNameFromChild(child, parentUid), current.Signatures?.DevLangs));
+                typeMDStrPerLang = TypeStringToMDWithTypeMapping(GetParentTypeNameFromChild(child, parentUid), current.Signatures?.DevLangs);
+                if (typeMDStrPerLang != null)
+                {
+                    rval.ValuesPerLanguage.AddRange(typeMDStrPerLang);
+                }
             }
 
             parentUid = chain.Values[i];
             child = current;
             typeMDStr = GetParentTypeStringFromChild(child, parentUid);
             rval.Values.Add(typeMDStr);
-            rval.ValuesPerLanguage.AddRange(TypeStringToMDWithTypeMapping(GetParentTypeNameFromChild(child, parentUid), current.Signatures?.DevLangs));
-            if (rval.ValuesPerLanguage.Select(v => v.Value).SequenceEqual(rval.Values))
+            typeMDStrPerLang = TypeStringToMDWithTypeMapping(GetParentTypeNameFromChild(child, parentUid), current.Signatures?.DevLangs);
+            if (typeMDStrPerLang != null)
+            {
+                rval.ValuesPerLanguage.AddRange(typeMDStrPerLang);
+            }
+            if (!rval.ValuesPerLanguage.Any() || rval.ValuesPerLanguage.Select(v => v.Value).SequenceEqual(rval.Values))
             {
                 rval.ValuesPerLanguage = null;
             }

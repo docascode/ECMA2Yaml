@@ -319,16 +319,20 @@ namespace ECMA2Yaml
             HashSet<string> totalLangs = null,
             bool nullIfTheSame = false)
         {
-            var typePerLanguage = _store.TypeMappingStore.TranslateTypeString(typeString, totalLangs ?? _store.TotalDevLangs);
-            if (typePerLanguage != null)
+            if (_store.TypeMappingStore != null)
             {
-                if (typePerLanguage?.Count == 1 && typePerLanguage.First().Value == typeString && nullIfTheSame)
+                var typePerLanguage = _store.TypeMappingStore.TranslateTypeString(typeString, totalLangs ?? _store.TotalDevLangs);
+                if (typePerLanguage != null)
                 {
-                    return null;
+                    if (typePerLanguage?.Count == 1 && typePerLanguage.First().Value == typeString && nullIfTheSame)
+                    {
+                        return null;
+                    }
+                    typePerLanguage.ForEach(typePerLang => typePerLang.Value = TypeStringToTypeMDString(typePerLang.Value, _store));
+                    return typePerLanguage;
                 }
-                typePerLanguage.ForEach(typePerLang => typePerLang.Value = TypeStringToTypeMDString(typePerLang.Value, _store));
-                return typePerLanguage;
             }
+
             return null;
         }
 

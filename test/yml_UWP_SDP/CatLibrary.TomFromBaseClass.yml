@@ -4,16 +4,6 @@ inheritancesWithMoniker:
 - values:
   - <xref href="System.Object?alt=System.Object&text=Object" data-throw-if-not-resolved="True"/>
   - <xref href="CatLibrary.Tom?alt=CatLibrary.Tom&text=Tom" data-throw-if-not-resolved="True"/>
-  valuesPerLanguage:
-  - value: <xref href="System.Object?alt=System.Object&text=Object" data-throw-if-not-resolved="True"/>
-    langs:
-    - cpp
-  - value: winrt::Object
-    langs:
-    - csharp
-    - vb
-    - fsharp
-  - value: <xref href="CatLibrary.Tom?alt=CatLibrary.Tom&text=Tom" data-throw-if-not-resolved="True"/>
   monikers:
   - cat-1.0
 - values:
@@ -22,14 +12,14 @@ inheritancesWithMoniker:
   - <xref href="CatLibrary.Tom?alt=CatLibrary.Tom&text=Tom" data-throw-if-not-resolved="True"/>
   valuesPerLanguage:
   - value: <xref href="System.Object?alt=System.Object&text=Object" data-throw-if-not-resolved="True"/>
-    langs:
-    - cpp
-  - value: winrt::Object
+  - value: <xref href="CatLibrary.Complex`2?alt=CatLibrary.Complex&text=Complex" data-throw-if-not-resolved="True"/>&lt;<xref href="CatLibrary.Cat`2?alt=CatLibrary.Cat&text=Cat" data-throw-if-not-resolved="True"/>&lt;<xref href="CatLibrary.Tom?alt=CatLibrary.Tom&text=Tom" data-throw-if-not-resolved="True"/>,<xref href="System.Guid?alt=System.Guid&text=Guid" data-throw-if-not-resolved="True"/>&gt;,<xref href="System.Collections.Generic.IEnumerable`1?alt=System.Collections.Generic.IEnumerable&text=IEnumerable" data-throw-if-not-resolved="True"/>&lt;<xref href="System.String?alt=System.String&text=String" data-throw-if-not-resolved="True"/>&gt;&gt;
     langs:
     - csharp
     - vb
     - fsharp
-  - value: <xref href="CatLibrary.Complex`2?alt=CatLibrary.Complex&text=Complex" data-throw-if-not-resolved="True"/>&lt;<xref href="CatLibrary.Cat`2?alt=CatLibrary.Cat&text=Cat" data-throw-if-not-resolved="True"/>&lt;<xref href="CatLibrary.Tom?alt=CatLibrary.Tom&text=Tom" data-throw-if-not-resolved="True"/>,<xref href="System.Guid?alt=System.Guid&text=Guid" data-throw-if-not-resolved="True"/>&gt;,<xref href="System.Collections.Generic.IEnumerable`1?alt=System.Collections.Generic.IEnumerable&text=IEnumerable" data-throw-if-not-resolved="True"/>&lt;<xref href="System.String?alt=System.String&text=String" data-throw-if-not-resolved="True"/>&gt;&gt;
+  - value: <xref href="CatLibrary.Complex`2?alt=CatLibrary.Complex&text=Complex" data-throw-if-not-resolved="True"/>&lt;<xref href="CatLibrary.Cat`2?alt=CatLibrary.Cat&text=Cat" data-throw-if-not-resolved="True"/>&lt;<xref href="CatLibrary.Tom?alt=CatLibrary.Tom&text=Tom" data-throw-if-not-resolved="True"/>,<xref href="System.Guid?alt=System.Guid&text=Guid" data-throw-if-not-resolved="True"/>&gt;,<xref href="Windows.Foundation.Collections.IIterable`1?alt=Windows.Foundation.Collections.IIterable&text=IIterable" data-throw-if-not-resolved="True"/>&lt;<xref href="System.String?alt=System.String&text=String" data-throw-if-not-resolved="True"/>&gt;&gt;
+    langs:
+    - cpp
   - value: <xref href="CatLibrary.Tom?alt=CatLibrary.Tom&text=Tom" data-throw-if-not-resolved="True"/>
   monikers:
   - cat-2.0

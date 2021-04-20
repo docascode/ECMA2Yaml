@@ -4,16 +4,6 @@ inheritancesWithMoniker:
 - values:
   - <xref href="System.Object?alt=System.Object&text=Object" data-throw-if-not-resolved="True"/>
   - <xref href="VersioningTest.C?alt=VersioningTest.C&text=C" data-throw-if-not-resolved="True"/>
-  valuesPerLanguage:
-  - value: <xref href="System.Object?alt=System.Object&text=Object" data-throw-if-not-resolved="True"/>
-    langs:
-    - cpp
-  - value: winrt::Object
-    langs:
-    - csharp
-    - vb
-    - fsharp
-  - value: <xref href="VersioningTest.C?alt=VersioningTest.C&text=C" data-throw-if-not-resolved="True"/>
 extensionMethods:
 - uid: VersioningTest.VersioningExtensions.ExtMethodForI(VersioningTest.I1)
   monikers:
