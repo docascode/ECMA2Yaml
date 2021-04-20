@@ -12,6 +12,15 @@ parameters:
   - value: num
   description: Fake para
   type: <xref href="System.Int64?alt=System.Int64&text=Int64" data-throw-if-not-resolved="True"/>
+  typePerLanguage:
+  - value: <xref href="System.Int64?alt=System.Int64&text=Int64" data-throw-if-not-resolved="True"/>
+    langs:
+    - csharp
+    - vb
+    - fsharp
+  - value: INT64
+    langs:
+    - cpp
 - namesWithMoniker:
   - value: name
   description: Fake para

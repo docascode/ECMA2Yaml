@@ -21,22 +21,7 @@ namespace ECMA2Yaml
 
             if (m.ReturnValueType != null)
             {
-                var returns = m.ReturnValueType;
-                var r = returns.VersionedTypes
-                       .Where(v => !string.IsNullOrWhiteSpace(v.Value) && v.Value != "System.Void").ToArray();
-                if (r.Any())
-                {
-                    foreach (var t in returns.VersionedTypes)
-                    {
-                        t.Value = SDPYamlConverter.TypeStringToTypeMDString(t.Value, _store);
-                    }
-                    var returnType = new ReturnValue
-                    {
-                        VersionedTypes = r,
-                        Description = returns.Description
-                    };
-                    sdpMember.ReturnsWithMoniker = returnType;
-                }
+                sdpMember.ReturnsWithMoniker = ConvertReturnValue(m.ReturnValueType, knowTypeParams, m.Signatures.DevLangs);
             }
 
             sdpMember.Parameters = m.Parameters?.Select(p => ConvertNamedParameter(p, knowTypeParams, m.Signatures.DevLangs))

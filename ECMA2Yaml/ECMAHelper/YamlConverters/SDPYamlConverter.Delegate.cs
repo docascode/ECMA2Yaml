@@ -15,17 +15,7 @@ namespace ECMA2Yaml
 
             if (t.ReturnValueType != null)
             {
-                var returns = t.ReturnValueType;
-                var r = returns.VersionedTypes
-                    .Where(v => !string.IsNullOrWhiteSpace(v.Value) && v.Value != "System.Void");
-                if (r.Any())
-                {
-                    foreach (var vt in returns.VersionedTypes)
-                    {
-                        vt.Value = SDPYamlConverter.TypeStringToTypeMDString(vt.Value, _store);
-                    }
-                    sdpDelegate.ReturnsWithMoniker = returns;
-                }
+                sdpDelegate.ReturnsWithMoniker = ConvertReturnValue(t.ReturnValueType, t.TypeParameters, t.Signatures.DevLangs);
             }
 
             sdpDelegate.Parameters = t.Parameters?.Select(p => ConvertNamedParameter(p, t.TypeParameters, t.Signatures.DevLangs))
