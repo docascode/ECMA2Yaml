@@ -47,6 +47,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EcmaLoaderDocsTests.cs" />
     <Compile Include="ExtensionTests.cs" />
     <Compile Include="MSDNUrlPatchTests.cs" />
     <Compile Include="IntellisenseFileTests.cs" />

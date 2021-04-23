@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
 using System.Xml.Linq;
@@ -25,6 +26,7 @@ namespace ECMA2Yaml
 
         public Docs LoadDocs(XElement dElement, string filePath)
         {
+            var preTransform = dElement;
             dElement = TransformDocs(dElement);
             if (dElement == null)
             {
@@ -32,7 +34,7 @@ namespace ECMA2Yaml
             }
 
             var remarks = dElement.Element("remarks");
-            string remarksText = NormalizeDocsElement(remarks, true);
+            string remarksText = NormalizeDocsElement(remarks);
             string examplesText = null;
             if (remarksText != null)
             {
@@ -124,7 +126,7 @@ namespace ECMA2Yaml
             return new Docs()
             {
                 Summary = NormalizeDocsElement(dElement.Element("summary")),
-                Remarks = remarksText,
+                Remarks = FormatTextIntoParagraphs(remarksText),
                 Examples = examplesText,
                 AltMemberCommentIds = MergeAltmemberAndSeealsoToAltMemberCommentsIds(dElement),//dElement.Elements("altmember")?.Select(alt => alt.Attribute("cref").Value).ToList(),
                 Related = related,
@@ -141,6 +143,208 @@ namespace ECMA2Yaml
                 InternalOnly = dElement.Element("forInternalUseOnly") != null,
                 Inheritdoc = inheritDoc
             };
+        }
+
+        private static readonly Regex newLineRegex = new Regex("(\r\n|\r|\n)", RegexOptions.Compiled);
+
+        /// <summary>
+        ///   Formats a block of text into a set of paragraphs, allowing text-heavy
+        ///   document comment elements, such as <c><remarks></remarks></c>, to maintain
+        ///   formatting in the source code to make them readable for developers, while
+        ///   ensuring they render without inappropriate line breaks.
+        /// </summary>
+        ///
+        /// <param name="text">The text to format.</param>
+        ///
+        /// <returns>The <paramref name="text"/>, formatted into paragraphs.</returns>
+        ///
+        /// <example>
+        ///     Given the source:
+        ///     <code>
+        ///         <remarks> This is an example taken from an existing
+        ///         product that rendered with line breaks as they
+        ///         appeared in source.</remarks>
+        ///     </code>
+        ///
+        ///     The formatted content result would be:
+        ///     <code>
+        ///         <p>This is an example taken from an existing product that rendered with line breaks as they appeared in source.</p>
+        ///     </code>
+        /// </example>
+        ///
+        /// <example>
+        ///     Given the source:
+        ///     <code>
+        ///         <remarks>
+        ///           This is a bit of formatted text that has
+        ///           multiple line breaks in it.
+        ///
+        ///           There are also multiple paragraphs. Formatting
+        ///           is intended to be readable for developers maintaining
+        ///           the code.
+        ///         </remarks>
+        ///     </code>
+        ///
+        ///     The formatted content result would be:
+        ///     <code>
+        ///         <p>This is a bit of formatted text that has multiple line breaks in it.</p><p>There are also multiple paragraphs. Formatting is intended to be readable for developers maintaining the code.</p>
+        ///     </code>
+        /// </example>
+        ///
+        /// <example>
+        ///     Given the source:
+        ///     <code>
+        ///         <remarks>
+        ///           This is a bit of formatted text that has
+        ///           multiple line breaks in it.
+        ///
+        ///           <para>There are also multiple paragraphs. Formatting
+        ///           is intended to be readable for developers maintaining
+        ///           the code.</para>
+        ///         </remarks>
+        ///     </code>
+        ///
+        ///     The formatted content result would be:
+        ///     <code>
+        ///         <p>This is a bit of formatted text that has multiple line breaks in it.</p><p>There are also multiple paragraphs. Formatting is intended to be readable for developers maintaining the code.</p>
+        ///     </code>
+        /// </example>
+        ///
+        public static string FormatTextIntoParagraphs(string text)
+        {
+            const string ParagraphOpen = "<p>";
+            const string ParagraphClose = "</p>";
+
+            // If there is no content, there is nothing to do.
+
+            if (string.IsNullOrWhiteSpace(text))
+            {
+                return text;
+            }
+
+            // Locate the first non-blank line.  If all lines are
+            // blank, then there is nothing to do.
+
+            var lines = text.Split('\n');
+            var lineIndex = -1;
+
+            for (var index = 0; index < lines.Length; ++index)
+            {
+                if (!string.IsNullOrWhiteSpace(lines[index]))
+                {
+                    lineIndex = index;
+                    break;
+                }
+            }
+
+            if (lineIndex < 0)
+            {
+                return text;
+            }
+
+            // Format the non-blank lines.
+
+            var paragraphs = new List<string>(lines.Length);
+            var builder = new StringBuilder();
+            var firstLine = true;
+
+            string line;
+
+            foreach (var sourceLine in lines.Skip(lineIndex))
+            {
+                line = sourceLine.Trim();
+
+                // If there was an empty line, assume that the current paragraph has ended.
+
+                if (string.IsNullOrEmpty(line))
+                {
+                    // If this isn't the first line of a paragraph,
+                    // then ignore the blank line.
+
+                    if ((builder.Length > 0) && (!firstLine))
+                    {
+                        paragraphs.Add(builder.ToString());
+                        builder.Clear();
+                        firstLine = true;
+                    }
+                }
+                else
+                {
+                    // To allow for line breaks for source code formatting, normalize
+                    // the beginning of the line, ensuring that a space is present when
+                    // this isn't the fist line of a new paragraph.
+
+                    if (!firstLine)
+                    {
+                        builder.Append(' ');
+                    }
+
+                    builder.Append(newLineRegex.Replace(line, string.Empty));
+                    firstLine = false;
+
+                    // If a closing paragraph tag was manually used, assume that the current
+                    // paragraph has ended.
+
+                    if (line.EndsWith(ParagraphClose))
+                    {
+                        paragraphs.Add(builder.ToString());
+                        builder.Clear();
+                        firstLine = true;
+                    }
+                }
+            }
+
+            // If there is content in the string builder, then consider it the last
+            // paragraph.
+
+            if (builder.Length > 0)
+            {
+                paragraphs.Add(builder.ToString());
+            }
+
+            // With the paragraphs normalized, ensure tag wrapping
+            // for the return.
+
+           builder = new StringBuilder();
+
+            for (var index = 0; index < paragraphs.Count; ++index)
+            {
+                // Handle any embedded paragraphs within the current paragraph so that tag
+                // paring can be ensured.  Start by splitting the previously discovered paragraph
+                // on any open tags.  This will remove the open tag and split each embedded paragraph
+                // into a separate line.
+
+                lines = paragraphs[index].Split(new[] { ParagraphOpen }, StringSplitOptions.RemoveEmptyEntries);
+
+                for (lineIndex = 0; lineIndex < lines.Length; ++lineIndex)
+                {
+                    line = lines[lineIndex];
+
+                    // If the line ends with a closing tag, then trim it out; this will
+                    // allow the paragraph tags to be normalized without worrying about
+                    // the corner case; the ending tag will be added back in later.
+
+                    if (line.EndsWith(ParagraphClose))
+                    {
+                        line = line.Substring(0, (line.Length - ParagraphClose.Length));
+                    }
+
+                    // Any remaining paragraph close tags are embedded in the line; normalize
+                    // the tags by adding an open paragraph tag after the closing one.  Since
+                    // a closing tag will be added to the line, the embedded tags should always
+                    // be left in an open state.
+
+                    line = line.Replace(ParagraphClose, $"{ ParagraphClose }{ ParagraphOpen }");
+
+                    // Build the paragraph.
+
+                    builder.Append(ParagraphOpen);
+                    builder.Append(line.Trim());
+                    builder.Append(ParagraphClose);
+                }
+            }
+
+            return builder.ToString();
         }
 
         /// <summary>
@@ -187,6 +391,7 @@ namespace ECMA2Yaml
             "#####",
             "######"
         };
+
         private static readonly Regex markdownH2HeaderRegex = new Regex("^\\s{0,3}##[^#]", RegexOptions.Compiled | RegexOptions.Multiline);
 
         /// <summary>Determines whether the string is a markdown header (or at least, starts with one ... it assumes this is a single line of text)</summary>

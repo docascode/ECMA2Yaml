@@ -78,12 +78,25 @@ namespace CatLibrary
         /// <summary>
         /// Default constructor.
         /// </summary>
+        /// <remarks>
+        ///   This is an example of the format that is used by some libraries, where
+        ///   the lines of the remarks are broken up to increase readability for other
+        ///   developers, but should be rendered as one paragraph for MS Docs.
+        /// </remarks>
         public Cat() { }
 
         /// <summary>
         /// Constructor with one generic parameter.
         /// </summary>
         /// <param name="ownType">This parameter type defined by class.</param>
+        /// <remarks>
+        ///   This is an example of the format that is used by some libraries, where
+        ///   the lines of the remarks are broken up to increase readability.
+        ///
+        ///   Because of the blank line that precedes it, this should be considered
+        ///   a new paragraph.  Intellisense renders this correctly in VS, the
+        ///   MS Docs rendering should follow suit.
+        /// </remarks>
         public Cat(T ownType) { }
 
         /// <summary>
@@ -93,6 +106,17 @@ namespace CatLibrary
         /// <param name="age">It's an out and ref parameter.</param>
         /// <param name="realName">It's an out paramter.</param>
         /// <param name="isHealthy">It's an in parameter.</param>
+        /// <remarks> Retry policies instruct the Storage Client to retry failed requests.
+        /// By default, only some failures are retried. For example, connection failures and
+        /// throttling failures can be retried. Resource not found (404) or authentication
+        /// failures are not retried, because these are not likely to succeed on retry.
+        /// If not set, the Storage Client uses an exponential backoff retry policy, where the wait time gets
+        /// exponentially longer between requests, up to a total of around 30 seconds.
+        /// The default retry policy is recommended for most scenarios.
+        ///
+        ///## Examples
+        ///  [!code-csharp[Retry_Policy_Sample](~/azure-storage-net/Test/ClassLibraryCommon/Blob/BlobUploadDownloadTest.cs#sample_RequestOptions_RetryPolicy "Retry Policy Sample")]
+        ///</remarks>
         public Cat(string nickName, out int age, [Out] string realName, [In] bool isHealthy) { age = 1; }
 
         //Methods: template + normal with generic type + pointer method

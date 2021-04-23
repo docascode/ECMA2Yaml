@@ -22,6 +22,7 @@ members:
   - cat-1.0
   - cat-2.0
   summary: Default constructor.
+  remarks: <p>This is an example of the format that is used by some libraries, where the lines of the remarks are broken up to increase readability for other developers, but should be rendered as one paragraph for MS Docs.</p>
   uwpRequirements:
     deviceFamilies:
     - name: Windws 10, version 1803
@@ -96,6 +97,7 @@ members:
   - cat-1.0
   - cat-2.0
   summary: Constructor with one generic parameter.
+  remarks: <p>This is an example of the format that is used by some libraries, where the lines of the remarks are broken up to increase readability.</p><p>Because of the blank line that precedes it, this should be considered a new paragraph.  Intellisense renders this correctly in VS, the MS Docs rendering should follow suit.</p>
   metadata: {}
 - parameters:
   - namesWithMoniker:
@@ -165,6 +167,8 @@ members:
   - cat-1.0
   - cat-2.0
   summary: It's a complex constructor. The parameter will have some attributes.
+  remarks: <p>Retry policies instruct the Storage Client to retry failed requests. By default, only some failures are retried. For example, connection failures and throttling failures can be retried. Resource not found (404) or authentication failures are not retried, because these are not likely to succeed on retry. If not set, the Storage Client uses an exponential backoff retry policy, where the wait time gets exponentially longer between requests, up to a total of around 30 seconds. The default retry policy is recommended for most scenarios.</p>
+  examples: '[!code-csharp[Retry_Policy_Sample](~/azure-storage-net/Test/ClassLibraryCommon/Blob/BlobUploadDownloadTest.cs#sample_RequestOptions_RetryPolicy "Retry Policy Sample")]'
   metadata: {}
 uid: CatLibrary.Cat`2.#ctor*
 commentId: Overload:CatLibrary.Cat`2.#ctor

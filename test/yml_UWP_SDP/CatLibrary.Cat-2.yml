@@ -206,16 +206,7 @@ summary: >-
   <a href="http://some.external.net/embeddedcontent">SeeAlsoEmbeddedContent</a>
 
   <a href="http://some.external.net/embeddedselfclose">http://some.external.net/embeddedselfclose</a>
-remarks: >-
-  <p>Here's all the content you can see in this class.</p>
-
-  <a href="http://some.external.net/see-remarkscontent">SeeRemarksContent</a>
-
-  <a href="http://some.external.net/see-remarksselfclose">http://some.external.net/see-remarksselfclose</a>
-
-  <a href="http://some.external.net/seealso-remarkscontent">SeeAlsoRemarksContent</a>
-
-  <a href="http://some.external.net/seealso-remarksselfclose">http://some.external.net/seealso-remarksselfclose</a>
+remarks: <p>Here's all the content you can see in this class.</p><p><a href="http://some.external.net/see-remarkscontent">SeeRemarksContent</a> <a href="http://some.external.net/see-remarksselfclose">http://some.external.net/see-remarksselfclose</a> <a href="http://some.external.net/seealso-remarkscontent">SeeAlsoRemarksContent</a> <a href="http://some.external.net/seealso-remarksselfclose">http://some.external.net/seealso-remarksselfclose</a></p>
 examples: >-
   <p>Here's example of how to create an instance of this class. As T is limited with <code data-dev-comment-type="c">class</code> and K is limited with <code data-dev-comment-type="c">struct</code>.</p>
 
