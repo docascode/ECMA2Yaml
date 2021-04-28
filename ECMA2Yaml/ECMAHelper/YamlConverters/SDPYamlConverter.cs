@@ -411,7 +411,8 @@ namespace ECMA2Yaml
 
         public static string BuildSeeAlsoList(Docs docs, ECMAStore store)
         {
-            if ((docs.AltMemberCommentIds?.Count == 0) || (docs.Related?.Count == 0))
+            if ((docs.AltMemberCommentIds == null || docs.AltMemberCommentIds?.Count == 0) 
+                && (docs.Related == null || docs.Related?.Count == 0))
             {
                 return null;
             }
