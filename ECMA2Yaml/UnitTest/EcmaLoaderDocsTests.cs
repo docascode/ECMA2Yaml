@@ -396,5 +396,40 @@ namespace UnitTest
             Assert.AreEqual(expectedRemarks, parsed.Remarks);
             Assert.AreEqual(expectedExamples, parsed.Examples);
         }
+
+        [TestMethod]
+        [DataRow("<format>")]
+        [DataRow("<format language =\"markdown\">")]
+        [DataRow("<format >")]
+        public void LoadDocs_FormatWrappedTextIsIgnored(string openTag)
+        {
+            var content = @"This should be totally ignored.  It should
+               `not be modified at all.`
+               **All the lines should be preserved.**
+
+               Even this one.";
+
+            var comments = XElement.Parse(
+            $@"<Docs>
+                <summary>
+                  Constructor with one generic parameter.
+                </summary>
+
+                <param name=""ownType"">This parameter type defined by class.</param>
+
+                <remarks>
+                  { openTag }
+                    { content }
+                  </format>
+                </remarks>
+              </Docs>");
+
+            // Normalize the indent to match formatting.
+
+            var expected = string.Join("\n", content.Split('\n').Select(line => line.Trim()));
+
+            var parsed = new ECMALoader(null).LoadDocs(comments, "<<dummy>>");
+            Assert.AreEqual(expected, parsed.Remarks);
+        }
     }
 }

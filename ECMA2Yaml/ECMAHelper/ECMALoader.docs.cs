@@ -33,8 +33,9 @@ namespace ECMA2Yaml
                 return null;
             }
 
-            var remarks = dElement.Element("remarks");
-            string remarksText = NormalizeDocsElement(remarks);
+            string remarksText = NormalizeDocsElement(dElement.Element("remarks"), out var remarksAreFormatted);
+
+
             string examplesText = null;
             if (remarksText != null)
             {
@@ -58,7 +59,7 @@ namespace ECMA2Yaml
             if (examples != null && examples.Count() > 0)
             {
                 examplesText = string.IsNullOrEmpty(examplesText) ? "" : examplesText + "\n\n";
-                examplesText += string.Join("\n\n", examples.Select(example => NormalizeDocsElement(example)));
+                examplesText += string.Join("\n\n", examples.Select(example => NormalizeDocsElement(example, out _)));
             }
 
             List<RelatedTag> related = null;
@@ -125,17 +126,17 @@ namespace ECMA2Yaml
 
             return new Docs()
             {
-                Summary = NormalizeDocsElement(dElement.Element("summary")),
-                Remarks = FormatTextIntoParagraphs(remarksText),
+                Summary = NormalizeDocsElement(dElement.Element("summary"), out _),
+                Remarks = (remarksAreFormatted) ? remarksText : FormatTextIntoParagraphs(remarksText),
                 Examples = examplesText,
                 AltMemberCommentIds = MergeAltmemberAndSeealsoToAltMemberCommentsIds(dElement),//dElement.Elements("altmember")?.Select(alt => alt.Attribute("cref").Value).ToList(),
                 Related = related,
                 Exceptions = dElement.Elements("exception")?.Select(el => GetTypedContent(el, filePath)).ToList(),
                 Permissions = dElement.Elements("permission")?.Select(el => GetTypedContent(el, filePath)).ToList(),
-                Parameters = dElement.Elements("param")?.Where(p => !string.IsNullOrEmpty(p.Attribute("name").Value)).ToDictionary(p => p.Attribute("name").Value, p => NormalizeDocsElement(p)),
+                Parameters = dElement.Elements("param")?.Where(p => !string.IsNullOrEmpty(p.Attribute("name").Value)).ToDictionary(p => p.Attribute("name").Value, p => NormalizeDocsElement(p, out _)),
                 TypeParameters = dElement.Elements("typeparam")?.Where(p => !string.IsNullOrEmpty(p.Attribute("name").Value)).ToDictionary(p => p.Attribute("name").Value, p => NormalizeDocsElement(GetInnerXml(p))),
                 AdditionalNotes = additionalNotes,
-                Returns = NormalizeDocsElement(dElement.Element("returns")), //<value> will be transformed to <returns> by xslt in advance
+                Returns = NormalizeDocsElement(dElement.Element("returns"), out _), //<value> will be transformed to <returns> by xslt in advance
                 ThreadSafety = threadSafetyContent,
                 ThreadSafetyInfo = threadSafety,
                 Since = NormalizeDocsElement(dElement.Element("since")?.Value),
@@ -528,14 +529,17 @@ namespace ECMA2Yaml
             return reader.ReadInnerXml();
         }
 
-        private static string NormalizeDocsElement(XElement ele, bool wrap = false)
+        private static string NormalizeDocsElement(XElement ele, out bool isFormatContent)
         {
+            isFormatContent = false;
+
             if (ele == null)
             {
                 return null;
             }
             else if (ele.Element("format") != null && ele.Elements().Count() == 1) // markdown
             {
+                isFormatContent = true;
                 return NormalizeTextIndent(ele.Element("format").Value, out _);
             }
             else if (ele.HasElements) // comment xml
@@ -551,13 +555,7 @@ namespace ECMA2Yaml
                 {
                     return null;
                 }
-                val = NormalizeTextIndent(val, out bool formatDetected);
-                if (wrap && formatDetected)
-                {
-                    //val = string.Format("<pre>{0}</pre>", val);
-                    val = val.Replace("\n", "\n\n");
-                }
-                return val;
+                return NormalizeTextIndent(val, out _);
             }
         }
 

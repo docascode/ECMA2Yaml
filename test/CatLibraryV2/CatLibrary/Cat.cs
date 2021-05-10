@@ -193,6 +193,14 @@ namespace CatLibrary
         /// <summary>
         /// Hint cat's age.
         /// </summary>
+        /// <remarks>
+        /// <format langauge="markdown">
+        /// ```csharp
+        /// var cat = new Cat();
+        /// var age = cat.Age;  // Will always be 1.
+        /// ```
+        /// </format>
+        /// </remarks>
         protected int Age
         {
             get { return 1; }
@@ -203,6 +211,14 @@ namespace CatLibrary
         /// <summary>
         /// Eat event of this cat
         /// </summary>
+        /// <remarks>
+        /// <format>
+        ///   This should not be changed.
+        ///   Not this line.
+        ///
+        ///   Nor this one.
+        /// </format>
+        /// </remarks>
         public event EventHandler ownEat;
 
         //Field: with attribute

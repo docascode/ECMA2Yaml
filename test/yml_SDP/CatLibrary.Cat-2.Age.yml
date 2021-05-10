@@ -27,6 +27,14 @@ members:
   monikers:
   - cat-2.0
   summary: Hint cat's age.
+  remarks: >-
+    ```csharp
+
+    var cat = new Cat();
+
+    var age = cat.Age;  // Will always be 1.
+
+    ```
   metadata: {}
 uid: CatLibrary.Cat`2.Age*
 commentId: Overload:CatLibrary.Cat`2.Age

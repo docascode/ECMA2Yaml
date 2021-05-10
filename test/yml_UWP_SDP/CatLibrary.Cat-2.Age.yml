@@ -27,6 +27,14 @@ members:
   monikers:
   - cat-2.0
   summary: Hint cat's age.
+  remarks: >-
+    ```csharp
+
+    var cat = new Cat();
+
+    var age = cat.Age;  // Will always be 1.
+
+    ```
   uwpRequirements:
     deviceFamilies:
     - name: Windws 10, version 1803

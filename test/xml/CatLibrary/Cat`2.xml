@@ -304,7 +304,14 @@
             Hint cat's age.
             </summary>
         <value>To be added.</value>
-        <remarks>To be added.</remarks>
+        <remarks>
+          <format langauge="markdown">
+            ```csharp
+            var cat = new Cat();
+            var age = cat.Age;  // Will always be 1.
+            ```
+            </format>
+        </remarks>
       </Docs>
     </Member>
     <Member MemberName="CalculateFood">
@@ -877,7 +884,14 @@
         <summary>
             Eat event of this cat
             </summary>
-        <remarks>To be added.</remarks>
+        <remarks>
+        <format>
+          This should not be changed.
+          Not this line.
+
+          Nor this one.
+        </format>
+        </remarks>
       </Docs>
     </Member>
   </Members>
