@@ -153,7 +153,8 @@ namespace ECMA2Yaml
                 {
                     Uid = m.Uid,
                     InheritedFrom = inheritanceInfo != null ? m.Parent.Uid : null,
-                    Monikers = monikers
+                    Monikers = monikers,
+                    CrossInheritdocUid=m.CrossInheritdocUid
                 };
             }
             return null;
@@ -205,7 +206,8 @@ namespace ECMA2Yaml
             return new NamespaceTypeLink()
             {
                 Uid = t.Uid,
-                Monikers = t.Monikers
+                Monikers = t.Monikers,
+                CrossInheritdocUid = t.CrossInheritdocUid
             };
         }
 
