@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Linq;
 using ECMA2Yaml;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -27,12 +23,10 @@ namespace UnitTest
         }
 
         [TestMethod]
-        public void FormatTextIntoParagraphs_SingleLineIsWrapped()
+        public void FormatTextIntoParagraphs_SingleLineIsNotWrapped()
         {
             var content = "This is a single line of text";
-            var expected = $"<p>{ content }</p>";
-
-            Assert.AreEqual(expected, ECMALoader.FormatTextIntoParagraphs(content));
+            Assert.AreEqual(content, ECMALoader.FormatTextIntoParagraphs(content));
         }
 
         [TestMethod]
@@ -113,9 +107,7 @@ namespace UnitTest
         public void FormatTextIntoParagraphs_ExistingTagsArePreserved()
         {
             var content = "This is a <code>single<code> line of text";
-            var expected = $"<p>{ content }</p>";
-
-            Assert.AreEqual(expected, ECMALoader.FormatTextIntoParagraphs(content));
+            Assert.AreEqual(content, ECMALoader.FormatTextIntoParagraphs(content));
         }
 
         [TestMethod]
@@ -272,16 +264,16 @@ namespace UnitTest
         [TestMethod]
         public void LoadDocs_RemarksWithSimpleXmlDocComment()
         {
+            var remarks = "This is an example of the format that is used by some libraries.";
+
             var comments = XElement.Parse(
-            @"<Docs>
+            $@"<Docs>
                 <summary>Default constructor.</summary>
-                <remarks>This is an example of the format that is used by some libraries.</remarks>
+                <remarks>{ remarks }</remarks>
               </Docs>");
 
-            var expected = "<p>This is an example of the format that is used by some libraries.</p>";
-
             var parsed = new ECMALoader(null).LoadDocs(comments, "<<dummy>>");
-            Assert.AreEqual(expected, parsed.Remarks);
+            Assert.AreEqual(remarks, parsed.Remarks);
         }
 
         [TestMethod]

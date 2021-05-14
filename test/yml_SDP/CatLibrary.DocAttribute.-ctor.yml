@@ -28,7 +28,7 @@ members:
   monikers:
   - cat-1.0
   - cat-2.0
-  remarks: <p><code data-dev-comment-type="c">C:Mono.DocTest.DocAttribute(System.String)</code></p>
+  remarks: <code data-dev-comment-type="c">C:Mono.DocTest.DocAttribute(System.String)</code>
   metadata: {}
 uid: CatLibrary.DocAttribute.#ctor*
 commentId: Overload:CatLibrary.DocAttribute.#ctor

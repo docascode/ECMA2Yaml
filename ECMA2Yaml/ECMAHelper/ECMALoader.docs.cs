@@ -229,6 +229,8 @@ namespace ECMA2Yaml
             var lines = text.Split('\n');
             var lineIndex = -1;
 
+            // Find the first non-blank line.
+
             for (var index = 0; index < lines.Length; ++index)
             {
                 if (!string.IsNullOrWhiteSpace(lines[index]))
@@ -243,6 +245,16 @@ namespace ECMA2Yaml
                 return text;
             }
 
+            // If there is a single non-blank line without embedded paragraphs,
+            // there's no need to wrap it in paragraph tags; return as-is.
+
+            if ((lineIndex == (lines.Length - 1))
+                && (lines[lineIndex].IndexOf(ParagraphOpen) < 0)
+                && (lines[lineIndex].IndexOf(ParagraphClose) < 0))
+            {
+                return lines[lineIndex];
+            }
+
             // Format the non-blank lines.
 
             var paragraphs = new List<string>(lines.Length);
@@ -251,9 +263,9 @@ namespace ECMA2Yaml
 
             string line;
 
-            foreach (var sourceLine in lines.Skip(lineIndex))
+            for (; lineIndex < lines.Length; ++lineIndex)
             {
-                line = sourceLine.Trim();
+                line = lines[lineIndex].Trim();
 
                 // If there was an empty line, assume that the current paragraph has ended.
 
