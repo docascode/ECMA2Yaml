@@ -93,9 +93,9 @@
     <remarks>
       <para>Here's all the content you can see in this class.</para>
       <see href="http://some.external.net/see-remarkscontent">SeeRemarksContent</see>
-      <see href="http://some.external.net/see-remarksselfclose"/>
+      <see href="http://some.external.net/see-remarksselfclose" />
       <seealso href="http://some.external.net/seealso-remarkscontent">SeeAlsoRemarksContent</seealso>
-      <seealso href="http://some.external.net/seealso-remarksselfclose"/>
+      <seealso href="http://some.external.net/seealso-remarksselfclose" />
       <list type="ordered">
         <listItem>Constructors. With different input parameters.</listItem>
         <listItem>
@@ -123,6 +123,7 @@
           <b>Extension Methods</b>. The extension methods not definition in this class, but we can find it!</listItem>
       </list>
     </remarks>
+    <seealso cref="T:CatLibrary.IAnimal" />
     <altmember cref="T:CatLibrary.ICat" />
     <example>
       <para>Here's example of how to create an instance of this class. As T is limited with <c>class</c> and K is limited with <c>struct</c>.</para>
@@ -169,7 +170,11 @@
         <summary>
             Default constructor.
             </summary>
-        <remarks>To be added.</remarks>
+        <remarks>
+              This is an example of the format that is used by some libraries, where
+              the lines of the remarks are broken up to increase readability for other
+              developers, but should be rendered as one paragraph for MS Docs.
+            </remarks>
       </Docs>
     </Member>
     <Member MemberName=".ctor">
@@ -198,9 +203,16 @@
         <param name="thisType">This parameter type defined by class.</param>
         <param name="ownType">This parameter type defined by class.</param>
         <summary>
-            Constructor with one generic parameter.
-            </summary>
-        <remarks>To be added.</remarks>
+             Constructor with one generic parameter.
+             </summary>
+        <remarks>
+               This is an example of the format that is used by some libraries, where
+               the lines of the remarks are broken up to increase readability.
+            
+               Because of the blank line that precedes it, this should be considered
+               a new paragraph.  Intellisense renders this correctly in VS, the
+               MS Docs rendering should follow suit.
+             </remarks>
       </Docs>
     </Member>
     <Member MemberName=".ctor">
@@ -235,9 +247,19 @@
         <param name="realName">It's an out paramter.</param>
         <param name="isHealthy">It's an in parameter.</param>
         <summary>
-            It's a complex constructor. The parameter will have some attributes.
-            </summary>
-        <remarks>To be added.</remarks>
+             It's a complex constructor. The parameter will have some attributes.
+             </summary>
+        <remarks> Retry policies instruct the Storage Client to retry failed requests.
+             By default, only some failures are retried. For example, connection failures and
+             throttling failures can be retried. Resource not found (404) or authentication
+             failures are not retried, because these are not likely to succeed on retry.
+             If not set, the Storage Client uses an exponential backoff retry policy, where the wait time gets
+             exponentially longer between requests, up to a total of around 30 seconds.
+             The default retry policy is recommended for most scenarios.
+            
+            ## Examples
+              [!code-csharp[Retry_Policy_Sample](~/azure-storage-net/Test/ClassLibraryCommon/Blob/BlobUploadDownloadTest.cs#sample_RequestOptions_RetryPolicy "Retry Policy Sample")]
+            </remarks>
       </Docs>
     </Member>
     <Member MemberName="Age">
@@ -282,7 +304,14 @@
             Hint cat's age.
             </summary>
         <value>To be added.</value>
-        <remarks>To be added.</remarks>
+        <remarks>
+          <format langauge="markdown">
+            ```csharp
+            var cat = new Cat();
+            var age = cat.Age;  // Will always be 1.
+            ```
+            </format>
+        </remarks>
       </Docs>
     </Member>
     <Member MemberName="CalculateFood">
@@ -855,7 +884,14 @@
         <summary>
             Eat event of this cat
             </summary>
-        <remarks>To be added.</remarks>
+        <remarks>
+        <format>
+          This should not be changed.
+          Not this line.
+
+          Nor this one.
+        </format>
+        </remarks>
       </Docs>
     </Member>
   </Members>

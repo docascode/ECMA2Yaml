@@ -28,6 +28,13 @@ members:
   - cat-1.0
   - cat-2.0
   summary: Eat event of this cat
+   remarks: >-
+    This should not be changed.
+
+    Not this line.
+
+
+    Nor this one.
   metadata: {}
 namespace: CatLibrary
 assembliesWithMoniker:
