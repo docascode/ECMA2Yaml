@@ -142,6 +142,7 @@ namespace ECMA2Yaml
             return contents.Select(sig => new VersionedSignatureModel() { Lang = sig.Key, Values = sig.Value }).ToList();
         }
 
+        static string[] attributePrefix = { "get: ", "set: " };
         private static string AttachAttributesToSignature(List<ECMAAttribute> attrs, string sig, string lang)
         {
             if (string.IsNullOrEmpty(sig)
@@ -156,9 +157,32 @@ namespace ECMA2Yaml
             {
                 if (att.NamesPerLanguage.TryGetValue(lang, out string name))
                 {
-                    contentBuilder.AppendFormat("{0}\n", name);
+                    bool isGetterSetterAttribute = false;
+                    if (!string.IsNullOrEmpty(name))
+                    {
+                        foreach (var prefix in attributePrefix)
+                        {
+                            if (name.Contains(prefix))
+                            {
+                                string newName = name.Replace(prefix, "");
+                                string newSig = sig.Replace(prefix.Replace(": ", ";"), $"{newName} {prefix.Replace(": ", ";")}");
+                                if (newSig != sig)
+                                {
+                                    isGetterSetterAttribute = true;
+                                    sig = newSig;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+
+                    if (!isGetterSetterAttribute)
+                    {
+                        contentBuilder.AppendFormat("{0}\n", name);
+                    }
                 }
             }
+
             contentBuilder.Append(sig);
 
             return contentBuilder.ToString();
