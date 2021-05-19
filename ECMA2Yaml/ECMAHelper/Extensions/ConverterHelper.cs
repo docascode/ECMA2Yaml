@@ -157,7 +157,7 @@ namespace ECMA2Yaml
             {
                 if (att.NamesPerLanguage.TryGetValue(lang, out string name))
                 {
-                    bool isKnowAttributes = false;
+                    bool isGetterSetterAttribute = false;
                     if (!string.IsNullOrEmpty(name))
                     {
                         foreach (var prefix in attributePrefix)
@@ -168,7 +168,7 @@ namespace ECMA2Yaml
                                 string newSig = sig.Replace(prefix.Replace(": ", ";"), $"{newName} {prefix.Replace(": ", ";")}");
                                 if (newSig != sig)
                                 {
-                                    isKnowAttributes = true;
+                                    isGetterSetterAttribute = true;
                                     sig = newSig;
                                     break;
                                 }
@@ -176,7 +176,7 @@ namespace ECMA2Yaml
                         }
                     }
 
-                    if (!isKnowAttributes)
+                    if (!isGetterSetterAttribute)
                     {
                         contentBuilder.AppendFormat("{0}\n", name);
                     }
