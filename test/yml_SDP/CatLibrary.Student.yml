@@ -19,6 +19,7 @@ methods:
 - uid: CatLibrary.Student.GetHeight2(System.Int32)
   monikers:
   - cat-1.0
+  crossInheritdocsUid: CatLibrary.IPerson.GetHeight2(System.Int32)
 - uid: CatLibrary.Student.Speak(System.String)
   monikers:
   - cat-1.0

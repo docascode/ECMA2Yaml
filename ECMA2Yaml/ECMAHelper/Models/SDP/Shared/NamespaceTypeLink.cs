@@ -13,5 +13,9 @@ namespace ECMA2Yaml.Models.SDP
         [JsonProperty("monikers")]
         [YamlMember(Alias = "monikers")]
         public IEnumerable<string> Monikers { get; set; }
+
+        [JsonProperty("crossInheritdocsUid")]
+        [YamlMember(Alias = "crossInheritdocsUid")]
+        public string CrossInheritdocUid { get; set; }
     }
 }
