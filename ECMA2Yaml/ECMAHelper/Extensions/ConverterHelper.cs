@@ -158,16 +158,20 @@ namespace ECMA2Yaml
                 if (att.NamesPerLanguage.TryGetValue(lang, out string name))
                 {
                     bool isKnowAttributes = false;
-                    foreach (var prefix in attributePrefix)
+                    if (!string.IsNullOrEmpty(name))
                     {
-                        if (isKnowAttributes == false && name.Contains(prefix))
+                        foreach (var prefix in attributePrefix)
                         {
-                            string newName = name.Replace(prefix, "");
-                            string newSig = sig.Replace(prefix.Replace(": ", ";"), $"{newName} {prefix.Replace(": ", ";")}");
-                            if (newSig != sig)
+                            if (name.Contains(prefix))
                             {
-                                isKnowAttributes = true;
-                                sig = newSig;
+                                string newName = name.Replace(prefix, "");
+                                string newSig = sig.Replace(prefix.Replace(": ", ";"), $"{newName} {prefix.Replace(": ", ";")}");
+                                if (newSig != sig)
+                                {
+                                    isKnowAttributes = true;
+                                    sig = newSig;
+                                    break;
+                                }
                             }
                         }
                     }
