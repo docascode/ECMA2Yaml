@@ -47,6 +47,7 @@ namespace ECMA2Yaml
                 sdpMember.IsNotClsCompliant = true;
             }
             sdpMember.AltCompliant = m.Docs.AltCompliant.ResolveCommentId(_store)?.Uid;
+            sdpMember.ChildType = m.ItemType.ToString().ToLower();
 
             return sdpMember;
         }
