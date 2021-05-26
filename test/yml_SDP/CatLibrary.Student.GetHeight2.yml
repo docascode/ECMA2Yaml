@@ -30,6 +30,7 @@ members:
     - value: Public Function GetHeight2 (age As Integer) As Integer
   monikers:
   - cat-1.0
+  type: method
   crossInheritdocsUid: CatLibrary.IPerson.GetHeight2(System.Int32)
   metadata: {}
 uid: CatLibrary.Student.GetHeight2*

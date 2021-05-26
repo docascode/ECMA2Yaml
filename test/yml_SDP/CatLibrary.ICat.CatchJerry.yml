@@ -24,6 +24,7 @@ members:
   monikers:
   - cat-2.0
   summary: All cat can catch a Jerry.
+  type: method
   metadata: {}
 uid: CatLibrary.ICat.CatchJerry*
 commentId: Overload:CatLibrary.ICat.CatchJerry

@@ -21,6 +21,7 @@ members:
   monikers:
   - cat-1.0
   - cat-2.0
+  type: constructor
   metadata: {}
 uid: VersioningTest.B.#ctor*
 commentId: Overload:VersioningTest.B.#ctor

@@ -33,6 +33,7 @@ members:
   monikers:
   - cat-1.0
   summary: Calculates the height in IPerson interface.
+  type: method
   metadata: {}
 uid: CatLibrary.IPerson.GetHeight*
 commentId: Overload:CatLibrary.IPerson.GetHeight

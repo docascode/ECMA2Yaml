@@ -29,6 +29,7 @@ members:
   - cat-1.0
   - cat-2.0
   summary: 'This is a #ctor with parameter'
+  type: constructor
   metadata: {}
 uid: CatLibrary.TomFromBaseClass.#ctor*
 commentId: Overload:CatLibrary.TomFromBaseClass.#ctor

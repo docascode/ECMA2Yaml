@@ -36,6 +36,7 @@ members:
   - cat-1.0
   - cat-2.0
   summary: This is index property of Cat. You can see that the visibility is different between <code data-dev-comment-type="c">get</code> and <code data-dev-comment-type="c">set</code> method.
+  type: property
   metadata: {}
 uid: CatLibrary.Cat`2.Item*
 commentId: Overload:CatLibrary.Cat`2.Item

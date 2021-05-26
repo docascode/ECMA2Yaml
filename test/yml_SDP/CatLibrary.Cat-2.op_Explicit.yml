@@ -37,6 +37,7 @@ members:
     Expilicit operator of this class.
 
     <p>It means this cat can evolve to change to Tom. Tom and Jerry.</p>
+  type: operator
   metadata: {}
 uid: CatLibrary.Cat`2.op_Explicit*
 commentId: Overload:CatLibrary.Cat`2.op_Explicit

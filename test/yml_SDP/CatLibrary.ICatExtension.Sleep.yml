@@ -39,6 +39,7 @@ members:
   - cat-1.0
   - cat-2.0
   summary: Extension method hint that how long the cat can sleep.
+  type: method
   metadata: {}
 uid: CatLibrary.ICatExtension.Sleep*
 commentId: Overload:CatLibrary.ICatExtension.Sleep

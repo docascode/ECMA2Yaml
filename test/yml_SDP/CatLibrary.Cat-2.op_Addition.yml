@@ -38,6 +38,7 @@ members:
   - cat-1.0
   - cat-2.0
   summary: Addition operator of this class.
+  type: operator
   metadata: {}
 uid: CatLibrary.Cat`2.op_Addition*
 commentId: Overload:CatLibrary.Cat`2.op_Addition

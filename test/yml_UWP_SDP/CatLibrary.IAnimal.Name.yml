@@ -28,6 +28,7 @@ members:
   - cat-1.0
   - cat-2.0
   summary: Name of Animal.
+  type: property
   metadata: {}
 uid: CatLibrary.IAnimal.Name*
 commentId: Overload:CatLibrary.IAnimal.Name

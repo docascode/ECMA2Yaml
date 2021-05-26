@@ -27,6 +27,7 @@ members:
   monikers:
   - cat-2.0
   summary: Hint cat's age.
+  type: property
   remarks: >-
     ```csharp
 

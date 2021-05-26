@@ -20,6 +20,7 @@ members:
     - value: Public Sub New ()
   monikers:
   - cat-1.0
+  type: constructor
   metadata: {}
 uid: CatLibrary.Student.#ctor*
 commentId: Overload:CatLibrary.Student.#ctor

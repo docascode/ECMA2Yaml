@@ -36,6 +36,7 @@ members:
   monikers:
   - cat-2.0
   summary: Jerry can play with a Tom.
+  type: method
   metadata: {}
 uid: CatLibrary.JerryExtension.PlayWith*
 commentId: Overload:CatLibrary.JerryExtension.PlayWith

@@ -29,6 +29,7 @@ members:
   monikers:
   - cat-1.0
   summary: Person's Age
+  type: property
   metadata: {}
 uid: CatLibrary.Student.Age*
 commentId: Overload:CatLibrary.Student.Age

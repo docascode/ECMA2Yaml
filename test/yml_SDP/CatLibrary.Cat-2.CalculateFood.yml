@@ -35,6 +35,7 @@ members:
   - cat-2.0
   isInternalOnly: true
   summary: It's a method with complex return type.
+  type: method
   metadata: {}
 uid: CatLibrary.Cat`2.CalculateFood*
 commentId: Overload:CatLibrary.Cat`2.CalculateFood

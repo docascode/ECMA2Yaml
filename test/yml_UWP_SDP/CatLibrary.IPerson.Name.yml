@@ -27,6 +27,7 @@ members:
   monikers:
   - cat-1.0
   summary: Person's Name
+  type: property
   metadata: {}
 uid: CatLibrary.IPerson.Name*
 commentId: Overload:CatLibrary.IPerson.Name

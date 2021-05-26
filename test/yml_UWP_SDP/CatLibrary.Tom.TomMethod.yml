@@ -54,6 +54,7 @@ members:
   - cat-1.0
   - cat-2.0
   summary: This is a Tom Method with complex type as return
+  type: method
   uwpRequirements:
     deviceFamilies:
     - name: Windws 10, version 1803

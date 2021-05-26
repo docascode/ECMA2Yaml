@@ -35,6 +35,7 @@ members:
   - cat-1.0
   - cat-2.0
   summary: This method was moved from I1 to I2.
+  type: method
   metadata: {}
 uid: VersioningTest.C.MethodForI*
 commentId: Overload:VersioningTest.C.MethodForI

@@ -38,6 +38,7 @@ members:
   - cat-1.0
   - cat-2.0
   summary: Addition operator of this class.
+  type: operator
   uwpRequirements:
     deviceFamilies:
     - name: Windws 10, version 1803

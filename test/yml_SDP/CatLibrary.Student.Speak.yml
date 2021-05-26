@@ -34,6 +34,7 @@ members:
   monikers:
   - cat-1.0
   summary: Speak with a language in IPerson interface
+  type: method
   metadata: {}
 uid: CatLibrary.Student.Speak*
 commentId: Overload:CatLibrary.Student.Speak

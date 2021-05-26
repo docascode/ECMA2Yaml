@@ -29,6 +29,7 @@ members:
   monikers:
   - cat-2.0
   summary: This one can't.
+  type: method
   metadata: {}
 - parameters:
   - namesWithMoniker:
@@ -73,6 +74,7 @@ members:
     monikers:
     - cat-2.0
   summary: If you force it, maybe it can.
+  type: method
   metadata: {}
 uid: CatLibrary.Cat`2.CatchJerry*
 commentId: Overload:CatLibrary.Cat`2.CatchJerry

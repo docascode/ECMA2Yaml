@@ -29,6 +29,7 @@ members:
   monikers:
   - cat-1.0
   summary: Student's Name
+  type: property
   metadata: {}
 uid: CatLibrary.Student.Name*
 commentId: Overload:CatLibrary.Student.Name

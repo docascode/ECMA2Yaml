@@ -24,6 +24,7 @@ members:
   monikers:
   - cat-1.0
   - cat-2.0
+  type: event
   metadata: {}
 namespace: CatLibrary
 devLangs:

@@ -33,6 +33,7 @@ members:
   - cat-1.0
   - cat-2.0
   summary: Implementation of Eat(food)
+  type: method
   metadata: {}
 - implementsWithMoniker:
   - value: <xref href="CatLibrary.IAnimal.Eat?alt=CatLibrary.IAnimal.Eat&text=Eat()" data-throw-if-not-resolved="True"/>
@@ -61,6 +62,7 @@ members:
   - cat-1.0
   - cat-2.0
   summary: EII method.
+  type: method
   metadata: {}
 - typeParameters:
   - description: Tool for eat.
@@ -99,6 +101,7 @@ members:
   - cat-1.0
   - cat-2.0
   summary: EII template method.
+  type: method
   metadata: {}
 uid: CatLibrary.Cat`2.CatLibrary#IAnimal#Eat*
 commentId: Overload:CatLibrary.Cat`2.CatLibrary#IAnimal#Eat

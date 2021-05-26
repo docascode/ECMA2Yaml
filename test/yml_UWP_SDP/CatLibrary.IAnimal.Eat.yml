@@ -25,6 +25,7 @@ members:
   - cat-1.0
   - cat-2.0
   summary: Animal's eat method.
+  type: method
   metadata: {}
 - parameters:
   - namesWithMoniker:
@@ -55,6 +56,7 @@ members:
   - cat-1.0
   - cat-2.0
   summary: Feed the animal with some food
+  type: method
   metadata: {}
 - typeParameters:
   - description: It's a class type.
@@ -90,6 +92,7 @@ members:
   - cat-1.0
   - cat-2.0
   summary: Overload method of eat. This define the animal eat by which tool.
+  type: method
   metadata: {}
 uid: CatLibrary.IAnimal.Eat*
 commentId: Overload:CatLibrary.IAnimal.Eat

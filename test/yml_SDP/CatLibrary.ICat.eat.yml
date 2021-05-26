@@ -28,6 +28,7 @@ members:
   - cat-1.0
   - cat-2.0
   summary: eat event of cat. Every cat must implement this event.
+  type: event
   metadata: {}
 namespace: CatLibrary
 assembliesWithMoniker:

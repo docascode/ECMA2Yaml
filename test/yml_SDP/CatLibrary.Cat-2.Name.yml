@@ -56,6 +56,7 @@ members:
     monikers:
     - cat-2.0
   summary: EII property.
+  type: property
   metadata: {}
 uid: CatLibrary.Cat`2.Name*
 commentId: Overload:CatLibrary.Cat`2.Name

@@ -34,6 +34,7 @@ members:
   - cat-1.0
   - cat-2.0
   summary: Override the method of <code data-dev-comment-type="c">Object.Equals(object obj).</code>
+  type: method
   metadata: {}
 uid: CatLibrary.Cat`2.Equals*
 commentId: Overload:CatLibrary.Cat`2.Equals

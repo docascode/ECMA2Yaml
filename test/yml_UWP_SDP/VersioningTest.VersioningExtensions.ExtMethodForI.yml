@@ -33,6 +33,7 @@ members:
   monikers:
   - cat-1.0
   summary: this extension method should show up in interface <code data-dev-comment-type="c">I1</code>, class <code data-dev-comment-type="c">C</code> and <code data-dev-comment-type="c">E</code> for all monikers, and in `F/G/H` for `cat-1.0` only.
+  type: method
   metadata: {}
 - parameters:
   - namesWithMoniker:
@@ -66,6 +67,7 @@ members:
   monikers:
   - cat-2.0
   summary: this extension method should show up in interface <code data-dev-comment-type="c">I2</code>, class <code data-dev-comment-type="c">C</code> and <code data-dev-comment-type="c">E</code> for all monikers, and in `F/G/H` for `cat-2.0` only.
+  type: method
   metadata: {}
 uid: VersioningTest.VersioningExtensions.ExtMethodForI*
 commentId: Overload:VersioningTest.VersioningExtensions.ExtMethodForI

@@ -24,6 +24,7 @@ members:
   monikers:
   - cat-2.0
   summary: This method was moved from I1 to I2.
+  type: method
   metadata: {}
 uid: VersioningTest.I2.MethodForI*
 commentId: Overload:VersioningTest.I2.MethodForI

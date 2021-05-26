@@ -29,6 +29,7 @@ members:
   monikers:
   - cat-2.0
   summary: Jerry has different <xref data-throw-if-not-resolved="true" uid="MRef.Demo.Enumeration.ColorType"></xref>.
+  type: constructor
   metadata: {}
 uid: CatLibrary.TomFromBaseClass.Jerry.#ctor*
 commentId: Overload:CatLibrary.TomFromBaseClass.Jerry.#ctor

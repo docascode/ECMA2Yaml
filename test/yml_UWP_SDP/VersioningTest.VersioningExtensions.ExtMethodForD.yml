@@ -34,6 +34,7 @@ members:
   - cat-1.0
   - cat-2.0
   summary: this extension method should show up in class `D` for all monikers, and in `F/G/H` for `cat-2.0` only.
+  type: method
   metadata: {}
 uid: VersioningTest.VersioningExtensions.ExtMethodForD*
 commentId: Overload:VersioningTest.VersioningExtensions.ExtMethodForD

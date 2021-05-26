@@ -38,6 +38,7 @@ members:
   monikers:
   - cat-1.0
   summary: Calculates the height in Student class.
+  type: method
   metadata: {}
 uid: CatLibrary.Student.GetHeight*
 commentId: Overload:CatLibrary.Student.GetHeight

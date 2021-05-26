@@ -61,6 +61,7 @@ members:
     monikers:
     - cat-2.0
   summary: Field with attribute.
+  type: field
   metadata: {}
 namespace: CatLibrary
 devLangs:

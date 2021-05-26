@@ -29,6 +29,7 @@ members:
   - cat-1.0
   - cat-2.0
   summary: this method should show up as inherited member in class `D/F/G/H` only for `cat-2.0`
+  type: method
   metadata: {}
 uid: VersioningTest.B.MethodFromClassB*
 commentId: Overload:VersioningTest.B.MethodFromClassB
