@@ -1,7 +1,8 @@
 ### YamlMime:NetMember
 type: method
 members:
-- uid: CatLibrary.ICat.CatchJerry
+- type: method
+  uid: CatLibrary.ICat.CatchJerry
   commentId: M:CatLibrary.ICat.CatchJerry
   name: CatchJerry()
   fullName: CatLibrary.ICat.CatchJerry()
@@ -24,7 +25,6 @@ members:
   monikers:
   - cat-2.0
   summary: All cat can catch a Jerry.
-  type: method
   metadata: {}
 uid: CatLibrary.ICat.CatchJerry*
 commentId: Overload:CatLibrary.ICat.CatchJerry

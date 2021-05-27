@@ -8,6 +8,7 @@ members:
     type: <xref href="System.String?alt=System.String&text=String" data-throw-if-not-resolved="True"/>
   implementsWithMoniker:
   - value: <xref href="CatLibrary.IPerson.Speak(System.String)?alt=CatLibrary.IPerson.Speak(System.String)&text=Speak(String)" data-throw-if-not-resolved="True"/>
+  type: method
   uid: CatLibrary.Student.Speak(System.String)
   commentId: M:CatLibrary.Student.Speak(System.String)
   name: Speak(String)
@@ -34,7 +35,6 @@ members:
   monikers:
   - cat-1.0
   summary: Speak with a language in IPerson interface
-  type: method
   metadata: {}
 uid: CatLibrary.Student.Speak*
 commentId: Overload:CatLibrary.Student.Speak

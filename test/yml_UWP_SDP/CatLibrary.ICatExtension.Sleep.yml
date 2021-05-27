@@ -19,6 +19,7 @@ members:
     - value: INT64
       langs:
       - cpp
+  type: method
   uid: CatLibrary.ICatExtension.Sleep(CatLibrary.ICat,System.Int64)
   commentId: M:CatLibrary.ICatExtension.Sleep(CatLibrary.ICat,System.Int64)
   name: Sleep(ICat, Int64)
@@ -48,7 +49,6 @@ members:
   - cat-1.0
   - cat-2.0
   summary: Extension method hint that how long the cat can sleep.
-  type: method
   metadata: {}
 uid: CatLibrary.ICatExtension.Sleep*
 commentId: Overload:CatLibrary.ICatExtension.Sleep

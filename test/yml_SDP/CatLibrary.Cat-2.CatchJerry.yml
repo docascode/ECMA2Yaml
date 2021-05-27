@@ -3,6 +3,7 @@ type: method
 members:
 - implementsWithMoniker:
   - value: <xref href="CatLibrary.ICat.CatchJerry?alt=CatLibrary.ICat.CatchJerry&text=CatchJerry()" data-throw-if-not-resolved="True"/>
+  type: method
   uid: CatLibrary.Cat`2.CatchJerry
   commentId: M:CatLibrary.Cat`2.CatchJerry
   name: CatchJerry()
@@ -29,12 +30,12 @@ members:
   monikers:
   - cat-2.0
   summary: This one can't.
-  type: method
   metadata: {}
 - parameters:
   - namesWithMoniker:
     - value: force
     type: <xref href="System.Boolean?alt=System.Boolean&text=Boolean" data-throw-if-not-resolved="True"/>
+  type: method
   uid: CatLibrary.Cat`2.CatchJerry(System.Boolean)
   commentId: M:CatLibrary.Cat`2.CatchJerry(System.Boolean)
   name: CatchJerry(Boolean)
@@ -74,7 +75,6 @@ members:
     monikers:
     - cat-2.0
   summary: If you force it, maybe it can.
-  type: method
   metadata: {}
 uid: CatLibrary.Cat`2.CatchJerry*
 commentId: Overload:CatLibrary.Cat`2.CatchJerry

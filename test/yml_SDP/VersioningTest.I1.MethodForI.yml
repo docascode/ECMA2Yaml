@@ -1,7 +1,8 @@
 ### YamlMime:NetMember
 type: method
 members:
-- uid: VersioningTest.I1.MethodForI
+- type: method
+  uid: VersioningTest.I1.MethodForI
   commentId: M:VersioningTest.I1.MethodForI
   name: MethodForI()
   fullName: VersioningTest.I1.MethodForI()
@@ -24,7 +25,6 @@ members:
   monikers:
   - cat-1.0
   summary: This method was moved from I1 to I2.
-  type: method
   metadata: {}
 uid: VersioningTest.I1.MethodForI*
 commentId: Overload:VersioningTest.I1.MethodForI

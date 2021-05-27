@@ -4,6 +4,7 @@ members:
 - returnsWithMoniker:
     type:
     - value: <xref href="System.Int32?alt=System.Int32&text=Int32" data-throw-if-not-resolved="True"/>
+  type: property
   uid: CatLibrary.Cat`2.Age
   commentId: P:CatLibrary.Cat`2.Age
   name: Age
@@ -27,7 +28,6 @@ members:
   monikers:
   - cat-2.0
   summary: Hint cat's age.
-  type: property
   remarks: >-
     ```csharp
 

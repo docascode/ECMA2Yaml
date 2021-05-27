@@ -4,6 +4,7 @@ members:
 - returnsWithMoniker:
     type:
     - value: <xref href="System.String?alt=System.String&text=String" data-throw-if-not-resolved="True"/>
+  type: property
   uid: CatLibrary.IAnimal.Name
   commentId: P:CatLibrary.IAnimal.Name
   name: Name
@@ -28,7 +29,6 @@ members:
   - cat-1.0
   - cat-2.0
   summary: Name of Animal.
-  type: property
   metadata: {}
 uid: CatLibrary.IAnimal.Name*
 commentId: Overload:CatLibrary.IAnimal.Name

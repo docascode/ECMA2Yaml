@@ -6,6 +6,7 @@ members:
     - value: <xref href="System.String?alt=System.String&text=String" data-throw-if-not-resolved="True"/>
   implementsWithMoniker:
   - value: <xref href="CatLibrary.IPerson.Name?alt=CatLibrary.IPerson.Name&text=Name" data-throw-if-not-resolved="True"/>
+  type: property
   uid: CatLibrary.Student.Name
   commentId: P:CatLibrary.Student.Name
   name: Name
@@ -29,7 +30,6 @@ members:
   monikers:
   - cat-1.0
   summary: Student's Name
-  type: property
   metadata: {}
 uid: CatLibrary.Student.Name*
 commentId: Overload:CatLibrary.Student.Name

@@ -5,6 +5,7 @@ members:
   - namesWithMoniker:
     - value: docs
     type: <xref href="System.String?alt=System.String&text=String" data-throw-if-not-resolved="True"/>
+  type: constructor
   uid: CatLibrary.DocAttribute.#ctor(System.String)
   commentId: M:CatLibrary.DocAttribute.#ctor(System.String)
   name: DocAttribute(String)
@@ -28,7 +29,6 @@ members:
   monikers:
   - cat-1.0
   - cat-2.0
-  type: constructor
   remarks: <code data-dev-comment-type="c">C:Mono.DocTest.DocAttribute(System.String)</code>
   metadata: {}
 uid: CatLibrary.DocAttribute.#ctor*

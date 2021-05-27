@@ -52,5 +52,9 @@ namespace ECMA2Yaml.Models.SDP
         [JsonProperty("altCompliant")]
         [YamlMember(Alias = "altCompliant")]
         public string AltCompliant { get; set; }
+
+        [JsonProperty("type")]
+        [YamlMember(Alias = "type")]
+        public string Type { get; set; }
     }
 }

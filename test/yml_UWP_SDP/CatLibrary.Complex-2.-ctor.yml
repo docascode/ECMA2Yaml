@@ -1,7 +1,8 @@
 ### YamlMime:NetMember
 type: constructor
 members:
-- uid: CatLibrary.Complex`2.#ctor
+- type: constructor
+  uid: CatLibrary.Complex`2.#ctor
   commentId: M:CatLibrary.Complex`2.#ctor
   name: Complex<T,J>()
   fullName: CatLibrary.Complex<T,J>.Complex<T,J>()
@@ -21,7 +22,6 @@ members:
   monikers:
   - cat-1.0
   - cat-2.0
-  type: constructor
   metadata: {}
 uid: CatLibrary.Complex`2.#ctor*
 commentId: Overload:CatLibrary.Complex`2.#ctor

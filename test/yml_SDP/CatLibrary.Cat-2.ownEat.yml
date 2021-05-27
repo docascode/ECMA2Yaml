@@ -4,6 +4,7 @@ members:
 - returnsWithMoniker:
     type:
     - value: <xref href="System.EventHandler?alt=System.EventHandler&text=EventHandler" data-throw-if-not-resolved="True"/>
+  type: event
   uid: CatLibrary.Cat`2.ownEat
   commentId: E:CatLibrary.Cat`2.ownEat
   name: ownEat
@@ -28,7 +29,6 @@ members:
   - cat-1.0
   - cat-2.0
   summary: Eat event of this cat
-  type: event
   remarks: >-
     This should not be changed.
 

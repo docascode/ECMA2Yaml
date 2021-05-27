@@ -5,6 +5,7 @@ members:
   - namesWithMoniker:
     - value: i
     type: <xref href="VersioningTest.D?alt=VersioningTest.D&text=D" data-throw-if-not-resolved="True"/>
+  type: method
   uid: VersioningTest.VersioningExtensions.ExtMethodForD(VersioningTest.D)
   commentId: M:VersioningTest.VersioningExtensions.ExtMethodForD(VersioningTest.D)
   name: ExtMethodForD(D)
@@ -34,7 +35,6 @@ members:
   - cat-1.0
   - cat-2.0
   summary: this extension method should show up in class `D` for all monikers, and in `F/G/H` for `cat-2.0` only.
-  type: method
   metadata: {}
 uid: VersioningTest.VersioningExtensions.ExtMethodForD*
 commentId: Overload:VersioningTest.VersioningExtensions.ExtMethodForD

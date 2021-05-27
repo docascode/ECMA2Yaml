@@ -10,6 +10,7 @@ members:
     - value: index
     description: Animal number.
     type: <xref href="System.Int32?alt=System.Int32&text=Int32" data-throw-if-not-resolved="True"/>
+  type: property
   uid: CatLibrary.IAnimal.Item(System.Int32)
   commentId: P:CatLibrary.IAnimal.Item(System.Int32)
   name: Item[Int32]
@@ -34,7 +35,6 @@ members:
   - cat-1.0
   - cat-2.0
   summary: Return specific number animal's name.
-  type: property
   metadata: {}
 uid: CatLibrary.IAnimal.Item*
 commentId: Overload:CatLibrary.IAnimal.Item

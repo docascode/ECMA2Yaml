@@ -5,6 +5,7 @@ members:
   - namesWithMoniker:
     - value: i
     type: <xref href="VersioningTest.I1?alt=VersioningTest.I1&text=I1" data-throw-if-not-resolved="True"/>
+  type: method
   uid: VersioningTest.VersioningExtensions.ExtMethodForI(VersioningTest.I1)
   commentId: M:VersioningTest.VersioningExtensions.ExtMethodForI(VersioningTest.I1)
   name: ExtMethodForI(I1)
@@ -33,12 +34,12 @@ members:
   monikers:
   - cat-1.0
   summary: this extension method should show up in interface <code data-dev-comment-type="c">I1</code>, class <code data-dev-comment-type="c">C</code> and <code data-dev-comment-type="c">E</code> for all monikers, and in `F/G/H` for `cat-1.0` only.
-  type: method
   metadata: {}
 - parameters:
   - namesWithMoniker:
     - value: i
     type: <xref href="VersioningTest.I2?alt=VersioningTest.I2&text=I2" data-throw-if-not-resolved="True"/>
+  type: method
   uid: VersioningTest.VersioningExtensions.ExtMethodForI(VersioningTest.I2)
   commentId: M:VersioningTest.VersioningExtensions.ExtMethodForI(VersioningTest.I2)
   name: ExtMethodForI(I2)
@@ -67,7 +68,6 @@ members:
   monikers:
   - cat-2.0
   summary: this extension method should show up in interface <code data-dev-comment-type="c">I2</code>, class <code data-dev-comment-type="c">C</code> and <code data-dev-comment-type="c">E</code> for all monikers, and in `F/G/H` for `cat-2.0` only.
-  type: method
   metadata: {}
 uid: VersioningTest.VersioningExtensions.ExtMethodForI*
 commentId: Overload:VersioningTest.VersioningExtensions.ExtMethodForI

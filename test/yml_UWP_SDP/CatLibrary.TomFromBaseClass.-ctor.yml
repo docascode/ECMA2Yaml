@@ -5,6 +5,7 @@ members:
   - namesWithMoniker:
     - value: k
     type: <xref href="System.Int32?alt=System.Int32&text=Int32" data-throw-if-not-resolved="True"/>
+  type: constructor
   uid: CatLibrary.TomFromBaseClass.#ctor(System.Int32)
   commentId: M:CatLibrary.TomFromBaseClass.#ctor(System.Int32)
   name: TomFromBaseClass(Int32)
@@ -29,7 +30,6 @@ members:
   - cat-1.0
   - cat-2.0
   summary: 'This is a #ctor with parameter'
-  type: constructor
   metadata: {}
 uid: CatLibrary.TomFromBaseClass.#ctor*
 commentId: Overload:CatLibrary.TomFromBaseClass.#ctor

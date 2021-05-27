@@ -14,6 +14,7 @@ members:
     - value: parameters
     description: Optional parameters.
     type: <xref href="System.Object?alt=System.Object&text=Object" data-throw-if-not-resolved="True"/>[]
+  type: method
   uid: CatLibrary.Cat`2.GetTailLength(System.Int32*,System.Object[])
   commentId: M:CatLibrary.Cat`2.GetTailLength(System.Int32*,System.Object[])
   name: GetTailLength(Int32*, Object[])
@@ -38,7 +39,6 @@ members:
     It's an <code data-dev-comment-type="c">unsafe</code> method.
 
     As you see, <code data-dev-comment-type="paramref">catName</code> is a <strong>pointer</strong>, so we need to add <code data-dev-comment-type="languageKeyword">unsafe</code> keyword.
-  type: method
   metadata: {}
 uid: CatLibrary.Cat`2.GetTailLength*
 commentId: Overload:CatLibrary.Cat`2.GetTailLength

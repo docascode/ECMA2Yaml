@@ -1,7 +1,8 @@
 ### YamlMime:NetMember
 type: constructor
 members:
-- uid: VersioningTest.F.#ctor
+- type: constructor
+  uid: VersioningTest.F.#ctor
   commentId: M:VersioningTest.F.#ctor
   name: F()
   fullName: VersioningTest.F.F()
@@ -21,7 +22,6 @@ members:
   monikers:
   - cat-1.0
   - cat-2.0
-  type: constructor
   metadata: {}
 uid: VersioningTest.F.#ctor*
 commentId: Overload:VersioningTest.F.#ctor

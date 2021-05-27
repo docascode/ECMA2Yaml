@@ -4,6 +4,7 @@ members:
 - returnsWithMoniker:
     type:
     - value: <xref href="System.Int32?alt=System.Int32&text=Int32" data-throw-if-not-resolved="True"/>
+  type: property
   uid: CatLibrary.IPerson.Age
   commentId: P:CatLibrary.IPerson.Age
   name: Age
@@ -27,7 +28,6 @@ members:
   monikers:
   - cat-1.0
   summary: Person's Age
-  type: property
   metadata: {}
 uid: CatLibrary.IPerson.Age*
 commentId: Overload:CatLibrary.IPerson.Age

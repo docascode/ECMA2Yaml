@@ -87,10 +87,6 @@ namespace ECMA2Yaml.Models.SDP
         [YamlMember(Alias = "summary")]
         public string Summary { get; set; }
 
-        [JsonProperty("type")]
-        [YamlMember(Alias = "type")]
-        public string ChildType { get; set; }
-
         [JsonProperty("crossInheritdocsUid")]
         [YamlMember(Alias = "crossInheritdocsUid")]
         public string CrossInheritdocUid { get; set; }

@@ -5,6 +5,7 @@ members:
   - namesWithMoniker:
     - value: param1
     type: <xref href="System.String?alt=System.String&text=String" data-throw-if-not-resolved="True"/>
+  type: method
   uid: VersioningTest.B.MethodFromClassB(System.String)
   commentId: M:VersioningTest.B.MethodFromClassB(System.String)
   name: MethodFromClassB(String)
@@ -29,7 +30,6 @@ members:
   - cat-1.0
   - cat-2.0
   summary: this method should show up as inherited member in class `D/F/G/H` only for `cat-2.0`
-  type: method
   metadata: {}
 uid: VersioningTest.B.MethodFromClassB*
 commentId: Overload:VersioningTest.B.MethodFromClassB

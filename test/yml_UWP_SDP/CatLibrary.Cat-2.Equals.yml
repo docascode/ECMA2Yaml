@@ -10,6 +10,7 @@ members:
     - value: obj
     description: Can pass any class type.
     type: <xref href="System.Object?alt=System.Object&text=Object" data-throw-if-not-resolved="True"/>
+  type: method
   uid: CatLibrary.Cat`2.Equals(System.Object)
   commentId: M:CatLibrary.Cat`2.Equals(System.Object)
   name: Equals(Object)
@@ -34,7 +35,6 @@ members:
   - cat-1.0
   - cat-2.0
   summary: Override the method of <code data-dev-comment-type="c">Object.Equals(object obj).</code>
-  type: method
   metadata: {}
 uid: CatLibrary.Cat`2.Equals*
 commentId: Overload:CatLibrary.Cat`2.Equals

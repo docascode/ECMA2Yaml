@@ -10,6 +10,7 @@ members:
     - value: age
     description: Tha age of the cat, in years.
     type: <xref href="System.Int32?alt=System.Int32&text=Int32" data-throw-if-not-resolved="True"/>
+  type: method
   uid: CatLibrary.IPerson.GetHeight(System.Int32)
   commentId: M:CatLibrary.IPerson.GetHeight(System.Int32)
   name: GetHeight(Int32)
@@ -33,7 +34,6 @@ members:
   monikers:
   - cat-1.0
   summary: Calculates the height in IPerson interface.
-  type: method
   metadata: {}
 uid: CatLibrary.IPerson.GetHeight*
 commentId: Overload:CatLibrary.IPerson.GetHeight

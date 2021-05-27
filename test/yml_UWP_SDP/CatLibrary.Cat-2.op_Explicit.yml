@@ -10,6 +10,7 @@ members:
     - value: src
     description: Instance of this class.
     type: <xref href="CatLibrary.Cat`2?alt=CatLibrary.Cat`2&text=Cat%3CT%2CK%3E" data-throw-if-not-resolved="True"/>
+  type: operator
   uid: CatLibrary.Cat`2.op_Explicit(CatLibrary.Cat{`0,`1})~CatLibrary.Tom
   commentId: M:CatLibrary.Cat`2.op_Explicit(CatLibrary.Cat{`0,`1})~CatLibrary.Tom
   name: Explicit(Cat<T,K> to Tom)
@@ -37,7 +38,6 @@ members:
     Expilicit operator of this class.
 
     <p>It means this cat can evolve to change to Tom. Tom and Jerry.</p>
-  type: operator
   metadata: {}
 uid: CatLibrary.Cat`2.op_Explicit*
 commentId: Overload:CatLibrary.Cat`2.op_Explicit

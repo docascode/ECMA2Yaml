@@ -14,6 +14,7 @@ members:
     - value: rsr
     description: ~~~
     type: <xref href="System.Int32?alt=System.Int32&text=Int32" data-throw-if-not-resolved="True"/>
+  type: operator
   uid: CatLibrary.Cat`2.op_Addition(CatLibrary.Cat{`0,`1},System.Int32)
   commentId: M:CatLibrary.Cat`2.op_Addition(CatLibrary.Cat{`0,`1},System.Int32)
   name: Addition(Cat<T,K>, Int32)
@@ -38,7 +39,6 @@ members:
   - cat-1.0
   - cat-2.0
   summary: Addition operator of this class.
-  type: operator
   metadata: {}
 uid: CatLibrary.Cat`2.op_Addition*
 commentId: Overload:CatLibrary.Cat`2.op_Addition

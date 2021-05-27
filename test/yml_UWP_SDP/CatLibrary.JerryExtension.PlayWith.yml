@@ -8,6 +8,7 @@ members:
   - namesWithMoniker:
     - value: tom
     type: <xref href="CatLibrary.Tom?alt=CatLibrary.Tom&text=Tom" data-throw-if-not-resolved="True"/>
+  type: method
   uid: CatLibrary.JerryExtension.PlayWith(CatLibrary.TomFromBaseClass.Jerry,CatLibrary.Tom)
   commentId: M:CatLibrary.JerryExtension.PlayWith(CatLibrary.TomFromBaseClass.Jerry,CatLibrary.Tom)
   name: PlayWith(TomFromBaseClass+Jerry, Tom)
@@ -36,7 +37,6 @@ members:
   monikers:
   - cat-2.0
   summary: Jerry can play with a Tom.
-  type: method
   metadata: {}
 uid: CatLibrary.JerryExtension.PlayWith*
 commentId: Overload:CatLibrary.JerryExtension.PlayWith

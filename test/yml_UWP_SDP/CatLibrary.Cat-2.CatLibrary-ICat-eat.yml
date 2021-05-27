@@ -6,6 +6,7 @@ members:
     - value: <xref href="System.EventHandler?alt=System.EventHandler&text=EventHandler" data-throw-if-not-resolved="True"/>
   implementsWithMoniker:
   - value: <xref href="CatLibrary.ICat.eat?alt=CatLibrary.ICat.eat&text=eat" data-throw-if-not-resolved="True"/>
+  type: event
   uid: CatLibrary.Cat`2.CatLibrary#ICat#eat
   commentId: E:CatLibrary.Cat`2.CatLibrary#ICat#eat
   name: ICat.eat
@@ -24,7 +25,6 @@ members:
   monikers:
   - cat-1.0
   - cat-2.0
-  type: event
   metadata: {}
 namespace: CatLibrary
 devLangs:
