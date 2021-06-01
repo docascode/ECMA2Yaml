@@ -1,7 +1,8 @@
 ### YamlMime:NetMember
 type: constructor
 members:
-- uid: CatLibrary.Cat`2.#ctor
+- type: constructor
+  uid: CatLibrary.Cat`2.#ctor
   commentId: M:CatLibrary.Cat`2.#ctor
   name: Cat<T,K>()
   fullName: CatLibrary.Cat<T,K>.Cat<T,K>()
@@ -34,6 +35,7 @@ members:
       - cat-2.0
     description: This parameter type defined by class.
     type: T
+  type: constructor
   uid: CatLibrary.Cat`2.#ctor(`0)
   commentId: M:CatLibrary.Cat`2.#ctor(`0)
   name: Cat<T,K>(T)
@@ -104,6 +106,7 @@ members:
     - value: isHealthy
     description: It's an in parameter.
     type: <xref href="System.Boolean?alt=System.Boolean&text=Boolean" data-throw-if-not-resolved="True"/>
+  type: constructor
   uid: CatLibrary.Cat`2.#ctor(System.String,System.Int32@,System.String,System.Boolean)
   commentId: M:CatLibrary.Cat`2.#ctor(System.String,System.Int32@,System.String,System.Boolean)
   name: Cat<T,K>(String, Int32, String, Boolean)

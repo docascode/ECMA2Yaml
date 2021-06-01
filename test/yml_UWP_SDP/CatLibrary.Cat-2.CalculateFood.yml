@@ -10,6 +10,7 @@ members:
     - value: date
     description: Date time to now.
     type: <xref href="System.DateTime?alt=System.DateTime&text=DateTime" data-throw-if-not-resolved="True"/>
+  type: method
   uid: CatLibrary.Cat`2.CalculateFood(System.DateTime)
   commentId: M:CatLibrary.Cat`2.CalculateFood(System.DateTime)
   name: CalculateFood(DateTime)

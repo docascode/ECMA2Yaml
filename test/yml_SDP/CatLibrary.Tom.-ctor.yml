@@ -1,7 +1,8 @@
 ### YamlMime:NetMember
 type: constructor
 members:
-- uid: CatLibrary.Tom.#ctor
+- type: constructor
+  uid: CatLibrary.Tom.#ctor
   commentId: M:CatLibrary.Tom.#ctor
   name: Tom()
   fullName: CatLibrary.Tom.Tom()

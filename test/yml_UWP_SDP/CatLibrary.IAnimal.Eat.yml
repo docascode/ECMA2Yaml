@@ -1,7 +1,8 @@
 ### YamlMime:NetMember
 type: method
 members:
-- uid: CatLibrary.IAnimal.Eat
+- type: method
+  uid: CatLibrary.IAnimal.Eat
   commentId: M:CatLibrary.IAnimal.Eat
   name: Eat()
   fullName: CatLibrary.IAnimal.Eat()
@@ -31,6 +32,7 @@ members:
     - value: food
     description: Food to eat
     type: <xref href="System.String?alt=System.String&text=String" data-throw-if-not-resolved="True"/>
+  type: method
   uid: CatLibrary.IAnimal.Eat(System.String)
   commentId: M:CatLibrary.IAnimal.Eat(System.String)
   name: Eat(String)
@@ -64,6 +66,7 @@ members:
     - value: tool
     description: Tool name.
     type: Tool
+  type: method
   uid: CatLibrary.IAnimal.Eat``1(``0)
   commentId: M:CatLibrary.IAnimal.Eat``1(``0)
   name: Eat<Tool>(Tool)

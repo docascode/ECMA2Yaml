@@ -14,6 +14,7 @@ members:
     - value: parameters
     description: Optional parameters.
     type: <xref href="System.Object?alt=System.Object&text=Object" data-throw-if-not-resolved="True"/>[]
+  type: method
   uid: CatLibrary.Cat`2.GetTailLength(System.Int32*,System.Object[])
   commentId: M:CatLibrary.Cat`2.GetTailLength(System.Int32*,System.Object[])
   name: GetTailLength(Int32*, Object[])

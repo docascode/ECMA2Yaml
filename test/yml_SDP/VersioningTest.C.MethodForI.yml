@@ -8,6 +8,7 @@ members:
   - value: <xref href="VersioningTest.I2.MethodForI?alt=VersioningTest.I2.MethodForI&text=MethodForI()" data-throw-if-not-resolved="True"/>
     monikers:
     - cat-2.0
+  type: method
   uid: VersioningTest.C.MethodForI
   commentId: M:VersioningTest.C.MethodForI
   name: MethodForI()

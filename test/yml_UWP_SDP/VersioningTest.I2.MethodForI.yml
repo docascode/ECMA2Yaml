@@ -1,7 +1,8 @@
 ### YamlMime:NetMember
 type: method
 members:
-- uid: VersioningTest.I2.MethodForI
+- type: method
+  uid: VersioningTest.I2.MethodForI
   commentId: M:VersioningTest.I2.MethodForI
   name: MethodForI()
   fullName: VersioningTest.I2.MethodForI()

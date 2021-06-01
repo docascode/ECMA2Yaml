@@ -10,6 +10,7 @@ members:
     - value: a
     description: Cat's name.
     type: <xref href="System.String?alt=System.String&text=String" data-throw-if-not-resolved="True"/>
+  type: property
   uid: CatLibrary.Cat`2.Item(System.String)
   commentId: P:CatLibrary.Cat`2.Item(System.String)
   name: Item[String]

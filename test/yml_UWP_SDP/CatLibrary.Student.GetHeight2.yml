@@ -8,6 +8,7 @@ members:
   - namesWithMoniker:
     - value: age
     type: <xref href="System.Int32?alt=System.Int32&text=Int32" data-throw-if-not-resolved="True"/>
+  type: method
   uid: CatLibrary.Student.GetHeight2(System.Int32)
   commentId: M:CatLibrary.Student.GetHeight2(System.Int32)
   name: GetHeight2(Int32)

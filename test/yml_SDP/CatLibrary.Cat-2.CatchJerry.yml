@@ -3,6 +3,7 @@ type: method
 members:
 - implementsWithMoniker:
   - value: <xref href="CatLibrary.ICat.CatchJerry?alt=CatLibrary.ICat.CatchJerry&text=CatchJerry()" data-throw-if-not-resolved="True"/>
+  type: method
   uid: CatLibrary.Cat`2.CatchJerry
   commentId: M:CatLibrary.Cat`2.CatchJerry
   name: CatchJerry()
@@ -34,6 +35,7 @@ members:
   - namesWithMoniker:
     - value: force
     type: <xref href="System.Boolean?alt=System.Boolean&text=Boolean" data-throw-if-not-resolved="True"/>
+  type: method
   uid: CatLibrary.Cat`2.CatchJerry(System.Boolean)
   commentId: M:CatLibrary.Cat`2.CatchJerry(System.Boolean)
   name: CatchJerry(Boolean)

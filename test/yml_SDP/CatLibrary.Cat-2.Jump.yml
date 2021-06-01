@@ -17,6 +17,7 @@ members:
   exceptions:
   - description: This is an argument exception
     type: <xref href="System.ArgumentException" data-throw-if-not-resolved="True"/>
+  type: method
   uid: CatLibrary.Cat`2.Jump(`0,`1,System.Boolean@)
   commentId: M:CatLibrary.Cat`2.Jump(`0,`1,System.Boolean@)
   name: Jump(T, K, Boolean)

@@ -10,6 +10,7 @@ members:
     - value: obj
     description: Can pass any class type.
     type: <xref href="System.Object?alt=System.Object&text=Object" data-throw-if-not-resolved="True"/>
+  type: method
   uid: CatLibrary.Cat`2.Equals(System.Object)
   commentId: M:CatLibrary.Cat`2.Equals(System.Object)
   name: Equals(Object)

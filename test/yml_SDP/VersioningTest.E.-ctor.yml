@@ -1,7 +1,8 @@
 ### YamlMime:NetMember
 type: constructor
 members:
-- uid: VersioningTest.E.#ctor
+- type: constructor
+  uid: VersioningTest.E.#ctor
   commentId: M:VersioningTest.E.#ctor
   name: E()
   fullName: VersioningTest.E.E()

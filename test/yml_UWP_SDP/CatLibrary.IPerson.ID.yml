@@ -4,6 +4,7 @@ members:
 - returnsWithMoniker:
     type:
     - value: <xref href="System.String?alt=System.String&text=String" data-throw-if-not-resolved="True"/>
+  type: property
   uid: CatLibrary.IPerson.ID
   commentId: P:CatLibrary.IPerson.ID
   name: ID

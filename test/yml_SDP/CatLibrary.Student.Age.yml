@@ -6,6 +6,7 @@ members:
     - value: <xref href="System.Int32?alt=System.Int32&text=Int32" data-throw-if-not-resolved="True"/>
   implementsWithMoniker:
   - value: <xref href="CatLibrary.IPerson.Age?alt=CatLibrary.IPerson.Age&text=Age" data-throw-if-not-resolved="True"/>
+  type: property
   uid: CatLibrary.Student.Age
   commentId: P:CatLibrary.Student.Age
   name: Age

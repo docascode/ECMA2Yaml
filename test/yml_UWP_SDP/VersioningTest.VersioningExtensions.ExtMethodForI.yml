@@ -5,6 +5,7 @@ members:
   - namesWithMoniker:
     - value: i
     type: <xref href="VersioningTest.I1?alt=VersioningTest.I1&text=I1" data-throw-if-not-resolved="True"/>
+  type: method
   uid: VersioningTest.VersioningExtensions.ExtMethodForI(VersioningTest.I1)
   commentId: M:VersioningTest.VersioningExtensions.ExtMethodForI(VersioningTest.I1)
   name: ExtMethodForI(I1)
@@ -38,6 +39,7 @@ members:
   - namesWithMoniker:
     - value: i
     type: <xref href="VersioningTest.I2?alt=VersioningTest.I2&text=I2" data-throw-if-not-resolved="True"/>
+  type: method
   uid: VersioningTest.VersioningExtensions.ExtMethodForI(VersioningTest.I2)
   commentId: M:VersioningTest.VersioningExtensions.ExtMethodForI(VersioningTest.I2)
   name: ExtMethodForI(I2)

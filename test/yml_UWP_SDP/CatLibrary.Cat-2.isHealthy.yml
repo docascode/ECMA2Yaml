@@ -4,6 +4,7 @@ members:
 - returnsWithMoniker:
     type:
     - value: <xref href="System.Boolean?alt=System.Boolean&text=Boolean" data-throw-if-not-resolved="True"/>
+  type: field
   uid: CatLibrary.Cat`2.isHealthy
   commentId: F:CatLibrary.Cat`2.isHealthy
   name: isHealthy

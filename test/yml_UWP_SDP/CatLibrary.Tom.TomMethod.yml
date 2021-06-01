@@ -30,6 +30,7 @@ members:
     type: <xref href="System.ArgumentException" data-throw-if-not-resolved="True"/>
   - description: This is the exception in current documentation
     type: <xref href="CatLibrary.CatException`1?alt=CatLibrary.CatException`1&text=CatException%3CT%3E" data-throw-if-not-resolved="True"/>
+  type: method
   uid: CatLibrary.Tom.TomMethod(CatLibrary.Complex{CatLibrary.TomFromBaseClass,CatLibrary.TomFromBaseClass},System.Tuple{System.String,CatLibrary.Tom})
   commentId: M:CatLibrary.Tom.TomMethod(CatLibrary.Complex{CatLibrary.TomFromBaseClass,CatLibrary.TomFromBaseClass},System.Tuple{System.String,CatLibrary.Tom})
   name: TomMethod(Complex<TomFromBaseClass,TomFromBaseClass>, Tuple<String,Tom>)

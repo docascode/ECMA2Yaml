@@ -5,6 +5,7 @@ members:
   - namesWithMoniker:
     - value: i
     type: <xref href="VersioningTest.D?alt=VersioningTest.D&text=D" data-throw-if-not-resolved="True"/>
+  type: method
   uid: VersioningTest.VersioningExtensions.ExtMethodForD(VersioningTest.D)
   commentId: M:VersioningTest.VersioningExtensions.ExtMethodForD(VersioningTest.D)
   name: ExtMethodForD(D)

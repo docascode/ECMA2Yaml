@@ -5,6 +5,7 @@ members:
   - namesWithMoniker:
     - value: param1
     type: <xref href="System.String?alt=System.String&text=String" data-throw-if-not-resolved="True"/>
+  type: method
   uid: VersioningTest.B.MethodFromClassB(System.String)
   commentId: M:VersioningTest.B.MethodFromClassB(System.String)
   name: MethodFromClassB(String)

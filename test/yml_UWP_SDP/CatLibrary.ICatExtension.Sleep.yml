@@ -19,6 +19,7 @@ members:
     - value: INT64
       langs:
       - cpp
+  type: method
   uid: CatLibrary.ICatExtension.Sleep(CatLibrary.ICat,System.Int64)
   commentId: M:CatLibrary.ICatExtension.Sleep(CatLibrary.ICat,System.Int64)
   name: Sleep(ICat, Int64)

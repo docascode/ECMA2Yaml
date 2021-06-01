@@ -6,6 +6,7 @@ members:
     - value: language
     description: The language that person speak
     type: <xref href="System.String?alt=System.String&text=String" data-throw-if-not-resolved="True"/>
+  type: method
   uid: CatLibrary.IPerson.Speak(System.String)
   commentId: M:CatLibrary.IPerson.Speak(System.String)
   name: Speak(String)

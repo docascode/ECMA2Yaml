@@ -11,6 +11,7 @@ members:
   - namesWithMoniker:
     - value: rsr
     type: <xref href="System.Int32?alt=System.Int32&text=Int32" data-throw-if-not-resolved="True"/>
+  type: operator
   uid: CatLibrary.Cat`2.op_Subtraction(CatLibrary.Cat{`0,`1},System.Int32)
   commentId: M:CatLibrary.Cat`2.op_Subtraction(CatLibrary.Cat{`0,`1},System.Int32)
   name: Subtraction(Cat<T,K>, Int32)

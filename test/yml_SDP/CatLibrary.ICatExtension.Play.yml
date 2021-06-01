@@ -10,6 +10,7 @@ members:
     - value: toy
     description: Something to play
     type: <xref href="System.String?alt=System.String&text=String" data-throw-if-not-resolved="True"/>
+  type: method
   uid: CatLibrary.ICatExtension.Play(CatLibrary.ICat,System.String)
   commentId: M:CatLibrary.ICatExtension.Play(CatLibrary.ICat,System.String)
   name: Play(ICat, String)

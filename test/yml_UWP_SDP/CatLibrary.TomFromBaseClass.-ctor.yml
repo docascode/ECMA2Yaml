@@ -5,6 +5,7 @@ members:
   - namesWithMoniker:
     - value: k
     type: <xref href="System.Int32?alt=System.Int32&text=Int32" data-throw-if-not-resolved="True"/>
+  type: constructor
   uid: CatLibrary.TomFromBaseClass.#ctor(System.Int32)
   commentId: M:CatLibrary.TomFromBaseClass.#ctor(System.Int32)
   name: TomFromBaseClass(Int32)

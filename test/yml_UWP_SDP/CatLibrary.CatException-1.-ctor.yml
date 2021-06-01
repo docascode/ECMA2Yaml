@@ -1,7 +1,8 @@
 ### YamlMime:NetMember
 type: constructor
 members:
-- uid: CatLibrary.CatException`1.#ctor
+- type: constructor
+  uid: CatLibrary.CatException`1.#ctor
   commentId: M:CatLibrary.CatException`1.#ctor
   name: CatException<T>()
   fullName: CatLibrary.CatException<T>.CatException<T>()

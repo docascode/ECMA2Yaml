@@ -12,6 +12,7 @@ members:
     type: <xref href="System.Int32?alt=System.Int32&text=Int32" data-throw-if-not-resolved="True"/>
   implementsWithMoniker:
   - value: <xref href="CatLibrary.IPerson.GetHeight(System.Int32)?alt=CatLibrary.IPerson.GetHeight(System.Int32)&text=GetHeight(Int32)" data-throw-if-not-resolved="True"/>
+  type: method
   uid: CatLibrary.Student.GetHeight(System.Int32)
   commentId: M:CatLibrary.Student.GetHeight(System.Int32)
   name: GetHeight(Int32)

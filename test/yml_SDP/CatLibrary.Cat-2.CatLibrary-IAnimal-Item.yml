@@ -12,6 +12,7 @@ members:
     type: <xref href="System.Int32?alt=System.Int32&text=Int32" data-throw-if-not-resolved="True"/>
   implementsWithMoniker:
   - value: <xref href="CatLibrary.IAnimal.Item(System.Int32)?alt=CatLibrary.IAnimal.Item(System.Int32)&text=Item%5BInt32%5D" data-throw-if-not-resolved="True"/>
+  type: property
   uid: CatLibrary.Cat`2.CatLibrary#IAnimal#Item(System.Int32)
   commentId: P:CatLibrary.Cat`2.CatLibrary#IAnimal#Item(System.Int32)
   name: IAnimal.Item[Int32]
