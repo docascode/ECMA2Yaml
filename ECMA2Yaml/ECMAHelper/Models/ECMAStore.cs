@@ -1460,7 +1460,7 @@ namespace ECMA2Yaml.Models
                 }
 
                 // 2. Get inheritdoc from implements
-                if (string.IsNullOrEmpty(m.CrossInheritdocUid) && m.Implements != null && m.Implements.Count() > 0)
+                if (!InheritDocItemsByUid.ContainsKey(m.Uid) && string.IsNullOrEmpty(m.CrossInheritdocUid) && m.Implements != null && m.Implements.Count() > 0)
                 {
                     var implementUid = "";
                     var implementDocId = m.Implements.FirstOrDefault().Value;
@@ -1488,7 +1488,7 @@ namespace ECMA2Yaml.Models
                 }
 
                 // 3. Get inheritdoc from inhertance chain list
-                if (string.IsNullOrEmpty(m.CrossInheritdocUid))
+                if (!InheritDocItemsByUid.ContainsKey(m.Uid) && string.IsNullOrEmpty(m.CrossInheritdocUid))
                 {
                     var inheritDocId = m.Id;
                     if (t.InheritedMembersById?.Count > 0 && t.InheritedMembersById.ContainsKey(inheritDocId))
