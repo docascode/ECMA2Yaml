@@ -23,6 +23,22 @@ namespace ECMA2Yaml.Models
             var rval = new List<PerLanguageString>() { defaultValue };
             if (TypeMappingPerLanguage?.Count > 0)
             {
+                // workaround for https://ceapex.visualstudio.com/Engineering/_workitems/edit/438233
+                // revert type mapping made by mdoc before applying them again
+                if (TypeMappingPerLanguage.TryGetValue("csharp", out var csharpDict))
+                {
+                    var revertTypeString = typeString;
+                    foreach (var mapping in csharpDict)
+                    {
+                        revertTypeString = revertTypeString.Replace(mapping.Value, mapping.Key);
+                    }
+                    if (revertTypeString != typeString)
+                    {
+                        Console.WriteLine(typeString + " reverted to " + revertTypeString);
+                        typeString = revertTypeString;
+                        defaultValue.Value = revertTypeString;
+                    }
+                }
                 foreach (var mappingPerLang in TypeMappingPerLanguage)
                 {
                     var lang = mappingPerLang.Key;

@@ -5,6 +5,15 @@ type: class
 inheritancesWithMoniker:
 - values:
   - <xref href="System.Exception?alt=System.Exception&text=Exception" data-throw-if-not-resolved="True"/>
+  valuesPerLanguage:
+  - value: <xref href="Windows.Foundation.HResult?alt=Windows.Foundation.HResult&text=HResult" data-throw-if-not-resolved="True"/>
+    langs:
+    - cpp
+  - value: <xref href="System.Exception?alt=System.Exception&text=Exception" data-throw-if-not-resolved="True"/>
+    langs:
+    - csharp
+    - vb
+    - fsharp
 constructors:
 - uid: CatLibrary.CatException`1.#ctor
   monikers:
