@@ -12,9 +12,13 @@ namespace ECMA2Yaml
 
             sdpMember.TypeParameters = ConvertTypeParameters(m);
             sdpMember.ThreadSafety = ConvertThreadSafety(m);
-            sdpMember.ImplementsWithMoniker = m.Implements?.Select(impl => new VersionedString(impl.Monikers, DocIdToTypeMDString(impl.Value, _store)))
-                .Where(impl => impl.Value != null)
-                .ToList().NullIfEmpty();
+            sdpMember.ImplementsWithMoniker = m.Implements?.Select(impl => new VersionedString()
+            {
+                Monikers = impl.Monikers,
+                Value = DocIdToTypeMDString(impl.Value, _store),
+                valuePerLanguage = TypeStringToMDWithTypeMapping(impl.Value, m.Signatures?.DevLangs, nullIfTheSame: true)
+            });
+
             sdpMember.ImplementsMonikers = ConverterHelper.ConsolidateVersionedValues(sdpMember.ImplementsWithMoniker, m.Monikers);
 
             var knowTypeParams = m.Parent.TypeParameters.ConcatList(m.TypeParameters);
