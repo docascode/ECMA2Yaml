@@ -105,7 +105,7 @@ namespace ECMA2Yaml
                 { 
                     Value = att.TypeFullName,
                     Monikers = att.Monikers?.ToHashSet(),
-                    PerLanguage = TypeStringToMDWithTypeMapping(att.TypeFullName, item.Signatures?.DevLangs, nullIfTheSame: true) 
+                    valuePerLanguage = TypeStringToMDWithTypeMapping(att.TypeFullName, item.Signatures?.DevLangs, nullIfTheSame: true, isToMDString: false) 
                 })
                 .DistinctVersionedString()
                 .ToList().NullIfEmpty();
@@ -317,8 +317,8 @@ namespace ECMA2Yaml
         private List<PerLanguageString> TypeStringToMDWithTypeMapping(
             string typeString,
             HashSet<string> totalLangs = null,
-            bool nullIfTheSame = false)
-        {
+            bool nullIfTheSame = false, bool isToMDString = true)
+        { 
             if (_store.TypeMappingStore != null)
             {
                 var typePerLanguage = _store.TypeMappingStore.TranslateTypeString(typeString, totalLangs ?? _store.TotalDevLangs);
@@ -328,7 +328,11 @@ namespace ECMA2Yaml
                     {
                         return null;
                     }
-                    typePerLanguage.ForEach(typePerLang => typePerLang.Value = TypeStringToTypeMDString(typePerLang.Value, _store));
+
+                    if (isToMDString)
+                    {
+                        typePerLanguage.ForEach(typePerLang => typePerLang.Value = TypeStringToTypeMDString(typePerLang.Value, _store));
+                    }
                     return typePerLanguage;
                 }
             }

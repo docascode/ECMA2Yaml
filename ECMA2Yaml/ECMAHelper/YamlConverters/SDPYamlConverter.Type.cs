@@ -22,7 +22,12 @@ namespace ECMA2Yaml
             t.Monikers);
             sdpType.DerivedClassesWithMoniker = MonikerizeDerivedClasses(t);
             sdpType.ImplementsWithMoniker = t.Interfaces?.Where(i => i != null && i.Value != null)
-                .Select(i => new VersionedString(i.Monikers, TypeStringToTypeMDString(i.Value, _store)))
+                 .Select(i => new VersionedString()
+                  {
+                     Monikers = i.Monikers,
+                     Value = TypeStringToTypeMDString(i.Value, _store),
+                     valuePerLanguage = TypeStringToMDWithTypeMapping(i.Value, t.Signatures?.DevLangs,nullIfTheSame: true)
+                  })
                 .ToList()
                 .NullIfEmpty();
             sdpType.ImplementsMonikers = ConverterHelper.ConsolidateVersionedValues(sdpType.ImplementsWithMoniker, t.Monikers);

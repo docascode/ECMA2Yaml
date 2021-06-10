@@ -26,9 +26,9 @@ namespace ECMA2Yaml.Models
     {
         public VersionedString() { }
 
-        [JsonProperty("perLanguage")]
-        [YamlMember(Alias = "perLanguage")]
-        public List<PerLanguageString> PerLanguage { get; set; }
+        [JsonProperty("valuePerLanguage")]
+        [YamlMember(Alias = "valuePerLanguage")]
+        public List<PerLanguageString> valuePerLanguage { get; set; }
 
         public VersionedString(HashSet<string> monikers, string value) : base(monikers, value)
         {
