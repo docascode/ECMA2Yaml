@@ -150,21 +150,13 @@ steps:
 
 # Publish Nuget Package
 - task: DotNetCoreCLI@2
-  displayName: Nuget Publish ECMA2Yaml PPE
-  condition: and(succeeded(), and(eq(variables['ECMA2YamlNugetPush'], 'Yes'), eq(variables['NugetVersionType'], 'prerelease')))
-  inputs:
-    command: 'push'
-    packagesToPush: '$(Build.SourcesDirectory)/_nuget/ECMA2Yaml/*.nupkg'
-    nuGetFeedType: 'external'
-    publishFeedCredentials: 'AzureDevOps.Artifacts.docs-build-v2-ppe'
-- task: DotNetCoreCLI@2
   displayName: Nuget Publish ECMA2Yaml
-  condition: and(succeeded(), and(eq(variables['ECMA2YamlNugetPush'], 'Yes'), eq(variables['NugetVersionType'], 'release')))
+  condition: and(succeeded(), and(eq(variables['ECMA2YamlNugetPush'], 'Yes')))
   inputs:
     command: 'push'
     packagesToPush: '$(Build.SourcesDirectory)/_nuget/ECMA2Yaml/*.nupkg'
     nuGetFeedType: 'external'
-    publishFeedCredentials: 'AzureDevOps.Artifacts.docs-build-v2-prod'
+    publishFeedCredentials: 'AzureDevOps.Artifacts.OpenPublishingService'
 - task: DotNetCoreCLI@2
   displayName: Nuget Publish ECMAHelper
   condition: and(succeeded(), eq(variables['ECMA2YamlNugetPush'], 'Yes'))
