@@ -155,7 +155,8 @@ steps:
   inputs:
     command: 'push'
     packagesToPush: '$(Build.SourcesDirectory)/_nuget/ECMA2Yaml/*.nupkg'
-    feedPublish: 'ReferenceAutomation'
+    nuGetFeedType: 'internal'
+    publishVstsFeed: 'd3d54af3-265a-4f18-95f6-9a46397ca583/fb2f1e25-b247-417a-a19f-40ba5a96d884'
 - task: DotNetCoreCLI@2
   displayName: Nuget Publish ECMAHelper
   condition: and(succeeded(), eq(variables['ECMA2YamlNugetPush'], 'Yes'))
