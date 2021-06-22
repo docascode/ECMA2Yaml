@@ -151,7 +151,7 @@ steps:
 # Publish Nuget Package
 - task: DotNetCoreCLI@2
   displayName: Nuget Publish ECMA2Yaml
-  condition: and(succeeded(), and(eq(variables['ECMA2YamlNugetPush'], 'Yes')))
+  condition: and(succeeded(), eq(variables['ECMA2YamlNugetPush'], 'Yes'))
   inputs:
     command: 'push'
     packagesToPush: '$(Build.SourcesDirectory)/_nuget/ECMA2Yaml/*.nupkg'
