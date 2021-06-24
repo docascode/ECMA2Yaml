@@ -157,6 +157,18 @@ steps:
     packagesToPush: '$(Build.SourcesDirectory)/_nuget/ECMA2Yaml/*.nupkg'
     nuGetFeedType: 'internal'
     publishVstsFeed: 'd3d54af3-265a-4f18-95f6-9a46397ca583/fb2f1e25-b247-417a-a19f-40ba5a96d884'
+- task: GitHubRelease@1
+  condition: and(succeeded(), and(eq(variables['ECMA2YamlNugetPush'], 'Yes'), eq(variables['NugetVersionType'], 'release')))
+  inputs:
+    gitHubConnection: 'ECMA2Yaml'
+    repositoryName: '$(Build.Repository.Name)'
+    action: 'create'
+    target: '$(Build.SourceVersion)'
+    tagSource: 'userSpecifiedTag'
+    tag: '$(CurrentPackageVersion)'
+    assets: '$(Build.SourcesDirectory)/_nuget/ECMA2Yaml/*.nupkg'
+    changeLogCompareToRelease: 'lastFullRelease'
+    changeLogType: 'commitBased'
 - task: DotNetCoreCLI@2
   displayName: Nuget Publish ECMAHelper
   condition: and(succeeded(), eq(variables['ECMA2YamlNugetPush'], 'Yes'))
