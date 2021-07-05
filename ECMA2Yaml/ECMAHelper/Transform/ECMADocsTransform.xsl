@@ -263,4 +263,8 @@
     </xsl:copy>
   </xsl:template>
 
+  <xsl:template match="format[@type='text/html']">
+    <xsl:apply-templates />
+  </xsl:template>
+
 </xsl:stylesheet>
