@@ -147,6 +147,7 @@ namespace ECMA2Yaml
         }
 
         private static readonly Regex newLineRegex = new Regex("(\r\n|\r|\n)", RegexOptions.Compiled);
+        private static readonly Regex codeSytax_Pattern = new Regex("(\\s```[\\s\\S]*```)", RegexOptions.Compiled);
 
         /// <summary>
         ///   Formats a block of text into a set of paragraphs, allowing text-heavy
@@ -221,6 +222,18 @@ namespace ECMA2Yaml
             if (string.IsNullOrWhiteSpace(text))
             {
                 return text;
+            }
+
+            var matches = RegexHelper.GetMatches_All_JustWantedOne(codeSytax_Pattern, text);
+            Dictionary<string, string> localReplaceStringDic = new Dictionary<string, string>();
+            if (matches != null && matches.Length >= 1)
+            {
+                for (int i = 0; i < matches.Length; i++)
+                {
+                    string guid = Guid.NewGuid().ToString("N");
+                    text = text.Replace(matches[i], guid);
+                    localReplaceStringDic.Add(guid, matches[i]);
+                }
             }
 
             // Locate the first non-blank line.  If all lines are
@@ -357,7 +370,20 @@ namespace ECMA2Yaml
                 }
             }
 
-            return builder.ToString();
+            var result = builder.ToString();
+            if (!string.IsNullOrEmpty(result))
+            {
+                // guid => code block
+                if (localReplaceStringDic.Keys != null && localReplaceStringDic.Keys.Count() > 0)
+                {
+                    localReplaceStringDic.ToList().ForEach(p =>
+                    {
+                        result = result.Replace(p.Key, $"{Environment.NewLine}{p.Value}{Environment.NewLine}");
+                    });
+                }
+            }
+
+            return result;
         }
 
         /// <summary>
