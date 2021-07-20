@@ -147,7 +147,7 @@ namespace ECMA2Yaml
         }
 
         private static readonly Regex newLineRegex = new Regex("(\r\n|\r|\n)", RegexOptions.Compiled);
-        private static readonly Regex codeSytax_Pattern = new Regex("(\\s```[\\s\\S]*```)", RegexOptions.Compiled);
+        private static readonly Regex codeSytax_Pattern = new Regex("(\\s```[\\s\\S]*?```)", RegexOptions.Compiled);
 
         /// <summary>
         ///   Formats a block of text into a set of paragraphs, allowing text-heavy

@@ -461,5 +461,76 @@ namespace UnitTest
             var parsed = new ECMALoader(null).LoadDocs(comments, "<<dummy>>");
             Assert.AreEqual(expectedRemarks, parsed.Remarks);
         }
+
+
+        [TestMethod]
+        public void LoadDocs_RemarksWithMultipleExampleCode()
+        {
+            var comments = XElement.Parse(
+            @"<Docs>
+                <summary>An element capable of scrolling if its Content requires.</summary>
+                <remarks>
+                  <para>Code example 1:</para>
+                  <example>
+                    <code lang='csharp lang-csharp'><![CDATA[
+                        var stack = new StackLayout();
+                
+                        for (int i = 0; i < 100; i++)
+                        {
+                            stack.Children.Add(new Button { Text = 'Button ' + i
+                        });
+                        }
+                
+                        MainPage = new ContentPage
+                        {
+                            Content = new ScrollView { Content = stack }
+                        };]]></code>
+                  </example>
+                  <para>Code example 2:</para>
+                  <example>
+                    <code lang='csharp lang-csharp'><![CDATA[
+                        var stack2 = new StackLayout();
+                
+                        for (int i = 0; i < 100; i++)
+                        {
+                            stack.Children.Add(new Button { Text = 'Button ' + i
+                        });
+                        }
+                
+                        MainPage = new ContentPage
+                        {
+                            Content = new ScrollView { Content = stack }
+                        };]]></code>
+                  </example>
+                  <para>Code example 3:</para>
+                  <example>
+                    <code lang='csharp lang-csharp'><![CDATA[
+                        var stack3 = new StackLayout();
+                
+                        for (int i = 0; i < 100; i++)
+                        {
+                            stack.Children.Add(new Button { Text = 'Button ' + i
+                        });
+                        }
+                
+                        MainPage = new ContentPage
+                        {
+                            Content = new ScrollView { Content = stack }
+                        };]]></code>
+                  </example>
+                </remarks>
+              </Docs>");
+
+            var expectedRemarks = "<p>Code example 1:</p><p><div> "
+            + Environment.NewLine + "\n```csharp lang-csharp\nvar stack = new StackLayout();\n\nfor (int i = 0; i < 100; i++)\n{\n    stack.Children.Add(new Button { Text = 'Button ' + i\n});\n}\n\nMainPage = new ContentPage\n{\n    Content = new ScrollView { Content = stack }\n};\n```"
+            + Environment.NewLine + " </div></p><p>Code example 2:</p><p><div> "
+            + Environment.NewLine + "\n```csharp lang-csharp\nvar stack2 = new StackLayout();\n\nfor (int i = 0; i < 100; i++)\n{\n    stack.Children.Add(new Button { Text = 'Button ' + i\n});\n}\n\nMainPage = new ContentPage\n{\n    Content = new ScrollView { Content = stack }\n};\n```"
+            + Environment.NewLine + " </div></p><p>Code example 3:</p><p><div> "
+            + Environment.NewLine + "\n```csharp lang-csharp\nvar stack3 = new StackLayout();\n\nfor (int i = 0; i < 100; i++)\n{\n    stack.Children.Add(new Button { Text = 'Button ' + i\n});\n}\n\nMainPage = new ContentPage\n{\n    Content = new ScrollView { Content = stack }\n};\n```"
+            + Environment.NewLine + " </div></p>";
+
+            var parsed = new ECMALoader(null).LoadDocs(comments, "<<dummy>>");
+            Assert.AreEqual(expectedRemarks, parsed.Remarks);
+        }
     }
 }
