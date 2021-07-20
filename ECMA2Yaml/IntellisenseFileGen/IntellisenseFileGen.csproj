@@ -54,7 +54,6 @@
     <Compile Include="Models\Member.cs" />
     <Compile Include="Models\Type.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="RegexHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
